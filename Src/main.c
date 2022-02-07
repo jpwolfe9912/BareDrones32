@@ -1,46 +1,5 @@
-/* USER CODE BEGIN Header */
-/**
- ******************************************************************************
- * @file           : main.c
- * @brief          : Main program body
- ******************************************************************************
- * @attention
- *
- * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
- * All rights reserved.</center></h2>
- *
- * This software component is licensed by ST under BSD 3-Clause license,
- * the "License"; You may not use this file except in compliance with the
- * License. You may obtain a copy of the License at:
- *                        opensource.org/licenses/BSD-3-Clause
- *
- ******************************************************************************
- */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 #include "board.h"
-/* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
 
 __attribute__((__section__(".eeprom"), used)) const int8_t eepromArray[16384];
 
@@ -62,22 +21,6 @@ void			(*openLogPortPrintF)(const char *fmt, ...);
 
 uint16_t motor_value[4] = {48, 548, 1048, 1548};
 
-
-/* USER CODE END PV */
-
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/**
- * @brief  The application entry point.
- * @retval int
- */
 int main(void)
 {
 	/* USER CODE BEGIN 1 */
@@ -89,34 +32,14 @@ int main(void)
 
 	systemReady = false;
 
-	/* USER CODE END 1 */
-
-	/* MCU Configuration--------------------------------------------------------*/
-
-	/* USER CODE BEGIN Init */
-
-	/* USER CODE END Init */
-
-	/* USER CODE BEGIN SysInit */
 	systemInit();
 
 	systemReady = true;
-	/* USER CODE END SysInit */
 
-	/* USER CODE BEGIN 2 */
 	uint16_t frameCounter50Hz = 0;
 
-	uint8_t whoami;
-	/* USER CODE END 2 */
-
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		/* USER CODE END WHILE */
-
-		/* USER CODE BEGIN 3 */
-
 		if (frame_50Hz)
 		{
 			frameCounter50Hz++;
@@ -128,7 +51,7 @@ int main(void)
 			deltaTime50Hz    = currentTime - previous50HzTime;
 			previous50HzTime = currentTime;
 
-			printf("%f\n", nonRotatedAccelData[YAXIS]);
+//			printf("%f\n", nonRotatedAccelData[YAXIS]);
 
 //			processFlightCommands();
 
@@ -217,7 +140,7 @@ int main(void)
 
 			dt500Hz = (float)timerValue * 0.0000005f;  // For integrations in 500 Hz loop
 
-			computeMPU6000TCBias();
+//			computeMPU6000TCBias();
 
 			nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples500Hz[XAXIS] * 0.5f - accelTCBias[XAXIS]) * ACCEL_SCALE_FACTOR;
 			nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples500Hz[YAXIS] * 0.5f - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;
@@ -432,7 +355,6 @@ int main(void)
 			executionTime1Hz = micros() - currentTime;
 		}
 	}
-	/* USER CODE END 3 */
 }
 
 /**

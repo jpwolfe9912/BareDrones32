@@ -25,7 +25,7 @@
 /* USER CODE END 0 */
 
 /* SPI1 init function */
-void MX_SPI1_Init(void)
+void spi1Init(void)
 {
 
 	/* USER CODE BEGIN SPI1_Init 0 */

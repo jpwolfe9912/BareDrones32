@@ -24,11 +24,24 @@
 extern "C" {
 #endif
 
+#include "drv_lwrb.h"
+
+#define RXBUF_SIZE 					32
+
+void usart1Init(void);
+void usart1Read(uint8_t *pData, uint8_t size);
+
 void uart5Init(void);
 int uart5Write(int ch);
 
 void usart3Init(void);
 int usart3Write(int ch);
+
+
+/*		Global Variables	*/
+extern uint8_t rxBuf[RXBUF_SIZE];
+extern lwrb_t rxRingBuf;
+extern uint8_t rxRingBufData[RXBUF_SIZE];
 
 #ifdef __cplusplus
 }

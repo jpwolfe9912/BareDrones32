@@ -105,17 +105,8 @@ void SysTick_Handler(void)
 		previous1000HzTime = currentTime;
 
 		frame_1000Hz = true;
-		readMPU6000();
-
-//		printf("raw accel: %u\n", rawAccel[XAXIS].value);
-//		printf("accel.y(%u,1)= %d;\n", frameCounter, rawAccel[YAXIS].value);
-//		printf("accel.z(%u,1)= %d;\n", frameCounter, rawAccel[ZAXIS].value);
-//		printf("accel.t(%u,1)= %u;\n\n", frameCounter, frameCounter);
-
-//		printf("gyro.x(%u,1)= %f;\n", frameCounter, rawGyro[XAXIS].value);
-//		printf("gyro.y(%u,1)= %f;\n", frameCounter, rawGyro[YAXIS].value);
-//		printf("gyro.z(%u,1)= %f;\n", frameCounter, rawGyro[ZAXIS].value);
-//		printf("gyro.t(%u,1)= %u;\n\n", frameCounter, frameCounter);
+//		readMPU6000();
+		ibus_process();
 
 		accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
 		accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
@@ -264,26 +255,29 @@ void systemInit(void){
 	SystemClock_Config();
 
 	/*		LOW LEVEL INITIALIZATION	*/
-	MX_GPIO_Init();
-	MX_DMA_Init();
+	gpioInit();
+	dmaInit();
 //	MX_ADC1_Init();
 //	MX_I2C1_Init();
 //	MX_I2C2_Init();
-	MX_SPI1_Init();
+//	spi1Init();
 //	MX_SPI2_Init();
 //	MX_TIM1_Init();
 //	MX_TIM2_Init();
 //	MX_TIM3_Init();
-	uart5Init();
+	usart1Init();
 	usart3Init();
+	uart5Init();
 
 
 //	MX_USB_OTG_FS_PCD_Init();
 
 	/*		SENSOR INITIALIZATION		*/
-//	dshot_init(DSHOT600);
+	dshot_init(DSHOT600);
 
-	mpu6000_init();
+//	mpu6000_init();
+
+	ibusInit();
 }
 
 void SystemClock_Config(void)

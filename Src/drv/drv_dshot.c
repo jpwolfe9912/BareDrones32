@@ -1,7 +1,4 @@
-#include "stm32f7xx.h"
-#include "stdbool.h"
-
-#include "drv_dshot.h"
+#include "board.h"
 
 static uint32_t motor1_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor2_dmabuffer[DSHOT_DMA_BUFFER_SIZE];

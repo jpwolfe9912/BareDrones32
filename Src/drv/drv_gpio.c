@@ -38,7 +38,7 @@
         * EVENT_OUT
         * EXTI
 */
-void MX_GPIO_Init(void)
+void gpioInit(void)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};

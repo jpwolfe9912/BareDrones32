@@ -42,8 +42,7 @@ extern SPI_HandleTypeDef hspi2;
 #define SPI_BR_PRESCALER_128		(0x6 << 3U)
 /* USER CODE END Private defines */
 
-void MX_SPI1_Init(void);
-void MX_SPI2_Init(void);
+void spi1Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void spiReadBytes(uint8_t reg, uint8_t *pData, uint8_t size);
