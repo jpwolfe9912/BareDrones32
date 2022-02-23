@@ -63,6 +63,8 @@ semaphore_t execUp = false;
 
 uint8_t whoami;
 
+uint16_t motor_value[4];
+
 #ifdef _DTIMING
 #define LA2_ENABLE       GPIO_SetBits(GPIOC,   GPIO_Pin_2)
 #define LA2_DISABLE      GPIO_ResetBits(GPIOC, GPIO_Pin_2)
@@ -105,8 +107,13 @@ void SysTick_Handler(void)
 		previous1000HzTime = currentTime;
 
 		frame_1000Hz = true;
-//		readMPU6000();
-		ibus_process();
+		readMPU6000();
+		ibusProcess();
+
+		for(int i = 0; i < 4; i++){
+			motor_value[i] = (ibusChannels[i] * 2) - 1952;
+		}
+//		dshot_write(motor_value);
 
 		accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
 		accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
@@ -255,27 +262,21 @@ void systemInit(void){
 	SystemClock_Config();
 
 	/*		LOW LEVEL INITIALIZATION	*/
-	gpioInit();
+//	gpioInit();
 	dmaInit();
-//	MX_ADC1_Init();
-//	MX_I2C1_Init();
-//	MX_I2C2_Init();
-//	spi1Init();
-//	MX_SPI2_Init();
-//	MX_TIM1_Init();
-//	MX_TIM2_Init();
-//	MX_TIM3_Init();
-	usart1Init();
-	usart3Init();
-	uart5Init();
 
+	spi1Init();
+
+	serialInit();
+	usart1Init();
 
 //	MX_USB_OTG_FS_PCD_Init();
 
 	/*		SENSOR INITIALIZATION		*/
-	dshot_init(DSHOT600);
+	dshotInit(DSHOT600);
+	motorInit();
 
-//	mpu6000_init();
+	mpu6000Init();
 
 	ibusInit();
 }

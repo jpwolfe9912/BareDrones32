@@ -8,24 +8,20 @@
 #ifndef INC_DRV_IBUS_H_
 #define INC_DRV_IBUS_H_
 
+/* Includes */
 #include "drv_lwrb.h"
 
+/* Defines */
 #define IBUS_FRAME_SIZE_MAX			32
-
-/* Define the Size Here */
 #define PAYLOAD_SIZE				(IBUS_FRAME_SIZE_MAX - 4U)
 #define RC_CHANNELS					(PAYLOAD_SIZE / 2U)
-
 #define ARRAY_LEN(x)				(sizeof(x) / sizeof((x)[0]))
 
-void usart_rx_check(uint32_t bytesLeft);
-void usart_process_data(const void* data, size_t len);
-
+/* Prototypes */
 void ibusInit(void);
-void ibus_process(void);
-bool ibus_process_frame(void);
+void ibusProcess(void);
 
-/*		Global Variables	*/
+/* Global Variables */
 extern uint8_t rxBuf[RXBUF_SIZE];
 
 extern lwrb_t rxRingBuf;

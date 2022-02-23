@@ -1,18 +1,20 @@
-/*
- * drv_dshot.h
+/** @file 		drv_dshot.h
+ *  @brief
+ *  	This files enables the gpio, timer, and dma peripherals
+ *  	to send dshot commands with pwm.
  *
- *  Created on: Dec 29, 2021
- *      Author: jeremywolfe
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ *  @bug
  */
 
-#ifndef DRV_DRV_DSHOT_H_
-#define DRV_DRV_DSHOT_H_
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __DRV_DSHOT_H_
+#define __DRV_DSHOT_H_
 
-/* User Configuration */
-// Timer Clock
+/* Defines */
 #define TIMER_CLOCK				108000000	// 108MHz
 
-/* Definition */
 #define MHZ_TO_HZ(x) 			((x) * 1000000)
 
 #define DSHOT600_HZ     		MHZ_TO_HZ(12)
@@ -30,6 +32,10 @@
 #define DSHOT_MAX_THROTTLE     	2047
 #define DSHOT_RANGE 			(DSHOT_MAX_THROTTLE - DSHOT_MIN_THROTTLE)
 
+/* Function Prototypes */
+void dshotInit(dshot_type_e dshot_type);
+void dshotWrite(uint16_t *motor_value);
+
 /* Enumeration */
 typedef enum
 {
@@ -38,9 +44,4 @@ typedef enum
     DSHOT600
 } dshot_type_e;
 
-
-/* Functions */
-void dshot_init(dshot_type_e dshot_type);
-void dshot_write(uint16_t *motor_value);
-
-#endif /* DRV_DRV_DSHOT_H_ */
+#endif /* __DRV_DSHOT_H_ */

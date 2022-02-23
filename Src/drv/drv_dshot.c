@@ -1,3 +1,13 @@
+/** @file 		drv_dshot.c
+ *  @brief
+ *  	This files enables the gpio, timer, and dma peripherals
+ *  	to send dshot commands with pwm.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ *  @bug
+ */
+
 #include "board.h"
 
 static uint32_t motor1_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
@@ -5,17 +15,24 @@ static uint32_t motor2_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor3_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor4_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 
-static uint16_t dshot_prepare_packet(uint16_t value);
+/* Static Function Prototypes */
+static uint32_t dshot_choose_type(dshot_type_e dshot_type);
 static void dshot_prepare_dmabuffer_all(uint16_t *motor_value);
 static void dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value);
 static uint16_t dshot_prepare_packet(uint16_t value);
 static void dshot_dma_start(void);
 static void dshot_enable_dma_request(void);
 
-static uint32_t dshot_choose_type(dshot_type_e dshot_type);
+/* Functions */
 
-// FUNCTIONS
-void dshot_init(dshot_type_e dshot_type){
+/** @brief Initializes the low level registers to set up
+ *  the timer with PWM DMA
+ *
+ *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
+ *  DSHOT600 is preferred
+ *  @return Void.
+ */
+void dshotInit(dshot_type_e dshot_type){
 	/////////////////GPIO INIT///////////////////
 	// enable clock for GPIOA
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
@@ -109,9 +126,6 @@ void dshot_init(dshot_type_e dshot_type){
 	 * TIM2_CH4 on Stream3_CH6
 	 */
 
-	// reset DMA
-	RCC->AHB1RSTR		|= RCC_AHB1RSTR_DMA1RST;
-	RCC->AHB1RSTR		&= ~RCC_AHB1RSTR_DMA1RST;
 	// disable DMA stream 5
 	DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
 	while(DMA1_Stream2->CR & DMA_SxCR_EN){}
@@ -156,20 +170,7 @@ void dshot_init(dshot_type_e dshot_type){
 	DMA1_Stream3->FCR	= 0x00000021U;
 	DMA1_Stream3->CR	&= ~DMA_SxCR_CHSEL;
 	DMA1->LIFCR			|= 0x0F400000U;
-	// enable clock
-	RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
-	// enable interrupts
-	NVIC_SetPriority(DMA1_Stream2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-	NVIC_EnableIRQ(DMA1_Stream2_IRQn);
 
-	NVIC_SetPriority(DMA1_Stream4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-	NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-
-	NVIC_SetPriority(DMA1_Stream0_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-	NVIC_EnableIRQ(DMA1_Stream0_IRQn);
-
-	NVIC_SetPriority(DMA1_Stream3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-	NVIC_EnableIRQ(DMA1_Stream3_IRQn);
 	// motor 4 DMA settings
 	DMA1_Stream2->CR	|= (0x6 << 25U);
 	DMA1_Stream2->M0AR 	= (uint32_t)motor4_dmabuffer;
@@ -244,21 +245,29 @@ void dshot_init(dshot_type_e dshot_type){
 	DMA1_Stream3->CR 	|= DMA_SxCR_TCIE;
 }
 
-void dshot_write(uint16_t *motor_value){
+/** @brief Writes to the DMA buffer and starts the DMA stream
+ *
+ *  @param *motor_value A four length array with elements from
+ *  0 to 2047.
+ *  @return Void.
+ */
+void dshotWrite(uint16_t *motor_value){
 	dshot_prepare_dmabuffer_all(motor_value);
 	dshot_enable_dma_request();
 	dshot_dma_start();
 }
 
-static void dshot_prepare_dmabuffer_all(uint16_t *motor_value){
-	dshot_prepare_dmabuffer(motor1_dmabuffer, motor_value[0]);
-	dshot_prepare_dmabuffer(motor2_dmabuffer, motor_value[1]);
-	dshot_prepare_dmabuffer(motor3_dmabuffer, motor_value[2]);
-	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
-}
+/* Static Functions */
 
-// STATIC FUNCTIONS
-static uint32_t dshot_choose_type(dshot_type_e dshot_type){
+/** @brief Chooses the dshot speed
+ *
+ *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
+ *  DSHOT600 is preferred
+ *  @return Void.
+ */
+static uint32_t
+dshot_choose_type(dshot_type_e dshot_type)
+{
 	switch (dshot_type)
 	{
 	case(DSHOT600):
@@ -272,7 +281,31 @@ static uint32_t dshot_choose_type(dshot_type_e dshot_type){
 	}
 }
 
-static void dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
+/** @brief Prepares all the DMA buffers.
+ *
+ *  @param *motor_value A four length array with elements from
+ *  0 to 2047.
+ *  @return Void.
+ */
+static void
+dshot_prepare_dmabuffer_all(uint16_t *motor_value)
+{
+	dshot_prepare_dmabuffer(motor1_dmabuffer, motor_value[0]);
+	dshot_prepare_dmabuffer(motor2_dmabuffer, motor_value[1]);
+	dshot_prepare_dmabuffer(motor3_dmabuffer, motor_value[2]);
+	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
+}
+
+/** @brief Based on whethere there is a 1 or 0, this loads the
+ *  autoreload value into the buffer.
+ *
+ *  @param *motor_dmabuffer A pointer to the location in memory
+ *  that the buffer with the values is located.
+ *  @param value Numeric value to send from 0 to 2047.
+ *  @return Void.
+ */
+static void
+dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
 {
 	uint16_t packet;
 	packet = dshot_prepare_packet(value);
@@ -288,6 +321,14 @@ static void dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
 
 }
 
+/** @brief Puts a 1 or 0 into each index in the buffer based on what
+ *  we want to send. Also calculates the checksum
+ *
+ *  @param *motor_dmabuffer A pointer to the location in memory
+ *  that the buffer with the values is located.
+ *  @param value Numeric value to send from 0 to 2047.
+ *  @return Void.
+ */
 static uint16_t dshot_prepare_packet(uint16_t value){
 	uint16_t packet;
 	bool dshot_telemetry = false;
@@ -310,6 +351,10 @@ static uint16_t dshot_prepare_packet(uint16_t value){
 	return packet;
 }
 
+/** @brief Starts dma for each timer.
+ *
+ *  @return Void.
+ */
 static void dshot_dma_start(void){
 	TIM5->CNT			= 0;
 
@@ -319,10 +364,68 @@ static void dshot_dma_start(void){
 	TIM5->DIER			|= TIM_DIER_CC4DE;
 }
 
+/** @brief Enables each dma stream.
+ *
+ *  @return Void.
+ */
 static void dshot_enable_dma_request(void){
 
 	DMA1_Stream2->CR 	|= DMA_SxCR_EN;
 	DMA1_Stream4->CR 	|= DMA_SxCR_EN;
 	DMA1_Stream0->CR 	|= DMA_SxCR_EN;
 	DMA1_Stream3->CR 	|= DMA_SxCR_EN;
+}
+
+/* Interrupt Handlers */
+
+/**
+ * @brief This function handles DMA1 stream2 global interrupt.
+ */
+void DMA1_Stream2_IRQHandler(void){
+	if(DMA1->LISR & DMA_LISR_TCIF2){
+		DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
+		while(DMA1_Stream2->CR & DMA_SxCR_EN){}
+		TIM5->DIER 			&= ~TIM_DIER_CC1DE;
+		DMA1->LIFCR			|= DMA_LIFCR_CTCIF2;
+		DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+	}
+}
+
+/**
+ * @brief This function handles DMA1 stream4 global interrupt.
+ */
+void DMA1_Stream4_IRQHandler(void){
+	if(DMA1->HISR & DMA_HISR_TCIF4){
+		DMA1_Stream4->CR 	&= ~DMA_SxCR_EN;
+		while(DMA1_Stream4->CR & DMA_SxCR_EN){}
+		TIM5->DIER 			&= ~TIM_DIER_CC2DE;
+		DMA1->HIFCR			|= DMA_HIFCR_CTCIF4;
+		DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+	}
+}
+
+/**
+ * @brief This function handles DMA1 stream0 global interrupt.
+ */
+void DMA1_Stream0_IRQHandler(void){
+	if(DMA1->LISR & DMA_LISR_TCIF0){
+		DMA1_Stream0->CR 	&= ~DMA_SxCR_EN;
+		while(DMA1_Stream0->CR & DMA_SxCR_EN){}
+		TIM5->DIER 			&= ~TIM_DIER_CC3DE;
+		DMA1->LIFCR			|= DMA_LIFCR_CTCIF0;
+		DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+	}
+}
+
+/**
+ * @brief This function handles DMA1 stream3 global interrupt.
+ */
+void DMA1_Stream3_IRQHandler(void){
+	if(DMA1->LISR & DMA_LISR_TCIF3){
+		DMA1_Stream3->CR 	&= ~DMA_SxCR_EN;
+		while(DMA1_Stream3->CR & DMA_SxCR_EN){}
+		TIM5->DIER 			&= ~TIM_DIER_CC4DE;
+		DMA1->LIFCR			|= DMA_LIFCR_CTCIF3;
+		DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+	}
 }

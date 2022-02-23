@@ -19,8 +19,6 @@ uint16_t		timerValue;
 
 void			(*openLogPortPrintF)(const char *fmt, ...);
 
-uint16_t motor_value[4] = {48, 548, 1048, 1548};
-
 int main(void)
 {
 	/* USER CODE BEGIN 1 */
@@ -140,7 +138,7 @@ int main(void)
 
 			dt500Hz = (float)timerValue * 0.0000005f;  // For integrations in 500 Hz loop
 
-//			computeMPU6000TCBias();
+			computeMPU6000TCBias();
 
 			nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples500Hz[XAXIS] * 0.5f - accelTCBias[XAXIS]) * ACCEL_SCALE_FACTOR;
 			nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples500Hz[YAXIS] * 0.5f - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;

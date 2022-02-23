@@ -1,17 +1,24 @@
-/*
- * crsf.c
+/** @file 		drv_ibus.c
+ *  @brief
+ *  	This file initializes the ibus receiver protocol
  *
- *  Created on: Jan 14, 2022
- *      Author: jeremywolfe
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ *  @bug
  */
 
 #include "board.h"
 
-/*		Static Function Prototypes	*/
+/* Static Function Prototypes */
+
+static int ibus_process_frame(void);
 static void ibus_update(uint8_t* pData);
 static bool ibusFrameCRC(void);
+static void usart_rx_check(uint32_t bytesLeft);
+static void usart_process_data(const void *data, size_t len);
 
-/*		Global Variables	*/
+/* Global Variables */
 uint8_t ibusPayload[PAYLOAD_SIZE];	// payload buffer
 uint16_t ibusChannels[RC_CHANNELS];
 
@@ -19,7 +26,15 @@ uint8_t state, cmd, frameLength, framePos;
 
 bool rcActive = false;
 
-void ibusInit(void){
+/* Functions */
+
+/** @brief Initializes ibus ring buffer and low level usart registers
+ *
+ *	@return Void.
+ */
+void
+ibusInit(void)
+{
 	lwrb_init(&rxRingBuf, rxRingBufData, sizeof(rxRingBufData));
 
 	usart1Read(rxBuf, RXBUF_SIZE);
@@ -27,11 +42,25 @@ void ibusInit(void){
 	rcActive = true;
 }
 
-void ibus_process(void){
+/** @brief Waits for the parser to not be busy
+ *
+ *  @return Void.
+ */
+void
+ibusProcess(void)
+{
 	while(ibus_process_frame() == IBUS_BUSY);
 }
 
-bool ibus_process_frame(void){
+/** @brief State machine that evaluates the raw data based on what
+ *  what section it is parsing through
+ *
+ *  @return int The status of the function.
+ *  	READY, BUSY, ERROR
+ */
+static int
+ibus_process_frame(void)
+{
 	ibusState_e status;
 	uint8_t b;
 	if(lwrb_read(&rxRingBuf, &b, 1) == 1){
@@ -88,7 +117,15 @@ bool ibus_process_frame(void){
 	return status;
 }
 
-static void ibus_update(uint8_t* pData)
+/** @brief packs the raw data stored in two bytes in an array
+ * 	into one 16 bit integer.
+ *
+ *  @param *pData A pointer to the raw data array that we want
+ *  to pack.
+ *  @return Void.
+ */
+static void
+ibus_update(uint8_t* pData)
 {
 	for(int ch_index = 0, bf_index = 0; ch_index < RC_CHANNELS; ch_index++, bf_index += 2)
 	{
@@ -96,7 +133,17 @@ static void ibus_update(uint8_t* pData)
 	}
 }
 
-static bool ibusFrameCRC(void){
+/** @brief Checksum calculator for incoming data.
+ *
+ * 		This function calculates the checksum based on the incoming
+ * 		data. It then compares that value with the checksum value
+ * 		in the packet.
+ *
+ *  @return bool True if it matches. False if it does not match.
+ */
+static bool
+ibusFrameCRC(void)
+{
 	uint16_t checksum_cal = 0xFFFF;
 	uint16_t checksum_ibus;
 
@@ -110,27 +157,31 @@ static bool ibusFrameCRC(void){
 }
 
 /**
- * \brief           Check for new data received with DMA
+ * @brief Check for new data received with DMA
  *
- * User must select context to call this function from:
- * - Only interrupts (DMA HT, DMA TC, UART IDLE) with same preemption priority level
- * - Only thread context (outside interrupts)
+ * 		User must select context to call this function from:
+ * 		- Only interrupts (DMA HT, DMA TC, UART IDLE) with same preemption priority level
+ * 		- Only thread context (outside interrupts)
  *
- * If called from both context-es, exclusive access protection must be implemented
- * This mode is not advised as it usually means architecture design problems
+ * 		If called from both context-es, exclusive access protection must be implemented
+ * 		This mode is not advised as it usually means architecture design problems
  *
- * When IDLE interrupt is not present, application must rely only on thread context,
- * by manually calling function as quickly as possible, to make sure
- * data are read from raw buffer and processed.
+ * 		When IDLE interrupt is not present, application must rely only on thread context,
+ * 		by manually calling function as quickly as possible, to make sure
+ * 		data are read from raw buffer and processed.
  *
- * Not doing reads fast enough may cause DMA to overflow unread received bytes,
- * hence application will lost useful data.
+ * 		Not doing reads fast enough may cause DMA to overflow unread received bytes,
+ *		hence application will lost useful data.
  *
- * Solutions to this are:
- * - Improve architecture design to achieve faster reads
- * - Increase raw buffer size and allow DMA to write more data before this function is called
+ * 		Solutions to this are:
+ * 		- Improve architecture design to achieve faster reads
+ * 		- Increase raw buffer size and allow DMA to write more data before this function is called
+ *
+ * 	@param bytesLeft The value in the DMA_NDTR register
  */
-void usart_rx_check(uint32_t bytesLeft){
+static void
+usart_rx_check(uint32_t bytesLeft)
+{
 	static size_t old_pos;
 	size_t pos;
 
@@ -182,13 +233,43 @@ void usart_rx_check(uint32_t bytesLeft){
 	}
 }
 
+/** @brief Process received data over UART
+ *
+ * 		Data are written to RX ringbuffer for application processing at later stage
+ *
+ * @param *data Pointer to the data to process
+ * @param len Length in units of bytes
+ */
+static void
+usart_process_data(const void* data, size_t len)
+{
+	lwrb_write(&rxRingBuf, data, len);  /* Write data to receive buffer */
+}
+
+/* Interrupt Handlers */
 
 /**
- * \brief           Process received data over UART
- * Data are written to RX ringbuffer for application processing at latter stage
- * \param[in]       data: Data to process
- * \param[in]       len: Length in units of bytes
+ * \brief           USART1 global interrupt handler
  */
-void usart_process_data(const void* data, size_t len) {
-	lwrb_write(&rxRingBuf, data, len);  /* Write data to receive buffer */
+void
+USART1_IRQHandler(void) {
+	/* Check for IDLE line interrupt */
+	if (USART1->ISR & USART_ISR_IDLE) {
+		USART1->ICR		|= USART_ICR_IDLECF;	/* Clear IDLE line flag */
+		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
+}
+
+void DMA2_Stream2_IRQHandler(void) {
+	/* Check half-transfer complete interrupt */
+	if(DMA2->LISR & DMA_LISR_TCIF2){
+		DMA2->LIFCR		|= DMA_LIFCR_CTCIF2;	/* Clear half-transfer complete flag */
+		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
+
+	/* Check transfer-complete interrupt */
+	if(DMA2->LISR & DMA_LISR_HTIF2){
+		DMA2->LIFCR		|= DMA_LIFCR_CHTIF2;	/* Clear half-transfer complete flag */
+		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
 }

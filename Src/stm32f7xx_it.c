@@ -16,60 +16,8 @@
  *
  ******************************************************************************
  */
-/* USER CODE END Header */
 
-/* Includes ------------------------------------------------------------------*/
 #include "board.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN TD */
-
-/* USER CODE END TD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/* External variables --------------------------------------------------------*/
-extern DMA_HandleTypeDef hdma_i2c1_rx;
-extern DMA_HandleTypeDef hdma_i2c1_tx;
-extern DMA_HandleTypeDef hdma_spi1_rx;
-extern DMA_HandleTypeDef hdma_spi1_tx;
-extern DMA_HandleTypeDef hdma_spi2_rx;
-extern DMA_HandleTypeDef hdma_spi2_tx;
-extern DMA_HandleTypeDef hdma_uart5_rx;
-extern DMA_HandleTypeDef hdma_uart5_tx;
-extern DMA_HandleTypeDef hdma_usart1_rx;
-extern DMA_HandleTypeDef hdma_usart1_tx;
-extern DMA_HandleTypeDef hdma_usart6_rx;
-extern DMA_HandleTypeDef hdma_usart6_tx;
-/* USER CODE BEGIN EV */
-
-/* USER CODE END EV */
 
 /******************************************************************************/
 /*           Cortex-M7 Processor Interruption and Exception Handlers          */
@@ -209,19 +157,6 @@ void PendSV_Handler(void)
 /* please refer to the startup file (startup_stm32f7xx.s).                    */
 /******************************************************************************/
 
-/**
- * \brief           USART1 global interrupt handler
- */
-void USART1_IRQHandler(void) {
-	/* Check for IDLE line interrupt */
-	if (USART1->ISR & USART_ISR_IDLE) {
-		USART1->ICR		|= USART_ICR_IDLECF;	/* Clear IDLE line flag */
-		usart_rx_check(DMA2_Stream2->NDTR);                       /* Check for data to process */
-	}
-
-	/* Implement other events when needed */
-}
-
 
 /**
  * @brief This function handles DMA1 stream0 global interrupt.
@@ -325,33 +260,6 @@ void DMA1_Stream7_IRQHandler(void)
 /**
  * @brief This function handles DMA2 stream1 global interrupt.
  */
-void DMA2_Stream0_IRQHandler(void)
-{
-	/* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
-	if(DMA2->LISR & DMA_LISR_TCIF0){
-		DMA2->LIFCR		|= DMA_LIFCR_CTCIF0;
-
-		SPI1_DISABLE;
-
-		DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-		DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-
-		SPI1->CR2			&= ~SPI_CR2_RXDMAEN;
-		SPI1->CR2			&= ~SPI_CR2_TXDMAEN;
-
-		SPI1->CR1			&= ~SPI_CR1_SPE;
-
-	}
-	/* USER CODE END DMA2_Stream0_IRQn 0 */
-
-	/* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
-
-	/* USER CODE END DMA2_Stream0_IRQn 1 */
-}
-
-/**
- * @brief This function handles DMA2 stream1 global interrupt.
- */
 void DMA2_Stream1_IRQHandler(void)
 {
 	/* USER CODE BEGIN DMA2_Stream1_IRQn 0 */
@@ -361,36 +269,6 @@ void DMA2_Stream1_IRQHandler(void)
 	/* USER CODE BEGIN DMA2_Stream1_IRQn 1 */
 
 	/* USER CODE END DMA2_Stream1_IRQn 1 */
-}
-
-void DMA2_Stream2_IRQHandler(void) {
-	/* Check half-transfer complete interrupt */
-	if(DMA2->LISR & DMA_LISR_TCIF2){
-		DMA2->LIFCR		|= DMA_LIFCR_CTCIF2;	/* Clear half-transfer complete flag */
-		usart_rx_check(DMA2_Stream2->NDTR);                       /* Check for data to process */
-	}
-
-	/* Check transfer-complete interrupt */
-	if(DMA2->LISR & DMA_LISR_HTIF2){
-		DMA2->LIFCR		|= DMA_LIFCR_CHTIF2;	/* Clear half-transfer complete flag */
-		usart_rx_check(DMA2_Stream2->NDTR);                       /* Check for data to process */
-	}
-}
-
-/**
- * @brief This function handles DMA2 stream5 global interrupt.
- */
-void DMA2_Stream3_IRQHandler(void)
-{
-	/* USER CODE BEGIN DMA2_Stream3_IRQn 0 */
-	if(DMA2->LISR & DMA_LISR_TCIF3){
-		DMA2->LIFCR		|= DMA_LIFCR_CTCIF3;
-	}
-	/* USER CODE END DMA2_Stream3_IRQn 0 */
-
-	/* USER CODE BEGIN DMA2_Stream3_IRQn 1 */
-
-	/* USER CODE END DMA2_Stream3_IRQn 1 */
 }
 
 /**
@@ -436,41 +314,6 @@ void DMA2_Stream7_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-void DMA1_Stream2_IRQHandler(void){
-	if(DMA1->LISR & DMA_LISR_TCIF2){
-		DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
-		while(DMA1_Stream2->CR & DMA_SxCR_EN){}
-		TIM5->DIER 			&= ~TIM_DIER_CC1DE;
-		DMA1->LIFCR			|= DMA_LIFCR_CTCIF2;
-		DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
-	}
-}
-void DMA1_Stream4_IRQHandler(void){
-	if(DMA1->HISR & DMA_HISR_TCIF4){
-		DMA1_Stream4->CR 	&= ~DMA_SxCR_EN;
-		while(DMA1_Stream4->CR & DMA_SxCR_EN){}
-		TIM5->DIER 			&= ~TIM_DIER_CC2DE;
-		DMA1->HIFCR			|= DMA_HIFCR_CTCIF4;
-		DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
-	}
-}
-void DMA1_Stream0_IRQHandler(void){
-	if(DMA1->LISR & DMA_LISR_TCIF0){
-		DMA1_Stream0->CR 	&= ~DMA_SxCR_EN;
-		while(DMA1_Stream0->CR & DMA_SxCR_EN){}
-		TIM5->DIER 			&= ~TIM_DIER_CC3DE;
-		DMA1->LIFCR			|= DMA_LIFCR_CTCIF0;
-		DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
-	}
-}
-void DMA1_Stream3_IRQHandler(void){
-	if(DMA1->LISR & DMA_LISR_TCIF3){
-		DMA1_Stream3->CR 	&= ~DMA_SxCR_EN;
-		while(DMA1_Stream3->CR & DMA_SxCR_EN){}
-		TIM5->DIER 			&= ~TIM_DIER_CC4DE;
-		DMA1->LIFCR			|= DMA_LIFCR_CTCIF3;
-		DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
-	}
-}
+
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

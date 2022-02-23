@@ -29,6 +29,7 @@
 #include "drv_spi.h"
 #include "drv_system.h"
 #include "drv_usart.h"
+#include "drv_serial.h"
 #include "drv_adc.h"
 #include "drv_dma.h"
 #include "drv_gpio.h"
@@ -39,6 +40,7 @@
 #include "drv_dshot.h"
 #include "drv_ibus.h"
 
+#include "motors.h"
 #include "flightCommand.h"
 #include "pid.h"
 

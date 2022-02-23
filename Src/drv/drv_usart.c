@@ -1,10 +1,10 @@
-/*
- * usart.c
+/** @file 		drv_usart.c
+ *  @brief This file enables reading of usart data
+ *  	for use with a serial receiver
  *
- *  Created on: Oct 19, 2021
- *      Author: jeremywolfe
- *
- *  USART1 on AF8
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ *  @bug
  */
 
 
@@ -18,7 +18,15 @@ uint8_t rxBuf[RXBUF_SIZE];			// dma data
 lwrb_t rxRingBuf;					// ring buffer instance
 uint8_t rxRingBufData[RXBUF_SIZE];	// ring buffer data
 
-void usart1Init(void){
+/* Functions */
+
+/** @brief Initializes the low level registers for usart1.
+ *
+ *  @return Void.
+ */
+void
+usart1Init(void)
+{
 	/* ---PIN INFO---
 	 * USART1_RX
 	 * 		PA10
@@ -35,28 +43,24 @@ void usart1Init(void){
 	 * */
 
 	/////////////////GPIO INIT///////////////////
-	// enable clock for GPIOA
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+	// enable clock for GPIOB
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 	// set mode, speed, type, pull, AF
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER9;
-	GPIOA->MODER 	|= GPIO_MODER_MODER9_1;				// AF mode
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR9;			// high speed
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT9;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR9;
-	GPIOA->AFR[1]	&= ~GPIO_AFRH_AFRH1;
-	GPIOA->AFR[1] 	|= (0x7 << (4U * 1U));				// AF 7
+	GPIOB->MODER 	&= ~GPIO_MODER_MODER6;
+	GPIOB->MODER 	|= GPIO_MODER_MODER6_1;				// AF mode
+	GPIOB->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR6;			// high speed
+	GPIOB->OTYPER	&= ~GPIO_OTYPER_OT6;
+	GPIOB->PUPDR	&= ~GPIO_PUPDR_PUPDR6;
+	GPIOB->AFR[0]	&= ~GPIO_AFRL_AFRL6;
+	GPIOB->AFR[0] 	|= (0x7 << (4U * 6U));				// AF 7
 
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER10;
-	GPIOA->MODER 	|= GPIO_MODER_MODER10_1;
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR10;
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT10;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR10;
-	GPIOA->AFR[1]	&= ~GPIO_AFRH_AFRH2;
-	GPIOA->AFR[1] 	|= (0x7 << (4U * 2U));
-
-	// DMA IRQ Init
-	NVIC_SetPriority(DMA2_Stream2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-	NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+	GPIOB->MODER 	&= ~GPIO_MODER_MODER7;
+	GPIOB->MODER 	|= GPIO_MODER_MODER7_1;
+	GPIOB->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR7;
+	GPIOB->OTYPER	&= ~GPIO_OTYPER_OT7;
+	GPIOB->PUPDR	&= ~GPIO_PUPDR_PUPDR7;
+	GPIOB->AFR[0]	&= ~GPIO_AFRL_AFRL7;
+	GPIOB->AFR[0] 	|= (0x7 << (4U * 7U));
 
 	NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
 	NVIC_EnableIRQ(USART1_IRQn);
@@ -76,8 +80,6 @@ void usart1Init(void){
 	USART1->CR1		&= ~USART_CR1_OVER8;
 
 	/////////////////DMA INIT///////////////////
-	RCC->AHB1RSTR	|= RCC_AHB1RSTR_DMA2RST;
-	RCC->AHB1RSTR	&= ~RCC_AHB1RSTR_DMA2RST;
 
 	// disable DMA 1 stream 1
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_EN;
@@ -110,7 +112,14 @@ void usart1Init(void){
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_PL_0;			// medium priority
 }
 
-void usart1Read(uint8_t *pData, uint8_t size)
+/** @brief Reads in data form usart1 with DMA.
+ *
+ *  @param *pData A pointer to location where you want to read data to.
+ *  @param size The amount of bytes to be read.
+ *  @return Void.
+ */
+void
+usart1Read(uint8_t *pData, uint8_t size)
 {
 	if(!(USART1->ISR & USART_ISR_BUSY)){		// wait for UART to be ready
 		DMA2_Stream2->CR	&= ~DMA_SxCR_EN;	// disable DMA
@@ -133,69 +142,3 @@ void usart1Read(uint8_t *pData, uint8_t size)
 		USART1->CR1			|= USART_CR1_UE;			// enable usart
 	}
 }
-
-
-void uart5Init(void){
-
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN |
-			RCC_AHB1ENR_GPIODEN; 						// enable the clock for port C, D
-	RCC->APB1ENR |= RCC_APB1ENR_UART5EN; 						// enable the clock for UART5
-
-	GPIOC->AFR[1] |= (GPIO_AF8_UART5 << (4 * 4U));							// set pin A2 as alternate function
-	GPIOD->AFR[0] |= (GPIO_AF8_UART5 << (4 * 2U));							// set pin A3 as alternate function
-
-	GPIOC->MODER &= ~(GPIO_MODER_MODER12);
-	GPIOD->MODER &= ~(GPIO_MODER_MODER2);
-	GPIOC->MODER |= GPIO_MODER_MODER12_1;						// set PC12 as alternate function
-	GPIOD->MODER |= GPIO_MODER_MODER2_1;						// set PD2 as alternate function
-	UART5->BRR = 0x1D5; 										// set baud rate to 115200
-	UART5->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE; 	// enable the receiver, transmitter, and USART								// enable UART5 interrupts on the NVIC (nested vector interrupt controller)
-
-
-}
-
-void usart3Init(void){
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; 						// enable the clock for port D
-	RCC->APB1ENR |= RCC_APB1ENR_USART3EN; 						// enable the clock for UART3
-
-	GPIOD->AFR[1] |= (GPIO_AF7_USART3 << (4 * 0U));				// set pin A2 as alternate function
-	GPIOD->AFR[1] |= (GPIO_AF7_USART3 << (4 * 1U));				// set pin A3 as alternate function
-
-	GPIOD->MODER &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9);
-	GPIOD->MODER |= GPIO_MODER_MODER8_1 | GPIO_MODER_MODER9_1;	// set PD8,9 as alternate function
-	USART3->BRR = 0x1D5; 										// set baud rate to 115200
-	USART3->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE; 	// enable the receiver, transmitter, and USART
-
-}
-
-int usart3Write(int ch){
-	while (!(USART3->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
-	USART3->TDR = ch;								// transfers the value of the data register into ch
-	return 0;
-}
-
-int uart5Write(int ch){
-	while (!(UART5->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
-	UART5->TDR = ch;								// transfers the value of the data register into ch
-	return 0;
-}
-
-/*	This is required to use printf											*/
-/*	This basically tells the compiler what to do when it encounters printf	*/
-/*	I honestly can't fully explain what is going on but it works			*/
-#ifdef __GNUC__
-	#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-//	#define GETCHAR_PROTOTYPE int __io_getchar (void)
-#else
-	#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-//	#define GETCHAR_PROTOTYPE int fgetc(FILE * f)
-#endif
-
-PUTCHAR_PROTOTYPE{
-	usart3Write(ch);
-//	uart5Write(ch);
-	return ch;
-}
-
-
-

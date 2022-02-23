@@ -86,7 +86,7 @@ uint8_t whoami;
 // MPU6000 Initialization
 ///////////////////////////////////////////////////////////////////////////////
 
-void mpu6000_init(void)
+void mpu6000Init(void)
 {
     ///////////////////////////////////
 	SPI1->CR1	&= ~SPI_CR1_BR;
@@ -133,7 +133,7 @@ void mpu6000_init(void)
 
 	delay(100);
 
-	computeMPU6000RTData();
+//	computeMPU6000RTData();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -142,24 +142,24 @@ void mpu6000_init(void)
 
 void readMPU6000(void)
 {
-    spiReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 14);
+	spiReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 16);
 
-    rawAccel[XAXIS].bytes[1]		= 	rawData[0];
-    rawAccel[XAXIS].bytes[0]		= 	rawData[1];
-    rawAccel[YAXIS].bytes[1]		= 	rawData[2];
-    rawAccel[YAXIS].bytes[0]		= 	rawData[3];
-    rawAccel[ZAXIS].bytes[1]		= 	rawData[4];
-    rawAccel[ZAXIS].bytes[0]		= 	rawData[5];
+    rawAccel[XAXIS].bytes[1]		= 	rawData[2];
+    rawAccel[XAXIS].bytes[0]		= 	rawData[3];
+    rawAccel[YAXIS].bytes[1]		= 	rawData[4];
+    rawAccel[YAXIS].bytes[0]		= 	rawData[5];
+    rawAccel[ZAXIS].bytes[1]		= 	rawData[6];
+    rawAccel[ZAXIS].bytes[0]		= 	rawData[7];
 
-    rawMPU6000Temperature.bytes[1]	=	rawData[6];
-    rawMPU6000Temperature.bytes[0]	= 	rawData[7];
+    rawMPU6000Temperature.bytes[1]	=	rawData[8];
+    rawMPU6000Temperature.bytes[0]	= 	rawData[9];
 
-    rawGyro[ROLL ].bytes[1]			= 	rawData[8];
-    rawGyro[ROLL ].bytes[0]			= 	rawData[9];
-    rawGyro[PITCH].bytes[1]			= 	rawData[10];
-    rawGyro[PITCH].bytes[0]			= 	rawData[11];
-    rawGyro[YAW  ].bytes[1]			= 	rawData[12];
-    rawGyro[YAW  ].bytes[0]			= 	rawData[13];
+    rawGyro[ROLL ].bytes[1]			= 	rawData[10];
+    rawGyro[ROLL ].bytes[0]			= 	rawData[11];
+    rawGyro[PITCH].bytes[1]			= 	rawData[12];
+    rawGyro[PITCH].bytes[0]			= 	rawData[13];
+    rawGyro[YAW  ].bytes[1]			= 	rawData[14];
+    rawGyro[YAW  ].bytes[0]			= 	rawData[15];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ void computeMPU6000RTData(void)
         gyroSum[PITCH]  += (float)rawGyro[PITCH].value  - gyroTCBias[PITCH];
         gyroSum[YAW  ]  += (float)rawGyro[YAW  ].value  - gyroTCBias[YAW  ];
 
-        delayMicroseconds(1000);
+        delayMicroseconds(100);
     }
 
     for (axis = 0; axis < 3; axis++)
