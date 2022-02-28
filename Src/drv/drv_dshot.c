@@ -32,7 +32,9 @@ static void dshot_enable_dma_request(void);
  *  DSHOT600 is preferred
  *  @return Void.
  */
-void dshotInit(dshot_type_e dshot_type){
+void
+dshotInit(dshot_type_e dshot_type)
+{
 	/////////////////GPIO INIT///////////////////
 	// enable clock for GPIOA
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
@@ -251,7 +253,9 @@ void dshotInit(dshot_type_e dshot_type){
  *  0 to 2047.
  *  @return Void.
  */
-void dshotWrite(uint16_t *motor_value){
+void
+dshotWrite(uint16_t *motor_value)
+{
 	dshot_prepare_dmabuffer_all(motor_value);
 	dshot_enable_dma_request();
 	dshot_dma_start();
@@ -329,7 +333,9 @@ dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
  *  @param value Numeric value to send from 0 to 2047.
  *  @return Void.
  */
-static uint16_t dshot_prepare_packet(uint16_t value){
+static uint16_t
+dshot_prepare_packet(uint16_t value)
+{
 	uint16_t packet;
 	bool dshot_telemetry = false;
 
@@ -355,7 +361,9 @@ static uint16_t dshot_prepare_packet(uint16_t value){
  *
  *  @return Void.
  */
-static void dshot_dma_start(void){
+static void
+dshot_dma_start(void)
+{
 	TIM5->CNT			= 0;
 
 	TIM5->DIER			|= TIM_DIER_CC1DE;
@@ -368,7 +376,9 @@ static void dshot_dma_start(void){
  *
  *  @return Void.
  */
-static void dshot_enable_dma_request(void){
+static void
+dshot_enable_dma_request(void)
+{
 
 	DMA1_Stream2->CR 	|= DMA_SxCR_EN;
 	DMA1_Stream4->CR 	|= DMA_SxCR_EN;
@@ -381,7 +391,9 @@ static void dshot_enable_dma_request(void){
 /**
  * @brief This function handles DMA1 stream2 global interrupt.
  */
-void DMA1_Stream2_IRQHandler(void){
+void
+DMA1_Stream2_IRQHandler(void)
+{
 	if(DMA1->LISR & DMA_LISR_TCIF2){
 		DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
 		while(DMA1_Stream2->CR & DMA_SxCR_EN){}
@@ -394,7 +406,9 @@ void DMA1_Stream2_IRQHandler(void){
 /**
  * @brief This function handles DMA1 stream4 global interrupt.
  */
-void DMA1_Stream4_IRQHandler(void){
+void
+DMA1_Stream4_IRQHandler(void)
+{
 	if(DMA1->HISR & DMA_HISR_TCIF4){
 		DMA1_Stream4->CR 	&= ~DMA_SxCR_EN;
 		while(DMA1_Stream4->CR & DMA_SxCR_EN){}
@@ -407,7 +421,9 @@ void DMA1_Stream4_IRQHandler(void){
 /**
  * @brief This function handles DMA1 stream0 global interrupt.
  */
-void DMA1_Stream0_IRQHandler(void){
+void
+DMA1_Stream0_IRQHandler(void)
+{
 	if(DMA1->LISR & DMA_LISR_TCIF0){
 		DMA1_Stream0->CR 	&= ~DMA_SxCR_EN;
 		while(DMA1_Stream0->CR & DMA_SxCR_EN){}
@@ -420,7 +436,9 @@ void DMA1_Stream0_IRQHandler(void){
 /**
  * @brief This function handles DMA1 stream3 global interrupt.
  */
-void DMA1_Stream3_IRQHandler(void){
+void
+DMA1_Stream3_IRQHandler(void)
+{
 	if(DMA1->LISR & DMA_LISR_TCIF3){
 		DMA1_Stream3->CR 	&= ~DMA_SxCR_EN;
 		while(DMA1_Stream3->CR & DMA_SxCR_EN){}

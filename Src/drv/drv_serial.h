@@ -18,30 +18,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Prototypes */
-
-/** @brief Initializes the low level uart registers in order to use printf
- *
- *  @return Void.
- */
+/* Function Prototypes */
 void serialInit(void);
-
-/** @brief Uses polling to write data to the transmit buffer.
- *
- *  @param ch The character to send.
- *  @return Void.
- */
 void serialWrite(int ch);
-
-/** @brief Waits for a character.
- *
- *  @param wait Character to wait for.
- *  @return bool True or False based on whether or not the character.
- *  received is the input to the function.
- */
 bool serialWaitFor(char wait);
-
-/*		Global Variables	*/
 
 #ifdef __cplusplus
 }

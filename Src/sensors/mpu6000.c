@@ -107,6 +107,14 @@ void mpu6000Init(void)
 	delayMicroseconds(100);
 
 	spiReadOneByte(MPU6000_WHOAMI, &whoami);
+//	if(whoami != 0x68){
+//		printf("\n\nFailed to read device ID. Would you like to retry?");
+//		if(serialWaitFor('y')){
+//			return false;
+//		}
+//	}
+//	else
+//		printf("\nDevice ID recognized as %u", whoami);
 	delayMicroseconds(100);
 
 	spiWriteOneByte(MPU6000_USER_CTRL, BIT_I2C_IF_DIS);	// disable I2C interface
@@ -133,7 +141,13 @@ void mpu6000Init(void)
 
 	delay(100);
 
+//	printf("\nDo you want to calibrate the IMU? \'y\' or \'n\'\n");
+//	if(serialWaitFor('y')){
+//		mpu6000Calibration();
+//	}
+//
 //	computeMPU6000RTData();
+//	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -10,4 +10,6 @@
 
 void motorInit(void);
 
+extern uint16_t motor_value[4];
+
 #endif /* SRC_MOTORS_H_ */

@@ -63,17 +63,16 @@ semaphore_t execUp = false;
 
 uint8_t whoami;
 
-uint16_t motor_value[4];
+uint16_t motor_value[4] = {0, 0, 0, 0};
 
 #ifdef _DTIMING
 #define LA2_ENABLE       GPIO_SetBits(GPIOC,   GPIO_Pin_2)
 #define LA2_DISABLE      GPIO_ResetBits(GPIOC, GPIO_Pin_2)
 #endif
 
-///////////////////////////////////////////////////////////////////////////////
-// SysTick
-///////////////////////////////////////////////////////////////////////////////
-
+/**
+ * @brief This function handles System tick timer.
+ */
 void SysTick_Handler(void)
 {
 	uint8_t index;
@@ -82,38 +81,19 @@ void SysTick_Handler(void)
 	sysTickCycleCounter = DWT->CYCCNT;
 	sysTickUptime++;
 
-	//    watchDogsTick();
+//    watchDogsTick();
 
-	if ((systemReady         == true))//  &&
-		//        (cliBusy             == false) &&
-		//        (accelCalibrating    == false) &&
-		//        (escCalibrating      == false) &&
-		//        (magCalibrating      == false) &&
-		//        (mpu6000Calibrating  == false))
-
+	if ((systemReady         == true)  &&
+		(accelCalibrating    == false) &&
+		(mpu6000Calibrating  == false))
 	{
-#ifdef _DTIMING
-		//    	    LA2_ENABLE;
-#endif
 
 		frameCounter++;
 		if (frameCounter > FRAME_COUNT)
 			frameCounter = 1;
 
 		///////////////////////////////
-
-		currentTime = micros();
-		deltaTime1000Hz = currentTime - previous1000HzTime;
-		previous1000HzTime = currentTime;
-
 		frame_1000Hz = true;
-		readMPU6000();
-		ibusProcess();
-
-		for(int i = 0; i < 4; i++){
-			motor_value[i] = (ibusChannels[i] * 2) - 1952;
-		}
-//		dshot_write(motor_value);
 
 		accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
 		accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
@@ -204,16 +184,17 @@ void SysTick_Handler(void)
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// System Time in Microseconds
-//
-// Note: This can be called from within IRQ Handlers, so uses LDREX/STREX.
-// If a higher priority IRQ or DMA or anything happens the STREX will fail
-// and restart the loop. Otherwise the same number that was read is harmlessly
-// written back.
-///////////////////////////////////////////////////////////////////////////////
-
-uint32_t micros(void)
+/** @brief Gets system time in microseconds.
+ *
+ *		This can be called from within IRQ Handlers, so uses LDREX/STREX.
+ *		If a higher priority IRQ or DMA or anything happens the STREX will fail
+ *		and restart the loop. Otherwise the same number that was read is harmlessly
+ *		written back.
+ *
+ *  @return uint32_t Time in microseconds.
+ */
+uint32_t
+micros(void)
 {
 	register uint32_t oldCycle, cycle, timeMs;
 
@@ -228,18 +209,15 @@ uint32_t micros(void)
 	return (timeMs * 1000) + (cycle - oldCycle) / usTicks;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// System Time in Milliseconds
-///////////////////////////////////////////////////////////////////////////////
-
-uint32_t millis(void)
+/** @brief Gets system time in milliseconds.
+ *
+ *  @return uint32_t Time in milliseconds.
+ */
+uint32_t
+millis(void)
 {
 	return sysTickUptime;
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// System Initialization
-///////////////////////////////////////////////////////////////////////////////
 
 //void checkResetType()
 //{
@@ -250,37 +228,49 @@ uint32_t millis(void)
 //    RCC_ClearFlag();
 //}
 
-///////////////////////////////////////
+/** @brief Initializes system.
+ *
+ *  @return Void.
+ */
+void
+systemInit(void)
+{
+	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;	// diables SysTick
 
-void systemInit(void){
 	cycleCounterInit();
 
-	SysTick_Config(SystemCoreClock / 1000);
-
-	HAL_Init();
+//	HAL_Init();
 
 	SystemClock_Config();
 
+	SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
 	/*		LOW LEVEL INITIALIZATION	*/
 //	gpioInit();
 	dmaInit();
 
+//	dshotInit(DSHOT600);
+//	delay(100);
+//	motorInit();
 	spi1Init();
 
 	serialInit();
-	usart1Init();
+//	usart1Init();
 
 //	MX_USB_OTG_FS_PCD_Init();
 
 	/*		SENSOR INITIALIZATION		*/
-	dshotInit(DSHOT600);
-	motorInit();
 
 	mpu6000Init();
 
-	ibusInit();
+//	ibusInit();
+
+	SysTick_Config(216000);
 }
 
+/** @brief Initializes system clock.
+ *
+ *  @return Void.
+ */
 void SystemClock_Config(void)
 {
 	RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -344,10 +334,10 @@ void SystemClock_Config(void)
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Delay Microseconds
-///////////////////////////////////////////////////////////////////////////////
-
+/** @brief Delay in microseconds.
+ *
+ *  @return Void.
+ */
 void delayMicroseconds(uint32_t us)
 {
 	uint32_t elapsed = 0;
@@ -374,10 +364,10 @@ void delayMicroseconds(uint32_t us)
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Delay Milliseconds
-///////////////////////////////////////////////////////////////////////////////
-
+/** @brief Delay in milliseconds.
+ *
+ *  @return Void.
+ */
 void delay(uint32_t ms)
 {
 	while (ms--)

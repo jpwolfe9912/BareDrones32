@@ -11,8 +11,10 @@
  *  @bug
  */
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes */
 #include "board.h"
+
+/* Functions */
 
 /** @brief Initializes SPI1.
  *
@@ -120,7 +122,7 @@ spi1Init(void)
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_MSIZE;
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_PSIZE;
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream0->CR 	|= DMA_SxCR_PL;
+	DMA2_Stream0->CR 	|= DMA_SxCR_PL_0;
 	// DMA transfer complete interrupt enable
 	DMA2_Stream0->CR 	|= DMA_SxCR_TCIE;
 	// TX DMA settings
@@ -138,7 +140,7 @@ spi1Init(void)
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_MSIZE;
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_PSIZE;
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream3->CR 	|= DMA_SxCR_PL;
+	DMA2_Stream3->CR 	|= DMA_SxCR_PL_0;
 	// DMA transfer complete interrupt enable
 	DMA2_Stream3->CR 	|= DMA_SxCR_TCIE;
 	/* USER CODE END SPI1_Init 0 */
@@ -291,7 +293,8 @@ spiWriteOneByte(uint8_t reg, uint8_t data){
 /**
  * @brief This function handles DMA2 stream1 global interrupt.
  */
-void DMA2_Stream0_IRQHandler(void)
+void
+DMA2_Stream0_IRQHandler(void)
 {
 	if(DMA2->LISR & DMA_LISR_TCIF0){
 		DMA2->LIFCR		|= DMA_LIFCR_CTCIF0;
@@ -312,7 +315,8 @@ void DMA2_Stream0_IRQHandler(void)
 /**
  * @brief This function handles DMA2 stream3 global interrupt.
  */
-void DMA2_Stream3_IRQHandler(void)
+void
+DMA2_Stream3_IRQHandler(void)
 {
 	if(DMA2->LISR & DMA_LISR_TCIF3){
 		DMA2->LIFCR		|= DMA_LIFCR_CTCIF3;

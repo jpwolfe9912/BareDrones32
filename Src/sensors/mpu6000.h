@@ -121,8 +121,8 @@
 #define DISABLE_MPU6000		  GPIOA->BSRR |= GPIO_BSRR_BS4
 #define ENABLE_MPU6000        GPIOA->BSRR |= GPIO_BSRR_BR4
 
-#define GYRO_SCALE_FACTOR  0.00053292f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
-#define ACCEL_SCALE_FACTOR 0.00119708f  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+#define GYRO_SCALE_FACTOR  0.000532632f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
+#define ACCEL_SCALE_FACTOR 0.002394165f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
 ///////////////////////////////////////////////////////////////////////////////
 // MPU6000 Variables

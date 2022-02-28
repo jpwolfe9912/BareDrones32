@@ -1,8 +1,11 @@
-/*
- * drv_crsf.h
+/** @file 		drv_ibus.h
+ *  @brief
+ *  	This file initializes the ibus receiver protocol
  *
- *  Created on: Jan 14, 2022
- *      Author: jeremywolfe
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ *  @bug
  */
 
 #ifndef INC_DRV_IBUS_H_
@@ -41,6 +44,6 @@ typedef enum{
 	IBUS_READY,
 	IBUS_BUSY,
 	IBUS_ERROR
-}ibusState_e;
+}ibusStatus_e;
 
 #endif /* INC_DRV_IBUS_H_ */

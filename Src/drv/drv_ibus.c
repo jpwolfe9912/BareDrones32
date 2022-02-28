@@ -12,7 +12,7 @@
 
 /* Static Function Prototypes */
 
-static int ibus_process_frame(void);
+static ibusStatus_e ibus_process_frame(void);
 static void ibus_update(uint8_t* pData);
 static bool ibusFrameCRC(void);
 static void usart_rx_check(uint32_t bytesLeft);
@@ -25,6 +25,8 @@ uint16_t ibusChannels[RC_CHANNELS];
 uint8_t state, cmd, frameLength, framePos;
 
 bool rcActive = false;
+
+ibusStatus_e status;
 
 /* Functions */
 
@@ -58,10 +60,9 @@ ibusProcess(void)
  *  @return int The status of the function.
  *  	READY, BUSY, ERROR
  */
-static int
+static ibusStatus_e
 ibus_process_frame(void)
 {
-	ibusState_e status;
 	uint8_t b;
 	if(lwrb_read(&rxRingBuf, &b, 1) == 1){
 		status = IBUS_BUSY;

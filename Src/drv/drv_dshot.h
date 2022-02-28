@@ -32,10 +32,6 @@
 #define DSHOT_MAX_THROTTLE     	2047
 #define DSHOT_RANGE 			(DSHOT_MAX_THROTTLE - DSHOT_MIN_THROTTLE)
 
-/* Function Prototypes */
-void dshotInit(dshot_type_e dshot_type);
-void dshotWrite(uint16_t *motor_value);
-
 /* Enumeration */
 typedef enum
 {
@@ -43,5 +39,10 @@ typedef enum
     DSHOT300,
     DSHOT600
 } dshot_type_e;
+
+/* Function Prototypes */
+void dshotInit(dshot_type_e dshot_type);
+void dshotWrite(uint16_t *motor_value);
+
 
 #endif /* __DRV_DSHOT_H_ */

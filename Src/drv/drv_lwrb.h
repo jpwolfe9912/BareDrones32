@@ -1,8 +1,3 @@
-/**
- * \file            lwrb.h
- * \brief           LwRB - Lightweight ring buffer
- */
-
 /*
  * Copyright (c) 2022 Tilen MAJERLE
  *

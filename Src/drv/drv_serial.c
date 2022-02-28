@@ -16,6 +16,11 @@
 char temp = '\0';
 
 #ifdef USE_NUCLEO
+
+/** @brief Initializes the low level uart registers in order to use printf
+ *
+ *  @return Void.
+ */
 void
 serialInit(void){
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; 						// enable the clock for port D
@@ -35,13 +40,24 @@ serialInit(void){
 
 }
 
-int
+/** @brief Uses polling to write data to the transmit buffer.
+ *
+ *  @param ch The character to send.
+ *  @return Void.
+ */
+void
 serialWrite(int ch){
 	while (!(USART3->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
 	USART3->TDR = ch;								// transfers the value of the data register into ch
 	return 0;
 }
 
+/** @brief Waits for a character.
+ *
+ *  @param wait Character to wait for.
+ *  @return bool True or False based on whether or not the character.
+ *  received is the input to the function.
+ */
 bool
 serialWaitFor(char wait)
 {
@@ -59,6 +75,11 @@ serialWaitFor(char wait)
 	}
 }
 
+/* Interrupt Handlers */
+
+/**
+ * @brief This function handles UART3 global interrupt.
+ */
 void
 USART3_IRQHandler(void){
 	if(USART3->ISR & USART_ISR_RXNE){
@@ -72,6 +93,11 @@ USART3_IRQHandler(void){
 #endif
 
 #ifdef USE_AUTODRONE
+
+/** @brief Initializes the low level uart registers in order to use printf
+ *
+ *  @return Void.
+ */
 void
 serialInit(void)
 {
@@ -97,6 +123,11 @@ serialInit(void)
 
 }
 
+/** @brief Uses polling to write data to the transmit buffer.
+ *
+ *  @param ch The character to send.
+ *  @return Void.
+ */
 void
 serialWrite(int ch)
 {
@@ -104,6 +135,12 @@ serialWrite(int ch)
 	UART5->TDR = ch;						// transfers the value of the data register into ch
 }
 
+/** @brief Waits for a character.
+ *
+ *  @param wait Character to wait for.
+ *  @return bool True or False based on whether or not the character.
+ *  received is the input to the function.
+ */
 bool
 serialWaitFor(char wait)
 {
@@ -121,6 +158,11 @@ serialWaitFor(char wait)
 	}
 }
 
+/* Interrupt Handlers */
+
+/**
+ * @brief This function handles UART5 global interrupt.
+ */
 void
 UART5_IRQHandler(void)
 {

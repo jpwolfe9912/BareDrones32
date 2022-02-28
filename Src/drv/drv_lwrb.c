@@ -1,11 +1,3 @@
-/*
- * lwrb.c
- *
- *  Created on: Jan 30, 2022
- *      Author: jeremywolfe
- */
-
-
 /**
  * \file            lwrb.c
  * \brief           Lightweight ring buffer

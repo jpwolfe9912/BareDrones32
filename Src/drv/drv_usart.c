@@ -27,21 +27,6 @@ uint8_t rxRingBufData[RXBUF_SIZE];	// ring buffer data
 void
 usart1Init(void)
 {
-	/* ---PIN INFO---
-	 * USART1_RX
-	 * 		PA10
-	 * 		AF7
-	 * 		DMA 2
-	 * 		Stream 2
-	 * 		Channel 4
-	 * USART1_TX
-	 * 		PA9
-	 * 		AF7
-	 * 		DMA 2
-	 * 		Stream 7
-	 * 		Channel 4
-	 * */
-
 	/////////////////GPIO INIT///////////////////
 	// enable clock for GPIOB
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
