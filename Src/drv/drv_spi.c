@@ -23,6 +23,7 @@
 void
 spi1Init(void)
 {
+	printf("\nInitializing SPI 1\n");
 
 	/* USER CODE BEGIN SPI1_Init 0 */
 	/////////////////GPIO INIT///////////////////
@@ -33,14 +34,14 @@ spi1Init(void)
 	GPIOA->MODER 	|= GPIO_MODER_MODER4_0;			// output mode
 	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR4;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT4;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR4;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR4_0;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL4;
 
 	GPIOA->MODER 	&= ~GPIO_MODER_MODER5;
 	GPIOA->MODER 	|= GPIO_MODER_MODER5_1;			// AF Mode
 	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR5;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT5;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR5;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR5_0;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL5;
 	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 5U));// AF 5
 
@@ -48,7 +49,7 @@ spi1Init(void)
 	GPIOA->MODER 	|= GPIO_MODER_MODER6_1;			// AF mode
 	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR6;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT6;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR6;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR6_0;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL6;
 	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 6U));// AF 5
 
@@ -56,7 +57,7 @@ spi1Init(void)
 	GPIOA->MODER 	|= GPIO_MODER_MODER7_1;			// AF mode
 	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR7;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT7;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR7;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR7_0;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL7;
 	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 7U));// AF 5
 
@@ -231,13 +232,13 @@ spiReadOneByte(uint8_t reg, uint8_t *pData){
 	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
 	while(DMA2_Stream0->CR & DMA_SxCR_EN);
 	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->NDTR	= 2;
+	DMA2_Stream0->NDTR	= 3;
 	DMA2_Stream0->M0AR	= (uint32_t)pData;
 
 	DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
 	while(DMA2_Stream3->CR & DMA_SxCR_EN);
 	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->NDTR	= 2;
+	DMA2_Stream3->NDTR	= 3;
 	DMA2_Stream3->M0AR	= (uint32_t)&reg;
 
 	SPI1_ENABLE;

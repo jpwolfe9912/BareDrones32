@@ -35,6 +35,7 @@ static void dshot_enable_dma_request(void);
 void
 dshotInit(dshot_type_e dshot_type)
 {
+	printf("\nInitializing DSHOT\n");
 	/////////////////GPIO INIT///////////////////
 	// enable clock for GPIOA
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
@@ -43,7 +44,7 @@ dshotInit(dshot_type_e dshot_type)
 	GPIOA->MODER 	|= GPIO_MODER_MODER0_1;
 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR0;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT0;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR0;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR0_1;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL0;
 	GPIOA->AFR[0] 	|= (GPIO_AF2_TIM5 << (4U * 0U));
 
@@ -51,7 +52,7 @@ dshotInit(dshot_type_e dshot_type)
 	GPIOA->MODER 	|= GPIO_MODER_MODER1_1;
 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR1;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT1;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR1;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR1_1;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL1;
 	GPIOA->AFR[0] 	|= (GPIO_AF2_TIM5 << (4U * 1U));
 
@@ -59,7 +60,7 @@ dshotInit(dshot_type_e dshot_type)
 	GPIOA->MODER 	|= GPIO_MODER_MODER2_1;
 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR2;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT2;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR2;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR2_1;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL2;
 	GPIOA->AFR[0] 	|= (GPIO_AF2_TIM5 << (4U * 2U));
 
@@ -67,7 +68,7 @@ dshotInit(dshot_type_e dshot_type)
 	GPIOA->MODER 	|= GPIO_MODER_MODER3_1;
 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR3;
 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT3;
-	GPIOA->PUPDR	&= ~GPIO_PUPDR_PUPDR3;
+	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR3_1;
 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL3;
 	GPIOA->AFR[0] 	|= (GPIO_AF2_TIM5 << (4U * 3U));
 
@@ -245,6 +246,8 @@ dshotInit(dshot_type_e dshot_type)
 	DMA1_Stream3->CR 	|= DMA_SxCR_PL_0;
 	// DMA transfer complete interrupt enable
 	DMA1_Stream3->CR 	|= DMA_SxCR_TCIE;
+
+	delay(500);
 }
 
 /** @brief Writes to the DMA buffer and starts the DMA stream

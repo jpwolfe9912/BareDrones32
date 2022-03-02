@@ -52,5 +52,6 @@
 #include "mpu6000.h"
 #include "mpu6000Calibration.h"
 #include "orientation.h"
+#include "sensor_fusion.h"
 
 #endif /* INC_BOARD_H_ */

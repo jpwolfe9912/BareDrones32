@@ -80,15 +80,16 @@ float   mpu6000Temperature;
 
 int16andUint8_t rawMPU6000Temperature;
 
-uint8_t whoami;
+uint8_t whoami[3];
 
 ///////////////////////////////////////////////////////////////////////////////
 // MPU6000 Initialization
 ///////////////////////////////////////////////////////////////////////////////
 
-void mpu6000Init(void)
+bool mpu6000Init(void)
 {
     ///////////////////////////////////
+	printf("\nInitializing MPU-6000\n");
 	SPI1->CR1	&= ~SPI_CR1_BR;
 	SPI1->CR1 	|= SPI_BR_PRESCALER_128;		// BR < 1MHz for init
 
@@ -106,15 +107,16 @@ void mpu6000Init(void)
 	spiWriteOneByte(MPU6000_PWR_MGMT_1, MPU_CLK_SEL_PLLGYROZ);
 	delayMicroseconds(100);
 
-	spiReadOneByte(MPU6000_WHOAMI, &whoami);
-//	if(whoami != 0x68){
-//		printf("\n\nFailed to read device ID. Would you like to retry?");
-//		if(serialWaitFor('y')){
-//			return false;
-//		}
-//	}
-//	else
-//		printf("\nDevice ID recognized as %u", whoami);
+	spiReadOneByte(MPU6000_WHOAMI, whoami);
+	delayMicroseconds(100);
+	if(whoami[2] != 0x68){
+		printf("\n\nFailed to read device ID. Would you like to retry?");
+		if(serialWaitFor('y')){
+			return false;
+		}
+	}
+	else
+		printf("\nDevice ID recognized as 0x%X", whoami[2]);
 	delayMicroseconds(100);
 
 	spiWriteOneByte(MPU6000_USER_CTRL, BIT_I2C_IF_DIS);	// disable I2C interface
@@ -145,9 +147,9 @@ void mpu6000Init(void)
 //	if(serialWaitFor('y')){
 //		mpu6000Calibration();
 //	}
-//
-//	computeMPU6000RTData();
-//	return true;
+
+	computeMPU6000RTData();
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -156,9 +156,6 @@ void SysTick_Handler(void)
 
 		///////////////////////////////
 
-		if (((frameCounter + 1) % COUNT_10HZ) == 0)
-//			newMagData = readMag();
-
 		if ((frameCounter % COUNT_10HZ) == 0)
 			frame_10Hz = true;
 
@@ -237,32 +234,30 @@ systemInit(void)
 {
 	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;	// diables SysTick
 
-	cycleCounterInit();
-
-//	HAL_Init();
-
 	SystemClock_Config();
-
-	SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
-	/*		LOW LEVEL INITIALIZATION	*/
-//	gpioInit();
 	dmaInit();
+	cycleCounterInit();
+	/*		LOW LEVEL INITIALIZATION	*/
+	serialInit();
+	printf("\nBEGINNING AUTODRONE INITIALIZATION\n");
+	printf("----------------------------------\n");
+	printf("----------------------------------\n");
 
-//	dshotInit(DSHOT600);
-//	delay(100);
-//	motorInit();
 	spi1Init();
 
-	serialInit();
-//	usart1Init();
+	usart1Init();
 
 //	MX_USB_OTG_FS_PCD_Init();
 
 	/*		SENSOR INITIALIZATION		*/
+	while(!mpu6000Init());
 
-	mpu6000Init();
+	madgwickInit();
 
-//	ibusInit();
+	while(!ibusInit());
+
+	dshotInit(DSHOT600);
+	motorInit();
 
 	SysTick_Config(216000);
 }

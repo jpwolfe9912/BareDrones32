@@ -11,6 +11,8 @@ uint16_t motor_value[4];
 
 void motorInit(void)
 {
+	printf("\nInitializing Motors\n");
+
 	motor_value[0] = 0;
 	motor_value[1] = 0;
 	motor_value[2] = 0;

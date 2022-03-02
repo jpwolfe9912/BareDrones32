@@ -34,14 +34,27 @@ ibusStatus_e status;
  *
  *	@return Void.
  */
-void
+bool
 ibusInit(void)
 {
+	printf("Initializing iBus Receiver\n");
+
 	lwrb_init(&rxRingBuf, rxRingBufData, sizeof(rxRingBufData));
 
 	usart1Read(rxBuf, RXBUF_SIZE);
 
 	rcActive = true;
+
+	if(ibus_process_frame() == IBUS_ERROR){
+		printf("\niBus Initialization Failed. Try again?\n");
+		if(serialWaitFor('y'))
+			return false;
+
+	}
+	else{
+		printf("\iBus receiver recognized\n");
+		return true;
+	}
 }
 
 /** @brief Waits for the parser to not be busy

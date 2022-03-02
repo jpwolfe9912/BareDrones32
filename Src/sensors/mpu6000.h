@@ -122,7 +122,7 @@
 #define ENABLE_MPU6000        GPIOA->BSRR |= GPIO_BSRR_BR4
 
 #define GYRO_SCALE_FACTOR  0.000532632f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
-#define ACCEL_SCALE_FACTOR 0.002394165f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
+#define ACCEL_SCALE_FACTOR 0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
 ///////////////////////////////////////////////////////////////////////////////
 // MPU6000 Variables
@@ -174,7 +174,7 @@ extern int16andUint8_t rawMPU6000Temperature;
 // MPU6000 Initialization
 ///////////////////////////////////////////////////////////////////////////////
 
-void mpu6000Init(void);
+bool mpu6000Init(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Read MPU6000

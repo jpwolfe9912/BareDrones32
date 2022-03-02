@@ -27,6 +27,7 @@ uint8_t rxRingBufData[RXBUF_SIZE];	// ring buffer data
 void
 usart1Init(void)
 {
+	printf("\nInitializing USART 1\n");
 	/////////////////GPIO INIT///////////////////
 	// enable clock for GPIOB
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
@@ -95,6 +96,7 @@ usart1Init(void)
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_PSIZE;			// 8 bit size
 	DMA2_Stream2->CR 	|= DMA_SxCR_CIRC;			// circ mode en
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_PL_0;			// medium priority
+	delay(500);
 }
 
 /** @brief Reads in data form usart1 with DMA.

@@ -53,9 +53,9 @@ void mpu6000Calibration(void)
     float gyroBias2[3]        = { 0.0f, 0.0f, 0.0f };
     float mpu6000Temperature2 = 0.0f;
 
-    eepromConfig.accelScaleFactorMPU[XAXIS] = 0.002394165f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
-    eepromConfig.accelScaleFactorMPU[YAXIS] = 0.002394165f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
-    eepromConfig.accelScaleFactorMPU[ZAXIS] = 0.002394165f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+    eepromConfig.accelScaleFactorMPU[XAXIS] = 0.004788403f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+    eepromConfig.accelScaleFactorMPU[YAXIS] = 0.004788403f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+    eepromConfig.accelScaleFactorMPU[ZAXIS] = 0.004788403f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
 
     uint16_t index;
 
@@ -72,7 +72,7 @@ void mpu6000Calibration(void)
     {
         readMPU6000();
 
-        rawAccel[ZAXIS].value = rawAccel[ZAXIS].value - 8192;
+        rawAccel[ZAXIS].value = rawAccel[ZAXIS].value - 2048;
 
         accelBias1[XAXIS]    += rawAccel[XAXIS].value;
         accelBias1[YAXIS]    += rawAccel[YAXIS].value;
@@ -159,7 +159,7 @@ void mpu6000Calibration(void)
 
     ///////////////////////////////////
 
-    printf("\nMPU6000 Calibration Complete.\n\n");
+    printf("\nMPU6000 Calibration Complete.\n");
 
     mpu6000Calibrating = false;
 }

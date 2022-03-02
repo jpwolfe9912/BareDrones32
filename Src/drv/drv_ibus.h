@@ -21,7 +21,7 @@
 #define ARRAY_LEN(x)				(sizeof(x) / sizeof((x)[0]))
 
 /* Prototypes */
-void ibusInit(void);
+bool ibusInit(void);
 void ibusProcess(void);
 
 /* Global Variables */
