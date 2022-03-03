@@ -61,10 +61,6 @@ semaphore_t systemReady = false;
 
 semaphore_t execUp = false;
 
-uint8_t whoami;
-
-uint16_t motor_value[4] = {0, 0, 0, 0};
-
 #ifdef _DTIMING
 #define LA2_ENABLE       GPIO_SetBits(GPIOC,   GPIO_Pin_2)
 #define LA2_DISABLE      GPIO_ResetBits(GPIOC, GPIO_Pin_2)
@@ -174,11 +170,9 @@ void SysTick_Handler(void)
 		executionTime1000Hz = micros() - currentTime;
 
 		///////////////////////////////
-
-#ifdef _DTIMING
-		//            LA2_DISABLE;
-#endif
 	}
+	else if(!motor_initialized)
+		dshotWrite(motor_value);
 }
 
 /** @brief Gets system time in microseconds.
@@ -235,13 +229,20 @@ systemInit(void)
 	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;	// diables SysTick
 
 	SystemClock_Config();
+	SysTick_Config(216000);
+
 	dmaInit();
 	cycleCounterInit();
+
+//	delay(1000);
 	/*		LOW LEVEL INITIALIZATION	*/
+
 	serialInit();
+	color(CYAN, YES);
 	printf("\nBEGINNING AUTODRONE INITIALIZATION\n");
 	printf("----------------------------------\n");
 	printf("----------------------------------\n");
+	color(WHITE, NO);
 
 	spi1Init();
 
@@ -250,6 +251,9 @@ systemInit(void)
 //	MX_USB_OTG_FS_PCD_Init();
 
 	/*		SENSOR INITIALIZATION		*/
+
+	eepromConfig.sensorOrientation = 1;
+	orientSensors();
 	while(!mpu6000Init());
 
 	madgwickInit();
@@ -259,7 +263,6 @@ systemInit(void)
 	dshotInit(DSHOT600);
 	motorInit();
 
-	SysTick_Config(216000);
 }
 
 /** @brief Initializes system clock.

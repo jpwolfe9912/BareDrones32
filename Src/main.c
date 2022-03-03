@@ -49,16 +49,12 @@ int main(void)
 			readMPU6000();
 			ibusProcess();
 
-			motor_value[0] = 100;//ibusChannels[2] * 2 - 1952;
-			motor_value[1] = 100;//ibusChannels[2] * 2 - 1952;
-			motor_value[2] = 100;//ibusChannels[2] * 2 - 1952;
-			motor_value[3] = 100;//ibusChannels[2] * 2 - 1952;
+			motor_value[0] = 150; //ibusChannels[0] / 2 - 452;
+			motor_value[1] = 150; //ibusChannels[1] / 2 - 452;
+			motor_value[2] = 150; //ibusChannels[2] / 2 - 452;
+			motor_value[3] = 300; //ibusChannels[3] / 2 - 452;
 			dshotWrite(motor_value);
-			printf("Motor Value is: %u\n", motor_value[1]);
 
-//			printf("ROLL:  %f\n", getRoll());
-//			printf("PITCH: %f\n", getPitch());
-//			printf("YAW:   %f\n\n", getYaw());
 		}
 
 		if (frame_500Hz)
@@ -103,11 +99,15 @@ int main(void)
 
 			arm_mat_mult_f32(&a, &b, &x);
 
-			updateIMU(nonRotatedGyroData[ROLL ], nonRotatedGyroData[PITCH], nonRotatedGyroData[YAW],
-					nonRotatedAccelData[XAXIS], nonRotatedAccelData[YAXIS], nonRotatedAccelData[ZAXIS]);
+			updateIMU(sensors.gyro500Hz[ROLL ], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
+					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
 			roll = getRoll();
 			pitch = getPitch();
 			yaw = getYaw();
+
+			printf("ROLL:  %f - ", roll);
+			printf("PITCH: %f - ", pitch);
+			printf("YAW:   %f\r", yaw);
 
 //			MargAHRSupdate(sensors.gyro500Hz[ROLL],   sensors.gyro500Hz[PITCH],  sensors.gyro500Hz[YAW],
 //					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS],

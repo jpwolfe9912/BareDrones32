@@ -21,9 +21,13 @@
 #define DSHOT300_HZ     		MHZ_TO_HZ(6)
 #define DSHOT150_HZ     		MHZ_TO_HZ(3)
 
-#define MOTOR_BIT_0            	7
-#define MOTOR_BIT_1            	14
-#define MOTOR_BITLENGTH        	20
+//#define MOTOR_BIT_0            	7
+//#define MOTOR_BIT_1            	14
+//#define MOTOR_BITLENGTH        	20
+
+#define MOTOR_BIT_0            	60
+#define MOTOR_BIT_1            	120
+#define MOTOR_BITLENGTH        	180
 
 #define DSHOT_FRAME_SIZE       	16
 #define DSHOT_DMA_BUFFER_SIZE   18 /* resolution + frame reset (2us) */

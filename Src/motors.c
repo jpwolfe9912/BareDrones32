@@ -9,6 +9,8 @@
 
 uint16_t motor_value[4];
 
+semaphore_t motor_initialized = 0;
+
 void motorInit(void)
 {
 	printf("\nInitializing Motors\n");
@@ -17,8 +19,10 @@ void motorInit(void)
 	motor_value[1] = 0;
 	motor_value[2] = 0;
 	motor_value[3] = 0;
-	for(uint16_t i = 0; i < 30000; i++){
-		dshotWrite(motor_value);
-		delayMicroseconds(100);
-	}
+//	for(uint16_t i = 0; i < 2000; i++){
+//		dshotWrite(motor_value);
+//		delayMicroseconds(1000);
+//	}
+	delay(1500);
+	motor_initialized = 1;
 }

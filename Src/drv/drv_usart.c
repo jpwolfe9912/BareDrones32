@@ -79,8 +79,6 @@ usart1Init(void)
 	DMA2_Stream2->CR	&= ~DMA_SxCR_CHSEL;
 	DMA2->LIFCR			|= (0x3F << 16U); //0x00000F40U;
 
-	RCC->AHB1ENR		|= RCC_AHB1ENR_DMA2EN;
-
 	// stream 1 ch 4 DMA settings
 	DMA2_Stream2->CR	|= (0x4 << 25U);			// channel 4
 	DMA2_Stream2->M0AR 	= (uint32_t)rxBuf;			// set mem address
@@ -95,7 +93,7 @@ usart1Init(void)
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_MSIZE;			// 8 bit size
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_PSIZE;			// 8 bit size
 	DMA2_Stream2->CR 	|= DMA_SxCR_CIRC;			// circ mode en
-	DMA2_Stream2->CR 	&= ~DMA_SxCR_PL_0;			// medium priority
+	DMA2_Stream2->CR 	|= DMA_SxCR_PL;			// medium priority
 	delay(500);
 }
 

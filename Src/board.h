@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <errno.h>
+#include <flight_command.h>
+#include <mpu6000_calibration.h>
 
 #include "stm32f7xx.h"
 #include "stm32f7xx_hal.h"
@@ -30,6 +32,7 @@
 #include "Autodrone32.h"
 #include "main.h"
 
+#include "drv_color.h"
 #include "drv_system.h"
 #include "drv_spi.h"
 #include "drv_usart.h"
@@ -46,11 +49,9 @@
 #include "drv_ibus.h"
 
 #include "motors.h"
-#include "flightCommand.h"
 #include "pid.h"
 
 #include "mpu6000.h"
-#include "mpu6000Calibration.h"
 #include "orientation.h"
 #include "sensor_fusion.h"
 

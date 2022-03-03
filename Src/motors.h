@@ -12,4 +12,6 @@ void motorInit(void);
 
 extern uint16_t motor_value[4];
 
+extern semaphore_t motor_initialized;
+
 #endif /* SRC_MOTORS_H_ */

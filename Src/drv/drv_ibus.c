@@ -37,7 +37,7 @@ ibusStatus_e status;
 bool
 ibusInit(void)
 {
-	printf("Initializing iBus Receiver\n");
+	printf("\nInitializing iBus Receiver\n");
 
 	lwrb_init(&rxRingBuf, rxRingBufData, sizeof(rxRingBufData));
 
@@ -45,16 +45,25 @@ ibusInit(void)
 
 	rcActive = true;
 
+	status = IBUS_ERROR;
+
 	if(ibus_process_frame() == IBUS_ERROR){
+		color(RED, YES);
 		printf("\niBus Initialization Failed. Try again?\n");
+		color(WHITE, NO);
 		if(serialWaitFor('y'))
 			return false;
+		else
+			return true;
 
 	}
 	else{
-		printf("\iBus receiver recognized\n");
+		color(GREEN, YES);
+		printf("\niBus receiver recognized\n");
+		color(WHITE, NO);
 		return true;
 	}
+	return true;
 }
 
 /** @brief Waits for the parser to not be busy
@@ -274,7 +283,8 @@ USART1_IRQHandler(void) {
 	}
 }
 
-void DMA2_Stream2_IRQHandler(void) {
+void
+DMA2_Stream2_IRQHandler(void) {
 	/* Check half-transfer complete interrupt */
 	if(DMA2->LISR & DMA_LISR_TCIF2){
 		DMA2->LIFCR		|= DMA_LIFCR_CTCIF2;	/* Clear half-transfer complete flag */

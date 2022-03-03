@@ -145,6 +145,7 @@ spi1Init(void)
 	// DMA transfer complete interrupt enable
 	DMA2_Stream3->CR 	|= DMA_SxCR_TCIE;
 	/* USER CODE END SPI1_Init 0 */
+	delay(500);
 }
 
 /** @brief Reads multiple bytes of data in.

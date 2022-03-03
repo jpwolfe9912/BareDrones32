@@ -54,21 +54,11 @@ void orientSensors(void)
             mpuOrientationMatrix[1] =  0.0f;
             mpuOrientationMatrix[2] =  0.0f;
             mpuOrientationMatrix[3] =  0.0f;
-            mpuOrientationMatrix[4] = -1.0f;
+            mpuOrientationMatrix[4] =  1.0f;
             mpuOrientationMatrix[5] =  0.0f;
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
-            mpuOrientationMatrix[8] = -1.0f;
-
-            hmcOrientationMatrix[0] =  1.0f;
-            hmcOrientationMatrix[1] =  0.0f;
-            hmcOrientationMatrix[2] =  0.0f;
-            hmcOrientationMatrix[3] =  0.0f;
-            hmcOrientationMatrix[4] =  1.0f;
-            hmcOrientationMatrix[5] =  0.0f;
-            hmcOrientationMatrix[6] =  0.0f;
-            hmcOrientationMatrix[7] =  0.0f;
-            hmcOrientationMatrix[8] = -1.0f;
+            mpuOrientationMatrix[8] =  1.0f;
 
             break;
 
