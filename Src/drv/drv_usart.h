@@ -19,7 +19,7 @@ extern "C" {
 #include "drv_lwrb.h"
 
 /* Defines */
-#define RXBUF_SIZE 					32
+#define RXBUF_SIZE 					33
 
 /* Prototypes */
 void usart1Init(void);

@@ -27,5 +27,6 @@ enum bf
 };
 
 void color(uint8_t color, uint8_t bf);
+void colorDefault(void);
 
 #endif /* SRC_DRV_DRV_COLOR_H_ */

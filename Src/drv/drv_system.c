@@ -1,8 +1,12 @@
-/*
- * drv_system.c
+/** @file 		drv_system.c
+ *  @brief
+ *  	This file contains all the basic functions to run the timing
+ *  	of the system as well as initialize the system.
  *
- *  Created on: Dec 24, 2021
- *      Author: jeremywolfe
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		03 MAR 2022
+ *  @bug
  */
 
 #include "board.h"
@@ -19,11 +23,13 @@ static volatile uint32_t usTicks = 0;
 static volatile uint32_t sysTickUptime = 0;
 static volatile uint32_t sysTickCycleCounter = 0;
 
-///////////////////////////////////////////////////////////////////////////////
-// Cycle Counter
-///////////////////////////////////////////////////////////////////////////////
-
-static void cycleCounterInit(void)
+/** @brief Initializes the cycle counter so we can use delay
+ *  and getTime functions
+ *
+ *  @return Void.
+ */
+static void
+cycleCounterInit(void)
 {
 	usTicks = SystemCoreClock / 1000000;
 
@@ -60,16 +66,11 @@ float dt500Hz, dt100Hz;
 semaphore_t systemReady = false;
 
 semaphore_t execUp = false;
-
-#ifdef _DTIMING
-#define LA2_ENABLE       GPIO_SetBits(GPIOC,   GPIO_Pin_2)
-#define LA2_DISABLE      GPIO_ResetBits(GPIOC, GPIO_Pin_2)
-#endif
-
 /**
  * @brief This function handles System tick timer.
  */
-void SysTick_Handler(void)
+void
+SysTick_Handler(void)
 {
 	uint8_t index;
 	uint32_t currentTime;
@@ -226,10 +227,9 @@ millis(void)
 void
 systemInit(void)
 {
-	SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;	// diables SysTick
+	rcc216MHzInit();
 
-	SystemClock_Config();
-	SysTick_Config(216000);
+	SysTick_Config(SystemCoreClock / 1000);
 
 	dmaInit();
 	cycleCounterInit();
@@ -244,6 +244,10 @@ systemInit(void)
 	printf("----------------------------------\n");
 	color(WHITE, NO);
 
+
+	dshotInit(DSHOT600);
+	motorInit();
+
 	spi1Init();
 
 	usart1Init();
@@ -252,7 +256,6 @@ systemInit(void)
 
 	/*		SENSOR INITIALIZATION		*/
 
-	eepromConfig.sensorOrientation = 1;
 	orientSensors();
 	while(!mpu6000Init());
 
@@ -260,8 +263,8 @@ systemInit(void)
 
 	while(!ibusInit());
 
-	dshotInit(DSHOT600);
-	motorInit();
+	motorZeroCommand();
+
 
 }
 
@@ -269,7 +272,8 @@ systemInit(void)
  *
  *  @return Void.
  */
-void SystemClock_Config(void)
+void
+SystemClock_Config(void)
 {
 	RCC_OscInitTypeDef RCC_OscInitStruct = {0};
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};

@@ -47,14 +47,12 @@ int main(void)
 			deltaTime1000Hz = currentTime - previous1000HzTime;
 			previous1000HzTime = currentTime;
 			readMPU6000();
-			ibusProcess();
 
-			motor_value[0] = 150; //ibusChannels[0] / 2 - 452;
-			motor_value[1] = 150; //ibusChannels[1] / 2 - 452;
-			motor_value[2] = 150; //ibusChannels[2] / 2 - 452;
-			motor_value[3] = 300; //ibusChannels[3] / 2 - 452;
+			motor_value[0] = ibusChannels[0] / 2 - 452;
+			motor_value[1] = ibusChannels[1] / 2 - 452;
+			motor_value[2] = ibusChannels[2] / 2 - 452;
+			motor_value[3] = ibusChannels[3] / 2 - 452;
 			dshotWrite(motor_value);
-
 		}
 
 		if (frame_500Hz)
@@ -105,10 +103,6 @@ int main(void)
 			pitch = getPitch();
 			yaw = getYaw();
 
-			printf("ROLL:  %f - ", roll);
-			printf("PITCH: %f - ", pitch);
-			printf("YAW:   %f\r", yaw);
-
 //			MargAHRSupdate(sensors.gyro500Hz[ROLL],   sensors.gyro500Hz[PITCH],  sensors.gyro500Hz[YAW],
 //					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS],
 //					sensors.mag10Hz[XAXIS],    sensors.mag10Hz[YAXIS],    sensors.mag10Hz[ZAXIS],
@@ -156,6 +150,8 @@ int main(void)
 			arm_mat_init_f32(&x, 3, 1,          sensors.accel100Hz);
 
 			arm_mat_mult_f32(&a, &b, &x);
+
+			ibusProcess();
 
 //			createRotationMatrix();
 //			bodyAccelToEarthAccel();
@@ -272,25 +268,6 @@ int main(void)
 			deltaTime10Hz    = currentTime - previous10HzTime;
 			previous10HzTime = currentTime;
 
-//			if (newMagData == true)
-//			{
-//				nonRotatedMagData[XAXIS] = (rawMag[XAXIS].value * magScaleFactor[XAXIS]) - eepromConfig.magBias[XAXIS + eepromConfig.externalHMC5883];
-//				nonRotatedMagData[YAXIS] = (rawMag[YAXIS].value * magScaleFactor[YAXIS]) - eepromConfig.magBias[YAXIS + eepromConfig.externalHMC5883];
-//				nonRotatedMagData[ZAXIS] = (rawMag[ZAXIS].value * magScaleFactor[ZAXIS]) - eepromConfig.magBias[ZAXIS + eepromConfig.externalHMC5883];
-//
-//				arm_mat_init_f32(&a, 3, 3, (float *)hmcOrientationMatrix);
-//
-//				arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedMagData);
-//
-//				arm_mat_init_f32(&x, 3, 1,          sensors.mag10Hz);
-//
-//				arm_mat_mult_f32(&a, &b, &x);
-//
-//				newMagData = false;
-//				magDataUpdate = true;
-//			}
-//
-//			decodeUbloxMsg();
 //
 //			batMonTick();
 //
@@ -301,6 +278,12 @@ int main(void)
 //				mavlinkSendAttitude();
 //				mavlinkSendVfrHud();
 //			}
+
+//			printf("ROLL:  %f - ", roll);
+//			printf("PITCH: %f - ", pitch);
+//			printf("YAW:   %f\r\n", yaw);
+
+//			printf("Channels: %u - %u - %u - %u\r", ibusChannels[0], ibusChannels[1], ibusChannels[2], ibusChannels[3]);
 
 			executionTime10Hz = micros() - currentTime;
 

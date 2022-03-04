@@ -24,6 +24,8 @@ uint16_t ibusChannels[RC_CHANNELS];
 
 uint8_t state, cmd, frameLength, framePos;
 
+uint8_t dev_id = 0;
+
 bool rcActive = false;
 
 ibusStatus_e status;
@@ -37,6 +39,8 @@ ibusStatus_e status;
 bool
 ibusInit(void)
 {
+	uint8_t ibus_initialized = 0;
+
 	printf("\nInitializing iBus Receiver\n");
 
 	lwrb_init(&rxRingBuf, rxRingBufData, sizeof(rxRingBufData));
@@ -47,7 +51,16 @@ ibusInit(void)
 
 	status = IBUS_ERROR;
 
-	if(ibus_process_frame() == IBUS_ERROR){
+	for(uint8_t i = 0; i < 10; i++){
+		ibusProcess();
+		if(dev_id == 0x40){
+			ibus_initialized = 1;
+			break;
+		}
+		delay(10);
+	}
+
+	if(!ibus_initialized){
 		color(RED, YES);
 		printf("\niBus Initialization Failed. Try again?\n");
 		color(WHITE, NO);
@@ -102,6 +115,7 @@ ibus_process_frame(void)
 			case IBUS_STATE_TYPE: {
 				cmd = b;
 				if(cmd == 0x40){
+					dev_id = cmd;
 					++state;
 				}
 				else
@@ -135,8 +149,10 @@ ibus_process_frame(void)
 			}
 		}
 	}
-	if(status == IBUS_ERROR)
+	if(status == IBUS_ERROR){
+		lwrb_reset(&rxRingBuf);
 		memset(rxBuf, 0x00, RXBUF_SIZE);
+	}
 	return status;
 }
 

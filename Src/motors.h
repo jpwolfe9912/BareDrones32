@@ -9,6 +9,7 @@
 #define SRC_MOTORS_H_
 
 void motorInit(void);
+void motorZeroCommand(void);
 
 extern uint16_t motor_value[4];
 

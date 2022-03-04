@@ -19,10 +19,15 @@ void motorInit(void)
 	motor_value[1] = 0;
 	motor_value[2] = 0;
 	motor_value[3] = 0;
-//	for(uint16_t i = 0; i < 2000; i++){
-//		dshotWrite(motor_value);
-//		delayMicroseconds(1000);
-//	}
+
+}
+
+void motorZeroCommand(void)
+{
+	motor_value[0] = 48;
+	motor_value[1] = 48;
+	motor_value[2] = 48;
+	motor_value[3] = 48;
 	delay(1500);
 	motor_initialized = 1;
 }

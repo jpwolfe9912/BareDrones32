@@ -21,8 +21,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <errno.h>
-#include <flight_command.h>
-#include <mpu6000_calibration.h>
 
 #include "stm32f7xx.h"
 #include "stm32f7xx_hal.h"
@@ -34,6 +32,7 @@
 
 #include "drv_color.h"
 #include "drv_system.h"
+#include "drv_rcc.h"
 #include "drv_spi.h"
 #include "drv_usart.h"
 #include "drv_serial.h"
@@ -50,9 +49,11 @@
 
 #include "motors.h"
 #include "pid.h"
+#include "flight_command.h"
 
 #include "mpu6000.h"
 #include "orientation.h"
 #include "sensor_fusion.h"
+#include "mpu6000_calibration.h"
 
 #endif /* INC_BOARD_H_ */
