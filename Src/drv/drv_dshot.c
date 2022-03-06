@@ -73,8 +73,7 @@ dshotInit(dshot_type_e dshot_type)
 	GPIOA->AFR[0] 	|= (GPIO_AF2_TIM5 << (4U * 3U));
 
 	/////////////////TIMER INIT///////////////////
-//	uint16_t dshot_psc = (uint16_t)((float)TIMER_CLOCK / dshot_choose_type(dshot_type) + 0.01f) - 1;
-	uint16_t dshot_psc = 0;
+	uint16_t dshot_psc = (uint16_t)((float)TIMER_CLOCK / dshot_choose_type(dshot_type) + 0.01f) - 1;
 	// enable clock for TIM2
 	RCC->APB1ENR 	|= RCC_APB1ENR_TIM5EN;
 	TIM5->CR1		&= ~TIM_CR1_CEN;

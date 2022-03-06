@@ -17,9 +17,9 @@
 
 #define MHZ_TO_HZ(x) 			((x) * 1000000)
 
-#define DSHOT600_HZ     		MHZ_TO_HZ(12)
-#define DSHOT300_HZ     		MHZ_TO_HZ(6)
-#define DSHOT150_HZ     		MHZ_TO_HZ(3)
+#define DSHOT600_HZ     		MHZ_TO_HZ(108)
+#define DSHOT300_HZ     		MHZ_TO_HZ(54)
+#define DSHOT150_HZ     		MHZ_TO_HZ(27)
 
 //#define MOTOR_BIT_0            	7
 //#define MOTOR_BIT_1            	14

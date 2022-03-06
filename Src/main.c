@@ -53,6 +53,8 @@ int main(void)
 			motor_value[2] = ibusChannels[2] / 2 - 452;
 			motor_value[3] = ibusChannels[3] / 2 - 452;
 			dshotWrite(motor_value);
+
+
 		}
 
 		if (frame_500Hz)
@@ -217,6 +219,11 @@ int main(void)
 //							throttleCmd);
 //				}
 //			}
+			printf("ROLL:  %f - ", roll);
+			printf("PITCH: %f - ", pitch);
+			printf("YAW:   %f\r", yaw);
+//			printf("%d\n", (int16_t)(nonRotatedGyroData[ROLL] * 180 / PI));
+
 
 			executionTime100Hz = micros() - currentTime;
 
@@ -278,10 +285,6 @@ int main(void)
 //				mavlinkSendAttitude();
 //				mavlinkSendVfrHud();
 //			}
-
-//			printf("ROLL:  %f - ", roll);
-//			printf("PITCH: %f - ", pitch);
-//			printf("YAW:   %f\r\n", yaw);
 
 //			printf("Channels: %u - %u - %u - %u\r", ibusChannels[0], ibusChannels[1], ibusChannels[2], ibusChannels[3]);
 

@@ -112,8 +112,6 @@
 #define BITS_DLPF_CFG_98HZ          0x02
 #define BITS_DLPF_CFG_42HZ          0x03
 
-#define MPU6000_SPI           &hspi1
-
 #define MPU6000_CS_GPIO       GPIOA
 #define MPU6000_CS_GPIO_CLOCK RCC_AHB1Periph_GPIOA
 #define MPU6000_CS_PIN        GPIO_Pin_4
@@ -121,7 +119,7 @@
 #define DISABLE_MPU6000		  GPIOA->BSRR |= GPIO_BSRR_BS4
 #define ENABLE_MPU6000        GPIOA->BSRR |= GPIO_BSRR_BR4
 
-#define GYRO_SCALE_FACTOR  0.000532632f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
+#define GYRO_SCALE_FACTOR  (0.000532632f * 2)  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
 #define ACCEL_SCALE_FACTOR 0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
 ///////////////////////////////////////////////////////////////////////////////
