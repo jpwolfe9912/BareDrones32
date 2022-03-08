@@ -8,7 +8,8 @@
  */
 
 
-#pragma once
+#ifndef __MPU6000_H__
+#define __MPU6000_H__
 
 /* Defines */
 
@@ -137,3 +138,5 @@ bool mpu6000Init(void);
 void readMPU6000(void);
 void computeMPU6000RTData(void);
 void computeMPU6000TCBias(void);
+
+#endif

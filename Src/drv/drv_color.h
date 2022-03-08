@@ -5,8 +5,8 @@
  *      Author: jeremywolfe
  */
 
-#ifndef SRC_DRV_DRV_COLOR_H_
-#define SRC_DRV_DRV_COLOR_H_
+#ifndef __COLOR_H__
+#define __COLOR_H__
 
 enum color
 {
@@ -29,4 +29,4 @@ enum bf
 void color(uint8_t color, uint8_t bf);
 void colorDefault(void);
 
-#endif /* SRC_DRV_DRV_COLOR_H_ */
+#endif /* __COLOR_H__ */

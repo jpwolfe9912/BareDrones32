@@ -20,8 +20,8 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
+#ifndef __MAIN_H__
+#define __MAIN_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,6 +31,6 @@ extern "C" {
 #define STLINK
 
 
-#endif /* __MAIN_H */
+#endif /* __MAIN_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

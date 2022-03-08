@@ -86,9 +86,9 @@ int main(void)
 
 			updateIMU(sensors.gyro500Hz[ROLL ], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
 					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
-			sensors.attitude500Hz[ROLL ] = getRoll();
-			sensors.attitude500Hz[PITCH] = getPitch();
-			sensors.attitude500Hz[YAW  ] = getYaw();
+			sensors.attitude500Hz[ROLL ] = getRollRadians();
+			sensors.attitude500Hz[PITCH] = getPitchRadians();
+			sensors.attitude500Hz[YAW  ] = getYawRadians();
 
 			processFlightCommands();
 			computeAxisCommands(dt500Hz);

@@ -8,8 +8,8 @@
  *  @bug
  */
 
-#ifndef INC_RCC_H_
-#define INC_RCC_H_
+#ifndef __RCC_H__
+#define __RCC_H__
 
 /* Function Prototypes */
 

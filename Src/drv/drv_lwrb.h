@@ -26,8 +26,8 @@
  * Author:          Tilen MAJERLE <tilen@majerle.eu>
  * Version:         v2.0.3
  */
-#ifndef LWRB_HDR_H
-#define LWRB_HDR_H
+#ifndef __LWRB_H__
+#define __LWRB_H__
 
 #include <string.h>
 #include <stdint.h>

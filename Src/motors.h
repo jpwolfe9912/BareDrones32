@@ -5,8 +5,8 @@
  *      Author: jeremywolfe
  */
 
-#ifndef SRC_MOTORS_H_
-#define SRC_MOTORS_H_
+#ifndef __MOTORS_H__
+#define __MOTORS_H__
 
 extern uint16_t motor_value[4];
 
@@ -53,4 +53,4 @@ void motorInit(void);
 void motorZeroCommand(void);
 void motors3dOn(motors_e motor);
 
-#endif /* SRC_MOTORS_H_ */
+#endif /* __MOTORS_H__ */

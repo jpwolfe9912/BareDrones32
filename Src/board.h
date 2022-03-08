@@ -9,8 +9,8 @@
  *  @bug
  */
 
-#ifndef INC_BOARD_H_
-#define INC_BOARD_H_
+#ifndef __BOARD_H__
+#define __BOARD_H__
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -62,4 +62,4 @@
 #include "mpu6000_calibration.h"
 #include "accelCalibrationMPU.h"
 
-#endif /* INC_BOARD_H_ */
+#endif /* __BOARD_H__ */

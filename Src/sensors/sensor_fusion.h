@@ -8,8 +8,8 @@
  *  @bug
  */
 
-#ifndef SRC_SENSORS_SENSOR_FUSION_H_
-#define SRC_SENSORS_SENSOR_FUSION_H_
+#ifndef __SENSOR_FUSION_H__
+#define __SENSOR_FUSION_H__
 
 /* Defines */
 #define sampleFreqDef   1000.0f          // sample frequency in Hz
@@ -75,4 +75,4 @@ getYawRadians(void)
 	return yaw;
 }
 
-#endif /* SRC_SENSORS_SENSOR_FUSION_H_ */
+#endif /* __SENSOR_FUSION_H__ */

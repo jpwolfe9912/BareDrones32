@@ -5,8 +5,8 @@
  *      Author: jeremywolfe
  */
 
-#ifndef INC_AUTODRONE32_H_
-#define INC_AUTODRONE32_H_
+#ifndef __AUTODRONE32_H_
+#define __AUTODRONE32_H_
 
 #ifndef PI
     #define PI  3.14159265358979f
@@ -407,4 +407,4 @@ extern eepromConfig_t eepromConfig;
 ///////////////////////////////////////////////////////////////////////////////
 
 
-#endif /* INC_AUTODRONE32_H_ */
+#endif /* __AUTODRONE32_H_ */
