@@ -1,0 +1,120 @@
+\hypertarget{arm__weighted__sum__f16_8c_source}{}\doxysection{arm\+\_\+weighted\+\_\+sum\+\_\+f16.\+c}
+\label{arm__weighted__sum__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_weighted\_sum\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_weighted\_sum\_f16.c}}
+\mbox{\hyperlink{arm__weighted__sum__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_weighted\_sum\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Weighted Sum}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00030}00030 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00032}00032 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{support__functions__f16_8h}{dsp/support\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00034}00034 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00064}00064 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00066}00066 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00068}00068 float16\_t arm\_weighted\_sum\_f16(\textcolor{keyword}{const} float16\_t *in,\textcolor{keyword}{const} float16\_t *weigths, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00069}00069 \{}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00070}00070     \_Float16       accum1, accum2;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00071}00071     float16x8\_t    accum1V, accum2V;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00072}00072     float16x8\_t    inV, wV;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00073}00073     \textcolor{keyword}{const} float16\_t *pIn, *pW;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00074}00074     uint32\_t        blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00077}00077     pIn = in;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00078}00078     pW = weigths;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00081}00081     accum1V = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00082}00082     accum2V = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00084}00084     blkCnt = blockSize >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00085}00085     \textcolor{keywordflow}{while} (blkCnt > 0) }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00086}00086     \{}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00087}00087         inV = vld1q(pIn);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00088}00088         wV = vld1q(pW);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00090}00090         pIn += 4;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00091}00091         pW += 4;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00093}00093         accum1V = vfmaq(accum1V, inV, wV);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00094}00094         accum2V = vaddq(accum2V, wV);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00095}00095         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00096}00096     \}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00098}00098     accum1 = vecAddAcrossF16Mve(accum1V);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00099}00099     accum2 = vecAddAcrossF16Mve(accum2V);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00101}00101     blkCnt = blockSize \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00102}00102     \textcolor{keywordflow}{while}(blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00103}00103     \{}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00104}00104         accum1 += (\_Float16)*pIn++ * (\_Float16)*pW;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00105}00105         accum2 += (\_Float16)*pW++;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00106}00106         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00107}00107     \}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00110}00110     \textcolor{keywordflow}{return} (accum1 / accum2);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00111}00111 \}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00113}00113 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00115}00115 float16\_t arm\_weighted\_sum\_f16(\textcolor{keyword}{const} float16\_t *in, \textcolor{keyword}{const} float16\_t *weigths, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00116}00116 \{}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00118}00118     \_Float16 accum1, accum2;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00119}00119     \textcolor{keyword}{const} float16\_t *pIn, *pW;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00120}00120     uint32\_t blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00123}00123     pIn = in;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00124}00124     pW = weigths;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00126}00126     accum1=0.0f16;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00127}00127     accum2=0.0f16;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00129}00129     blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00130}00130     \textcolor{keywordflow}{while}(blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00131}00131     \{}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00132}00132         accum1 += (\_Float16)*pIn++ * (\_Float16)*pW;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00133}00133         accum2 += (\_Float16)*pW++;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00134}00134         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00135}00135     \}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00137}00137     \textcolor{keywordflow}{return}(accum1 / accum2);}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00138}00138 \}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00139}00139 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00145}00145 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{arm__weighted__sum__f16_8c_source_l00146}00146 }
+
+\end{DoxyCode}

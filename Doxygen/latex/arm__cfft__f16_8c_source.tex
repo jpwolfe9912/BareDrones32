@@ -1,0 +1,648 @@
+\hypertarget{arm__cfft__f16_8c_source}{}\doxysection{arm\+\_\+cfft\+\_\+f16.\+c}
+\label{arm__cfft__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_f16.c}}
+\mbox{\hyperlink{arm__cfft__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_cfft\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Combined Radix Decimation in Frequency CFFT Floating point processing function}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{transform__functions__f16_8h}{dsp/transform\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__common__tables__f16_8h}{arm\_common\_tables\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00033}00033 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00035}00035 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00036}00036 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__vec__fft_8h}{arm\_vec\_fft.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00037}00037 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__mve__tables__f16_8h}{arm\_mve\_tables\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00040}00040 \textcolor{keyword}{static} float16\_t arm\_inverse\_fft\_length\_f16(uint16\_t fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00041}00041 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00042}00042   float16\_t retValue=1.0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00044}00044   \textcolor{keywordflow}{switch} (fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00045}00045   \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00047}00047   \textcolor{keywordflow}{case} 4096U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00048}00048     retValue = (float16\_t)0.000244140625f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00049}00049     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00051}00051   \textcolor{keywordflow}{case} 2048U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00052}00052     retValue = (float16\_t)0.00048828125f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00053}00053     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00055}00055   \textcolor{keywordflow}{case} 1024U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00056}00056     retValue = (float16\_t)0.0009765625f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00057}00057     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00059}00059   \textcolor{keywordflow}{case} 512U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00060}00060     retValue = (float16\_t)0.001953125f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00061}00061     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00063}00063   \textcolor{keywordflow}{case} 256U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00064}00064     retValue = (float16\_t)0.00390625f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00065}00065     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00067}00067   \textcolor{keywordflow}{case} 128U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00068}00068     retValue = (float16\_t)0.0078125f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00069}00069     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00071}00071   \textcolor{keywordflow}{case} 64U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00072}00072     retValue = (float16\_t)0.015625f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00073}00073     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00075}00075   \textcolor{keywordflow}{case} 32U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00076}00076     retValue = (float16\_t)0.03125f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00077}00077     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00079}00079   \textcolor{keywordflow}{case} 16U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00080}00080     retValue = (float16\_t)0.0625f;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00081}00081     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00084}00084   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00085}00085     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00086}00086   \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00087}00087   \textcolor{keywordflow}{return}(retValue);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00091}00091 \textcolor{keyword}{static} \textcolor{keywordtype}{void} \_arm\_radix4\_butterfly\_f16\_mve(\textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S,float16\_t * pSrc, uint32\_t fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00092}00092 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00093}00093     f16x8\_t vecTmp0, vecTmp1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00094}00094     f16x8\_t vecSum0, vecDiff0, vecSum1, vecDiff1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00095}00095     f16x8\_t vecA, vecB, vecC, vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00096}00096     uint32\_t  blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00097}00097     uint32\_t  n1, n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00098}00098     uint32\_t  stage = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00099}00099     int32\_t  iter = 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00100}00100     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t strides[4] =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00101}00101        \{(0 -\/ 16) * \textcolor{keyword}{sizeof}(float16\_t *)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00102}00102        , (4 -\/ 16) * \textcolor{keyword}{sizeof}(float16\_t *)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00103}00103        , (8 -\/ 16) * \textcolor{keyword}{sizeof}(float16\_t *)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00104}00104        , (12 -\/ 16) * \textcolor{keyword}{sizeof}(float16\_t *)\};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00106}00106     n2 = fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00107}00107     n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00108}00108     n2 >>= 2u;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00109}00109     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = fftLen / 4u; k > 1; k >>= 2)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00110}00110     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00111}00111         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < iter; i++)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00112}00112         \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00113}00113             float16\_t \textcolor{keyword}{const}     *p\_rearranged\_twiddle\_tab\_stride1 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00114}00114                                 \&S-\/>rearranged\_twiddle\_stride1[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00115}00115                                 S-\/>rearranged\_twiddle\_tab\_stride1\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00116}00116             float16\_t \textcolor{keyword}{const}     *p\_rearranged\_twiddle\_tab\_stride2 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00117}00117                                 \&S-\/>rearranged\_twiddle\_stride2[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00118}00118                                 S-\/>rearranged\_twiddle\_tab\_stride2\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00119}00119             float16\_t \textcolor{keyword}{const}     *p\_rearranged\_twiddle\_tab\_stride3 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00120}00120                                 \&S-\/>rearranged\_twiddle\_stride3[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00121}00121                                 S-\/>rearranged\_twiddle\_tab\_stride3\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00122}00122             float16\_t \textcolor{keyword}{const}    *pW1, *pW2, *pW3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00123}00123             float16\_t           *inA = pSrc + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * i * n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00124}00124             float16\_t           *inB = inA + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00125}00125             float16\_t           *inC = inB + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00126}00126             float16\_t           *inD = inC + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00127}00127             f16x8\_t            vecW;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00130}00130             pW1 = p\_rearranged\_twiddle\_tab\_stride1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00131}00131             pW2 = p\_rearranged\_twiddle\_tab\_stride2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00132}00132             pW3 = p\_rearranged\_twiddle\_tab\_stride3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00133}00133 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00134}00134             blkCnt = n2 / 4;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00135}00135             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00136}00136 \textcolor{comment}{             * load 2 f16 complex pair}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00137}00137 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00138}00138             vecA = vldrhq\_f16(inA);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00139}00139             vecC = vldrhq\_f16(inC);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00140}00140             \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00141}00141             \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00142}00142                 vecB = vldrhq\_f16(inB);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00143}00143                 vecD = vldrhq\_f16(inD);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00145}00145                 vecSum0 = vecA + vecC;  \textcolor{comment}{/* vecSum0 = vaddq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00146}00146                 vecDiff0 = vecA -\/ vecC; \textcolor{comment}{/* vecSum0 = vsubq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00148}00148                 vecSum1 = vecB + vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00149}00149                 vecDiff1 = vecB -\/ vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00150}00150                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00151}00151 \textcolor{comment}{                 * [ 1 1 1 1 ] * [ A B C D ]' .* 1}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00152}00152 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00153}00153                 vecTmp0 = vecSum0 + vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00154}00154                 vst1q(inA, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00155}00155                 inA += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00157}00157                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00158}00158 \textcolor{comment}{                 * [ 1 -\/1 1 -\/1 ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00159}00159 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00160}00160                 vecTmp0 = vecSum0 -\/ vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00161}00161                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00162}00162 \textcolor{comment}{                 * [ 1 -\/1 1 -\/1 ] * [ A B C D ]'.* W2}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00163}00163 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00164}00164                 vecW = vld1q(pW2);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00165}00165                 pW2 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00166}00166                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_Conj\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00167}00167                 vst1q(inB, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00168}00168                 inB += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00170}00170                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00171}00171 \textcolor{comment}{                 * [ 1 -\/i -\/1 +i ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00172}00172 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00173}00173                 vecTmp0 = MVE\_CMPLX\_SUB\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00174}00174                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00175}00175 \textcolor{comment}{                 * [ 1 -\/i -\/1 +i ] * [ A B C D ]'.* W1}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00176}00176 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00177}00177                 vecW = vld1q(pW1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00178}00178                 pW1 +=8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00179}00179                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_Conj\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00180}00180                 vst1q(inC, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00181}00181                 inC += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00183}00183                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00184}00184 \textcolor{comment}{                 * [ 1 +i -\/1 -\/i ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00185}00185 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00186}00186                 vecTmp0 = MVE\_CMPLX\_ADD\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00187}00187                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00188}00188 \textcolor{comment}{                 * [ 1 +i -\/1 -\/i ] * [ A B C D ]'.* W3}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00189}00189 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00190}00190                 vecW = vld1q(pW3);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00191}00191                 pW3 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00192}00192                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_Conj\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00193}00193                 vst1q(inD, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00194}00194                 inD += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00196}00196                 vecA = vldrhq\_f16(inA);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00197}00197                 vecC = vldrhq\_f16(inC);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00198}00198 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00199}00199                 blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00200}00200             \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00201}00201         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00202}00202         n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00203}00203         n2 >>= 2u;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00204}00204         iter = iter << 2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00205}00205         stage++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00206}00206     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00208}00208     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00209}00209 \textcolor{comment}{     * start of Last stage process}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00210}00210 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00211}00211     uint32x4\_t vecScGathAddr = vld1q\_u32(strides);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00212}00212     vecScGathAddr = vecScGathAddr + (uint32\_t) pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00214}00214     \textcolor{comment}{/* load scheduling */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00215}00215     vecA = (f16x8\_t)vldrwq\_gather\_base\_wb\_f32(\&vecScGathAddr, 64);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00216}00216     vecC = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 8);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00218}00218     blkCnt = (fftLen >> 4);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00219}00219     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00220}00220     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00221}00221         vecSum0 = vecA + vecC;  \textcolor{comment}{/* vecSum0 = vaddq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00222}00222         vecDiff0 = vecA -\/ vecC; \textcolor{comment}{/* vecSum0 = vsubq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00224}00224         vecB = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 4);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00225}00225         vecD = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 12);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00227}00227         vecSum1 = vecB + vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00228}00228         vecDiff1 = vecB -\/ vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00230}00230         \textcolor{comment}{/* pre-\/load for next iteration */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00231}00231         vecA = (f16x8\_t)vldrwq\_gather\_base\_wb\_f32(\&vecScGathAddr, 64);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00232}00232         vecC = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 8);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00233}00233 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00234}00234         vecTmp0 = vecSum0 + vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00235}00235         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00237}00237         vecTmp0 = vecSum0 -\/ vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00238}00238         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 4, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00239}00239 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00240}00240         vecTmp0 = MVE\_CMPLX\_SUB\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00241}00241         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 8, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00243}00243         vecTmp0 = MVE\_CMPLX\_ADD\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00244}00244         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 12, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00246}00246         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00247}00247     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00249}00249     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00250}00250 \textcolor{comment}{     * End of last stage process}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00251}00251 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00252}00252 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00254}00254 \textcolor{keyword}{static} \textcolor{keywordtype}{void} arm\_cfft\_radix4by2\_f16\_mve(\textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S, float16\_t *pSrc, uint32\_t fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00255}00255 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00256}00256     float16\_t \textcolor{keyword}{const} *pCoefVec;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00257}00257     float16\_t \textcolor{keyword}{const}  *pCoef = S-\/>pTwiddle;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00258}00258     float16\_t        *pIn0, *pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00259}00259     uint32\_t          n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00260}00260     uint32\_t          blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00261}00261     f16x8\_t         vecIn0, vecIn1, vecSum, vecDiff;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00262}00262     f16x8\_t         vecCmplxTmp, vecTw;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00263}00263 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00265}00265     n2 = fftLen >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00266}00266     pIn0 = pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00267}00267     pIn1 = pSrc + fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00268}00268     pCoefVec = pCoef;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00270}00270     blkCnt = n2 / 4;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00271}00271     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00272}00272     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00273}00273         vecIn0 = *(f16x8\_t *) pIn0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00274}00274         vecIn1 = *(f16x8\_t *) pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00275}00275         vecTw = vld1q(pCoefVec);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00276}00276         pCoefVec += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00278}00278         vecSum = vaddq(vecIn0, vecIn1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00279}00279         vecDiff = vsubq(vecIn0, vecIn1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00280}00280 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00281}00281         vecCmplxTmp = MVE\_CMPLX\_MULT\_FLT\_Conj\_AxB(vecTw, vecDiff);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00282}00282 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00283}00283         vst1q(pIn0, vecSum);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00284}00284         pIn0 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00285}00285         vst1q(pIn1, vecCmplxTmp);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00286}00286         pIn1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00287}00287 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00288}00288         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00289}00289     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00291}00291     \_arm\_radix4\_butterfly\_f16\_mve(S, pSrc, n2);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00292}00292 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00293}00293     \_arm\_radix4\_butterfly\_f16\_mve(S, pSrc + fftLen, n2);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00295}00295     pIn0 = pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00296}00296 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00297}00297 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00298}00298 \textcolor{keyword}{static} \textcolor{keywordtype}{void} \_arm\_radix4\_butterfly\_inverse\_f16\_mve(\textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S,float16\_t * pSrc, uint32\_t fftLen, float16\_t onebyfftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00299}00299 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00300}00300     f16x8\_t vecTmp0, vecTmp1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00301}00301     f16x8\_t vecSum0, vecDiff0, vecSum1, vecDiff1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00302}00302     f16x8\_t vecA, vecB, vecC, vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00303}00303     f16x8\_t vecW;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00304}00304     uint32\_t  blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00305}00305     uint32\_t  n1, n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00306}00306     uint32\_t  stage = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00307}00307     int32\_t  iter = 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00308}00308     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t strides[4] = \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00309}00309         (0 -\/ 16) * \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} *),}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00310}00310         (4 -\/ 16) * \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} *),}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00311}00311         (8 -\/ 16) * \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} *),}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00312}00312         (12 -\/ 16) * \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} *)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00313}00313     \};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00315}00315     n2 = fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00316}00316     n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00317}00317     n2 >>= 2u;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00318}00318     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = fftLen / 4; k > 1; k >>= 2)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00319}00319     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00320}00320         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < iter; i++)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00321}00321         \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00322}00322             float16\_t \textcolor{keyword}{const} *p\_rearranged\_twiddle\_tab\_stride1 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00323}00323                     \&S-\/>rearranged\_twiddle\_stride1[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00324}00324                     S-\/>rearranged\_twiddle\_tab\_stride1\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00325}00325             float16\_t \textcolor{keyword}{const} *p\_rearranged\_twiddle\_tab\_stride2 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00326}00326                     \&S-\/>rearranged\_twiddle\_stride2[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00327}00327                     S-\/>rearranged\_twiddle\_tab\_stride2\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00328}00328             float16\_t \textcolor{keyword}{const} *p\_rearranged\_twiddle\_tab\_stride3 =}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00329}00329                     \&S-\/>rearranged\_twiddle\_stride3[}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00330}00330                     S-\/>rearranged\_twiddle\_tab\_stride3\_arr[stage]];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00331}00331             float16\_t \textcolor{keyword}{const} *pW1, *pW2, *pW3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00332}00332             float16\_t *inA = pSrc + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * i * n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00333}00333             float16\_t *inB = inA + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00334}00334             float16\_t *inC = inB + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00335}00335             float16\_t *inD = inC + n2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00337}00337             pW1 = p\_rearranged\_twiddle\_tab\_stride1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00338}00338             pW2 = p\_rearranged\_twiddle\_tab\_stride2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00339}00339             pW3 = p\_rearranged\_twiddle\_tab\_stride3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00341}00341             blkCnt = n2 / 4;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00342}00342             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00343}00343 \textcolor{comment}{             * load 2 f32 complex pair}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00344}00344 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00345}00345             vecA = vldrhq\_f16(inA);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00346}00346             vecC = vldrhq\_f16(inC);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00347}00347             \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00348}00348             \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00349}00349                 vecB = vldrhq\_f16(inB);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00350}00350                 vecD = vldrhq\_f16(inD);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00351}00351 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00352}00352                 vecSum0 = vecA + vecC;  \textcolor{comment}{/* vecSum0 = vaddq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00353}00353                 vecDiff0 = vecA -\/ vecC; \textcolor{comment}{/* vecSum0 = vsubq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00355}00355                 vecSum1 = vecB + vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00356}00356                 vecDiff1 = vecB -\/ vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00357}00357                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00358}00358 \textcolor{comment}{                 * [ 1 1 1 1 ] * [ A B C D ]' .* 1}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00359}00359 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00360}00360                 vecTmp0 = vecSum0 + vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00361}00361                 vst1q(inA, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00362}00362                 inA += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00363}00363                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00364}00364 \textcolor{comment}{                 * [ 1 -\/1 1 -\/1 ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00365}00365 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00366}00366                 vecTmp0 = vecSum0 -\/ vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00367}00367                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00368}00368 \textcolor{comment}{                 * [ 1 -\/1 1 -\/1 ] * [ A B C D ]'.* W1}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00369}00369 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00370}00370                 vecW = vld1q(pW2);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00371}00371                 pW2 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00372}00372                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00373}00373                 vst1q(inB, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00374}00374                 inB += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00375}00375 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00376}00376                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00377}00377 \textcolor{comment}{                 * [ 1 -\/i -\/1 +i ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00378}00378 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00379}00379                 vecTmp0 = MVE\_CMPLX\_ADD\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00380}00380                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00381}00381 \textcolor{comment}{                 * [ 1 -\/i -\/1 +i ] * [ A B C D ]'.* W2}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00382}00382 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00383}00383                 vecW = vld1q(pW1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00384}00384                 pW1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00385}00385                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00386}00386                 vst1q(inC, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00387}00387                 inC += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00388}00388 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00389}00389                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00390}00390 \textcolor{comment}{                 * [ 1 +i -\/1 -\/i ] * [ A B C D ]'}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00391}00391 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00392}00392                 vecTmp0 = MVE\_CMPLX\_SUB\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00393}00393                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00394}00394 \textcolor{comment}{                 * [ 1 +i -\/1 -\/i ] * [ A B C D ]'.* W3}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00395}00395 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00396}00396                 vecW = vld1q(pW3);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00397}00397                 pW3 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00398}00398                 vecTmp1 = MVE\_CMPLX\_MULT\_FLT\_AxB(vecW, vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00399}00399                 vst1q(inD, vecTmp1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00400}00400                 inD += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00401}00401 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00402}00402                 vecA = vldrhq\_f16(inA);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00403}00403                 vecC = vldrhq\_f16(inC);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00404}00404 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00405}00405                 blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00406}00406             \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00407}00407         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00408}00408         n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00409}00409         n2 >>= 2u;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00410}00410         iter = iter << 2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00411}00411         stage++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00412}00412     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00413}00413 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00414}00414     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00415}00415 \textcolor{comment}{     * start of Last stage process}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00416}00416 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00417}00417     uint32x4\_t vecScGathAddr = vld1q\_u32(strides);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00418}00418     vecScGathAddr = vecScGathAddr + (uint32\_t) pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00420}00420     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00421}00421 \textcolor{comment}{     * load scheduling}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00422}00422 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00423}00423     vecA = (f16x8\_t)vldrwq\_gather\_base\_wb\_f32(\&vecScGathAddr, 64);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00424}00424     vecC = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 8);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00425}00425 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00426}00426     blkCnt = (fftLen >> 4);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00427}00427     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00428}00428     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00429}00429         vecSum0 = vecA + vecC;  \textcolor{comment}{/* vecSum0 = vaddq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00430}00430         vecDiff0 = vecA -\/ vecC; \textcolor{comment}{/* vecSum0 = vsubq(vecA, vecC) */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00431}00431 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00432}00432         vecB = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 4);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00433}00433         vecD = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 12);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00434}00434 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00435}00435         vecSum1 = vecB + vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00436}00436         vecDiff1 = vecB -\/ vecD;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00437}00437 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00438}00438         vecA = (f16x8\_t)vldrwq\_gather\_base\_wb\_f32(\&vecScGathAddr, 64);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00439}00439         vecC = (f16x8\_t)vldrwq\_gather\_base\_f32(vecScGathAddr, 8);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00440}00440 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00441}00441         vecTmp0 = vecSum0 + vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00442}00442         vecTmp0 = vecTmp0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00443}00443         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00444}00444 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00445}00445         vecTmp0 = vecSum0 -\/ vecSum1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00446}00446         vecTmp0 = vecTmp0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00447}00447         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 4, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00448}00448 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00449}00449         vecTmp0 = MVE\_CMPLX\_ADD\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00450}00450         vecTmp0 = vecTmp0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00451}00451         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 8, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00452}00452 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00453}00453         vecTmp0 = MVE\_CMPLX\_SUB\_A\_ixB(vecDiff0, vecDiff1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00454}00454         vecTmp0 = vecTmp0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00455}00455         vstrwq\_scatter\_base\_f32(vecScGathAddr, -\/64 + 12, (f32x4\_t)vecTmp0);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00456}00456 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00457}00457         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00458}00458     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00459}00459 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00460}00460     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00461}00461 \textcolor{comment}{     * End of last stage process}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00462}00462 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00463}00463 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00464}00464 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00465}00465 \textcolor{keyword}{static} \textcolor{keywordtype}{void} arm\_cfft\_radix4by2\_inverse\_f16\_mve(\textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S,float16\_t *pSrc, uint32\_t fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00466}00466 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00467}00467     float16\_t \textcolor{keyword}{const} *pCoefVec;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00468}00468     float16\_t \textcolor{keyword}{const}  *pCoef = S-\/>pTwiddle;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00469}00469     float16\_t        *pIn0, *pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00470}00470     uint32\_t          n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00471}00471     float16\_t         onebyfftLen = arm\_inverse\_fft\_length\_f16(fftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00472}00472     uint32\_t          blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00473}00473     f16x8\_t         vecIn0, vecIn1, vecSum, vecDiff;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00474}00474     f16x8\_t         vecCmplxTmp, vecTw;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00475}00475 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00476}00476 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00477}00477     n2 = fftLen >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00478}00478     pIn0 = pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00479}00479     pIn1 = pSrc + fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00480}00480     pCoefVec = pCoef;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00481}00481 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00482}00482     blkCnt = n2 / 4;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00483}00483     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00484}00484     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00485}00485         vecIn0 = *(f16x8\_t *) pIn0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00486}00486         vecIn1 = *(f16x8\_t *) pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00487}00487         vecTw = vld1q(pCoefVec);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00488}00488         pCoefVec += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00489}00489 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00490}00490         vecSum = vaddq(vecIn0, vecIn1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00491}00491         vecDiff = vsubq(vecIn0, vecIn1);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00492}00492 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00493}00493         vecCmplxTmp = MVE\_CMPLX\_MULT\_FLT\_AxB(vecTw, vecDiff);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00494}00494 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00495}00495         vst1q(pIn0, vecSum);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00496}00496         pIn0 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00497}00497         vst1q(pIn1, vecCmplxTmp);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00498}00498         pIn1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00499}00499 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00500}00500         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00501}00501     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00502}00502 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00503}00503     \_arm\_radix4\_butterfly\_inverse\_f16\_mve(S, pSrc, n2, onebyfftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00504}00504 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00505}00505     \_arm\_radix4\_butterfly\_inverse\_f16\_mve(S, pSrc + fftLen, n2, onebyfftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00506}00506 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00507}00507 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00508}00508 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00528}00528 \textcolor{keywordtype}{void} arm\_cfft\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00529}00529   \textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00530}00530         float16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00531}00531         uint8\_t ifftFlag,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00532}00532         uint8\_t bitReverseFlag)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00533}00533 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00534}00534         uint32\_t fftLen = S-\/>fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00535}00535 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00536}00536         \textcolor{keywordflow}{if} (ifftFlag == 1U) \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00537}00537 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00538}00538             \textcolor{keywordflow}{switch} (fftLen) \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00539}00539             \textcolor{keywordflow}{case} 16:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00540}00540             \textcolor{keywordflow}{case} 64:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00541}00541             \textcolor{keywordflow}{case} 256:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00542}00542             \textcolor{keywordflow}{case} 1024:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00543}00543             \textcolor{keywordflow}{case} 4096:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00544}00544                 \_arm\_radix4\_butterfly\_inverse\_f16\_mve(S, pSrc, fftLen, arm\_inverse\_fft\_length\_f16(S-\/>fftLen));}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00545}00545                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00546}00546 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00547}00547             \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00548}00548             \textcolor{keywordflow}{case} 128:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00549}00549             \textcolor{keywordflow}{case} 512:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00550}00550             \textcolor{keywordflow}{case} 2048:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00551}00551                 arm\_cfft\_radix4by2\_inverse\_f16\_mve(S, pSrc, fftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00552}00552                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00553}00553             \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00554}00554         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00555}00555             \textcolor{keywordflow}{switch} (fftLen) \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00556}00556             \textcolor{keywordflow}{case} 16:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00557}00557             \textcolor{keywordflow}{case} 64:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00558}00558             \textcolor{keywordflow}{case} 256:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00559}00559             \textcolor{keywordflow}{case} 1024:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00560}00560             \textcolor{keywordflow}{case} 4096:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00561}00561                 \_arm\_radix4\_butterfly\_f16\_mve(S, pSrc, fftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00562}00562                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00563}00563 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00564}00564             \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00565}00565             \textcolor{keywordflow}{case} 128:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00566}00566             \textcolor{keywordflow}{case} 512:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00567}00567             \textcolor{keywordflow}{case} 2048:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00568}00568                 arm\_cfft\_radix4by2\_f16\_mve(S, pSrc, fftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00569}00569                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00570}00570             \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00571}00571         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00572}00572 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00573}00573 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00574}00574         \textcolor{keywordflow}{if} (bitReverseFlag)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00575}00575         \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00576}00576 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00577}00577             arm\_bitreversal\_16\_inpl\_mve((uint16\_t*)pSrc, S-\/>bitRevLength, S-\/>pBitRevTable);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00578}00578 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00579}00579         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00580}00580 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00581}00581 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00582}00582 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00583}00583 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00584}00584 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00585}00585 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00586}00586 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__bitreversal2_8c_af39358a8b7645d00180115d5009db286}{arm\_bitreversal\_16}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00587}00587         uint16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00588}00588   \textcolor{keyword}{const} uint16\_t bitRevLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00589}00589   \textcolor{keyword}{const} uint16\_t * pBitRevTable);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00590}00590 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00591}00591 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00592}00592 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} arm\_cfft\_radix4by2\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00593}00593     float16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00594}00594     uint32\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00595}00595     \textcolor{keyword}{const} float16\_t * pCoef);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00596}00596 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00597}00597 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} arm\_radix4\_butterfly\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00598}00598         float16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00599}00599         uint16\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00600}00600   \textcolor{keyword}{const} float16\_t * pCoef,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00601}00601         uint16\_t twidCoefModifier);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00602}00602 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00781}00781 \textcolor{keywordtype}{void} arm\_cfft\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00782}00782     \textcolor{keyword}{const} arm\_cfft\_instance\_f16 * S,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00783}00783     float16\_t * p1,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00784}00784     uint8\_t ifftFlag,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00785}00785     uint8\_t bitReverseFlag)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00786}00786 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00787}00787     uint32\_t  L = S-\/>fftLen, l;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00788}00788     float16\_t invL, * pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00789}00789 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00790}00790     \textcolor{keywordflow}{if} (ifftFlag == 1U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00791}00791     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00792}00792         \textcolor{comment}{/*  Conjugate input data  */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00793}00793         pSrc = p1 + 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00794}00794         \textcolor{keywordflow}{for}(l=0; l<L; l++)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00795}00795         \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00796}00796             *pSrc = -\/*pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00797}00797             pSrc += 2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00798}00798         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00799}00799     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00800}00800 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00801}00801     \textcolor{keywordflow}{switch} (L)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00802}00802     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00803}00803 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00804}00804         \textcolor{keywordflow}{case} 16:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00805}00805         \textcolor{keywordflow}{case} 64:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00806}00806         \textcolor{keywordflow}{case} 256:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00807}00807         \textcolor{keywordflow}{case} 1024:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00808}00808         \textcolor{keywordflow}{case} 4096:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00809}00809         arm\_radix4\_butterfly\_f16  (p1, L, (float16\_t*)S-\/>pTwiddle, 1U);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00810}00810         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00811}00811 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00812}00812         \textcolor{keywordflow}{case} 32:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00813}00813         \textcolor{keywordflow}{case} 128:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00814}00814         \textcolor{keywordflow}{case} 512:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00815}00815         \textcolor{keywordflow}{case} 2048:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00816}00816         arm\_cfft\_radix4by2\_f16  ( p1, L, (float16\_t*)S-\/>pTwiddle);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00817}00817         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00818}00818 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00819}00819     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00820}00820 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00821}00821     \textcolor{keywordflow}{if} ( bitReverseFlag )}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00822}00822         \mbox{\hyperlink{arm__bitreversal2_8c_af39358a8b7645d00180115d5009db286}{arm\_bitreversal\_16}}((uint16\_t*)p1, S-\/>bitRevLength,(uint16\_t*)S-\/>pBitRevTable);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00823}00823 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00824}00824     \textcolor{keywordflow}{if} (ifftFlag == 1U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00825}00825     \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00826}00826         invL = 1.0f/(float16\_t)L;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00827}00827         \textcolor{comment}{/*  Conjugate and scale output data */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00828}00828         pSrc = p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00829}00829         \textcolor{keywordflow}{for}(l=0; l<L; l++)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00830}00830         \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00831}00831             *pSrc++ *=   invL ;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00832}00832             *pSrc  = -\/(*pSrc) * invL;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00833}00833             pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00834}00834         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00835}00835     \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00836}00836 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00837}00837 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00838}00838 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__f16_8c_source_l00839}00839 }
+
+\end{DoxyCode}

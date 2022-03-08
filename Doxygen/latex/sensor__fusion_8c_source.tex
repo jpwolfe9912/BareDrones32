@@ -1,0 +1,127 @@
+\hypertarget{sensor__fusion_8c_source}{}\doxysection{sensor\+\_\+fusion.\+c}
+\label{sensor__fusion_8c_source}\index{Autodrone32/Src/sensors/sensor\_fusion.c@{Autodrone32/Src/sensors/sensor\_fusion.c}}
+\mbox{\hyperlink{sensor__fusion_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00012}00012 \textcolor{comment}{/* Defines */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00013}00013 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00015}00015 \textcolor{comment}{/* Static Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00016}00016 \textcolor{keyword}{static} \textcolor{keywordtype}{float} invSqrt(\textcolor{keywordtype}{float} x);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00018}00018 \textcolor{comment}{/* Functions */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00020}00020 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00021}\mbox{\hyperlink{sensor__fusion_8c_ac8dc50fbcbc0f076fd8239217094c5ee}{00021}} \mbox{\hyperlink{sensor__fusion_8c_ac8dc50fbcbc0f076fd8239217094c5ee}{madgwickInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00022}00022 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00023}00023     printf(\textcolor{stringliteral}{"{}\(\backslash\)nInitializing Madwick Sensor Fusion\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00025}00025     \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} = \mbox{\hyperlink{sensor__fusion_8h_ab51f159bf643224a2bc1d7027fb00d62}{betaDef}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00026}00026     \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} = 1.0f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00027}00027     \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} = 0.0f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00028}00028     \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} = 0.0f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00029}00029     \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} = 0.0f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00030}00030     \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}} = 1.0f / \mbox{\hyperlink{sensor__fusion_8h_a7cd0e552113fbeccd2434218d28e4522}{sampleFreqDef}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00031}00031     \mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}} = 0;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00032}00032 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00034}00034 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00035}\mbox{\hyperlink{sensor__fusion_8c_a1f31885b70f52713de86df45af82aea5}{00035}} \mbox{\hyperlink{sensor__fusion_8c_a1f31885b70f52713de86df45af82aea5}{updateIMU}}(\textcolor{keywordtype}{float} gx, \textcolor{keywordtype}{float} gy, \textcolor{keywordtype}{float} gz, \textcolor{keywordtype}{float} ax, \textcolor{keywordtype}{float} ay, \textcolor{keywordtype}{float} az)}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00036}00036 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00037}00037     \textcolor{keywordtype}{float} recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00038}00038     \textcolor{keywordtype}{float} s0, s1, s2, s3;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00039}00039     \textcolor{keywordtype}{float} qDot1, qDot2, qDot3, qDot4;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00040}00040     \textcolor{keywordtype}{float} \_2q0, \_2q1, \_2q2, \_2q3, \_4q0, \_4q1, \_4q2 ,\_8q1, \_8q2, q0q0, q1q1, q2q2, q3q3;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00042}00042     \textcolor{comment}{// Rate of change of quaternion from gyroscope}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00043}00043     qDot1 = 0.5f * (-\/\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} * gx -\/ \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} * gy -\/ \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} * gz);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00044}00044     qDot2 = 0.5f * (\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} * gx + \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} * gz -\/ \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} * gy);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00045}00045     qDot3 = 0.5f * (\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} * gy -\/ \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} * gz + \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} * gx);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00046}00046     qDot4 = 0.5f * (\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} * gz + \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} * gy -\/ \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} * gx);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00048}00048     \textcolor{comment}{// Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00049}00049     \textcolor{keywordflow}{if}(!((ax == 0.0f) \&\& (ay == 0.0f) \&\& (az == 0.0f))) \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00051}00051         \textcolor{comment}{// Normalise accelerometer measurement}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00052}00052         recipNorm = invSqrt(ax * ax + ay * ay + az * az);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00053}00053         ax *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00054}00054         ay *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00055}00055         az *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00057}00057         \textcolor{comment}{// Auxiliary variables to avoid repeated arithmetic}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00058}00058         \_2q0 = 2.0f * \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00059}00059         \_2q1 = 2.0f * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00060}00060         \_2q2 = 2.0f * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00061}00061         \_2q3 = 2.0f * \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00062}00062         \_4q0 = 4.0f * \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00063}00063         \_4q1 = 4.0f * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00064}00064         \_4q2 = 4.0f * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00065}00065         \_8q1 = 8.0f * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00066}00066         \_8q2 = 8.0f * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00067}00067         q0q0 = \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} * \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00068}00068         q1q1 = \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00069}00069         q2q2 = \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00070}00070         q3q3 = \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} * \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00072}00072         \textcolor{comment}{// Gradient decent algorithm corrective step}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00073}00073         s0 = \_4q0 * q2q2 + \_2q2 * ax + \_4q0 * q1q1 -\/ \_2q1 * ay;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00074}00074         s1 = \_4q1 * q3q3 -\/ \_2q3 * ax + 4.0f * q0q0 * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} -\/ \_2q0 * ay -\/ \_4q1 + \_8q1 * q1q1 + \_8q1 * q2q2 + \_4q1 * az;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00075}00075         s2 = 4.0f * q0q0 * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} + \_2q0 * ax + \_4q2 * q3q3 -\/ \_2q3 * ay -\/ \_4q2 + \_8q2 * q1q1 + \_8q2 * q2q2 + \_4q2 * az;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00076}00076         s3 = 4.0f * q1q1 * \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} -\/ \_2q1 * ax + 4.0f * q2q2 * \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} -\/ \_2q2 * ay;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00077}00077         recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); \textcolor{comment}{// normalise step magnitude}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00078}00078         s0 *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00079}00079         s1 *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00080}00080         s2 *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00081}00081         s3 *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00083}00083         \textcolor{comment}{// Apply feedback step}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00084}00084         qDot1 -\/= \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} * s0;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00085}00085         qDot2 -\/= \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} * s1;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00086}00086         qDot3 -\/= \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} * s2;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00087}00087         qDot4 -\/= \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} * s3;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00090}00090     \textcolor{comment}{// Integrate rate of change of quaternion to yield quaternion}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00091}00091     \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} += qDot1 * \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00092}00092     \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} += qDot2 * \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00093}00093     \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} += qDot3 * \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00094}00094     \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} += qDot4 * \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00096}00096     \textcolor{comment}{// Normalise quaternion}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00097}00097     recipNorm = invSqrt(\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} * \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} + \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} * \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} + \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} * \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} + \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} * \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00098}00098     \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}} *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00099}00099     \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00100}00100     \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00101}00101     \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} *= recipNorm;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00102}00102     \mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}} = 0;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00103}00103 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00105}00105 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00106}00106 \textcolor{comment}{// Fast inverse square-\/root}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00107}00107 \textcolor{comment}{// See: http://en.wikipedia.org/wiki/Fast\_inverse\_square\_root}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00109}00109 \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00110}00110 invSqrt(\textcolor{keywordtype}{float} x)}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00111}00111 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00112}00112     \textcolor{keywordtype}{float} halfx = 0.5f * x;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00113}00113     \textcolor{keywordtype}{float} y = x;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00114}00114     \textcolor{keywordtype}{long} i = *(\textcolor{keywordtype}{long}*)\&y;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00115}00115     i = 0x5f3759df -\/ (i>>1);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00116}00116     y = *(\textcolor{keywordtype}{float}*)\&i;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00117}00117     y = y * (1.5f -\/ (halfx * y * y));}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00118}00118     y = y * (1.5f -\/ (halfx * y * y));}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00119}00119     \textcolor{keywordflow}{return} y;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00120}00120 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00122}00122 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00124}00124 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00125}\mbox{\hyperlink{sensor__fusion_8c_a7b14436407f3a952572f288543075e4d}{00125}} \mbox{\hyperlink{sensor__fusion_8c_a7b14436407f3a952572f288543075e4d}{computeAngles}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00126}00126 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00127}00127     \mbox{\hyperlink{sensor__fusion_8h_a26fd84d522945b6038221d9e38c7cc39}{roll}} = atan2f(\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}}*\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} + \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}}*\mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}}, 0.5f -\/ \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}}*\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}} -\/ \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}}*\mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00128}00128     \mbox{\hyperlink{sensor__fusion_8h_a282e7d4378d4a18a805b8980295ac86c}{pitch}} = asinf(-\/2.0f * (\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}}*\mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}} -\/ \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}}*\mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}}));}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00129}00129     \mbox{\hyperlink{sensor__fusion_8h_a7efc219781df4a1e281cb5d348b7fbf9}{yaw}} = atan2f(\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}}*\mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} + \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}}*\mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}}, 0.5f -\/ \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}}*\mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}} -\/ \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}}*\mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00130}00130     \mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}} = 1;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8c_source_l00131}00131 \}}
+
+\end{DoxyCode}

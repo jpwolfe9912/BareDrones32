@@ -123,7 +123,7 @@ spi1Init(void)
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_MSIZE;
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_PSIZE;
 	DMA2_Stream0->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream0->CR 	|= DMA_SxCR_PL_0;
+	DMA2_Stream0->CR 	|= DMA_SxCR_PL;
 	// DMA transfer complete interrupt enable
 	DMA2_Stream0->CR 	|= DMA_SxCR_TCIE;
 	// TX DMA settings
@@ -141,7 +141,7 @@ spi1Init(void)
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_MSIZE;
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_PSIZE;
 	DMA2_Stream3->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream3->CR 	|= DMA_SxCR_PL_0;
+	DMA2_Stream3->CR 	|= DMA_SxCR_PL;
 	// DMA transfer complete interrupt enable
 	DMA2_Stream3->CR 	|= DMA_SxCR_TCIE;
 	/* USER CODE END SPI1_Init 0 */

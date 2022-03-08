@@ -1,0 +1,109 @@
+\hypertarget{group___r_m_s}{}\doxysection{Root mean square (RMS)}
+\label{group___r_m_s}\index{Root mean square (RMS)@{Root mean square (RMS)}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___r_m_s_gaeb487e726e3755a7614a29c9d16a93e7}{arm\+\_\+rms\+\_\+f32}} (const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t block\+Size, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Result)
+\begin{DoxyCompactList}\small\item\em Root Mean Square of the elements of a floating-\/point vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_m_s_ga8be796318d41c7cbb68f8f3c0b96020f}{arm\+\_\+rms\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t block\+Size, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Result)
+\begin{DoxyCompactList}\small\item\em Root Mean Square of the elements of a Q15 vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_m_s_ga20586bc59cabbfc38a935c2448833dd2}{arm\+\_\+rms\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t block\+Size, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Result)
+\begin{DoxyCompactList}\small\item\em Root Mean Square of the elements of a Q31 vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Calculates the Root Mean Square of the elements in the input vector. The underlying algorithm is used\+:
+
+
+\begin{DoxyPre}
+    Result = sqrt(((pSrc[0] * pSrc[0] + pSrc[1] * pSrc[1] + ... + pSrc[blockSize-\/1] * pSrc[blockSize-\/1]) / blockSize));
+\end{DoxyPre}
+
+
+There are separate functions for floating point, Q31, and Q15 data types. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___r_m_s_gaeb487e726e3755a7614a29c9d16a93e7}\label{group___r_m_s_gaeb487e726e3755a7614a29c9d16a93e7}} 
+\index{Root mean square (RMS)@{Root mean square (RMS)}!arm\_rms\_f32@{arm\_rms\_f32}}
+\index{arm\_rms\_f32@{arm\_rms\_f32}!Root mean square (RMS)@{Root mean square (RMS)}}
+\doxysubsubsection{\texorpdfstring{arm\_rms\_f32()}{arm\_rms\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+rms\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{block\+Size,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Result }\end{DoxyParamCaption})}
+
+
+
+Root Mean Square of the elements of a floating-\/point vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Result} & root mean square value returned here \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__rms__f32_8c_source_l00127}{127}} of file \mbox{\hyperlink{arm__rms__f32_8c_source}{arm\+\_\+rms\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___r_m_s_ga8be796318d41c7cbb68f8f3c0b96020f}\label{group___r_m_s_ga8be796318d41c7cbb68f8f3c0b96020f}} 
+\index{Root mean square (RMS)@{Root mean square (RMS)}!arm\_rms\_q15@{arm\_rms\_q15}}
+\index{arm\_rms\_q15@{arm\_rms\_q15}!Root mean square (RMS)@{Root mean square (RMS)}}
+\doxysubsubsection{\texorpdfstring{arm\_rms\_q15()}{arm\_rms\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+rms\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{block\+Size,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Result }\end{DoxyParamCaption})}
+
+
+
+Root Mean Square of the elements of a Q15 vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Result} & root mean square value returned here \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function is implemented using a 64-\/bit internal accumulator. The input is represented in 1.\+15 format. Intermediate multiplication yields a 2.\+30 format, and this result is added without saturation to a 64-\/bit accumulator in 34.\+30 format. With 33 guard bits in the accumulator, there is no risk of overflow, and the full precision of the intermediate multiplication is preserved. Finally, the 34.\+30 result is truncated to 34.\+15 format by discarding the lower 15 bits, and then saturated to yield a result in 1.\+15 format. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__rms__q15_8c_source_l00072}{72}} of file \mbox{\hyperlink{arm__rms__q15_8c_source}{arm\+\_\+rms\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group___r_m_s_ga20586bc59cabbfc38a935c2448833dd2}\label{group___r_m_s_ga20586bc59cabbfc38a935c2448833dd2}} 
+\index{Root mean square (RMS)@{Root mean square (RMS)}!arm\_rms\_q31@{arm\_rms\_q31}}
+\index{arm\_rms\_q31@{arm\_rms\_q31}!Root mean square (RMS)@{Root mean square (RMS)}}
+\doxysubsubsection{\texorpdfstring{arm\_rms\_q31()}{arm\_rms\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+rms\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{block\+Size,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Result }\end{DoxyParamCaption})}
+
+
+
+Root Mean Square of the elements of a Q31 vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Result} & root mean square value returned here \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function is implemented using an internal 64-\/bit accumulator. The input is represented in 1.\+31 format, and intermediate multiplication yields a 2.\+62 format. The accumulator maintains full precision of the intermediate multiplication results, but provides only a single guard bit. There is no saturation on intermediate additions. If the accumulator overflows, it wraps around and distorts the result. In order to avoid overflows completely, the input signal must be scaled down by log2(block\+Size) bits, as a total of block\+Size additions are performed internally. Finally, the 2.\+62 accumulator is right shifted by 31 bits to yield a 1.\+31 format value. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__rms__q31_8c_source_l00076}{76}} of file \mbox{\hyperlink{arm__rms__q31_8c_source}{arm\+\_\+rms\+\_\+q31.\+c}}.
+

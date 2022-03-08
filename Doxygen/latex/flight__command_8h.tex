@@ -1,0 +1,228 @@
+\hypertarget{flight__command_8h}{}\doxysection{Autodrone32/\+Src/flight\+\_\+command.h File Reference}
+\label{flight__command_8h}\index{Autodrone32/Src/flight\_command.h@{Autodrone32/Src/flight\_command.h}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}~24
+\item 
+\#define \mbox{\hyperlink{flight__command_8h_aff2db53de34ab9f0f712f2cdef478882}{DEADBAND\+\_\+\+SLOPE}}~(1000/(1000-\/\mbox{\hyperlink{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}))
+\item 
+\#define \mbox{\hyperlink{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}{ALT\+\_\+\+DEADBAND}}~200
+\item 
+\#define \mbox{\hyperlink{flight__command_8h_abde289a36c7acca8016f10eb346fab3e}{ALT\+\_\+\+DEADBAND\+\_\+\+SLOPE}}~(1000/(1000-\/\mbox{\hyperlink{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}{ALT\+\_\+\+DEADBAND}}))
+\item 
+\#define \mbox{\hyperlink{flight__command_8h_af8761c64817a68293f3ed254464d81c7}{THROTTLE\+\_\+\+WINDOW}}~48
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{flight__command_8h_a9cd2a65048398c923b5603a2ce46b2a2}{process\+Flight\+Commands}} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{flight__command_8h_ae767c84bb0f764c266954094c2869142}{rx\+Command}} \mbox{[}12\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_aa7ec4b36be7336ea09ed4944e3029c78}{command\+In\+Detent}} \mbox{[}3\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_afba620164d81adc771510752f70e7cc8}{previous\+Command\+In\+Detent}} \mbox{[}3\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_ad58d530e3f054c8c8d45a203c46a3d5e}{channel\+Order}} \mbox{[}12\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_a37e90f5e3bd99fac2021fb3a326607d4}{mode}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_aa5e0dd4f5a127ad9b7df7da86f717820}{heading\+Hold\+Engaged}}
+\item 
+\mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} \mbox{\hyperlink{flight__command_8h_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_aa17cd4729b354f25c53300d973288213}{arming\+Timer}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_abaaaab74a851da13a44ccd63988196cc}{disarming\+Timer}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_a2594cb793ee3ec9f0113f5fc28951451}{vertical\+Mode\+State}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{flight__command_8h_a4270f800c12dfc01db1f8e9e60af4095}{vert\+Ref\+Cmd\+In\+Detent}}
+\item 
+float \mbox{\hyperlink{flight__command_8h_a79ae4259b91c06c5a05004cbc3ae5def}{vertical\+Reference\+Command}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}\label{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}} 
+\index{flight\_command.h@{flight\_command.h}!ALT\_DEADBAND@{ALT\_DEADBAND}}
+\index{ALT\_DEADBAND@{ALT\_DEADBAND}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{ALT\_DEADBAND}{ALT\_DEADBAND}}
+{\footnotesize\ttfamily \#define ALT\+\_\+\+DEADBAND~200}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8h_source_l00046}{46}} of file \mbox{\hyperlink{flight__command_8h_source}{flight\+\_\+command.\+h}}.
+
+\mbox{\Hypertarget{flight__command_8h_abde289a36c7acca8016f10eb346fab3e}\label{flight__command_8h_abde289a36c7acca8016f10eb346fab3e}} 
+\index{flight\_command.h@{flight\_command.h}!ALT\_DEADBAND\_SLOPE@{ALT\_DEADBAND\_SLOPE}}
+\index{ALT\_DEADBAND\_SLOPE@{ALT\_DEADBAND\_SLOPE}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{ALT\_DEADBAND\_SLOPE}{ALT\_DEADBAND\_SLOPE}}
+{\footnotesize\ttfamily \#define ALT\+\_\+\+DEADBAND\+\_\+\+SLOPE~(1000/(1000-\/\mbox{\hyperlink{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}{ALT\+\_\+\+DEADBAND}}))}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8h_source_l00047}{47}} of file \mbox{\hyperlink{flight__command_8h_source}{flight\+\_\+command.\+h}}.
+
+\mbox{\Hypertarget{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}\label{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}} 
+\index{flight\_command.h@{flight\_command.h}!DEADBAND@{DEADBAND}}
+\index{DEADBAND@{DEADBAND}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{DEADBAND}{DEADBAND}}
+{\footnotesize\ttfamily \#define DEADBAND~24}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8h_source_l00043}{43}} of file \mbox{\hyperlink{flight__command_8h_source}{flight\+\_\+command.\+h}}.
+
+\mbox{\Hypertarget{flight__command_8h_aff2db53de34ab9f0f712f2cdef478882}\label{flight__command_8h_aff2db53de34ab9f0f712f2cdef478882}} 
+\index{flight\_command.h@{flight\_command.h}!DEADBAND\_SLOPE@{DEADBAND\_SLOPE}}
+\index{DEADBAND\_SLOPE@{DEADBAND\_SLOPE}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{DEADBAND\_SLOPE}{DEADBAND\_SLOPE}}
+{\footnotesize\ttfamily \#define DEADBAND\+\_\+\+SLOPE~(1000/(1000-\/\mbox{\hyperlink{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}))}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8h_source_l00044}{44}} of file \mbox{\hyperlink{flight__command_8h_source}{flight\+\_\+command.\+h}}.
+
+\mbox{\Hypertarget{flight__command_8h_af8761c64817a68293f3ed254464d81c7}\label{flight__command_8h_af8761c64817a68293f3ed254464d81c7}} 
+\index{flight\_command.h@{flight\_command.h}!THROTTLE\_WINDOW@{THROTTLE\_WINDOW}}
+\index{THROTTLE\_WINDOW@{THROTTLE\_WINDOW}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{THROTTLE\_WINDOW}{THROTTLE\_WINDOW}}
+{\footnotesize\ttfamily \#define THROTTLE\+\_\+\+WINDOW~48}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8h_source_l00049}{49}} of file \mbox{\hyperlink{flight__command_8h_source}{flight\+\_\+command.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{flight__command_8h_a9cd2a65048398c923b5603a2ce46b2a2}\label{flight__command_8h_a9cd2a65048398c923b5603a2ce46b2a2}} 
+\index{flight\_command.h@{flight\_command.h}!processFlightCommands@{processFlightCommands}}
+\index{processFlightCommands@{processFlightCommands}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{processFlightCommands()}{processFlightCommands()}}
+{\footnotesize\ttfamily void process\+Flight\+Commands (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00084}{84}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{flight__command_8h_a8a1c07a2b10dfb3f7633b8db1d1dac4a}\label{flight__command_8h_a8a1c07a2b10dfb3f7633b8db1d1dac4a}} 
+\index{flight\_command.h@{flight\_command.h}!armed@{armed}}
+\index{armed@{armed}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{armed}{armed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} armed\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00062}{62}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_aa17cd4729b354f25c53300d973288213}\label{flight__command_8h_aa17cd4729b354f25c53300d973288213}} 
+\index{flight\_command.h@{flight\_command.h}!armingTimer@{armingTimer}}
+\index{armingTimer@{armingTimer}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{armingTimer}{armingTimer}}
+{\footnotesize\ttfamily uint8\+\_\+t arming\+Timer\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00063}{63}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_ad58d530e3f054c8c8d45a203c46a3d5e}\label{flight__command_8h_ad58d530e3f054c8c8d45a203c46a3d5e}} 
+\index{flight\_command.h@{flight\_command.h}!channelOrder@{channelOrder}}
+\index{channelOrder@{channelOrder}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{channelOrder}{channelOrder}}
+{\footnotesize\ttfamily uint8\+\_\+t channel\+Order\mbox{[}12\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{flight__command_8h_aa7ec4b36be7336ea09ed4944e3029c78}\label{flight__command_8h_aa7ec4b36be7336ea09ed4944e3029c78}} 
+\index{flight\_command.h@{flight\_command.h}!commandInDetent@{commandInDetent}}
+\index{commandInDetent@{commandInDetent}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{commandInDetent}{commandInDetent}}
+{\footnotesize\ttfamily uint8\+\_\+t command\+In\+Detent\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00045}{45}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_abaaaab74a851da13a44ccd63988196cc}\label{flight__command_8h_abaaaab74a851da13a44ccd63988196cc}} 
+\index{flight\_command.h@{flight\_command.h}!disarmingTimer@{disarmingTimer}}
+\index{disarmingTimer@{disarmingTimer}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{disarmingTimer}{disarmingTimer}}
+{\footnotesize\ttfamily uint8\+\_\+t disarming\+Timer\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00064}{64}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_aa5e0dd4f5a127ad9b7df7da86f717820}\label{flight__command_8h_aa5e0dd4f5a127ad9b7df7da86f717820}} 
+\index{flight\_command.h@{flight\_command.h}!headingHoldEngaged@{headingHoldEngaged}}
+\index{headingHoldEngaged@{headingHoldEngaged}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{headingHoldEngaged}{headingHoldEngaged}}
+{\footnotesize\ttfamily uint8\+\_\+t heading\+Hold\+Engaged\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00056}{56}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_a37e90f5e3bd99fac2021fb3a326607d4}\label{flight__command_8h_a37e90f5e3bd99fac2021fb3a326607d4}} 
+\index{flight\_command.h@{flight\_command.h}!mode@{mode}}
+\index{mode@{mode}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily uint8\+\_\+t mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00054}{54}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_afba620164d81adc771510752f70e7cc8}\label{flight__command_8h_afba620164d81adc771510752f70e7cc8}} 
+\index{flight\_command.h@{flight\_command.h}!previousCommandInDetent@{previousCommandInDetent}}
+\index{previousCommandInDetent@{previousCommandInDetent}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{previousCommandInDetent}{previousCommandInDetent}}
+{\footnotesize\ttfamily uint8\+\_\+t previous\+Command\+In\+Detent\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00046}{46}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_ae767c84bb0f764c266954094c2869142}\label{flight__command_8h_ae767c84bb0f764c266954094c2869142}} 
+\index{flight\_command.h@{flight\_command.h}!rxCommand@{rxCommand}}
+\index{rxCommand@{rxCommand}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{rxCommand}{rxCommand}}
+{\footnotesize\ttfamily float rx\+Command\mbox{[}12\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{flight__command_8h_a2594cb793ee3ec9f0113f5fc28951451}\label{flight__command_8h_a2594cb793ee3ec9f0113f5fc28951451}} 
+\index{flight\_command.h@{flight\_command.h}!verticalModeState@{verticalModeState}}
+\index{verticalModeState@{verticalModeState}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{verticalModeState}{verticalModeState}}
+{\footnotesize\ttfamily uint8\+\_\+t vertical\+Mode\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00070}{70}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_a79ae4259b91c06c5a05004cbc3ae5def}\label{flight__command_8h_a79ae4259b91c06c5a05004cbc3ae5def}} 
+\index{flight\_command.h@{flight\_command.h}!verticalReferenceCommand@{verticalReferenceCommand}}
+\index{verticalReferenceCommand@{verticalReferenceCommand}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{verticalReferenceCommand}{verticalReferenceCommand}}
+{\footnotesize\ttfamily float vertical\+Reference\+Command\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00078}{78}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+
+\mbox{\Hypertarget{flight__command_8h_a4270f800c12dfc01db1f8e9e60af4095}\label{flight__command_8h_a4270f800c12dfc01db1f8e9e60af4095}} 
+\index{flight\_command.h@{flight\_command.h}!vertRefCmdInDetent@{vertRefCmdInDetent}}
+\index{vertRefCmdInDetent@{vertRefCmdInDetent}!flight\_command.h@{flight\_command.h}}
+\doxysubsubsection{\texorpdfstring{vertRefCmdInDetent}{vertRefCmdInDetent}}
+{\footnotesize\ttfamily uint8\+\_\+t vert\+Ref\+Cmd\+In\+Detent\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{flight__command_8c_source_l00075}{75}} of file \mbox{\hyperlink{flight__command_8c_source}{flight\+\_\+command.\+c}}.
+

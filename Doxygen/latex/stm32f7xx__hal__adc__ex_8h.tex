@@ -1,0 +1,135 @@
+\hypertarget{stm32f7xx__hal__adc__ex_8h}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+adc\+\_\+ex.h File Reference}
+\label{stm32f7xx__hal__adc__ex_8h}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_adc\_ex.h@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_adc\_ex.h}}
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+def.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\+\_\+\+Injection\+Conf\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em ADC Configuration injected Channel structure definition. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\+\_\+\+Multi\+Mode\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em ADC Configuration multi-\/mode structure definition ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_gaac07297889e931df4083427a99211638}{ADC\+\_\+\+MODE\+\_\+\+INDEPENDENT}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_gac3ad57b1150ca7862fcc932cf19b2fb0}{ADC\+\_\+\+DUALMODE\+\_\+\+REGSIMULT\+\_\+\+INJECSIMULT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga2667b75f8acb086aa6ab723466bb3f40}{ADC\+\_\+\+DUALMODE\+\_\+\+REGSIMULT\+\_\+\+ALTERTRIG}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga8e81364b24ed3c089bb6993b48a020e9}{ADC\+\_\+\+DUALMODE\+\_\+\+INJECSIMULT}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga5318d363b48a4244335cdafaed0d179c}{ADC\+\_\+\+DUALMODE\+\_\+\+REGSIMULT}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga29697d148e4ed75c3d2adaef0f3e1385}{ADC\+\_\+\+DUALMODE\+\_\+\+INTERL}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga45e63dd5e2f36e62fa1b2cb9eff891ed}{ADC\+\_\+\+DUALMODE\+\_\+\+ALTERTRIG}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae55be7b911b4c0272543f98a0dba5f20}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_gaf035650c27a3a4655c2ee42e96a277dd}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+REGSIMULT\+\_\+\+INJECSIMULT}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga0aea7119339e4474cfdb7f3084c6dce5}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+REGSIMULT\+\_\+\+Alter\+Trig}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga9d5e9c416713570aeecff01f6c006b35}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+INJECSIMULT}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_gaa111c2e1827ffebceb3f22deefd951db}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+REGSIMULT}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga7c1e457e958e4002726bb9187a5ffe22}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+INTERL}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae6a5be6cff1227431b8d54dffcc1ce88}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8781dec7f076b475b85f8470aee94d06}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___common__mode_ga5ad65e0e5b27f2f72d4856b3651f0b8b}{ADC\+\_\+\+TRIPLEMODE\+\_\+\+ALTERTRIG}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5087b3cb0d4570b80b3138c277bcbf6c}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae55be7b911b4c0272543f98a0dba5f20}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae4e7104ce01e3a79b8f6138d87dc3684}{ADC\+\_\+\+CCR\+\_\+\+MULTI\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___direct__memory__access__mode__for__multi__mode_ga59163da6d23f587f951ce21d74542795}{ADC\+\_\+\+DMAACCESSMODE\+\_\+\+DISABLED}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___direct__memory__access__mode__for__multi__mode_gadb55bb780e7c0a58878287f205f88e33}{ADC\+\_\+\+DMAACCESSMODE\+\_\+1}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3a42ee6ec5115244aef8f60d35abcc47}{ADC\+\_\+\+CCR\+\_\+\+DMA\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___direct__memory__access__mode__for__multi__mode_ga33b7e654725c8de70c9ca5a1e1b3d139}{ADC\+\_\+\+DMAACCESSMODE\+\_\+2}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacdc9d29cafdd54e5c0dd752c358e1bc8}{ADC\+\_\+\+CCR\+\_\+\+DMA\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___direct__memory__access__mode__for__multi__mode_ga2613348408ee2a5685f1d06f6f7780dc}{ADC\+\_\+\+DMAACCESSMODE\+\_\+3}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9e346b21afcaeced784e6c80b3aa1fb4}{ADC\+\_\+\+CCR\+\_\+\+DMA}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_gaedb012452f83496891fcf1992130a0de}{ADC\+\_\+\+EXTERNALTRIGINJECCONVEDGE\+\_\+\+NONE}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_gaf5561fa00f50245c3e497ed5bd70d25e}{ADC\+\_\+\+EXTERNALTRIGINJECCONVEDGE\+\_\+\+RISING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga0b3c99510de210ff3137ff8de328889b}{ADC\+\_\+\+CR2\+\_\+\+JEXTEN\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_ga517972cd277a53e20ff2e44b3e07afa6}{ADC\+\_\+\+EXTERNALTRIGINJECCONVEDGE\+\_\+\+FALLING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga949c70fdf36a32a6afcbf44fec123832}{ADC\+\_\+\+CR2\+\_\+\+JEXTEN\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_ga874e33f936d9cfc440a46919bf132b22}{ADC\+\_\+\+EXTERNALTRIGINJECCONVEDGE\+\_\+\+RISINGFALLING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\+\_\+\+CR2\+\_\+\+JEXTEN}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga577c4e4b766688d873ab518fa4e8cef0}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T1\+\_\+\+TRGO}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga50c7351afe9cf0960de8f2ae831d8a0b}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T1\+\_\+\+CC4}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga5408c05ebc9a0a16c08b0be0e79506dc}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T2\+\_\+\+TRGO}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gaadc7ecf196e883d7375e299dde80a8fa}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T2\+\_\+\+CC1}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga826c3989c8fe4861729fdb966ff07c2d}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T3\+\_\+\+CC4}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga87a5534698643b2c3872efb7d17d4f44}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T4\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga762d1f0453208046c4c93dbd392c0e2e}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T8\+\_\+\+CC4}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gaef9c43a36999a02dfe34d2fbfeb4f7e2}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T1\+\_\+\+TRGO2}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gaf003a5579918ecb4946ace70d2696c49}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T8\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga118fb10c3d28586b523458d5ef27be03}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T8\+\_\+\+TRGO2}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga0f98a93962d8eca3ce4a53a1001f1b5b}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T3\+\_\+\+CC3}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga2c4d03267638efab16142f50927584d4}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T5\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga67d6bbf4f3ce68a6711bdb952b93fed6}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T3\+\_\+\+CC1}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa70c1f30e2101e2177ce564440203ba3}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_ga026977601e311ef4c303de0b4ac39b46}{ADC\+\_\+\+EXTERNALTRIGINJECCONV\+\_\+\+T6\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae34f5dda7a153ffd927c9cd38999f822}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga571bb97f950181fedbc0d4756482713d}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga99fa4a240d34ce231d6d0543bac7fd9b}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gae90a9b5e1ae0cb2ef2c711d90b0b382b}{ADC\+\_\+\+INJECTED\+\_\+\+SOFTWARE\+\_\+\+START}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaab3aa5d0e2a4b77960ec8f3b425a3eac}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL}} + 1)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gabe6252325fda6b22c794ea7b0e974ee3}{ADC\+\_\+\+INJECTED\+\_\+\+RANK\+\_\+1}}~((uint32\+\_\+t)0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gaf065faf92e099a1667694233384d187e}{ADC\+\_\+\+INJECTED\+\_\+\+RANK\+\_\+2}}~((uint32\+\_\+t)0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex__injected__rank_ga5fa8c3014caccae280220fd3df5d7f23}{ADC\+\_\+\+INJECTED\+\_\+\+RANK\+\_\+3}}~((uint32\+\_\+t)0x00000003U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gaffe7c5042c696b39ef23fba9af5a88b9}{ADC\+\_\+\+INJECTED\+\_\+\+RANK\+\_\+4}}~((uint32\+\_\+t)0x00000004U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_ga1af1742a766704131ab0cfed3a1c56fb}{IS\+\_\+\+ADC\+\_\+\+MODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_ga3f1b6dc061d9f656fdf3b45183767b5d}{IS\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+ACCESS\+\_\+\+MODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_ga069ce447fbcf609060c60f0c365331df}{IS\+\_\+\+ADC\+\_\+\+EXT\+\_\+\+INJEC\+\_\+\+TRIG\+\_\+\+EDGE}}(\+\_\+\+\_\+\+EDGE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_ga010182b3f9970e8618655a8c09e22bd6}{IS\+\_\+\+ADC\+\_\+\+EXT\+\_\+\+INJEC\+\_\+\+TRIG}}(\+\_\+\+\_\+\+INJTRIG\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_ga4bc1e0b0f685be6d9751328a25b3716d}{IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+RANK}}(\+\_\+\+\_\+\+RANK\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_gaa5050427278d3365405f1297638ca936}{IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+LENGTH}}(\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+) $>$= ((uint32\+\_\+t)1)) \&\& ((\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+) $<$= ((uint32\+\_\+t)4)))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c_ex___private___macros_gaa40c3e803cf20a8aebc3735a714606ad}{ADC\+\_\+\+JSQR}}(\+\_\+\+CHANNELNB\+\_\+,  \+\_\+\+RANKNB\+\_\+,  \+\_\+\+JSQR\+\_\+\+JL\+\_\+)~(((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+))) $<$$<$ (5 $\ast$ (uint8\+\_\+t)(((\+\_\+\+RANKNB\+\_\+) + 3) -\/ (\+\_\+\+JSQR\+\_\+\+JL\+\_\+))))
+\begin{DoxyCompactList}\small\item\em Set the selected injected Channel rank. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaa666882ff772df8a5140090422825ed6}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Start}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga91f6c85ae910e9baaf578a346c30c7c1}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Stop}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5e11b306be79f36c71a73f2e465ad613}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Poll\+For\+Conversion}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t Timeout)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaf55cd28b1394a0564f99e1f5069c0ed1}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Start\+\_\+\+IT}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gae032f41136f4dc4b3f3c2476b96a21f5}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Stop\+\_\+\+IT}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga7996668b61263f91c76d5f55551f3a07}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Get\+Value}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t Injected\+Rank)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gab36a3508a06430d7c7d0def79ec61b08}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Start\+\_\+\+DMA}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t $\ast$p\+Data, uint32\+\_\+t Length)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga6a114ff60985be225d621a5c3be8ddf2}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Stop\+\_\+\+DMA}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5ab7c06d2f0b5f9de1f86de5713d68d2}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Get\+Value}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaed7815e8b636ff1c1f456ecbaffe1942}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Conv\+Cplt\+Callback}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, \mbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\+\_\+\+Injection\+Conf\+Type\+Def}} $\ast$s\+Config\+Injected)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gabfe8b04f9cfda94bc8aad912470122f5}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Config\+Channel}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, \mbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\+\_\+\+Multi\+Mode\+Type\+Def}} $\ast$multimode)
+\end{DoxyCompactItemize}

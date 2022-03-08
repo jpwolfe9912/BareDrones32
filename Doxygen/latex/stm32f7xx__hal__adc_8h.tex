@@ -1,0 +1,461 @@
+\hypertarget{stm32f7xx__hal__adc_8h}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+adc.h File Reference}
+\label{stm32f7xx__hal__adc_8h}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_adc.h@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_adc.h}}
+
+
+Header file of ADC HAL extension module.  
+
+
+{\ttfamily \#include \char`\"{}stm32f7xx\+\_\+hal\+\_\+def.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_a_d_c___init_type_def}{ADC\+\_\+\+Init\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em Structure definition of ADC and regular group initialization. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def}{ADC\+\_\+\+Channel\+Conf\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em Structure definition of ADC channel for regular group ~\newline
+ \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_a_d_c___analog_w_d_g_conf_type_def}{ADC\+\_\+\+Analog\+WDGConf\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em ADC Configuration multi-\/mode structure definition ~\newline
+ \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em ADC handle Structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga3f995b6dedd7366d0663f852511b9104}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+RESET}}~((uint32\+\_\+t)0x00000000U)
+\begin{DoxyCompactList}\small\item\em HAL ADC state machine\+: ADC states definition (bitfields) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+READY}}~((uint32\+\_\+t)0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga7055248355e179ee208d23bd2ce8ba69}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+BUSY\+\_\+\+INTERNAL}}~((uint32\+\_\+t)0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gaaa31ad8c2f5337eac601534cb581dd15}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+TIMEOUT}}~((uint32\+\_\+t)0x00000004U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga65b592627f1f9277f4b89bfc33a9e641}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+ERROR\+\_\+\+INTERNAL}}~((uint32\+\_\+t)0x00000010U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+ERROR\+\_\+\+CONFIG}}~((uint32\+\_\+t)0x00000020U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga5a1b4881d17e72aa0823797958221172}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+ERROR\+\_\+\+DMA}}~((uint32\+\_\+t)0x00000040U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+REG\+\_\+\+BUSY}}~((uint32\+\_\+t)0x00000100U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gae2da191bffb720a553a1e39c10929711}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+REG\+\_\+\+EOC}}~((uint32\+\_\+t)0x00000200U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga1f99cd51b6636d9f60bc68dacb01eb10}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+REG\+\_\+\+OVR}}~((uint32\+\_\+t)0x00000400U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+INJ\+\_\+\+BUSY}}~((uint32\+\_\+t)0x00001000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gafcfffd11ab8b84d3b0a1ce50ccf821d5}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+INJ\+\_\+\+EOC}}~((uint32\+\_\+t)0x00002000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga39ce295171a5e608097017fda4cfd7d5}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+AWD1}}~((uint32\+\_\+t)0x00010000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gae6e9712c706ca7f2998dfb5cf776b48f}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+AWD2}}~((uint32\+\_\+t)0x00020000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_gaa43e91fedb9ce41e36bc78ced4f3912e}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+AWD3}}~((uint32\+\_\+t)0x00040000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___types_ga24f867061abe6ee31227ec21289c69db}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+MULTIMODE\+\_\+\+SLAVE}}~((uint32\+\_\+t)0x00100000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___error___code_ga93b4576d46ee0f8c53b7d69f39778e38}{HAL\+\_\+\+ADC\+\_\+\+ERROR\+\_\+\+NONE}}~((uint32\+\_\+t)0x00U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___error___code_ga7182f9ffc028f217db8724c7bc348f2f}{HAL\+\_\+\+ADC\+\_\+\+ERROR\+\_\+\+INTERNAL}}~((uint32\+\_\+t)0x01U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___error___code_ga30ce24556ebd3c0341558c700a3b9add}{HAL\+\_\+\+ADC\+\_\+\+ERROR\+\_\+\+OVR}}~((uint32\+\_\+t)0x02U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___error___code_gaea82628f53a8e30db3f3426922acf60f}{HAL\+\_\+\+ADC\+\_\+\+ERROR\+\_\+\+DMA}}~((uint32\+\_\+t)0x04U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___clock_prescaler_ga71571b183aa6d0ddbaeef8a1da11d00a}{ADC\+\_\+\+CLOCK\+\_\+\+SYNC\+\_\+\+PCLK\+\_\+\+DIV2}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___clock_prescaler_ga41b6a6d1cdf7806ec1e5790fc7fdc651}{ADC\+\_\+\+CLOCK\+\_\+\+SYNC\+\_\+\+PCLK\+\_\+\+DIV4}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf3108cc8fb81f6efd1e93fa5f82ac313}{ADC\+\_\+\+CCR\+\_\+\+ADCPRE\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___clock_prescaler_ga0da8cf05586963080a721928cae18913}{ADC\+\_\+\+CLOCK\+\_\+\+SYNC\+\_\+\+PCLK\+\_\+\+DIV6}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafa090830d2d359db04f365d46c6644d5}{ADC\+\_\+\+CCR\+\_\+\+ADCPRE\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___clock_prescaler_gadc0676c90087e9cd3acc3ee1256f3cd0}{ADC\+\_\+\+CLOCK\+\_\+\+SYNC\+\_\+\+PCLK\+\_\+\+DIV8}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3a2ee019aef4c64fffc72141f7aaab2c}{ADC\+\_\+\+CCR\+\_\+\+ADCPRE}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gaf809f893a5fb22f6003d7248e484a991}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+5\+CYCLES}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga3d731370a25ed30d8c1dae716d14b8bf}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+6\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga630f7e758937ff7d1705ef4894227f08}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+7\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga4a36c5233614aa76e4d911677c26067b}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+8\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga504d458d630d8517836cc71e759af58f}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+9\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gad92dea71b0ad43af8ac0cee79ca9c6ec}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+10\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gaac0a9a4fb75f8f22f4c9f6c637f78d37}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+11\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga2d6ed6a9d98c79f4160fe7005fbb9eba}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+12\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gae9dc984b6264e89f3291e9422d7030a6}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+13\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gaf1c28381b7c3640ade9b16a4418996c4}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+14\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga168494ac34dad42ee342aebcdfd1808c}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+15\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gaf994387c40bf4b9ee52be8c785bd221f}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+16\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_gaba99083f97b9869ad8397a04601ad1cb}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+17\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga3d4626768769515ca85ead5834564dd4}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+18\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga22b71e9df8b1fca93802ad602341eb0b}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga261b9cf07c6e2c6afd7327a629854408}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+19\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae0216de7d6fcfa507c9aa1400972d862}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17f85cbda5dcf9a392a29befb73c6ceb}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d0d5785cb6c75e700517e88af188573}{ADC\+\_\+\+CCR\+\_\+\+DELAY\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__delay__between__2__sampling__phases_ga1a15072ba873631146f76de174ec66ab}{ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+20\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9c13aa04949ed520cf92613d3a619198}{ADC\+\_\+\+CCR\+\_\+\+DELAY}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___resolution_ga49c8408a1cdbf97bbf29234c3770fa74}{ADC\+\_\+\+RESOLUTION\+\_\+12B}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___resolution_ga91289e269eb3080d25301909c0f417e5}{ADC\+\_\+\+RESOLUTION\+\_\+10B}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacfc432ddbd2140a92d877f6d9dc52417}{ADC\+\_\+\+CR1\+\_\+\+RES\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___resolution_ga39925af93719877bdcc5664e4b95e69a}{ADC\+\_\+\+RESOLUTION\+\_\+8B}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga674904864f540043692a5b5ead9fae10}{ADC\+\_\+\+CR1\+\_\+\+RES\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___resolution_ga24c5226e05db78b4065f2f187d497b04}{ADC\+\_\+\+RESOLUTION\+\_\+6B}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga71e4a4c233895a2e7b6dd3ca6ca849e5}{ADC\+\_\+\+CR1\+\_\+\+RES}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger__edge___regular_gab2e3a19c05441925f9b9a482238994ac}{ADC\+\_\+\+EXTERNALTRIGCONVEDGE\+\_\+\+NONE}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger__edge___regular_ga0aaa4e876de630733ca4ca4116b9608e}{ADC\+\_\+\+EXTERNALTRIGCONVEDGE\+\_\+\+RISING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3519da0cc6fbd31444a16244c70232e6}{ADC\+\_\+\+CR2\+\_\+\+EXTEN\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger__edge___regular_ga15975c01b6a514f346272a1373239c54}{ADC\+\_\+\+EXTERNALTRIGCONVEDGE\+\_\+\+FALLING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga17e37edddbb6ad791bffb350cca23d4d}{ADC\+\_\+\+CR2\+\_\+\+EXTEN\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger__edge___regular_gab4221f5f52b5f75dc8cea701bb57be35}{ADC\+\_\+\+EXTERNALTRIGCONVEDGE\+\_\+\+RISINGFALLING}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga574b4d8e90655d0432882d620e629234}{ADC\+\_\+\+CR2\+\_\+\+EXTEN}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga7d49b9a93e2452633d650a5bfd2cce23}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T1\+\_\+\+CC1}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gaf40cf21366c12d956241193bca60b1f9}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T1\+\_\+\+CC2}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga3f562fb50959d72533aecd761175521a}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T1\+\_\+\+CC3}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga0b64a9b8ac627c2ca770622c8ada41e6}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T2\+\_\+\+CC2}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga402da1a3d3089ae86b2a566befd1f99c}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T5\+\_\+\+TRGO}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gae0e57ccf3d178e6819ce32c0124e4f0f}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T4\+\_\+\+CC4}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga6038a99cb89e2f6a7a626b79ea9820ea}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T3\+\_\+\+CC4}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga2f028c039bf5b5ec1859698cca758a77}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T8\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gaef533c4f1dad8495d6722fa4e091a45e}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T8\+\_\+\+TRGO2}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gabd4ea0756910a3cdd6942254473a40b3}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T1\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga2ef7850a4b88454f2f974d0229828284}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T1\+\_\+\+TRGO2}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gaa964f17f527400095888ca28c65507c4}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T2\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a6725419743a8d01b4a223609952893}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gaec1f9d0b9040535e70ba9e26d07df768}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T4\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gae0a4be77c45699e79a820768a3184886}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+T6\+\_\+\+TRGO}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga387de6160834197888efa43e164c2db9}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c2322988b5fff19d012d9179d412ad0}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9410c7fd93f6d0b157ede745ee269d7b}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_gaded75d5ddcb64cf735044cdc753571a9}{ADC\+\_\+\+EXTERNALTRIGCONV\+\_\+\+EXT\+\_\+\+IT11}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d1054d6cd017e305cf6e8a864ce96c8}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___external__trigger___source___regular_ga349ec6a1c2a362fba718cbfd068e50dc}{ADC\+\_\+\+SOFTWARE\+\_\+\+START}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6d1054d6cd017e305cf6e8a864ce96c8}{ADC\+\_\+\+CR2\+\_\+\+EXTSEL}} + 1)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___data___align_gafed5c0d327ad6d2cc0960f7943beb265}{ADC\+\_\+\+DATAALIGN\+\_\+\+RIGHT}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___data___align_ga8afeead661c1ffbc27a5405a254d60ba}{ADC\+\_\+\+DATAALIGN\+\_\+\+LEFT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf5950b5a7438a447584f6dd86c343362}{ADC\+\_\+\+CR2\+\_\+\+ALIGN}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___scan__mode_ga6e269121b26e999155863ce52c522883}{ADC\+\_\+\+SCAN\+\_\+\+DISABLE}}~((uint32\+\_\+t)0x00000000)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___scan__mode_ga1e109b8619961829ff2bc368c1725382}{ADC\+\_\+\+SCAN\+\_\+\+ENABLE}}~((uint32\+\_\+t)0x00000001)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gadf298d930c7a4f313ece62320dbd600c}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+1}}~((uint32\+\_\+t)0x00000001)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga21f2593d1950de1b7f98770a21009826}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+2}}~((uint32\+\_\+t)0x00000002)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gadaab09acdc0504f6ed8a84d7de6170dc}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+3}}~((uint32\+\_\+t)0x00000003)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gae23fcbfa4f2a1c919038739cbcb57410}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+4}}~((uint32\+\_\+t)0x00000004)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga288d36b6b6e483116ca423ee5709580e}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+5}}~((uint32\+\_\+t)0x00000005)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga6636e3943689f2a196256c939b3aa5f5}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+6}}~((uint32\+\_\+t)0x00000006)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga63bea206a722dd11460d09b619aa4145}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+7}}~((uint32\+\_\+t)0x00000007)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gab39e2e0fb73beec47d249a75a42b5293}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+8}}~((uint32\+\_\+t)0x00000008)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga2df1ef58ff97a2a6946b4cc0978e9693}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+9}}~((uint32\+\_\+t)0x00000009)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gad969d11913f157d860cc3e8ea81d2bcf}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+10}}~((uint32\+\_\+t)0x0000000A)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gada79d07e1e30ef538ae3eb4d611d35a6}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+11}}~((uint32\+\_\+t)0x0000000B)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga038fc7ee28205a62242e105ac4004931}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+12}}~((uint32\+\_\+t)0x0000000C)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gaf705597a827461af553a94766ca6e84b}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+13}}~((uint32\+\_\+t)0x0000000D)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_gab062685d9e3235869566d82891f5842b}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+14}}~((uint32\+\_\+t)0x0000000E)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga36d371d1ced7f233fdf59ffc67234b4d}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+15}}~((uint32\+\_\+t)0x0000000F)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__regular__rank_ga85f2ea453f67b9a5aad74aa94b696adb}{ADC\+\_\+\+REGULAR\+\_\+\+RANK\+\_\+16}}~((uint32\+\_\+t)0x00000010)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga3c5075aee5af4eae02f1a72d6216199c}{ADC\+\_\+\+CHANNEL\+\_\+0}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gaeb119201733a871c94971c51843ffaac}{ADC\+\_\+\+CHANNEL\+\_\+1}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gad576132ebd78a3429be34f44e474c914}{ADC\+\_\+\+CHANNEL\+\_\+2}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga56dba5d35f1f7bcad41e4f9a7da3b125}{ADC\+\_\+\+CHANNEL\+\_\+3}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga66f19737ad81a0a62eb97854d0e41a54}{ADC\+\_\+\+CHANNEL\+\_\+4}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga716f2836f655c753c629de439ce50ecf}{ADC\+\_\+\+CHANNEL\+\_\+5}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga418f0223ea88773157638097391716a5}{ADC\+\_\+\+CHANNEL\+\_\+6}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga03b8138c2d87274f94ba675a7e18e666}{ADC\+\_\+\+CHANNEL\+\_\+7}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gab0917f6b66213f33f2e2ea8781df5aa9}{ADC\+\_\+\+CHANNEL\+\_\+8}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga95f485ecc05187c3d475238a88beef1c}{ADC\+\_\+\+CHANNEL\+\_\+9}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gaa55df8c97225d32b495959896897567c}{ADC\+\_\+\+CHANNEL\+\_\+10}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gaf36361a33c07b04f8ab1d58d232bc434}{ADC\+\_\+\+CHANNEL\+\_\+11}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gad5ff4f4f0e5f6f9ffbdfb6f4cbc3a6e0}{ADC\+\_\+\+CHANNEL\+\_\+12}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gad7550270d90a1a12b00cd9f8ad9f1fc2}{ADC\+\_\+\+CHANNEL\+\_\+13}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga9caff32bcda5dd83f662bf398ab14d36}{ADC\+\_\+\+CHANNEL\+\_\+14}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga66f41aad197a6de160dd8958c90653a2}{ADC\+\_\+\+CHANNEL\+\_\+15}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb768d4aafbabc114d4650cf962392ec}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+3}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga625eebdc95937325cad90a151853f5a0}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga7892590f524e7356deb1e513bbc0cdaf}{ADC\+\_\+\+CHANNEL\+\_\+16}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf37f3c0d7c72192803d0772e076cf8ee}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+4}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_gaf7760a480f79c62d19260291f8afb6e1}{ADC\+\_\+\+CHANNEL\+\_\+17}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf37f3c0d7c72192803d0772e076cf8ee}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga18725d77c35c173cdb5bdab658d9dace}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga30fc8e77b4c89d3ea0609cfbc7fc90fd}{ADC\+\_\+\+CHANNEL\+\_\+18}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf37f3c0d7c72192803d0772e076cf8ee}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+4}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafcd37244d74db7c9a34a4f08b94301ae}{ADC\+\_\+\+CR1\+\_\+\+AWDCH\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga3820313152a565b60d4b60496a62bc2b}{ADC\+\_\+\+INTERNAL\+\_\+\+NONE}}~0x80000000U
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga2647a044275a295693e8fb01db3172f9}{ADC\+\_\+\+CHANNEL\+\_\+\+VREFINT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___a_d_c__channels_gaf7760a480f79c62d19260291f8afb6e1}{ADC\+\_\+\+CHANNEL\+\_\+17}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga60210f1e9305301dea9e42afedd9093f}{ADC\+\_\+\+CHANNEL\+\_\+\+VBAT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___a_d_c__channels_ga30fc8e77b4c89d3ea0609cfbc7fc90fd}{ADC\+\_\+\+CHANNEL\+\_\+18}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels_ga8f0da1e8fa8504c92a368f6eb8e229b3}{ADC\+\_\+\+CHANNEL\+\_\+\+TEMPSENSOR}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___a_d_c__channels_ga30fc8e77b4c89d3ea0609cfbc7fc90fd}{ADC\+\_\+\+CHANNEL\+\_\+18}} $\vert$ 0x10000000U))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_gadd2dd58764750d84b32e7c814190953e}{ADC\+\_\+\+SAMPLETIME\+\_\+3\+CYCLES}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_gabaea44ba33b9b0ff9b25c9a5f7b76a5b}{ADC\+\_\+\+SAMPLETIME\+\_\+15\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a8996c53042759f01e966fb00351ebf}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+0}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_ga02196395d86a06b6373292f91cf8a62c}{ADC\+\_\+\+SAMPLETIME\+\_\+28\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga42b96f058436c8bdcfabe1e08c7edd61}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_ga7a65819ad4542d680ddac1d5eebfe415}{ADC\+\_\+\+SAMPLETIME\+\_\+56\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga42b96f058436c8bdcfabe1e08c7edd61}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+1}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a8996c53042759f01e966fb00351ebf}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_ga622a2822eeea3effd4360f1f975dc2f3}{ADC\+\_\+\+SAMPLETIME\+\_\+84\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga289d89b4d92d7f685a8e44aeb9ddcded}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+2}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_ga37d00fbf996e8995c5dd46fc992f027c}{ADC\+\_\+\+SAMPLETIME\+\_\+112\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga289d89b4d92d7f685a8e44aeb9ddcded}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a8996c53042759f01e966fb00351ebf}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+0}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_ga383fd99e5566555e7f0c249e036c5ccb}{ADC\+\_\+\+SAMPLETIME\+\_\+144\+CYCLES}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga289d89b4d92d7f685a8e44aeb9ddcded}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+2}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga42b96f058436c8bdcfabe1e08c7edd61}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__sampling__times_gaa39649d790cb2ca115171db71604652d}{ADC\+\_\+\+SAMPLETIME\+\_\+480\+CYCLES}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga32242a2c2156a012a7343bcb43d490d0}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___e_o_c_selection_ga6c71ff64c9ecc9ba19ac088009f36cd8}{ADC\+\_\+\+EOC\+\_\+\+SEQ\+\_\+\+CONV}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___e_o_c_selection_ga4c455483d74c1be899d4b2e8f45f202b}{ADC\+\_\+\+EOC\+\_\+\+SINGLE\+\_\+\+CONV}}~((uint32\+\_\+t)0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___e_o_c_selection_ga0cbb4e6ee76ee1bef233212bf947d320}{ADC\+\_\+\+EOC\+\_\+\+SINGLE\+\_\+\+SEQ\+\_\+\+CONV}}~((uint32\+\_\+t)0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___event__type_ga2d1d545ea1bfecba7a7081be6ef2cb93}{ADC\+\_\+\+AWD\+\_\+\+EVENT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___a_d_c__flags__definition_gadb75a4b430fb84950232b7a8f3a6a877}{ADC\+\_\+\+FLAG\+\_\+\+AWD}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___event__type_gae1ef5aaecb2d24cac50a59f1bc311221}{ADC\+\_\+\+OVR\+\_\+\+EVENT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___a_d_c__flags__definition_ga6e8f399d2af342bd18b9f5803cb986e7}{ADC\+\_\+\+FLAG\+\_\+\+OVR}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_gad4cf176e721fd2382fbc7937e352db67}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+SINGLE\+\_\+\+REG}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c9fc31f19c04033dfa98e982519c451}{ADC\+\_\+\+CR1\+\_\+\+AWDSGL}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_ga47d8850a833f799ceb433491a3d6659c}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+SINGLE\+\_\+\+INJEC}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c9fc31f19c04033dfa98e982519c451}{ADC\+\_\+\+CR1\+\_\+\+AWDSGL}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_gaa0c246b49622fa85c7df6e11f583dffb}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+SINGLE\+\_\+\+REGINJEC}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c9fc31f19c04033dfa98e982519c451}{ADC\+\_\+\+CR1\+\_\+\+AWDSGL}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_gad9d25140644089dd34084cb4dfa7ebd8}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+ALL\+\_\+\+REG}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_gacf2ee0d67e728fd6258270b239823713}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+ALL\+\_\+\+INJEC}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_ga8ab72f0e7dfee943acb5cccacff7e4a0}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+ALL\+\_\+\+REGINJEC}}~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}}))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__analog__watchdog__selection_gad173f9dd01d4585c9b7c8c324de399c0}{ADC\+\_\+\+ANALOGWATCHDOG\+\_\+\+NONE}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__interrupts__definition_ga0ad335d835f54415194d448019569e00}{ADC\+\_\+\+IT\+\_\+\+EOC}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa39fee2e812a7ca45998cccf32e90aea}{ADC\+\_\+\+CR1\+\_\+\+EOCIE}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__interrupts__definition_ga2f5c7f9900c24250a0c6ccaa7cbca946}{ADC\+\_\+\+IT\+\_\+\+AWD}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacd44f86b189696d5a3780342516de722}{ADC\+\_\+\+CR1\+\_\+\+AWDIE}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__interrupts__definition_gad439fc0cd69706704d47aeabfeddb631}{ADC\+\_\+\+IT\+\_\+\+JEOC}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c46fc1dc6c63acf88821f46a8f6d5e7}{ADC\+\_\+\+CR1\+\_\+\+JEOCIE}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__interrupts__definition_gac3852b7789860e0ea79b82115ab877a0}{ADC\+\_\+\+IT\+\_\+\+OVR}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa892fda7c204bf18a33a059f28be0fba}{ADC\+\_\+\+CR1\+\_\+\+OVRIE}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_gadb75a4b430fb84950232b7a8f3a6a877}{ADC\+\_\+\+FLAG\+\_\+\+AWD}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8b7f27694281e4cad956da567e5583b2}{ADC\+\_\+\+SR\+\_\+\+AWD}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_gaf2c6fdf7e9ab63b778149e5fb56413d4}{ADC\+\_\+\+FLAG\+\_\+\+EOC}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3dc295c5253743aeb2cda582953b7b53}{ADC\+\_\+\+SR\+\_\+\+EOC}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\+\_\+\+FLAG\+\_\+\+JEOC}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_gabc9f07589bb1a4e398781df372389b56}{ADC\+\_\+\+SR\+\_\+\+JEOC}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_ga278f4e866f4322c1120bf0db5301c432}{ADC\+\_\+\+FLAG\+\_\+\+JSTRT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7340a01ffec051c06e80a037eee58a14}{ADC\+\_\+\+SR\+\_\+\+JSTRT}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_gad0c59ae7749c69b5b91f2c533db1b619}{ADC\+\_\+\+FLAG\+\_\+\+STRT}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga45eb11ad986d8220cde9fa47a91ed222}{ADC\+\_\+\+SR\+\_\+\+STRT}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__flags__definition_ga6e8f399d2af342bd18b9f5803cb986e7}{ADC\+\_\+\+FLAG\+\_\+\+OVR}}~((uint32\+\_\+t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e5211d5e3e53cdedf4d9d6fe4ce2a45}{ADC\+\_\+\+SR\+\_\+\+OVR}})
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels__type_ga06d28ef2d0b9e110f69a35e4793f066e}{ADC\+\_\+\+ALL\+\_\+\+CHANNELS}}~((uint32\+\_\+t)0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels__type_gad47a927eded315f3dcb21df51ff778fd}{ADC\+\_\+\+REGULAR\+\_\+\+CHANNELS}}~((uint32\+\_\+t)0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c__channels__type_ga6444b1539e8503ef3a2496ccf7eeb9fd}{ADC\+\_\+\+INJECTED\+\_\+\+CHANNELS}}~((uint32\+\_\+t)0x00000003U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gacb290bae25b972942021331122a3600f}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+RESET\+\_\+\+HANDLE\+\_\+\+STATE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~  ((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$State = \mbox{\hyperlink{group___a_d_c___exported___types_ga3f995b6dedd7366d0663f852511b9104}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+RESET}})
+\begin{DoxyCompactList}\small\item\em Reset ADC handle state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gaadf16862da7593def189559423c287f4}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR2 $\vert$=  \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\+\_\+\+CR2\+\_\+\+ADON}})
+\begin{DoxyCompactList}\small\item\em Enable the ADC peripheral. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_ga8afd5963c41c0a30c5cf1fec5c5710b3}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR2 \&=  $\sim$\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\+\_\+\+CR2\+\_\+\+ADON}})
+\begin{DoxyCompactList}\small\item\em Disable the ADC peripheral. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_ga650073de508d335d0a1c7bf9b4d07afe}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+ENABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1) $\vert$= (\+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Enable the ADC end of conversion interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gadcec48b44a2133effd20f41ab227edb9}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+DISABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1) \&= $\sim$(\+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Disable the ADC end of conversion interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gaf29cd943cb451e4ed1f07bd7d4854fb0}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+GET\+\_\+\+IT\+\_\+\+SOURCE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1 \& (\+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)) == (\+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Check if the specified ADC interrupt source is enabled or disabled. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+CLEAR\+\_\+\+FLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$SR) = $\sim$(\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Clear the ADC\textquotesingle{}s pending flags. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___exported___macros_gaff951862689bb92173f803577cf2d447}{\+\_\+\+\_\+\+HAL\+\_\+\+ADC\+\_\+\+GET\+\_\+\+FLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~((((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$SR) \& (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)) == (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Get the selected ADC\textquotesingle{}s flag status. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___constants_gad0d1562099d9e378dd1d33b3519cd0c2}{ADC\+\_\+\+STAB\+\_\+\+DELAY\+\_\+\+US}}~((uint32\+\_\+t) 3U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___constants_gab57114ba262a4b64193617b22da005b0}{ADC\+\_\+\+TEMPSENSOR\+\_\+\+DELAY\+\_\+\+US}}~((uint32\+\_\+t) 10U)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gafe3a7a04ff078c62ae98b19403f696c7}{ADC\+\_\+\+IS\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Verification of ADC state\+: enabled or disabled. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b}{ADC\+\_\+\+IS\+\_\+\+SOFTWARE\+\_\+\+START\+\_\+\+REGULAR}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~  (((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR2 \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga574b4d8e90655d0432882d620e629234}{ADC\+\_\+\+CR2\+\_\+\+EXTEN}}) == \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})
+\begin{DoxyCompactList}\small\item\em Test if conversion trigger of regular group is software start or external trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaa3a1c2197a097b9bb8159b6eb1ac8941}{ADC\+\_\+\+IS\+\_\+\+SOFTWARE\+\_\+\+START\+\_\+\+INJECTED}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~  (((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR2 \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\+\_\+\+CR2\+\_\+\+JEXTEN}}) == \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})
+\begin{DoxyCompactList}\small\item\em Test if conversion trigger of injected group is software start or external trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\+\_\+\+STATE\+\_\+\+CLR\+\_\+\+SET}}~\mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\+\_\+\+REG}}
+\begin{DoxyCompactList}\small\item\em Simultaneously clears and sets specific bits of the handle State. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gac7ab87a3ab932eed1b3ac5faad4e3aa9}{ADC\+\_\+\+CLEAR\+\_\+\+ERRORCODE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~  ((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Error\+Code = \mbox{\hyperlink{group___a_d_c___error___code_ga93b4576d46ee0f8c53b7d69f39778e38}{HAL\+\_\+\+ADC\+\_\+\+ERROR\+\_\+\+NONE}})
+\begin{DoxyCompactList}\small\item\em Clear ADC error code (set it to error code\+: \char`\"{}no error\char`\"{}) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaba41910dcb2b449c613a5ef638862e77}{IS\+\_\+\+ADC\+\_\+\+CHANNEL}}(CHANNEL)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga7118e43c49043f69e1f5a9c0cb9838ba}{IS\+\_\+\+ADC\+\_\+\+CLOCKPRESCALER}}(\+\_\+\+\_\+\+ADC\+\_\+\+CLOCK\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga4621b0e764007f2e4ae7187e82e09aac}{IS\+\_\+\+ADC\+\_\+\+SAMPLING\+\_\+\+DELAY}}(\+\_\+\+\_\+\+DELAY\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaf59f31238af51285241d76a0ff60b61e}{IS\+\_\+\+ADC\+\_\+\+RESOLUTION}}(\+\_\+\+\_\+\+RESOLUTION\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga101bf364bcfd48f8f023fa43c4d252b7}{IS\+\_\+\+ADC\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+EDGE}}(\+\_\+\+\_\+\+EDGE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga47bd5902c26471ab0c066d5e53eb898a}{IS\+\_\+\+ADC\+\_\+\+EXT\+\_\+\+TRIG}}(\+\_\+\+\_\+\+REGTRIG\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga54970a6455876984379854bf0cab8ddf}{IS\+\_\+\+ADC\+\_\+\+DATA\+\_\+\+ALIGN}}(\+\_\+\+\_\+\+ALIGN\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gac8f170c8a85df2517d8441f4d41c0341}{IS\+\_\+\+ADC\+\_\+\+SAMPLE\+\_\+\+TIME}}(\+\_\+\+\_\+\+TIME\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaf9cdf5b03c3c7a4cb0a1bdc26eb85c37}{IS\+\_\+\+ADC\+\_\+\+EOCSelection}}(\+\_\+\+\_\+\+EOCSelection\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga5f5330843ec6a814e7b5fc1a7d1d39ba}{IS\+\_\+\+ADC\+\_\+\+EVENT\+\_\+\+TYPE}}(\+\_\+\+\_\+\+EVENT\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gad7d000095a27641627407ca00496ff4f}{IS\+\_\+\+ADC\+\_\+\+ANALOG\+\_\+\+WATCHDOG}}(\+\_\+\+\_\+\+WATCHDOG\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gae99bc8fcadd5c530885909cb581297c6}{IS\+\_\+\+ADC\+\_\+\+CHANNELS\+\_\+\+TYPE}}(CHANNEL\+\_\+\+TYPE)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga2b27a370b4e26337bb0adbb2885228c2}{IS\+\_\+\+ADC\+\_\+\+REGULAR\+\_\+\+RANK}}(\+\_\+\+\_\+\+RANK\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gab91c46d2f017e319598f47c1f0cf52aa}{IS\+\_\+\+ADC\+\_\+\+SCAN\+\_\+\+MODE}}(\+\_\+\+\_\+\+SCAN\+\_\+\+MODE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga6dc496f5613fd61eac2522b60ff08f6f}{IS\+\_\+\+ADC\+\_\+\+THRESHOLD}}(\+\_\+\+\_\+\+THRESHOLD\+\_\+\+\_\+)~((\+\_\+\+\_\+\+THRESHOLD\+\_\+\+\_\+) $<$= ((uint32\+\_\+t)0x\+FFF))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga8c104fb685008a368026ba7008ed6dc8}{IS\+\_\+\+ADC\+\_\+\+REGULAR\+\_\+\+LENGTH}}(\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+) $>$= ((uint32\+\_\+t)1)) \&\& ((\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+) $<$= ((uint32\+\_\+t)16)))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga45615cd8538535817c63f199708852d9}{IS\+\_\+\+ADC\+\_\+\+REGULAR\+\_\+\+DISC\+\_\+\+NUMBER}}(\+\_\+\+\_\+\+NUMBER\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+NUMBER\+\_\+\+\_\+) $>$= ((uint32\+\_\+t)1)) \&\& ((\+\_\+\+\_\+\+NUMBER\+\_\+\+\_\+) $<$= ((uint32\+\_\+t)8)))
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga485c12f57d082232da8e219ae6b4f44b}{IS\+\_\+\+ADC\+\_\+\+RANGE}}(\+\_\+\+\_\+\+RESOLUTION\+\_\+\+\_\+,  \+\_\+\+\_\+\+ADC\+\_\+\+VALUE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga1958741688a480069df9ab5e15be93ca}{ADC\+\_\+\+SQR1}}(\+\_\+\+Nbr\+Of\+Conversion\+\_\+)~(((\+\_\+\+Nbr\+Of\+Conversion\+\_\+) -\/ (uint8\+\_\+t)1) $<$$<$ 20)
+\begin{DoxyCompactList}\small\item\em Set ADC Regular channel sequence length. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga29f7414128fbbdb81db6ea6ede449f4b}{ADC\+\_\+\+SMPR1}}(\+\_\+\+SAMPLETIME\+\_\+,  \+\_\+\+CHANNELNB\+\_\+)~((\+\_\+\+SAMPLETIME\+\_\+) $<$$<$ (3 $\ast$ (((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+))) -\/ 10)))
+\begin{DoxyCompactList}\small\item\em Set the ADC\textquotesingle{}s sample time for channel numbers between 10 and 18. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaeb66714538d978d4d336a4a6ef0d58bc}{ADC\+\_\+\+SMPR2}}(\+\_\+\+SAMPLETIME\+\_\+,  \+\_\+\+CHANNELNB\+\_\+)~((\+\_\+\+SAMPLETIME\+\_\+) $<$$<$ (3 $\ast$ ((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+)))))
+\begin{DoxyCompactList}\small\item\em Set the ADC\textquotesingle{}s sample time for channel numbers between 0 and 9. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga173aa2d3480ddaac12fe6a853bead899}{ADC\+\_\+\+SQR3\+\_\+\+RK}}(\+\_\+\+CHANNELNB\+\_\+,  \+\_\+\+RANKNB\+\_\+)~(((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+))) $<$$<$ (5 $\ast$ ((\+\_\+\+RANKNB\+\_\+) -\/ 1)))
+\begin{DoxyCompactList}\small\item\em Set the selected regular channel rank for rank between 1 and 6. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gad07a38a5b6d28f23ecbe027222f59bd0}{ADC\+\_\+\+SQR2\+\_\+\+RK}}(\+\_\+\+CHANNELNB\+\_\+,  \+\_\+\+RANKNB\+\_\+)~(((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+))) $<$$<$ (5 $\ast$ ((\+\_\+\+RANKNB\+\_\+) -\/ 7)))
+\begin{DoxyCompactList}\small\item\em Set the selected regular channel rank for rank between 7 and 12. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga89869cd79b14d222a9b235bd150fc512}{ADC\+\_\+\+SQR1\+\_\+\+RK}}(\+\_\+\+CHANNELNB\+\_\+,  \+\_\+\+RANKNB\+\_\+)~(((uint32\+\_\+t)((uint16\+\_\+t)(\+\_\+\+CHANNELNB\+\_\+))) $<$$<$ (5 $\ast$ ((\+\_\+\+RANKNB\+\_\+) -\/ 13)))
+\begin{DoxyCompactList}\small\item\em Set the selected regular channel rank for rank between 13 and 16. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gae92924f248b2fd7693ce648275a8087c}{ADC\+\_\+\+CR2\+\_\+\+CONTINUOUS}}(\+\_\+\+CONTINUOUS\+\_\+\+MODE\+\_\+)~((\+\_\+\+CONTINUOUS\+\_\+\+MODE\+\_\+) $<$$<$ 1)
+\begin{DoxyCompactList}\small\item\em Enable ADC continuous conversion mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga5b8b6fe1d24684616ccf43b8e5e0ef23}{ADC\+\_\+\+CR1\+\_\+\+DISCONTINUOUS}}(\+\_\+\+NBR\+\_\+\+DISCONTINUOUSCONV\+\_\+)~(((\+\_\+\+NBR\+\_\+\+DISCONTINUOUSCONV\+\_\+) -\/ 1) $<$$<$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga418d84715b6f383cea1ca241d0c76194}{ADC\+\_\+\+CR1\+\_\+\+DISCNUM\+\_\+\+Pos}})
+\begin{DoxyCompactList}\small\item\em Configures the number of discontinuous conversions for the regular group channels. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gad46aba92287da828c570fab3599e38c2}{ADC\+\_\+\+CR1\+\_\+\+SCANCONV}}(\+\_\+\+SCANCONV\+\_\+\+MODE\+\_\+)~((\+\_\+\+SCANCONV\+\_\+\+MODE\+\_\+) $<$$<$ 8)
+\begin{DoxyCompactList}\small\item\em Enable ADC scan mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gaa6514c197b4d16b3d08938cdad573ef5}{ADC\+\_\+\+CR2\+\_\+\+EOCSelection}}(\+\_\+\+EOCSelection\+\_\+\+MODE\+\_\+)~((\+\_\+\+EOCSelection\+\_\+\+MODE\+\_\+) $<$$<$ 10)
+\begin{DoxyCompactList}\small\item\em Enable the ADC end of conversion selection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_ga93bf2d0e4b9f98b83ee48be918e9c940}{ADC\+\_\+\+CR2\+\_\+\+DMACont\+Req}}(\+\_\+\+DMACont\+Req\+\_\+\+MODE\+\_\+)~((\+\_\+\+DMACont\+Req\+\_\+\+MODE\+\_\+) $<$$<$ 9)
+\begin{DoxyCompactList}\small\item\em Enable the ADC DMA continuous request. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___a_d_c___private___macros_gae2da95074db4dd0418c1dd1f13ad7970}{ADC\+\_\+\+GET\+\_\+\+RESOLUTION}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1) \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga71e4a4c233895a2e7b6dd3ca6ca849e5}{ADC\+\_\+\+CR1\+\_\+\+RES}})
+\begin{DoxyCompactList}\small\item\em Return resolution bits in CR1 register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group1_ga33ddb73d4880bd425aaa43c5c52bb13a}{HAL\+\_\+\+ADC\+\_\+\+Init}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group1_ga165940b437c6a8843c6032199adbf0a8}{HAL\+\_\+\+ADC\+\_\+\+De\+Init}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group1_gaa30863492d5c3103e3e8ce8a63dadd07}{HAL\+\_\+\+ADC\+\_\+\+Msp\+Init}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group1_ga39b0f8e80268ab3e660ead921ad4b22f}{HAL\+\_\+\+ADC\+\_\+\+Msp\+De\+Init}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga193666e3bde978627c9ee1e2073c69c0}{HAL\+\_\+\+ADC\+\_\+\+Start}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga1b00cb85fc6c0f40fabd02701528711d}{HAL\+\_\+\+ADC\+\_\+\+Stop}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gad9c0b5763ab75357407e22d310befc30}{HAL\+\_\+\+ADC\+\_\+\+Poll\+For\+Conversion}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t Timeout)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga139d1a4ab69bea84cb39918840e1a64e}{HAL\+\_\+\+ADC\+\_\+\+Poll\+For\+Event}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t Event\+Type, uint32\+\_\+t Timeout)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gaeb53035f47a937d54de2164d6c939a04}{HAL\+\_\+\+ADC\+\_\+\+Start\+\_\+\+IT}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gae44e6d3d0d9c60897daa7ccfd368952c}{HAL\+\_\+\+ADC\+\_\+\+Stop\+\_\+\+IT}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga28aaa5662eced92c5a4d23d8bd6b29ca}{HAL\+\_\+\+ADC\+\_\+\+IRQHandler}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga7c3ef5532dddebe7fd76bb8f589d11fd}{HAL\+\_\+\+ADC\+\_\+\+Start\+\_\+\+DMA}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, uint32\+\_\+t $\ast$p\+Data, uint32\+\_\+t Length)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gae113bcf7fc3d8ce07d68403bb5a11560}{HAL\+\_\+\+ADC\+\_\+\+Stop\+\_\+\+DMA}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga421008ca3885339acb12f400958ffbe4}{HAL\+\_\+\+ADC\+\_\+\+Get\+Value}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gaf20a88180db1113be1e89266917d148b}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gad7e3dafc08886b97b9c9e23267645b9e}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Half\+Cplt\+Callback}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group2_ga8cf5c59c6355fe7cf3c10816c761b9c2}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+void \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gadea1a55c5199d5cb4cfc1fdcd32be1b2}{HAL\+\_\+\+ADC\+\_\+\+Error\+Callback}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group3_gac6f70c4927204d6f50ab44c8e4800106}{HAL\+\_\+\+ADC\+\_\+\+Config\+Channel}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def}{ADC\+\_\+\+Channel\+Conf\+Type\+Def}} $\ast$s\+Config)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___a_d_c___exported___functions___group3_gaebd9d3c15de8c92e92e18ee38d1bd998}{HAL\+\_\+\+ADC\+\_\+\+Analog\+WDGConfig}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc, \mbox{\hyperlink{struct_a_d_c___analog_w_d_g_conf_type_def}{ADC\+\_\+\+Analog\+WDGConf\+Type\+Def}} $\ast$Analog\+WDGConfig)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___a_d_c___exported___functions___group4_ga894143f0fa1502ac0afa6eae8fdaadcc}{HAL\+\_\+\+ADC\+\_\+\+Get\+State}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___a_d_c___exported___functions___group4_ga3a546afb96f473f266573783f37ee8af}{HAL\+\_\+\+ADC\+\_\+\+Get\+Error}} (\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\+\_\+\+Handle\+Type\+Def}} $\ast$hadc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file of ADC HAL extension module. 
+
+Header file of ADC HAL module.
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+

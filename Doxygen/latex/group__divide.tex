@@ -1,0 +1,41 @@
+\hypertarget{group__divide}{}\doxysection{Fixed point division}
+\label{group__divide}\index{Fixed point division@{Fixed point division}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group__divide_ga3d5bc8179cdfb12288d58d99d635e4cb}{arm\+\_\+divide\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} numerator, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} denominator, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$quotient, int16\+\_\+t $\ast$shift)
+\begin{DoxyCompactList}\small\item\em Fixed point division. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__divide_ga3d5bc8179cdfb12288d58d99d635e4cb}\label{group__divide_ga3d5bc8179cdfb12288d58d99d635e4cb}} 
+\index{Fixed point division@{Fixed point division}!arm\_divide\_q15@{arm\_divide\_q15}}
+\index{arm\_divide\_q15@{arm\_divide\_q15}!Fixed point division@{Fixed point division}}
+\doxysubsubsection{\texorpdfstring{arm\_divide\_q15()}{arm\_divide\_q15()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+divide\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}}}]{numerator,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}}}]{denominator,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{quotient,  }\item[{int16\+\_\+t $\ast$}]{shift }\end{DoxyParamCaption})}
+
+
+
+Fixed point division. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em numerator} & Numerator \\
+\hline
+\mbox{\texttt{ in}}  & {\em denominator} & Denominator \\
+\hline
+\mbox{\texttt{ out}}  & {\em quotient} & Quotient value normalized between -\/1.\+0 and 1.\+0 \\
+\hline
+\mbox{\texttt{ out}}  & {\em shift} & Shift left value to get the unnormalized quotient \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error status
+\end{DoxyReturn}
+When dividing by 0, an error ARM\+\_\+\+MATH\+\_\+\+NANINF is returned. And the quotient is forced to the saturated negative or positive value. 
+
+Definition at line \mbox{\hyperlink{arm__divide__q15_8c_source_l00060}{60}} of file \mbox{\hyperlink{arm__divide__q15_8c_source}{arm\+\_\+divide\+\_\+q15.\+c}}.
+

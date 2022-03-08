@@ -1,0 +1,188 @@
+\hypertarget{arm__cmplx__conj__q15_8c_source}{}\doxysection{arm\+\_\+cmplx\+\_\+conj\+\_\+q15.\+c}
+\label{arm__cmplx__conj__q15_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/ComplexMathFunctions/arm\_cmplx\_conj\_q15.c@{Autodrone32/Libraries/CMSIS/DSP/ComplexMathFunctions/arm\_cmplx\_conj\_q15.c}}
+\mbox{\hyperlink{arm__cmplx__conj__q15_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_cmplx\_conj\_q15.c}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Q15 complex conjugate}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{complex__math__functions_8h}{dsp/complex\_math\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00053}00053 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00054}00054 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}{arm\_cmplx\_conj\_q15}}(}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00055}00055   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00056}00056         \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00057}00057         uint32\_t numSamples)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00058}00058 \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00059}00059     uint32\_t blockSize = numSamples * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};   \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00060}00060     uint32\_t blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00061}00061     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} in1; }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00063}00063     q15x8x2\_t vecSrc;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00064}00064     q15x8\_t zero;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00066}00066     zero = vdupq\_n\_s16(0);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00068}00068     \textcolor{comment}{/* Compute 8 real samples at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00069}00069     blkCnt = blockSize >> 4U;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00070}00070     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00071}00071     \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00072}00072         vecSrc = vld2q(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00073}00073         vecSrc.val[1] = vqsubq(zero, vecSrc.val[1]);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00074}00074         vst2q(pDst,vecSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00075}00075         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00076}00076 \textcolor{comment}{         * Decrement the blkCnt loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00077}00077 \textcolor{comment}{         * Advance vector source and destination pointers}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00078}00078 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00079}00079         pSrc += 16;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00080}00080         pDst += 16;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00081}00081         blkCnt -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00083}00083     }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00084}00084      \textcolor{comment}{/* Tail */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00085}00085     blkCnt = (blockSize \& 0xF) >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00087}00087     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00088}00088     \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00089}00089       \textcolor{comment}{/* C[0] + jC[1] = A[0]+ j(-\/1)A[1] */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00090}00090   }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00091}00091       \textcolor{comment}{/* Calculate Complex Conjugate and store result in destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00092}00092       *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00093}00093       in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00094}00094       *pDst++ = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(-\/in1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00095}00095   }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00096}00096       \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00097}00097       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00098}00098     \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00100}00100 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00101}\mbox{\hyperlink{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}{00101}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}{arm\_cmplx\_conj\_q15}}(}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00102}00102   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00103}00103         \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00104}00104         uint32\_t numSamples)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00105}00105 \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00106}00106         uint32\_t blkCnt;                               \textcolor{comment}{/* Loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00107}00107         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} in1;                                     \textcolor{comment}{/* Temporary input variable */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00109}00109 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL) \&\& defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00110}00110         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} in2, in3, in4;                           \textcolor{comment}{/* Temporary input variables */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00111}00111 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00114}00114 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00116}00116   \textcolor{comment}{/* Loop unrolling: Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00117}00117   blkCnt = numSamples >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00119}00119   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00120}00120   \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00121}00121     \textcolor{comment}{/* C[0] + jC[1] = A[0]+ j(-\/1)A[1] */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00123}00123     \textcolor{comment}{/* Calculate Complex Conjugate and store result in destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00125}00125 \textcolor{preprocessor}{    \#if defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00126}00126     in1 = \mbox{\hyperlink{arm__math__memory_8h_a63675cbbd75b0ba77f5bb21c3b808095}{read\_q15x2\_ia}} ((\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} **) \&pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00127}00127     in2 = \mbox{\hyperlink{arm__math__memory_8h_a63675cbbd75b0ba77f5bb21c3b808095}{read\_q15x2\_ia}} ((\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} **) \&pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00128}00128     in3 = \mbox{\hyperlink{arm__math__memory_8h_a63675cbbd75b0ba77f5bb21c3b808095}{read\_q15x2\_ia}} ((\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} **) \&pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00129}00129     in4 = \mbox{\hyperlink{arm__math__memory_8h_a63675cbbd75b0ba77f5bb21c3b808095}{read\_q15x2\_ia}} ((\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} **) \&pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00131}00131 \textcolor{preprocessor}{\#ifndef ARM\_MATH\_BIG\_ENDIAN}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00132}00132     in1 = \mbox{\hyperlink{none_8h_a12b3b944de6144cebccf3a815e964656}{\_\_QASX}}(0, in1);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00133}00133     in2 = \mbox{\hyperlink{none_8h_a12b3b944de6144cebccf3a815e964656}{\_\_QASX}}(0, in2);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00134}00134     in3 = \mbox{\hyperlink{none_8h_a12b3b944de6144cebccf3a815e964656}{\_\_QASX}}(0, in3);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00135}00135     in4 = \mbox{\hyperlink{none_8h_a12b3b944de6144cebccf3a815e964656}{\_\_QASX}}(0, in4);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00136}00136 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00137}00137     in1 = \mbox{\hyperlink{none_8h_a995e63883c48c3c312c1492cb30d2e79}{\_\_QSAX}}(0, in1);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00138}00138     in2 = \mbox{\hyperlink{none_8h_a995e63883c48c3c312c1492cb30d2e79}{\_\_QSAX}}(0, in2);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00139}00139     in3 = \mbox{\hyperlink{none_8h_a995e63883c48c3c312c1492cb30d2e79}{\_\_QSAX}}(0, in3);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00140}00140     in4 = \mbox{\hyperlink{none_8h_a995e63883c48c3c312c1492cb30d2e79}{\_\_QSAX}}(0, in4);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00141}00141 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifndef ARM\_MATH\_BIG\_ENDIAN */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00143}00143     in1 = ((uint32\_t) in1 >> 16) | ((uint32\_t) in1 << 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00144}00144     in2 = ((uint32\_t) in2 >> 16) | ((uint32\_t) in2 << 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00145}00145     in3 = ((uint32\_t) in3 >> 16) | ((uint32\_t) in3 << 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00146}00146     in4 = ((uint32\_t) in4 >> 16) | ((uint32\_t) in4 << 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00148}00148     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, in1);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00149}00149     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, in2);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00150}00150     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, in3);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00151}00151     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, in4);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00152}00152 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00153}00153     *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00154}00154     in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00155}00155     *pDst++ = (in1 == (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x8000) ? (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x7fff : -\/in1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00157}00157     *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00158}00158     in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00159}00159     *pDst++ = (in1 == (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x8000) ? (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x7fff : -\/in1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00161}00161     *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00162}00162     in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00163}00163     *pDst++ = (in1 == (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x8000) ? (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x7fff : -\/in1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00165}00165     *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00166}00166     in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00167}00167     *pDst++ = (in1 == (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x8000) ? (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x7fff : -\/in1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00169}00169 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_DSP) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00171}00171     \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00172}00172     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00173}00173   \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00175}00175   \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00176}00176   blkCnt = numSamples \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00178}00178 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00180}00180   \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00181}00181   blkCnt = numSamples;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00183}00183 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00185}00185   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00186}00186   \{}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00187}00187     \textcolor{comment}{/* C[0] + jC[1] = A[0]+ j(-\/1)A[1] */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00189}00189     \textcolor{comment}{/* Calculate Complex Conjugate and store result in destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00190}00190     *pDst++ =  *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00191}00191     in1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00192}00192 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00193}00193     *pDst++ = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(-\/in1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00194}00194 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00195}00195     *pDst++ = (in1 == (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x8000) ? (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) 0x7fff : -\/in1;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00196}00196 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00198}00198     \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00199}00199     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00200}00200   \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00202}00202 \}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00203}00203 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEI) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cmplx__conj__q15_8c_source_l00204}00204 }
+
+\end{DoxyCode}

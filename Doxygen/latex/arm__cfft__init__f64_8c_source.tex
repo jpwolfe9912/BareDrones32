@@ -1,0 +1,135 @@
+\hypertarget{arm__cfft__init__f64_8c_source}{}\doxysection{arm\+\_\+cfft\+\_\+init\+\_\+f64.\+c}
+\label{arm__cfft__init__f64_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_init\_f64.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_init\_f64.c}}
+\mbox{\hyperlink{arm__cfft__init__f64_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_cfft\_init\_f64.c}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Initialization function for cfft f64 instance}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00029}\mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{00029}} \textcolor{preprocessor}{\#define FFTINIT(EXT,SIZE)                                           \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00030}00030 \textcolor{preprocessor}{  S-\/>bitRevLength = arm\_cfft\_sR\_\#\#EXT\#\#\_len\#\#SIZE.bitRevLength;        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00031}00031 \textcolor{preprocessor}{  S-\/>pBitRevTable = arm\_cfft\_sR\_\#\#EXT\#\#\_len\#\#SIZE.pBitRevTable;         \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00032}00032 \textcolor{preprocessor}{  S-\/>pTwiddle = arm\_cfft\_sR\_\#\#EXT\#\#\_len\#\#SIZE.pTwiddle;}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00052}00052 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{transform__functions_8h}{dsp/transform\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00053}00053 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__common__tables_8h}{arm\_common\_tables.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00054}00054 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__const__structs_8h}{arm\_const\_structs.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00057}\mbox{\hyperlink{group___complex_f_f_t_ga9d584418abdfa43bf78957cadfccf033}{00057}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___complex_f_f_t_ga9d584418abdfa43bf78957cadfccf033}{arm\_cfft\_init\_f64}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00058}00058   \mbox{\hyperlink{structarm__cfft__instance__f64}{arm\_cfft\_instance\_f64}} * S,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00059}00059   uint16\_t fftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00060}00060 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00061}00061         \textcolor{comment}{/*  Initialise the default arm status */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00062}00062         \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00064}00064         \textcolor{comment}{/*  Initialise the FFT length */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00065}00065         S-\/>\mbox{\hyperlink{structarm__cfft__instance__f64_ab8db3bbe7c61e6bb8ca2a55e3446e11a}{fftLen}} = fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00067}00067         \textcolor{comment}{/*  Initialise the Twiddle coefficient pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00068}00068         S-\/>\mbox{\hyperlink{structarm__cfft__instance__f64_a8a6eddea3385b1fca85ccb9b956ec1a3}{pTwiddle}} = NULL;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00071}00071         \textcolor{comment}{/*  Initializations of Instance structure depending on the FFT length */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00072}00072         \textcolor{keywordflow}{switch} (S-\/>\mbox{\hyperlink{structarm__cfft__instance__f64_ab8db3bbe7c61e6bb8ca2a55e3446e11a}{fftLen}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00073}00073 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_4096) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_4096))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00074}00074             \textcolor{comment}{/*  Initializations of structure parameters for 4096 point FFT */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00075}00075         \textcolor{keywordflow}{case} 4096U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00076}00076             \textcolor{comment}{/*  Initialise the bit reversal table modifier */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00077}00077             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,4096);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00078}00078             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00079}00079 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00081}00081 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_2048) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_2048))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00082}00082             \textcolor{comment}{/*  Initializations of structure parameters for 2048 point FFT */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00083}00083         \textcolor{keywordflow}{case} 2048U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00084}00084             \textcolor{comment}{/*  Initialise the bit reversal table modifier */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00085}00085             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,2048);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00087}00087             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00088}00088 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00090}00090 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_1024) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_1024))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00091}00091             \textcolor{comment}{/*  Initializations of structure parameters for 1024 point FFT */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00092}00092         \textcolor{keywordflow}{case} 1024U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00093}00093             \textcolor{comment}{/*  Initialise the bit reversal table modifier */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00094}00094             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,1024);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00096}00096             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00097}00097 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00099}00099 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_512) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_512))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00100}00100             \textcolor{comment}{/*  Initializations of structure parameters for 512 point FFT */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00101}00101         \textcolor{keywordflow}{case} 512U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00102}00102             \textcolor{comment}{/*  Initialise the bit reversal table modifier */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00103}00103             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,512);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00104}00104             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00105}00105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00107}00107 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_256) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_256))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00108}00108         \textcolor{keywordflow}{case} 256U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00109}00109             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,256);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00110}00110             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00111}00111 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00113}00113 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_128) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_128))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00114}00114         \textcolor{keywordflow}{case} 128U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00115}00115             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,128);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00116}00116             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00117}00117 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00119}00119 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_64) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_64))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00120}00120         \textcolor{keywordflow}{case} 64U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00121}00121             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,64);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00122}00122             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00123}00123 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00125}00125 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_32) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_32))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00126}00126         \textcolor{keywordflow}{case} 32U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00127}00127             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,32);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00128}00128             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00129}00129 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00131}00131 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || (defined(ARM\_TABLE\_TWIDDLECOEF\_f64\_16) \&\& defined(ARM\_TABLE\_BITREVIDX\_FLT\_16))}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00132}00132         \textcolor{keywordflow}{case} 16U:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00133}00133             \textcolor{comment}{/*  Initializations of structure parameters for 16 point FFT */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00134}00134             \mbox{\hyperlink{arm__cfft__init__f64_8c_a683e50ab6ad88d46aa763d21bf48ee96}{FFTINIT}}(f64,16);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00135}00135             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00136}00136 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00138}00138         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00139}00139             \textcolor{comment}{/*  Reporting argument error if fftSize is not valid value */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00140}00140             \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a74897e18d4b8f62b12a7d8a01dd2bb35}{ARM\_MATH\_ARGUMENT\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00141}00141             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00142}00142         \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00145}00145         \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00146}00146 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__init__f64_8c_source_l00147}00147 }
+
+\end{DoxyCode}

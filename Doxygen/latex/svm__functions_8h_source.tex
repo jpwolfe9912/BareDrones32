@@ -1,0 +1,179 @@
+\hypertarget{svm__functions_8h_source}{}\doxysection{svm\+\_\+functions.\+h}
+\label{svm__functions_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/dsp/svm\_functions.h@{Autodrone32/Libraries/CMSIS/Include/dsp/svm\_functions.h}}
+\mbox{\hyperlink{svm__functions_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00001}00001 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00002}00002 \textcolor{comment}{ * @file     svm\_functions.h}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00003}00003 \textcolor{comment}{ * @brief    Public header file for CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00004}00004 \textcolor{comment}{ * @version  V1.9.0}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00005}00005 \textcolor{comment}{ * @date     23 April 2021}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00006}00006 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00007}00007 \textcolor{comment}{ ******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00008}00008 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00009}00009 \textcolor{comment}{ * Copyright (c) 2010-\/2020 Arm Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00010}00010 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00011}00011 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00012}00012 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00013}00013 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00014}00014 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00015}00015 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00017}00017 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00018}00018 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00019}00019 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00020}00020 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00021}00021 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00022}00022 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00023}00023 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00024}00024 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00026}00026  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00027}00027 \textcolor{preprocessor}{\#ifndef \_SVM\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00028}00028 \textcolor{preprocessor}{\#define \_SVM\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__types_8h}{arm\_math\_types.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00031}00031 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__memory_8h}{arm\_math\_memory.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{none_8h}{dsp/none.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00034}00034 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{utils_8h}{dsp/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00035}00035 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{svm__defines_8h}{dsp/svm\_defines.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00037}00037 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00038}00038 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00039}00039 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00040}00040 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00042}\mbox{\hyperlink{svm__functions_8h_a41600e7828c196ee086489538ba6d25e}{00042}} \textcolor{preprocessor}{\#define STEP(x) (x) <= 0 ? 0 : 1}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00065}\mbox{\hyperlink{svm__functions_8h_a653ddea4ad545ab8c755c3649078ad59}{00065}} \mbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{svm__functions_8h_a653ddea4ad545ab8c755c3649078ad59}{arm\_exponent\_f32}}(\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} x, int32\_t nb)}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00066}00066 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00067}00067     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} r = x;}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00068}00068     nb -\/-\/;}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00069}00069     \textcolor{keywordflow}{while}(nb > 0)}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00070}00070     \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00071}00071         r = r * x;}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00072}00072         nb-\/-\/;}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00073}00073     \}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00074}00074     \textcolor{keywordflow}{return}(r);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00075}00075 \}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00077}00077   }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00084}\mbox{\hyperlink{structarm__svm__linear__instance__f32}{00084}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00085}00085 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00086}\mbox{\hyperlink{structarm__svm__linear__instance__f32_aba6e7453494beedd1e73763a57247e33}{00086}}   uint32\_t        \mbox{\hyperlink{structarm__svm__linear__instance__f32_aba6e7453494beedd1e73763a57247e33}{nbOfSupportVectors}};     }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00087}\mbox{\hyperlink{structarm__svm__linear__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{00087}}   uint32\_t        \mbox{\hyperlink{structarm__svm__linear__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{vectorDimension}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00088}\mbox{\hyperlink{structarm__svm__linear__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{00088}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__linear__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{intercept}};              }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00089}\mbox{\hyperlink{structarm__svm__linear__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{00089}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__linear__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{dualCoefficients}};      }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00090}\mbox{\hyperlink{structarm__svm__linear__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{00090}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__linear__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{supportVectors}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00091}\mbox{\hyperlink{structarm__svm__linear__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{00091}}   \textcolor{keyword}{const} int32\_t   *\mbox{\hyperlink{structarm__svm__linear__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{classes}};               }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00092}00092 \} \mbox{\hyperlink{structarm__svm__linear__instance__f32}{arm\_svm\_linear\_instance\_f32}};}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00098}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32}{00098}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00099}00099 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00100}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_aba6e7453494beedd1e73763a57247e33}{00100}}   uint32\_t        \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_aba6e7453494beedd1e73763a57247e33}{nbOfSupportVectors}};     }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00101}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{00101}}   uint32\_t        \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{vectorDimension}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00102}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{00102}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{intercept}};              }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00103}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{00103}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{dualCoefficients}};      }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00104}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{00104}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{supportVectors}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00105}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{00105}}   \textcolor{keyword}{const} int32\_t   *\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{classes}};               }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00106}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a192432a474907a70b37aa10ddabc0c97}{00106}}   int32\_t         \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a192432a474907a70b37aa10ddabc0c97}{degree}};                 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00107}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_aed464fe96870d4fcee492ab05b5dba21}{00107}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_aed464fe96870d4fcee492ab05b5dba21}{coef0}};                  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00108}\mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{00108}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__polynomial__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{gamma}};                  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00109}00109 \} \mbox{\hyperlink{structarm__svm__polynomial__instance__f32}{arm\_svm\_polynomial\_instance\_f32}};}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00114}\mbox{\hyperlink{structarm__svm__rbf__instance__f32}{00114}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00115}00115 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00116}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_aba6e7453494beedd1e73763a57247e33}{00116}}   uint32\_t        \mbox{\hyperlink{structarm__svm__rbf__instance__f32_aba6e7453494beedd1e73763a57247e33}{nbOfSupportVectors}};     }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00117}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{00117}}   uint32\_t        \mbox{\hyperlink{structarm__svm__rbf__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{vectorDimension}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00118}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{00118}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__rbf__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{intercept}};              }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00119}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{00119}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{dualCoefficients}};      }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00120}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{00120}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__rbf__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{supportVectors}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00121}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{00121}}   \textcolor{keyword}{const} int32\_t   *\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{classes}};               }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00122}\mbox{\hyperlink{structarm__svm__rbf__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{00122}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__rbf__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{gamma}};                  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00123}00123 \} \mbox{\hyperlink{structarm__svm__rbf__instance__f32}{arm\_svm\_rbf\_instance\_f32}};}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00128}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32}{00128}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00129}00129 \{}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00130}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_aba6e7453494beedd1e73763a57247e33}{00130}}   uint32\_t        \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_aba6e7453494beedd1e73763a57247e33}{nbOfSupportVectors}};     }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00131}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{00131}}   uint32\_t        \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_ac0020a4e04df9d200969b1ba84799d88}{vectorDimension}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00132}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{00132}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a4c677d8d24d26b5f2aeb6162f796460b}{intercept}};              }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00133}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{00133}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a97fe467fbc733cbaa864399edaaf7366}{dualCoefficients}};      }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00134}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{00134}}   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_ac74855c4f6df20c9b07ee5fe002378fc}{supportVectors}};        }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00135}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{00135}}   \textcolor{keyword}{const} int32\_t   *\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a3fb69b6a70ff2d687329d334d02af9e1}{classes}};               }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00136}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_aed464fe96870d4fcee492ab05b5dba21}{00136}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_aed464fe96870d4fcee492ab05b5dba21}{coef0}};                  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00137}\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{00137}}   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32_a146a0e95d7c3714b2c58ba2859c8e44c}{gamma}};                  }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00138}00138 \} \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32}{arm\_svm\_sigmoid\_instance\_f32}};}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00154}00154 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__linearsvm_ga25b5fd8b0e0dc95bd31cdd287e30d2cf}{arm\_svm\_linear\_init\_f32}}(\mbox{\hyperlink{structarm__svm__linear__instance__f32}{arm\_svm\_linear\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00155}00155   uint32\_t nbOfSupportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00156}00156   uint32\_t vectorDimension,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00157}00157   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} intercept,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00158}00158   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *dualCoefficients,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00159}00159   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *supportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00160}00160   \textcolor{keyword}{const} int32\_t  *classes);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00171}00171 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__linearsvm_gae6a74ebedc47b59915c308fa88fe339b}{arm\_svm\_linear\_predict\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{structarm__svm__linear__instance__f32}{arm\_svm\_linear\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00172}00172    \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * in, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00173}00173    int32\_t * pResult);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00193}00193 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__polysvm_gad004464aae8fdecfc985a02a0de6b0af}{arm\_svm\_polynomial\_init\_f32}}(\mbox{\hyperlink{structarm__svm__polynomial__instance__f32}{arm\_svm\_polynomial\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00194}00194   uint32\_t nbOfSupportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00195}00195   uint32\_t vectorDimension,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00196}00196   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} intercept,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00197}00197   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *dualCoefficients,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00198}00198   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *supportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00199}00199   \textcolor{keyword}{const} int32\_t   *classes,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00200}00200   int32\_t      degree,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00201}00201   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} coef0,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00202}00202   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} gamma}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00203}00203   );}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00213}00213 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__polysvm_ga5719f32544ecc1b568aaba7f5d237df8}{arm\_svm\_polynomial\_predict\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{structarm__svm__polynomial__instance__f32}{arm\_svm\_polynomial\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00214}00214    \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * in, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00215}00215    int32\_t * pResult);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00232}00232 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rbfsvm_ga1ea7dd56e7f1b57c8fa8fdc35e7c25d4}{arm\_svm\_rbf\_init\_f32}}(\mbox{\hyperlink{structarm__svm__rbf__instance__f32}{arm\_svm\_rbf\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00233}00233   uint32\_t nbOfSupportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00234}00234   uint32\_t vectorDimension,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00235}00235   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} intercept,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00236}00236   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *dualCoefficients,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00237}00237   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *supportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00238}00238   \textcolor{keyword}{const} int32\_t   *classes,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00239}00239   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} gamma}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00240}00240   );}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00241}00241 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00250}00250 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__rbfsvm_gaf49fb51cf4d4d1194145171d9a461e10}{arm\_svm\_rbf\_predict\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{structarm__svm__rbf__instance__f32}{arm\_svm\_rbf\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00251}00251    \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * in, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00252}00252    int32\_t * pResult);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00269}00269 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__sigmoidsvm_ga1ecc44b7665915ab4e9dff99de9a3b20}{arm\_svm\_sigmoid\_init\_f32}}(\mbox{\hyperlink{structarm__svm__sigmoid__instance__f32}{arm\_svm\_sigmoid\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00270}00270   uint32\_t nbOfSupportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00271}00271   uint32\_t vectorDimension,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00272}00272   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} intercept,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00273}00273   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *dualCoefficients,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00274}00274   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *supportVectors,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00275}00275   \textcolor{keyword}{const} int32\_t   *classes,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00276}00276   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} coef0,}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00277}00277   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} gamma}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00278}00278   );}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00279}00279 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00288}00288 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__sigmoidsvm_ga36896050dfceb0c54e509f8ef918811a}{arm\_svm\_sigmoid\_predict\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{structarm__svm__sigmoid__instance__f32}{arm\_svm\_sigmoid\_instance\_f32}} *S, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00289}00289    \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * in, }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00290}00290    int32\_t * pResult);}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00292}00292 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00293}00293 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00295}00295 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00296}00296 \}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00297}00297 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00298}00298 }
+\DoxyCodeLine{\Hypertarget{svm__functions_8h_source_l00299}00299 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ifndef \_SVM\_FUNCTIONS\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

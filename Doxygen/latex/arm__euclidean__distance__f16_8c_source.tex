@@ -1,0 +1,108 @@
+\hypertarget{arm__euclidean__distance__f16_8c_source}{}\doxysection{arm\+\_\+euclidean\+\_\+distance\+\_\+f16.\+c}
+\label{arm__euclidean__distance__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_euclidean\_distance\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_euclidean\_distance\_f16.c}}
+\mbox{\hyperlink{arm__euclidean__distance__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00002}00002 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00003}00003 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00004}00004 \textcolor{comment}{ * Title:        arm\_euclidean\_distance\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00005}00005 \textcolor{comment}{ * Description:  Euclidean distance between two vectors}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00006}00006 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00008}00008 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00010}00010 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00011}00011 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00012}00012 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00013}00013 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00014}00014 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00015}00015 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00017}00017 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00018}00018 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00019}00019 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00020}00020 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00021}00021 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00022}00022 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00023}00023 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00024}00024 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00025}00025 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00026}00026 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00027}00027 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00028}00028 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{distance__functions__f16_8h}{dsp/distance\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00032}00032 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00034}00034 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00035}00035 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00063}00063 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00065}00065 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00066}00066 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__vec__math_8h}{arm\_vec\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00067}00067 float16\_t arm\_euclidean\_distance\_f16(\textcolor{keyword}{const} float16\_t *pA,\textcolor{keyword}{const} float16\_t *pB, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00068}00068 \{}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00069}00069     uint32\_t        blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00070}00070     float16\_t       tmp;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00071}00071     f16x8\_t         a, b, accumV, tempV;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00073}00073     accumV = vdupq\_n\_f16(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00075}00075     blkCnt = blockSize >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00076}00076     \textcolor{keywordflow}{while} (blkCnt > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00077}00077         a = vld1q(pA);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00078}00078         b = vld1q(pB);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00080}00080         tempV = vsubq(a, b);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00081}00081         accumV = vfmaq(accumV, tempV, tempV);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00083}00083         pA += 8;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00084}00084         pB += 8;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00085}00085         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00086}00086     \}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00088}00088     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00089}00089 \textcolor{comment}{     * tail}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00090}00090 \textcolor{comment}{     * (will be merged thru tail predication)}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00091}00091 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00092}00092     blkCnt = blockSize \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00093}00093     \textcolor{keywordflow}{if} (blkCnt > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00094}00094         mve\_pred16\_t    p0 = vctp16q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00096}00096         a = vldrhq\_z\_f16(pA, p0);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00097}00097         b = vldrhq\_z\_f16(pB, p0);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00099}00099         tempV = vsubq(a, b);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00100}00100         accumV = vfmaq\_m(accumV, tempV, tempV, p0);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00101}00101     \}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00103}00103     arm\_sqrt\_f16(vecAddAcrossF16Mve(accumV), \&tmp);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00104}00104     \textcolor{keywordflow}{return} (tmp);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00105}00105 \}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00107}00107 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00108}00108 float16\_t arm\_euclidean\_distance\_f16(\textcolor{keyword}{const} float16\_t *pA,\textcolor{keyword}{const} float16\_t *pB, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00109}00109 \{}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00110}00110    \_Float16 accum=0.0f,tmp;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00111}00111    float16\_t result;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00113}00113    \textcolor{keywordflow}{while}(blockSize > 0)}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00114}00114    \{}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00115}00115       tmp = (\_Float16)*pA++ -\/ (\_Float16)*pB++;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00116}00116       accum += \mbox{\hyperlink{utils_8h_ac3644f84794a8bfdacf39c4b2c2495fc}{SQ}}(tmp);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00117}00117       blockSize -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00118}00118    \}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00119}00119    arm\_sqrt\_f16(accum,\&result);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00120}00120    \textcolor{keywordflow}{return}(result);}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00121}00121 \}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00123}00123 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00130}00130 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{arm__euclidean__distance__f16_8c_source_l00131}00131 }
+
+\end{DoxyCode}

@@ -1,0 +1,152 @@
+\hypertarget{drv__serial_8c_source}{}\doxysection{drv\+\_\+serial.\+c}
+\label{drv__serial_8c_source}\index{Autodrone32/Src/drv/drv\_serial.c@{Autodrone32/Src/drv/drv\_serial.c}}
+\mbox{\hyperlink{drv__serial_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00014}00014 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00016}\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{00016}} \textcolor{keywordtype}{char} \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00018}00018 \textcolor{preprocessor}{\#ifdef USE\_NUCLEO}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00024}00024 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00025}00025 \mbox{\hyperlink{drv__serial_8h_a0c569386540e18af22f2d8c74e4f22c3}{serialInit}}(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00026}00026     RCC-\/>AHB1ENR |= RCC\_AHB1ENR\_GPIODEN;                        \textcolor{comment}{// enable the clock for port D}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00027}00027     RCC-\/>APB1ENR |= RCC\_APB1ENR\_USART3EN;                       \textcolor{comment}{// enable the clock for UART3}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00029}00029     GPIOD-\/>AFR[1] |= (0x7 << (4 * 0U));             \textcolor{comment}{// set pin A2 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00030}00030     GPIOD-\/>AFR[1] |= (0x7 << (4 * 1U));             \textcolor{comment}{// set pin A3 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00032}00032     GPIOD-\/>MODER \&= \string~(GPIO\_MODER\_MODER8 | GPIO\_MODER\_MODER9);}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00033}00033     GPIOD-\/>MODER |= GPIO\_MODER\_MODER8\_1 | GPIO\_MODER\_MODER9\_1;  \textcolor{comment}{// set PD8,9 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00035}00035     NVIC\_SetPriority(USART3\_IRQn, NVIC\_EncodePriority(NVIC\_GetPriorityGrouping(),0, 0));}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00036}00036     NVIC\_EnableIRQ(USART3\_IRQn);}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00038}00038     USART3-\/>BRR = 0x1D5;                                        \textcolor{comment}{// set baud rate to 115200}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00039}00039     USART3-\/>CR1 |= USART\_CR1\_RE | USART\_CR1\_TE | USART\_CR1\_UE;  \textcolor{comment}{// enable the receiver, transmitter, and USART}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00041}00041 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00048}00048 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00049}00049 \mbox{\hyperlink{drv__serial_8h_aa43494de2ff609909ddd35979dcb4218}{serialWrite}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}})\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00050}00050     \textcolor{keywordflow}{while} (!(USART3-\/>ISR \& USART\_ISR\_TXE))\{\}    \textcolor{comment}{// waits for TX buffer to become empty}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00051}00051     USART3-\/>TDR = \mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}};                             \textcolor{comment}{// transfers the value of the data register into ch}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00052}00052     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00053}00053 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00061}00061 \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00062}00062 \mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{keywordtype}{char} wait)}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00063}00063 \{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00064}00064     USART3-\/>CR1 |= USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00065}00065     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00066}00066     \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} == wait)\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00067}00067         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00068}00068         USART3-\/>CR1 \&= \string~USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00069}00069         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00070}00070     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00071}00071     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00072}00072         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00073}00073         USART3-\/>CR1 \&= \string~USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00074}00074         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00075}00075     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00078}00078 \textcolor{comment}{/* Interrupt Handlers */}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00083}00083 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00084}00084 USART3\_IRQHandler(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00085}00085     \textcolor{keywordflow}{if}(USART3-\/>ISR \& USART\_ISR\_RXNE)\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00086}00086         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = USART3-\/>RDR;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00087}00087         USART3-\/>TDR = \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00089}00089     \textcolor{keywordflow}{if}(USART3-\/>ISR \& USART\_ISR\_ORE)}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00090}00090         USART3-\/>ICR |= USART\_ICR\_ORECF;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00093}00093 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00095}00095 \textcolor{preprocessor}{\#ifdef USE\_AUTODRONE}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00101}00101 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00102}00102 \mbox{\hyperlink{drv__serial_8h_a0c569386540e18af22f2d8c74e4f22c3}{serialInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00103}00103 \{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00105}00105     RCC-\/>AHB1ENR |= RCC\_AHB1ENR\_GPIOCEN |}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00106}00106             RCC\_AHB1ENR\_GPIODEN;                        \textcolor{comment}{// enable the clock for port C, D}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00107}00107     RCC-\/>APB1ENR |= RCC\_APB1ENR\_UART5EN;                        \textcolor{comment}{// enable the clock for UART5}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00109}00109     GPIOC-\/>AFR[1] |= (0x8 << (4 * 4U));                         \textcolor{comment}{// set pin A2 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00110}00110     GPIOD-\/>AFR[0] |= (0x8 << (4 * 2U));                         \textcolor{comment}{// set pin A3 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00112}00112     GPIOC-\/>MODER \&= \string~(GPIO\_MODER\_MODER12);}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00113}00113     GPIOD-\/>MODER \&= \string~(GPIO\_MODER\_MODER2);}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00114}00114     GPIOC-\/>MODER |= GPIO\_MODER\_MODER12\_1;                       \textcolor{comment}{// set PC12 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00115}00115     GPIOD-\/>MODER |= GPIO\_MODER\_MODER2\_1;                        \textcolor{comment}{// set PD2 as alternate function}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00117}00117     NVIC\_SetPriority(UART5\_IRQn, NVIC\_EncodePriority(NVIC\_GetPriorityGrouping(),0, 0));}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00118}00118     NVIC\_EnableIRQ(UART5\_IRQn);}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00120}00120     UART5-\/>BRR = 0x1D5;                                         \textcolor{comment}{// set baud rate to 115200}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00121}00121     UART5-\/>CR1 |= USART\_CR1\_RE | USART\_CR1\_TE | USART\_CR1\_UE;   \textcolor{comment}{// enable the receiver, transmitter, and USART                              // enable UART5 interrupts on the NVIC (nested vector interrupt controller)}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00124}00124 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00131}00131 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00132}00132 \mbox{\hyperlink{drv__serial_8h_aa43494de2ff609909ddd35979dcb4218}{serialWrite}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}})}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00133}00133 \{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00134}00134     \textcolor{keywordflow}{while} (!(UART5-\/>ISR \& USART\_ISR\_TXE))\{\} \textcolor{comment}{// waits for TX buffer to become empty}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00135}00135     UART5-\/>TDR = \mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}};                      \textcolor{comment}{// transfers the value of the data register into ch}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00136}00136 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00144}00144 \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00145}00145 \mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{keywordtype}{char} wait)}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00146}00146 \{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00147}00147     UART5-\/>CR1 |= USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00148}00148     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00149}00149     \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} == wait)\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00150}00150         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00151}00151         UART5-\/>CR1 \&= \string~USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00152}00152         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00153}00153     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00154}00154     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00155}00155         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00156}00156         UART5-\/>CR1 \&= \string~USART\_CR1\_RXNEIE;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00157}00157         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00158}00158     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00159}00159 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00161}00161 \textcolor{comment}{/* Interrupt Handlers */}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00166}00166 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00167}00167 UART5\_IRQHandler(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00168}00168 \{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00169}00169     \textcolor{keywordflow}{if}(UART5-\/>ISR \& USART\_ISR\_RXNE)\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00170}00170         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = UART5-\/>RDR;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00171}00171         UART5-\/>TDR = \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00172}00172     \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00173}00173     \textcolor{keywordflow}{if}(UART5-\/>ISR \& USART\_ISR\_ORE)}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00174}00174         UART5-\/>ICR |= USART\_ICR\_ORECF;}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00175}00175 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00177}00177 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00179}00179 \textcolor{comment}{/*  This is required to use printf                                          */}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00180}00180 \textcolor{comment}{/*  This basically tells the compiler what to do when it encounters printf  */}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00181}00181 \textcolor{comment}{/*  I honestly can't fully explain what is going on but it works            */}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00182}00182 \textcolor{preprocessor}{\#ifdef \_\_GNUC\_\_}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00183}00183 \textcolor{preprocessor}{\#define PUTCHAR\_PROTOTYPE int \_\_io\_putchar(int ch)}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00184}00184 \textcolor{comment}{//  \#define GETCHAR\_PROTOTYPE int \_\_io\_getchar (void)}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00185}00185 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00186}\mbox{\hyperlink{drv__serial_8c_ac040eb6679fed6e591776425aa7abd9d}{00186}} \textcolor{preprocessor}{\#define PUTCHAR\_PROTOTYPE int fputc(int ch, FILE *f)}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00187}00187 \textcolor{comment}{//  \#define GETCHAR\_PROTOTYPE int fgetc(FILE * f)}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00188}00188 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00190}\mbox{\hyperlink{drv__serial_8c_a6b71e3c5cd86d6941c8f4a8beb1b354f}{00190}} \mbox{\hyperlink{drv__serial_8c_ac040eb6679fed6e591776425aa7abd9d}{PUTCHAR\_PROTOTYPE}}\{}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00191}00191     \mbox{\hyperlink{drv__serial_8h_aa43494de2ff609909ddd35979dcb4218}{serialWrite}}(\mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}});}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00192}\mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{00192}}     \textcolor{keywordflow}{return} \mbox{\hyperlink{drv__serial_8c_a0523c05685d59544dca911cb6a3db77d}{ch}};}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00193}00193 \}}
+\DoxyCodeLine{\Hypertarget{drv__serial_8c_source_l00194}00194 }
+
+\end{DoxyCode}

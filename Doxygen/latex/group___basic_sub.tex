@@ -1,0 +1,148 @@
+\hypertarget{group___basic_sub}{}\doxysection{Vector Subtraction}
+\label{group___basic_sub}\index{Vector Subtraction@{Vector Subtraction}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___basic_sub_ga76b8b2aec34269c6de0b090cab00fb33}{arm\+\_\+sub\+\_\+f32}} (const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+SrcA, const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+SrcB, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Floating-\/point vector subtraction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_sub_ga33a096c2860eca18bbc4e6966409064f}{arm\+\_\+sub\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+SrcA, const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+SrcB, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q15 vector subtraction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_sub_ga913159f71589b56dbfb03ddc1210a59c}{arm\+\_\+sub\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+SrcA, const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+SrcB, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q31 vector subtraction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_sub_ga162990b82a18231c4e606ba0e6584c7e}{arm\+\_\+sub\+\_\+q7}} (const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+SrcA, const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+SrcB, \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q7 vector subtraction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Element-\/by-\/element subtraction of two vectors.
+
+
+\begin{DoxyPre}
+    pDst[n] = pSrcA[n] -\/ pSrcB[n],   0 <= n < blockSize.
+\end{DoxyPre}
+
+
+There are separate functions for floating-\/point, Q7, Q15, and Q31 data types. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___basic_sub_ga76b8b2aec34269c6de0b090cab00fb33}\label{group___basic_sub_ga76b8b2aec34269c6de0b090cab00fb33}} 
+\index{Vector Subtraction@{Vector Subtraction}!arm\_sub\_f32@{arm\_sub\_f32}}
+\index{arm\_sub\_f32@{arm\_sub\_f32}!Vector Subtraction@{Vector Subtraction}}
+\doxysubsubsection{\texorpdfstring{arm\_sub\_f32()}{arm\_sub\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+sub\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+SrcA,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+SrcB,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Floating-\/point vector subtraction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+SrcA} & points to the first input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+SrcB} & points to the second input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__sub__f32_8c_source_l00114}{114}} of file \mbox{\hyperlink{arm__sub__f32_8c_source}{arm\+\_\+sub\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___basic_sub_ga33a096c2860eca18bbc4e6966409064f}\label{group___basic_sub_ga33a096c2860eca18bbc4e6966409064f}} 
+\index{Vector Subtraction@{Vector Subtraction}!arm\_sub\_q15@{arm\_sub\_q15}}
+\index{arm\_sub\_q15@{arm\_sub\_q15}!Vector Subtraction@{Vector Subtraction}}
+\doxysubsubsection{\texorpdfstring{arm\_sub\_q15()}{arm\_sub\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+sub\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+SrcA,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+SrcB,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q15 vector subtraction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+SrcA} & points to the first input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+SrcB} & points to the second input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q15 range \mbox{[}0x8000 0x7\+FFF\mbox{]} are saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__sub__q15_8c_source_l00104}{104}} of file \mbox{\hyperlink{arm__sub__q15_8c_source}{arm\+\_\+sub\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group___basic_sub_ga913159f71589b56dbfb03ddc1210a59c}\label{group___basic_sub_ga913159f71589b56dbfb03ddc1210a59c}} 
+\index{Vector Subtraction@{Vector Subtraction}!arm\_sub\_q31@{arm\_sub\_q31}}
+\index{arm\_sub\_q31@{arm\_sub\_q31}!Vector Subtraction@{Vector Subtraction}}
+\doxysubsubsection{\texorpdfstring{arm\_sub\_q31()}{arm\_sub\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+sub\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+SrcA,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+SrcB,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q31 vector subtraction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+SrcA} & points to the first input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+SrcB} & points to the second input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q31 range \mbox{[}0x80000000 0x7\+FFFFFFF\mbox{]} are saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__sub__q31_8c_source_l00103}{103}} of file \mbox{\hyperlink{arm__sub__q31_8c_source}{arm\+\_\+sub\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{group___basic_sub_ga162990b82a18231c4e606ba0e6584c7e}\label{group___basic_sub_ga162990b82a18231c4e606ba0e6584c7e}} 
+\index{Vector Subtraction@{Vector Subtraction}!arm\_sub\_q7@{arm\_sub\_q7}}
+\index{arm\_sub\_q7@{arm\_sub\_q7}!Vector Subtraction@{Vector Subtraction}}
+\doxysubsubsection{\texorpdfstring{arm\_sub\_q7()}{arm\_sub\_q7()}}
+{\footnotesize\ttfamily void arm\+\_\+sub\+\_\+q7 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+SrcA,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+SrcB,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q7 vector subtraction. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+SrcA} & points to the first input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+SrcB} & points to the second input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q7 range \mbox{[}0x80 0x7F\mbox{]} will be saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__sub__q7_8c_source_l00101}{101}} of file \mbox{\hyperlink{arm__sub__q7_8c_source}{arm\+\_\+sub\+\_\+q7.\+c}}.
+

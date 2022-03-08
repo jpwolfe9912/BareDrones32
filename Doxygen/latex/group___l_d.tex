@@ -1,0 +1,71 @@
+\hypertarget{group___l_d}{}\doxysection{Levinson Durbin Algorithm}
+\label{group___l_d}\index{Levinson Durbin Algorithm@{Levinson Durbin Algorithm}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___l_d_ga2ea8733ba29641f2f081251da672dabf}{arm\+\_\+levinson\+\_\+durbin\+\_\+f32}} (const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$phi, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$a, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$err, int nb\+Coefs)
+\begin{DoxyCompactList}\small\item\em Levinson Durbin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___l_d_ga62b3cbd165b27673f5c17a6e72697e76}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$phi, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$a, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$err, int nb\+Coefs)
+\begin{DoxyCompactList}\small\item\em Levinson Durbin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___l_d_ga2ea8733ba29641f2f081251da672dabf}\label{group___l_d_ga2ea8733ba29641f2f081251da672dabf}} 
+\index{Levinson Durbin Algorithm@{Levinson Durbin Algorithm}!arm\_levinson\_durbin\_f32@{arm\_levinson\_durbin\_f32}}
+\index{arm\_levinson\_durbin\_f32@{arm\_levinson\_durbin\_f32}!Levinson Durbin Algorithm@{Levinson Durbin Algorithm}}
+\doxysubsubsection{\texorpdfstring{arm\_levinson\_durbin\_f32()}{arm\_levinson\_durbin\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+levinson\+\_\+durbin\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{phi,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{err,  }\item[{int}]{nb\+Coefs }\end{DoxyParamCaption})}
+
+
+
+Levinson Durbin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em phi} & autocovariance vector starting with lag 0 (length is nb\+Coefs + 1) \\
+\hline
+\mbox{\texttt{ out}}  & {\em a} & autoregressive coefficients \\
+\hline
+\mbox{\texttt{ out}}  & {\em err} & prediction error (variance) \\
+\hline
+\mbox{\texttt{ in}}  & {\em nb\+Coefs} & number of autoregressive coefficients \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__f32_8c_source_l00220}{220}} of file \mbox{\hyperlink{arm__levinson__durbin__f32_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___l_d_ga62b3cbd165b27673f5c17a6e72697e76}\label{group___l_d_ga62b3cbd165b27673f5c17a6e72697e76}} 
+\index{Levinson Durbin Algorithm@{Levinson Durbin Algorithm}!arm\_levinson\_durbin\_q31@{arm\_levinson\_durbin\_q31}}
+\index{arm\_levinson\_durbin\_q31@{arm\_levinson\_durbin\_q31}!Levinson Durbin Algorithm@{Levinson Durbin Algorithm}}
+\doxysubsubsection{\texorpdfstring{arm\_levinson\_durbin\_q31()}{arm\_levinson\_durbin\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+levinson\+\_\+durbin\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{phi,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{err,  }\item[{int}]{nb\+Coefs }\end{DoxyParamCaption})}
+
+
+
+Levinson Durbin. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em phi} & autocovariance vector starting with lag 0 (length is nb\+Coefs + 1) \\
+\hline
+\mbox{\texttt{ out}}  & {\em a} & autoregressive coefficients \\
+\hline
+\mbox{\texttt{ out}}  & {\em err} & prediction error (variance) \\
+\hline
+\mbox{\texttt{ in}}  & {\em nb\+Coefs} & number of autoregressive coefficients \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00304}{304}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+

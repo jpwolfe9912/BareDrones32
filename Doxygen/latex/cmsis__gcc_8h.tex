@@ -1,0 +1,384 @@
+\hypertarget{cmsis__gcc_8h}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+Include/cmsis\+\_\+gcc.h File Reference}
+\label{cmsis__gcc_8h}\index{Autodrone32/Libraries/CMSIS/Include/cmsis\_gcc.h@{Autodrone32/Libraries/CMSIS/Include/cmsis\_gcc.h}}
+
+
+CMSIS compiler GCC header file.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a447121dcab4275b7839a56082b7a1ab8}{\+\_\+\+\_\+has\+\_\+builtin}}(x)~(0)
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}}~\+\_\+\+\_\+asm
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_ade2d8d7118f8ff49547f60aa0c3382bb}{\+\_\+\+\_\+\+INLINE}}~inline
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}}~static inline
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}}~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((always\+\_\+inline)) static inline
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a153a4a31b276a9758959580538720a51}{\+\_\+\+\_\+\+NO\+\_\+\+RETURN}}~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((\+\_\+\+\_\+noreturn\+\_\+\+\_\+))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a3e40e4c553fc11588f7a4c2a19e789e0}{\+\_\+\+\_\+\+USED}}~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((used))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_ac607bf387b29162be6a9b77fc7999539}{\+\_\+\+\_\+\+WEAK}}~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((weak))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_abe8996d3d985ee1529475443cc635bf1}{\+\_\+\+\_\+\+PACKED}}~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}}~struct \mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a6fba34d08b0a526830b4231d2ea0b89a}{\+\_\+\+\_\+\+PACKED\+\_\+\+UNION}}~union \mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_ac8a13aacd0453758fdfd01a57a2a6a3d}{\+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32}}(x)~(((struct T\+\_\+\+UINT32 $\ast$)(x))-\/$>$v)
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a5103fb373cae9837cc4a384be55dc87f}{\+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT16\+\_\+\+WRITE}}(addr,  val)~(void)((((struct \mbox{\hyperlink{cmsis__gcc_8h_ac962a9aa89cef6e5cde0fe6b067f7de3}{T\+\_\+\+UINT16\+\_\+\+WRITE}} $\ast$)(void $\ast$)(addr))-\/$>$v) = (val))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_ab71b66e5ce403158d3dee62a59f9175f}{\+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT16\+\_\+\+READ}}(addr)~(((const struct \mbox{\hyperlink{cmsis__gcc_8h_a86899dc41c5b3b9ce6b8014ee0e852b9}{T\+\_\+\+UINT16\+\_\+\+READ}} $\ast$)(const void $\ast$)(addr))-\/$>$v)
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a203f593d140ed88b81bc189edc861110}{\+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32\+\_\+\+WRITE}}(addr,  val)~(void)((((struct \mbox{\hyperlink{cmsis__gcc_8h_abbd193dec7cb45f1fbd05ff7e366ffe2}{T\+\_\+\+UINT32\+\_\+\+WRITE}} $\ast$)(void $\ast$)(addr))-\/$>$v) = (val))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a3b931f0b051b8c1a6377a3dcc7559b5e}{\+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32\+\_\+\+READ}}(addr)~(((const struct \mbox{\hyperlink{cmsis__gcc_8h_a9653a1cbf01ec418e8e940ee3996b8ca}{T\+\_\+\+UINT32\+\_\+\+READ}} $\ast$)(const void $\ast$)(addr))-\/$>$v)
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_aa65ef8f7a5e8b7a6ea6c1d48b4c78e55}{\+\_\+\+\_\+\+ALIGNED}}(x)~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((aligned(x)))
+\item 
+\#define \mbox{\hyperlink{cmsis__gcc_8h_a378ac21329d33f561f90265eef89f564}{\+\_\+\+\_\+\+RESTRICT}}~\+\_\+\+\_\+restrict
+\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gabc17e391c13c71702366c67cba39c276}{\+\_\+\+\_\+\+CMSIS\+\_\+\+GCC\+\_\+\+OUT\+\_\+\+REG}}(r)~\char`\"{}=r\char`\"{} (r)
+\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga03179f79efee45c226dddfb8d824ad83}{\+\_\+\+\_\+\+CMSIS\+\_\+\+GCC\+\_\+\+RW\+\_\+\+REG}}(r)~\char`\"{}+r\char`\"{} (r)
+\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga9d94dee7402367961d2cf0accc00fd97}{\+\_\+\+\_\+\+CMSIS\+\_\+\+GCC\+\_\+\+USE\+\_\+\+REG}}(r)~\char`\"{}r\char`\"{} (r)
+\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga0b13f3617dd4af2cd2eb3a311073f717}{\+\_\+\+\_\+\+NOP}}()~\mbox{\hyperlink{cmsis__iccarm_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}} volatile (\char`\"{}nop\char`\"{})
+\begin{DoxyCompactList}\small\item\em No Operation. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gab28e2b328c4cf23c917ab18a23194f8e}{\+\_\+\+\_\+\+WFI}}()~\mbox{\hyperlink{cmsis__iccarm_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}} volatile (\char`\"{}wfi\char`\"{})
+\begin{DoxyCompactList}\small\item\em Wait For Interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gaf0330712223f4cfb6091e4ab84775f73}{\+\_\+\+\_\+\+WFE}}()~\mbox{\hyperlink{cmsis__iccarm_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}} volatile (\char`\"{}wfe\char`\"{})
+\begin{DoxyCompactList}\small\item\em Wait For Event. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gafa58e60fcd2176ad58f96947466ea1fa}{\+\_\+\+\_\+\+SEV}}()~\mbox{\hyperlink{cmsis__iccarm_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}} volatile (\char`\"{}sev\char`\"{})
+\begin{DoxyCompactList}\small\item\em Send Event. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga15ea6bd3c507d3e81c3b3a1258e46397}{\+\_\+\+\_\+\+BKPT}}(value)~\mbox{\hyperlink{cmsis__iccarm_8h_a1378040bcf22428955c6e3ce9c2053cd}{\+\_\+\+\_\+\+ASM}} volatile (\char`\"{}bkpt \char`\"{}\#value)
+\begin{DoxyCompactList}\small\item\em Breakpoint. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga5d5bb1527e042be4a9fa5a33f65cc248}{\+\_\+\+\_\+\+CLZ}}~(uint8\+\_\+t)\+\_\+\+\_\+builtin\+\_\+clz
+\begin{DoxyCompactList}\small\item\em Count leading zeros. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{cmsis__gcc_8h_ade51b179ed6f69a6bacfab38b7b359b1}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((packed)) T\+\_\+\+UINT32
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_gae84bf4e95944e61937f4ed2453e5ef23}{\+\_\+\+\_\+enable\+\_\+irq}} (void)
+\begin{DoxyCompactList}\small\item\em Enable IRQ Interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga2299877e4ba3e162ca9dbabd6e0abef6}{\+\_\+\+\_\+disable\+\_\+irq}} (void)
+\begin{DoxyCompactList}\small\item\em Disable IRQ Interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga7dd5c942bee32f055b90153feb950f59}{\+\_\+\+\_\+get\+\_\+\+CONTROL}} (void)
+\begin{DoxyCompactList}\small\item\em Enable IRQ Interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga0102d0939d9b26c5c792be6bf5fd550f}{\+\_\+\+\_\+set\+\_\+\+CONTROL}} (uint32\+\_\+t control)
+\begin{DoxyCompactList}\small\item\em Set Control Register. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_gaf15a71855b9d731d11de92704c82bd18}{\+\_\+\+\_\+get\+\_\+\+IPSR}} (void)
+\begin{DoxyCompactList}\small\item\em Get IPSR Register. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_gadff4f1e599946e8ae96fba17b5245f04}{\+\_\+\+\_\+get\+\_\+\+APSR}} (void)
+\begin{DoxyCompactList}\small\item\em Get APSR Register. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga94c675a736d4754a5f73d8748b24aa11}{\+\_\+\+\_\+get\+\_\+x\+PSR}} (void)
+\begin{DoxyCompactList}\small\item\em Get x\+PSR Register. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga826c53e30812e350c77f58aac9f42bcb}{\+\_\+\+\_\+get\+\_\+\+PSP}} (void)
+\begin{DoxyCompactList}\small\item\em Get Process Stack Pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga21f50fc02c3927a8ebf0bc3678c06862}{\+\_\+\+\_\+set\+\_\+\+PSP}} (uint32\+\_\+t top\+Of\+Proc\+Stack)
+\begin{DoxyCompactList}\small\item\em Set Process Stack Pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga667e7b8b97b4a30f445ae45d37588e45}{\+\_\+\+\_\+get\+\_\+\+MSP}} (void)
+\begin{DoxyCompactList}\small\item\em Get Main Stack Pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga08b66e2b60a46fada36d90d2bc1e7c9b}{\+\_\+\+\_\+set\+\_\+\+MSP}} (uint32\+\_\+t top\+Of\+Main\+Stack)
+\begin{DoxyCompactList}\small\item\em Set Main Stack Pointer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga4ff59fb9e280d19e79e6875863a65f0a}{\+\_\+\+\_\+get\+\_\+\+PRIMASK}} (void)
+\begin{DoxyCompactList}\small\item\em Get Priority Mask. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_gaf4a17d3be7dbb066489836d849930d92}{\+\_\+\+\_\+set\+\_\+\+PRIMASK}} (uint32\+\_\+t pri\+Mask)
+\begin{DoxyCompactList}\small\item\em Set Priority Mask. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga6a275172e274ea7ce6c22030d07c6c64}{\+\_\+\+\_\+get\+\_\+\+FPSCR}} (void)
+\begin{DoxyCompactList}\small\item\em Get FPSCR. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___reg_acc_functions_ga63aa6f7ed41dcaf39cbccb11e812ad4e}{\+\_\+\+\_\+set\+\_\+\+FPSCR}} (uint32\+\_\+t fpscr)
+\begin{DoxyCompactList}\small\item\em Set FPSCR. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gae26c2b3961e702aeabc24d4984ebd369}{\+\_\+\+\_\+\+ISB}} (void)
+\begin{DoxyCompactList}\small\item\em Instruction Synchronization Barrier. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga7fe277f5385d23b9c44b2cbda1577ce9}{\+\_\+\+\_\+\+DSB}} (void)
+\begin{DoxyCompactList}\small\item\em Data Synchronization Barrier. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} void \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gab1ea24daaaaee9c828f90cbca330cb5e}{\+\_\+\+\_\+\+DMB}} (void)
+\begin{DoxyCompactList}\small\item\em Data Memory Barrier. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gadb92679719950635fba8b1b954072695}{\+\_\+\+\_\+\+REV}} (uint32\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Reverse byte order (32 bit) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gaa12aedd096506c9639c1581acd5c6a78}{\+\_\+\+\_\+\+REV16}} (uint32\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Reverse byte order (16 bit) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int16\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gacb695341318226a5f69ed508166622ac}{\+\_\+\+\_\+\+REVSH}} (int16\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Reverse byte order (16 bit) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gab16acb6456176f1e87a4f2724c2b6028}{\+\_\+\+\_\+\+ROR}} (uint32\+\_\+t op1, uint32\+\_\+t op2)
+\begin{DoxyCompactList}\small\item\em Rotate Right in unsigned value (32 bit) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gaf944a7b7d8fd70164cca27669316bcf7}{\+\_\+\+\_\+\+RBIT}} (uint32\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Reverse bit order of value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\+\_\+\+\_\+\+SSAT}} (int32\+\_\+t val, uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gaafcad33f86db3a8e1f55925989f9d2dc}{sat}})
+\begin{DoxyCompactList}\small\item\em Signed Saturate. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga6562dbd8182d1571e22dbca7ebdfa9bc}{\+\_\+\+\_\+\+USAT}} (int32\+\_\+t val, uint32\+\_\+t \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gaafcad33f86db3a8e1f55925989f9d2dc}{sat}})
+\begin{DoxyCompactList}\small\item\em Unsigned Saturate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} \mbox{\hyperlink{cmsis__gcc_8h_ac962a9aa89cef6e5cde0fe6b067f7de3}{T\+\_\+\+UINT16\+\_\+\+WRITE}} \{ uint16\+\_\+t v
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} \mbox{\hyperlink{cmsis__gcc_8h_a86899dc41c5b3b9ce6b8014ee0e852b9}{T\+\_\+\+UINT16\+\_\+\+READ}} \{ uint16\+\_\+t v
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} \mbox{\hyperlink{cmsis__gcc_8h_abbd193dec7cb45f1fbd05ff7e366ffe2}{T\+\_\+\+UINT32\+\_\+\+WRITE}} \{ uint32\+\_\+t v
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} \mbox{\hyperlink{cmsis__gcc_8h_a9653a1cbf01ec418e8e940ee3996b8ca}{T\+\_\+\+UINT32\+\_\+\+READ}} \{ uint32\+\_\+t v
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CMSIS compiler GCC header file. 
+
+\begin{DoxyVersion}{Version}
+V5.\+0.\+4 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+09. April 2018 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{cmsis__gcc_8h_aa65ef8f7a5e8b7a6ea6c1d48b4c78e55}\label{cmsis__gcc_8h_aa65ef8f7a5e8b7a6ea6c1d48b4c78e55}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_ALIGNED@{\_\_ALIGNED}}
+\index{\_\_ALIGNED@{\_\_ALIGNED}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ALIGNED}{\_\_ALIGNED}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ALIGNED(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((aligned(x)))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00111}{111}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a1378040bcf22428955c6e3ce9c2053cd}\label{cmsis__gcc_8h_a1378040bcf22428955c6e3ce9c2053cd}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_ASM@{\_\_ASM}}
+\index{\_\_ASM@{\_\_ASM}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ASM}{\_\_ASM}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ASM~\+\_\+\+\_\+asm}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00041}{41}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a447121dcab4275b7839a56082b7a1ab8}\label{cmsis__gcc_8h_a447121dcab4275b7839a56082b7a1ab8}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_has\_builtin@{\_\_has\_builtin}}
+\index{\_\_has\_builtin@{\_\_has\_builtin}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_has\_builtin}{\_\_has\_builtin}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+has\+\_\+builtin(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(0)}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00036}{36}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ade2d8d7118f8ff49547f60aa0c3382bb}\label{cmsis__gcc_8h_ade2d8d7118f8ff49547f60aa0c3382bb}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_INLINE@{\_\_INLINE}}
+\index{\_\_INLINE@{\_\_INLINE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_INLINE}{\_\_INLINE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+INLINE~inline}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00044}{44}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a153a4a31b276a9758959580538720a51}\label{cmsis__gcc_8h_a153a4a31b276a9758959580538720a51}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_NO\_RETURN@{\_\_NO\_RETURN}}
+\index{\_\_NO\_RETURN@{\_\_NO\_RETURN}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_NO\_RETURN}{\_\_NO\_RETURN}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+NO\+\_\+\+RETURN~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((\+\_\+\+\_\+noreturn\+\_\+\+\_\+))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00053}{53}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_abe8996d3d985ee1529475443cc635bf1}\label{cmsis__gcc_8h_abe8996d3d985ee1529475443cc635bf1}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_PACKED@{\_\_PACKED}}
+\index{\_\_PACKED@{\_\_PACKED}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PACKED}{\_\_PACKED}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PACKED~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00062}{62}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a4dbb70fab85207c27b581ecb6532b314}\label{cmsis__gcc_8h_a4dbb70fab85207c27b581ecb6532b314}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_PACKED\_STRUCT@{\_\_PACKED\_STRUCT}}
+\index{\_\_PACKED\_STRUCT@{\_\_PACKED\_STRUCT}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PACKED\_STRUCT}{\_\_PACKED\_STRUCT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT~struct \mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00065}{65}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a6fba34d08b0a526830b4231d2ea0b89a}\label{cmsis__gcc_8h_a6fba34d08b0a526830b4231d2ea0b89a}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_PACKED\_UNION@{\_\_PACKED\_UNION}}
+\index{\_\_PACKED\_UNION@{\_\_PACKED\_UNION}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PACKED\_UNION}{\_\_PACKED\_UNION}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PACKED\+\_\+\+UNION~union \mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((packed, aligned(1)))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00068}{68}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a378ac21329d33f561f90265eef89f564}\label{cmsis__gcc_8h_a378ac21329d33f561f90265eef89f564}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_RESTRICT@{\_\_RESTRICT}}
+\index{\_\_RESTRICT@{\_\_RESTRICT}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_RESTRICT}{\_\_RESTRICT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+RESTRICT~\+\_\+\+\_\+restrict}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00114}{114}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ab904513442afdf77d4f8c74f23cbb040}\label{cmsis__gcc_8h_ab904513442afdf77d4f8c74f23cbb040}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_STATIC\_FORCEINLINE@{\_\_STATIC\_FORCEINLINE}}
+\index{\_\_STATIC\_FORCEINLINE@{\_\_STATIC\_FORCEINLINE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_STATIC\_FORCEINLINE}{\_\_STATIC\_FORCEINLINE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((always\+\_\+inline)) static inline}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00050}{50}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}\label{cmsis__gcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_STATIC\_INLINE@{\_\_STATIC\_INLINE}}
+\index{\_\_STATIC\_INLINE@{\_\_STATIC\_INLINE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_STATIC\_INLINE}{\_\_STATIC\_INLINE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE~static inline}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00047}{47}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ab71b66e5ce403158d3dee62a59f9175f}\label{cmsis__gcc_8h_ab71b66e5ce403158d3dee62a59f9175f}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_UNALIGNED\_UINT16\_READ@{\_\_UNALIGNED\_UINT16\_READ}}
+\index{\_\_UNALIGNED\_UINT16\_READ@{\_\_UNALIGNED\_UINT16\_READ}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_UNALIGNED\_UINT16\_READ}{\_\_UNALIGNED\_UINT16\_READ}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT16\+\_\+\+READ(\begin{DoxyParamCaption}\item[{}]{addr }\end{DoxyParamCaption})~(((const struct \mbox{\hyperlink{cmsis__gcc_8h_a86899dc41c5b3b9ce6b8014ee0e852b9}{T\+\_\+\+UINT16\+\_\+\+READ}} $\ast$)(const void $\ast$)(addr))-\/$>$v)}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00092}{92}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a5103fb373cae9837cc4a384be55dc87f}\label{cmsis__gcc_8h_a5103fb373cae9837cc4a384be55dc87f}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_UNALIGNED\_UINT16\_WRITE@{\_\_UNALIGNED\_UINT16\_WRITE}}
+\index{\_\_UNALIGNED\_UINT16\_WRITE@{\_\_UNALIGNED\_UINT16\_WRITE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_UNALIGNED\_UINT16\_WRITE}{\_\_UNALIGNED\_UINT16\_WRITE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT16\+\_\+\+WRITE(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{val }\end{DoxyParamCaption})~(void)((((struct \mbox{\hyperlink{cmsis__gcc_8h_ac962a9aa89cef6e5cde0fe6b067f7de3}{T\+\_\+\+UINT16\+\_\+\+WRITE}} $\ast$)(void $\ast$)(addr))-\/$>$v) = (val))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00084}{84}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ac8a13aacd0453758fdfd01a57a2a6a3d}\label{cmsis__gcc_8h_ac8a13aacd0453758fdfd01a57a2a6a3d}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_UNALIGNED\_UINT32@{\_\_UNALIGNED\_UINT32}}
+\index{\_\_UNALIGNED\_UINT32@{\_\_UNALIGNED\_UINT32}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_UNALIGNED\_UINT32}{\_\_UNALIGNED\_UINT32}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(((struct T\+\_\+\+UINT32 $\ast$)(x))-\/$>$v)}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00076}{76}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a3b931f0b051b8c1a6377a3dcc7559b5e}\label{cmsis__gcc_8h_a3b931f0b051b8c1a6377a3dcc7559b5e}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_UNALIGNED\_UINT32\_READ@{\_\_UNALIGNED\_UINT32\_READ}}
+\index{\_\_UNALIGNED\_UINT32\_READ@{\_\_UNALIGNED\_UINT32\_READ}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_UNALIGNED\_UINT32\_READ}{\_\_UNALIGNED\_UINT32\_READ}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32\+\_\+\+READ(\begin{DoxyParamCaption}\item[{}]{addr }\end{DoxyParamCaption})~(((const struct \mbox{\hyperlink{cmsis__gcc_8h_a9653a1cbf01ec418e8e940ee3996b8ca}{T\+\_\+\+UINT32\+\_\+\+READ}} $\ast$)(const void $\ast$)(addr))-\/$>$v)}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00108}{108}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a203f593d140ed88b81bc189edc861110}\label{cmsis__gcc_8h_a203f593d140ed88b81bc189edc861110}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_UNALIGNED\_UINT32\_WRITE@{\_\_UNALIGNED\_UINT32\_WRITE}}
+\index{\_\_UNALIGNED\_UINT32\_WRITE@{\_\_UNALIGNED\_UINT32\_WRITE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_UNALIGNED\_UINT32\_WRITE}{\_\_UNALIGNED\_UINT32\_WRITE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+UNALIGNED\+\_\+\+UINT32\+\_\+\+WRITE(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{val }\end{DoxyParamCaption})~(void)((((struct \mbox{\hyperlink{cmsis__gcc_8h_abbd193dec7cb45f1fbd05ff7e366ffe2}{T\+\_\+\+UINT32\+\_\+\+WRITE}} $\ast$)(void $\ast$)(addr))-\/$>$v) = (val))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00100}{100}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a3e40e4c553fc11588f7a4c2a19e789e0}\label{cmsis__gcc_8h_a3e40e4c553fc11588f7a4c2a19e789e0}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_USED@{\_\_USED}}
+\index{\_\_USED@{\_\_USED}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_USED}{\_\_USED}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+USED~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((used))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00056}{56}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ac607bf387b29162be6a9b77fc7999539}\label{cmsis__gcc_8h_ac607bf387b29162be6a9b77fc7999539}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_WEAK@{\_\_WEAK}}
+\index{\_\_WEAK@{\_\_WEAK}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_WEAK}{\_\_WEAK}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+WEAK~\mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((weak))}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00059}{59}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{cmsis__gcc_8h_ade51b179ed6f69a6bacfab38b7b359b1}\label{cmsis__gcc_8h_ade51b179ed6f69a6bacfab38b7b359b1}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily struct \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(packed)}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00001}{1}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{cmsis__gcc_8h_a86899dc41c5b3b9ce6b8014ee0e852b9}\label{cmsis__gcc_8h_a86899dc41c5b3b9ce6b8014ee0e852b9}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!T\_UINT16\_READ@{T\_UINT16\_READ}}
+\index{T\_UINT16\_READ@{T\_UINT16\_READ}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{T\_UINT16\_READ}{T\_UINT16\_READ}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} T\+\_\+\+UINT16\+\_\+\+READ \{ uint16\+\_\+t v}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00090}{90}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_ac962a9aa89cef6e5cde0fe6b067f7de3}\label{cmsis__gcc_8h_ac962a9aa89cef6e5cde0fe6b067f7de3}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!T\_UINT16\_WRITE@{T\_UINT16\_WRITE}}
+\index{T\_UINT16\_WRITE@{T\_UINT16\_WRITE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{T\_UINT16\_WRITE}{T\_UINT16\_WRITE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} T\+\_\+\+UINT16\+\_\+\+WRITE \{ uint16\+\_\+t v}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00082}{82}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_a9653a1cbf01ec418e8e940ee3996b8ca}\label{cmsis__gcc_8h_a9653a1cbf01ec418e8e940ee3996b8ca}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!T\_UINT32\_READ@{T\_UINT32\_READ}}
+\index{T\_UINT32\_READ@{T\_UINT32\_READ}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{T\_UINT32\_READ}{T\_UINT32\_READ}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} T\+\_\+\+UINT32\+\_\+\+READ \{ uint32\+\_\+t v}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00106}{106}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+
+\mbox{\Hypertarget{cmsis__gcc_8h_abbd193dec7cb45f1fbd05ff7e366ffe2}\label{cmsis__gcc_8h_abbd193dec7cb45f1fbd05ff7e366ffe2}} 
+\index{cmsis\_gcc.h@{cmsis\_gcc.h}!T\_UINT32\_WRITE@{T\_UINT32\_WRITE}}
+\index{T\_UINT32\_WRITE@{T\_UINT32\_WRITE}!cmsis\_gcc.h@{cmsis\_gcc.h}}
+\doxysubsubsection{\texorpdfstring{T\_UINT32\_WRITE}{T\_UINT32\_WRITE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_a4dbb70fab85207c27b581ecb6532b314}{\+\_\+\+\_\+\+PACKED\+\_\+\+STRUCT}} T\+\_\+\+UINT32\+\_\+\+WRITE \{ uint32\+\_\+t v}
+
+
+
+Definition at line \mbox{\hyperlink{cmsis__gcc_8h_source_l00098}{98}} of file \mbox{\hyperlink{cmsis__gcc_8h_source}{cmsis\+\_\+gcc.\+h}}.
+

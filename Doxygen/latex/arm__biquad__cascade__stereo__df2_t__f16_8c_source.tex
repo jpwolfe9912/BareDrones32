@@ -1,0 +1,418 @@
+\hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source}{}\doxysection{arm\+\_\+biquad\+\_\+cascade\+\_\+stereo\+\_\+df2\+T\+\_\+f16.\+c}
+\label{arm__biquad__cascade__stereo__df2_t__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_biquad\_cascade\_stereo\_df2T\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_biquad\_cascade\_stereo\_df2T\_f16.c}}
+\mbox{\hyperlink{arm__biquad__cascade__stereo__df2_t__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_biquad\_cascade\_stereo\_df2T\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Processing function for floating-\/point transposed direct form II Biquad cascade filter. 2 channels}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{filtering__functions__f16_8h}{dsp/filtering\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00031}00031 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00050}00050 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) \&\& defined(\_\_CMSIS\_GCC\_H)}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00051}00051 \textcolor{preprocessor}{\#pragma GCC warning "{}Scalar version of arm\_biquad\_cascade\_stereo\_df2T\_f16 built. Helium version has build issues with gcc."{}}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00052}00052 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00054}00054 \textcolor{preprocessor}{\#if (defined(ARM\_MATH\_MVE\_FLOAT16) \&\& defined(ARM\_MATH\_HELIUM\_EXPERIMENTAL)) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) \&\& !defined(\_\_CMSIS\_GCC\_H)}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00055}00055 \textcolor{keywordtype}{void} arm\_biquad\_cascade\_stereo\_df2T\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00056}00056   \textcolor{keyword}{const} arm\_biquad\_cascade\_stereo\_df2T\_instance\_f16 * S,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00057}00057   \textcolor{keyword}{const} float16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00058}00058         float16\_t * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00059}00059         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00060}00060 \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00061}00061     float16\_t *pIn = (float16\_t *)pSrc;      \textcolor{comment}{/*  source pointer            */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00062}00062     float16\_t *pOut = pDst;     \textcolor{comment}{/*  destination pointer       */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00063}00063     float16\_t *pState = S-\/>pState;  \textcolor{comment}{/*  State pointer             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00064}00064     \textcolor{keyword}{const} float16\_t *pCoeffs = S-\/>pCoeffs;    \textcolor{comment}{/*  coefficient pointer       */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00065}00065     float16\_t b0, b1, b2, a1, a2;   \textcolor{comment}{/*  Filter coefficients       */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00066}00066     uint32\_t  sample, stage = S-\/>numStages; \textcolor{comment}{/*  loop counters             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00067}00067     \textcolor{keyword}{static} \textcolor{keyword}{const} uint16\_t idx2[] = \{2, 3, 8, 9, 2, 3, 8, 9\};}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00068}00068     f16x8\_t aCoeffs, bCoeffs;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00069}00069     float16\_t scratch[16];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00070}00070     uint16x8\_t loadIdxVec;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00071}00071     uint16x8\_t reshufledIdxVec;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00072}00072     uint16\_t  startIdx = 0;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00073}00073     f16x8\_t stateVec0, stateVec1;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00074}00074     f16x8\_t inVec;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00076}00076     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00077}00077 \textcolor{comment}{     * \{0, 1, 0, 1, 0, 1, 0, 1\} generator}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00078}00078 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00079}00079     loadIdxVec = viwdupq\_u16(startIdx, 2, 1);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00080}00080     reshufledIdxVec = *(uint16x8\_t *)\&idx2;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00082}00082     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00083}00083 \textcolor{comment}{     * scratch top clearing}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00084}00084 \textcolor{comment}{     * layout : [d1a d1b d2a d2b d1a d1b d2a d2b 0 0]}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00085}00085 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00086}00086     scratch[8] = (float16\_t)0.0;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00087}00087     scratch[9] = (float16\_t)0.0;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00089}00089     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00090}00090     \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00091}00091         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00092}00092 \textcolor{comment}{         * Reading the coefficients}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00093}00093 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00094}00094         b0 = *pCoeffs++;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00095}00095         b1 = *pCoeffs++;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00096}00096         b2 = *pCoeffs++;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00097}00097         a1 = *pCoeffs++;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00098}00098         a2 = *pCoeffs++;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00100}00100         \textcolor{comment}{/* aCoeffs = \{a1 a1 a2 a2 a1 a1 a2 a2\} */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00101}00101         aCoeffs = vdupq\_n\_f16(a1);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00102}00102         aCoeffs = vsetq\_lane(a2, aCoeffs, 2);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00103}00103         aCoeffs = vsetq\_lane(a2, aCoeffs, 3);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00104}00104         aCoeffs = vsetq\_lane(a2, aCoeffs, 6);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00105}00105         aCoeffs = vsetq\_lane(a2, aCoeffs, 7);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00107}00107         \textcolor{comment}{/* bCoeffs = \{b1 b1 b2 b2 b1 b1 b2 b2\} */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00108}00108         bCoeffs = vdupq\_n\_f16(b1);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00109}00109         bCoeffs = vsetq\_lane(b2, bCoeffs, 2);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00110}00110         bCoeffs = vsetq\_lane(b2, bCoeffs, 3);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00111}00111         bCoeffs = vsetq\_lane(b2, bCoeffs, 6);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00112}00112         bCoeffs = vsetq\_lane(b2, bCoeffs, 7);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00114}00114         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00115}00115 \textcolor{comment}{         * Reading the state values}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00116}00116 \textcolor{comment}{         * Save into scratch}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00117}00117 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00118}00118         *(f16x8\_t *) scratch = *(f16x8\_t *) pState;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00120}00120         sample = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00122}00122         \textcolor{keywordflow}{while} (sample > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00123}00123         \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00124}00124             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00125}00125 \textcolor{comment}{             * step 1}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00126}00126 \textcolor{comment}{             *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00127}00127 \textcolor{comment}{             * 0   | acc1a = xn1a * b0 + d1a}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00128}00128 \textcolor{comment}{             * 1   | acc1b = xn1b * b0 + d1b}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00129}00129 \textcolor{comment}{             * 2   | acc1a = xn1a * b0 + d1a}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00130}00130 \textcolor{comment}{             * 3   | acc1b = xn1b * b0 + d1b}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00131}00131 \textcolor{comment}{             * 4   |   <repeat>}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00132}00132 \textcolor{comment}{             * 5   |   ...}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00133}00133 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00135}00135             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00136}00136 \textcolor{comment}{             * load \{d1a, d1b, d1a, d1b, d1a, d1b, d1a, d1b\}}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00137}00137 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00138}00138             stateVec0 = vldrhq\_gather\_shifted\_offset((float16\_t \textcolor{keyword}{const} *) scratch, loadIdxVec);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00139}00139             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00140}00140 \textcolor{comment}{             * load \{in0 in1 in0 in1 in0 in1 in0 in1\}}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00141}00141 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00142}00142             inVec = vldrhq\_gather\_shifted\_offset\_f16(pIn, loadIdxVec);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00144}00144             stateVec0 = vfmaq(stateVec0, inVec, b0);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00145}00145             *pOut++ = vgetq\_lane(stateVec0, 0);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00146}00146             *pOut++ = vgetq\_lane(stateVec0, 1);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00148}00148             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00149}00149 \textcolor{comment}{             * step 2}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00150}00150 \textcolor{comment}{             *}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00151}00151 \textcolor{comment}{             * 0  | d1a = b1 * xn1a  +  a1 * acc1a  +  d2a}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00152}00152 \textcolor{comment}{             * 1  | d1b = b1 * xn1b  +  a1 * acc1b  +  d2b}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00153}00153 \textcolor{comment}{             * 2  | d2a = b2 * xn1a  +  a2 * acc1a  +  0}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00154}00154 \textcolor{comment}{             * 3  | d2b = b2 * xn1b  +  a2 * acc1b  +  0}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00155}00155 \textcolor{comment}{             * 4  |   <repeat>}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00156}00156 \textcolor{comment}{             * 5  |   ...}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00157}00157 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00159}00159             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00160}00160 \textcolor{comment}{             * load \{d2a, d2b, 0, 0, d2a, d2b, 0, 0\}}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00161}00161 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00162}00162             stateVec1 = vldrhq\_gather\_shifted\_offset((float16\_t \textcolor{keyword}{const} *) scratch, reshufledIdxVec);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00163}00163             stateVec1 = vfmaq(stateVec1, stateVec0, aCoeffs);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00164}00164             stateVec1 = vfmaq(stateVec1, inVec, bCoeffs);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00165}00165             *(f16x8\_t *) scratch = stateVec1;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00167}00167             pIn = pIn + 2;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00168}00168             sample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00169}00169         \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00171}00171         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00172}00172 \textcolor{comment}{         * Store the updated state variables back into the state array}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00173}00173 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00174}00174          *pState++ = vgetq\_lane(stateVec1, 0);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00175}00175          *pState++ = vgetq\_lane(stateVec1, 1);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00176}00176          *pState++ = vgetq\_lane(stateVec1, 2);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00177}00177          *pState++ = vgetq\_lane(stateVec1, 3);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00179}00179         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00180}00180 \textcolor{comment}{         * The current stage input is given as the output to the next stage}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00181}00181 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00182}00182         pIn = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00183}00183         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00184}00184 \textcolor{comment}{         * Reset the output working pointer}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00185}00185 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00186}00186         pOut = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00187}00187         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00188}00188 \textcolor{comment}{         * decrement the loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00189}00189 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00190}00190         stage-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00191}00191     \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00192}00192     \textcolor{keywordflow}{while} (stage > 0U);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00193}00193 \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00194}00194 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00195}00195 LOW\_OPTIMIZATION\_ENTER}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00196}00196 \textcolor{keywordtype}{void} arm\_biquad\_cascade\_stereo\_df2T\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00197}00197   \textcolor{keyword}{const} arm\_biquad\_cascade\_stereo\_df2T\_instance\_f16 * S,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00198}00198   \textcolor{keyword}{const} float16\_t * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00199}00199         float16\_t * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00200}00200         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00201}00201 \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00202}00202   \textcolor{keyword}{const} float16\_t *pIn = pSrc;                         \textcolor{comment}{/* Source pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00203}00203         float16\_t *pOut = pDst;                        \textcolor{comment}{/* Destination pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00204}00204         float16\_t *pState = S-\/>pState;                 \textcolor{comment}{/* State pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00205}00205   \textcolor{keyword}{const} float16\_t *pCoeffs = S-\/>pCoeffs;               \textcolor{comment}{/* Coefficient pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00206}00206         \_Float16 acc1a, acc1b;                        \textcolor{comment}{/* Accumulator */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00207}00207         \_Float16 b0, b1, b2, a1, a2;                  \textcolor{comment}{/* Filter coefficients */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00208}00208         \_Float16 Xn1a, Xn1b;                          \textcolor{comment}{/* Temporary input */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00209}00209         \_Float16 d1a, d2a, d1b, d2b;                  \textcolor{comment}{/* State variables */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00210}00210         uint32\_t sample, stage = S-\/>numStages;         \textcolor{comment}{/* Loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00212}00212     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00213}00213     \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00214}00214         \textcolor{comment}{/* Reading the coefficients */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00215}00215         b0 = pCoeffs[0];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00216}00216         b1 = pCoeffs[1];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00217}00217         b2 = pCoeffs[2];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00218}00218         a1 = pCoeffs[3];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00219}00219         a2 = pCoeffs[4];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00221}00221         \textcolor{comment}{/* Reading the state values */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00222}00222         d1a = pState[0];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00223}00223         d2a = pState[1];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00224}00224         d1b = pState[2];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00225}00225         d2b = pState[3];}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00227}00227         pCoeffs += 5U;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00229}00229 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00231}00231     \textcolor{comment}{/* Loop unrolling: Compute 8 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00232}00232         sample = blockSize >> 3U;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00233}00233 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00234}00234         \textcolor{keywordflow}{while} (sample > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00235}00235           \textcolor{comment}{/* y[n] = b0 * x[n] + d1 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00236}00236           \textcolor{comment}{/* d1 = b1 * x[n] + a1 * y[n] + d2 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00237}00237           \textcolor{comment}{/* d2 = b2 * x[n] + a2 * y[n] */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00238}00238 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00239}00239 \textcolor{comment}{/*  1 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00240}00240           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00241}00241           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00243}00243           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00244}00244           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00246}00246           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00247}00247           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00249}00249           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00250}00250           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00252}00252           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00253}00253           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00255}00255 \textcolor{comment}{/*  2 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00256}00256           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00257}00257           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00259}00259           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00260}00260           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00262}00262           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00263}00263           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00265}00265           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00266}00266           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00268}00268           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00269}00269           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00271}00271 \textcolor{comment}{/*  3 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00272}00272           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00273}00273           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00275}00275           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00276}00276           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00278}00278           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00279}00279           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00280}00280 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00281}00281           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00282}00282           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00283}00283 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00284}00284           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00285}00285           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00287}00287 \textcolor{comment}{/*  4 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00288}00288           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00289}00289           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00291}00291           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00292}00292           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00293}00293 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00294}00294           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00295}00295           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00296}00296 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00297}00297           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00298}00298           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00300}00300           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00301}00301           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00302}00302 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00303}00303 \textcolor{comment}{/*  5 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00304}00304           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00305}00305           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00307}00307           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00308}00308           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00309}00309 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00310}00310           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00311}00311           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00312}00312 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00313}00313           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00314}00314           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00315}00315 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00316}00316           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00317}00317           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00318}00318 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00319}00319 \textcolor{comment}{/*  6 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00320}00320           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00321}00321           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00322}00322 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00323}00323           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00324}00324           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00326}00326           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00327}00327           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00328}00328 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00329}00329           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00330}00330           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00331}00331 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00332}00332           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00333}00333           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00334}00334 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00335}00335 \textcolor{comment}{/*  7 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00336}00336           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00337}00337           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00338}00338 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00339}00339           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00340}00340           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00341}00341 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00342}00342           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00343}00343           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00344}00344 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00345}00345           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00346}00346           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00348}00348           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00349}00349           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00350}00350 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00351}00351 \textcolor{comment}{/*  8 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00352}00352           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00353}00353           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00355}00355           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00356}00356           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00358}00358           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00359}00359           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00361}00361           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00362}00362           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00363}00363 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00364}00364           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00365}00365           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00366}00366 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00367}00367           \textcolor{comment}{/* decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00368}00368           sample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00369}00369         \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00370}00370 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00371}00371         \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00372}00372         sample = blockSize \& 0x7U;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00373}00373 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00374}00374 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00375}00375 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00376}00376         \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00377}00377         sample = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00379}00379 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00380}00380 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00381}00381         \textcolor{keywordflow}{while} (sample > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00382}00382           \textcolor{comment}{/* Read the input */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00383}00383           Xn1a = *pIn++; \textcolor{comment}{/* Channel a */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00384}00384           Xn1b = *pIn++; \textcolor{comment}{/* Channel b */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00385}00385 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00386}00386           \textcolor{comment}{/* y[n] = b0 * x[n] + d1 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00387}00387           acc1a = (b0 * Xn1a) + d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00388}00388           acc1b = (b0 * Xn1b) + d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00389}00389 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00390}00390           \textcolor{comment}{/* Store the result in the accumulator in the destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00391}00391           *pOut++ = acc1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00392}00392           *pOut++ = acc1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00393}00393 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00394}00394           \textcolor{comment}{/* Every time after the output is computed state should be updated. */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00395}00395           \textcolor{comment}{/* d1 = b1 * x[n] + a1 * y[n] + d2 */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00396}00396           d1a = ((b1 * Xn1a) + (a1 * acc1a)) + d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00397}00397           d1b = ((b1 * Xn1b) + (a1 * acc1b)) + d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00399}00399           \textcolor{comment}{/* d2 = b2 * x[n] + a2 * y[n] */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00400}00400           d2a = (b2 * Xn1a) + (a2 * acc1a);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00401}00401           d2b = (b2 * Xn1b) + (a2 * acc1b);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00402}00402 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00403}00403           \textcolor{comment}{/* decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00404}00404           sample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00405}00405         \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00406}00406 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00407}00407         \textcolor{comment}{/* Store the updated state variables back into the state array */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00408}00408         pState[0] = d1a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00409}00409         pState[1] = d2a;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00410}00410 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00411}00411         pState[2] = d1b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00412}00412         pState[3] = d2b;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00413}00413 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00414}00414         pState += 4U;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00415}00415 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00416}00416         \textcolor{comment}{/* The current stage output is given as the input to the next stage */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00417}00417         pIn = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00418}00418 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00419}00419         \textcolor{comment}{/* Reset the output working pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00420}00420         pOut = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00421}00421 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00422}00422         \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00423}00423         stage-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00424}00424 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00425}00425     \} \textcolor{keywordflow}{while} (stage > 0U);}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00426}00426 }
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00427}00427 \}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00428}00428 LOW\_OPTIMIZATION\_EXIT}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00429}00429 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__biquad__cascade__stereo__df2_t__f16_8c_source_l00434}00434 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

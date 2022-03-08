@@ -1,0 +1,389 @@
+\hypertarget{controller__functions_8h_source}{}\doxysection{controller\+\_\+functions.\+h}
+\label{controller__functions_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/dsp/controller\_functions.h@{Autodrone32/Libraries/CMSIS/Include/dsp/controller\_functions.h}}
+\mbox{\hyperlink{controller__functions_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00001}00001 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00002}00002 \textcolor{comment}{ * @file     controller\_functions.h}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00003}00003 \textcolor{comment}{ * @brief    Public header file for CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00004}00004 \textcolor{comment}{ * @version  V1.9.0}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00005}00005 \textcolor{comment}{ * @date     23 April 2021}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00006}00006 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00007}00007 \textcolor{comment}{ ******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00008}00008 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00009}00009 \textcolor{comment}{ * Copyright (c) 2010-\/2020 Arm Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00010}00010 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00011}00011 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00012}00012 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00013}00013 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00014}00014 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00015}00015 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00017}00017 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00018}00018 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00019}00019 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00020}00020 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00021}00021 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00022}00022 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00023}00023 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00024}00024 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00026}00026  }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00027}00027 \textcolor{preprocessor}{\#ifndef \_CONTROLLER\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00028}00028 \textcolor{preprocessor}{\#define \_CONTROLLER\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__types_8h}{arm\_math\_types.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00031}00031 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__memory_8h}{arm\_math\_memory.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{none_8h}{dsp/none.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00034}00034 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{utils_8h}{dsp/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00036}00036 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00037}00037 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00038}00038 \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00039}00039 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00045}\mbox{\hyperlink{controller__functions_8h_aaff6d2358c4ada8de838a279254ab550}{00045}} \textcolor{preprocessor}{\#define CONTROLLER\_Q31\_SHIFT  (32 -\/ 9)}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00046}00046   \textcolor{comment}{/* 1.31(q31) Fixed value of 2/360 */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00047}00047   \textcolor{comment}{/* -\/1 to +1 is divided into 360 values so total spacing is (2/360) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00048}\mbox{\hyperlink{controller__functions_8h_a1339e9abc11a3870e0c04f822a62166a}{00048}} \textcolor{preprocessor}{\#define INPUT\_SPACING         0xB60B61}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00049}00049   }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00070}00070   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sin_cos_ga4420d45c37d58c310ef9ae1b5fe58020}{arm\_sin\_cos\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00071}00071         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} theta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00072}00072         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00073}00073         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pCosVal);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00082}00082   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sin_cos_gae9e4ddebff9d4eb5d0a093e28e0bc504}{arm\_sin\_cos\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00083}00083         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} theta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00084}00084         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pSinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00085}00085         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pCosVal);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00157}\mbox{\hyperlink{structarm__pid__instance__q15}{00157}}   \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00158}00158   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00159}\mbox{\hyperlink{structarm__pid__instance__q15_a1aa73268c65cea0c7bc66bb70ff35205}{00159}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_a1aa73268c65cea0c7bc66bb70ff35205}{A0}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00160}00160 \textcolor{preprocessor}{\#if !defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00161}\mbox{\hyperlink{structarm__pid__instance__q15_af66ed2ba68c67c1cac2c37cc902bb386}{00161}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_af66ed2ba68c67c1cac2c37cc902bb386}{A1}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00162}\mbox{\hyperlink{structarm__pid__instance__q15_a06ee5d86e97bf48a15096806b79f299c}{00162}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_a06ee5d86e97bf48a15096806b79f299c}{A2}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00163}00163 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00164}00164           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} A1;           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00165}00165 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00166}\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{00166}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{drv__ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}[3];     }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00167}\mbox{\hyperlink{structarm__pid__instance__q15_afef61fb3b64c73f2cd0c91d9dcf95679}{00167}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_afef61fb3b64c73f2cd0c91d9dcf95679}{Kp}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00168}\mbox{\hyperlink{structarm__pid__instance__q15_a19d5059baf06dd52266260d096702d0a}{00168}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_a19d5059baf06dd52266260d096702d0a}{Ki}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00169}\mbox{\hyperlink{structarm__pid__instance__q15_abf38d18de1e16bc6d86846fedf8534fe}{00169}}           \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{structarm__pid__instance__q15_abf38d18de1e16bc6d86846fedf8534fe}{Kd}};           }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00170}00170   \} \mbox{\hyperlink{structarm__pid__instance__q15}{arm\_pid\_instance\_q15}};}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00175}\mbox{\hyperlink{structarm__pid__instance__q31}{00175}}   \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00176}00176   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00177}\mbox{\hyperlink{structarm__pid__instance__q31_ab58496a4137da4c667915a5fc0ef57ef}{00177}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_ab58496a4137da4c667915a5fc0ef57ef}{A0}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00178}\mbox{\hyperlink{structarm__pid__instance__q31_aeb897c84724b56948e4222aca8d0e1f4}{00178}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_aeb897c84724b56948e4222aca8d0e1f4}{A1}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00179}\mbox{\hyperlink{structarm__pid__instance__q31_a4ae945f839719fb2c04c978724b78ebb}{00179}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_a4ae945f839719fb2c04c978724b78ebb}{A2}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00180}\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{00180}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{drv__ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}[3];      }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00181}\mbox{\hyperlink{structarm__pid__instance__q31_a6ec4b37fe2246a7e017dd07578fe5bbd}{00181}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_a6ec4b37fe2246a7e017dd07578fe5bbd}{Kp}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00182}\mbox{\hyperlink{structarm__pid__instance__q31_a84a6c05c16369c905193da0d5fc9a7b0}{00182}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_a84a6c05c16369c905193da0d5fc9a7b0}{Ki}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00183}\mbox{\hyperlink{structarm__pid__instance__q31_a213bbf14da7ea536998f611977173552}{00183}}           \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{structarm__pid__instance__q31_a213bbf14da7ea536998f611977173552}{Kd}};            }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00184}00184   \} \mbox{\hyperlink{structarm__pid__instance__q31}{arm\_pid\_instance\_q31}};}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00189}\mbox{\hyperlink{structarm__pid__instance__f32}{00189}}   \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00190}00190   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00191}\mbox{\hyperlink{structarm__pid__instance__f32_afc2ed2bf70b7d9d84f49ee9ae7caa004}{00191}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_afc2ed2bf70b7d9d84f49ee9ae7caa004}{A0}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00192}\mbox{\hyperlink{structarm__pid__instance__f32_a5e6785a3a5cf7b98f3bfc7b180d98273}{00192}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_a5e6785a3a5cf7b98f3bfc7b180d98273}{A1}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00193}\mbox{\hyperlink{structarm__pid__instance__f32_a5b00947275caf079f351271bf41573fe}{00193}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_a5b00947275caf079f351271bf41573fe}{A2}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00194}\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{00194}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{drv__ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}[3];    }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00195}\mbox{\hyperlink{structarm__pid__instance__f32_abe23f3e122ef5f55398fcf77c793c425}{00195}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_abe23f3e122ef5f55398fcf77c793c425}{Kp}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00196}\mbox{\hyperlink{structarm__pid__instance__f32_ad1a1aa1c10a2dca201a3422f82198777}{00196}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_ad1a1aa1c10a2dca201a3422f82198777}{Ki}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00197}\mbox{\hyperlink{structarm__pid__instance__f32_ace6b9e405a991cbaf6b4c137ca0d51a3}{00197}}           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{structarm__pid__instance__f32_ace6b9e405a991cbaf6b4c137ca0d51a3}{Kd}};          }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00198}00198   \} \mbox{\hyperlink{structarm__pid__instance__f32}{arm\_pid\_instance\_f32}};}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00207}00207   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_gae31536b19b82b93ed184fb1ab73cfcb3}{arm\_pid\_init\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00208}00208         \mbox{\hyperlink{structarm__pid__instance__f32}{arm\_pid\_instance\_f32}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00209}00209         int32\_t resetStateFlag);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00210}00210 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00216}00216   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_ga9ec860bcb6f8ca31205bf0f1b51ab723}{arm\_pid\_reset\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00217}00217         \mbox{\hyperlink{structarm__pid__instance__f32}{arm\_pid\_instance\_f32}} * S);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00225}00225   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_gad9d88485234fa9460b1ce9e64989ac86}{arm\_pid\_init\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00226}00226         \mbox{\hyperlink{structarm__pid__instance__q31}{arm\_pid\_instance\_q31}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00227}00227         int32\_t resetStateFlag);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00235}00235   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_gaeecbacd3fb37c608ec25474d3a0dffa9}{arm\_pid\_reset\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00236}00236         \mbox{\hyperlink{structarm__pid__instance__q31}{arm\_pid\_instance\_q31}} * S);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00237}00237 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00238}00238 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00244}00244   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_ga2cb1e3d3ebb167348fdabec74653d5c3}{arm\_pid\_init\_q15}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00245}00245         \mbox{\hyperlink{structarm__pid__instance__q15}{arm\_pid\_instance\_q15}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00246}00246         int32\_t resetStateFlag);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00253}00253   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___p_i_d_ga408566dacb4fa6e0458b2c75672e525f}{arm\_pid\_reset\_q15}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00254}00254         \mbox{\hyperlink{structarm__pid__instance__q15}{arm\_pid\_instance\_q15}} * S);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00255}00255 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00257}00257 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00269}\mbox{\hyperlink{group___p_i_d_ga5a6865ed706b7dd969ef0bd58a61f306}{00269}}   \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___p_i_d_ga5a6865ed706b7dd969ef0bd58a61f306}{arm\_pid\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00270}00270   \mbox{\hyperlink{structarm__pid__instance__f32}{arm\_pid\_instance\_f32}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00271}00271   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} in)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00272}00272   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00273}00273     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00275}00275     \textcolor{comment}{/* y[n] = y[n-\/1] + A0 * x[n] + A1 * x[n-\/1] + A2 * x[n-\/2]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00276}00276     out = (S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_afc2ed2bf70b7d9d84f49ee9ae7caa004}{A0}} * in) +}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00277}00277       (S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a5e6785a3a5cf7b98f3bfc7b180d98273}{A1}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[0]) + (S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a5b00947275caf079f351271bf41573fe}{A2}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[1]) + (S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[2]);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00278}00278 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00279}00279     \textcolor{comment}{/* Update state */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00280}00280     S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[1] = S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[0];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00281}00281     S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[0] = in;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00282}00282     S-\/>\mbox{\hyperlink{structarm__pid__instance__f32_a473556ac6100fc188e77930d56f51062}{state}}[2] = out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00283}00283 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00284}00284     \textcolor{comment}{/* return to application */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00285}00285     \textcolor{keywordflow}{return} (out);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00287}00287   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00302}\mbox{\hyperlink{group___p_i_d_ga9ead8b3180125fb42879389477b99dc8}{00302}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___p_i_d_ga9ead8b3180125fb42879389477b99dc8}{arm\_pid\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00303}00303   \mbox{\hyperlink{structarm__pid__instance__q31}{arm\_pid\_instance\_q31}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00304}00304   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} in)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00305}00305   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00306}00306     \mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}} acc;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00307}00307     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00308}00308 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00309}00309     \textcolor{comment}{/* acc = A0 * x[n]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00310}00310     acc = (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_ab58496a4137da4c667915a5fc0ef57ef}{A0}} * in;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00311}00311 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00312}00312     \textcolor{comment}{/* acc += A1 * x[n-\/1] */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00313}00313     acc += (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_aeb897c84724b56948e4222aca8d0e1f4}{A1}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[0];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00315}00315     \textcolor{comment}{/* acc += A2 * x[n-\/2]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00316}00316     acc += (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_a4ae945f839719fb2c04c978724b78ebb}{A2}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[1];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00318}00318     \textcolor{comment}{/* convert output to 1.31 format to add y[n-\/1] */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00319}00319     out = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (acc >> 31U);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00320}00320 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00321}00321     \textcolor{comment}{/* out += y[n-\/1] */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00322}00322     out += S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[2];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00324}00324     \textcolor{comment}{/* Update state */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00325}00325     S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[1] = S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[0];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00326}00326     S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[0] = in;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00327}00327     S-\/>\mbox{\hyperlink{structarm__pid__instance__q31_af0a2da4da9a94af652873ec7e7be4880}{state}}[2] = out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00328}00328 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00329}00329     \textcolor{comment}{/* return to application */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00330}00330     \textcolor{keywordflow}{return} (out);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00331}00331   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00332}00332 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00333}00333 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00348}\mbox{\hyperlink{group___p_i_d_ga7ecc87208cb297fb9a31cec4f18bb54e}{00348}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___p_i_d_ga7ecc87208cb297fb9a31cec4f18bb54e}{arm\_pid\_q15}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00349}00349   \mbox{\hyperlink{structarm__pid__instance__q15}{arm\_pid\_instance\_q15}} * S,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00350}00350   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} in)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00351}00351   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00352}00352     \mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}} acc;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00353}00353     \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00355}00355 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00356}00356     \textcolor{comment}{/* Implementation of PID controller */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00358}00358     \textcolor{comment}{/* acc = A0 * x[n]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00359}00359     acc = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) \mbox{\hyperlink{none_8h_a1caa8809ee9d31e162d28ebb09b2a773}{\_\_SMUAD}}((uint32\_t)S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a1aa73268c65cea0c7bc66bb70ff35205}{A0}}, (uint32\_t)in);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00361}00361     \textcolor{comment}{/* acc += A1 * x[n-\/1] + A2 * x[n-\/2]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00362}00362     acc = (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}})\mbox{\hyperlink{none_8h_a5e81e17e4b2c742f2bb2ca18721330b4}{\_\_SMLALD}}((uint32\_t)S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_af66ed2ba68c67c1cac2c37cc902bb386}{A1}}, (uint32\_t)\mbox{\hyperlink{arm__math__memory_8h_a1eba08f198f867711068918c45026564}{read\_q15x2}} (S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}), (uint64\_t)acc);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00363}00363 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00364}00364     \textcolor{comment}{/* acc = A0 * x[n]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00365}00365     acc = ((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a1aa73268c65cea0c7bc66bb70ff35205}{A0}}) * in;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00366}00366 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00367}00367     \textcolor{comment}{/* acc += A1 * x[n-\/1] + A2 * x[n-\/2]  */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00368}00368     acc += (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_af66ed2ba68c67c1cac2c37cc902bb386}{A1}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[0];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00369}00369     acc += (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a06ee5d86e97bf48a15096806b79f299c}{A2}} * S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[1];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00370}00370 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00371}00371 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00372}00372     \textcolor{comment}{/* acc += y[n-\/1] */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00373}00373     acc += (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[2] << 15;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00374}00374 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00375}00375     \textcolor{comment}{/* saturate the output */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00376}00376     out = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) (\mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}})(acc >> 15), 16));}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00377}00377 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00378}00378     \textcolor{comment}{/* Update state */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00379}00379     S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[1] = S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[0];}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00380}00380     S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[0] = in;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00381}00381     S-\/>\mbox{\hyperlink{structarm__pid__instance__q15_a4c4e19d77015f5f7a31a1daf0faf31b6}{state}}[2] = out;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00382}00382 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00383}00383     \textcolor{comment}{/* return to application */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00384}00384     \textcolor{keywordflow}{return} (out);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00385}00385   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00386}00386 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00437}\mbox{\hyperlink{group__park_ga18f92d09e080edc98a00c01886b56b5d}{00437}}   \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__park_ga18f92d09e080edc98a00c01886b56b5d}{arm\_park\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00438}00438   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ialpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00439}00439   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ibeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00440}00440   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pId,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00441}00441   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIq,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00442}00442   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00443}00443   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} cosVal)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00444}00444   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00445}00445     \textcolor{comment}{/* Calculate pId using the equation, pId = Ialpha * cosVal + Ibeta * sinVal */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00446}00446     *pId = Ialpha * cosVal + Ibeta * sinVal;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00447}00447 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00448}00448     \textcolor{comment}{/* Calculate pIq using the equation, pIq = -\/ Ialpha * sinVal + Ibeta * cosVal */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00449}00449     *pIq = -\/Ialpha * sinVal + Ibeta * cosVal;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00450}00450   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00451}00451 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00452}00452 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00468}\mbox{\hyperlink{group__park_ga69be76685149b18f345f705aa8efaad0}{00468}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__park_ga69be76685149b18f345f705aa8efaad0}{arm\_park\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00469}00469   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ialpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00470}00470   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ibeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00471}00471   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pId,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00472}00472   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIq,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00473}00473   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} sinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00474}00474   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} cosVal)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00475}00475   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00476}00476     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product1, product2;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00477}00477     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product3, product4;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00478}00478 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00479}00479     \textcolor{comment}{/* Intermediate product is calculated by (Ialpha * cosVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00480}00480     product1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ialpha) * (cosVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00481}00481 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00482}00482     \textcolor{comment}{/* Intermediate product is calculated by (Ibeta * sinVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00483}00483     product2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ibeta) * (sinVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00484}00484 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00485}00485 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00486}00486     \textcolor{comment}{/* Intermediate product is calculated by (Ialpha * sinVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00487}00487     product3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ialpha) * (sinVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00488}00488 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00489}00489     \textcolor{comment}{/* Intermediate product is calculated by (Ibeta * cosVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00490}00490     product4 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ibeta) * (cosVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00491}00491 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00492}00492     \textcolor{comment}{/* Calculate pId by adding the two intermediate products 1 and 2 */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00493}00493     *pId = \mbox{\hyperlink{none_8h_a3cfcec82d3ff1b8570010b771052cb96}{\_\_QADD}}(product1, product2);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00494}00494 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00495}00495     \textcolor{comment}{/* Calculate pIq by subtracting the two intermediate products 3 from 4 */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00496}00496     *pIq = \mbox{\hyperlink{none_8h_a98e0174c04cb34aec3ce57d5a370953d}{\_\_QSUB}}(product4, product3);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00497}00497   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00498}00498 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00540}\mbox{\hyperlink{group__inv__park_ga896b639ecd52c33d427bc7cdc8d303b2}{00540}}   \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__inv__park_ga896b639ecd52c33d427bc7cdc8d303b2}{arm\_inv\_park\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00541}00541   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Id,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00542}00542   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Iq,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00543}00543   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIalpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00544}00544   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIbeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00545}00545   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00546}00546   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} cosVal)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00547}00547   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00548}00548     \textcolor{comment}{/* Calculate pIalpha using the equation, pIalpha = Id * cosVal -\/ Iq * sinVal */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00549}00549     *pIalpha = Id * cosVal -\/ Iq * sinVal;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00550}00550 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00551}00551     \textcolor{comment}{/* Calculate pIbeta using the equation, pIbeta = Id * sinVal + Iq * cosVal */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00552}00552     *pIbeta = Id * sinVal + Iq * cosVal;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00553}00553   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00554}00554 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00555}00555 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00571}\mbox{\hyperlink{group__inv__park_gae7165779ef72e1f797d0c601d6d619b2}{00571}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__inv__park_gae7165779ef72e1f797d0c601d6d619b2}{arm\_inv\_park\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00572}00572   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Id,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00573}00573   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Iq,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00574}00574   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIalpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00575}00575   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIbeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00576}00576   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} sinVal,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00577}00577   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} cosVal)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00578}00578   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00579}00579     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product1, product2;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00580}00580     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product3, product4;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00581}00581 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00582}00582     \textcolor{comment}{/* Intermediate product is calculated by (Id * cosVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00583}00583     product1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Id) * (cosVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00584}00584 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00585}00585     \textcolor{comment}{/* Intermediate product is calculated by (Iq * sinVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00586}00586     product2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Iq) * (sinVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00587}00587 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00588}00588 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00589}00589     \textcolor{comment}{/* Intermediate product is calculated by (Id * sinVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00590}00590     product3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Id) * (sinVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00591}00591 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00592}00592     \textcolor{comment}{/* Intermediate product is calculated by (Iq * cosVal) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00593}00593     product4 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Iq) * (cosVal)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00594}00594 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00595}00595     \textcolor{comment}{/* Calculate pIalpha by using the two intermediate products 1 and 2 */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00596}00596     *pIalpha = \mbox{\hyperlink{none_8h_a98e0174c04cb34aec3ce57d5a370953d}{\_\_QSUB}}(product1, product2);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00597}00597 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00598}00598     \textcolor{comment}{/* Calculate pIbeta by using the two intermediate products 3 and 4 */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00599}00599     *pIbeta = \mbox{\hyperlink{none_8h_a3cfcec82d3ff1b8570010b771052cb96}{\_\_QADD}}(product4, product3);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00600}00600   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00601}00601 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00646}\mbox{\hyperlink{group__clarke_ga82d40c62bb48ef4d613f1f2f685b4084}{00646}}   \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__clarke_ga82d40c62bb48ef4d613f1f2f685b4084}{arm\_clarke\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00647}00647   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ia,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00648}00648   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ib,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00649}00649   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIalpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00650}00650   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIbeta)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00651}00651   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00652}00652     \textcolor{comment}{/* Calculate pIalpha using the equation, pIalpha = Ia */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00653}00653     *pIalpha = Ia;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00654}00654 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00655}00655     \textcolor{comment}{/* Calculate pIbeta using the equation, pIbeta = (1/sqrt(3)) * Ia + (2/sqrt(3)) * Ib */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00656}00656     *pIbeta = (0.57735026919f * Ia + 1.15470053838f * Ib);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00657}00657   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00658}00658 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00659}00659 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00673}\mbox{\hyperlink{group__clarke_ga8d68db2a6e26e1caab677f5ab293c068}{00673}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__clarke_ga8d68db2a6e26e1caab677f5ab293c068}{arm\_clarke\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00674}00674   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ia,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00675}00675   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ib,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00676}00676   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIalpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00677}00677   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIbeta)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00678}00678   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00679}00679     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product1, product2;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00680}00680 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00681}00681     \textcolor{comment}{/* Calculating pIalpha from Ia by equation pIalpha = Ia */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00682}00682     *pIalpha = Ia;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00683}00683 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00684}00684     \textcolor{comment}{/* Intermediate product is calculated by (1/(sqrt(3)) * Ia) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00685}00685     product1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) Ia * 0x24F34E8B) >> 30);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00686}00686 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00687}00687     \textcolor{comment}{/* Intermediate product is calculated by (2/sqrt(3) * Ib) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00688}00688     product2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) Ib * 0x49E69D16) >> 30);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00689}00689 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00690}00690     \textcolor{comment}{/* pIbeta is calculated by adding the intermediate products */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00691}00691     *pIbeta = \mbox{\hyperlink{none_8h_a3cfcec82d3ff1b8570010b771052cb96}{\_\_QADD}}(product1, product2);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00692}00692   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00693}00693 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00732}\mbox{\hyperlink{group__inv__clarke_ga1a73ce96f94b2124d02426690e587197}{00732}}   \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__inv__clarke_ga1a73ce96f94b2124d02426690e587197}{arm\_inv\_clarke\_f32}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00733}00733   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ialpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00734}00734   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} Ibeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00735}00735   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIa,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00736}00736   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIb)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00737}00737   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00738}00738     \textcolor{comment}{/* Calculating pIa from Ialpha by equation pIa = Ialpha */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00739}00739     *pIa = Ialpha;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00740}00740 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00741}00741     \textcolor{comment}{/* Calculating pIb from Ialpha and Ibeta by equation pIb = -\/(1/2) * Ialpha + (sqrt(3)/2) * Ibeta */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00742}00742     *pIb = -\/0.5f * Ialpha + 0.8660254039f * Ibeta;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00743}00743   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00744}00744 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00745}00745 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00759}\mbox{\hyperlink{group__inv__clarke_ga3bab178431f22d13332a0dfae4390172}{00759}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__inv__clarke_ga3bab178431f22d13332a0dfae4390172}{arm\_inv\_clarke\_q31}}(}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00760}00760   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ialpha,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00761}00761   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} Ibeta,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00762}00762   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIa,}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00763}00763   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIb)}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00764}00764   \{}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00765}00765     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} product1, product2;                    \textcolor{comment}{/* Temporary variables used to store intermediate results */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00766}00766 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00767}00767     \textcolor{comment}{/* Calculating pIa from Ialpha by equation pIa = Ialpha */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00768}00768     *pIa = Ialpha;}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00769}00769 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00770}00770     \textcolor{comment}{/* Intermediate product is calculated by (1/(2*sqrt(3)) * Ia) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00771}00771     product1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ialpha) * (0x40000000)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00772}00772 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00773}00773     \textcolor{comment}{/* Intermediate product is calculated by (1/sqrt(3) * pIb) */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00774}00774     product2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (Ibeta) * (0x6ED9EBA1)) >> 31);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00775}00775 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00776}00776     \textcolor{comment}{/* pIb is calculated by subtracting the products */}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00777}00777     *pIb = \mbox{\hyperlink{none_8h_a98e0174c04cb34aec3ce57d5a370953d}{\_\_QSUB}}(product2, product1);}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00778}00778   \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00779}00779 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00787}00787 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00788}00788 \}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00789}00789 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00790}00790 }
+\DoxyCodeLine{\Hypertarget{controller__functions_8h_source_l00791}00791 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ifndef \_CONTROLLER\_FUNCTIONS\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

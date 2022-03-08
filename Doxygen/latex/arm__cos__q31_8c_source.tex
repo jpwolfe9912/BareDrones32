@@ -1,0 +1,70 @@
+\hypertarget{arm__cos__q31_8c_source}{}\doxysection{arm\+\_\+cos\+\_\+q31.\+c}
+\label{arm__cos__q31_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/FastMathFunctions/arm\_cos\_q31.c@{Autodrone32/Libraries/CMSIS/DSP/FastMathFunctions/arm\_cos\_q31.c}}
+\mbox{\hyperlink{arm__cos__q31_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_cos\_q31.c}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Fast cosine calculation for Q31 values}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{fast__math__functions_8h}{dsp/fast\_math\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__common__tables_8h}{arm\_common\_tables.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00049}\mbox{\hyperlink{group__cos_gad80f121949ef885a77d83ab36e002567}{00049}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group__cos_gad80f121949ef885a77d83ab36e002567}{arm\_cos\_q31}}(}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00050}00050   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} x)}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00051}00051 \{}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00052}00052   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} cosVal;                                  \textcolor{comment}{/* Temporary input, output variables */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00053}00053   int32\_t index;                                 \textcolor{comment}{/* Index variable */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00054}00054   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} a, b;                                    \textcolor{comment}{/* Two nearest output values */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00055}00055   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} fract;                                   \textcolor{comment}{/* Temporary values for fractional values */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00057}00057   \textcolor{comment}{/* add 0.25 (pi/2) to read sine table */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00058}00058   x = (uint32\_t)x + 0x20000000;}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00059}00059   \textcolor{keywordflow}{if} (x < 0)}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00060}00060   \{ \textcolor{comment}{/* convert negative numbers to corresponding positive ones */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00061}00061     x = (uint32\_t)x + 0x80000000;}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00062}00062   \}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00064}00064   \textcolor{comment}{/* Calculate the nearest index */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00065}00065   index = (uint32\_t)x >> \mbox{\hyperlink{fast__math__functions_8h_a4268f77b1811a0c7fc2532a0bf6108b0}{FAST\_MATH\_Q31\_SHIFT}};}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00067}00067   \textcolor{comment}{/* Calculation of fractional value */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00068}00068   fract = (x -\/ (index << \mbox{\hyperlink{fast__math__functions_8h_a4268f77b1811a0c7fc2532a0bf6108b0}{FAST\_MATH\_Q31\_SHIFT}})) << 9;}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00070}00070   \textcolor{comment}{/* Read two nearest values of input value from the sin table */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00071}00071   a = \mbox{\hyperlink{arm__common__tables_8c_a8bfccee9e1c0042cf4a765f4b19d097d}{sinTable\_q31}}[index];}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00072}00072   b = \mbox{\hyperlink{arm__common__tables_8c_a8bfccee9e1c0042cf4a765f4b19d097d}{sinTable\_q31}}[index+1];}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00074}00074   \textcolor{comment}{/* Linear interpolation process */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00075}00075   cosVal = (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) (0x80000000 -\/ fract) * a >> 32;}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00076}00076   cosVal = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) cosVal << 32) + ((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\_t}}) fract * b)) >> 32);}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00078}00078   \textcolor{comment}{/* Return output value */}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00079}00079   \textcolor{keywordflow}{return} (cosVal << 1);}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00080}00080 \}}
+\DoxyCodeLine{\Hypertarget{arm__cos__q31_8c_source_l00081}00081 }
+
+\end{DoxyCode}

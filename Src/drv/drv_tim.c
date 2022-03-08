@@ -19,3 +19,37 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "board.h"
+
+void
+tim9Init(void)
+{
+	RCC->APB2ENR	|= RCC_APB2ENR_TIM9EN;
+
+	TIM9->PSC 	= 108 - 1;
+	TIM9->ARR 	= 0xFFFF;
+	TIM9->CNT	= 4000;
+}
+
+uint32_t
+tim9GetCnt(void)
+{
+	return TIM9->CNT;
+}
+
+void
+tim9ResetCnt(void)
+{
+	TIM9->CNT = 0;
+}
+
+void
+tim9Enable(void)
+{
+	TIM9->CR1	|= TIM_CR1_CEN;
+}
+
+void
+tim9Disable(void)
+{
+	TIM9->CR1	&= ~TIM_CR1_CEN;
+}

@@ -28,6 +28,7 @@ extern "C" {
 #endif
 
 /* Defines */
+#define STLINK
 
 
 #endif /* __MAIN_H */

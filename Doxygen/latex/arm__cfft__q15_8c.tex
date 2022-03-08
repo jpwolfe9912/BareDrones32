@@ -1,0 +1,123 @@
+\hypertarget{arm__cfft__q15_8c}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+DSP/\+Transform\+Functions/arm\+\_\+cfft\+\_\+q15.c File Reference}
+\label{arm__cfft__q15_8c}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_q15.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_q15.c}}
+{\ttfamily \#include \char`\"{}dsp/transform\+\_\+functions.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{arm__cfft__q15_8c_a10af006080b7c9872dd9a538b79040da}{arm\+\_\+radix4\+\_\+butterfly\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t fft\+Len, const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Coef, uint32\+\_\+t twid\+Coef\+Modifier)
+\begin{DoxyCompactList}\small\item\em Core function for the Q15 CFFT butterfly process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{arm__cfft__q15_8c_a9c0708cce16e3f17a5a616c71fd17ec5}{arm\+\_\+radix4\+\_\+butterfly\+\_\+inverse\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t fft\+Len, const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Coef, uint32\+\_\+t twid\+Coef\+Modifier)
+\begin{DoxyCompactList}\small\item\em Core function for the Q15 CIFFT butterfly process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{arm__cfft__q15_8c_a773957c278f4d9e728711f27e8a6e278}{arm\+\_\+bitreversal\+\_\+16}} (uint16\+\_\+t $\ast$p\+Src, const uint16\+\_\+t bit\+Rev\+Len, const uint16\+\_\+t $\ast$p\+Bit\+Rev\+Table)
+\begin{DoxyCompactList}\small\item\em In-\/place 16 bit reversal function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{arm__cfft__q15_8c_af1d4a751153857c173511e0c77ab4fa9}{arm\+\_\+cfft\+\_\+radix4by2\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t fft\+Len, const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Coef)
+\item 
+void \mbox{\hyperlink{arm__cfft__q15_8c_abe669acc8db57d1fb9b1e2bba30f2224}{arm\+\_\+cfft\+\_\+radix4by2\+\_\+inverse\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t fft\+Len, const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Coef)
+\item 
+void \mbox{\hyperlink{group___complex_f_f_t_ga68cdacd2267a2967955e40e6b7ec1229}{arm\+\_\+cfft\+\_\+q15}} (const \mbox{\hyperlink{structarm__cfft__instance__q15}{arm\+\_\+cfft\+\_\+instance\+\_\+q15}} $\ast$S, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p1, uint8\+\_\+t ifft\+Flag, uint8\+\_\+t bit\+Reverse\+Flag)
+\begin{DoxyCompactList}\small\item\em Processing function for Q15 complex FFT. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{arm__cfft__q15_8c_a773957c278f4d9e728711f27e8a6e278}\label{arm__cfft__q15_8c_a773957c278f4d9e728711f27e8a6e278}} 
+\index{arm\_cfft\_q15.c@{arm\_cfft\_q15.c}!arm\_bitreversal\_16@{arm\_bitreversal\_16}}
+\index{arm\_bitreversal\_16@{arm\_bitreversal\_16}!arm\_cfft\_q15.c@{arm\_cfft\_q15.c}}
+\doxysubsubsection{\texorpdfstring{arm\_bitreversal\_16()}{arm\_bitreversal\_16()}}
+{\footnotesize\ttfamily void arm\+\_\+bitreversal\+\_\+16 (\begin{DoxyParamCaption}\item[{uint16\+\_\+t $\ast$}]{p\+Src,  }\item[{const uint16\+\_\+t}]{bit\+Rev\+Len,  }\item[{const uint16\+\_\+t $\ast$}]{p\+Bit\+Rev\+Tab }\end{DoxyParamCaption})}
+
+
+
+In-\/place 16 bit reversal function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src} & points to in-\/place buffer of unknown 16-\/bit data type \\
+\hline
+\mbox{\texttt{ in}}  & {\em bit\+Rev\+Len} & bit reversal table length \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Bit\+Rev\+Tab} & points to bit reversal table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__bitreversal2_8c_source_l00110}{110}} of file \mbox{\hyperlink{arm__bitreversal2_8c_source}{arm\+\_\+bitreversal2.\+c}}.
+
+\mbox{\Hypertarget{arm__cfft__q15_8c_abe669acc8db57d1fb9b1e2bba30f2224}\label{arm__cfft__q15_8c_abe669acc8db57d1fb9b1e2bba30f2224}} 
+\index{arm\_cfft\_q15.c@{arm\_cfft\_q15.c}!arm\_cfft\_radix4by2\_inverse\_q15@{arm\_cfft\_radix4by2\_inverse\_q15}}
+\index{arm\_cfft\_radix4by2\_inverse\_q15@{arm\_cfft\_radix4by2\_inverse\_q15}!arm\_cfft\_q15.c@{arm\_cfft\_q15.c}}
+\doxysubsubsection{\texorpdfstring{arm\_cfft\_radix4by2\_inverse\_q15()}{arm\_cfft\_radix4by2\_inverse\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+cfft\+\_\+radix4by2\+\_\+inverse\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Coef }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__cfft__q15_8c_source_l00792}{792}} of file \mbox{\hyperlink{arm__cfft__q15_8c_source}{arm\+\_\+cfft\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{arm__cfft__q15_8c_af1d4a751153857c173511e0c77ab4fa9}\label{arm__cfft__q15_8c_af1d4a751153857c173511e0c77ab4fa9}} 
+\index{arm\_cfft\_q15.c@{arm\_cfft\_q15.c}!arm\_cfft\_radix4by2\_q15@{arm\_cfft\_radix4by2\_q15}}
+\index{arm\_cfft\_radix4by2\_q15@{arm\_cfft\_radix4by2\_q15}!arm\_cfft\_q15.c@{arm\_cfft\_q15.c}}
+\doxysubsubsection{\texorpdfstring{arm\_cfft\_radix4by2\_q15()}{arm\_cfft\_radix4by2\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+cfft\+\_\+radix4by2\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Coef }\end{DoxyParamCaption})}
+
+end of Complex\+FFT group 
+
+Definition at line \mbox{\hyperlink{arm__cfft__q15_8c_source_l00693}{693}} of file \mbox{\hyperlink{arm__cfft__q15_8c_source}{arm\+\_\+cfft\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{arm__cfft__q15_8c_a9c0708cce16e3f17a5a616c71fd17ec5}\label{arm__cfft__q15_8c_a9c0708cce16e3f17a5a616c71fd17ec5}} 
+\index{arm\_cfft\_q15.c@{arm\_cfft\_q15.c}!arm\_radix4\_butterfly\_inverse\_q15@{arm\_radix4\_butterfly\_inverse\_q15}}
+\index{arm\_radix4\_butterfly\_inverse\_q15@{arm\_radix4\_butterfly\_inverse\_q15}!arm\_cfft\_q15.c@{arm\_cfft\_q15.c}}
+\doxysubsubsection{\texorpdfstring{arm\_radix4\_butterfly\_inverse\_q15()}{arm\_radix4\_butterfly\_inverse\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+radix4\+\_\+butterfly\+\_\+inverse\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src16,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Coef16,  }\item[{uint32\+\_\+t}]{twid\+Coef\+Modifier }\end{DoxyParamCaption})}
+
+
+
+Core function for the Q15 CIFFT butterfly process. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src16} & points to the in-\/place buffer of Q15 data type \\
+\hline
+\mbox{\texttt{ in}}  & {\em fft\+Len} & length of the FFT \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Coef16} & points to twiddle coefficient buffer \\
+\hline
+\mbox{\texttt{ in}}  & {\em twid\+Coef\+Modifier} & twiddle coefficient modifier that supports different size FFTs with the same twiddle factor table. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cfft__radix4__q15_8c_source_l01017}{1017}} of file \mbox{\hyperlink{arm__cfft__radix4__q15_8c_source}{arm\+\_\+cfft\+\_\+radix4\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{arm__cfft__q15_8c_a10af006080b7c9872dd9a538b79040da}\label{arm__cfft__q15_8c_a10af006080b7c9872dd9a538b79040da}} 
+\index{arm\_cfft\_q15.c@{arm\_cfft\_q15.c}!arm\_radix4\_butterfly\_q15@{arm\_radix4\_butterfly\_q15}}
+\index{arm\_radix4\_butterfly\_q15@{arm\_radix4\_butterfly\_q15}!arm\_cfft\_q15.c@{arm\_cfft\_q15.c}}
+\doxysubsubsection{\texorpdfstring{arm\_radix4\_butterfly\_q15()}{arm\_radix4\_butterfly\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+radix4\+\_\+butterfly\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src16,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Coef16,  }\item[{uint32\+\_\+t}]{twid\+Coef\+Modifier }\end{DoxyParamCaption})}
+
+
+
+Core function for the Q15 CFFT butterfly process. 
+
+end of Complex\+FFT group 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src16} & points to the in-\/place buffer of Q15 data type \\
+\hline
+\mbox{\texttt{ in}}  & {\em fft\+Len} & length of the FFT \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Coef16} & points to twiddle coefficient buffer \\
+\hline
+\mbox{\texttt{ in}}  & {\em twid\+Coef\+Modifier} & twiddle coefficient modifier that supports different size FFTs with the same twiddle factor table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cfft__radix4__q15_8c_source_l00147}{147}} of file \mbox{\hyperlink{arm__cfft__radix4__q15_8c_source}{arm\+\_\+cfft\+\_\+radix4\+\_\+q15.\+c}}.
+

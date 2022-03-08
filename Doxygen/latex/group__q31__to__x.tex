@@ -1,0 +1,116 @@
+\hypertarget{group__q31__to__x}{}\doxysection{Convert 32-\/bit Integer value}
+\label{group__q31__to__x}\index{Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__q31__to__x_ga19a9d023aca1f99abd5da6f13a42b6cf}{arm\+\_\+q31\+\_\+to\+\_\+float}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Converts the elements of the Q31 vector to floating-\/point vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__q31__to__x_ga775f3a1996f00a8048c4b7acba2e0828}{arm\+\_\+q31\+\_\+to\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Converts the elements of the Q31 vector to Q15 vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__q31__to__x_gabef5357eb3348b3b5b38915fffce8f3d}{arm\+\_\+q31\+\_\+to\+\_\+q7}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Converts the elements of the Q31 vector to Q7 vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__q31__to__x_ga19a9d023aca1f99abd5da6f13a42b6cf}\label{group__q31__to__x_ga19a9d023aca1f99abd5da6f13a42b6cf}} 
+\index{Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}!arm\_q31\_to\_float@{arm\_q31\_to\_float}}
+\index{arm\_q31\_to\_float@{arm\_q31\_to\_float}!Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}}
+\doxysubsubsection{\texorpdfstring{arm\_q31\_to\_float()}{arm\_q31\_to\_float()}}
+{\footnotesize\ttfamily void arm\+\_\+q31\+\_\+to\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Converts the elements of the Q31 vector to floating-\/point vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the Q31 input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the floating-\/point output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Details}
+The equation used for the conversion process is\+: 
+\begin{DoxyPre}
+    pDst[n] = (float32\_t) pSrc[n] / 2147483648;   0 <= n < blockSize.
+\end{DoxyPre}
+ 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__q31__to__float_8c_source_l00148}{148}} of file \mbox{\hyperlink{arm__q31__to__float_8c_source}{arm\+\_\+q31\+\_\+to\+\_\+float.\+c}}.
+
+\mbox{\Hypertarget{group__q31__to__x_ga775f3a1996f00a8048c4b7acba2e0828}\label{group__q31__to__x_ga775f3a1996f00a8048c4b7acba2e0828}} 
+\index{Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}!arm\_q31\_to\_q15@{arm\_q31\_to\_q15}}
+\index{arm\_q31\_to\_q15@{arm\_q31\_to\_q15}!Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}}
+\doxysubsubsection{\texorpdfstring{arm\_q31\_to\_q15()}{arm\_q31\_to\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+q31\+\_\+to\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Converts the elements of the Q31 vector to Q15 vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the Q31 input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the Q15 output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Details}
+The equation used for the conversion process is\+: 
+\begin{DoxyPre}
+    pDst[n] = (q15\_t) pSrc[n] >> 16;   0 <= n < blockSize.
+\end{DoxyPre}
+ 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__q31__to__q15_8c_source_l00100}{100}} of file \mbox{\hyperlink{arm__q31__to__q15_8c_source}{arm\+\_\+q31\+\_\+to\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group__q31__to__x_gabef5357eb3348b3b5b38915fffce8f3d}\label{group__q31__to__x_gabef5357eb3348b3b5b38915fffce8f3d}} 
+\index{Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}!arm\_q31\_to\_q7@{arm\_q31\_to\_q7}}
+\index{arm\_q31\_to\_q7@{arm\_q31\_to\_q7}!Convert 32-\/bit Integer value@{Convert 32-\/bit Integer value}}
+\doxysubsubsection{\texorpdfstring{arm\_q31\_to\_q7()}{arm\_q31\_to\_q7()}}
+{\footnotesize\ttfamily void arm\+\_\+q31\+\_\+to\+\_\+q7 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Converts the elements of the Q31 vector to Q7 vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the Q31 input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the Q7 output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Details}
+The equation used for the conversion process is\+: 
+\begin{DoxyPre}
+    pDst[n] = (q7\_t) pSrc[n] >> 24;   0 <= n < blockSize.
+\end{DoxyPre}
+ 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__q31__to__q7_8c_source_l00112}{112}} of file \mbox{\hyperlink{arm__q31__to__q7_8c_source}{arm\+\_\+q31\+\_\+to\+\_\+q7.\+c}}.
+

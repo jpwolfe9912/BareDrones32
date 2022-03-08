@@ -1,0 +1,204 @@
+\hypertarget{utilities_8c_source}{}\doxysection{utilities.\+c}
+\label{utilities_8c_source}\index{Autodrone32/Src/utilities.c@{Autodrone32/Src/utilities.c}}
+\mbox{\hyperlink{utilities_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00001}00001 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00002}00002 \textcolor{comment}{  October 2012}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00003}00003 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00004}00004 \textcolor{comment}{  aq32Plus Rev -\/}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00005}00005 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00006}00006 \textcolor{comment}{  Copyright (c) 2012 John Ihlein.  All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00007}00007 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00008}00008 \textcolor{comment}{  Open Source STM32 Based Multicopter Controller Software}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00009}00009 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00010}00010 \textcolor{comment}{  Includes code and/or ideas from:}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00011}00011 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00012}00012 \textcolor{comment}{  1)AeroQuad}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00013}00013 \textcolor{comment}{  2)BaseFlight}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00014}00014 \textcolor{comment}{  3)CH Robotics}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00015}00015 \textcolor{comment}{  4)MultiWii}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00016}00016 \textcolor{comment}{  5)S.O.H. Madgwick}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00017}00017 \textcolor{comment}{  6)UAVX}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00018}00018 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00019}00019 \textcolor{comment}{  Designed to run on the AQ32 Flight Control Board}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00020}00020 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00021}00021 \textcolor{comment}{  This program is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00022}00022 \textcolor{comment}{  it under the terms of the GNU General Public License as published by}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00023}00023 \textcolor{comment}{  the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00024}00024 \textcolor{comment}{  (at your option) any later version.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00025}00025 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00026}00026 \textcolor{comment}{  This program is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00027}00027 \textcolor{comment}{  but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00028}00028 \textcolor{comment}{  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00029}00029 \textcolor{comment}{  GNU General Public License for more details.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00030}00030 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00031}00031 \textcolor{comment}{  You should have received a copy of the GNU General Public License}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00032}00032 \textcolor{comment}{  along with this program. If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00033}00033 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00037}00037 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00040}00040 \textcolor{comment}{// Constrain}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00042}00042 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00043}\mbox{\hyperlink{utilities_8c_aa81f27853b4b3674705ffa1c5658ae45}{00043}} \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8c_aa81f27853b4b3674705ffa1c5658ae45}{constrain}}(\textcolor{keywordtype}{float} input, \textcolor{keywordtype}{float} minValue, \textcolor{keywordtype}{float} maxValue)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00044}00044 \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00045}00045     \textcolor{keywordflow}{if} (input < minValue)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00046}00046         \textcolor{keywordflow}{return} minValue;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00047}00047     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (input > maxValue)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00048}00048         \textcolor{keywordflow}{return} maxValue;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00049}00049     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00050}00050         \textcolor{keywordflow}{return} input;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00051}00051 \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00054}00054 \textcolor{comment}{// \_sbrk}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00056}00056 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00057}00057 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00058}00058 \textcolor{comment}{ * newlib\_stubs.c}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00059}00059 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00060}00060 \textcolor{comment}{ *  Created on: 2 Nov 2010}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00061}00061 \textcolor{comment}{ *      Author: nanoage.co.uk}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00062}00062 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00064}00064 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00065}00065 \textcolor{comment}{ sbrk}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00066}00066 \textcolor{comment}{ Increase program data space.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00067}00067 \textcolor{comment}{ Malloc and related functions depend on this}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00068}00068 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00070}\mbox{\hyperlink{utilities_8c_aae54d7b9578ba1fc171ce6f30f4c68a3}{00070}} caddr\_t \mbox{\hyperlink{utilities_8c_aae54d7b9578ba1fc171ce6f30f4c68a3}{\_sbrk}}(\textcolor{keywordtype}{int} incr)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00071}00071 \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00072}00072     \textcolor{keyword}{extern} \textcolor{keywordtype}{char} \_ebss; \textcolor{comment}{// Defined by the linker}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00073}00073     \textcolor{keyword}{static} \textcolor{keywordtype}{char} *heap\_end;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00074}00074     \textcolor{keywordtype}{char} *prev\_heap\_end;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00076}00076     \textcolor{keywordtype}{char} * stack;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00078}00078     \textcolor{keywordflow}{if} (heap\_end == 0)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00079}00079         heap\_end = \&\_ebss;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00081}00081     prev\_heap\_end = heap\_end;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00083}00083     stack = (\textcolor{keywordtype}{char}*) \_\_get\_MSP();}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00084}00084     \textcolor{keywordflow}{if} (heap\_end + incr >  stack)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00085}00085     \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00086}00086         errno = ENOMEM;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00087}00087         \textcolor{keywordflow}{return}  (caddr\_t) -\/1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00090}00090     heap\_end += incr;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00091}00091     \textcolor{keywordflow}{return} (caddr\_t) prev\_heap\_end;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00092}00092 \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00095}00095 \textcolor{comment}{//  Standard Radian Format Limiter}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00097}00097 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00098}\mbox{\hyperlink{utilities_8c_a3eb5c7ac4a35ae17b26f4b67eec87eaf}{00098}} \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8c_a3eb5c7ac4a35ae17b26f4b67eec87eaf}{standardRadianFormat}}(\textcolor{keywordtype}{float} angle)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00099}00099 \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00100}00100     \textcolor{keywordflow}{if} (angle >= \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00101}00101         \textcolor{keywordflow}{return} (angle -\/ 2 * \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}});}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00102}00102     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (angle < -\/\mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00103}00103         \textcolor{keywordflow}{return} (angle + 2 * \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}});}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00104}00104     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00105}00105         \textcolor{keywordflow}{return} (angle);}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00106}00106 \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00109}00109 \textcolor{comment}{// String to Float Conversion}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00111}00111 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00112}00112 \textcolor{comment}{// Simple and fast atof (ascii to float) function.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00113}00113 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00114}00114 \textcolor{comment}{// -\/ Executes about 5x faster than standard MSCRT library atof().}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00115}00115 \textcolor{comment}{// -\/ An attractive alternative if the number of calls is in the millions.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00116}00116 \textcolor{comment}{// -\/ Assumes input is a proper integer, fraction, or scientific format.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00117}00117 \textcolor{comment}{// -\/ Matches library atof() to 15 digits (except at extreme exponents).}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00118}00118 \textcolor{comment}{// -\/ Follows atof() precedent of essentially no error checking.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00119}00119 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00120}00120 \textcolor{comment}{// 09-\/May-\/2009 Tom Van Baak (tvb) www.LeapSecond.com}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00121}00121 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00123}\mbox{\hyperlink{utilities_8c_ab32337e24cb5172d57a8f679b05cb159}{00123}} \textcolor{preprocessor}{\#define white\_space(c) ((c) == ' ' || (c) == '\(\backslash\)t')}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00124}\mbox{\hyperlink{utilities_8c_a77f89089972f027bab0d7f971c2b1969}{00124}} \textcolor{preprocessor}{\#define valid\_digit(c) ((c) >= '0' \&\& (c) <= '9')}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00126}\mbox{\hyperlink{utilities_8c_ad0b0dc4f3638f2b51fe386887ec638bf}{00126}} \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8c_ad0b0dc4f3638f2b51fe386887ec638bf}{stringToFloat}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *p)}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00127}00127 \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00128}00128     \textcolor{keywordtype}{int} frac = 0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00129}00129     \textcolor{keywordtype}{double} sign, value, scale;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00131}00131     \textcolor{comment}{// Skip leading white space, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00133}00133     \textcolor{keywordflow}{while} (\mbox{\hyperlink{utilities_8c_ab32337e24cb5172d57a8f679b05cb159}{white\_space}}(*p) ) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00134}00134         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00135}00135     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00137}00137     \textcolor{comment}{// Get sign, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00139}00139     sign = 1.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00140}00140     \textcolor{keywordflow}{if} (*p == \textcolor{charliteral}{'-\/'}) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00141}00141         sign = -\/1.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00142}00142         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00144}00144     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (*p == \textcolor{charliteral}{'+'}) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00145}00145         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00146}00146     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00148}00148     \textcolor{comment}{// Get digits before decimal point or exponent, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00150}00150     value = 0.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00151}00151     \textcolor{keywordflow}{while} (\mbox{\hyperlink{utilities_8c_a77f89089972f027bab0d7f971c2b1969}{valid\_digit}}(*p)) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00152}00152         value = value * 10.0 + (*p -\/ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00153}00153         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00154}00154     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00156}00156     \textcolor{comment}{// Get digits after decimal point, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00158}00158     \textcolor{keywordflow}{if} (*p == \textcolor{charliteral}{'.'}) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00159}00159         \textcolor{keywordtype}{double} pow10 = 10.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00160}00160         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00162}00162         \textcolor{keywordflow}{while} (\mbox{\hyperlink{utilities_8c_a77f89089972f027bab0d7f971c2b1969}{valid\_digit}}(*p)) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00163}00163             value += (*p -\/ \textcolor{charliteral}{'0'}) / pow10;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00164}00164             pow10 *= 10.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00165}00165             p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00166}00166         \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00167}00167     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00169}00169     \textcolor{comment}{// Handle exponent, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00171}00171     scale = 1.0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00172}00172     \textcolor{keywordflow}{if} ((*p == \textcolor{charliteral}{'e'}) || (*p == \textcolor{charliteral}{'E'})) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00173}00173         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} expon;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00174}00174         p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00176}00176         \textcolor{comment}{// Get sign of exponent, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00178}00178         frac = 0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00179}00179         \textcolor{keywordflow}{if} (*p == \textcolor{charliteral}{'-\/'}) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00180}00180             frac = 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00181}00181             p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00183}00183         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (*p == \textcolor{charliteral}{'+'}) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00184}00184             p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00185}00185         \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00187}00187         \textcolor{comment}{// Get digits of exponent, if any.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00189}00189         expon = 0;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00190}00190         \textcolor{keywordflow}{while} (\mbox{\hyperlink{utilities_8c_a77f89089972f027bab0d7f971c2b1969}{valid\_digit}}(*p)) \{}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00191}00191             expon = expon * 10 + (*p -\/ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00192}00192             p += 1;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00193}00193         \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00194}00194         \textcolor{keywordflow}{if} (expon > 308) expon = 308;}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00196}00196         \textcolor{comment}{// Calculate scaling factor.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00198}00198         \textcolor{keywordflow}{while} (expon >= 50) \{ scale *= 1E50; expon -\/= 50; \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00199}00199         \textcolor{keywordflow}{while} (expon >=  8) \{ scale *= 1E8;  expon -\/=  8; \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00200}00200         \textcolor{keywordflow}{while} (expon >   0) \{ scale *= 10.0; expon -\/=  1; \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00201}00201     \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00203}00203     \textcolor{comment}{// Return signed and scaled floating point result.}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00205}00205     \textcolor{keywordflow}{return} sign * (frac ? (value / scale) : (value * scale));}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00206}00206 \}}
+\DoxyCodeLine{\Hypertarget{utilities_8c_source_l00207}00207 }
+
+\end{DoxyCode}

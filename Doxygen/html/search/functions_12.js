@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['write_5fq15x2_0',['write_q15x2',['../arm__math__memory_8h.html#a1c6d46f43d41c6ca1b7d6a0d8ed95036',1,'arm_math_memory.h']]],
+  ['write_5fq15x2_5fia_1',['write_q15x2_ia',['../arm__math__memory_8h.html#a576a0e2a4667277b42c478dfda753dc6',1,'arm_math_memory.h']]],
+  ['write_5fq7x4_5fia_2',['write_q7x4_ia',['../arm__math__memory_8h.html#a05bde59a4c7dd866d0a2e3e6fcac17bd',1,'arm_math_memory.h']]],
+  ['writeeeprom_3',['writeEEPROM',['../config_8c.html#a9e7169a612983755fee2361b185befb6',1,'writeEEPROM(void):&#160;config.c'],['../config_8h.html#a9e7169a612983755fee2361b185befb6',1,'writeEEPROM(void):&#160;config.c']]]
+];

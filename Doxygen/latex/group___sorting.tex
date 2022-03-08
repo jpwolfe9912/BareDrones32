@@ -1,0 +1,114 @@
+\hypertarget{group___sorting}{}\doxysection{Vector sorting algorithms}
+\label{group___sorting}\index{Vector sorting algorithms@{Vector sorting algorithms}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___sorting_gaaf7f4a37e178f324a43a3b0257217c50}{arm\+\_\+merge\+\_\+sort\+\_\+f32}} (const \mbox{\hyperlink{structarm__merge__sort__instance__f32}{arm\+\_\+merge\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$S, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\item 
+void \mbox{\hyperlink{group___sorting_ga8132fc5cd4ff0d49a18d8620b7b994ab}{arm\+\_\+merge\+\_\+sort\+\_\+init\+\_\+f32}} (\mbox{\hyperlink{structarm__merge__sort__instance__f32}{arm\+\_\+merge\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$S, \mbox{\hyperlink{support__functions_8h_a171bff70e8bc15590ef1df0457093d78}{arm\+\_\+sort\+\_\+dir}} dir, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$buffer)
+\item 
+void \mbox{\hyperlink{group___sorting_ga2297c149f0974e0f5510907725addd4b}{arm\+\_\+sort\+\_\+f32}} (const \mbox{\hyperlink{structarm__sort__instance__f32}{arm\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$S, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Generic sorting function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___sorting_gac268276b8facce924812fe0e57fa4043}{arm\+\_\+sort\+\_\+init\+\_\+f32}} (\mbox{\hyperlink{structarm__sort__instance__f32}{arm\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$S, \mbox{\hyperlink{support__functions_8h_a39c7478f2a29c3ac0a8008ca916c811e}{arm\+\_\+sort\+\_\+alg}} alg, \mbox{\hyperlink{support__functions_8h_a171bff70e8bc15590ef1df0457093d78}{arm\+\_\+sort\+\_\+dir}} dir)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sort the elements of a vector
+
+There are separate functions for floating-\/point, Q31, Q15, and Q7 data types. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___sorting_gaaf7f4a37e178f324a43a3b0257217c50}\label{group___sorting_gaaf7f4a37e178f324a43a3b0257217c50}} 
+\index{Vector sorting algorithms@{Vector sorting algorithms}!arm\_merge\_sort\_f32@{arm\_merge\_sort\_f32}}
+\index{arm\_merge\_sort\_f32@{arm\_merge\_sort\_f32}!Vector sorting algorithms@{Vector sorting algorithms}}
+\doxysubsubsection{\texorpdfstring{arm\_merge\_sort\_f32()}{arm\_merge\_sort\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+merge\+\_\+sort\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__merge__sort__instance__f32}{arm\+\_\+merge\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$}]{S,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em S} & points to an instance of the sorting structure. \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the block of input data. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the block of output data \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples to process.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyParagraph}{Algorithm}
+The merge sort algorithm is a comparison algorithm that divide the input array in sublists and merge them to produce longer sorted sublists until there is only one list remaining.
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{A work array is always needed. It must be allocated by the user }
+linked to the instance at initialization time.
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{It\textquotesingle{}s an in-\/place algorithm. In order to obtain an out-\/of-\/place}
+function, a memcpy of the source vector is performed 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__merge__sort__f32_8c_source_l00103}{103}} of file \mbox{\hyperlink{arm__merge__sort__f32_8c_source}{arm\+\_\+merge\+\_\+sort\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___sorting_ga8132fc5cd4ff0d49a18d8620b7b994ab}\label{group___sorting_ga8132fc5cd4ff0d49a18d8620b7b994ab}} 
+\index{Vector sorting algorithms@{Vector sorting algorithms}!arm\_merge\_sort\_init\_f32@{arm\_merge\_sort\_init\_f32}}
+\index{arm\_merge\_sort\_init\_f32@{arm\_merge\_sort\_init\_f32}!Vector sorting algorithms@{Vector sorting algorithms}}
+\doxysubsubsection{\texorpdfstring{arm\_merge\_sort\_init\_f32()}{arm\_merge\_sort\_init\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+merge\+\_\+sort\+\_\+init\+\_\+f32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__merge__sort__instance__f32}{arm\+\_\+merge\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$}]{S,  }\item[{\mbox{\hyperlink{support__functions_8h_a171bff70e8bc15590ef1df0457093d78}{arm\+\_\+sort\+\_\+dir}}}]{dir,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em S} & points to an instance of the sorting structure. \\
+\hline
+\mbox{\texttt{ in}}  & {\em dir} & Sorting order. \\
+\hline
+\mbox{\texttt{ in}}  & {\em buffer} & Working buffer. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{arm__merge__sort__init__f32_8c_source_l00046}{46}} of file \mbox{\hyperlink{arm__merge__sort__init__f32_8c_source}{arm\+\_\+merge\+\_\+sort\+\_\+init\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___sorting_ga2297c149f0974e0f5510907725addd4b}\label{group___sorting_ga2297c149f0974e0f5510907725addd4b}} 
+\index{Vector sorting algorithms@{Vector sorting algorithms}!arm\_sort\_f32@{arm\_sort\_f32}}
+\index{arm\_sort\_f32@{arm\_sort\_f32}!Vector sorting algorithms@{Vector sorting algorithms}}
+\doxysubsubsection{\texorpdfstring{arm\_sort\_f32()}{arm\_sort\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+sort\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__sort__instance__f32}{arm\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$}]{S,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Generic sorting function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em S} & points to an instance of the sorting structure. \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the block of input data. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the block of output data. \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples to process. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{arm__sort__f32_8c_source_l00050}{50}} of file \mbox{\hyperlink{arm__sort__f32_8c_source}{arm\+\_\+sort\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___sorting_gac268276b8facce924812fe0e57fa4043}\label{group___sorting_gac268276b8facce924812fe0e57fa4043}} 
+\index{Vector sorting algorithms@{Vector sorting algorithms}!arm\_sort\_init\_f32@{arm\_sort\_init\_f32}}
+\index{arm\_sort\_init\_f32@{arm\_sort\_init\_f32}!Vector sorting algorithms@{Vector sorting algorithms}}
+\doxysubsubsection{\texorpdfstring{arm\_sort\_init\_f32()}{arm\_sort\_init\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+sort\+\_\+init\+\_\+f32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__sort__instance__f32}{arm\+\_\+sort\+\_\+instance\+\_\+f32}} $\ast$}]{S,  }\item[{\mbox{\hyperlink{support__functions_8h_a39c7478f2a29c3ac0a8008ca916c811e}{arm\+\_\+sort\+\_\+alg}}}]{alg,  }\item[{\mbox{\hyperlink{support__functions_8h_a171bff70e8bc15590ef1df0457093d78}{arm\+\_\+sort\+\_\+dir}}}]{dir }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em S} & points to an instance of the sorting structure. \\
+\hline
+\mbox{\texttt{ in}}  & {\em alg} & Selected algorithm. \\
+\hline
+\mbox{\texttt{ in}}  & {\em dir} & Sorting order. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{arm__sort__init__f32_8c_source_l00046}{46}} of file \mbox{\hyperlink{arm__sort__init__f32_8c_source}{arm\+\_\+sort\+\_\+init\+\_\+f32.\+c}}.
+

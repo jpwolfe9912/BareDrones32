@@ -1,0 +1,148 @@
+\hypertarget{index_intro}{}\doxysection{Introduction}\label{index_intro}
+This user manual describes the CMSIS DSP software library, a suite of common signal processing functions for use on Cortex-\/M and Cortex-\/A processor based devices.
+
+The library is divided into a number of functions each covering a specific category\+:
+\begin{DoxyItemize}
+\item Basic math functions
+\item Fast math functions
+\item Complex math functions
+\item Filtering functions
+\item Matrix functions
+\item Transform functions
+\item Motor control functions
+\item Statistical functions
+\item Support functions
+\item Interpolation functions
+\item Support Vector Machine functions (SVM)
+\item Bayes classifier functions
+\item Distance functions
+\item Quaternion functions
+\end{DoxyItemize}
+
+The library has generally separate functions for operating on 8-\/bit integers, 16-\/bit integers, 32-\/bit integer and 32-\/bit floating-\/point values.
+
+The library is providing vectorized versions of most algorthms for Helium and of most f32 algorithms for Neon.
+
+When using a vectorized version, provide a little bit of padding after the end of a buffer (3 words) because the vectorized code may read a little bit after the end of a buffer. You don\textquotesingle{}t have to modify your buffers but just ensure that the end of buffer + padding is not outside of a memory region.\hypertarget{index_using}{}\doxysection{Using the Library}\label{index_using}
+The library is released in source form. It is strongly advised to compile the library using -\/Ofast to have the best performances.
+
+The library functions are declared in the public file {\ttfamily \mbox{\hyperlink{arm__math_8h}{arm\+\_\+math.\+h}}} which is placed in the {\ttfamily Include} folder. Simply include this file. If you don\textquotesingle{}t want to include everything, you can also rely on headers in Include/dsp folder and use only what you need.\hypertarget{index_example}{}\doxysection{Examples}\label{index_example}
+The library ships with a number of examples which demonstrate how to use the library functions.\hypertarget{index_toolchain}{}\doxysection{Toolchain Support}\label{index_toolchain}
+The library is now tested on Fast Models building with cmake. Core M0, M4, M7, M33, M55, A32 are tested.\hypertarget{index_preprocessor}{}\doxysection{Preprocessor Macros}\label{index_preprocessor}
+Each library project have different preprocessor macros.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+BIG\+\_\+\+ENDIAN\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+BIG\+\_\+\+ENDIAN to build the library for big endian targets. By default library builds for little endian targets.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+MATRIX\+\_\+\+CHECK\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+MATRIX\+\_\+\+CHECK for checking on the input and output sizes of matrices
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+ROUNDING\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+ROUNDING for rounding on support functions
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+LOOPUNROLL\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+LOOPUNROLL to enable manual loop unrolling in DSP functions
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+NEON\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+NEON to enable Neon versions of the DSP functions. It is not enabled by default when Neon is available because performances are dependent on the compiler and target architecture.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+NEON\+\_\+\+EXPERIMENTAL\+:
+\end{DoxyItemize}
+
+Define macro ARM\+\_\+\+MATH\+\_\+\+NEON\+\_\+\+EXPERIMENTAL to enable experimental Neon versions of of some DSP functions. Experimental Neon versions currently do not have better performances than the scalar versions.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+HELIUM\+:
+\end{DoxyItemize}
+
+It implies the flags ARM\+\_\+\+MATH\+\_\+\+MVEF and ARM\+\_\+\+MATH\+\_\+\+MVEI and ARM\+\_\+\+MATH\+\_\+\+MVE\+\_\+\+FLOAT16.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+HELIUM\+\_\+\+EXPERIMENTAL\+:
+\end{DoxyItemize}
+
+Only taken into account when ARM\+\_\+\+MATH\+\_\+\+MVEF, ARM\+\_\+\+MATH\+\_\+\+MVEI or ARM\+\_\+\+MATH\+\_\+\+MVE\+\_\+\+FLOAT16 are defined. Enable some vector versions which may have worse performance than scalar depending on the core / compiler configuration.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+MVEF\+:
+\end{DoxyItemize}
+
+Select Helium versions of the f32 algorithms. It implies ARM\+\_\+\+MATH\+\_\+\+FLOAT16 and ARM\+\_\+\+MATH\+\_\+\+MVEI.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+MVEI\+:
+\end{DoxyItemize}
+
+Select Helium versions of the int and fixed point algorithms.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+MVE\+\_\+\+FLOAT16\+:
+\end{DoxyItemize}
+
+MVE Float16 implementations of some algorithms (Requires MVE extension).
+
+
+\begin{DoxyItemize}
+\item DISABLEFLOAT16\+:
+\end{DoxyItemize}
+
+Disable float16 algorithms when \+\_\+\+\_\+fp16 is not supported for a specific compiler / core configuration. This is only valid for scalar. When vector architecture is supporting f16 then it can\textquotesingle{}t be disabled.
+
+
+\begin{DoxyItemize}
+\item ARM\+\_\+\+MATH\+\_\+\+AUTOVECTORIZE\+:
+\end{DoxyItemize}
+
+With Helium or Neon, disable the use of vectorized code with C intrinsics and use pure C instead. The vectorization is then done by the compiler.
+
+\DoxyHorRuler{0}
+ \hypertarget{index_pack}{}\doxysection{CMSIS-\/\+DSP in ARM\+::\+CMSIS Pack}\label{index_pack}
+The following files relevant to CMSIS-\/\+DSP are present in the {\bfseries{ARM\+::\+CMSIS}} Pack directories\+: \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ File/\+Folder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Content    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ File/\+Folder   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Content    }\\\cline{1-2}
+\endhead
+{\bfseries{CMSIS\textbackslash{}Documentation\textbackslash{}DSP}}   &This documentation    \\\cline{1-2}
+{\bfseries{CMSIS\textbackslash{}DSP\textbackslash{}Examples}}   &Example projects demonstrating the usage of the library functions    \\\cline{1-2}
+{\bfseries{CMSIS\textbackslash{}DSP\textbackslash{}Include}}   &DSP\+\_\+\+Lib include files for using and building the lib    \\\cline{1-2}
+{\bfseries{CMSIS\textbackslash{}DSP\textbackslash{}Private\+Include}}   &DSP\+\_\+\+Lib private include files for building the lib    \\\cline{1-2}
+{\bfseries{CMSIS\textbackslash{}DSP\textbackslash{}Lib}}   &DSP\+\_\+\+Lib binaries    \\\cline{1-2}
+{\bfseries{CMSIS\textbackslash{}DSP\textbackslash{}Source}}   &DSP\+\_\+\+Lib source files   \\\cline{1-2}
+\end{longtabu}
+
+
+\DoxyHorRuler{0}
+ \hypertarget{index_rev}{}\doxysection{Revision History of CMSIS-\/\+DSP}\label{index_rev}
+Please refer to Change\+Log\+\_\+pg. 

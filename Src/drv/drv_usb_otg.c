@@ -18,7 +18,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "../board.h"
+#include "board.h"
 
 /* USER CODE BEGIN 0 */
 

@@ -1,0 +1,272 @@
+\hypertarget{arm__mat__sub__f32_8c_source}{}\doxysection{arm\+\_\+mat\+\_\+sub\+\_\+f32.\+c}
+\label{arm__mat__sub__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_sub\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_sub\_f32.c}}
+\mbox{\hyperlink{arm__mat__sub__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_mat\_sub\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point matrix subtraction}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{matrix__functions_8h}{dsp/matrix\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00060}00060 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00061}00061 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___matrix_sub_gac8b72fb70246ccfee3b372002345732c}{arm\_mat\_sub\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00062}00062   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00063}00063   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00064}00064   \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00065}00065 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00066}00066     \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix subtraction */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00067}00067     uint32\_t  numSamples;       \textcolor{comment}{/* total number of elements in the matrix  */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00068}00068     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pDataA, *pDataB, *pDataDst;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00069}00069     f32x4\_t vecA, vecB, vecDst;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00070}00070     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pSrcAVec;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00071}00071     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pSrcBVec;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00072}00072     uint32\_t  blkCnt;           \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00074}00074     pDataA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00075}00075     pDataB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00076}00076     pDataDst = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00077}00077     pSrcAVec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pDataA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00078}00078     pSrcBVec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pDataB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00080}00080 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00081}00081   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00082}00082   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00083}00083      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00084}00084      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) || (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}))}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00085}00085   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00086}00086     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00087}00087     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00088}00088   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00089}00089   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00090}00090 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*    \#ifdef ARM\_MATH\_MATRIX\_CHECK    */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00091}00091   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00092}00092     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00093}00093 \textcolor{comment}{     * Total number of samples in the input matrix}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00094}00094 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00095}00095     numSamples = (uint32\_t) pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} * pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00096}00096     blkCnt = numSamples >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00097}00097     while (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00098}00098     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00099}00099         \textcolor{comment}{/* C(m,n) = A(m,n) + B(m,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00100}00100         \textcolor{comment}{/* sub and then store the results in the destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00101}00101         vecA = vld1q(pSrcAVec); }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00102}00102         pSrcAVec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00103}00103         vecB = vld1q(pSrcBVec); }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00104}00104         pSrcBVec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00105}00105         vecDst = vsubq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00106}00106         vst1q(pDataDst, vecDst);  }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00107}00107         pDataDst += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00108}00108         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00109}00109 \textcolor{comment}{         * Decrement the blockSize loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00110}00110 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00111}00111         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00112}00112     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00113}00113     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00114}00114 \textcolor{comment}{     * tail}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00115}00115 \textcolor{comment}{     * (will be merged thru tail predication)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00116}00116 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00117}00117     blkCnt = numSamples \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00118}00118     \textcolor{keywordflow}{if} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00119}00119     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00120}00120         mve\_pred16\_t p0 = vctp32q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00121}00121         vecA = vld1q(pSrcAVec); }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00122}00122         vecB = vld1q(pSrcBVec); }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00123}00123         vecDst = vsubq\_m(vecDst, vecA, vecB, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00124}00124         vstrwq\_p(pDataDst, vecDst, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00125}00125     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00126}00126     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00127}00127   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00129}00129   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00130}00130   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00131}00131 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00133}00133 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00134}00134 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_NEON)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00135}00135 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___matrix_sub_gac8b72fb70246ccfee3b372002345732c}{arm\_mat\_sub\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00136}00136   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00137}00137   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00138}00138   \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00139}00139 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00140}00140   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn1 = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00141}00141   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00142}00142   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                 \textcolor{comment}{/* output data matrix pointer  */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00145}00145   uint32\_t numSamples;                           \textcolor{comment}{/* total number of elements in the matrix  */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00146}00146   uint32\_t blkCnt;                               \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00147}00147   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix subtraction */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00149}00149 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00150}00150   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00151}00151   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00152}00152      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00153}00153      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) || (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}))}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00154}00154   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00155}00155     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00156}00156     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00157}00157   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00158}00158   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00159}00159 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*    \#ifdef ARM\_MATH\_MATRIX\_CHECK    */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00160}00160   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00161}00161     float32x4\_t vec1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00162}00162     float32x4\_t vec2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00163}00163     float32x4\_t res;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00165}00165     \textcolor{comment}{/* Total number of samples in the input matrix */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00166}00166     numSamples = (uint32\_t) pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} * pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00168}00168     blkCnt = numSamples >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00170}00170     \textcolor{comment}{/* Compute 4 outputs at a time.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00171}00171 \textcolor{comment}{     ** a second loop below computes the remaining 1 to 3 samples. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00172}00172     while (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00173}00173     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00174}00174       \textcolor{comment}{/* C(m,n) = A(m,n) -\/ B(m,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00175}00175       \textcolor{comment}{/* Subtract and then store the results in the destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00176}00176       \textcolor{comment}{/* Read values from source A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00177}00177       vec1 = vld1q\_f32(pIn1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00178}00178       vec2 = vld1q\_f32(pIn2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00179}00179       res = vsubq\_f32(vec1, vec2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00180}00180       vst1q\_f32(pOut, res);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00182}00182       \textcolor{comment}{/* Update pointers to process next samples */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00183}00183       pIn1 += 4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00184}00184       pIn2 += 4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00185}00185       pOut += 4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00187}00187       \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00188}00188       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00189}00189     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00191}00191     \textcolor{comment}{/* If the numSamples is not a multiple of 4, compute any remaining output samples here.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00192}00192 \textcolor{comment}{     ** No loop unrolling is used. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00193}00193     blkCnt = numSamples \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00196}00196     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00197}00197     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00198}00198       \textcolor{comment}{/* C(m,n) = A(m,n) -\/ B(m,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00199}00199       \textcolor{comment}{/* Subtract and then store the results in the destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00200}00200       *pOut++ = (*pIn1++) -\/ (*pIn2++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00202}00202       \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00203}00203       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00204}00204     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00206}00206     \textcolor{comment}{/* Set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00207}00207     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00208}00208   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00210}00210   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00211}00211   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00212}00212 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00213}00213 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00214}\mbox{\hyperlink{group___matrix_sub_gac8b72fb70246ccfee3b372002345732c}{00214}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___matrix_sub_gac8b72fb70246ccfee3b372002345732c}{arm\_mat\_sub\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00215}00215   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00216}00216   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00217}00217         \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00218}00218 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00219}00219   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00220}00220   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pInB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00221}00221   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                 \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00223}00223   uint32\_t numSamples;                           \textcolor{comment}{/* total number of elements in the matrix */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00224}00224   uint32\_t blkCnt;                               \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00225}00225   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix subtraction */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00227}00227 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00229}00229   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00230}00230   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00231}00231       (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00232}00232       (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}})  ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00233}00233       (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}})    )}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00234}00234   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00235}00235     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00236}00236     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00237}00237   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00238}00238   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00239}00239 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00240}00240 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifdef ARM\_MATH\_MATRIX\_CHECK */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00241}00241 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00242}00242   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00243}00243     \textcolor{comment}{/* Total number of samples in input matrix */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00244}00244     numSamples = (uint32\_t) pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} * pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00246}00246 \#\textcolor{keywordflow}{if} defined (ARM\_MATH\_LOOPUNROLL)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00248}00248     \textcolor{comment}{/* Loop unrolling: Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00249}00249     blkCnt = numSamples >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00251}00251     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00252}00252     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00253}00253       \textcolor{comment}{/* C(m,n) = A(m,n) -\/ B(m,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00255}00255       \textcolor{comment}{/* Subtract and store result in destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00256}00256       *pOut++ = (*pInA++) -\/ (*pInB++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00257}00257       *pOut++ = (*pInA++) -\/ (*pInB++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00258}00258       *pOut++ = (*pInA++) -\/ (*pInB++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00259}00259       *pOut++ = (*pInA++) -\/ (*pInB++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00260}00260 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00261}00261       \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00262}00262       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00263}00263     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00265}00265     \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00266}00266     blkCnt = numSamples \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00268}00268 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00270}00270     \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00271}00271     blkCnt = numSamples;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00273}00273 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00275}00275     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00276}00276     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00277}00277       \textcolor{comment}{/* C(m,n) = A(m,n) -\/ B(m,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00278}00278 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00279}00279       \textcolor{comment}{/* Subtract and store result in destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00280}00280       *pOut++ = (*pInA++) -\/ (*pInB++);}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00281}00281 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00282}00282       \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00283}00283       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00284}00284     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00285}00285 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00286}00286     \textcolor{comment}{/* Set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00287}00287     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00288}00288   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00289}00289 }
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00290}00290   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00291}00291   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00292}00292 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00293}00293 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_MATH\_NEON) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00294}00294 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__sub__f32_8c_source_l00295}00295 }
+
+\end{DoxyCode}

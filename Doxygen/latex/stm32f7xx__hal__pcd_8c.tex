@@ -1,0 +1,60 @@
+\hypertarget{stm32f7xx__hal__pcd_8c}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Src/stm32f7xx\+\_\+hal\+\_\+pcd.c File Reference}
+\label{stm32f7xx__hal__pcd_8c}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_pcd.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_pcd.c}}
+
+
+PCD HAL module driver. This file provides firmware functions to manage the following functionalities of the USB Peripheral Controller\+:  
+
+
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal.\+h\char`\"{}}\newline
+
+
+\doxysubsection{Detailed Description}
+PCD HAL module driver. This file provides firmware functions to manage the following functionalities of the USB Peripheral Controller\+: 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\begin{DoxyItemize}
+\item Initialization and de-\/initialization functions
+\item IO operation functions
+\item Peripheral Control functions
+\item Peripheral State functions
+\end{DoxyItemize}
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS.
+
+\begin{DoxyVerb}==============================================================================
+                  ##### How to use this driver #####
+==============================================================================
+  [..]
+    The PCD HAL driver can be used as follows:
+
+   (#) Declare a PCD_HandleTypeDef handle structure, for example:
+       PCD_HandleTypeDef  hpcd;
+
+   (#) Fill parameters of Init structure in HCD handle
+
+   (#) Call HAL_PCD_Init() API to initialize the PCD peripheral (Core, Device core, ...)
+
+   (#) Initialize the PCD low level resources through the HAL_PCD_MspInit() API:
+       (##) Enable the PCD/USB Low Level interface clock using
+            (+++) __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
+            (+++) __HAL_RCC_USB_OTG_HS_CLK_ENABLE(); (For High Speed Mode)
+
+       (##) Initialize the related GPIO clocks
+       (##) Configure PCD pin-out
+       (##) Configure PCD NVIC interrupt
+
+   (#)Associate the Upper USB device stack to the HAL PCD Driver:
+       (##) hpcd.pData = pdev;
+
+   (#)Enable PCD transmission and reception:
+       (##) HAL_PCD_Start();\end{DoxyVerb}
+ 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal__pcd_8c_source}{stm32f7xx\+\_\+hal\+\_\+pcd.\+c}}.
+

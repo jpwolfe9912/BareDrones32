@@ -1,0 +1,216 @@
+\hypertarget{stm32f7xx__hal_8h}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal.h File Reference}
+\label{stm32f7xx__hal_8h}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h}}
+
+
+This file contains all the functions prototypes for the HAL module driver.  
+
+
+{\ttfamily \#include \char`\"{}stm32f7xx\+\_\+hal\+\_\+conf.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___s_y_s_c_f_g___boot_mode_ga0201d0bbb235dec012edcd4bad92222b}{SYSCFG\+\_\+\+MEM\+\_\+\+BOOT\+\_\+\+ADD0}}~((uint32\+\_\+t)0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___s_y_s_c_f_g___boot_mode_ga71ed21f88bd74634a995cc1ae06169c2}{SYSCFG\+\_\+\+MEM\+\_\+\+BOOT\+\_\+\+ADD1}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2efc5ebe6f79c27456ab4c7f5d0c8066}{SYSCFG\+\_\+\+MEMRMP\+\_\+\+MEM\+\_\+\+BOOT}}
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga4a466905a367266e7c23417248dc741d}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM2}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaae3c5b87084934a18748f5ec168f5aef}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM2\+\_\+\+STOP}}))
+\begin{DoxyCompactList}\small\item\em Freeze/\+Unfreeze Peripherals in Debug mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaf2fe2b6d0a5e8df4ebb38020acf210d9}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM3}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2fea6834f4ef9fc6b403cd079a001cec}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM3\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga9ec45e12bbea210d8ec91d9cdd9f911c}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM4}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7ac65bf9342bb8acbcb25938e93abc45}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM4\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga051eca105d8696d54e19fdfc8343a0a2}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM5}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga42d29d40515d36ce6ed7e5d34ed17dcf}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM5\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaccdcfde9ae6f78f0ca359776b021f87c}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM6}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gadea6a1e90739bcf1d0723a0566c66de7}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM6\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga8541da9b4d428d41e218e9701e4307d1}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM7}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafdade78c3d28a668f9826d0b72e5844b}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM7\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga2bbe99ec741228b520e17b1bf38eb2ad}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM12}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7ca0e04ad8c94e5b7fe29d8b9c20ebff}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM12\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga21bfaea50e429031982861b2869c6863}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM13}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga68ef63b3c086ede54396596798553299}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM13\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaf4d10c15c1644eeff138829af21c219c}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM14}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafd3acb3e632c74e326da7016073c7871}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM14\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga87edecce17579a16e9d9f99cee25f0a4}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+LPTIM1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa0506c23cae7a89fae28fecd8b6e6cd5}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+LPTIM1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga6ea586c594feb6eb0f2aba52f1c69f4c}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+RTC}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e20246d389229ff46006b405bb56b1d}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+RTC\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga81215154725c479c67fb1adac906fbd9}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+WWDG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a49d5e849185d09ee6c7594512ffe88}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+WWDG\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gabab7ab631ba58fb6246a9385e8af9d0d}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+IWDG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gada8989cb96dd5d6dbdaaf16e1f127c6a}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+IWDG\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga6160f642dcff812be3a04c5b5c66e31d}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+I2\+C1\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae83fb5d62c6e6fa1c2fd06084528404e}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C1\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gacc31f8475c2e3e30ee99e53814faa523}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+I2\+C2\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8f6320aba695f6c3f97608e478533e96}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C2\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gacd3fd0373b45de1b86be07bd4007c30e}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+I2\+C3\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7f7e5c708387aa1ddae35b892811b4e9}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C3\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga94dfdca0c7c69da6f2cf1c516bc1b02c}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+I2\+C4\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C4\+\_\+\+SMBUS\+\_\+\+TIMEOUT))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga1d225003f36f6a22ffea1a41a4a78cec}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+CAN1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1b404dcea4857bccabbb03d6cce6be8c}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+CAN1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gadb4f2b03a03936de95c1a9f939d452c0}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+CAN2}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ $\vert$= (DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+CAN2\+\_\+\+STOP))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga93d7e54d78e5dea068f5f6a94d5f94c7}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3eb7be194b6ffb258b9e9f5ed08a931e}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaeee90b698bfc2421155265b4c5b43f09}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM8}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga37128bf689254919b07f64ee41cad1cf}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM8\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga391a0780e10993d06c519addf582a438}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM9}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf12c17533a1e3262ee11f760e44f5127}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM9\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaee80dea9c85b61d2fb2499cbd97d8478}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM10}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga24d4bbf803a65e8202b0019ed0ce0ebb}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM10\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gac1f554993a6d5c7a953dab2c6cc564dd}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+FREEZE\+\_\+\+TIM11}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ $\vert$= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga354671c942db40e69820fd783ef955b4}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM11\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gafd40134436233985a840e1cd8eb6c4c3}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM2}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaae3c5b87084934a18748f5ec168f5aef}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM2\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga5aecefa008a37ef7c6489a2e29415e69}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM3}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2fea6834f4ef9fc6b403cd079a001cec}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM3\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gac73202fc9f0913f52ef70c42b6cab287}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM4}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7ac65bf9342bb8acbcb25938e93abc45}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM4\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga0669527789fb4616ec07ed711a600d04}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM5}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga42d29d40515d36ce6ed7e5d34ed17dcf}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM5\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaab127b51706a565b72c397e29b145234}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM6}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gadea6a1e90739bcf1d0723a0566c66de7}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM6\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga4a6c5081b976583921ac5d140e15bb85}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM7}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafdade78c3d28a668f9826d0b72e5844b}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM7\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaa8e882be8db24537679bc0d4a129f448}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM12}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7ca0e04ad8c94e5b7fe29d8b9c20ebff}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM12\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga00b605f660d43ab1b833926dabe352fe}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM13}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga68ef63b3c086ede54396596798553299}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM13\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaa62a0abc610b769d15fd9d20bdc14cd7}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM14}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafd3acb3e632c74e326da7016073c7871}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM14\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gae8c5b2ecee4a1f6ac3b8b24711a10584}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+LPTIM1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa0506c23cae7a89fae28fecd8b6e6cd5}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+LPTIM1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga3d85d5cda1979c7df426634a1d3d7d35}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+RTC}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e20246d389229ff46006b405bb56b1d}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+RTC\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaa14c8a2e8911976b8c8ce6ca278372a2}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+WWDG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a49d5e849185d09ee6c7594512ffe88}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+WWDG\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gab29a88ef9c31cbe107c58b9ecc3bdf79}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+IWDG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gada8989cb96dd5d6dbdaaf16e1f127c6a}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+IWDG\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga636083d6b6931b1cf35e7c39aebf0723}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+I2\+C1\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae83fb5d62c6e6fa1c2fd06084528404e}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C1\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga0308bdec86c19b7bbe236c4724d7d536}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+I2\+C2\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8f6320aba695f6c3f97608e478533e96}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C2\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga8beda05b7dc4962557f98a06e29326a4}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+I2\+C3\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7f7e5c708387aa1ddae35b892811b4e9}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C3\+\_\+\+SMBUS\+\_\+\+TIMEOUT}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gadce4099c04903ce686de6b57d733fbbb}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+I2\+C4\+\_\+\+TIMEOUT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+I2\+C4\+\_\+\+SMBUS\+\_\+\+TIMEOUT))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gad580d0ec1c7b8eb8d5935e1fcbd58b07}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+CAN1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1b404dcea4857bccabbb03d6cce6be8c}{DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+CAN1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga10fd523f4709571f091465b8d58ad385}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+CAN2}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB1\+FZ \&= $\sim$(DBGMCU\+\_\+\+APB1\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+CAN2\+\_\+\+STOP))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga2f91eec9f9a424ab611be0e770c6692e}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM1}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3eb7be194b6ffb258b9e9f5ed08a931e}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM1\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga7375cef18047e43c68f6bd871de40f1a}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM8}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga37128bf689254919b07f64ee41cad1cf}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM8\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga3c336afea7d87b769cee4fb059ed2477}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM9}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf12c17533a1e3262ee11f760e44f5127}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM9\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gaa63c03a742fa4728b49077514189b318}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM10}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga24d4bbf803a65e8202b0019ed0ce0ebb}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM10\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_gae6396470b3bddff9424201bf07573f19}{\+\_\+\+\_\+\+HAL\+\_\+\+DBGMCU\+\_\+\+UNFREEZE\+\_\+\+TIM11}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/$>$APB2\+FZ \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga354671c942db40e69820fd783ef955b4}{DBGMCU\+\_\+\+APB2\+\_\+\+FZ\+\_\+\+DBG\+\_\+\+TIM11\+\_\+\+STOP}}))
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga911da0daaaa54611ad5cc53b909836ee}{\+\_\+\+\_\+\+HAL\+\_\+\+SYSCFG\+\_\+\+REMAPMEMORY\+\_\+\+FMC}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/$>$MEMRMP \&= $\sim$(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5fc9935984aa2d506eb568944cf4a45f}{SYSCFG\+\_\+\+MEMRMP\+\_\+\+SWP\+\_\+\+FMC}}))
+\begin{DoxyCompactList}\small\item\em FMC (NOR/\+RAM) mapped at 0x60000000 and SDRAM mapped at 0x\+C0000000. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga9289478fb2dc47d4cce6e0c956b4dafd}{\+\_\+\+\_\+\+HAL\+\_\+\+SYSCFG\+\_\+\+REMAPMEMORY\+\_\+\+FMC\+\_\+\+SDRAM}}()
+\begin{DoxyCompactList}\small\item\em FMC/\+SDRAM mapped at 0x60000000 (NOR/\+RAM) mapped at 0x\+C0000000. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___h_a_l___exported___macros_ga0e71eb2b553f1a7b8172710184a89caa}{\+\_\+\+\_\+\+HAL\+\_\+\+SYSCFG\+\_\+\+GET\+\_\+\+BOOT\+\_\+\+MODE}}()~\mbox{\hyperlink{group___exported__macro_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/$>$MEMRMP, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2efc5ebe6f79c27456ab4c7f5d0c8066}{SYSCFG\+\_\+\+MEMRMP\+\_\+\+MEM\+\_\+\+BOOT}})
+\begin{DoxyCompactList}\small\item\em Return the memory boot mapping as configured by user. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___macros_ga2a86bf8a89ad75716cd92e932a8ae71e}{IS\+\_\+\+TICKFREQ}}(FREQ)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} \{ \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aabf4d022d85adb437a57c1f45d6345092}{HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+10\+HZ}} = 100U
+, \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aacb1ef3a0e9632aafe0fd162e2cd88408}{HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+100\+HZ}} = 10U
+, \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aabef41c8ee13ca1d48eb49dac912f9689}{HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+1\+KHZ}} = 1U
+, \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aa94e043d780eb1c36291338f6d6314e42}{HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+\+DEFAULT}} = HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+1\+KHZ
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4}{HAL\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em This function is used to initialize the HAL Library; it must be the first instruction to be executed in the main program (before to call any other HAL function), it performs the following\+: Configure the Flash prefetch, and instruction cache through ART accelerator. Configures the Sys\+Tick to generate an interrupt each 1 millisecond, which is clocked by the HSI (at this stage, the clock is not yet configured and thus the system is running from the internal HSI at 16 MHz). Set NVIC Group Priority to 4. Calls the \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga07e099a69ab23e79be8b7a80505de519}{HAL\+\_\+\+Msp\+Init()}} callback function defined in user file \char`\"{}stm32f7xx\+\_\+hal\+\_\+msp.\+c\char`\"{} to do the global low level hardware initialization. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f}{HAL\+\_\+\+De\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em This function de-\/\+Initializes common part of the HAL and stops the systick. This function is optional. ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga07e099a69ab23e79be8b7a80505de519}{HAL\+\_\+\+Msp\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the MSP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0}{HAL\+\_\+\+Msp\+De\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em De\+Initializes the MSP. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{HAL\+\_\+\+Init\+Tick}} (uint32\+\_\+t Tick\+Priority)
+\begin{DoxyCompactList}\small\item\em This function configures the source of the time base. The time source is configured to have 1ms time base with a dedicated Tick interrupt priority. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188}{HAL\+\_\+\+Inc\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em This function is called to increment a global variable \char`\"{}uw\+Tick\char`\"{} used as application time base. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\+\_\+\+Delay}} (uint32\+\_\+t Delay)
+\begin{DoxyCompactList}\small\item\em This function provides minimum delay (in milliseconds) based on variable incremented. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\+\_\+\+Get\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Provides a tick value in millisecond. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b}{HAL\+\_\+\+Get\+Tick\+Prio}} (void)
+\begin{DoxyCompactList}\small\item\em This function returns a tick priority. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690}{HAL\+\_\+\+Set\+Tick\+Freq}} (\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} Freq)
+\begin{DoxyCompactList}\small\item\em Set new tick Freq. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6}{HAL\+\_\+\+Get\+Tick\+Freq}} (void)
+\begin{DoxyCompactList}\small\item\em Return tick frequency. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6}{HAL\+\_\+\+Suspend\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Suspend Tick increment. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97}{HAL\+\_\+\+Resume\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Resume Tick increment. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966}{HAL\+\_\+\+Get\+Hal\+Version}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the HAL revision. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8}{HAL\+\_\+\+Get\+REVID}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the device revision identifier. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84}{HAL\+\_\+\+Get\+DEVID}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the device identifier. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506}{HAL\+\_\+\+Get\+UIDw0}} (void)
+\begin{DoxyCompactList}\small\item\em Returns first word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c}{HAL\+\_\+\+Get\+UIDw1}} (void)
+\begin{DoxyCompactList}\small\item\em Returns second word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700}{HAL\+\_\+\+Get\+UIDw2}} (void)
+\begin{DoxyCompactList}\small\item\em Returns third word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGSleep\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during SLEEP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGSleep\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during SLEEP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGStop\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during STOP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGStop\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during STOP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGStandby\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during STANDBY mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGStandby\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during STANDBY mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga20b6ca07582e10aec5e15ad2fda7dfc1}{HAL\+\_\+\+Enable\+Compensation\+Cell}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the I/O Compensation Cell. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga653f1166b0e37afd40372550d806e667}{HAL\+\_\+\+Disable\+Compensation\+Cell}} (void)
+\begin{DoxyCompactList}\small\item\em Power-\/down the I/O Compensation Cell. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac99ad862d5888a2672fdf7da1b8b25cd}{HAL\+\_\+\+Enable\+FMCMemory\+Swapping}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the FMC Memory Mapping Swapping. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga0863e6c3b386823ab0f5af6dd5121c32}{HAL\+\_\+\+Disable\+FMCMemory\+Swapping}} (void)
+\begin{DoxyCompactList}\small\item\em Disables the FMC Memory Mapping Swapping. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core__sc300_8h_aec43007d9998a0a0e01faede4133d6be}{\+\_\+\+\_\+\+IO}} uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___variables_ga9d411ea525781e633bf7ea7ef2f90728}{uw\+Tick}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___variables_ga3000c5e83924ed2debb1849c738d4be2}{uw\+Tick\+Prio}}
+\item 
+\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___variables_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uw\+Tick\+Freq}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains all the functions prototypes for the HAL module driver. 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal_8h_source}{stm32f7xx\+\_\+hal.\+h}}.
+

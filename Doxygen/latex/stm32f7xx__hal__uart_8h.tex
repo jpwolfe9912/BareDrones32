@@ -1,0 +1,549 @@
+\hypertarget{stm32f7xx__hal__uart_8h}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+uart.h File Reference}
+\label{stm32f7xx__hal__uart_8h}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_uart.h@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal\_uart.h}}
+
+
+Header file of UART HAL module.  
+
+
+{\ttfamily \#include \char`\"{}stm32f7xx\+\_\+hal\+\_\+def.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal\+\_\+uart\+\_\+ex.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_u_a_r_t___init_type_def}{UART\+\_\+\+Init\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em UART Init Structure definition. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_u_a_r_t___adv_feature_init_type_def}{UART\+\_\+\+Adv\+Feature\+Init\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em UART Advanced Features initialization structure definition. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{\+\_\+\+\_\+\+UART\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em UART handle Structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_gacd81aeb745b71fc1c121cc686369600d}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+RESET}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+READY}}~0x00000020U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_gabe7a46b4b59e60aa480bdf2aa4c2fd8e}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+BUSY}}~0x00000024U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_gabfe9c686182148f2ecd8527d31576163}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+BUSY\+\_\+\+TX}}~0x00000021U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_ga7e0aa32633802a0b89a96df4909ededf}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+BUSY\+\_\+\+RX}}~0x00000022U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_ga8668588bb9f40ce6ef0d4174a7144a39}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+BUSY\+\_\+\+TX\+\_\+\+RX}}~0x00000023U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_ga8fb45af1ff5413abde026eba4ecf264d}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+TIMEOUT}}~0x000000\+A0U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state___definition_gacbe168f8945e38c90d622982ee1300aa}{HAL\+\_\+\+UART\+\_\+\+STATE\+\_\+\+ERROR}}~0x000000\+E0U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_ga275de35cb518c19c284764f3ecb1aac5}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+NONE}}~(0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_gad447a37701acd199dcb653ce32917970}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+PE}}~(0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_ga4a4e32a346dd01f4c41c4fc27afbc72c}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+NE}}~(0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_gaf23cb510d4dc2c8e05a45abfbf5f3457}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+FE}}~(0x00000004U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_gaedc030add6c499cf41be7f12dd95930c}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+ORE}}~(0x00000008U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_gac1d608ae3499a449cd6cd102e7f86605}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+DMA}}~(0x00000010U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___error___definition_ga54c152e7fd4eb25b6e7a3d5dedabfdc2}{HAL\+\_\+\+UART\+\_\+\+ERROR\+\_\+\+RTO}}~(0x00000020U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga4c280770879367f7af395b7b41f60d93}{UART\+\_\+\+STOPBITS\+\_\+0\+\_\+5}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaee6ee01c6e5325b378b2209ef20d0a61}{USART\+\_\+\+CR2\+\_\+\+STOP\+\_\+0}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga7cf97e555292d574de8abc596ba0e2ce}{UART\+\_\+\+STOPBITS\+\_\+1}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga99fcce2358d8ef0b60cf562e4d9fddd8}{UART\+\_\+\+STOPBITS\+\_\+1\+\_\+5}}~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaee6ee01c6e5325b378b2209ef20d0a61}{USART\+\_\+\+CR2\+\_\+\+STOP\+\_\+0}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2b24d14f0e5d1c76c878b08aad44d02b}{USART\+\_\+\+CR2\+\_\+\+STOP\+\_\+1}})
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga91616523380f7450aac6cb7e17f0c0f2}{UART\+\_\+\+STOPBITS\+\_\+2}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2b24d14f0e5d1c76c878b08aad44d02b}{USART\+\_\+\+CR2\+\_\+\+STOP\+\_\+1}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___parity_ga270dea6e1a92dd83fe58802450bdd60c}{UART\+\_\+\+PARITY\+\_\+\+NONE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___parity_ga063b14ac42ef9e8f4246c17a586b14eb}{UART\+\_\+\+PARITY\+\_\+\+EVEN}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga60f8fcf084f9a8514efafb617c70b074}{USART\+\_\+\+CR1\+\_\+\+PCE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___parity_ga229615e64964f68f7a856ea6ffea359e}{UART\+\_\+\+PARITY\+\_\+\+ODD}}~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga60f8fcf084f9a8514efafb617c70b074}{USART\+\_\+\+CR1\+\_\+\+PCE}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2e159d36ab2c93a2c1942df60e9eebbe}{USART\+\_\+\+CR1\+\_\+\+PS}})
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_gae0569001c06b7760cd38c481f84116cf}{UART\+\_\+\+HWCONTROL\+\_\+\+NONE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga6d5dad09c6abf30f252084ba0f8c0b7d}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7c5d6fcd84a4728cda578a0339b4cac2}{USART\+\_\+\+CR3\+\_\+\+RTSE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga352f517245986e3b86bc75f8472c51ea}{UART\+\_\+\+HWCONTROL\+\_\+\+CTS}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa125f026b1ca2d76eab48b191baed265}{USART\+\_\+\+CR3\+\_\+\+CTSE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga7c91698e8f08ba7ed3f2a0ba9aa27d73}{UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+CTS}}~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7c5d6fcd84a4728cda578a0339b4cac2}{USART\+\_\+\+CR3\+\_\+\+RTSE}} $\vert$ \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa125f026b1ca2d76eab48b191baed265}{USART\+\_\+\+CR3\+\_\+\+CTSE}})
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___mode_ga6cdc4e35cd90d15a964994499475e7d7}{UART\+\_\+\+MODE\+\_\+\+RX}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gada0d5d407a22264de847bc1b40a17aeb}{USART\+\_\+\+CR1\+\_\+\+RE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___mode_gad54f095a1073bcd81787d13fc268bd62}{UART\+\_\+\+MODE\+\_\+\+TX}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gade7f090b04fd78b755b43357ecaa9622}{USART\+\_\+\+CR1\+\_\+\+TE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___mode_gab47c162935901e89322e2ce6700b6744}{UART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}}~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gade7f090b04fd78b755b43357ecaa9622}{USART\+\_\+\+CR1\+\_\+\+TE}} $\vert$\mbox{\hyperlink{group___peripheral___registers___bits___definition_gada0d5d407a22264de847bc1b40a17aeb}{USART\+\_\+\+CR1\+\_\+\+RE}})
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state_gaf32492459be708981ebc5615194cdae9}{UART\+\_\+\+STATE\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___state_gab6b470dccef2a518a45554b171acff5b}{UART\+\_\+\+STATE\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2bb650676aaae4a5203f372d497d5947}{USART\+\_\+\+CR1\+\_\+\+UE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___over___sampling_gaa6a320ec65d248d76f21de818db1a2f0}{UART\+\_\+\+OVERSAMPLING\+\_\+16}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___over___sampling_gaeb13896e8bdc1bb041e01a86a868ee0b}{UART\+\_\+\+OVERSAMPLING\+\_\+8}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaed6caeb0cb48f1a7b34090f31a92a8e2}{USART\+\_\+\+CR1\+\_\+\+OVER8}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___one_bit___sampling_gadfcb0e9db2719321048b249b2c5cc15f}{UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___one_bit___sampling_gadcc0aed6e7a466da3c45363f69dcbfb6}{UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9a96fb1a7beab602cbc8cb0393593826}{USART\+\_\+\+CR3\+\_\+\+ONEBIT}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga87bcd5d6ca1b354785788366c9c47606}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+ONSTARTBIT}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga8ac0407640f138067bdcf2ad6cdc04cc}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+ONFALLINGEDGE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga74a9e3740bd087f5170c58b85bc4e689}{USART\+\_\+\+CR2\+\_\+\+ABRMODE\+\_\+0}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga0bdbaec8f1186a4bbbdef5e09896a3e2}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+ON0\+X7\+FFRAME}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gac439d0281ee2e6f20261076a50314cff}{USART\+\_\+\+CR2\+\_\+\+ABRMODE\+\_\+1}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_gaa325fa0ee642902e4746a53f9b58720d}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+ON0\+X55\+FRAME}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7b0a61926b32b1bbe136944c4133d2be}{USART\+\_\+\+CR2\+\_\+\+ABRMODE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___receiver___timeout_ga575c43813df656b21dc39aff6a968046}{UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___receiver___timeout_ga6e25985f0dacc3e79ae552746952ac18}{UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gab89524eda63950f55bc47208a66b7dca}{USART\+\_\+\+CR2\+\_\+\+RTOEN}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___l_i_n_ga7bc4a2de3d6b29235188020628c4b30c}{UART\+\_\+\+LIN\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___l_i_n_gaf3f2741d3af2737c51c3040e79fdc664}{UART\+\_\+\+LIN\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gac8931efa62c29d92f5c0ec5a05f907ef}{USART\+\_\+\+CR2\+\_\+\+LINEN}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___l_i_n___break___detection_ga027616b7a36b36e0e51ffee947533624}{UART\+\_\+\+LINBREAKDETECTLENGTH\+\_\+10B}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___l_i_n___break___detection_ga2f66fcd37de7a3ca9e1101305f2e23e6}{UART\+\_\+\+LINBREAKDETECTLENGTH\+\_\+11B}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7f9bc41700717fd93548e0e95b6072ed}{USART\+\_\+\+CR2\+\_\+\+LBDL}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___tx_gaa318cc9c1aa55acc5bb93f378ac7d8e4}{UART\+\_\+\+DMA\+\_\+\+TX\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___tx_gab1c3e8113617fb9c8fc63b3f3d7c8c65}{UART\+\_\+\+DMA\+\_\+\+TX\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5bb515d3814d448f84e2c98bf44f3993}{USART\+\_\+\+CR3\+\_\+\+DMAT}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___rx_gac65987cb4d8fd5da0f7dc695312f6afa}{UART\+\_\+\+DMA\+\_\+\+RX\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___rx_gab871994de6d36a02b8ec34af197dff1d}{UART\+\_\+\+DMA\+\_\+\+RX\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaff130f15493c765353ec2fd605667c5a}{USART\+\_\+\+CR3\+\_\+\+DMAR}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___half___duplex___selection_ga282d253c045fd9a3785c6c3e3293346c}{UART\+\_\+\+HALF\+\_\+\+DUPLEX\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___half___duplex___selection_ga61e92cc4435c05d850f9fd5456f391e6}{UART\+\_\+\+HALF\+\_\+\+DUPLEX\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gac71129810fab0b46d91161a39e3f8d01}{USART\+\_\+\+CR3\+\_\+\+HDSEL}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___wake_up___methods_ga2411ed44c5d82db84c5819e1e2b5b8b3}{UART\+\_\+\+WAKEUPMETHOD\+\_\+\+IDLELINE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___wake_up___methods_ga4c6935f26f8f2a9fe70fd6306a9882cb}{UART\+\_\+\+WAKEUPMETHOD\+\_\+\+ADDRESSMARK}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gad831dfc169fcf14b7284984dbecf322d}{USART\+\_\+\+CR1\+\_\+\+WAKE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___request___parameters_ga8cdce81a934ab7d0c2eecb4d85300d4e}{UART\+\_\+\+AUTOBAUD\+\_\+\+REQUEST}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gad261e1474dfb5329b5520e22790b026b}{USART\+\_\+\+RQR\+\_\+\+ABRRQ}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___request___parameters_ga52ced88a9f4ce90f3725901cf91f38b3}{UART\+\_\+\+SENDBREAK\+\_\+\+REQUEST}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2d1a36c6b492c425b4e5cc94d983ecf1}{USART\+\_\+\+RQR\+\_\+\+SBKRQ}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___request___parameters_gadd5f511803928fd042f7fc6ef99f9cfb}{UART\+\_\+\+MUTE\+\_\+\+MODE\+\_\+\+REQUEST}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2aae0f4fb0a74822ce212ea7d9b8463a}{USART\+\_\+\+RQR\+\_\+\+MMRQ}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___request___parameters_gaf2ee2d4b1bdcbc7772ddc0da89566936}{UART\+\_\+\+RXDATA\+\_\+\+FLUSH\+\_\+\+REQUEST}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7b148ee7c697bbcf836648063613612a}{USART\+\_\+\+RQR\+\_\+\+RXFRQ}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___request___parameters_gafecbd800f456ed666a42ac0842cd2c4b}{UART\+\_\+\+TXDATA\+\_\+\+FLUSH\+\_\+\+REQUEST}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa40d2e52b5955b30c9399eb3dec769e8}{USART\+\_\+\+RQR\+\_\+\+TXFRQ}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gab696b28f33174d038e0bfd300c1b2a77}{UART\+\_\+\+ADVFEATURE\+\_\+\+NO\+\_\+\+INIT}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga17c49d1895d43bfd6e0cf993103731ae}{UART\+\_\+\+ADVFEATURE\+\_\+\+TXINVERT\+\_\+\+INIT}}~0x00000001U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gad5a4923f3e771d276c6a5332e3945e2a}{UART\+\_\+\+ADVFEATURE\+\_\+\+RXINVERT\+\_\+\+INIT}}~0x00000002U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga3066937ab29631f78820865605e83628}{UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINVERT\+\_\+\+INIT}}~0x00000004U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga56b48c24063e0f04b09f592c3ce7d2ac}{UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP\+\_\+\+INIT}}~0x00000008U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga053355b64de3105a19f3e5560f3557e4}{UART\+\_\+\+ADVFEATURE\+\_\+\+RXOVERRUNDISABLE\+\_\+\+INIT}}~0x00000010U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gafd2fb1991911b82d75556eafe228ef90}{UART\+\_\+\+ADVFEATURE\+\_\+\+DMADISABLEONERROR\+\_\+\+INIT}}~0x00000020U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga09fdbb71292c899d6dc89a41e5752564}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+INIT}}~0x00000040U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga911654f44cd040f41871ec5af5ec1343}{UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST\+\_\+\+INIT}}~0x00000080U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___tx___inv_gaf2ef53664b0d4b93758575b9ee1b949b}{UART\+\_\+\+ADVFEATURE\+\_\+\+TXINV\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___tx___inv_ga1e0ddbed5fc5ddce5314f63e96e29c3d}{UART\+\_\+\+ADVFEATURE\+\_\+\+TXINV\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gadc2ad93cdc6d8f138f455a2fb671a211}{USART\+\_\+\+CR2\+\_\+\+TXINV}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___rx___inv_gae9598a2e4fec4b9166ad5eab24027870}{UART\+\_\+\+ADVFEATURE\+\_\+\+RXINV\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___rx___inv_gae12343bc2373080ae518ce7b536205cb}{UART\+\_\+\+ADVFEATURE\+\_\+\+RXINV\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafff10115e1adb07c00f42627cedf01e5}{USART\+\_\+\+CR2\+\_\+\+RXINV}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___data___inv_gab9aca2bdf257bd77e42213fdfdb884d3}{UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINV\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___data___inv_ga090ecbcdc57b47144aefee8faf1eaf23}{UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINV\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8f743bbd3df209bd1d434b17e08a78fe}{USART\+\_\+\+CR2\+\_\+\+DATAINV}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___rx___tx___swap_gad1217ff59732b36d4ee9b50e7ed81ec4}{UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___rx___tx___swap_ga83138521e54eef41c75e9c37c2246eba}{UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4aecba5721df1c1adb6d0264625accad}{USART\+\_\+\+CR2\+\_\+\+SWAP}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___overrun___disable_gac467cc43fa4c3af4acb0fd161061c219}{UART\+\_\+\+ADVFEATURE\+\_\+\+OVERRUN\+\_\+\+ENABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___overrun___disable_ga19961cd52b746dac7a6860faad2ab40d}{UART\+\_\+\+ADVFEATURE\+\_\+\+OVERRUN\+\_\+\+DISABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga33d63c7953788124179cd18a8890a91a}{USART\+\_\+\+CR3\+\_\+\+OVRDIS}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud_rate___enable_gaca66b20599569c6b7576f0600050bb61}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___auto_baud_rate___enable_gad4eee70c6d23721dd95c6a2465e10ca4}{UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaaa290a89959d43fecf43f89d66123a0a}{USART\+\_\+\+CR2\+\_\+\+ABREN}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___disable__on___rx___error_ga14469fd73075e481184234019a7b6734}{UART\+\_\+\+ADVFEATURE\+\_\+\+DMA\+\_\+\+ENABLEONRXERROR}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___d_m_a___disable__on___rx___error_gae838b9dfc0c2c082d5382973b369012b}{UART\+\_\+\+ADVFEATURE\+\_\+\+DMA\+\_\+\+DISABLEONRXERROR}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae1f1b53b09336e82958755747853a753}{USART\+\_\+\+CR3\+\_\+\+DDRE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___m_s_b___first_gae606b5f132b17af40d58c7d41fad35a5}{UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___m_s_b___first_gafb917e79562ccd13909c13056b34302f}{UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7342ab16574cebf157aa885a79986812}{USART\+\_\+\+CR2\+\_\+\+MSBFIRST}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___mute___mode_ga11b6414641d82b941920c291e19aa042}{UART\+\_\+\+ADVFEATURE\+\_\+\+MUTEMODE\+\_\+\+DISABLE}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___mute___mode_gaa9ca3763538abf310102ac34e81cdcbc}{UART\+\_\+\+ADVFEATURE\+\_\+\+MUTEMODE\+\_\+\+ENABLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga4ae32b0c22f90fa8295d2ed96c2fd54d}{USART\+\_\+\+CR1\+\_\+\+MME}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___c_r2___a_d_d_r_e_s_s___l_s_b___p_o_s_ga28e21d5a49aa9e9812b870697c554d97}{UART\+\_\+\+CR2\+\_\+\+ADDRESS\+\_\+\+LSB\+\_\+\+POS}}~24U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___driver_enable___polarity_ga0cff167e046507f91497853b772282c5}{UART\+\_\+\+DE\+\_\+\+POLARITY\+\_\+\+HIGH}}~0x00000000U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___driver_enable___polarity_ga92a5839b1b14f95ee4b8f4842a24f37b}{UART\+\_\+\+DE\+\_\+\+POLARITY\+\_\+\+LOW}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2000c42015289291da1c58fe27800d64}{USART\+\_\+\+CR3\+\_\+\+DEP}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___c_r1___d_e_a_t___a_d_d_r_e_s_s___l_s_b___p_o_s_ga90d12dcdf8fd18f3be92d9699abe02cd}{UART\+\_\+\+CR1\+\_\+\+DEAT\+\_\+\+ADDRESS\+\_\+\+LSB\+\_\+\+POS}}~21U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___c_r1___d_e_d_t___a_d_d_r_e_s_s___l_s_b___p_o_s_gaed41cd9ed039e3a075d0f4c433bea021}{UART\+\_\+\+CR1\+\_\+\+DEDT\+\_\+\+ADDRESS\+\_\+\+LSB\+\_\+\+POS}}~16U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interruption___mask_ga869439269c26e8dee93d49b1c7e67448}{UART\+\_\+\+IT\+\_\+\+MASK}}~0x001\+FU
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___time_out___value_gaddb45b57fd556fb7cd763daa479f8ced}{HAL\+\_\+\+UART\+\_\+\+TIMEOUT\+\_\+\+VALUE}}~0x1\+FFFFFFU
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_gaf4a4ade6fd987ea7f22786269317f94a}{UART\+\_\+\+FLAG\+\_\+\+TEACK}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf1433ae77d20ec6da645117cde536f81}{USART\+\_\+\+ISR\+\_\+\+TEACK}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga5d5f6f91093bfb222baa277a86f6b75b}{UART\+\_\+\+FLAG\+\_\+\+RWU}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga0df19201dd47f3bd43954621c88ef4a3}{USART\+\_\+\+ISR\+\_\+\+RWU}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_gaea7a67e1f6a8af78e2adfaed59d1a4be}{UART\+\_\+\+FLAG\+\_\+\+SBKF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga74aecf8406973a8fd5c02615d8a7b2d1}{USART\+\_\+\+ISR\+\_\+\+SBKF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga01f2c67d8999a9ee8d91ac3cb5e7fbfe}{UART\+\_\+\+FLAG\+\_\+\+CMF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8199e4dab14311318c87b77ef758c2f9}{USART\+\_\+\+ISR\+\_\+\+CMF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga2d1387d412382a345097acb403748ba3}{UART\+\_\+\+FLAG\+\_\+\+BUSY}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafb7fb858e7f0dec99740570ecfb922cc}{USART\+\_\+\+ISR\+\_\+\+BUSY}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga9e309874f2c8f71e4049ae6cb702a2eb}{UART\+\_\+\+FLAG\+\_\+\+ABRF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gafbbfac6c1ba908d265572184b02daed2}{USART\+\_\+\+ISR\+\_\+\+ABRF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga87853efaab808377c8acb9e8b671a2e8}{UART\+\_\+\+FLAG\+\_\+\+ABRE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gae762a0bed3b7ecde26377eccd40d1e10}{USART\+\_\+\+ISR\+\_\+\+ABRE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga69afec3b174a6b5969e71ea25d973958}{UART\+\_\+\+FLAG\+\_\+\+RTOF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga09f8a368294fb6a5c47de1193484f3b8}{USART\+\_\+\+ISR\+\_\+\+RTOF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga5435edd22ff23de7187654362c48e0b1}{UART\+\_\+\+FLAG\+\_\+\+CTS}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89131b07184422c83fda07ca20d4ce4c}{USART\+\_\+\+ISR\+\_\+\+CTS}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga0835e6f6bad597b368f03529ed3b96a4}{UART\+\_\+\+FLAG\+\_\+\+CTSIF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9fb259765d41183dc3c5fd36831358d1}{USART\+\_\+\+ISR\+\_\+\+CTSIF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga77b81c3c843b49af940862fe4d6ab933}{UART\+\_\+\+FLAG\+\_\+\+LBDF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf00a820cca1d3bb31f9f4f602f070c44}{USART\+\_\+\+ISR\+\_\+\+LBDF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_gad39c017d415a7774c82eb07413a9dbe4}{UART\+\_\+\+FLAG\+\_\+\+TXE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gab59be9f02a6e304a82da3e298c6a72ab}{USART\+\_\+\+ISR\+\_\+\+TXE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga82e68a0ee4a8b987a47c66fc6f744894}{UART\+\_\+\+FLAG\+\_\+\+TC}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa41e8667b30453a6b966aded9f5e8cbb}{USART\+\_\+\+ISR\+\_\+\+TC}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga9d1b2860d84a87abb05c3b2fed3c108c}{UART\+\_\+\+FLAG\+\_\+\+RXNE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga39da7549976e5a5c91deff40e6044f03}{USART\+\_\+\+ISR\+\_\+\+RXNE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga5d7a320c505672f7508e3bd99f532a69}{UART\+\_\+\+FLAG\+\_\+\+IDLE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacee745b19e0a6073280d234fdc96e627}{USART\+\_\+\+ISR\+\_\+\+IDLE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga335a5b0f61512223bbc406b38c95b2d6}{UART\+\_\+\+FLAG\+\_\+\+ORE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9e5b4a08e3655bed8ec3022947cfc542}{USART\+\_\+\+ISR\+\_\+\+ORE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_ga665981434d02ff5296361782c1a7d4b5}{UART\+\_\+\+FLAG\+\_\+\+NE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga09c7d19477a091689f50bd0ef5b6a3d8}{USART\+\_\+\+ISR\+\_\+\+NE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_gafba4891ce21cf5223ca5fede0eac388d}{UART\+\_\+\+FLAG\+\_\+\+FE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga27cc4dfb6d5e817a69c80471b87deb4b}{USART\+\_\+\+ISR\+\_\+\+FE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___flags_gad5b96f73f6d3a0b58f07e2e9d7bf14d9}{UART\+\_\+\+FLAG\+\_\+\+PE}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa10e69d231b67d698ab59db3d338baa6}{USART\+\_\+\+ISR\+\_\+\+PE}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga55f922ddcf513509710ade5d7c40a1db}{UART\+\_\+\+IT\+\_\+\+PE}}~0x0028U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga552636e2af516d578856f5ee2ba71ed7}{UART\+\_\+\+IT\+\_\+\+TXE}}~0x0727U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_gab9a4dc4e8cea354fd60f4117513b2004}{UART\+\_\+\+IT\+\_\+\+TC}}~0x0626U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_gac1bedf7a65eb8c3f3c4b52bdb24b139d}{UART\+\_\+\+IT\+\_\+\+RXNE}}~0x0525U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga9781808d4f9999061fc2da36572191d9}{UART\+\_\+\+IT\+\_\+\+IDLE}}~0x0424U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_gabca5e77508dc2dd9aa26fcb683d9b988}{UART\+\_\+\+IT\+\_\+\+LBD}}~0x0846U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga986d271478550f9afa918262ca642333}{UART\+\_\+\+IT\+\_\+\+CTS}}~0x096\+AU
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga4c22e866bce68975a180828012489106}{UART\+\_\+\+IT\+\_\+\+CM}}~0x112\+EU
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_gaa04d4eba7501b3a0a54d90fe40e626a0}{UART\+\_\+\+IT\+\_\+\+RTO}}~0x0\+B3\+AU
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga8eb26d8edd9bf78ae8d3ad87dd51b618}{UART\+\_\+\+IT\+\_\+\+ERR}}~0x0060U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga333810cb588a739ad49042b9f564a6b2}{UART\+\_\+\+IT\+\_\+\+ORE}}~0x0300U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga35c77abdf7744b407d5ba751e546e965}{UART\+\_\+\+IT\+\_\+\+NE}}~0x0200U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___interrupt__definition_ga98cbd9e918bcc56f329a803febaab468}{UART\+\_\+\+IT\+\_\+\+FE}}~0x0100U
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga9c2aef8048dd09ea5e72d69c63026f02}{UART\+\_\+\+CLEAR\+\_\+\+PEF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga404185136eb68f679e82e0187d66e411}{USART\+\_\+\+ICR\+\_\+\+PECF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga2040edf7a1daa2e9f352364e285ef5c3}{UART\+\_\+\+CLEAR\+\_\+\+FEF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8400b4500c41800e5f18fc7291a64c9f}{USART\+\_\+\+ICR\+\_\+\+FECF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_gad5b9aafb495296d917a5d85e63383396}{UART\+\_\+\+CLEAR\+\_\+\+NEF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gad50b0d2460df1cbddd9576c2f4637312}{USART\+\_\+\+ICR\+\_\+\+NCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga3bc97b70293f9a7bf8cc21a74094afad}{UART\+\_\+\+CLEAR\+\_\+\+OREF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga375f76b0670ffeb5d2691592d9e7c422}{USART\+\_\+\+ICR\+\_\+\+ORECF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga75ee9be0ac2236931ef3d9514e7dedf4}{UART\+\_\+\+CLEAR\+\_\+\+IDLEF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9d4d7675c0d36ce4347c3509d27c0760}{USART\+\_\+\+ICR\+\_\+\+IDLECF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_gadfbfe4df408d1d09ff2adc1ddad3de09}{UART\+\_\+\+CLEAR\+\_\+\+TCF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacf92ea54425a962dde662b10b61d0250}{USART\+\_\+\+ICR\+\_\+\+TCCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga030414d9a93ad994156210644634b73c}{UART\+\_\+\+CLEAR\+\_\+\+LBDF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaae7d1bc407d9e4168d7059043fe8e50f}{USART\+\_\+\+ICR\+\_\+\+LBDCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_gabe0f3bc774ad0b9319732da3be8374cf}{UART\+\_\+\+CLEAR\+\_\+\+CTSF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga8a630d4a5e4ce10ad6fdb9da47126f4f}{USART\+\_\+\+ICR\+\_\+\+CTSCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga5815698abf54d69b752bd2c43c2d6ad3}{UART\+\_\+\+CLEAR\+\_\+\+CMF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5478360c2639166c4d645b64cbf371be}{USART\+\_\+\+ICR\+\_\+\+CMCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga2735a415d2c7930fdf2818943fd7ddd2}{UART\+\_\+\+CLEAR\+\_\+\+RTOF}}~\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3d2a589246fecc7a05607c22ea7e7ee3}{USART\+\_\+\+ICR\+\_\+\+RTOCF}}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_gae25ccd542b3d0e6180e38871da6070d2}{HAL\+\_\+\+UART\+\_\+\+RECEPTION\+\_\+\+STANDARD}}~(0x00000000U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\+\_\+\+UART\+\_\+\+RECEPTION\+\_\+\+TOIDLE}}~(0x00000001U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_gac3e0c95a6f09176f7006ebeb80dfa98f}{HAL\+\_\+\+UART\+\_\+\+RECEPTION\+\_\+\+TORTO}}~(0x00000002U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga51317a3f6e4743b13fa6f658599de6b8}{HAL\+\_\+\+UART\+\_\+\+RECEPTION\+\_\+\+TOCHARMATCH}}~(0x00000003U)
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga19deab848407b106998416c78092fa9b}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+RESET\+\_\+\+HANDLE\+\_\+\+STATE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Reset UART handle states. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gafc4f20cb0f29ba146c9bc14167c52744}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+FLUSH\+\_\+\+DRREGISTER}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Flush the UART Data registers. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$ICR = (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Clear the specified UART pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gaba5e19c60e0f37341b1585a380b84d49}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+PEFLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+), \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga9c2aef8048dd09ea5e72d69c63026f02}{UART\+\_\+\+CLEAR\+\_\+\+PEF}})
+\begin{DoxyCompactList}\small\item\em Clear the UART PE pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gae1dfc7777b089a10464841045b524caa}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FEFLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+), \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga2040edf7a1daa2e9f352364e285ef5c3}{UART\+\_\+\+CLEAR\+\_\+\+FEF}})
+\begin{DoxyCompactList}\small\item\em Clear the UART FE pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gaa1f69421585b3ada4d2b81d502a3ae6b}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+NEFLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+), \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_gad5b9aafb495296d917a5d85e63383396}{UART\+\_\+\+CLEAR\+\_\+\+NEF}})
+\begin{DoxyCompactList}\small\item\em Clear the UART NE pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9cdc2f2d55eaaa7895996bf6848df42e}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+OREFLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+), \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga3bc97b70293f9a7bf8cc21a74094afad}{UART\+\_\+\+CLEAR\+\_\+\+OREF}})
+\begin{DoxyCompactList}\small\item\em Clear the UART ORE pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga1345aa0af53d82269b13835c225e91d0}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+IDLEFLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+FLAG}}((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+), \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga75ee9be0ac2236931ef3d9514e7dedf4}{UART\+\_\+\+CLEAR\+\_\+\+IDLEF}})
+\begin{DoxyCompactList}\small\item\em Clear the UART IDLE pending flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga261fe8a2afe84ec048113654266c5bf6}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+GET\+\_\+\+FLAG}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$ISR \& (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)) == (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Check whether the specified UART flag is set or not. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gaba94165ed584d49c1ec12df9819bd4bb}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+ENABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Enable the specified UART interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga3c29b33f38658acbf592e9aaf84c6f33}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+DISABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Disable the specified UART interrupt. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga89c4cb1b623c15cfdea2c0a864c8b1e4}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+GET\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Check whether the specified UART interrupt has occurred or not. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gab53dbf1d75f241330428bf426b2963d1}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+GET\+\_\+\+IT\+\_\+\+SOURCE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Check whether the specified UART interrupt source is enabled or not. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gaa81e0f2503bd2a699e7e478507946bb2}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+CLEAR\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+IT\+\_\+\+CLEAR\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$ICR = (uint32\+\_\+t)(\+\_\+\+\_\+\+IT\+\_\+\+CLEAR\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Clear the specified UART ISR flag, in setting the proper ICR register flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga568a15495a9e2a9d230474b9e8bcc8e4}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+SEND\+\_\+\+REQ}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+,  \+\_\+\+\_\+\+REQ\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$RQR $\vert$= (uint16\+\_\+t)(\+\_\+\+\_\+\+REQ\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Set a specific UART request flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga3524747e5896296ab066d786431503ce}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR3$\vert$= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9a96fb1a7beab602cbc8cb0393593826}{USART\+\_\+\+CR3\+\_\+\+ONEBIT}})
+\begin{DoxyCompactList}\small\item\em Enable the UART one bit sample method. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga2dbd7e6592e8c5999f817b69f0fd24bb}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR3 \&= $\sim$\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9a96fb1a7beab602cbc8cb0393593826}{USART\+\_\+\+CR3\+\_\+\+ONEBIT}})
+\begin{DoxyCompactList}\small\item\em Disable the UART one bit sample method. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga49eb5ea4996a957afeb8be2793ba3fe9}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1 $\vert$= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2bb650676aaae4a5203f372d497d5947}{USART\+\_\+\+CR1\+\_\+\+UE}})
+\begin{DoxyCompactList}\small\item\em Enable UART. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_gad2f9fbdb4adf3a09939e201eaeea072f}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)-\/$>$Instance-\/$>$CR1 \&= $\sim$\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2bb650676aaae4a5203f372d497d5947}{USART\+\_\+\+CR1\+\_\+\+UE}})
+\begin{DoxyCompactList}\small\item\em Disable UART. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga4a77213945844bca4c22ba6a14b7ee4c}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+HWCONTROL\+\_\+\+CTS\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Enable CTS flow control. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga0a26cb3a576c2700f76a7c697c86a499}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+HWCONTROL\+\_\+\+CTS\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Disable CTS flow control. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga017ec9001ff33136f87cc4034b2709a6}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Enable RTS flow control. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga8c034e96ad8f263cafeb5898ff7311fd}{\+\_\+\+\_\+\+HAL\+\_\+\+UART\+\_\+\+HWCONTROL\+\_\+\+RTS\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Disable RTS flow control. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga3b4ab2ec164132268de4719de4625a82}{UART\+\_\+\+DIV\+\_\+\+SAMPLING8}}(\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)~((((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+)$\ast$2U) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em BRR division operation to set BRR register in 8-\/bit oversampling mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gac2423ff86559eb91198bcc438caec865}{UART\+\_\+\+DIV\+\_\+\+SAMPLING16}}(\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em BRR division operation to set BRR register in 16-\/bit oversampling mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaa8f50c3cc4c04875ea490fb81a08731d}{IS\+\_\+\+UART\+\_\+\+BAUDRATE}}(\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+) $<$ 27000001U)
+\begin{DoxyCompactList}\small\item\em Check UART Baud rate. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8acf6b6648717b7192439f1b426321a4}{IS\+\_\+\+UART\+\_\+\+ASSERTIONTIME}}(\+\_\+\+\_\+\+TIME\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)
+\begin{DoxyCompactList}\small\item\em Check UART assertion time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7e060b24713e3fb49f4f0f4fa71dd85f}{IS\+\_\+\+UART\+\_\+\+DEASSERTIONTIME}}(\+\_\+\+\_\+\+TIME\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)
+\begin{DoxyCompactList}\small\item\em Check UART deassertion time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga0fa4dec621a59f8c07f42548cdbb7f18}{IS\+\_\+\+UART\+\_\+\+STOPBITS}}(\+\_\+\+\_\+\+STOPBITS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame number of stop bits is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga57b0798bfa43d210f492eb3c5e218a86}{IS\+\_\+\+UART\+\_\+\+PARITY}}(\+\_\+\+\_\+\+PARITY\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame parity is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga92977d9daf0c39d875df200ae0ae6acd}{IS\+\_\+\+UART\+\_\+\+HARDWARE\+\_\+\+FLOW\+\_\+\+CONTROL}}(\+\_\+\+\_\+\+CONTROL\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART hardware flow control is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gae5b637b9191dea1f8fd3846b886dd38b}{IS\+\_\+\+UART\+\_\+\+MODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)~((((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) \& ($\sim$((uint32\+\_\+t)(\mbox{\hyperlink{group___u_a_r_t___mode_gab47c162935901e89322e2ce6700b6744}{UART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}})))) == 0x00U) \&\& ((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) != 0x00U))
+\begin{DoxyCompactList}\small\item\em Ensure that UART communication mode is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga754855879401ab846803a03eec2f7f10}{IS\+\_\+\+UART\+\_\+\+STATE}}(\+\_\+\+\_\+\+STATE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8d918253e015c4a8aa07316a89f8265e}{IS\+\_\+\+UART\+\_\+\+OVERSAMPLING}}(\+\_\+\+\_\+\+SAMPLING\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART oversampling is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga6452a4420dac4abd4f0ea0e1677f37a9}{IS\+\_\+\+UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE}}(\+\_\+\+\_\+\+ONEBIT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame sampling is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga88f07bdfe1fcdff17edbbba2f196110d}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATEMODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART auto Baud rate detection mode is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaa2ad21da17caf46375c7bd4efbde8b17}{IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT}}(\+\_\+\+\_\+\+TIMEOUT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART receiver timeout setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaee43ee42a5b1ba061322ab0763c6ef4f}{IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+VALUE}}(\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+) $<$= 0x\+FFFFFFU)
+\begin{DoxyCompactList}\small\item\em Check the receiver timeout value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga13d7f9876db68d9d6316204a8a2588de}{IS\+\_\+\+UART\+\_\+\+LIN}}(\+\_\+\+\_\+\+LIN\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART LIN state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gac8ac0d0dc7fad5edf53150ce05d902ee}{IS\+\_\+\+UART\+\_\+\+LIN\+\_\+\+BREAK\+\_\+\+DETECT\+\_\+\+LENGTH}}(\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART LIN break detection length is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga433107c59f6d1c66a38e53e38fdc0a57}{IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+TX}}(\+\_\+\+\_\+\+DMATX\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA TX state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga85c4c9339de2076106942cd9ab61ad77}{IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+RX}}(\+\_\+\+\_\+\+DMARX\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA RX state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga2298a324be00d275d98b336569ee3f97}{IS\+\_\+\+UART\+\_\+\+HALF\+\_\+\+DUPLEX}}(\+\_\+\+\_\+\+HDSEL\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART half-\/duplex state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga144aecf3ad6ca3ce6653ae113c9a6141}{IS\+\_\+\+UART\+\_\+\+WAKEUPMETHOD}}(\+\_\+\+\_\+\+WAKEUP\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART wake-\/up method is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga5cf62c9c598753525888cc7c24be3cb2}{IS\+\_\+\+UART\+\_\+\+REQUEST\+\_\+\+PARAMETER}}(\+\_\+\+\_\+\+PARAM\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART request parameter is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gad91bec43fbbaa25cec138ef8fcfbdad5}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+INIT}}(\+\_\+\+\_\+\+INIT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART advanced features initialization is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga4295a61b0afe152975609cedb9034fdc}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+TXINV}}(\+\_\+\+\_\+\+TXINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame TX inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7f53ad0eca57b7ffabcae9007b7bbfa6}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+RXINV}}(\+\_\+\+\_\+\+RXINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame RX inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8f6cd85ae5ce7f8dd0ed9227ef5154f6}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINV}}(\+\_\+\+\_\+\+DATAINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame data inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaf095ad39d3035f722c6976921a84dbea}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP}}(\+\_\+\+\_\+\+SWAP\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame RX/\+TX pins swap setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga57b4229ecb4387a0bb9137fed8de13b8}{IS\+\_\+\+UART\+\_\+\+OVERRUN}}(\+\_\+\+\_\+\+OVERRUN\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame overrun setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7318c3e5c175b896444697a0a9407b2f}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE}}(\+\_\+\+\_\+\+AUTOBAUDRATE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART auto Baud rate state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga15b46dfa0d80a4583864a31da73e3c99}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DMAONRXERROR}}(\+\_\+\+\_\+\+DMA\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA enabling or disabling on error setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga82289de330949918b037acf94fb12aef}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST}}(\+\_\+\+\_\+\+MSBFIRST\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame MSB first setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga9df22e11f8bc82847fbe16b6f073ae04}{IS\+\_\+\+UART\+\_\+\+MUTE\+\_\+\+MODE}}(\+\_\+\+\_\+\+MUTE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART mute mode state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaecf169f01673ae67b12b3155e074bf12}{IS\+\_\+\+UART\+\_\+\+DE\+\_\+\+POLARITY}}(\+\_\+\+\_\+\+POLARITY\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART driver enable polarity is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint32\+\_\+t \mbox{\hyperlink{group___u_a_r_t___exported___types_ga94c58ae1f4dbcf6032224edfc93a6e19}{HAL\+\_\+\+UART\+\_\+\+State\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em HAL UART State definition. \end{DoxyCompactList}\item 
+typedef uint32\+\_\+t \mbox{\hyperlink{group___u_a_r_t___exported___types_ga9f272475ea543a68fd8cb19f03a9bce9}{HAL\+\_\+\+UART\+\_\+\+Rx\+Type\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em HAL UART Reception type definition. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{\+\_\+\+\_\+\+UART\+\_\+\+Handle\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em UART handle Structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group___u_a_r_t___exported___types_gad957348fe227e5cb75b70be026c5ae81}{UART\+\_\+\+Clock\+Source\+Type\+Def}} \{ \newline
+\mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81a96ac2df7b663207f2e8be97e0e18a3bb}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+PCLK1}} = 0x00U
+, \mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81a9935c585901e1c6de3056f38e6be8748}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+PCLK2}} = 0x01U
+, \mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81af4da147f3b62642e1ce6d2cb22aff32e}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+HSI}} = 0x02U
+, \mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81ab9abf4484d0f83bf9b3ccc8ef72a592e}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+SYSCLK}} = 0x04U
+, \newline
+\mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81ab9335bad77171144c2994f1554ce3901}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+LSE}} = 0x08U
+, \mbox{\hyperlink{group___u_a_r_t___exported___types_ggad957348fe227e5cb75b70be026c5ae81a9012cc24ac82c0d7aa7558f73d770eab}{UART\+\_\+\+CLOCKSOURCE\+\_\+\+UNDEFINED}} = 0x10U
+ \}
+\begin{DoxyCompactList}\small\item\em UART clock sources definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_gabe47045024787099b0bfa82bbe7b0b6a}{HAL\+\_\+\+UART\+\_\+\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga927245827265eff1f3580a0121efd424}{HAL\+\_\+\+Half\+Duplex\+\_\+\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga27e4497270bd06434e3965e4b06f5516}{HAL\+\_\+\+LIN\+\_\+\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint32\+\_\+t Break\+Detect\+Length)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_gaae1b49f0cb62235141807d8cbc61bc4d}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t Address, uint32\+\_\+t Wake\+Up\+Method)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga8d98eaab25e61ae12e2e240c3388c57b}{HAL\+\_\+\+UART\+\_\+\+De\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga0e553b32211877322f949b14801bbfa7}{HAL\+\_\+\+UART\+\_\+\+Msp\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga718f39804e3b910d738a0e1e46151188}{HAL\+\_\+\+UART\+\_\+\+Msp\+De\+Init}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga01a7a7ac3cf0a262814ba44ee7580ddb}{HAL\+\_\+\+UART\+\_\+\+Transmit}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, const uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size, uint32\+\_\+t Timeout)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gab868edc590e3b827a14528a25c999e2f}{HAL\+\_\+\+UART\+\_\+\+Receive}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size, uint32\+\_\+t Timeout)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga695812b114bd1eb4d9afd6831143b01b}{HAL\+\_\+\+UART\+\_\+\+Transmit\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, const uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gadc0c3ef2109881d011601f0d41e70e40}{HAL\+\_\+\+UART\+\_\+\+Receive\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga821472e8c11e667d793b829a19c3e46c}{HAL\+\_\+\+UART\+\_\+\+Transmit\+\_\+\+DMA}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, const uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gad674cce054e58927720cd689620ffa08}{HAL\+\_\+\+UART\+\_\+\+Receive\+\_\+\+DMA}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga8a713fd976d8ef02b818ea6ff0d4e41a}{HAL\+\_\+\+UART\+\_\+\+DMAPause}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gaf2b3e6004d0200857781809baa16072d}{HAL\+\_\+\+UART\+\_\+\+DMAResume}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gab21aa06cfbaa1665b1062a803fcb4217}{HAL\+\_\+\+UART\+\_\+\+DMAStop}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga2d7be1f59fc810f49dadc580307a4862}{HAL\+\_\+\+UART\+\_\+\+Abort}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga5a8858ffca45541416097961523d5fb2}{HAL\+\_\+\+UART\+\_\+\+Abort\+Transmit}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga9732372cfae60c019bb41554ab12edd6}{HAL\+\_\+\+UART\+\_\+\+Abort\+Receive}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga3183626ee21f103cbcb50241eca50e4d}{HAL\+\_\+\+UART\+\_\+\+Abort\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga0fba12f56413e2dbe8b96040ecf5aa7e}{HAL\+\_\+\+UART\+\_\+\+Abort\+Transmit\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gaad7bc5748b849abc29d18b2ddd02876f}{HAL\+\_\+\+UART\+\_\+\+Abort\+Receive\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gaad01472c507ceee3c5f2274c775ff3bf}{HAL\+\_\+\+UART\+\_\+\+IRQHandler}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga49b287e7de94cd0a38d333629298f7c4}{HAL\+\_\+\+UART\+\_\+\+Tx\+Half\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gabcdf9b59049eccbc87d54042f9235b1a}{HAL\+\_\+\+UART\+\_\+\+Tx\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga1884970cc493d8efba5aec28c0d526e7}{HAL\+\_\+\+UART\+\_\+\+Rx\+Half\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gae494a9643f29b87d6d81e5264e60e57b}{HAL\+\_\+\+UART\+\_\+\+Rx\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga0e0456ea96d55db31de947fb3e954f18}{HAL\+\_\+\+UART\+\_\+\+Error\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gacdcb274a742093c45869f2cfbb0a8b09}{HAL\+\_\+\+UART\+\_\+\+Abort\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_gacf94995fb9986930151f3c5586d37e5c}{HAL\+\_\+\+UART\+\_\+\+Abort\+Transmit\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga0f9d15c5ae7b69f09e0ee5f2461e7e7a}{HAL\+\_\+\+UART\+\_\+\+Abort\+Receive\+Cplt\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group2_ga925534fb8bf7ca464fd05c982fe4bfa0}{HAL\+\_\+\+UARTEx\+\_\+\+Rx\+Event\+Callback}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint16\+\_\+t Size)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_gad4f80d5b4401432af132dedff0604d62}{HAL\+\_\+\+UART\+\_\+\+Receiver\+Timeout\+\_\+\+Config}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint32\+\_\+t Timeout\+Value)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_gacda9bbd9e186cc41cb9895ab71c4161d}{HAL\+\_\+\+UART\+\_\+\+Enable\+Receiver\+Timeout}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_ga9ef6e546da136b62ae4365cb4142dde8}{HAL\+\_\+\+UART\+\_\+\+Disable\+Receiver\+Timeout}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_gaffbf11fb4929f709004a11675cd25fcf}{HAL\+\_\+\+LIN\+\_\+\+Send\+Break}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_gad1e8ba15af5c8b25fd9eb31b9c85dfac}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Enable\+Mute\+Mode}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_ga60e23409c6c4039dd71a45e41c69654f}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Disable\+Mute\+Mode}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_ga62b7a4ce64c678a3a79d747fe3f50883}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Enter\+Mute\+Mode}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_ga58d73e260a5536fb9cb40d7d2fe2b4bb}{HAL\+\_\+\+Half\+Duplex\+\_\+\+Enable\+Transmitter}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group3_ga396ebbcdbe352c3393ad3007614383ac}{HAL\+\_\+\+Half\+Duplex\+\_\+\+Enable\+Receiver}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{group___u_a_r_t___exported___types_ga94c58ae1f4dbcf6032224edfc93a6e19}{HAL\+\_\+\+UART\+\_\+\+State\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___exported___functions___group4_ga8fcec96f9d249f41ecf0c7598ab421e5}{HAL\+\_\+\+UART\+\_\+\+Get\+State}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___u_a_r_t___exported___functions___group4_ga6c5f93a76a0bd01ad2d1351adddfa63f}{HAL\+\_\+\+UART\+\_\+\+Get\+Error}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___private___functions_ga5a87d1b1c4284cae14f5a1402efaa11b}{UART\+\_\+\+Set\+Config}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___private___functions_gad945067db34d4e1c3bd27a14fa8d7d25}{UART\+\_\+\+Check\+Idle\+State}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___private___functions_gad377d340a4703ef434289d54794c281f}{UART\+\_\+\+Wait\+On\+Flag\+Until\+Timeout}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint32\+\_\+t Flag, \mbox{\hyperlink{group___exported__types_ga89136caac2e14c55151f527ac02daaff}{Flag\+Status}} Status, uint32\+\_\+t Tickstart, uint32\+\_\+t Timeout)
+\item 
+void \mbox{\hyperlink{group___u_a_r_t___private___functions_gacd304011919c5ccd02544208c7aa451b}{UART\+\_\+\+Adv\+Feature\+Config}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___private___functions_ga6629cec6016bd4dc0ea1bbce9e20898f}{UART\+\_\+\+Start\+\_\+\+Receive\+\_\+\+IT}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___u_a_r_t___private___functions_ga3821d988f1d6feb39dc86ab5010d0a9c}{UART\+\_\+\+Start\+\_\+\+Receive\+\_\+\+DMA}} (\mbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} $\ast$huart, uint8\+\_\+t $\ast$p\+Data, uint16\+\_\+t Size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file of UART HAL module. 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+

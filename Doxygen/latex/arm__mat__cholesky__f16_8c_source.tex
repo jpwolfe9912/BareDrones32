@@ -1,0 +1,233 @@
+\hypertarget{arm__mat__cholesky__f16_8c_source}{}\doxysection{arm\+\_\+mat\+\_\+cholesky\+\_\+f16.\+c}
+\label{arm__mat__cholesky__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cholesky\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cholesky\_f16.c}}
+\mbox{\hyperlink{arm__mat__cholesky__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_mat\_cholesky\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point Cholesky decomposition}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{matrix__functions__f16_8h}{dsp/matrix\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00031}00031 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00056}00056 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00058}00058 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00060}00060 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} arm\_mat\_cholesky\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00061}00061   \textcolor{keyword}{const} arm\_matrix\_instance\_f16 * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00062}00062         arm\_matrix\_instance\_f16 * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00063}00063 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00065}00065   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix inverse */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00068}00068 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00070}00070   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00071}00071   \textcolor{keywordflow}{if} ((pSrc-\/>numRows != pSrc-\/>numCols) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00072}00072       (pDst-\/>numRows != pDst-\/>numCols) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00073}00073       (pSrc-\/>numRows != pDst-\/>numRows)   )}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00074}00074   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00075}00075     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00076}00076     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00077}00077   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00078}00078   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00080}00080 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifdef ARM\_MATH\_MATRIX\_CHECK */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00082}00082   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00083}00083     \textcolor{keywordtype}{int} i,j,k;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00084}00084     \textcolor{keywordtype}{int} n = pSrc-\/>numRows;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00085}00085     \_Float16 invSqrtVj;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00086}00086     float16\_t *pA,*pG;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00087}00087     \textcolor{keywordtype}{int} kCnt;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00089}00089     mve\_pred16\_t p0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00091}00091     f16x8\_t acc, acc0, acc1, acc2, acc3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00092}00092     f16x8\_t vecGi;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00093}00093     f16x8\_t vecGj,vecGj0,vecGj1,vecGj2,vecGj3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00096}00096     pA = pSrc-\/>pData;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00097}00097     pG = pDst-\/>pData;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00098}00098     }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00099}00099     \textcolor{keywordflow}{for}(i=0 ;i < n ; i++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00100}00100     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00101}00101        \textcolor{keywordflow}{for}(j=i ; j+3 < n ; j+=4)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00102}00102        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00103}00103           acc0 = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00104}00104           acc0[0]=pA[(j + 0) * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00106}00106           acc1 = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00107}00107           acc1[0]=pA[(j + 1) * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00109}00109           acc2 = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00110}00110           acc2[0]=pA[(j + 2) * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00112}00112           acc3 = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00113}00113           acc3[0]=pA[(j + 3) * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00115}00115           kCnt = i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00116}00116           \textcolor{keywordflow}{for}(k=0; k < i ; k+=8)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00117}00117           \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00118}00118              p0 = vctp16q(kCnt);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00120}00120              vecGi=vldrhq\_z\_f16(\&pG[i * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00121}00121              }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00122}00122              vecGj0=vldrhq\_z\_f16(\&pG[(j + 0) * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00123}00123              vecGj1=vldrhq\_z\_f16(\&pG[(j + 1) * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00124}00124              vecGj2=vldrhq\_z\_f16(\&pG[(j + 2) * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00125}00125              vecGj3=vldrhq\_z\_f16(\&pG[(j + 3) * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00127}00127              acc0 = vfmsq\_m(acc0, vecGi, vecGj0, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00128}00128              acc1 = vfmsq\_m(acc1, vecGi, vecGj1, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00129}00129              acc2 = vfmsq\_m(acc2, vecGi, vecGj2, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00130}00130              acc3 = vfmsq\_m(acc3, vecGi, vecGj3, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00132}00132              kCnt -\/= 8;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00133}00133           \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00134}00134           pG[(j + 0) * n + i] = vecAddAcrossF16Mve(acc0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00135}00135           pG[(j + 1) * n + i] = vecAddAcrossF16Mve(acc1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00136}00136           pG[(j + 2) * n + i] = vecAddAcrossF16Mve(acc2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00137}00137           pG[(j + 3) * n + i] = vecAddAcrossF16Mve(acc3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00138}00138        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00140}00140        \textcolor{keywordflow}{for}(; j < n ; j++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00141}00141        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00143}00143           kCnt = i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00144}00144           acc = vdupq\_n\_f16(0.0f16);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00145}00145           acc[0] = pA[j * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00147}00147           \textcolor{keywordflow}{for}(k=0; k < i ; k+=8)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00148}00148           \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00149}00149              p0 = vctp16q(kCnt);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00151}00151              vecGi=vldrhq\_z\_f16(\&pG[i * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00152}00152              vecGj=vldrhq\_z\_f16(\&pG[j * n + k],p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00154}00154              acc = vfmsq\_m(acc, vecGi, vecGj,p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00156}00156              kCnt -\/= 8;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00157}00157           \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00158}00158           pG[j * n + i] = vecAddAcrossF16Mve(acc);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00159}00159        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00161}00161        \textcolor{keywordflow}{if} (pG[i * n + i] <= 0.0f16)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00162}00162        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00163}00163          \textcolor{keywordflow}{return}(\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6af176673ca62a9fc570f0366808903a31}{ARM\_MATH\_DECOMPOSITION\_FAILURE}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00164}00164        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00166}00166        invSqrtVj = (\_Float16)1.0f/sqrtf(pG[i * n + i]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00167}00167        \textcolor{keywordflow}{for}(j=i; j < n ; j++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00168}00168        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00169}00169          pG[j * n + i] = (\_Float16)pG[j * n + i] * invSqrtVj ;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00170}00170        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00171}00171     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00173}00173     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00175}00175   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00177}00177   }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00178}00178   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00179}00179   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00180}00180 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00182}00182 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00183}00183 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} arm\_mat\_cholesky\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00184}00184   \textcolor{keyword}{const} arm\_matrix\_instance\_f16 * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00185}00185         arm\_matrix\_instance\_f16 * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00186}00186 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00188}00188   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix inverse */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00191}00191 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00193}00193   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00194}00194   \textcolor{keywordflow}{if} ((pSrc-\/>numRows != pSrc-\/>numCols) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00195}00195       (pDst-\/>numRows != pDst-\/>numCols) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00196}00196       (pSrc-\/>numRows != pDst-\/>numRows)   )}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00197}00197   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00198}00198     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00199}00199     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00200}00200   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00201}00201   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00203}00203 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifdef ARM\_MATH\_MATRIX\_CHECK */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00204}00204 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00205}00205   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00206}00206     \textcolor{keywordtype}{int} i,j,k;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00207}00207     \textcolor{keywordtype}{int} n = pSrc-\/>numRows;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00208}00208     float16\_t invSqrtVj;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00209}00209     float16\_t *pA,*pG;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00210}00210 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00211}00211     pA = pSrc-\/>pData;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00212}00212     pG = pDst-\/>pData;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00213}00213     }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00215}00215     \textcolor{keywordflow}{for}(i=0 ; i < n ; i++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00216}00216     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00217}00217        \textcolor{keywordflow}{for}(j=i ; j < n ; j++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00218}00218        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00219}00219           pG[j * n + i] = pA[j * n + i];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00221}00221           \textcolor{keywordflow}{for}(k=0; k < i ; k++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00222}00222           \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00223}00223              pG[j * n + i] = pG[j * n + i] -\/ pG[i * n + k] * pG[j * n + k];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00224}00224           \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00225}00225        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00227}00227        \textcolor{keywordflow}{if} (pG[i * n + i] <= 0.0f)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00228}00228        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00229}00229          \textcolor{keywordflow}{return}(\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6af176673ca62a9fc570f0366808903a31}{ARM\_MATH\_DECOMPOSITION\_FAILURE}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00230}00230        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00232}00232        invSqrtVj = 1.0f/sqrtf(pG[i * n + i]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00233}00233        \textcolor{keywordflow}{for}(j=i ; j < n ; j++)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00234}00234        \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00235}00235          pG[j * n + i] = pG[j * n + i] * invSqrtVj ;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00236}00236        \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00237}00237     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00238}00238 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00239}00239     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00241}00241   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00243}00243   }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00244}00244   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00245}00245   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00246}00246 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00248}00248 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00249}00249 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cholesky__f16_8c_source_l00253}00253 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+
+\end{DoxyCode}

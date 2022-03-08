@@ -1,0 +1,117 @@
+\hypertarget{arm__quaternion__product__f32_8c_source}{}\doxysection{arm\+\_\+quaternion\+\_\+product\+\_\+f32.\+c}
+\label{arm__quaternion__product__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/QuaternionMathFunctions/arm\_quaternion\_product\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/QuaternionMathFunctions/arm\_quaternion\_product\_f32.c}}
+\mbox{\hyperlink{arm__quaternion__product__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_quaternion\_product\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point quaternion product}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{quaternion__math__functions_8h}{dsp/quaternion\_math\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00030}00030 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00066}00066 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00068}00068 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00070}00070 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___quat_prod_vect_ga8d25a6adf6d3fb12a6311b1ddfc2c8c1}{arm\_quaternion\_product\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qa, }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00071}00071     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qb, }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00072}00072     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qr,}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00073}00073     uint32\_t nbQuaternions)}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00074}00074 \{}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00075}00075     \textcolor{keyword}{static} uint32\_t patternA[4] = \{ 0, 1, 0, 1 \};}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00076}00076     \textcolor{keyword}{static} uint32\_t patternB[4] = \{ 3, 2, 3, 2 \};}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00077}00077     \textcolor{keyword}{static} uint32\_t patternC[4] = \{ 3, 2, 1, 0 \};}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00078}00078     \textcolor{keyword}{static} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}   signA[4] = \{ -\/1, -\/1, 1, 1 \};}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00080}00080     uint32x4\_t vecA = vld1q\_u32(patternA);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00081}00081     uint32x4\_t vecB = vld1q\_u32(patternB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00082}00082     uint32x4\_t vecC = vld1q\_u32(patternC);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00083}00083     f32x4\_t vecSignA = vld1q\_f32(signA);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00085}00085     \textcolor{keywordflow}{while} (nbQuaternions > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00086}00086     \{}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00087}00087         f32x4\_t vecTmpA, vecTmpB, vecAcc;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00089}00089         vecTmpA = vldrwq\_gather\_shifted\_offset\_f32(qa, vecA);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00090}00090         vecTmpB = vld1q(qb);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00091}00091         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00092}00092 \textcolor{comment}{         * vcmul(r, [a1, a2, a1, a2], [b1, b2, b3, b4], 0)}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00093}00093 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00094}00094         vecAcc = vcmulq(vecTmpA, vecTmpB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00095}00095         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00096}00096 \textcolor{comment}{         * vcmla(r, [a1, a2, a1, a2], [b1, b2, b3, b4], 90)}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00097}00097 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00098}00098         vecAcc = vcmlaq\_rot90(vecAcc, vecTmpA, vecTmpB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00100}00100         vecTmpA = vldrwq\_gather\_shifted\_offset\_f32(qa, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00101}00101         vecTmpB = vldrwq\_gather\_shifted\_offset\_f32(qb, vecC);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00102}00102         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00103}00103 \textcolor{comment}{         * build [-\/b4, -\/b3, b2, b1]}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00104}00104 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00105}00105         vecTmpB = vecTmpB * vecSignA;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00106}00106         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00107}00107 \textcolor{comment}{         * vcmla(r, [a4, a3, a4, a3], [-\/b4, -\/b3, b2, b1], 270)}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00108}00108 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00109}00109         vecAcc = vcmlaq\_rot270(vecAcc, vecTmpA, vecTmpB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00110}00110         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00111}00111 \textcolor{comment}{         * vcmla(r, [a4, a3, a4, a3], [-\/b4, -\/b3, b2, b1], 0)}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00112}00112 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00113}00113         vecAcc = vcmlaq(vecAcc, vecTmpA, vecTmpB);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00114}00114         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00115}00115 \textcolor{comment}{         * store accumulator}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00116}00116 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00117}00117         vst1q\_f32(qr, vecAcc);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00119}00119         \textcolor{comment}{/* move to next quaternion */}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00120}00120         qa += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00121}00121         qb += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00122}00122         qr += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00124}00124         nbQuaternions-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00125}00125     \}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00126}00126 \}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00128}00128 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00129}00129 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00130}\mbox{\hyperlink{group___quat_prod_vect_ga8d25a6adf6d3fb12a6311b1ddfc2c8c1}{00130}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___quat_prod_vect_ga8d25a6adf6d3fb12a6311b1ddfc2c8c1}{arm\_quaternion\_product\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qa, }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00131}00131     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qb, }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00132}00132     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *qr,}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00133}00133     uint32\_t nbQuaternions)}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00134}00134 \{}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00135}00135    \textcolor{keywordflow}{for}(uint32\_t i=0; i < nbQuaternions; i++)}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00136}00136    \{}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00137}00137      \mbox{\hyperlink{group___quat_prod_single_ga93269654e1b26482c90d89c7904b3039}{arm\_quaternion\_product\_single\_f32}}(qa, qb, qr);}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00139}00139      qa += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00140}00140      qb += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00141}00141      qr += 4;}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00142}00142    \}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00143}00143 \}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00144}00144 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__quaternion__product__f32_8c_source_l00145}00145 }
+
+\end{DoxyCode}

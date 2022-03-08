@@ -1,0 +1,491 @@
+\hypertarget{arm__fir__lattice__q15_8c_source}{}\doxysection{arm\+\_\+fir\+\_\+lattice\+\_\+q15.\+c}
+\label{arm__fir__lattice__q15_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_fir\_lattice\_q15.c@{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_fir\_lattice\_q15.c}}
+\mbox{\hyperlink{arm__fir__lattice__q15_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_fir\_lattice\_q15.c}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Q15 FIR lattice filter processing function}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{filtering__functions_8h}{dsp/filtering\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00049}\mbox{\hyperlink{group___f_i_r___lattice_gafddb7fd49cb0e8a4b6d9546b58bf60fb}{00049}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___f_i_r___lattice_gafddb7fd49cb0e8a4b6d9546b58bf60fb}{arm\_fir\_lattice\_q15}}(}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00050}00050   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__fir__lattice__instance__q15}{arm\_fir\_lattice\_instance\_q15}} * S,}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00051}00051   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00052}00052         \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00053}00053         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00054}00054 \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00055}00055         \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *pState = S-\/>\mbox{\hyperlink{structarm__fir__lattice__instance__q15_ae29dfdb736374fcddaeaec4b7770170c}{pState}};                     \textcolor{comment}{/* State pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00056}00056   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *pCoeffs = S-\/>\mbox{\hyperlink{structarm__fir__lattice__instance__q15_ae85d417edcdce57e9a54f8c841580578}{pCoeffs}};                   \textcolor{comment}{/* Coefficient pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00057}00057         \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *px;                                     \textcolor{comment}{/* Temporary state pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00058}00058   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *pk;                                     \textcolor{comment}{/* Temporary coefficient pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00059}00059         uint32\_t numStages = S-\/>\mbox{\hyperlink{structarm__fir__lattice__instance__q15_a4cceb90547b3e585d4c7aabaa8057212}{numStages}};             \textcolor{comment}{/* Number of stages in the filter */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00060}00060         uint32\_t blkCnt, stageCnt;                     \textcolor{comment}{/* Loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00061}00061         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} fcurr0, fnext0, gnext0, gcurr0;          \textcolor{comment}{/* Temporary variables */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00063}00063 \textcolor{preprocessor}{\#if (1)}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00064}00064 \textcolor{comment}{//\#if !defined(ARM\_MATH\_CM0\_FAMILY)}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00066}00066 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00067}00067   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} fcurr1, fnext1, gnext1;                  \textcolor{comment}{/* Temporary variables for second sample in loop unrolling */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00068}00068   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} fcurr2, fnext2, gnext2;                  \textcolor{comment}{/* Temporary variables for third sample in loop unrolling */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00069}00069   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} fcurr3, fnext3, gnext3;                  \textcolor{comment}{/* Temporary variables for fourth sample in loop unrolling */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00070}00070 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00072}00072   gcurr0 = 0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00074}00074 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00076}00076   \textcolor{comment}{/* Loop unrolling: Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00077}00077   blkCnt = blockSize >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00079}00079   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00080}00080   \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00081}00081     \textcolor{comment}{/* Read two samples from input buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00082}00082     \textcolor{comment}{/* f0(n) = x(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00083}00083     fcurr0 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00084}00084     fcurr1 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00086}00086     \textcolor{comment}{/* Initialize state pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00087}00087     px = pState;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00089}00089     \textcolor{comment}{/* Initialize coeff pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00090}00090     pk = pCoeffs;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00092}00092     \textcolor{comment}{/* Read g0(n-\/1) from state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00093}00093     gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00095}00095     \textcolor{comment}{/* Process first sample for first tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00096}00096     \textcolor{comment}{/* f1(n) = f0(n) +  K1 * g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00097}00097     fnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00098}00098     fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00100}00100     \textcolor{comment}{/* g1(n) = f0(n) * K1  +  g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00101}00101     gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr0 * (*pk)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00102}00102     gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00104}00104     \textcolor{comment}{/* Process second sample for first tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00105}00105     fnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr0 * (*pk)) >> 15U) + fcurr1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00106}00106     fnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00107}00107     gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr1 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00108}00108     gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00110}00110     \textcolor{comment}{/* Read next two samples from input buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00111}00111     \textcolor{comment}{/* f0(n+2) = x(n+2) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00112}00112     fcurr2 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00113}00113     fcurr3 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00115}00115     \textcolor{comment}{/* Process third sample for first tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00116}00116     fnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr1 * (*pk)) >> 15U) + fcurr2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00117}00117     fnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00118}00118     gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr2 * (*pk)) >> 15U) + fcurr1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00119}00119     gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00121}00121     \textcolor{comment}{/* Process fourth sample for first tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00122}00122     fnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr2 * (*pk  )) >> 15U) + fcurr3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00123}00123     fnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00124}00124     gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr3 * (*pk++)) >> 15U) + fcurr2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00125}00125     gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00127}00127     \textcolor{comment}{/* Copy only last input sample into the state buffer}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00128}00128 \textcolor{comment}{       which will be used for next samples processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00129}00129     *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) fcurr3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00131}00131     \textcolor{comment}{/* Update of f values for next coefficient set processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00132}00132     fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00133}00133     fcurr1 = fnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00134}00134     fcurr2 = fnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00135}00135     fcurr3 = fnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00137}00137     \textcolor{comment}{/* Loop unrolling.  Process 4 taps at a time . */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00138}00138     stageCnt = (numStages -\/ 1U) >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00140}00140     \textcolor{comment}{/* Loop over the number of taps.  Unroll by a factor of 4.}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00141}00141 \textcolor{comment}{       Repeat until we've computed numStages-\/3 coefficients. */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00143}00143     \textcolor{comment}{/* Process 2nd, 3rd, 4th and 5th taps ... here */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00144}00144     \textcolor{keywordflow}{while} (stageCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00145}00145     \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00146}00146       \textcolor{comment}{/* Read g1(n-\/1), g3(n-\/1) .... from state */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00147}00147       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00149}00149       \textcolor{comment}{/* save g1(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00150}00150       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00152}00152       \textcolor{comment}{/* Process first sample for 2nd, 6th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00153}00153       \textcolor{comment}{/* Sample processing for K2, K6.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00154}00154       \textcolor{comment}{/* f1(n) = f0(n) +  K1 * g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00155}00155       fnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00156}00156       fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00158}00158       \textcolor{comment}{/* Process second sample for 2nd, 6th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00159}00159       \textcolor{comment}{/* for sample 2 processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00160}00160       fnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext0 * (*pk)) >> 15U) + fcurr1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00161}00161       fnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00163}00163       \textcolor{comment}{/* Process third sample for 2nd, 6th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00164}00164       fnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext1 * (*pk)) >> 15U) + fcurr2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00165}00165       fnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00167}00167       \textcolor{comment}{/* Process fourth sample for 2nd, 6th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00168}00168       fnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext2 * (*pk)) >> 15U) + fcurr3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00169}00169       fnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00171}00171       \textcolor{comment}{/* g1(n) = f0(n) * K1  +  g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00172}00172       \textcolor{comment}{/* Calculation of state values for next stage */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00173}00173       gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr3 * (*pk)) >> 15U) + gnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00174}00174       gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00176}00176       gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr2 * (*pk)) >> 15U) + gnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00177}00177       gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00179}00179       gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr1 * (*pk)) >> 15U) + gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00180}00180       gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00182}00182       gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00183}00183       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00186}00186       \textcolor{comment}{/* Read g2(n-\/1), g4(n-\/1) .... from state */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00187}00187       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00189}00189       \textcolor{comment}{/* save g1(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00190}00190       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00192}00192       \textcolor{comment}{/* Sample processing for K3, K7.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00193}00193       \textcolor{comment}{/* Process first sample for 3rd, 7th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00194}00194       \textcolor{comment}{/* f3(n) = f2(n) +  K3 * g2(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00195}00195       fcurr0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00196}00196       fcurr0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00198}00198       \textcolor{comment}{/* Process second sample for 3rd, 7th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00199}00199       fcurr1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext0 * (*pk)) >> 15U) + fnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00200}00200       fcurr1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00202}00202       \textcolor{comment}{/* Process third sample for 3rd, 7th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00203}00203       fcurr2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext1 * (*pk)) >> 15U) + fnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00204}00204       fcurr2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00206}00206       \textcolor{comment}{/* Process fourth sample for 3rd, 7th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00207}00207       fcurr3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext2 * (*pk)) >> 15U) + fnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00208}00208       fcurr3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00210}00210       \textcolor{comment}{/* Calculation of state values for next stage */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00211}00211       \textcolor{comment}{/* g3(n) = f2(n) * K3  +  g2(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00212}00212       gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext3 * (*pk)) >> 15U) + gnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00213}00213       gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00215}00215       gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext2 * (*pk)) >> 15U) + gnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00216}00216       gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00218}00218       gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext1 * (*pk)) >> 15U) + gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00219}00219       gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00221}00221       gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00222}00222       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00224}00224       \textcolor{comment}{/* Read g1(n-\/1), g3(n-\/1) .... from state */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00225}00225       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00227}00227       \textcolor{comment}{/* save g1(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00228}00228       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00230}00230       \textcolor{comment}{/* Sample processing for K4, K8.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00231}00231       \textcolor{comment}{/* Process first sample for 4th, 8th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00232}00232       \textcolor{comment}{/* f4(n) = f3(n) +  K4 * g3(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00233}00233       fnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00234}00234       fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00236}00236       \textcolor{comment}{/* Process second sample for 4th, 8th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00237}00237       \textcolor{comment}{/* for sample 2 processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00238}00238       fnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext0 * (*pk)) >> 15U) + fcurr1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00239}00239       fnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00240}00240 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00241}00241       \textcolor{comment}{/* Process third sample for 4th, 8th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00242}00242       fnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext1 * (*pk)) >> 15U) + fcurr2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00243}00243       fnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00244}00244 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00245}00245       \textcolor{comment}{/* Process fourth sample for 4th, 8th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00246}00246       fnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext2 * (*pk)) >> 15U) + fcurr3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00247}00247       fnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00249}00249       \textcolor{comment}{/* g4(n) = f3(n) * K4  +  g3(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00250}00250       \textcolor{comment}{/* Calculation of state values for next stage */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00251}00251       gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr3 * (*pk)) >> 15U) + gnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00252}00252       gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00253}00253 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00254}00254       gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr2 * (*pk)) >> 15U) + gnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00255}00255       gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00257}00257       gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr1 * (*pk)) >> 15U) + gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00258}00258       gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00259}00259 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00260}00260       gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00261}00261       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00263}00263       \textcolor{comment}{/* Read g2(n-\/1), g4(n-\/1) .... from state */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00264}00264       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00266}00266       \textcolor{comment}{/* save g4(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00267}00267       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00269}00269       \textcolor{comment}{/* Sample processing for K5, K9.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00270}00270       \textcolor{comment}{/* Process first sample for 5th, 9th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00271}00271       \textcolor{comment}{/* f5(n) = f4(n) +  K5 * g4(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00272}00272       fcurr0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00273}00273       fcurr0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00275}00275       \textcolor{comment}{/* Process second sample for 5th, 9th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00276}00276       fcurr1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext0 * (*pk)) >> 15U) + fnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00277}00277       fcurr1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00278}00278 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00279}00279       \textcolor{comment}{/* Process third sample for 5th, 9th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00280}00280       fcurr2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext1 * (*pk)) >> 15U) + fnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00281}00281       fcurr2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00282}00282 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00283}00283       \textcolor{comment}{/* Process fourth sample for 5th, 9th .. tap */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00284}00284       fcurr3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext2 * (*pk)) >> 15U) + fnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00285}00285       fcurr3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00287}00287       \textcolor{comment}{/* Calculation of state values for next stage */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00288}00288       \textcolor{comment}{/* g5(n) = f4(n) * K5  +  g4(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00289}00289       gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext3 * (*pk)) >> 15U) + gnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00290}00290       gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00292}00292       gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext2 * (*pk)) >> 15U) + gnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00293}00293       gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00295}00295       gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext1 * (*pk)) >> 15U) + gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00296}00296       gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00297}00297 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00298}00298       gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fnext0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00299}00299       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00301}00301       stageCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00302}00302     \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00304}00304     \textcolor{comment}{/* If the (filter length -\/1) is not a multiple of 4, compute the remaining filter taps */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00305}00305     stageCnt = (numStages -\/ 1U) \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00307}00307     \textcolor{keywordflow}{while} (stageCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00308}00308     \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00309}00309       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00311}00311       \textcolor{comment}{/* save g value in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00312}00312       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00313}00313 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00314}00314       \textcolor{comment}{/* Process four samples for last three taps here */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00315}00315       fnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00316}00316       fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00318}00318       fnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext0 * (*pk)) >> 15U) + fcurr1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00319}00319       fnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00320}00320 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00321}00321       fnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext1 * (*pk)) >> 15U) + fcurr2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00322}00322       fnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00324}00324       fnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((gnext2 * (*pk)) >> 15U) + fcurr3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00325}00325       fnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00326}00326 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00327}00327       \textcolor{comment}{/* g1(n) = f0(n) * K1  +  g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00328}00328       gnext3 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr3 * (*pk)) >> 15U) + gnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00329}00329       gnext3 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext3, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00330}00330 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00331}00331       gnext2 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr2 * (*pk)) >> 15U) + gnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00332}00332       gnext2 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext2, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00333}00333 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00334}00334       gnext1 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr1 * (*pk)) >> 15U) + gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00335}00335       gnext1 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext1, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00337}00337       gnext0 = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) ((fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00338}00338       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00339}00339 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00340}00340       \textcolor{comment}{/* Update of f values for next coefficient set processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00341}00341       fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00342}00342       fcurr1 = fnext1;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00343}00343       fcurr2 = fnext2;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00344}00344       fcurr3 = fnext3;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00345}00345 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00346}00346       stageCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00347}00347     \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00348}00348 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00349}00349     \textcolor{comment}{/* The results in the 4 accumulators, store in the destination buffer. */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00350}00350     \textcolor{comment}{/* y(n) = fN(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00351}00351 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00352}00352 \textcolor{preprocessor}{\#ifndef  ARM\_MATH\_BIG\_ENDIAN}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00353}00353     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, \mbox{\hyperlink{none_8h_aa505179349146cf6186640b4c8b47714}{\_\_PKHBT}}(fcurr0, fcurr1, 16));}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00354}00354     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, \mbox{\hyperlink{none_8h_aa505179349146cf6186640b4c8b47714}{\_\_PKHBT}}(fcurr2, fcurr3, 16));}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00355}00355 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00356}00356     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, \mbox{\hyperlink{none_8h_aa505179349146cf6186640b4c8b47714}{\_\_PKHBT}}(fcurr1, fcurr0, 16));}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00357}00357     \mbox{\hyperlink{arm__math__memory_8h_a576a0e2a4667277b42c478dfda753dc6}{write\_q15x2\_ia}} (\&pDst, \mbox{\hyperlink{none_8h_aa505179349146cf6186640b4c8b47714}{\_\_PKHBT}}(fcurr3, fcurr2, 16));}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00358}00358 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifndef  ARM\_MATH\_BIG\_ENDIAN */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00359}00359 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00360}00360     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00361}00361   \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00362}00362 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00363}00363   \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00364}00364   blkCnt = blockSize \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00366}00366 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00367}00367 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00368}00368   \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00369}00369   blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00370}00370 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00371}00371 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00373}00373   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00374}00374   \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00375}00375     \textcolor{comment}{/* f0(n) = x(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00376}00376     fcurr0 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00377}00377 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00378}00378     \textcolor{comment}{/* Initialize state pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00379}00379     px = pState;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00380}00380 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00381}00381     \textcolor{comment}{/* Initialize coeff pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00382}00382     pk = pCoeffs;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00383}00383 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00384}00384     \textcolor{comment}{/* read g2(n) from state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00385}00385     gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00386}00386 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00387}00387     \textcolor{comment}{/* for sample 1 processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00388}00388     \textcolor{comment}{/* f1(n) = f0(n) +  K1 * g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00389}00389     fnext0 = (((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00390}00390     fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00391}00391 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00392}00392     \textcolor{comment}{/* g1(n) = f0(n) * K1  +  g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00393}00393     gnext0 = (((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00394}00394     gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00396}00396     \textcolor{comment}{/* save g1(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00397}00397     *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00399}00399     \textcolor{comment}{/* f1(n) is saved in fcurr0 for next stage processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00400}00400     fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00401}00401 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00402}00402     stageCnt = (numStages -\/ 1U);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00403}00403 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00404}00404     \textcolor{comment}{/* stage loop */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00405}00405     \textcolor{keywordflow}{while} (stageCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00406}00406     \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00407}00407       \textcolor{comment}{/* read g2(n) from state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00408}00408       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00409}00409 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00410}00410       \textcolor{comment}{/* save g1(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00411}00411       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00412}00412 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00413}00413       \textcolor{comment}{/* Sample processing for K2, K3.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00414}00414       \textcolor{comment}{/* f2(n) = f1(n) +  K2 * g1(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00415}00415       fnext0 = (((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00416}00416       fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00417}00417 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00418}00418       \textcolor{comment}{/* g2(n) = f1(n) * K2  +  g1(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00419}00419       gnext0 = (((\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}) fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00420}00420       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00421}00421 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00422}00422       \textcolor{comment}{/* f1(n) is saved in fcurr0 for next stage processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00423}00423       fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00424}00424 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00425}00425       stageCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00426}00426     \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00427}00427 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00428}00428     \textcolor{comment}{/* y(n) = fN(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00429}00429     *pDst++ = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00430}00430 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00431}00431     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00432}00432   \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00433}00433 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00434}00434 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00435}00435 \textcolor{comment}{/* alternate version for CM0\_FAMILY */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00436}00436 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00437}00437   blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00438}00438 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00439}00439   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00440}00440   \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00441}00441     \textcolor{comment}{/* f0(n) = x(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00442}00442     fcurr0 = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00443}00443 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00444}00444     \textcolor{comment}{/* Initialize state pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00445}00445     px = pState;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00446}00446 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00447}00447     \textcolor{comment}{/* Initialize coeff pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00448}00448     pk = pCoeffs;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00449}00449 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00450}00450     \textcolor{comment}{/* read g0(n-\/1) from state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00451}00451     gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00452}00452 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00453}00453     \textcolor{comment}{/* for sample 1 processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00454}00454     \textcolor{comment}{/* f1(n) = f0(n) +  K1 * g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00455}00455     fnext0 = ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00456}00456     fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00457}00457 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00458}00458     \textcolor{comment}{/* g1(n) = f0(n) * K1  +  g0(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00459}00459     gnext0 = ((fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00460}00460     gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00461}00461 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00462}00462     \textcolor{comment}{/* save f0(n) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00463}00463     *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00464}00464 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00465}00465     \textcolor{comment}{/* f1(n) is saved in fcurr for next stage processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00466}00466     fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00467}00467 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00468}00468     stageCnt = (numStages -\/ 1U);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00469}00469 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00470}00470     \textcolor{comment}{/* stage loop */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00471}00471     \textcolor{keywordflow}{while} (stageCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00472}00472     \{}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00473}00473       \textcolor{comment}{/* read g1(n-\/1) from state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00474}00474       gcurr0 = *px;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00475}00475 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00476}00476       \textcolor{comment}{/* save g0(n-\/1) in state buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00477}00477       *px++ = (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}}) gnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00478}00478 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00479}00479       \textcolor{comment}{/* Sample processing for K2, K3.... */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00480}00480       \textcolor{comment}{/* f2(n) = f1(n) +  K2 * g1(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00481}00481       fnext0 = ((gcurr0 * (*pk)) >> 15U) + fcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00482}00482       fnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00483}00483 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00484}00484       \textcolor{comment}{/* g2(n) = f1(n) * K2  +  g1(n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00485}00485       gnext0 = ((fcurr0 * (*pk++)) >> 15U) + gcurr0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00486}00486       gnext0 = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(gnext0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00487}00487 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00488}00488       \textcolor{comment}{/* f1(n) is saved in fcurr0 for next stage processing */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00489}00489       fcurr0 = fnext0;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00490}00490 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00491}00491       stageCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00492}00492     \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00493}00493 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00494}00494     \textcolor{comment}{/* y(n) = fN(n) */}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00495}00495     *pDst++ = \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_ga372c0535573dde3e37f0f08c774a3487}{\_\_SSAT}}(fcurr0, 16);}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00496}00496 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00497}00497     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00498}00498   \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00499}00499 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00500}00500 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if !defined(ARM\_MATH\_CM0\_FAMILY) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00501}00501 }
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00502}00502 \}}
+\DoxyCodeLine{\Hypertarget{arm__fir__lattice__q15_8c_source_l00503}00503 }
+
+\end{DoxyCode}

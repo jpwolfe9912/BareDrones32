@@ -1,0 +1,114 @@
+\hypertarget{stm32f7xx__hal__pcd__ex_8c_source}{}\doxysection{stm32f7xx\+\_\+hal\+\_\+pcd\+\_\+ex.\+c}
+\label{stm32f7xx__hal__pcd__ex_8c_source}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_pcd\_ex.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_pcd\_ex.c}}
+\mbox{\hyperlink{stm32f7xx__hal__pcd__ex_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00023}00023 \textcolor{comment}{/* Includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00024}00024 \textcolor{preprocessor}{\#include "{}../../../Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00035}00035 \textcolor{preprocessor}{\#ifdef HAL\_PCD\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00037}00037 \textcolor{preprocessor}{\#if defined (USB\_OTG\_FS) || defined (USB\_OTG\_HS)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00038}00038 \textcolor{comment}{/* Private types -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00039}00039 \textcolor{comment}{/* Private variables -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00040}00040 \textcolor{comment}{/* Private constants -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00041}00041 \textcolor{comment}{/* Private macros -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00042}00042 \textcolor{comment}{/* Private functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00043}00043 \textcolor{comment}{/* Exported functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00062}00062 \textcolor{preprocessor}{\#if defined (USB\_OTG\_FS) || defined (USB\_OTG\_HS)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00070}00070 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_PCDEx\_SetTxFiFo(PCD\_HandleTypeDef *hpcd, uint8\_t fifo, uint16\_t size)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00071}00071 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00072}00072   uint8\_t i;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00073}00073   uint32\_t Tx\_Offset;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00075}00075   \textcolor{comment}{/*  TXn min size = 16 words. (n  : Transmit FIFO index)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00076}00076 \textcolor{comment}{      When a TxFIFO is not used, the Configuration should be as follows:}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00077}00077 \textcolor{comment}{          case 1 :  n > m    and Txn is not used    (n,m  : Transmit FIFO indexes)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00078}00078 \textcolor{comment}{         -\/-\/> Txm can use the space allocated for Txn.}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00079}00079 \textcolor{comment}{         case2  :  n < m    and Txn is not used    (n,m  : Transmit FIFO indexes)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00080}00080 \textcolor{comment}{         -\/-\/> Txn should be configured with the minimum space of 16 words}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00081}00081 \textcolor{comment}{     The FIFO is used optimally when used TxFIFOs are allocated in the top}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00082}00082 \textcolor{comment}{         of the FIFO.Ex: use EP1 and EP2 as IN instead of EP1 and EP3 as IN ones.}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00083}00083 \textcolor{comment}{     When DMA is used 3n * FIFO locations should be reserved for internal DMA registers */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00085}00085   Tx\_Offset = hpcd-\/>Instance-\/>GRXFSIZ;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00087}00087   \textcolor{keywordflow}{if} (fifo == 0U)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00088}00088   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00089}00089     hpcd-\/>Instance-\/>DIEPTXF0\_HNPTXFSIZ = ((uint32\_t)size << 16) | Tx\_Offset;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00090}00090   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00091}00091   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00092}00092   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00093}00093     Tx\_Offset += (hpcd-\/>Instance-\/>DIEPTXF0\_HNPTXFSIZ) >> 16;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00094}00094     \textcolor{keywordflow}{for} (i = 0U; i < (fifo -\/ 1U); i++)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00095}00095     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00096}00096       Tx\_Offset += (hpcd-\/>Instance-\/>DIEPTXF[i] >> 16);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00097}00097     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00099}00099     \textcolor{comment}{/* Multiply Tx\_Size by 2 to get higher performance */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00100}00100     hpcd-\/>Instance-\/>DIEPTXF[fifo -\/ 1U] = ((uint32\_t)size << 16) | Tx\_Offset;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00101}00101   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00103}00103   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00104}00104 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00112}00112 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_PCDEx\_SetRxFiFo(PCD\_HandleTypeDef *hpcd, uint16\_t size)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00113}00113 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00114}00114   hpcd-\/>Instance-\/>GRXFSIZ = size;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00116}00116   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00117}00117 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00124}00124 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_PCDEx\_ActivateLPM(PCD\_HandleTypeDef *hpcd)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00125}00125 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00126}00126   \mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def}{USB\_OTG\_GlobalTypeDef}} *USBx = hpcd-\/>Instance;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00128}00128   hpcd-\/>lpm\_active = 1U;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00129}00129   hpcd-\/>LPM\_State = LPM\_L0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00130}00130   USBx-\/>\mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def_a69d9432b4272331bffb34e196b57cbdf}{GINTMSK}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga73e7fc8641a07a92999fcd15be89a203}{USB\_OTG\_GINTMSK\_LPMINTM}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00131}00131   USBx-\/>\mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def_a5b7c9cb9dbd528e59d39bd7e72ca6fe9}{GLPMCFG}} |= (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaef3ca51e86a5ffb5ba6bf2427e5581c5}{USB\_OTG\_GLPMCFG\_LPMEN}} | \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga682cf1fff7c9ba887465fd4c35097fe2}{USB\_OTG\_GLPMCFG\_LPMACK}} | \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c71489e06be2d7673d6aca39c9f03bf}{USB\_OTG\_GLPMCFG\_ENBESL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00133}00133   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00134}00134 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00141}00141 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_PCDEx\_DeActivateLPM(PCD\_HandleTypeDef *hpcd)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00142}00142 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00143}00143   \mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def}{USB\_OTG\_GlobalTypeDef}} *USBx = hpcd-\/>Instance;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00145}00145   hpcd-\/>lpm\_active = 0U;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00146}00146   USBx-\/>\mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def_a69d9432b4272331bffb34e196b57cbdf}{GINTMSK}} \&= \string~USB\_OTG\_GINTMSK\_LPMINTM;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00147}00147   USBx-\/>\mbox{\hyperlink{struct_u_s_b___o_t_g___global_type_def_a5b7c9cb9dbd528e59d39bd7e72ca6fe9}{GLPMCFG}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaef3ca51e86a5ffb5ba6bf2427e5581c5}{USB\_OTG\_GLPMCFG\_LPMEN}} | \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga682cf1fff7c9ba887465fd4c35097fe2}{USB\_OTG\_GLPMCFG\_LPMACK}} | \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c71489e06be2d7673d6aca39c9f03bf}{USB\_OTG\_GLPMCFG\_ENBESL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00149}00149   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00150}00150 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00152}00152 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined (USB\_OTG\_FS) || defined (USB\_OTG\_HS) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00160}00160 \_\_weak \textcolor{keywordtype}{void} HAL\_PCDEx\_LPM\_Callback(PCD\_HandleTypeDef *hpcd, PCD\_LPM\_MsgTypeDef msg)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00161}00161 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00162}00162   \textcolor{comment}{/* Prevent unused argument(s) compilation warning */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00163}00163   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a6bc306171da085f4c7df2c66d2ff8e47}{UNUSED}}(hpcd);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00164}00164   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a6bc306171da085f4c7df2c66d2ff8e47}{UNUSED}}(msg);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00166}00166   \textcolor{comment}{/* NOTE : This function should not be modified, when the callback is needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00167}00167 \textcolor{comment}{            the HAL\_PCDEx\_LPM\_Callback could be implemented in the user file}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00168}00168 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00169}00169 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00177}00177 \_\_weak \textcolor{keywordtype}{void} HAL\_PCDEx\_BCD\_Callback(PCD\_HandleTypeDef *hpcd, PCD\_BCD\_MsgTypeDef msg)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00178}00178 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00179}00179   \textcolor{comment}{/* Prevent unused argument(s) compilation warning */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00180}00180   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a6bc306171da085f4c7df2c66d2ff8e47}{UNUSED}}(hpcd);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00181}00181   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a6bc306171da085f4c7df2c66d2ff8e47}{UNUSED}}(msg);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00183}00183   \textcolor{comment}{/* NOTE : This function should not be modified, when the callback is needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00184}00184 \textcolor{comment}{            the HAL\_PCDEx\_BCD\_Callback could be implemented in the user file}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00185}00185 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00186}00186 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00195}00195 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined (USB\_OTG\_FS) || defined (USB\_OTG\_HS) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00196}00196 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HAL\_PCD\_MODULE\_ENABLED */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__pcd__ex_8c_source_l00197}00197 }
+
+\end{DoxyCode}

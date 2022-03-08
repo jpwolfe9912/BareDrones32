@@ -85,8 +85,6 @@ typedef struct sensors_t
     float    accel100Hz[3];
     float    attitude500Hz[3];
     float    gyro500Hz[3];
-    float    mag10Hz[3];
-    float    pressureAlt50Hz;
 } sensors_t;
 
 extern sensors_t sensors;
@@ -177,9 +175,7 @@ enum { MIXERTYPE_TRI,
 ///////////////////////////////////////////////////////////////////////////////
 
 enum {
-	RATE,
-	ATTITUDE,
-	GPS,
+	FLIGHT,
 	ROVER
 };
 
@@ -306,7 +302,7 @@ typedef struct eepromConfig_t
 
     ///////////////////////////////////
 
-//	PIDdata_t PID[NUMBER_OF_PIDS];
+	PIDdata_t PID[NUMBER_OF_PIDS];
 
     ///////////////////////////////////
 

@@ -24,6 +24,13 @@
 extern "C" {
 #endif
 
+/* Function Prototypes */
+void tim9Init(void);
+uint32_t tim9GetCnt(void);
+void tim9ResetCnt(void);
+void tim9Enable(void);
+void tim9Disable(void);
+
 
 #ifdef __cplusplus
 }

@@ -1,0 +1,275 @@
+\hypertarget{drv__dshot_8h}{}\doxysection{Autodrone32/\+Src/drv/drv\+\_\+dshot.h File Reference}
+\label{drv__dshot_8h}\index{Autodrone32/Src/drv/drv\_dshot.h@{Autodrone32/Src/drv/drv\_dshot.h}}
+
+
+This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}{TIMER\+\_\+\+CLOCK}}~108000000
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(x)~((x) $\ast$ 1000000)
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}{DSHOT600\+\_\+\+HZ}}~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(108)
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}{DSHOT300\+\_\+\+HZ}}~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(54)
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a84ec4e0db6b0614d99ae43d9b87f70b1}{DSHOT150\+\_\+\+HZ}}~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(27)
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}{MOTOR\+\_\+\+BIT\+\_\+0}}~60
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}{MOTOR\+\_\+\+BIT\+\_\+1}}~120
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}{MOTOR\+\_\+\+BITLENGTH}}~180
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}{DSHOT\+\_\+\+FRAME\+\_\+\+SIZE}}~16
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}{DSHOT\+\_\+\+DMA\+\_\+\+BUFFER\+\_\+\+SIZE}}~18 /$\ast$ resolution + frame reset (2us) $\ast$/
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}{DSHOT\+\_\+\+MIN\+\_\+\+THROTTLE}}~48
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}{DSHOT\+\_\+\+MAX\+\_\+\+THROTTLE}}~2047
+\item 
+\#define \mbox{\hyperlink{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}{DSHOT\+\_\+\+RANGE}}~(\mbox{\hyperlink{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}{DSHOT\+\_\+\+MAX\+\_\+\+THROTTLE}} -\/ \mbox{\hyperlink{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}{DSHOT\+\_\+\+MIN\+\_\+\+THROTTLE}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_\+type\+\_\+e}} \{ \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afa7446441a858d40420367aabb92d08742}{DSHOT150}}
+, \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}{DSHOT300}}
+, \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{DSHOT600}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{drv__dshot_8h_a62a368c6713202c7b690eccdede30231}{dshot\+Init}} (\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_\+type\+\_\+e}} dshot\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Initializes the low level registers to set up the timer with PWM DMA. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}{dshot\+Write}} (uint16\+\_\+t $\ast$\mbox{\hyperlink{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}{motor\+\_\+value}})
+\begin{DoxyCompactList}\small\item\em Writes to the DMA buffer and starts the DMA stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+23 FEB 2022 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000006}{Bug}}]\end{DoxyRefDesc}
+
+
+Definition in file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{drv__dshot_8h_a84ec4e0db6b0614d99ae43d9b87f70b1}\label{drv__dshot_8h_a84ec4e0db6b0614d99ae43d9b87f70b1}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT150\_HZ@{DSHOT150\_HZ}}
+\index{DSHOT150\_HZ@{DSHOT150\_HZ}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT150\_HZ}{DSHOT150\_HZ}}
+{\footnotesize\ttfamily \#define DSHOT150\+\_\+\+HZ~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(27)}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00022}{22}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}\label{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT300\_HZ@{DSHOT300\_HZ}}
+\index{DSHOT300\_HZ@{DSHOT300\_HZ}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT300\_HZ}{DSHOT300\_HZ}}
+{\footnotesize\ttfamily \#define DSHOT300\+\_\+\+HZ~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(54)}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00021}{21}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}\label{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT600\_HZ@{DSHOT600\_HZ}}
+\index{DSHOT600\_HZ@{DSHOT600\_HZ}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT600\_HZ}{DSHOT600\_HZ}}
+{\footnotesize\ttfamily \#define DSHOT600\+\_\+\+HZ~\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{MHZ\+\_\+\+TO\+\_\+\+HZ}}(108)}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00020}{20}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}\label{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_DMA\_BUFFER\_SIZE@{DSHOT\_DMA\_BUFFER\_SIZE}}
+\index{DSHOT\_DMA\_BUFFER\_SIZE@{DSHOT\_DMA\_BUFFER\_SIZE}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT\_DMA\_BUFFER\_SIZE}{DSHOT\_DMA\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define DSHOT\+\_\+\+DMA\+\_\+\+BUFFER\+\_\+\+SIZE~18 /$\ast$ resolution + frame reset (2us) $\ast$/}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00033}{33}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}\label{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_FRAME\_SIZE@{DSHOT\_FRAME\_SIZE}}
+\index{DSHOT\_FRAME\_SIZE@{DSHOT\_FRAME\_SIZE}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT\_FRAME\_SIZE}{DSHOT\_FRAME\_SIZE}}
+{\footnotesize\ttfamily \#define DSHOT\+\_\+\+FRAME\+\_\+\+SIZE~16}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00032}{32}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}\label{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_MAX\_THROTTLE@{DSHOT\_MAX\_THROTTLE}}
+\index{DSHOT\_MAX\_THROTTLE@{DSHOT\_MAX\_THROTTLE}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT\_MAX\_THROTTLE}{DSHOT\_MAX\_THROTTLE}}
+{\footnotesize\ttfamily \#define DSHOT\+\_\+\+MAX\+\_\+\+THROTTLE~2047}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00036}{36}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}\label{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_MIN\_THROTTLE@{DSHOT\_MIN\_THROTTLE}}
+\index{DSHOT\_MIN\_THROTTLE@{DSHOT\_MIN\_THROTTLE}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT\_MIN\_THROTTLE}{DSHOT\_MIN\_THROTTLE}}
+{\footnotesize\ttfamily \#define DSHOT\+\_\+\+MIN\+\_\+\+THROTTLE~48}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00035}{35}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}\label{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_RANGE@{DSHOT\_RANGE}}
+\index{DSHOT\_RANGE@{DSHOT\_RANGE}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{DSHOT\_RANGE}{DSHOT\_RANGE}}
+{\footnotesize\ttfamily \#define DSHOT\+\_\+\+RANGE~(\mbox{\hyperlink{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}{DSHOT\+\_\+\+MAX\+\_\+\+THROTTLE}} -\/ \mbox{\hyperlink{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}{DSHOT\+\_\+\+MIN\+\_\+\+THROTTLE}})}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00037}{37}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}\label{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!MHZ\_TO\_HZ@{MHZ\_TO\_HZ}}
+\index{MHZ\_TO\_HZ@{MHZ\_TO\_HZ}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{MHZ\_TO\_HZ}{MHZ\_TO\_HZ}}
+{\footnotesize\ttfamily \#define MHZ\+\_\+\+TO\+\_\+\+HZ(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) $\ast$ 1000000)}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00018}{18}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}\label{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BIT\_0@{MOTOR\_BIT\_0}}
+\index{MOTOR\_BIT\_0@{MOTOR\_BIT\_0}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_BIT\_0}{MOTOR\_BIT\_0}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+BIT\+\_\+0~60}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00028}{28}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}\label{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BIT\_1@{MOTOR\_BIT\_1}}
+\index{MOTOR\_BIT\_1@{MOTOR\_BIT\_1}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_BIT\_1}{MOTOR\_BIT\_1}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+BIT\+\_\+1~120}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00029}{29}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}\label{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BITLENGTH@{MOTOR\_BITLENGTH}}
+\index{MOTOR\_BITLENGTH@{MOTOR\_BITLENGTH}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_BITLENGTH}{MOTOR\_BITLENGTH}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+BITLENGTH~180}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00030}{30}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}\label{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!TIMER\_CLOCK@{TIMER\_CLOCK}}
+\index{TIMER\_CLOCK@{TIMER\_CLOCK}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{TIMER\_CLOCK}{TIMER\_CLOCK}}
+{\footnotesize\ttfamily \#define TIMER\+\_\+\+CLOCK~108000000}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00016}{16}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}\label{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!dshot\_type\_e@{dshot\_type\_e}}
+\index{dshot\_type\_e@{dshot\_type\_e}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{dshot\_type\_e}{dshot\_type\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_\+type\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT150@{DSHOT150}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT150@{DSHOT150}}}\mbox{\Hypertarget{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afa7446441a858d40420367aabb92d08742}\label{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afa7446441a858d40420367aabb92d08742}} 
+DSHOT150&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT300@{DSHOT300}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT300@{DSHOT300}}}\mbox{\Hypertarget{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}\label{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}} 
+DSHOT300&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT600@{DSHOT600}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT600@{DSHOT600}}}\mbox{\Hypertarget{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}\label{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}} 
+DSHOT600&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00040}{40}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{drv__dshot_8h_a62a368c6713202c7b690eccdede30231}\label{drv__dshot_8h_a62a368c6713202c7b690eccdede30231}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!dshotInit@{dshotInit}}
+\index{dshotInit@{dshotInit}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{dshotInit()}{dshotInit()}}
+{\footnotesize\ttfamily void dshot\+Init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_\+type\+\_\+e}}}]{dshot\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Initializes the low level registers to set up the timer with PWM DMA. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dshot\+\_\+type} & DSHOT150/300/600. Allows you to adjust the speed. DSHOT600 is preferred \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00036}{36}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}\label{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!dshotWrite@{dshotWrite}}
+\index{dshotWrite@{dshotWrite}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{dshotWrite()}{dshotWrite()}}
+{\footnotesize\ttfamily void dshot\+Write (\begin{DoxyParamCaption}\item[{uint16\+\_\+t $\ast$}]{motor\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Writes to the DMA buffer and starts the DMA stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$motor\+\_\+value} & A four length array with elements from 0 to 2047. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00259}{259}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+

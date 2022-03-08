@@ -1,0 +1,110 @@
+\hypertarget{arm__mat__cmplx__trans__q15_8c_source}{}\doxysection{arm\+\_\+mat\+\_\+cmplx\+\_\+trans\+\_\+q15.\+c}
+\label{arm__mat__cmplx__trans__q15_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cmplx\_trans\_q15.c@{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cmplx\_trans\_q15.c}}
+\mbox{\hyperlink{arm__mat__cmplx__trans__q15_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_mat\_cmplx\_trans\_q31.c}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Q15 complex matrix transpose}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{matrix__functions_8h}{dsp/matrix\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00048}00048 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00050}00050 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00052}00052 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___matrix_complex_trans_ga05fdddccd50cd459907060e5699f3423}{arm\_mat\_cmplx\_trans\_q15}}(\textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__q15}{arm\_matrix\_instance\_q15}} * pSrc, \mbox{\hyperlink{structarm__matrix__instance__q15}{arm\_matrix\_instance\_q15}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00053}00053 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00054}00054     \textcolor{keywordflow}{return} arm\_mat\_cmplx\_trans\_16bit(pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}, pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}, (uint16\_t *) pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a817ede38365e63e561a12069c6c5c087}{pData}},}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00055}00055                                    pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}, pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}, (uint16\_t *) pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a817ede38365e63e561a12069c6c5c087}{pData}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00059}00059 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00060}\mbox{\hyperlink{group___matrix_complex_trans_ga05fdddccd50cd459907060e5699f3423}{00060}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___matrix_complex_trans_ga05fdddccd50cd459907060e5699f3423}{arm\_mat\_cmplx\_trans\_q15}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00061}00061   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__q15}{arm\_matrix\_instance\_q15}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00062}00062   \mbox{\hyperlink{structarm__matrix__instance__q15}{arm\_matrix\_instance\_q15}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00063}00063 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00064}00064   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *pSrcA = pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a817ede38365e63e561a12069c6c5c087}{pData}};                    \textcolor{comment}{/* input data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00065}00065   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a817ede38365e63e561a12069c6c5c087}{pData}};                     \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00066}00066   uint16\_t nRows = pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a1bcf80ccdc2acc29198f1592ae300390}{numRows}};                \textcolor{comment}{/* number of nRows */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00067}00067   uint16\_t nColumns = pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};             \textcolor{comment}{/* number of nColumns */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00068}00068   uint16\_t col, row = nRows, i = 0U;             \textcolor{comment}{/* row and column loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00069}00069   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix transpose */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00072}00072 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00074}00074   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00075}00075   \textcolor{keywordflow}{if} ((pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}) || (pSrc-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}))}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00076}00076   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00077}00077     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00078}00078     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00079}00079   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00080}00080   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00081}00081 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*    \#ifdef ARM\_MATH\_MATRIX\_CHECK    */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00083}00083   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00084}00084     \textcolor{comment}{/* Matrix transpose by exchanging the rows with columns */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00085}00085     \textcolor{comment}{/* row loop     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00086}00086     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00087}00087     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00088}00088       \textcolor{comment}{/* The pointer pOut is set to starting address of the column being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00089}00089       pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__q15_a817ede38365e63e561a12069c6c5c087}{pData}} + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00091}00091       \textcolor{comment}{/* Initialize column loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00092}00092       col = nColumns;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00094}00094       \textcolor{keywordflow}{while} (col > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00095}00095       \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00096}00096         \textcolor{comment}{/* Read and store the input element in the destination */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00097}00097         pOut[0] = *pSrcA++; \textcolor{comment}{//real}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00098}00098         pOut[1] = *pSrcA++; \textcolor{comment}{//imag}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00100}00100         \textcolor{comment}{/* Update the pointer pOut to point to the next row of the transposed matrix */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00101}00101         pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} *nRows;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00103}00103         \textcolor{comment}{/* Decrement the column loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00104}00104         col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00105}00105       \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00107}00107       i++;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00109}00109       \textcolor{comment}{/* Decrement the row loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00110}00110       row-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00112}00112     \} \textcolor{keywordflow}{while} (row > 0U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00114}00114     \textcolor{comment}{/* set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00115}00115     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00116}00116   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00117}00117   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00118}00118   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00119}00119 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00120}00120 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEI) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__trans__q15_8c_source_l00121}00121 }
+
+\end{DoxyCode}

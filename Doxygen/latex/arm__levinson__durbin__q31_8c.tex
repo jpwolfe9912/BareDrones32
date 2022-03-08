@@ -1,0 +1,125 @@
+\hypertarget{arm__levinson__durbin__q31_8c}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+DSP/\+Filtering\+Functions/arm\+\_\+levinson\+\_\+durbin\+\_\+q31.c File Reference}
+\label{arm__levinson__durbin__q31_8c}\index{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_levinson\_durbin\_q31.c@{Autodrone32/Libraries/CMSIS/DSP/FilteringFunctions/arm\_levinson\_durbin\_q31.c}}
+{\ttfamily \#include \char`\"{}dsp/filtering\+\_\+functions.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_abcb1d16f4b35d69afd3f997ad792e600}{ONE\+\_\+\+Q31}}~0x7\+FFFFFFFL
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_af35c7c610f1f282933a3d418ae5659b9}{TWO\+\_\+\+Q30}}~0x7\+FFFFFFFL
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_a84b2434cbc9524cea6f4487aa94d5bfa}{HALF\+\_\+\+Q31}}~0x00008000L
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_a8a57fbdad94ffd18e5c5f15ad1fa1e57}{ONE\+\_\+\+Q15}}~0x7\+FFF
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_af53eb1f80ad06646990e67560ab2a8b0}{HALF\+\_\+\+Q15}}~0x3\+FFF
+\item 
+\#define \mbox{\hyperlink{arm__levinson__durbin__q31_8c_af0f2727f3a63d7069702e4afdb9c9a2c}{LOWPART\+\_\+\+MASK}}~0x07\+FFF
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} \mbox{\hyperlink{arm__levinson__durbin__q31_8c_ad065cb1c3e66c4be3712bc57b992a085}{mul32x16}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} a, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} b)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} \mbox{\hyperlink{arm__levinson__durbin__q31_8c_ab12f883a050db324e5a87159f83f337f}{mul32x32}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} a, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} b)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} \mbox{\hyperlink{arm__levinson__durbin__q31_8c_a23311be79a9c610acae9e3fae494bda1}{divide}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} n, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} d)
+\item 
+void \mbox{\hyperlink{group___l_d_ga62b3cbd165b27673f5c17a6e72697e76}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$phi, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$a, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$err, int nb\+Coefs)
+\begin{DoxyCompactList}\small\item\em Levinson Durbin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_af53eb1f80ad06646990e67560ab2a8b0}\label{arm__levinson__durbin__q31_8c_af53eb1f80ad06646990e67560ab2a8b0}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!HALF\_Q15@{HALF\_Q15}}
+\index{HALF\_Q15@{HALF\_Q15}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{HALF\_Q15}{HALF\_Q15}}
+{\footnotesize\ttfamily \#define HALF\+\_\+\+Q15~0x3\+FFF}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00036}{36}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_a84b2434cbc9524cea6f4487aa94d5bfa}\label{arm__levinson__durbin__q31_8c_a84b2434cbc9524cea6f4487aa94d5bfa}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!HALF\_Q31@{HALF\_Q31}}
+\index{HALF\_Q31@{HALF\_Q31}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{HALF\_Q31}{HALF\_Q31}}
+{\footnotesize\ttfamily \#define HALF\+\_\+\+Q31~0x00008000L}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00034}{34}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_af0f2727f3a63d7069702e4afdb9c9a2c}\label{arm__levinson__durbin__q31_8c_af0f2727f3a63d7069702e4afdb9c9a2c}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!LOWPART\_MASK@{LOWPART\_MASK}}
+\index{LOWPART\_MASK@{LOWPART\_MASK}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{LOWPART\_MASK}{LOWPART\_MASK}}
+{\footnotesize\ttfamily \#define LOWPART\+\_\+\+MASK~0x07\+FFF}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00037}{37}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_a8a57fbdad94ffd18e5c5f15ad1fa1e57}\label{arm__levinson__durbin__q31_8c_a8a57fbdad94ffd18e5c5f15ad1fa1e57}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!ONE\_Q15@{ONE\_Q15}}
+\index{ONE\_Q15@{ONE\_Q15}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_Q15}{ONE\_Q15}}
+{\footnotesize\ttfamily \#define ONE\+\_\+\+Q15~0x7\+FFF}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00035}{35}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_abcb1d16f4b35d69afd3f997ad792e600}\label{arm__levinson__durbin__q31_8c_abcb1d16f4b35d69afd3f997ad792e600}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!ONE\_Q31@{ONE\_Q31}}
+\index{ONE\_Q31@{ONE\_Q31}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{ONE\_Q31}{ONE\_Q31}}
+{\footnotesize\ttfamily \#define ONE\+\_\+\+Q31~0x7\+FFFFFFFL}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00031}{31}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_af35c7c610f1f282933a3d418ae5659b9}\label{arm__levinson__durbin__q31_8c_af35c7c610f1f282933a3d418ae5659b9}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!TWO\_Q30@{TWO\_Q30}}
+\index{TWO\_Q30@{TWO\_Q30}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{TWO\_Q30}{TWO\_Q30}}
+{\footnotesize\ttfamily \#define TWO\+\_\+\+Q30~0x7\+FFFFFFFL}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00032}{32}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_a23311be79a9c610acae9e3fae494bda1}\label{arm__levinson__durbin__q31_8c_a23311be79a9c610acae9e3fae494bda1}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!divide@{divide}}
+\index{divide@{divide}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{divide()}{divide()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} divide (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{n,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00056}{56}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_ad065cb1c3e66c4be3712bc57b992a085}\label{arm__levinson__durbin__q31_8c_ad065cb1c3e66c4be3712bc57b992a085}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!mul32x16@{mul32x16}}
+\index{mul32x16@{mul32x16}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{mul32x16()}{mul32x16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} mul32x16 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{a,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00039}{39}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{arm__levinson__durbin__q31_8c_ab12f883a050db324e5a87159f83f337f}\label{arm__levinson__durbin__q31_8c_ab12f883a050db324e5a87159f83f337f}} 
+\index{arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}!mul32x32@{mul32x32}}
+\index{mul32x32@{mul32x32}!arm\_levinson\_durbin\_q31.c@{arm\_levinson\_durbin\_q31.c}}
+\doxysubsubsection{\texorpdfstring{mul32x32()}{mul32x32()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} mul32x32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{a,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source_l00047}{47}} of file \mbox{\hyperlink{arm__levinson__durbin__q31_8c_source}{arm\+\_\+levinson\+\_\+durbin\+\_\+q31.\+c}}.
+

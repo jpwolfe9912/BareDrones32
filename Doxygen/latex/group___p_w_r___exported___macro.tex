@@ -1,0 +1,376 @@
+\hypertarget{group___p_w_r___exported___macro}{}\doxysection{PWR Exported Macro}
+\label{group___p_w_r___exported___macro}\index{PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga1ee778f7ff494723bd0ef04ec44b0f77}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+VOLTAGESCALING\+\_\+\+CONFIG}}(\+\_\+\+\_\+\+REGULATOR\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em macros configure the main internal regulator output voltage. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga2977135bbea35b786805eea640d1c884}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+GET\+\_\+\+FLAG}}(\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~((\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/$>$CSR1 \& (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)) == (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Check PWR flag is set or not. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga96f24bf4b16c9f944cd829100bf746e5}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+CLEAR\+\_\+\+FLAG}}(\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)~(\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/$>$CR1 $\vert$=  (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+) $<$$<$ 2)
+\begin{DoxyCompactList}\small\item\em Clear the PWR\textquotesingle{}s pending flags. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga3180f039cf14ef78a64089f387f8f9c2}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+IT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$IMR $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Enable the PVD Exti Line 16. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_gad240d7bf8f15191b068497b9aead1f1f}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+IT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$IMR \&= $\sim$(\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Disable the PVD EXTI Line 16. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_gae5ba5672fe8cb7c1686c7f2cc211b128}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+EVENT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$EMR $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Enable event on PVD Exti Line 16. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga8bd379e960497722450c7cea474a7e7a}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+EVENT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$EMR \&= $\sim$(\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Disable event on PVD Exti Line 16. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga7bef3f30c9fe267c99d5240fbf3f878c}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$RTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})
+\begin{DoxyCompactList}\small\item\em Enable the PVD Extended Interrupt Rising Trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca8fd7f3286a176f6be540c75a004c6}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$RTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})
+\begin{DoxyCompactList}\small\item\em Disable the PVD Extended Interrupt Rising Trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga5b971478563a00e1ee1a9d8ca8054e08}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+FALLING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$FTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})
+\begin{DoxyCompactList}\small\item\em Enable the PVD Extended Interrupt Falling Trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca57168205f8cd8d1014e6eb9465f2d}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+FALLING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$FTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})
+\begin{DoxyCompactList}\small\item\em Disable the PVD Extended Interrupt Falling Trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga638033d236eb78c1e5ecb9b49c4e7f36}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+FALLING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___p_w_r___exported___macro_ga7bef3f30c9fe267c99d5240fbf3f878c}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+EDGE}}();\mbox{\hyperlink{group___p_w_r___exported___macro_ga5b971478563a00e1ee1a9d8ca8054e08}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+FALLING\+\_\+\+EDGE}}();
+\begin{DoxyCompactList}\small\item\em PVD EXTI line configuration\+: set rising \& falling edge trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga3f66c9c0c214cd08c24674904dcdc4e0}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+FALLING\+\_\+\+EDGE}}()~\mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca8fd7f3286a176f6be540c75a004c6}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+EDGE}}();\mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca57168205f8cd8d1014e6eb9465f2d}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+FALLING\+\_\+\+EDGE}}();
+\begin{DoxyCompactList}\small\item\em Disable the PVD Extended Interrupt Rising \& Falling Trigger. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_ga5e66fa75359b51066e0731ac1e5ae438}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+GET\+\_\+\+FLAG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$PR \& (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em checks whether the specified PVD Exti interrupt flag is set or not. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_gac0fb2218bc050f5d8fdb1a3f28590352}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+CLEAR\+\_\+\+FLAG}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$PR = (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Clear the PVD Exti flag. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___p_w_r___exported___macro_gaba4a7968f5c4c4ca6a7047b147ba18d4}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+GENERATE\+\_\+\+SWIT}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$SWIER $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))
+\begin{DoxyCompactList}\small\item\em Generates a Software interrupt on PVD EXTI line. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga96f24bf4b16c9f944cd829100bf746e5}\label{group___p_w_r___exported___macro_ga96f24bf4b16c9f944cd829100bf746e5}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_CLEAR\_FLAG@{\_\_HAL\_PWR\_CLEAR\_FLAG}}
+\index{\_\_HAL\_PWR\_CLEAR\_FLAG@{\_\_HAL\_PWR\_CLEAR\_FLAG}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_CLEAR\_FLAG}{\_\_HAL\_PWR\_CLEAR\_FLAG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+CLEAR\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/$>$CR1 $\vert$=  (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+) $<$$<$ 2)}
+
+
+
+Clear the PWR\textquotesingle{}s pending flags. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+} & specifies the flag to clear. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item PWR\+\_\+\+FLAG\+\_\+\+SB\+: Stand\+By flag \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00197}{197}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga2977135bbea35b786805eea640d1c884}\label{group___p_w_r___exported___macro_ga2977135bbea35b786805eea640d1c884}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_GET\_FLAG@{\_\_HAL\_PWR\_GET\_FLAG}}
+\index{\_\_HAL\_PWR\_GET\_FLAG@{\_\_HAL\_PWR\_GET\_FLAG}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_GET\_FLAG}{\_\_HAL\_PWR\_GET\_FLAG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+GET\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+ }\end{DoxyParamCaption})~((\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/$>$CSR1 \& (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+)) == (\+\_\+\+\_\+\+FLAG\+\_\+\+\_\+))}
+
+
+
+Check PWR flag is set or not. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+FLAG\+\_\+\+\_\+} & specifies the flag to check. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item PWR\+\_\+\+FLAG\+\_\+\+WU\+: Wake Up flag. This flag indicates that a wakeup event was received on the internal wakeup line in standby mode (RTC alarm (Alarm A or Alarm B), RTC Tamper event, RTC Time\+Stamp event or RTC Wakeup)). \item PWR\+\_\+\+FLAG\+\_\+\+SB\+: Stand\+By flag. This flag indicates that the system was resumed from Stand\+By mode. ~\newline
+ \item PWR\+\_\+\+FLAG\+\_\+\+PVDO\+: PVD Output. This flag is valid only if PVD is enabled by the \mbox{\hyperlink{group___p_w_r___exported___functions___group2_ga729c254eac1847073d8a55621384107d}{HAL\+\_\+\+PWR\+\_\+\+Enable\+PVD()}} function. The PVD is stopped by Standby mode For this reason, this bit is equal to 0 after Standby or reset until the PVDE bit is set. \item PWR\+\_\+\+FLAG\+\_\+\+BRR\+: Backup regulator ready flag. This bit is not reset when the device wakes up from Standby mode or by a system reset or power reset. ~\newline
+ \item PWR\+\_\+\+FLAG\+\_\+\+VOSRDY\+: This flag indicates that the Regulator voltage scaling output selection is ready. \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em The} & new state of {\bfseries{FLAG}} (TRUE or FALSE). \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00190}{190}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_gac0fb2218bc050f5d8fdb1a3f28590352}\label{group___p_w_r___exported___macro_gac0fb2218bc050f5d8fdb1a3f28590352}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG@{\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG@{\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG}{\_\_HAL\_PWR\_PVD\_EXTI\_CLEAR\_FLAG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+CLEAR\+\_\+\+FLAG(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$PR = (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Clear the PVD Exti flag. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00271}{271}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga8bd379e960497722450c7cea474a7e7a}\label{group___p_w_r___exported___macro_ga8bd379e960497722450c7cea474a7e7a}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT}{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_EVENT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+EVENT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$EMR \&= $\sim$(\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Disable event on PVD Exti Line 16. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00221}{221}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga1ca57168205f8cd8d1014e6eb9465f2d}\label{group___p_w_r___exported___macro_ga1ca57168205f8cd8d1014e6eb9465f2d}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_FALLING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+FALLING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$FTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})}
+
+
+
+Disable the PVD Extended Interrupt Falling Trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00246}{246}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_gad240d7bf8f15191b068497b9aead1f1f}\label{group___p_w_r___exported___macro_gad240d7bf8f15191b068497b9aead1f1f}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT}{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_IT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+IT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$IMR \&= $\sim$(\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Disable the PVD EXTI Line 16. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00209}{209}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga1ca8fd7f3286a176f6be540c75a004c6}\label{group___p_w_r___exported___macro_ga1ca8fd7f3286a176f6be540c75a004c6}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$RTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})}
+
+
+
+Disable the PVD Extended Interrupt Rising Trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00233}{233}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga3f66c9c0c214cd08c24674904dcdc4e0}\label{group___p_w_r___exported___macro_ga3f66c9c0c214cd08c24674904dcdc4e0}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_DISABLE\_RISING\_FALLING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+FALLING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca8fd7f3286a176f6be540c75a004c6}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+RISING\+\_\+\+EDGE}}();\mbox{\hyperlink{group___p_w_r___exported___macro_ga1ca57168205f8cd8d1014e6eb9465f2d}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+DISABLE\+\_\+\+FALLING\+\_\+\+EDGE}}();}
+
+
+
+Disable the PVD Extended Interrupt Rising \& Falling Trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00259}{259}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_gae5ba5672fe8cb7c1686c7f2cc211b128}\label{group___p_w_r___exported___macro_gae5ba5672fe8cb7c1686c7f2cc211b128}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT}{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_EVENT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+EVENT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$EMR $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Enable event on PVD Exti Line 16. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00215}{215}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga5b971478563a00e1ee1a9d8ca8054e08}\label{group___p_w_r___exported___macro_ga5b971478563a00e1ee1a9d8ca8054e08}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_FALLING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+FALLING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$FTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})}
+
+
+
+Enable the PVD Extended Interrupt Falling Trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00239}{239}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga3180f039cf14ef78a64089f387f8f9c2}\label{group___p_w_r___exported___macro_ga3180f039cf14ef78a64089f387f8f9c2}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT}{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_IT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+IT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$IMR $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Enable the PVD Exti Line 16. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00203}{203}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga7bef3f30c9fe267c99d5240fbf3f878c}\label{group___p_w_r___exported___macro_ga7bef3f30c9fe267c99d5240fbf3f878c}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\+\_\+\+BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$RTSR, \mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}})}
+
+
+
+Enable the PVD Extended Interrupt Rising Trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00227}{227}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga638033d236eb78c1e5ecb9b49c4e7f36}\label{group___p_w_r___exported___macro_ga638033d236eb78c1e5ecb9b49c4e7f36}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE@{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE}{\_\_HAL\_PWR\_PVD\_EXTI\_ENABLE\_RISING\_FALLING\_EDGE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+FALLING\+\_\+\+EDGE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___p_w_r___exported___macro_ga7bef3f30c9fe267c99d5240fbf3f878c}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+RISING\+\_\+\+EDGE}}();\mbox{\hyperlink{group___p_w_r___exported___macro_ga5b971478563a00e1ee1a9d8ca8054e08}{\+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+ENABLE\+\_\+\+FALLING\+\_\+\+EDGE}}();}
+
+
+
+PVD EXTI line configuration\+: set rising \& falling edge trigger. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None.} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00253}{253}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_gaba4a7968f5c4c4ca6a7047b147ba18d4}\label{group___p_w_r___exported___macro_gaba4a7968f5c4c4ca6a7047b147ba18d4}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT@{\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT@{\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT}{\_\_HAL\_PWR\_PVD\_EXTI\_GENERATE\_SWIT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+GENERATE\+\_\+\+SWIT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$SWIER $\vert$= (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+Generates a Software interrupt on PVD EXTI line. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00277}{277}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga5e66fa75359b51066e0731ac1e5ae438}\label{group___p_w_r___exported___macro_ga5e66fa75359b51066e0731ac1e5ae438}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG@{\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG}}
+\index{\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG@{\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG}{\_\_HAL\_PWR\_PVD\_EXTI\_GET\_FLAG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+PVD\+\_\+\+EXTI\+\_\+\+GET\+\_\+\+FLAG(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/$>$PR \& (\mbox{\hyperlink{group___p_w_r___p_v_d___e_x_t_i___line_ga43a49255649e03d2d2b6b12c5c379d2b}{PWR\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+PVD}}))}
+
+
+
+checks whether the specified PVD Exti interrupt flag is set or not. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em EXTI} & PVD Line Status. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00265}{265}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+
+\mbox{\Hypertarget{group___p_w_r___exported___macro_ga1ee778f7ff494723bd0ef04ec44b0f77}\label{group___p_w_r___exported___macro_ga1ee778f7ff494723bd0ef04ec44b0f77}} 
+\index{PWR Exported Macro@{PWR Exported Macro}!\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG@{\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG}}
+\index{\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG@{\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG}!PWR Exported Macro@{PWR Exported Macro}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG}{\_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+PWR\+\_\+\+VOLTAGESCALING\+\_\+\+CONFIG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+REGULATOR\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                            \textcolor{keywordflow}{do} \{                                                     \(\backslash\)}
+\DoxyCodeLine{                                                            \_\_IO uint32\_t tmpreg;                               \(\backslash\)}
+\DoxyCodeLine{                                                            MODIFY\_REG(\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/>CR1, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac0de060b7b7fbbb12926c28cf5252c61}{PWR\_CR1\_VOS}}, (\_\_REGULATOR\_\_)); \(\backslash\)}
+\DoxyCodeLine{                                                            \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}  \(\backslash\)}
+\DoxyCodeLine{                                                            tmpreg = \mbox{\hyperlink{group___exported__macro_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(\mbox{\hyperlink{group___peripheral__declaration_ga04651c526497822a859942b928e57f8e}{PWR}}-\/>CR1, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac0de060b7b7fbbb12926c28cf5252c61}{PWR\_CR1\_VOS}});           \(\backslash\)}
+\DoxyCodeLine{                                                            UNUSED(tmpreg);                                     \(\backslash\)}
+\DoxyCodeLine{                                                                    \} \textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+
+
+macros configure the main internal regulator output voltage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+REGULATOR\+\_\+\+\_\+} & specifies the regulator output voltage to achieve a tradeoff between performance and power consumption when the device does not operate at the maximum frequency (refer to the datasheets for more details). This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item PWR\+\_\+\+REGULATOR\+\_\+\+VOLTAGE\+\_\+\+SCALE1\+: Regulator voltage output Scale 1 mode \item PWR\+\_\+\+REGULATOR\+\_\+\+VOLTAGE\+\_\+\+SCALE2\+: Regulator voltage output Scale 2 mode \item PWR\+\_\+\+REGULATOR\+\_\+\+VOLTAGE\+\_\+\+SCALE3\+: Regulator voltage output Scale 3 mode \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source_l00163}{163}} of file \mbox{\hyperlink{stm32f7xx__hal__pwr_8h_source}{stm32f7xx\+\_\+hal\+\_\+pwr.\+h}}.
+

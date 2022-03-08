@@ -1,0 +1,170 @@
+\hypertarget{arm__sorting_8h_source}{}\doxysection{arm\+\_\+sorting.\+h}
+\label{arm__sorting_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/arm\_sorting.h@{Autodrone32/Libraries/CMSIS/Include/arm\_sorting.h}}
+\mbox{\hyperlink{arm__sorting_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00001}00001 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00002}00002 \textcolor{comment}{ * @file     arm\_sorting.h}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00003}00003 \textcolor{comment}{ * @brief    Private header file for CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00004}00004 \textcolor{comment}{ * @version  V1.7.0}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00005}00005 \textcolor{comment}{ * @date     2019}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00006}00006 \textcolor{comment}{ ******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00007}00007 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00008}00008 \textcolor{comment}{ * Copyright (c) 2010-\/2019 Arm Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00010}00010 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00011}00011 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00012}00012 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00013}00013 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00014}00014 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00016}00016 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00017}00017 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00018}00018 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00019}00019 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00020}00020 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00021}00021 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00022}00022 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00023}00023 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00025}00025 \textcolor{preprocessor}{\#ifndef \_ARM\_SORTING\_H\_}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00026}00026 \textcolor{preprocessor}{\#define \_ARM\_SORTING\_H\_}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00028}00028 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math_8h}{arm\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00030}00030 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00031}00031 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00033}00033 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00041}00041   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_gaa0f4af67c37fe4899c0a795912196b7e}{arm\_bubble\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00042}00042     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00043}00043           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00044}00044           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00045}00045     uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00053}00053   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_gad78df0bb55b3491037cadcfca558a8e5}{arm\_heap\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00054}00054     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00055}00055           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00056}00056           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00057}00057     uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00065}00065   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga222cc58e433c7bb2e2ddbf299285357a}{arm\_insertion\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00066}00066     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00067}00067           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00068}00068           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}* pDst, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00069}00069     uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00077}00077   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga3fcc3887ce21fc0fb29fe6145a0cfe82}{arm\_quick\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00078}00078     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00079}00079           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00080}00080           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00081}00081     uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00089}00089   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga681526c5eca7716b3d0415f0d6b7f563}{arm\_selection\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00090}00090     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00091}00091           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00092}00092           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00093}00093     uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00094}00094  }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00101}00101   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga7197a17989a6f7915a97ba316a3de504}{arm\_bitonic\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00102}00102     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S,}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00103}00103           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00104}00104           \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00105}00105           uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00107}00107 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_NEON)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00109}00109 \textcolor{preprocessor}{\#define vtrn256\_128q(a, b)                   \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00110}00110 \textcolor{preprocessor}{do \{                                         \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00111}00111 \textcolor{preprocessor}{    float32x4\_t vtrn128\_temp = a.val[1]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00112}00112 \textcolor{preprocessor}{    a.val[1] = b.val[0];                 \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00113}00113 \textcolor{preprocessor}{    b.val[0] = vtrn128\_temp ;            \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00114}00114 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00116}00116 \textcolor{preprocessor}{\#define vtrn128\_64q(a, b)           \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00117}00117 \textcolor{preprocessor}{do \{                                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00118}00118 \textcolor{preprocessor}{    float32x2\_t ab, cd, ef, gh; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00119}00119 \textcolor{preprocessor}{    ab = vget\_low\_f32(a);       \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00120}00120 \textcolor{preprocessor}{    ef = vget\_low\_f32(b);       \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00121}00121 \textcolor{preprocessor}{    cd = vget\_high\_f32(a);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00122}00122 \textcolor{preprocessor}{    gh = vget\_high\_f32(b);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00123}00123 \textcolor{preprocessor}{    a = vcombine\_f32(ab, ef);   \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00124}00124 \textcolor{preprocessor}{    b = vcombine\_f32(cd, gh);   \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00125}00125 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00127}00127 \textcolor{preprocessor}{\#define vtrn256\_64q(a, b)                  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00128}00128 \textcolor{preprocessor}{do \{                                       \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00129}00129 \textcolor{preprocessor}{    float32x2\_t a\_0, a\_1, a\_2, a\_3;    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00130}00130 \textcolor{preprocessor}{    float32x2\_t b\_0, b\_1, b\_2, b\_3;    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00131}00131 \textcolor{preprocessor}{    a\_0 = vget\_low\_f32(a.val[0]);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00132}00132 \textcolor{preprocessor}{    a\_1 = vget\_high\_f32(a.val[0]);     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00133}00133 \textcolor{preprocessor}{    a\_2 = vget\_low\_f32(a.val[1]);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00134}00134 \textcolor{preprocessor}{    a\_3 = vget\_high\_f32(a.val[1]);     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00135}00135 \textcolor{preprocessor}{    b\_0 = vget\_low\_f32(b.val[0]);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00136}00136 \textcolor{preprocessor}{    b\_1 = vget\_high\_f32(b.val[0]);     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00137}00137 \textcolor{preprocessor}{    b\_2 = vget\_low\_f32(b.val[1]);      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00138}00138 \textcolor{preprocessor}{    b\_3 = vget\_high\_f32(b.val[1]);     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00139}00139 \textcolor{preprocessor}{    a.val[0] = vcombine\_f32(a\_0, b\_0); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00140}00140 \textcolor{preprocessor}{    a.val[1] = vcombine\_f32(a\_2, b\_2); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00141}00141 \textcolor{preprocessor}{    b.val[0] = vcombine\_f32(a\_1, b\_1); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00142}00142 \textcolor{preprocessor}{    b.val[1] = vcombine\_f32(a\_3, b\_3); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00143}00143 \textcolor{preprocessor}{\} while (0) }}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00145}00145 \textcolor{preprocessor}{\#define vtrn128\_32q(a, b)                               \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00146}00146 \textcolor{preprocessor}{do \{                                                    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00147}00147 \textcolor{preprocessor}{    float32x4x2\_t vtrn32\_tmp = vtrnq\_f32((a), (b)); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00148}00148 \textcolor{preprocessor}{    (a) = vtrn32\_tmp.val[0];                        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00149}00149 \textcolor{preprocessor}{    (b) = vtrn32\_tmp.val[1];                        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00150}00150 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00152}00152 \textcolor{preprocessor}{\#define vtrn256\_32q(a, b)               \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00153}00153 \textcolor{preprocessor}{do \{                                    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00154}00154 \textcolor{preprocessor}{    float32x4x2\_t vtrn32\_tmp\_1 = vtrnq\_f32((a.val[0]), (b.val[0])); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00155}00155 \textcolor{preprocessor}{    float32x4x2\_t vtrn32\_tmp\_2 = vtrnq\_f32((a.val[1]), (b.val[1])); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00156}00156 \textcolor{preprocessor}{    a.val[0] = vtrn32\_tmp\_1.val[0]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00157}00157 \textcolor{preprocessor}{    a.val[1] = vtrn32\_tmp\_2.val[0]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00158}00158 \textcolor{preprocessor}{    b.val[0] = vtrn32\_tmp\_1.val[1]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00159}00159 \textcolor{preprocessor}{    b.val[1] = vtrn32\_tmp\_2.val[1]; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00160}00160 \textcolor{preprocessor}{\} while (0) }}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00162}00162 \textcolor{preprocessor}{\#define vminmaxq(a, b)                    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00163}00163 \textcolor{preprocessor}{    do \{                              \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00164}00164 \textcolor{preprocessor}{    float32x4\_t minmax\_tmp = (a);     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00165}00165 \textcolor{preprocessor}{    (a) = vminq\_f32((a), (b));        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00166}00166 \textcolor{preprocessor}{    (b) = vmaxq\_f32(minmax\_tmp, (b)); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00167}00167 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00169}00169 \textcolor{preprocessor}{\#define vminmax256q(a, b)                         \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00170}00170 \textcolor{preprocessor}{    do \{                                      \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00171}00171 \textcolor{preprocessor}{    float32x4x2\_t minmax256\_tmp = (a);        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00172}00172 \textcolor{preprocessor}{    a.val[0] = vminq\_f32(a.val[0], b.val[0]); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00173}00173 \textcolor{preprocessor}{    a.val[1] = vminq\_f32(a.val[1], b.val[1]); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00174}00174 \textcolor{preprocessor}{    b.val[0] = vmaxq\_f32(minmax256\_tmp.val[0], b.val[0]); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00175}00175 \textcolor{preprocessor}{    b.val[1] = vmaxq\_f32(minmax256\_tmp.val[1], b.val[1]); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00176}00176 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00178}00178 \textcolor{preprocessor}{\#define vrev128q\_f32(a) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00179}00179 \textcolor{preprocessor}{        vcombine\_f32(vrev64\_f32(vget\_high\_f32(a)), vrev64\_f32(vget\_low\_f32(a)))}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00181}00181 \textcolor{preprocessor}{\#define vrev256q\_f32(a)     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00182}00182 \textcolor{preprocessor}{    do \{                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00183}00183 \textcolor{preprocessor}{        float32x4\_t rev\_tmp = vcombine\_f32(vrev64\_f32(vget\_high\_f32(a.val[0])), vrev64\_f32(vget\_low\_f32(a.val[0]))); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00184}00184 \textcolor{preprocessor}{    a.val[0] = vcombine\_f32(vrev64\_f32(vget\_high\_f32(a.val[1])), vrev64\_f32(vget\_low\_f32(a.val[1])));  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00185}00185 \textcolor{preprocessor}{    a.val[1] = rev\_tmp; \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00186}00186 \textcolor{preprocessor}{\} while (0)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00188}00188 \textcolor{preprocessor}{\#define vldrev128q\_f32(a, p) \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00189}00189 \textcolor{preprocessor}{    do \{                 \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00190}00190 \textcolor{preprocessor}{    a = vld1q\_f32(p);    \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00191}00191 \textcolor{preprocessor}{    a = vrev128q\_f32(a); \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00192}00192 \textcolor{preprocessor}{\} while (0) }}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00194}00194 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ARM\_MATH\_NEON */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00196}00196 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00197}00197 \}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00198}00198 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{arm__sorting_8h_source_l00200}00200 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_ARM\_SORTING\_H */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

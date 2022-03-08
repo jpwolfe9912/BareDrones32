@@ -1,0 +1,128 @@
+\hypertarget{config_8c}{}\doxysection{Autodrone32/\+Src/config.c File Reference}
+\label{config_8c}\index{Autodrone32/Src/config.c@{Autodrone32/Src/config.c}}
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{config_8c_ac3b89e8ed612ac7a29df09c9bb84e29e}{FLASH\+\_\+\+WRITE\+\_\+\+EEPROM\+\_\+\+ADDR}}~0x08004000
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \mbox{\hyperlink{config_8c_a726ca809ffd3d67ab4b8476646f26635a64b8f8f086c4c5f398b62edbd3741188}{eeprom\+Config\+NUMWORD}} = sizeof(eeprom\+Config\+\_\+t)/sizeof(uint32\+\_\+t)
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{config_8c_a0ccfb42ea0b2eac66bd3773b34fd6b96}{parse\+Rc\+Channels}} (const char $\ast$input)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{config_8c_abb54b6c03c4ecca3c9cf43638135a884}{crc32b\+EEPROM}} (\mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} $\ast$e, int include\+CRCAt\+End)
+\item 
+void \mbox{\hyperlink{config_8c_ad7e2897a0fa02e667ade878c31a4a8af}{read\+EEPROM}} (void)
+\item 
+int \mbox{\hyperlink{config_8c_a9e7169a612983755fee2361b185befb6}{write\+EEPROM}} (void)
+\item 
+void \mbox{\hyperlink{config_8c_ad11ec57672a83816f90dd713cd28a65d}{check\+First\+Time}} (bool eeprom\+Reset)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{config_8c_a7e4bc0f5a31702963adbe9db80a2204d}{rc\+Channel\+Letters}} \mbox{[}$\,$\mbox{]} = \char`\"{}AERT12345678\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{config_8c_ac3b89e8ed612ac7a29df09c9bb84e29e}\label{config_8c_ac3b89e8ed612ac7a29df09c9bb84e29e}} 
+\index{config.c@{config.c}!FLASH\_WRITE\_EEPROM\_ADDR@{FLASH\_WRITE\_EEPROM\_ADDR}}
+\index{FLASH\_WRITE\_EEPROM\_ADDR@{FLASH\_WRITE\_EEPROM\_ADDR}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{FLASH\_WRITE\_EEPROM\_ADDR}{FLASH\_WRITE\_EEPROM\_ADDR}}
+{\footnotesize\ttfamily \#define FLASH\+\_\+\+WRITE\+\_\+\+EEPROM\+\_\+\+ADDR~0x08004000}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00041}{41}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{config_8c_a726ca809ffd3d67ab4b8476646f26635}\label{config_8c_a726ca809ffd3d67ab4b8476646f26635}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eepromConfigNUMWORD@{eepromConfigNUMWORD}!config.c@{config.c}}\index{config.c@{config.c}!eepromConfigNUMWORD@{eepromConfigNUMWORD}}}\mbox{\Hypertarget{config_8c_a726ca809ffd3d67ab4b8476646f26635a64b8f8f086c4c5f398b62edbd3741188}\label{config_8c_a726ca809ffd3d67ab4b8476646f26635a64b8f8f086c4c5f398b62edbd3741188}} 
+eeprom\+Config\+NUMWORD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00070}{70}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{config_8c_ad11ec57672a83816f90dd713cd28a65d}\label{config_8c_ad11ec57672a83816f90dd713cd28a65d}} 
+\index{config.c@{config.c}!checkFirstTime@{checkFirstTime}}
+\index{checkFirstTime@{checkFirstTime}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{checkFirstTime()}{checkFirstTime()}}
+{\footnotesize\ttfamily void check\+First\+Time (\begin{DoxyParamCaption}\item[{bool}]{eeprom\+Reset }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00137}{137}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+\mbox{\Hypertarget{config_8c_abb54b6c03c4ecca3c9cf43638135a884}\label{config_8c_abb54b6c03c4ecca3c9cf43638135a884}} 
+\index{config.c@{config.c}!crc32bEEPROM@{crc32bEEPROM}}
+\index{crc32bEEPROM@{crc32bEEPROM}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{crc32bEEPROM()}{crc32bEEPROM()}}
+{\footnotesize\ttfamily uint32\+\_\+t crc32b\+EEPROM (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} $\ast$}]{e,  }\item[{int}]{include\+CRCAt\+End }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00063}{63}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+\mbox{\Hypertarget{config_8c_a0ccfb42ea0b2eac66bd3773b34fd6b96}\label{config_8c_a0ccfb42ea0b2eac66bd3773b34fd6b96}} 
+\index{config.c@{config.c}!parseRcChannels@{parseRcChannels}}
+\index{parseRcChannels@{parseRcChannels}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{parseRcChannels()}{parseRcChannels()}}
+{\footnotesize\ttfamily void parse\+Rc\+Channels (\begin{DoxyParamCaption}\item[{const char $\ast$}]{input }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00049}{49}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+\mbox{\Hypertarget{config_8c_ad7e2897a0fa02e667ade878c31a4a8af}\label{config_8c_ad7e2897a0fa02e667ade878c31a4a8af}} 
+\index{config.c@{config.c}!readEEPROM@{readEEPROM}}
+\index{readEEPROM@{readEEPROM}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{readEEPROM()}{readEEPROM()}}
+{\footnotesize\ttfamily void read\+EEPROM (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00072}{72}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+\mbox{\Hypertarget{config_8c_a9e7169a612983755fee2361b185befb6}\label{config_8c_a9e7169a612983755fee2361b185befb6}} 
+\index{config.c@{config.c}!writeEEPROM@{writeEEPROM}}
+\index{writeEEPROM@{writeEEPROM}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{writeEEPROM()}{writeEEPROM()}}
+{\footnotesize\ttfamily int write\+EEPROM (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00093}{93}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{config_8c_a7e4bc0f5a31702963adbe9db80a2204d}\label{config_8c_a7e4bc0f5a31702963adbe9db80a2204d}} 
+\index{config.c@{config.c}!rcChannelLetters@{rcChannelLetters}}
+\index{rcChannelLetters@{rcChannelLetters}!config.c@{config.c}}
+\doxysubsubsection{\texorpdfstring{rcChannelLetters}{rcChannelLetters}}
+{\footnotesize\ttfamily const char rc\+Channel\+Letters\mbox{[}$\,$\mbox{]} = \char`\"{}AERT12345678\char`\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{config_8c_source_l00043}{43}} of file \mbox{\hyperlink{config_8c_source}{config.\+c}}.
+

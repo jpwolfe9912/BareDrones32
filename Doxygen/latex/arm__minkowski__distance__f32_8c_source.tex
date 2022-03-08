@@ -1,0 +1,175 @@
+\hypertarget{arm__minkowski__distance__f32_8c_source}{}\doxysection{arm\+\_\+minkowski\+\_\+distance\+\_\+f32.\+c}
+\label{arm__minkowski__distance__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_minkowski\_distance\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_minkowski\_distance\_f32.c}}
+\mbox{\hyperlink{arm__minkowski__distance__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00002}00002 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00003}00003 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00004}00004 \textcolor{comment}{ * Title:        arm\_minkowski\_distance\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00005}00005 \textcolor{comment}{ * Description:  Minkowski distance between two vectors}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00006}00006 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00008}00008 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00010}00010 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00011}00011 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00012}00012 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00013}00013 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00014}00014 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00015}00015 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00017}00017 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00018}00018 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00019}00019 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00020}00020 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00021}00021 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00022}00022 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00023}00023 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00024}00024 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00025}00025 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00026}00026 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00027}00027 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00028}00028 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{distance__functions_8h}{dsp/distance\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00031}00031 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00032}00032 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00040}00040 \textcolor{comment}{/* 6.14 bug */}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00041}00041 \textcolor{preprocessor}{\#if defined (\_\_ARMCC\_VERSION) \&\& (\_\_ARMCC\_VERSION >= 6100100) \&\& (\_\_ARMCC\_VERSION < 6150001)}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00042}00042  }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00043}00043 \mbox{\hyperlink{group___c_m_s_i_s___core___instruction_interface_gae84a2733711339c5eefeb0d899506b96}{\_\_attribute\_\_}}((weak)) \textcolor{keywordtype}{float} \_\_powisf2(\textcolor{keywordtype}{float} a, \textcolor{keywordtype}{int} b)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00044}00044 \{ }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00045}00045     \textcolor{keyword}{const} \textcolor{keywordtype}{int} recip = b < 0;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00046}00046     \textcolor{keywordtype}{float} r = 1;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00047}00047     \textcolor{keywordflow}{while} (1)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00048}00048     \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00049}00049         \textcolor{keywordflow}{if} (b \& 1)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00050}00050             r *= a;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00051}00051         b /= 2;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00052}00052         \textcolor{keywordflow}{if} (b == 0)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00053}00053             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00054}00054         a *= a;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00055}00055     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00056}00056     \textcolor{keywordflow}{return} recip ? 1/r : r;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00057}00057 \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00058}00058 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00071}00071 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00073}00073 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00074}00074 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__vec__math_8h}{arm\_vec\_math.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00076}00076 \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___minkowski_gadee2e217acf8a2e28f6cc0d1668e4902}{arm\_minkowski\_distance\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pA,\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pB, int32\_t order, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00077}00077 \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00078}00078     uint32\_t        blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00079}00079     f32x4\_t         a, b, tmpV, sumV;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00081}00081     sumV = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00083}00083     blkCnt = blockSize >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00084}00084     \textcolor{keywordflow}{while} (blkCnt > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00085}00085         a = vld1q(pA);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00086}00086         b = vld1q(pB);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00088}00088         tmpV = vabdq(a, b);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00089}00089         tmpV = vpowq\_f32(tmpV, vdupq\_n\_f32(order));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00090}00090         sumV = vaddq(sumV, tmpV);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00092}00092         pA += 4;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00093}00093         pB += 4;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00094}00094         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00095}00095     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00097}00097     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00098}00098 \textcolor{comment}{     * tail}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00099}00099 \textcolor{comment}{     * (will be merged thru tail predication)}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00100}00100 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00101}00101     blkCnt = blockSize \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00102}00102     \textcolor{keywordflow}{if} (blkCnt > 0U) \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00103}00103         mve\_pred16\_t    p0 = vctp32q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00105}00105         a = vldrwq\_z\_f32(pA, p0);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00106}00106         b = vldrwq\_z\_f32(pB, p0);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00108}00108         tmpV = vabdq(a, b);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00109}00109         tmpV = vpowq\_f32(tmpV, vdupq\_n\_f32(order));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00110}00110         sumV = vaddq\_m(sumV, sumV, tmpV, p0);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00111}00111     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00113}00113     \textcolor{keywordflow}{return} (powf(vecAddAcrossF32Mve(sumV), (1.0f / (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}) order)));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00114}00114 \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00116}00116 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00117}00117 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_NEON)}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00119}00119 \textcolor{preprocessor}{\#include "{}NEMath.h"{}}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00121}00121 \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___minkowski_gadee2e217acf8a2e28f6cc0d1668e4902}{arm\_minkowski\_distance\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pA,\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pB, int32\_t order, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00122}00122 \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00123}00123     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sum;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00124}00124     uint32\_t blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00125}00125     float32x4\_t sumV,aV,bV, tmpV, n;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00126}00126     float32x2\_t sumV2;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00128}00128     sum = 0.0f; }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00129}00129     sumV = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00130}00130     n = vdupq\_n\_f32(order);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00132}00132     blkCnt = blockSize >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00133}00133     \textcolor{keywordflow}{while}(blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00134}00134     \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00135}00135        aV = vld1q\_f32(pA);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00136}00136        bV = vld1q\_f32(pB);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00137}00137        pA += 4;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00138}00138        pB += 4;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00140}00140        tmpV = vabdq\_f32(aV,bV);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00141}00141        tmpV = vpowq\_f32(tmpV,n);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00142}00142        sumV = vaddq\_f32(sumV, tmpV);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00145}00145        blkCnt -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00146}00146     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00148}00148     sumV2 = vpadd\_f32(vget\_low\_f32(sumV),vget\_high\_f32(sumV));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00149}00149     sum = vget\_lane\_f32(sumV2, 0) + vget\_lane\_f32(sumV2, 1);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00151}00151     blkCnt = blockSize \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00152}00152     \textcolor{keywordflow}{while}(blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00153}00153     \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00154}00154        sum += powf(fabsf(*pA++ -\/ *pB++),order);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00156}00156        blkCnt -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00157}00157     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00160}00160     \textcolor{keywordflow}{return}(powf(sum,(1.0f/order)));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00162}00162 \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00164}00164 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00167}\mbox{\hyperlink{group___minkowski_gadee2e217acf8a2e28f6cc0d1668e4902}{00167}} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___minkowski_gadee2e217acf8a2e28f6cc0d1668e4902}{arm\_minkowski\_distance\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pA,\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pB, int32\_t order, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00168}00168 \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00169}00169     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sum;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00170}00170     uint32\_t i;}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00172}00172     sum = 0.0f; }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00173}00173     \textcolor{keywordflow}{for}(i=0; i < blockSize; i++)}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00174}00174     \{}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00175}00175        sum += powf(fabsf(pA[i] -\/ pB[i]),order);}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00176}00176     \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00179}00179     \textcolor{keywordflow}{return}(powf(sum,(1.0f/order)));}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00181}00181 \}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00182}00182 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00183}00183 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__minkowski__distance__f32_8c_source_l00185}00185 }
+
+\end{DoxyCode}

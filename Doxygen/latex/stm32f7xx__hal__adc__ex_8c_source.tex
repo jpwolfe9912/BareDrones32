@@ -1,0 +1,811 @@
+\hypertarget{stm32f7xx__hal__adc__ex_8c_source}{}\doxysection{stm32f7xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c}
+\label{stm32f7xx__hal__adc__ex_8c_source}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_adc\_ex.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_adc\_ex.c}}
+\mbox{\hyperlink{stm32f7xx__hal__adc__ex_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00086}00086 \textcolor{comment}{/* Includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00087}00087 \textcolor{preprocessor}{\#include "{}../../../Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00098}00098 \textcolor{preprocessor}{\#ifdef HAL\_ADC\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00099}00099     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00100}00100 \textcolor{comment}{/* Private typedef -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00101}00101 \textcolor{comment}{/* Private define -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/} }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00102}00102 \textcolor{comment}{/* Private macro -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00103}00103 \textcolor{comment}{/* Private variables -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00107}00107 \textcolor{comment}{/* Private function prototypes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00108}00108 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAConvCplt(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00109}00109 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAError(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00110}00110 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAHalfConvCplt(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma); }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00115}00115 \textcolor{comment}{/* Exported functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00147}00147 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaa666882ff772df8a5140090422825ed6}{HAL\_ADCEx\_InjectedStart}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00148}00148 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00149}00149   \mbox{\hyperlink{core__armv8mbl_8h_aec43007d9998a0a0e01faede4133d6be}{\_\_IO}} uint32\_t counter = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00150}00150   uint32\_t tmp1 = 0, tmp2 = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00151}00151   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00152}00152   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00153}00153   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00154}00154   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00155}00155   \textcolor{comment}{/* Enable the ADC peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00156}00156   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00157}00157   \textcolor{comment}{/* Check if ADC peripheral is disabled in order to enable it and wait during }}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00158}00158 \textcolor{comment}{     Tstab time the ADC's stabilization */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00159}00159   \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}) != \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00160}00160   \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00161}00161     \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00162}00162     \mbox{\hyperlink{group___a_d_c___exported___macros_gaadf16862da7593def189559423c287f4}{\_\_HAL\_ADC\_ENABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00163}00163     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00164}00164     \textcolor{comment}{/* Delay for ADC stabilization time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00165}00165     \textcolor{comment}{/* Compute number of CPU cycles to wait for */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00166}00166     counter = (\mbox{\hyperlink{group___a_d_c___private___constants_gad0d1562099d9e378dd1d33b3519cd0c2}{ADC\_STAB\_DELAY\_US}} * (\mbox{\hyperlink{group___s_t_m32_f7xx___system___exported___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000000));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00167}00167     \textcolor{keywordflow}{while}(counter != 0)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00168}00168     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00169}00169       counter-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00170}00170     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00171}00171   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00172}00172   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00173}00173   \textcolor{comment}{/* Start conversion if ADC is effectively enabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00174}00174   \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a5b44dfd2a26f85f7b628b0945daff2c3}{HAL\_IS\_BIT\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00175}00175   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00176}00176     \textcolor{comment}{/* Set ADC state                                                          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00177}00177     \textcolor{comment}{/* -\/ Clear state bitfield related to injected group conversion results    */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00178}00178     \textcolor{comment}{/* -\/ Set state bitfield related to injected operation                     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00179}00179     \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00180}00180                       \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}} | \mbox{\hyperlink{group___a_d_c___exported___types_gafcfffd11ab8b84d3b0a1ce50ccf821d5}{HAL\_ADC\_STATE\_INJ\_EOC}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00181}00181                       \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00182}00182     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00183}00183     \textcolor{comment}{/* Check if a regular conversion is ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00184}00184     \textcolor{comment}{/* Note: On this device, there is no ADC error code fields related to     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00185}00185     \textcolor{comment}{/*       conversions on group injected only. In case of conversion on     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00186}00186     \textcolor{comment}{/*       going on group regular, no error code is reset.                  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00187}00187     \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00188}00188     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00189}00189       \textcolor{comment}{/* Reset ADC all error code fields */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00190}00190       \mbox{\hyperlink{group___a_d_c___private___macros_gac7ab87a3ab932eed1b3ac5faad4e3aa9}{ADC\_CLEAR\_ERRORCODE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00191}00191     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00192}00192     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00193}00193     \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00194}00194     \textcolor{comment}{/* Unlock before starting ADC conversions: in case of potential           */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00195}00195     \textcolor{comment}{/* interruption, to let the process to ADC IRQ Handler.                   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00196}00196     \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00197}00197     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00198}00198     \textcolor{comment}{/* Clear injected group conversion flag */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00199}00199     \textcolor{comment}{/* (To ensure of no unknown state from potential previous ADC operations) */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00200}00200     \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\_\_HAL\_ADC\_CLEAR\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00201}00201     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00202}00202     \textcolor{comment}{/* Check if Multimode enabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00203}00203     \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(\mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf70ab04667c7c7da0f29c0e5a6c48e68}{ADC\_CCR\_MULTI}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00204}00204     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00205}00205       tmp1 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00206}00206       tmp2 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00207}00207       \textcolor{keywordflow}{if}(tmp1 \&\& tmp2)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00208}00208       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00209}00209         \textcolor{comment}{/* Enable the selected ADC software conversion for injected group */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00210}00210         hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac12fe8a6cc24eef2ed2e1f1525855678}{ADC\_CR2\_JSWSTART}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00211}00211       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00212}00212     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00213}00213     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00214}00214     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00215}00215       tmp1 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00216}00216       tmp2 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00217}00217       \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}} == \mbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}) \&\& tmp1 \&\& tmp2)  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00218}00218       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00219}00219         \textcolor{comment}{/* Enable the selected ADC software conversion for injected group */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00220}00220         hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac12fe8a6cc24eef2ed2e1f1525855678}{ADC\_CR2\_JSWSTART}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00221}00221       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00222}00222     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00223}00223   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00224}00224   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00225}00225   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00226}00226     \textcolor{comment}{/* Update ADC state machine to error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00227}00227     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga65b592627f1f9277f4b89bfc33a9e641}{HAL\_ADC\_STATE\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00228}00228     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00229}00229     \textcolor{comment}{/* Set ADC error code to ADC IP internal error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00230}00230     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}}, \mbox{\hyperlink{group___a_d_c___error___code_ga7182f9ffc028f217db8724c7bc348f2f}{HAL\_ADC\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00231}00231   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00232}00232   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00233}00233   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00234}00234   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00235}00235 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00244}00244 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaf55cd28b1394a0564f99e1f5069c0ed1}{HAL\_ADCEx\_InjectedStart\_IT}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00245}00245 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00246}00246   \mbox{\hyperlink{core__armv8mbl_8h_aec43007d9998a0a0e01faede4133d6be}{\_\_IO}} uint32\_t counter = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00247}00247   uint32\_t tmp1 = 0, tmp2 = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00248}00248   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00249}00249   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00250}00250   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00251}00251   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00252}00252   \textcolor{comment}{/* Enable the ADC peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00253}00253   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00254}00254   \textcolor{comment}{/* Check if ADC peripheral is disabled in order to enable it and wait during }}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00255}00255 \textcolor{comment}{     Tstab time the ADC's stabilization */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00256}00256   \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}) != \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00257}00257   \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00258}00258     \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00259}00259     \mbox{\hyperlink{group___a_d_c___exported___macros_gaadf16862da7593def189559423c287f4}{\_\_HAL\_ADC\_ENABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00260}00260     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00261}00261     \textcolor{comment}{/* Delay for ADC stabilization time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00262}00262     \textcolor{comment}{/* Compute number of CPU cycles to wait for */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00263}00263     counter = (\mbox{\hyperlink{group___a_d_c___private___constants_gad0d1562099d9e378dd1d33b3519cd0c2}{ADC\_STAB\_DELAY\_US}} * (\mbox{\hyperlink{group___s_t_m32_f7xx___system___exported___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000000));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00264}00264     \textcolor{keywordflow}{while}(counter != 0)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00265}00265     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00266}00266       counter-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00267}00267     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00268}00268   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00269}00269   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00270}00270   \textcolor{comment}{/* Start conversion if ADC is effectively enabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00271}00271   \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a5b44dfd2a26f85f7b628b0945daff2c3}{HAL\_IS\_BIT\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00272}00272   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00273}00273     \textcolor{comment}{/* Set ADC state                                                          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00274}00274     \textcolor{comment}{/* -\/ Clear state bitfield related to injected group conversion results    */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00275}00275     \textcolor{comment}{/* -\/ Set state bitfield related to injected operation                     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00276}00276     \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00277}00277                       \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}} | \mbox{\hyperlink{group___a_d_c___exported___types_gafcfffd11ab8b84d3b0a1ce50ccf821d5}{HAL\_ADC\_STATE\_INJ\_EOC}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00278}00278                       \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00279}00279     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00280}00280     \textcolor{comment}{/* Check if a regular conversion is ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00281}00281     \textcolor{comment}{/* Note: On this device, there is no ADC error code fields related to     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00282}00282     \textcolor{comment}{/*       conversions on group injected only. In case of conversion on     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00283}00283     \textcolor{comment}{/*       going on group regular, no error code is reset.                  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00284}00284     \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00285}00285     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00286}00286       \textcolor{comment}{/* Reset ADC all error code fields */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00287}00287       \mbox{\hyperlink{group___a_d_c___private___macros_gac7ab87a3ab932eed1b3ac5faad4e3aa9}{ADC\_CLEAR\_ERRORCODE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00288}00288     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00289}00289     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00290}00290     \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00291}00291     \textcolor{comment}{/* Unlock before starting ADC conversions: in case of potential           */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00292}00292     \textcolor{comment}{/* interruption, to let the process to ADC IRQ Handler.                   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00293}00293     \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00294}00294     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00295}00295     \textcolor{comment}{/* Clear injected group conversion flag */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00296}00296     \textcolor{comment}{/* (To ensure of no unknown state from potential previous ADC operations) */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00297}00297     \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\_\_HAL\_ADC\_CLEAR\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00298}00298     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00299}00299     \textcolor{comment}{/* Enable end of conversion interrupt for injected channels */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00300}00300     \mbox{\hyperlink{group___a_d_c___exported___macros_ga650073de508d335d0a1c7bf9b4d07afe}{\_\_HAL\_ADC\_ENABLE\_IT}}(hadc, \mbox{\hyperlink{group___a_d_c__interrupts__definition_gad439fc0cd69706704d47aeabfeddb631}{ADC\_IT\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00301}00301     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00302}00302     \textcolor{comment}{/* Check if Multimode enabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00303}00303     \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(\mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf70ab04667c7c7da0f29c0e5a6c48e68}{ADC\_CCR\_MULTI}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00304}00304     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00305}00305       tmp1 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00306}00306       tmp2 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00307}00307       \textcolor{keywordflow}{if}(tmp1 \&\& tmp2)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00308}00308       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00309}00309         \textcolor{comment}{/* Enable the selected ADC software conversion for injected group */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00310}00310         hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac12fe8a6cc24eef2ed2e1f1525855678}{ADC\_CR2\_JSWSTART}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00311}00311       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00312}00312     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00313}00313     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00314}00314     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00315}00315       tmp1 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00316}00316       tmp2 = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00317}00317       \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}} == \mbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}) \&\& tmp1 \&\& tmp2)  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00318}00318       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00319}00319         \textcolor{comment}{/* Enable the selected ADC software conversion for injected group */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00320}00320         hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gac12fe8a6cc24eef2ed2e1f1525855678}{ADC\_CR2\_JSWSTART}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00321}00321       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00322}00322     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00323}00323   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00324}00324   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00325}00325   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00326}00326     \textcolor{comment}{/* Update ADC state machine to error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00327}00327     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga65b592627f1f9277f4b89bfc33a9e641}{HAL\_ADC\_STATE\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00328}00328     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00329}00329     \textcolor{comment}{/* Set ADC error code to ADC IP internal error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00330}00330     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}}, \mbox{\hyperlink{group___a_d_c___error___code_ga7182f9ffc028f217db8724c7bc348f2f}{HAL\_ADC\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00331}00331   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00332}00332   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00333}00333   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00334}00334   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00335}00335 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00336}00336 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00349}00349 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga91f6c85ae910e9baaf578a346c30c7c1}{HAL\_ADCEx\_InjectedStop}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00350}00350 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00351}00351   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} tmp\_hal\_status = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00352}00352   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00353}00353   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00354}00354   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__macros_gaeac7a787d73a78a847467ce6b867bd7f}{IS\_ADC\_ALL\_INSTANCE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00356}00356   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00357}00357   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00358}00358     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00359}00359   \textcolor{comment}{/* Stop potential conversion and disable ADC peripheral                     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00360}00360   \textcolor{comment}{/* Conditioned to:                                                          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00361}00361   \textcolor{comment}{/* -\/ No conversion on the other group (regular group) is intended to        */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00362}00362   \textcolor{comment}{/*   continue (injected and regular groups stop conversion and ADC disable  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00363}00363   \textcolor{comment}{/*   are common)                                                            */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00364}00364   \textcolor{comment}{/* -\/ In case of auto-\/injection mode, HAL\_ADC\_Stop must be used.             */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00365}00365   \textcolor{keywordflow}{if}(((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}} \& \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}}) == \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})  \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00366}00366      \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}})   )}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00367}00367   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00368}00368     \textcolor{comment}{/* Stop potential conversion on going, on regular and injected groups */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00369}00369     \textcolor{comment}{/* Disable ADC peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00370}00370     \mbox{\hyperlink{group___a_d_c___exported___macros_ga8afd5963c41c0a30c5cf1fec5c5710b3}{\_\_HAL\_ADC\_DISABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00371}00371     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00372}00372     \textcolor{comment}{/* Check if ADC is effectively disabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00373}00373     \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00374}00374     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00375}00375       \textcolor{comment}{/* Set ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00376}00376       \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00377}00377                         \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}} | \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00378}00378                         \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00379}00379     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00380}00380   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00381}00381   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00382}00382   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00383}00383     \textcolor{comment}{/* Update ADC state machine to error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00384}00384     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\_ADC\_STATE\_ERROR\_CONFIG}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00385}00385       }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00386}00386     tmp\_hal\_status = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00387}00387   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00388}00388   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00389}00389   \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00390}00390   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00391}00391   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00392}00392   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00393}00393   \textcolor{keywordflow}{return} tmp\_hal\_status;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00394}00394 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00403}00403 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5e11b306be79f36c71a73f2e465ad613}{HAL\_ADCEx\_InjectedPollForConversion}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc, uint32\_t Timeout)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00404}00404 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00405}00405   uint32\_t tickstart = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00406}00406 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00407}00407   \textcolor{comment}{/* Get tick */} }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00408}00408   tickstart = \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00409}00409 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00410}00410   \textcolor{comment}{/* Check End of conversion flag */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00411}00411   \textcolor{keywordflow}{while}(!(\mbox{\hyperlink{group___a_d_c___exported___macros_gaff951862689bb92173f803577cf2d447}{\_\_HAL\_ADC\_GET\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}})))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00412}00412   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00413}00413     \textcolor{comment}{/* Check for the Timeout */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00414}00414     \textcolor{keywordflow}{if}(Timeout != \mbox{\hyperlink{stm32f7xx__hal__def_8h_aad28bc64749c50dcedd6bf819fdc6974}{HAL\_MAX\_DELAY}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00415}00415     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00416}00416       \textcolor{keywordflow}{if}((Timeout == 0)||((\mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}() -\/ tickstart ) > Timeout))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00417}00417       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00418}00418         \textcolor{comment}{/* New check to avoid false timeout detection in case of preemption */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00419}00419         \textcolor{keywordflow}{if}(!(\mbox{\hyperlink{group___a_d_c___exported___macros_gaff951862689bb92173f803577cf2d447}{\_\_HAL\_ADC\_GET\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}})))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00420}00420         \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00421}00421           hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}= \mbox{\hyperlink{group___a_d_c___exported___types_gaaa31ad8c2f5337eac601534cb581dd15}{HAL\_ADC\_STATE\_TIMEOUT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00422}00422           \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00423}00423           \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00424}00424           \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5}{HAL\_TIMEOUT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00425}00425         \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00426}00426       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00427}00427     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00428}00428   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00429}00429   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00430}00430   \textcolor{comment}{/* Clear injected group conversion flag */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00431}00431   \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\_\_HAL\_ADC\_CLEAR\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga278f4e866f4322c1120bf0db5301c432}{ADC\_FLAG\_JSTRT}} | \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00432}00432     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00433}00433   \textcolor{comment}{/* Update ADC state machine */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00434}00434   \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_gafcfffd11ab8b84d3b0a1ce50ccf821d5}{HAL\_ADC\_STATE\_INJ\_EOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00435}00435   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00436}00436   \textcolor{comment}{/* Determine whether any further conversion upcoming on group injected      */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00437}00437   \textcolor{comment}{/* by external trigger, continuous mode or scan sequence on going.          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00438}00438   \textcolor{comment}{/* Note: On STM32F7, there is no independent flag of end of sequence.       */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00439}00439   \textcolor{comment}{/*       The test of scan sequence on going is done either with scan        */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00440}00440   \textcolor{comment}{/*       sequence disabled or with end of conversion flag set to            */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00441}00441   \textcolor{comment}{/*       of end of sequence.                                                */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00442}00442   \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___a_d_c___private___macros_gaa3a1c2197a097b9bb8159b6eb1ac8941}{ADC\_IS\_SOFTWARE\_START\_INJECTED}}(hadc)                    \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00443}00443      (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a75e0cc079831adcc051df456737d3ae4}{JSQR}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa624d1fe34014b88873e2dfa91f79232}{ADC\_JSQR\_JL}})  ||}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00444}00444       \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf9dac2004ab20295e04012060ab24aeb}{ADC\_CR2\_EOCS}})    ) \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00445}00445      (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}}) \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00446}00446       (\mbox{\hyperlink{group___a_d_c___private___macros_ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b}{ADC\_IS\_SOFTWARE\_START\_REGULAR}}(hadc)       \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00447}00447       (hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_a768ec42e36553ad0acb7ad029462a59d}{ContinuousConvMode}} == \mbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})   )       )   )}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00448}00448   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00449}00449     \textcolor{comment}{/* Set ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00450}00450     \mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00451}00451     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00452}00452     \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00453}00453     \{ }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00454}00454       \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00455}00455     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00456}00456   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00457}00457   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00458}00458   \textcolor{comment}{/* Return ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00459}00459   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00460}00460 \}      }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00461}00461   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00474}00474 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gae032f41136f4dc4b3f3c2476b96a21f5}{HAL\_ADCEx\_InjectedStop\_IT}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00475}00475 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00476}00476   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} tmp\_hal\_status = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00477}00477   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00478}00478   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00479}00479   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__macros_gaeac7a787d73a78a847467ce6b867bd7f}{IS\_ADC\_ALL\_INSTANCE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00480}00480 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00481}00481   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00482}00482   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00483}00483     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00484}00484   \textcolor{comment}{/* Stop potential conversion and disable ADC peripheral                     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00485}00485   \textcolor{comment}{/* Conditioned to:                                                          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00486}00486   \textcolor{comment}{/* -\/ No conversion on the other group (regular group) is intended to        */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00487}00487   \textcolor{comment}{/*   continue (injected and regular groups stop conversion and ADC disable  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00488}00488   \textcolor{comment}{/*   are common)                                                            */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00489}00489   \textcolor{comment}{/* -\/ In case of auto-\/injection mode, HAL\_ADC\_Stop must be used.             */} }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00490}00490   \textcolor{keywordflow}{if}(((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}} \& \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}}) == \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})  \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00491}00491      \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}})   )}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00492}00492   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00493}00493     \textcolor{comment}{/* Stop potential conversion on going, on regular and injected groups */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00494}00494     \textcolor{comment}{/* Disable ADC peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00495}00495     \mbox{\hyperlink{group___a_d_c___exported___macros_ga8afd5963c41c0a30c5cf1fec5c5710b3}{\_\_HAL\_ADC\_DISABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00496}00496     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00497}00497     \textcolor{comment}{/* Check if ADC is effectively disabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00498}00498     \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00499}00499     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00500}00500       \textcolor{comment}{/* Disable ADC end of conversion interrupt for injected channels */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00501}00501       \mbox{\hyperlink{group___a_d_c___exported___macros_gadcec48b44a2133effd20f41ab227edb9}{\_\_HAL\_ADC\_DISABLE\_IT}}(hadc, \mbox{\hyperlink{group___a_d_c__interrupts__definition_gad439fc0cd69706704d47aeabfeddb631}{ADC\_IT\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00502}00502       }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00503}00503       \textcolor{comment}{/* Set ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00504}00504       \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00505}00505                         \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}} | \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00506}00506                         \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00507}00507     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00508}00508   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00509}00509   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00510}00510   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00511}00511     \textcolor{comment}{/* Update ADC state machine to error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00512}00512     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\_ADC\_STATE\_ERROR\_CONFIG}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00513}00513       }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00514}00514     tmp\_hal\_status = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00515}00515   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00516}00516   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00517}00517   \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00518}00518   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00519}00519   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00520}00520   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00521}00521   \textcolor{keywordflow}{return} tmp\_hal\_status;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00522}00522 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00523}00523 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00536}00536 uint32\_t \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga7996668b61263f91c76d5f55551f3a07}{HAL\_ADCEx\_InjectedGetValue}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc, uint32\_t InjectedRank)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00537}00537 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00538}00538   \mbox{\hyperlink{core__armv8mbl_8h_aec43007d9998a0a0e01faede4133d6be}{\_\_IO}} uint32\_t tmp = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00539}00539   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00540}00540   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00541}00541   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga4bc1e0b0f685be6d9751328a25b3716d}{IS\_ADC\_INJECTED\_RANK}}(InjectedRank));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00542}00542   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00543}00543   \textcolor{comment}{/* Clear injected group conversion flag to have similar behaviour as        */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00544}00544   \textcolor{comment}{/* regular group: reading data register also clears end of conversion flag. */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00545}00545   \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\_\_HAL\_ADC\_CLEAR\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_ga4df8eea8ab83d98104ee15a339743a4e}{ADC\_FLAG\_JEOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00546}00546   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00547}00547   \textcolor{comment}{/* Return the selected ADC converted value */} }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00548}00548   \textcolor{keywordflow}{switch}(InjectedRank)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00549}00549   \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00550}00550     \textcolor{keywordflow}{case} \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gaffe7c5042c696b39ef23fba9af5a88b9}{ADC\_INJECTED\_RANK\_4}}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00551}00551     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00552}00552       tmp =  hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a9274ceea3b2c6d5c1903d0a7abad91a1}{JDR4}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00553}00553     \}  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00554}00554     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00555}00555     \textcolor{keywordflow}{case} \mbox{\hyperlink{group___a_d_c_ex__injected__rank_ga5fa8c3014caccae280220fd3df5d7f23}{ADC\_INJECTED\_RANK\_3}}: }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00556}00556     \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00557}00557       tmp =  hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a3a54028253a75a470fccf841178cba46}{JDR3}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00558}00558     \}  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00559}00559     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00560}00560     \textcolor{keywordflow}{case} \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gaf065faf92e099a1667694233384d187e}{ADC\_INJECTED\_RANK\_2}}: }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00561}00561     \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00562}00562       tmp =  hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ae9156af81694b7a85923348be45a2167}{JDR2}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00563}00563     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00564}00564     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00565}00565     \textcolor{keywordflow}{case} \mbox{\hyperlink{group___a_d_c_ex__injected__rank_gabe6252325fda6b22c794ea7b0e974ee3}{ADC\_INJECTED\_RANK\_1}}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00566}00566     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00567}00567       tmp =  hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a22fa21352be442bd02f9c26a1013d598}{JDR1}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00568}00568     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00569}00569     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00570}00570     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00571}00571     \textcolor{keywordflow}{break};  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00572}00572   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00573}00573   \textcolor{keywordflow}{return} tmp;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00574}00574 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00575}00575 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00587}00587 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gab36a3508a06430d7c7d0def79ec61b08}{HAL\_ADCEx\_MultiModeStart\_DMA}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc, uint32\_t* pData, uint32\_t Length)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00588}00588 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00589}00589   \mbox{\hyperlink{core__armv8mbl_8h_aec43007d9998a0a0e01faede4133d6be}{\_\_IO}} uint32\_t counter = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00590}00590   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00591}00591   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00592}00592   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_a768ec42e36553ad0acb7ad029462a59d}{ContinuousConvMode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00593}00593   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c___private___macros_ga101bf364bcfd48f8f023fa43c4d252b7}{IS\_ADC\_EXT\_TRIG\_EDGE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_ace2c616b80bb7f1982e8a52131a2732c}{ExternalTrigConvEdge}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00594}00594   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_a535b571cac727283b16e159fe6acdcd8}{DMAContinuousRequests}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00595}00595   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00596}00596   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00597}00597   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00598}00598   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00599}00599   \textcolor{comment}{/* Check if ADC peripheral is disabled in order to enable it and wait during }}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00600}00600 \textcolor{comment}{     Tstab time the ADC's stabilization */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00601}00601   \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}) != \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00602}00602   \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00603}00603     \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00604}00604     \mbox{\hyperlink{group___a_d_c___exported___macros_gaadf16862da7593def189559423c287f4}{\_\_HAL\_ADC\_ENABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00605}00605     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00606}00606     \textcolor{comment}{/* Delay for temperature sensor stabilization time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00607}00607     \textcolor{comment}{/* Compute number of CPU cycles to wait for */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00608}00608     counter = (\mbox{\hyperlink{group___a_d_c___private___constants_gad0d1562099d9e378dd1d33b3519cd0c2}{ADC\_STAB\_DELAY\_US}} * (\mbox{\hyperlink{group___s_t_m32_f7xx___system___exported___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000000));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00609}00609     \textcolor{keywordflow}{while}(counter != 0)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00610}00610     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00611}00611       counter-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00612}00612     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00613}00613   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00614}00614   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00615}00615   \textcolor{comment}{/* Start conversion if ADC is effectively enabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00616}00616   \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a5b44dfd2a26f85f7b628b0945daff2c3}{HAL\_IS\_BIT\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00617}00617   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00618}00618     \textcolor{comment}{/* Set ADC state                                                          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00619}00619     \textcolor{comment}{/* -\/ Clear state bitfield related to regular group conversion results     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00620}00620     \textcolor{comment}{/* -\/ Set state bitfield related to regular group operation                */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00621}00621     \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00622}00622                       \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}} | \mbox{\hyperlink{group___a_d_c___exported___types_gae2da191bffb720a553a1e39c10929711}{HAL\_ADC\_STATE\_REG\_EOC}} | \mbox{\hyperlink{group___a_d_c___exported___types_ga1f99cd51b6636d9f60bc68dacb01eb10}{HAL\_ADC\_STATE\_REG\_OVR}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00623}00623                       \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00624}00624     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00625}00625     \textcolor{comment}{/* If conversions on group regular are also triggering group injected,    */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00626}00626     \textcolor{comment}{/* update ADC state.                                                      */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00627}00627     \textcolor{keywordflow}{if} (\mbox{\hyperlink{group___exported__macro_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}}) != \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00628}00628     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00629}00629       \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_gafcfffd11ab8b84d3b0a1ce50ccf821d5}{HAL\_ADC\_STATE\_INJ\_EOC}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}});  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00630}00630     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00631}00631     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00632}00632     \textcolor{comment}{/* State machine update: Check if an injected conversion is ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00633}00633     \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a5b44dfd2a26f85f7b628b0945daff2c3}{HAL\_IS\_BIT\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00634}00634     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00635}00635       \textcolor{comment}{/* Reset ADC error code fields related to conversions on group regular */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00636}00636       \mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}}, (\mbox{\hyperlink{group___a_d_c___error___code_ga30ce24556ebd3c0341558c700a3b9add}{HAL\_ADC\_ERROR\_OVR}} | \mbox{\hyperlink{group___a_d_c___error___code_gaea82628f53a8e30db3f3426922acf60f}{HAL\_ADC\_ERROR\_DMA}}));         }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00637}00637     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00638}00638     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00639}00639     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00640}00640       \textcolor{comment}{/* Reset ADC all error code fields */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00641}00641       \mbox{\hyperlink{group___a_d_c___private___macros_gac7ab87a3ab932eed1b3ac5faad4e3aa9}{ADC\_CLEAR\_ERRORCODE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00642}00642     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00643}00643     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00644}00644     \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00645}00645     \textcolor{comment}{/* Unlock before starting ADC conversions: in case of potential           */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00646}00646     \textcolor{comment}{/* interruption, to let the process to ADC IRQ Handler.                   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00647}00647     \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00648}00648     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00649}00649     \textcolor{comment}{/* Set the DMA transfer complete callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00650}00650     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}}-\/>\mbox{\hyperlink{struct_____d_m_a___handle_type_def_a3d7716d1d7a5717f09525efd19334864}{XferCpltCallback}} = ADC\_MultiModeDMAConvCplt;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00651}00651     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00652}00652     \textcolor{comment}{/* Set the DMA half transfer complete callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00653}00653     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}}-\/>\mbox{\hyperlink{struct_____d_m_a___handle_type_def_aea6af14bab20d3f9a82f08df1abea01a}{XferHalfCpltCallback}} = ADC\_MultiModeDMAHalfConvCplt;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00654}00654     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00655}00655     \textcolor{comment}{/* Set the DMA error callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00656}00656     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}}-\/>\mbox{\hyperlink{struct_____d_m_a___handle_type_def_a695c6fe664a7baf827e461652ebdb9e0}{XferErrorCallback}} = ADC\_MultiModeDMAError ;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00657}00657     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00658}00658     \textcolor{comment}{/* Manage ADC and DMA start: ADC overrun interruption, DMA start, ADC     */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00659}00659     \textcolor{comment}{/* start (in case of SW start):                                           */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00660}00660     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00661}00661     \textcolor{comment}{/* Clear regular group conversion flag and overrun flag */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00662}00662     \textcolor{comment}{/* (To ensure of no unknown state from potential previous ADC operations) */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00663}00663     \mbox{\hyperlink{group___a_d_c___exported___macros_gafe44e1e66141bca3665bb82981a81a17}{\_\_HAL\_ADC\_CLEAR\_FLAG}}(hadc, \mbox{\hyperlink{group___a_d_c__flags__definition_gaf2c6fdf7e9ab63b778149e5fb56413d4}{ADC\_FLAG\_EOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00664}00664 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00665}00665     \textcolor{comment}{/* Enable ADC overrun interrupt */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00666}00666     \mbox{\hyperlink{group___a_d_c___exported___macros_ga650073de508d335d0a1c7bf9b4d07afe}{\_\_HAL\_ADC\_ENABLE\_IT}}(hadc, \mbox{\hyperlink{group___a_d_c__interrupts__definition_gac3852b7789860e0ea79b82115ab877a0}{ADC\_IT\_OVR}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00667}00667     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00668}00668     \textcolor{keywordflow}{if} (hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_a535b571cac727283b16e159fe6acdcd8}{DMAContinuousRequests}} != \mbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00669}00669     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00670}00670       \textcolor{comment}{/* Enable the selected ADC DMA request after last transfer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00671}00671       \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga7e745513bbc2e5e5a76ae999d5d535af}{ADC\_CCR\_DDS}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00672}00672     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00673}00673     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00674}00674     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00675}00675       \textcolor{comment}{/* Disable the selected ADC EOC rising on each regular channel conversion */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00676}00676       \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR \&= \string~ADC\_CCR\_DDS;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00677}00677     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00678}00678     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00679}00679     \textcolor{comment}{/* Enable the DMA Stream */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00680}00680     \mbox{\hyperlink{group___d_m_a___exported___functions___group2_ga7eddc0931ac8a3d77b23d6d5e68407c7}{HAL\_DMA\_Start\_IT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}}, (uint32\_t)\&\mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CDR, (uint32\_t)pData, Length);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00681}00681     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00682}00682     \textcolor{comment}{/* if no external trigger present enable software conversion of regular channels */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00683}00683     \textcolor{keywordflow}{if}((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga574b4d8e90655d0432882d620e629234}{ADC\_CR2\_EXTEN}}) == \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}}) }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00684}00684     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00685}00685       \textcolor{comment}{/* Enable the selected ADC software conversion for regular group */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00686}00686       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= (uint32\_t)\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5eae65bad1a6c975e1911eb5ba117468}{ADC\_CR2\_SWSTART}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00687}00687     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00688}00688   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00689}00689   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00690}00690   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00691}00691     \textcolor{comment}{/* Update ADC state machine to error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00692}00692     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga65b592627f1f9277f4b89bfc33a9e641}{HAL\_ADC\_STATE\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00693}00693     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00694}00694     \textcolor{comment}{/* Set ADC error code to ADC IP internal error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00695}00695     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}}, \mbox{\hyperlink{group___a_d_c___error___code_ga7182f9ffc028f217db8724c7bc348f2f}{HAL\_ADC\_ERROR\_INTERNAL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00696}00696   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00697}00697   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00698}00698   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00699}00699   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00700}00700 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00701}00701 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00708}00708 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga6a114ff60985be225d621a5c3be8ddf2}{HAL\_ADCEx\_MultiModeStop\_DMA}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00709}00709 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00710}00710   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} tmp\_hal\_status = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00711}00711   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00712}00712   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00713}00713   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__macros_gaeac7a787d73a78a847467ce6b867bd7f}{IS\_ADC\_ALL\_INSTANCE}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00714}00714   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00715}00715   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00716}00716   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00717}00717   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00718}00718   \textcolor{comment}{/* Stop potential conversion on going, on regular and injected groups */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00719}00719   \textcolor{comment}{/* Disable ADC peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00720}00720   \mbox{\hyperlink{group___a_d_c___exported___macros_ga8afd5963c41c0a30c5cf1fec5c5710b3}{\_\_HAL\_ADC\_DISABLE}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00721}00721   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00722}00722   \textcolor{comment}{/* Check if ADC is effectively disabled */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00723}00723   \textcolor{keywordflow}{if}(\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00724}00724   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00725}00725     \textcolor{comment}{/* Disable the selected ADC DMA mode for multimode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00726}00726     \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR \&= \string~ADC\_CCR\_DDS;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00727}00727     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00728}00728     \textcolor{comment}{/* Disable the DMA channel (in case of DMA in circular mode or stop while */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00729}00729     \textcolor{comment}{/* DMA transfer is on going)                                              */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00730}00730     tmp\_hal\_status = \mbox{\hyperlink{group___d_m_a___exported___functions___group2_ga001f9fb04328a7460f9ff16908ff987c}{HAL\_DMA\_Abort}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00731}00731     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00732}00732     \textcolor{comment}{/* Disable ADC overrun interrupt */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00733}00733     \mbox{\hyperlink{group___a_d_c___exported___macros_gadcec48b44a2133effd20f41ab227edb9}{\_\_HAL\_ADC\_DISABLE\_IT}}(hadc, \mbox{\hyperlink{group___a_d_c__interrupts__definition_gac3852b7789860e0ea79b82115ab877a0}{ADC\_IT\_OVR}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00734}00734     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00735}00735     \textcolor{comment}{/* Set ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00736}00736     \mbox{\hyperlink{group___a_d_c___private___macros_gaaf93e91b164d4a220aae475eff82665f}{ADC\_STATE\_CLR\_SET}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00737}00737                       \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}} | \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}},}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00738}00738                       \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00739}00739   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00740}00740   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00741}00741   \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00742}00742   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00743}00743   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00744}00744   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00745}00745   \textcolor{keywordflow}{return} tmp\_hal\_status;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00746}00746 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00747}00747 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00755}00755 uint32\_t \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5ab7c06d2f0b5f9de1f86de5713d68d2}{HAL\_ADCEx\_MultiModeGetValue}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00756}00756 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00757}00757   \textcolor{comment}{/* Return the multi mode conversion value */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00758}00758   \textcolor{keywordflow}{return} \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CDR;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00759}00759 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00760}00760 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00767}00767 \_\_weak \textcolor{keywordtype}{void} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaed7815e8b636ff1c1f456ecbaffe1942}{HAL\_ADCEx\_InjectedConvCpltCallback}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00768}00768 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00769}00769   \textcolor{comment}{/* Prevent unused argument(s) compilation warning */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00770}00770   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a6bc306171da085f4c7df2c66d2ff8e47}{UNUSED}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00771}00771   \textcolor{comment}{/* NOTE : This function Should not be modified, when the callback is needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00772}00772 \textcolor{comment}{            the HAL\_ADC\_InjectedConvCpltCallback could be implemented in the user file}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00773}00773 \textcolor{comment}{   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00774}00774 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00775}00775 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00784}00784 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5736a78398eb51ddeb09dd83d1243045}{HAL\_ADCEx\_InjectedConfigChannel}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc, \mbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\_InjectionConfTypeDef}}* sConfigInjected)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00785}00785 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00786}00786   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00787}00787 \textcolor{preprocessor}{\#ifdef USE\_FULL\_ASSERT  }}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00788}00788   uint32\_t tmp = 0;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00789}00789 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USE\_FULL\_ASSERT  */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00790}00790   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00791}00791   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00792}00792   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c___private___macros_gaba41910dcb2b449c613a5ef638862e77}{IS\_ADC\_CHANNEL}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00793}00793   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga4bc1e0b0f685be6d9751328a25b3716d}{IS\_ADC\_INJECTED\_RANK}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a5cd2664770d0917ae4d70ccc703b54b3}{InjectedRank}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00794}00794   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c___private___macros_gac8f170c8a85df2517d8441f4d41c0341}{IS\_ADC\_SAMPLE\_TIME}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a1c082ab5a5715594d9387eacbebd99a0}{InjectedSamplingTime}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00795}00795   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga010182b3f9970e8618655a8c09e22bd6}{IS\_ADC\_EXT\_INJEC\_TRIG}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a4e7ca27dcc31a41f231b3780ce1cb824}{ExternalTrigInjecConv}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00796}00796   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_gaa5050427278d3365405f1297638ca936}{IS\_ADC\_INJECTED\_LENGTH}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a6988026b36336bb3099410ce45688585}{InjectedNbrOfConversion}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00797}00797   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ae5f526ba59d83d57c8c2ae247079c6df}{AutoInjectedConv}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00798}00798   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ad0ee3ec1e36e4ddebdbf931cf2ae29d4}{InjectedDiscontinuousConvMode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00799}00799 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00800}00800 \textcolor{preprocessor}{\#ifdef USE\_FULL\_ASSERT}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00801}00801   tmp = \mbox{\hyperlink{group___a_d_c___private___macros_gae2da95074db4dd0418c1dd1f13ad7970}{ADC\_GET\_RESOLUTION}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00802}00802   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c___private___macros_ga485c12f57d082232da8e219ae6b4f44b}{IS\_ADC\_RANGE}}(tmp, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a23b15894f9d014c9187f4ab6f3eaa8fe}{InjectedOffset}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00803}00803 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USE\_FULL\_ASSERT  */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00804}00804 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00805}00805   \textcolor{keywordflow}{if}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a4e7ca27dcc31a41f231b3780ce1cb824}{ExternalTrigInjecConv}} != \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gae90a9b5e1ae0cb2ef2c711d90b0b382b}{ADC\_INJECTED\_SOFTWARE\_START}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00806}00806   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00807}00807     \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga069ce447fbcf609060c60f0c365331df}{IS\_ADC\_EXT\_INJEC\_TRIG\_EDGE}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa6817cd80a0b4244a2271308e2074441}{ExternalTrigInjecConvEdge}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00808}00808   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00809}00809 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00810}00810   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00811}00811   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00812}00812   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00813}00813   \textcolor{comment}{/* if ADC\_Channel\_10 ... ADC\_Channel\_18 is selected */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00814}00814   \textcolor{keywordflow}{if} (sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}} > \mbox{\hyperlink{group___a_d_c__channels_ga95f485ecc05187c3d475238a88beef1c}{ADC\_CHANNEL\_9}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00815}00815   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00816}00816     \textcolor{comment}{/* Clear the old sample time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00817}00817     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_af9d6c604e365c7d9d7601bf4ef373498}{SMPR1}} \&= \string~ADC\_SMPR1(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga32242a2c2156a012a7343bcb43d490d0}{ADC\_SMPR1\_SMP10}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00818}00818     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00819}00819     \textcolor{comment}{/* Set the new sample time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00820}00820     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_af9d6c604e365c7d9d7601bf4ef373498}{SMPR1}} |= \mbox{\hyperlink{group___a_d_c___private___macros_ga29f7414128fbbdb81db6ea6ede449f4b}{ADC\_SMPR1}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a1c082ab5a5715594d9387eacbebd99a0}{InjectedSamplingTime}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00821}00821   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00822}00822   \textcolor{keywordflow}{else} \textcolor{comment}{/* ADC\_Channel include in ADC\_Channel\_[0..9] */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00823}00823   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00824}00824     \textcolor{comment}{/* Clear the old sample time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00825}00825     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a6ac83fae8377c7b7fcae50fa4211b0e8}{SMPR2}} \&= \string~ADC\_SMPR2(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a13b3c652e5759e2d8bc7e38889bc5e}{ADC\_SMPR2\_SMP0}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00826}00826     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00827}00827     \textcolor{comment}{/* Set the new sample time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00828}00828     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a6ac83fae8377c7b7fcae50fa4211b0e8}{SMPR2}} |= \mbox{\hyperlink{group___a_d_c___private___macros_gaeb66714538d978d4d336a4a6ef0d58bc}{ADC\_SMPR2}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a1c082ab5a5715594d9387eacbebd99a0}{InjectedSamplingTime}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00829}00829   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00830}00830   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00831}00831   \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ ADCx JSQR Configuration -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00832}00832   hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a75e0cc079831adcc051df456737d3ae4}{JSQR}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa624d1fe34014b88873e2dfa91f79232}{ADC\_JSQR\_JL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00833}00833   hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a75e0cc079831adcc051df456737d3ae4}{JSQR}} |=  \mbox{\hyperlink{group___a_d_c___private___macros_ga1958741688a480069df9ab5e15be93ca}{ADC\_SQR1}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a6988026b36336bb3099410ce45688585}{InjectedNbrOfConversion}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00834}00834   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00835}00835   \textcolor{comment}{/* Rank configuration */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00836}00836   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00837}00837   \textcolor{comment}{/* Clear the old SQx bits for the selected rank */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00838}00838   hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a75e0cc079831adcc051df456737d3ae4}{JSQR}} \&= \string~ADC\_JSQR(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gad7fa15dfe51b084b36cb5df2fbf44bb2}{ADC\_JSQR\_JSQ1}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a5cd2664770d0917ae4d70ccc703b54b3}{InjectedRank}},sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a6988026b36336bb3099410ce45688585}{InjectedNbrOfConversion}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00839}00839    }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00840}00840   \textcolor{comment}{/* Set the SQx bits for the selected rank */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00841}00841   hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a75e0cc079831adcc051df456737d3ae4}{JSQR}} |= \mbox{\hyperlink{group___a_d_c_ex___private___macros_gaa40c3e803cf20a8aebc3735a714606ad}{ADC\_JSQR}}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}}, sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a5cd2664770d0917ae4d70ccc703b54b3}{InjectedRank}},sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a6988026b36336bb3099410ce45688585}{InjectedNbrOfConversion}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00842}00842 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00843}00843   \textcolor{comment}{/* Enable external trigger if trigger selection is different of software  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00844}00844   \textcolor{comment}{/* start.                                                                 */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00845}00845   \textcolor{comment}{/* Note: This configuration keeps the hardware feature of parameter       */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00846}00846   \textcolor{comment}{/*       ExternalTrigConvEdge "{}trigger edge none"{} equivalent to           */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00847}00847   \textcolor{comment}{/*       software start.                                                  */} }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00848}00848   \textcolor{keywordflow}{if}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a4e7ca27dcc31a41f231b3780ce1cb824}{ExternalTrigInjecConv}} != \mbox{\hyperlink{group___a_d_c_ex___external__trigger___source___injected_gae90a9b5e1ae0cb2ef2c711d90b0b382b}{ADC\_INJECTED\_SOFTWARE\_START}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00849}00849   \{  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00850}00850     \textcolor{comment}{/* Select external trigger to start conversion */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00851}00851     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaab3aa5d0e2a4b77960ec8f3b425a3eac}{ADC\_CR2\_JEXTSEL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00852}00852     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |=  sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a4e7ca27dcc31a41f231b3780ce1cb824}{ExternalTrigInjecConv}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00853}00853     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00854}00854     \textcolor{comment}{/* Select external trigger polarity */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00855}00855     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00856}00856     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} |= sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa6817cd80a0b4244a2271308e2074441}{ExternalTrigInjecConvEdge}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00857}00857   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00858}00858   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00859}00859   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00860}00860     \textcolor{comment}{/* Reset the external trigger */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00861}00861     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaab3aa5d0e2a4b77960ec8f3b425a3eac}{ADC\_CR2\_JEXTSEL}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00862}00862     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga07330f702208792faca3a563dc4fd9c6}{ADC\_CR2\_JEXTEN}});  }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00863}00863   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00864}00864   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00865}00865   \textcolor{keywordflow}{if} (sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ae5f526ba59d83d57c8c2ae247079c6df}{AutoInjectedConv}} != \mbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00866}00866   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00867}00867     \textcolor{comment}{/* Enable the selected ADC automatic injected group conversion */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00868}00868     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00869}00869   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00870}00870   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00871}00871   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00872}00872     \textcolor{comment}{/* Disable the selected ADC automatic injected group conversion */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00873}00873     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00874}00874   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00875}00875   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00876}00876   \textcolor{keywordflow}{if} (sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ad0ee3ec1e36e4ddebdbf931cf2ae29d4}{InjectedDiscontinuousConvMode}} != \mbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00877}00877   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00878}00878     \textcolor{comment}{/* Enable the selected ADC injected discontinuous mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00879}00879     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}} |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gacd06a2840346bf45ff335707db0b6e30}{ADC\_CR1\_JDISCEN}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00880}00880   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00881}00881   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00882}00882   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00883}00883     \textcolor{comment}{/* Disable the selected ADC injected discontinuous mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00884}00884     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gacd06a2840346bf45ff335707db0b6e30}{ADC\_CR1\_JDISCEN}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00885}00885   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00886}00886   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00887}00887   \textcolor{keywordflow}{switch}(sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a5cd2664770d0917ae4d70ccc703b54b3}{InjectedRank}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00888}00888   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00889}00889     \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00890}00890       \textcolor{comment}{/* Set injected channel 1 offset */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00891}00891       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a427dda1678f254bd98b1f321d7194a3b}{JOFR1}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gad76f97130b391455094605a6c803026c}{ADC\_JOFR1\_JOFFSET1}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00892}00892       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a427dda1678f254bd98b1f321d7194a3b}{JOFR1}} |= sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a23b15894f9d014c9187f4ab6f3eaa8fe}{InjectedOffset}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00893}00893       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00894}00894     \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00895}00895       \textcolor{comment}{/* Set injected channel 2 offset */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00896}00896       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a11e65074b9f06b48c17cdfa5bea9f125}{JOFR2}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1b15a9e9ce10303e233059c1de6d956c}{ADC\_JOFR2\_JOFFSET2}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00897}00897       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a11e65074b9f06b48c17cdfa5bea9f125}{JOFR2}} |= sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a23b15894f9d014c9187f4ab6f3eaa8fe}{InjectedOffset}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00898}00898       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00899}00899     \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00900}00900       \textcolor{comment}{/* Set injected channel 3 offset */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00901}00901       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a613f6b76d20c1a513976b920ecd7f4f8}{JOFR3}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga743e4c3a7cefc1a193146e77791c3985}{ADC\_JOFR3\_JOFFSET3}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00902}00902       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a613f6b76d20c1a513976b920ecd7f4f8}{JOFR3}} |= sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a23b15894f9d014c9187f4ab6f3eaa8fe}{InjectedOffset}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00903}00903       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00904}00904     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00905}00905       \textcolor{comment}{/* Set injected channel 4 offset */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00906}00906       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a2fd59854223e38158b4138ee8e913ab3}{JOFR4}} \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gada0937f2f6a64bd6b7531ad553471b8d}{ADC\_JOFR4\_JOFFSET4}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00907}00907       hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a2fd59854223e38158b4138ee8e913ab3}{JOFR4}} |= sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a23b15894f9d014c9187f4ab6f3eaa8fe}{InjectedOffset}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00908}00908       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00909}00909   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00910}00910   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00911}00911   \textcolor{comment}{/* if ADC1 Channel\_18 is selected enable VBAT Channel */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00912}00912   \textcolor{keywordflow}{if} ((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}} == \mbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}) \&\& (sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}} == \mbox{\hyperlink{group___a_d_c__channels_ga60210f1e9305301dea9e42afedd9093f}{ADC\_CHANNEL\_VBAT}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00913}00913   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00914}00914     \textcolor{comment}{/* Enable the VBAT channel*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00915}00915     \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga519645e42dcf6b19af9c05dc40300abb}{ADC\_CCR\_VBATE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00916}00916   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00917}00917   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00918}00918   \textcolor{comment}{/* if ADC1 Channel\_16 or Channel\_17 is selected enable TSVREFE Channel(Temperature sensor and VREFINT) */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00919}00919   \textcolor{keywordflow}{if} ((hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}} == \mbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}) \&\& ((sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}} == \mbox{\hyperlink{group___a_d_c__channels_ga8f0da1e8fa8504c92a368f6eb8e229b3}{ADC\_CHANNEL\_TEMPSENSOR}}) || (sConfigInjected-\/>\mbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aa74eb880cdada1796f96a2ada0ed64dd}{InjectedChannel}} == \mbox{\hyperlink{group___a_d_c__channels_ga2647a044275a295693e8fb01db3172f9}{ADC\_CHANNEL\_VREFINT}})))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00920}00920   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00921}00921     \textcolor{comment}{/* Enable the TSVREFE channel*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00922}00922     \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= \mbox{\hyperlink{group___peripheral___registers___bits___definition_gafc020d85a8740491ce3f218a0706f1dc}{ADC\_CCR\_TSVREFE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00923}00923   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00924}00924   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00925}00925   \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00926}00926   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00927}00927   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00928}00928   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00929}00929   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00930}00930 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00931}00931 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00940}00940 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gabfe8b04f9cfda94bc8aad912470122f5}{HAL\_ADCEx\_MultiModeConfigChannel}}(\mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc, \mbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\_MultiModeTypeDef}}* multimode)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00941}00941 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00942}00942   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00943}00943   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga1af1742a766704131ab0cfed3a1c56fb}{IS\_ADC\_MODE}}(multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a0ffc93ec511ed9cf1663f6939bd3e839}{Mode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00944}00944   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c_ex___private___macros_ga3f1b6dc061d9f656fdf3b45183767b5d}{IS\_ADC\_DMA\_ACCESS\_MODE}}(multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a441b28d66abfb0edd5ea1c5ee907dc5d}{DMAAccessMode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00945}00945   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___a_d_c___private___macros_ga4621b0e764007f2e4ae7187e82e09aac}{IS\_ADC\_SAMPLING\_DELAY}}(multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a0890c5bb0b43e8225ca5aab131074b1b}{TwoSamplingDelay}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00946}00946   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00947}00947   \textcolor{comment}{/* Process locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00948}00948   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00949}00949   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00950}00950   \textcolor{comment}{/* Set ADC mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00951}00951   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf70ab04667c7c7da0f29c0e5a6c48e68}{ADC\_CCR\_MULTI}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00952}00952   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a0ffc93ec511ed9cf1663f6939bd3e839}{Mode}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00953}00953   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00954}00954   \textcolor{comment}{/* Set the ADC DMA access mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00955}00955   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9e346b21afcaeced784e6c80b3aa1fb4}{ADC\_CCR\_DMA}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00956}00956   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a441b28d66abfb0edd5ea1c5ee907dc5d}{DMAAccessMode}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00957}00957   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00958}00958   \textcolor{comment}{/* Set delay between two sampling phases */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00959}00959   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga9c13aa04949ed520cf92613d3a619198}{ADC\_CCR\_DELAY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00960}00960   \mbox{\hyperlink{group___peripheral__declaration_ga54d148b91f3d356713f7e367a2243bea}{ADC}}-\/>CCR |= multimode-\/>\mbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a0890c5bb0b43e8225ca5aab131074b1b}{TwoSamplingDelay}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00961}00961   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00962}00962   \textcolor{comment}{/* Process unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00963}00963   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00964}00964   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00965}00965   \textcolor{comment}{/* Return function status */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00966}00966   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00967}00967 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00968}00968 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00979}00979 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAConvCplt(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma)   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00980}00980 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00981}00981   \textcolor{comment}{/* Retrieve ADC handle corresponding to current DMA handle */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00982}00982   \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc = ( \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* )((\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}}* )hdma)-\/>Parent;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00983}00983   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00984}00984   \textcolor{comment}{/* Update state machine on conversion status if not in error state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00985}00985   \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga65b592627f1f9277f4b89bfc33a9e641}{HAL\_ADC\_STATE\_ERROR\_INTERNAL}} | \mbox{\hyperlink{group___a_d_c___exported___types_ga5a1b4881d17e72aa0823797958221172}{HAL\_ADC\_STATE\_ERROR\_DMA}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00986}00986   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00987}00987     \textcolor{comment}{/* Update ADC state machine */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00988}00988     \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_gae2da191bffb720a553a1e39c10929711}{HAL\_ADC\_STATE\_REG\_EOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00989}00989     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00990}00990     \textcolor{comment}{/* Determine whether any further conversion upcoming on group regular   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00991}00991     \textcolor{comment}{/* by external trigger, continuous mode or scan sequence on going.      */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00992}00992     \textcolor{comment}{/* Note: On STM32F7, there is no independent flag of end of sequence.   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00993}00993     \textcolor{comment}{/*       The test of scan sequence on going is done either with scan    */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00994}00994     \textcolor{comment}{/*       sequence disabled or with end of conversion flag set to        */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00995}00995     \textcolor{comment}{/*       of end of sequence.                                            */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00996}00996     \textcolor{keywordflow}{if}(\mbox{\hyperlink{group___a_d_c___private___macros_ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b}{ADC\_IS\_SOFTWARE\_START\_REGULAR}}(hadc)                   \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00997}00997        (hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a95dcd2e98a4cfc17b0939e9ca985113a}{Init}}.\mbox{\hyperlink{struct_a_d_c___init_type_def_a768ec42e36553ad0acb7ad029462a59d}{ContinuousConvMode}} == \mbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})            \&\&}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00998}00998        (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_a3302e1bcfdfbbfeb58779d0761fb377c}{SQR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gae68a19a18d72f6d87c6f2b8cc8bfc6dc}{ADC\_SQR1\_L}}) || }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l00999}00999         \mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_abfce5509f2d1f9d3ef9012b7b7b528fa}{Instance}}-\/>\mbox{\hyperlink{struct_a_d_c___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaf9dac2004ab20295e04012060ab24aeb}{ADC\_CR2\_EOCS}})  )   )}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01000}01000     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01001}01001       \textcolor{comment}{/* Disable ADC end of single conversion interrupt on group regular */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01002}01002       \textcolor{comment}{/* Note: Overrun interrupt was enabled with EOC interrupt in          */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01003}01003       \textcolor{comment}{/* HAL\_ADC\_Start\_IT(), but is not disabled here because can be used   */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01004}01004       \textcolor{comment}{/* by overrun IRQ process below.                                      */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01005}01005       \mbox{\hyperlink{group___a_d_c___exported___macros_gadcec48b44a2133effd20f41ab227edb9}{\_\_HAL\_ADC\_DISABLE\_IT}}(hadc, \mbox{\hyperlink{group___a_d_c__interrupts__definition_ga0ad335d835f54415194d448019569e00}{ADC\_IT\_EOC}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01006}01006       }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01007}01007       \textcolor{comment}{/* Set ADC state */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01008}01008       \mbox{\hyperlink{group___exported__macro_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga516d4b4ebc261c241c69d96aae19acc3}{HAL\_ADC\_STATE\_REG\_BUSY}});   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01009}01009       }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01010}01010       \textcolor{keywordflow}{if} (\mbox{\hyperlink{stm32f7xx__hal__def_8h_a82637a84fbdca0e2a25496089b549924}{HAL\_IS\_BIT\_CLR}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_ga0044d240de80a70923b5c970d19ba24b}{HAL\_ADC\_STATE\_INJ\_BUSY}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01011}01011       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01012}01012         \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}, \mbox{\hyperlink{group___a_d_c___exported___types_gadccf2475d321f82bc5b18b4c0031794b}{HAL\_ADC\_STATE\_READY}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01013}01013       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01014}01014     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01015}01015     }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01016}01016     \textcolor{comment}{/* Conversion complete callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01017}01017     \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gaf20a88180db1113be1e89266917d148b}{HAL\_ADC\_ConvCpltCallback}}(hadc);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01018}01018   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01019}01019   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01020}01020   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01021}01021     \textcolor{comment}{/* Call DMA error callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01022}01022     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a26dce701f4dd78176b421b5d6ddee0ba}{DMA\_Handle}}-\/>\mbox{\hyperlink{struct_____d_m_a___handle_type_def_a695c6fe664a7baf827e461652ebdb9e0}{XferErrorCallback}}(hdma);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01023}01023   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01024}01024 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01025}01025 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01032}01032 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAHalfConvCplt(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma)   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01033}01033 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01034}01034     \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc = ( \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* )((\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}}* )hdma)-\/>Parent;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01035}01035     \textcolor{comment}{/* Conversion complete callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01036}01036     \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gad7e3dafc08886b97b9c9e23267645b9e}{HAL\_ADC\_ConvHalfCpltCallback}}(hadc); }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01037}01037 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01038}01038 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01045}01045 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ADC\_MultiModeDMAError(\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}} *hdma)   }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01046}01046 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01047}01047     \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* hadc = ( \mbox{\hyperlink{struct_a_d_c___handle_type_def}{ADC\_HandleTypeDef}}* )((\mbox{\hyperlink{struct_____d_m_a___handle_type_def}{DMA\_HandleTypeDef}}* )hdma)-\/>Parent;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01048}01048     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_ae822ffccdec1899d5cfcbab448119810}{State}}= \mbox{\hyperlink{group___a_d_c___exported___types_ga5a1b4881d17e72aa0823797958221172}{HAL\_ADC\_STATE\_ERROR\_DMA}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01049}01049     \textcolor{comment}{/* Set ADC error code to DMA error */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01050}01050     hadc-\/>\mbox{\hyperlink{struct_a_d_c___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}} |= \mbox{\hyperlink{group___a_d_c___error___code_gaea82628f53a8e30db3f3426922acf60f}{HAL\_ADC\_ERROR\_DMA}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01051}01051     \mbox{\hyperlink{group___a_d_c___exported___functions___group2_gadea1a55c5199d5cb4cfc1fdcd32be1b2}{HAL\_ADC\_ErrorCallback}}(hadc); }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01052}01052 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01053}01053 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__adc__ex_8c_source_l01058}01058 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HAL\_ADC\_MODULE\_ENABLED */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -42,7 +42,7 @@
 
 void mpu6000Calibration(void)
 {
-    uint16_t sampleRate      = 1000;
+    uint16_t sampleRate      = 100;
     uint16_t numberOfSamples = 2000;
 
     float accelBias1[3]       = { 0.0f, 0.0f, 0.0f };
@@ -103,7 +103,7 @@ void mpu6000Calibration(void)
     ///////////////////////////////////
 
     printf("\nWaiting for 10 seconds for MPU6000 temp to rise...\n");
-    delay(6000);    // Number of mSec in 10 minutes
+    delay(3000);    // Number of mSec in 10 minutes
 
     ///////////////////////////////////
     // Get samples at temperature2

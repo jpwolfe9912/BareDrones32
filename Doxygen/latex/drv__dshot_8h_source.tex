@@ -1,0 +1,49 @@
+\hypertarget{drv__dshot_8h_source}{}\doxysection{drv\+\_\+dshot.\+h}
+\label{drv__dshot_8h_source}\index{Autodrone32/Src/drv/drv\_dshot.h@{Autodrone32/Src/drv/drv\_dshot.h}}
+\mbox{\hyperlink{drv__dshot_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00011}00011 \textcolor{comment}{/* Define to prevent recursive inclusion -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00012}00012 \textcolor{preprocessor}{\#ifndef \_\_DRV\_DSHOT\_H\_}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00013}00013 \textcolor{preprocessor}{\#define \_\_DRV\_DSHOT\_H\_}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00015}00015 \textcolor{comment}{/* Defines */}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00016}\mbox{\hyperlink{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}{00016}} \textcolor{preprocessor}{\#define TIMER\_CLOCK             108000000   }\textcolor{comment}{// 108MHz}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00018}\mbox{\hyperlink{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}{00018}} \textcolor{preprocessor}{\#define MHZ\_TO\_HZ(x)            ((x) * 1000000)}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00020}\mbox{\hyperlink{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}{00020}} \textcolor{preprocessor}{\#define DSHOT600\_HZ             MHZ\_TO\_HZ(108)}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00021}\mbox{\hyperlink{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}{00021}} \textcolor{preprocessor}{\#define DSHOT300\_HZ             MHZ\_TO\_HZ(54)}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00022}\mbox{\hyperlink{drv__dshot_8h_a84ec4e0db6b0614d99ae43d9b87f70b1}{00022}} \textcolor{preprocessor}{\#define DSHOT150\_HZ             MHZ\_TO\_HZ(27)}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00024}00024 \textcolor{comment}{//\#define MOTOR\_BIT\_0               7}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00025}00025 \textcolor{comment}{//\#define MOTOR\_BIT\_1               14}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00026}00026 \textcolor{comment}{//\#define MOTOR\_BITLENGTH           20}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00028}\mbox{\hyperlink{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}{00028}} \textcolor{preprocessor}{\#define MOTOR\_BIT\_0             60}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00029}\mbox{\hyperlink{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}{00029}} \textcolor{preprocessor}{\#define MOTOR\_BIT\_1             120}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00030}\mbox{\hyperlink{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}{00030}} \textcolor{preprocessor}{\#define MOTOR\_BITLENGTH         180}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00032}\mbox{\hyperlink{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}{00032}} \textcolor{preprocessor}{\#define DSHOT\_FRAME\_SIZE        16}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00033}\mbox{\hyperlink{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}{00033}} \textcolor{preprocessor}{\#define DSHOT\_DMA\_BUFFER\_SIZE   18 }\textcolor{comment}{/* resolution + frame reset (2us) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00035}\mbox{\hyperlink{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}{00035}} \textcolor{preprocessor}{\#define DSHOT\_MIN\_THROTTLE      48}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00036}\mbox{\hyperlink{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}{00036}} \textcolor{preprocessor}{\#define DSHOT\_MAX\_THROTTLE      2047}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00037}\mbox{\hyperlink{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}{00037}} \textcolor{preprocessor}{\#define DSHOT\_RANGE             (DSHOT\_MAX\_THROTTLE -\/ DSHOT\_MIN\_THROTTLE)}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00039}00039 \textcolor{comment}{/* Enumeration */}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00040}\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{00040}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00041}00041 \{}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00042}\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afa7446441a858d40420367aabb92d08742}{00042}}     \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afa7446441a858d40420367aabb92d08742}{DSHOT150}},}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00043}\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}{00043}}     \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}{DSHOT300}},}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00044}00044     \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{DSHOT600}}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00045}\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{00045}} \} \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\_type\_e}};}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00047}00047 \textcolor{comment}{/* Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00048}00048 \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__dshot_8h_a62a368c6713202c7b690eccdede30231}{dshotInit}}(\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\_type\_e}} dshot\_type);}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00049}00049 \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}{dshotWrite}}(uint16\_t *\mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}});}
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{drv__dshot_8h_source_l00052}00052 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_\_DRV\_DSHOT\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

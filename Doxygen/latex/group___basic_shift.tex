@@ -1,0 +1,123 @@
+\hypertarget{group___basic_shift}{}\doxysection{Vector Shift}
+\label{group___basic_shift}\index{Vector Shift@{Vector Shift}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___basic_shift_gab7a2f614c2fcee25cb8bae4c2a6bc3ab}{arm\+\_\+shift\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, int8\+\_\+t shift\+Bits, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Shifts the elements of a Q15 vector a specified number of bits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_shift_gabc69335d1cf2eba1c469c8c8291f3589}{arm\+\_\+shift\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, int8\+\_\+t shift\+Bits, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Shifts the elements of a Q31 vector a specified number of bits. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_shift_ga87bbb3db84f2af6c38f4fc17cbecfd2e}{arm\+\_\+shift\+\_\+q7}} (const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Src, int8\+\_\+t shift\+Bits, \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Shifts the elements of a Q7 vector a specified number of bits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shifts the elements of a fixed-\/point vector by a specified number of bits. There are separate functions for Q7, Q15, and Q31 data types. The underlying algorithm used is\+:
+
+
+\begin{DoxyPre}
+    pDst[n] = pSrc[n] << shift,   0 <= n < blockSize.
+\end{DoxyPre}
+
+
+If {\ttfamily shift} is positive then the elements of the vector are shifted to the left. If {\ttfamily shift} is negative then the elements of the vector are shifted to the right.
+
+The functions support in-\/place computation allowing the source and destination pointers to reference the same memory buffer. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___basic_shift_gab7a2f614c2fcee25cb8bae4c2a6bc3ab}\label{group___basic_shift_gab7a2f614c2fcee25cb8bae4c2a6bc3ab}} 
+\index{Vector Shift@{Vector Shift}!arm\_shift\_q15@{arm\_shift\_q15}}
+\index{arm\_shift\_q15@{arm\_shift\_q15}!Vector Shift@{Vector Shift}}
+\doxysubsubsection{\texorpdfstring{arm\_shift\_q15()}{arm\_shift\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+shift\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{int8\+\_\+t}]{shift\+Bits,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Shifts the elements of a Q15 vector a specified number of bits. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em shift\+Bits} & number of bits to shift. A positive value shifts left; a negative value shifts right. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q15 range \mbox{[}0x8000 0x7\+FFF\mbox{]} are saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__shift__q15_8c_source_l00102}{102}} of file \mbox{\hyperlink{arm__shift__q15_8c_source}{arm\+\_\+shift\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group___basic_shift_gabc69335d1cf2eba1c469c8c8291f3589}\label{group___basic_shift_gabc69335d1cf2eba1c469c8c8291f3589}} 
+\index{Vector Shift@{Vector Shift}!arm\_shift\_q31@{arm\_shift\_q31}}
+\index{arm\_shift\_q31@{arm\_shift\_q31}!Vector Shift@{Vector Shift}}
+\doxysubsubsection{\texorpdfstring{arm\_shift\_q31()}{arm\_shift\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+shift\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{int8\+\_\+t}]{shift\+Bits,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Shifts the elements of a Q31 vector a specified number of bits. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em shift\+Bits} & number of bits to shift. A positive value shifts left; a negative value shifts right. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in the vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q31 range \mbox{[}0x80000000 0x7\+FFFFFFF\mbox{]} are saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__shift__q31_8c_source_l00120}{120}} of file \mbox{\hyperlink{arm__shift__q31_8c_source}{arm\+\_\+shift\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{group___basic_shift_ga87bbb3db84f2af6c38f4fc17cbecfd2e}\label{group___basic_shift_ga87bbb3db84f2af6c38f4fc17cbecfd2e}} 
+\index{Vector Shift@{Vector Shift}!arm\_shift\_q7@{arm\_shift\_q7}}
+\index{arm\_shift\_q7@{arm\_shift\_q7}!Vector Shift@{Vector Shift}}
+\doxysubsubsection{\texorpdfstring{arm\_shift\_q7()}{arm\_shift\_q7()}}
+{\footnotesize\ttfamily void arm\+\_\+shift\+\_\+q7 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Src,  }\item[{int8\+\_\+t}]{shift\+Bits,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Shifts the elements of a Q7 vector a specified number of bits. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em shift\+Bits} & number of bits to shift. A positive value shifts left; a negative value shifts right. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{onditions for optimum performance}
+Input and output buffers should be aligned by 32-\/bit 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. Results outside of the allowable Q7 range \mbox{[}0x80 0x7F\mbox{]} are saturated. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__shift__q7_8c_source_l00104}{104}} of file \mbox{\hyperlink{arm__shift__q7_8c_source}{arm\+\_\+shift\+\_\+q7.\+c}}.
+

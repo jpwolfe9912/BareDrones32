@@ -1,0 +1,184 @@
+\hypertarget{arm__mean__f32_8c_source}{}\doxysection{arm\+\_\+mean\+\_\+f32.\+c}
+\label{arm__mean__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_mean\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_mean\_f32.c}}
+\mbox{\hyperlink{arm__mean__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_mean\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Mean value of a floating-\/point vector}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{statistics__functions_8h}{dsp/statistics\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00048}00048 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00050}00050 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00052}00052 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__mean_gae4fb7698771d7c24f536ed24347c1488}{arm\_mean\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00053}00053   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00054}00054   uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00055}00055   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pResult)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00056}00056 \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00057}00057     uint32\_t  blkCnt;           \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00058}00058     f32x4\_t vecSrc;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00059}00059     f32x4\_t sumVec = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00060}00060     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sum = 0.0f; }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00062}00062     \textcolor{comment}{/* Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00063}00063     blkCnt = blockSize >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00064}00064     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00065}00065     \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00066}00066         vecSrc = vldrwq\_f32(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00067}00067         sumVec = vaddq\_f32(sumVec, vecSrc);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00069}00069         blkCnt -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00070}00070         pSrc += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00071}00071     \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00073}00073     sum = vecAddAcrossF32Mve(sumVec);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00075}00075     \textcolor{comment}{/* Tail */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00076}00076     blkCnt = blockSize \& 0x3;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00078}00078     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00079}00079     \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00080}00080       \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00081}00081       sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00082}00082   }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00083}00083       \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00084}00084       blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00085}00085     \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00087}00087     *pResult = sum / (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}) blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00091}00091 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00092}00092 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_NEON\_EXPERIMENTAL) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00093}00093 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__mean_gae4fb7698771d7c24f536ed24347c1488}{arm\_mean\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00094}00094   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00095}00095   uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00096}00096   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pResult)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00097}00097 \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00098}00098   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sum = 0.0f;                          \textcolor{comment}{/* Temporary result storage */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00099}00099   float32x4\_t sumV = vdupq\_n\_f32(0.0f);                          \textcolor{comment}{/* Temporary result storage */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00100}00100   float32x2\_t sumV2;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00102}00102   uint32\_t blkCnt;                               \textcolor{comment}{/* Loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00104}00104   float32x4\_t inV;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00106}00106   blkCnt = blockSize >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00108}00108   \textcolor{comment}{/* Compute 4 outputs at a time.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00109}00109 \textcolor{comment}{   ** a second loop below computes the remaining 1 to 3 samples. */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00110}00110   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00111}00111   \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00112}00112     \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00113}00113     inV = vld1q\_f32(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00114}00114     sumV = vaddq\_f32(sumV, inV);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00115}00115     }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00116}00116     pSrc += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00117}00117     \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00118}00118     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00119}00119   \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00121}00121   sumV2 = vpadd\_f32(vget\_low\_f32(sumV),vget\_high\_f32(sumV));}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00122}00122   sum = vget\_lane\_f32(sumV2, 0) + vget\_lane\_f32(sumV2, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00124}00124   \textcolor{comment}{/* If the blockSize is not a multiple of 4, compute any remaining output samples here.}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00125}00125 \textcolor{comment}{   ** No loop unrolling is used. */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00126}00126   blkCnt = blockSize \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00128}00128   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00129}00129   \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00130}00130     \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00131}00131     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00133}00133     \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00134}00134     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00135}00135   \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00137}00137   \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) / blockSize  */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00138}00138   \textcolor{comment}{/* Store the result to the destination */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00139}00139   *pResult = sum / (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}) blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00140}00140 \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00141}00141 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00142}\mbox{\hyperlink{group__mean_gae4fb7698771d7c24f536ed24347c1488}{00142}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group__mean_gae4fb7698771d7c24f536ed24347c1488}{arm\_mean\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00143}00143   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00144}00144         uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00145}00145         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pResult)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00146}00146 \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00147}00147         uint32\_t blkCnt;                               \textcolor{comment}{/* Loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00148}00148         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sum = 0.0f;                          \textcolor{comment}{/* Temporary result storage */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00150}00150 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00152}00152   \textcolor{comment}{/* Loop unrolling: Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00153}00153   blkCnt = blockSize >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00155}00155   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00156}00156   \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00157}00157     \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00158}00158     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00160}00160     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00162}00162     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00164}00164     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00166}00166     \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00167}00167     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00168}00168   \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00170}00170   \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00171}00171   blkCnt = blockSize \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00173}00173 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00175}00175   \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00176}00176   blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00178}00178 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00180}00180   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00181}00181   \{}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00182}00182     \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00183}00183     sum += *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00185}00185     \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00186}00186     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00187}00187   \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00189}00189   \textcolor{comment}{/* C = (A[0] + A[1] + A[2] + ... + A[blockSize-\/1]) / blockSize  */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00190}00190   \textcolor{comment}{/* Store result to destination */}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00191}00191   *pResult = (sum / blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00192}00192 \}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00193}00193 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_MATH\_NEON) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00194}00194 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mean__f32_8c_source_l00195}00195 }
+
+\end{DoxyCode}

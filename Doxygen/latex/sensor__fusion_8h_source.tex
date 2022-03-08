@@ -1,0 +1,75 @@
+\hypertarget{sensor__fusion_8h_source}{}\doxysection{sensor\+\_\+fusion.\+h}
+\label{sensor__fusion_8h_source}\index{Autodrone32/Src/sensors/sensor\_fusion.h@{Autodrone32/Src/sensors/sensor\_fusion.h}}
+\mbox{\hyperlink{sensor__fusion_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00011}00011 \textcolor{preprocessor}{\#ifndef SRC\_SENSORS\_SENSOR\_FUSION\_H\_}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00012}00012 \textcolor{preprocessor}{\#define SRC\_SENSORS\_SENSOR\_FUSION\_H\_}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00014}00014 \textcolor{comment}{/* Defines */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00015}\mbox{\hyperlink{sensor__fusion_8h_a7cd0e552113fbeccd2434218d28e4522}{00015}} \textcolor{preprocessor}{\#define sampleFreqDef   1000.0f          }\textcolor{comment}{// sample frequency in Hz}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00016}\mbox{\hyperlink{sensor__fusion_8h_ab51f159bf643224a2bc1d7027fb00d62}{00016}} \textcolor{preprocessor}{\#define betaDef         10.0f            }\textcolor{comment}{// 2 * proportional gain}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00018}00018 \textcolor{comment}{/* Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00019}00019 \textcolor{keywordtype}{void} \mbox{\hyperlink{sensor__fusion_8h_ac8dc50fbcbc0f076fd8239217094c5ee}{madgwickInit}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00020}00020 \textcolor{keywordtype}{void} \mbox{\hyperlink{sensor__fusion_8h_a1f31885b70f52713de86df45af82aea5}{updateIMU}}(\textcolor{keywordtype}{float} gx, \textcolor{keywordtype}{float} gy, \textcolor{keywordtype}{float} gz, \textcolor{keywordtype}{float} ax, \textcolor{keywordtype}{float} ay, \textcolor{keywordtype}{float} az);}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00021}00021 \textcolor{keywordtype}{void} \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00023}00023 \textcolor{comment}{/* Global Variables */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00024}\mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{00024}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}};             \textcolor{comment}{// algorithm gain}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00025}\mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{00025}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a27b8f713c4a449fb2fbb1cbdb3a1e149}{q0}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00026}\mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{00026}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a209c65446ca302d32cbb908c4d75f616}{q1}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00027}\mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{00027}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_afddca3451c589f7b5928b6dccf8c88ba}{q2}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00028}\mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{00028}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_aa92940755b1370321ed489e6f2448ad9}{q3}}; \textcolor{comment}{// quaternion of sensor frame relative to auxiliary frame}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00029}\mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{00029}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a2c3ff633baf1eb511d50b9f1e6fa6198}{invSampleFreq}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00030}\mbox{\hyperlink{sensor__fusion_8h_a26fd84d522945b6038221d9e38c7cc39}{00030}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a26fd84d522945b6038221d9e38c7cc39}{roll}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00031}\mbox{\hyperlink{sensor__fusion_8h_a282e7d4378d4a18a805b8980295ac86c}{00031}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a282e7d4378d4a18a805b8980295ac86c}{pitch}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00032}\mbox{\hyperlink{sensor__fusion_8h_a7efc219781df4a1e281cb5d348b7fbf9}{00032}} \textcolor{keywordtype}{float} \mbox{\hyperlink{sensor__fusion_8h_a7efc219781df4a1e281cb5d348b7fbf9}{yaw}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00033}\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{00033}} \textcolor{keywordtype}{char} \mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00035}00035 \textcolor{comment}{/* Inline Functions */}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00036}00036 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00037}00037 getRoll(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00038}00038 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00039}00039     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00040}00040     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a26fd84d522945b6038221d9e38c7cc39}{roll}} * 57.29578f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00041}00041 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00043}00043 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00044}00044 getPitch(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00045}00045 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00046}00046     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00047}00047     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a282e7d4378d4a18a805b8980295ac86c}{pitch}} * 57.29578f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00048}00048 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00050}00050 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00051}00051 getYaw(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00053}00053     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00054}00054     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a7efc219781df4a1e281cb5d348b7fbf9}{yaw}} * 57.29578f + 180.0f;}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00055}00055 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00057}00057 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00058}00058 getRollRadians(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00059}00059 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00060}00060     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00061}00061     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a26fd84d522945b6038221d9e38c7cc39}{roll}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00064}00064 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00065}00065 getPitchRadians(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00066}00066 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00067}00067     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00068}00068     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a282e7d4378d4a18a805b8980295ac86c}{pitch}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00069}00069 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00071}00071 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{float}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00072}00072 getYawRadians(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00073}00073 \{}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00074}00074     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{sensor__fusion_8h_a25a968f5ce1dd5581c3956626c89146b}{anglesComputed}}) \mbox{\hyperlink{sensor__fusion_8h_a7b14436407f3a952572f288543075e4d}{computeAngles}}();}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00075}00075     \textcolor{keywordflow}{return} \mbox{\hyperlink{sensor__fusion_8h_a7efc219781df4a1e281cb5d348b7fbf9}{yaw}};}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{sensor__fusion_8h_source_l00078}00078 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* SRC\_SENSORS\_SENSOR\_FUSION\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

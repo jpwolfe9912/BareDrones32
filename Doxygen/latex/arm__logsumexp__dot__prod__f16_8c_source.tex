@@ -1,0 +1,55 @@
+\hypertarget{arm__logsumexp__dot__prod__f16_8c_source}{}\doxysection{arm\+\_\+logsumexp\+\_\+dot\+\_\+prod\+\_\+f16.\+c}
+\label{arm__logsumexp__dot__prod__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_logsumexp\_dot\_prod\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_logsumexp\_dot\_prod\_f16.c}}
+\mbox{\hyperlink{arm__logsumexp__dot__prod__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_logsumexp\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  LogSumExp}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{statistics__functions__f16_8h}{dsp/statistics\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00031}00031 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00033}00033 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00034}00034 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00067}00067 float16\_t arm\_logsumexp\_dot\_prod\_f16(\textcolor{keyword}{const} float16\_t * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00068}00068   \textcolor{keyword}{const} float16\_t * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00069}00069   uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00070}00070   float16\_t *pTmpBuffer)}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00071}00071 \{}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00072}00072     float16\_t result;}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00073}00073     arm\_add\_f16((float16\_t*)pSrcA, (float16\_t*)pSrcB, pTmpBuffer, blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00075}00075     result = arm\_logsumexp\_f16(pTmpBuffer, blockSize);}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00076}00076     \textcolor{keywordflow}{return}(result);}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00077}00077 \}}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00083}00083 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{arm__logsumexp__dot__prod__f16_8c_source_l00084}00084 }
+
+\end{DoxyCode}

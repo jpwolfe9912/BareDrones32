@@ -92,6 +92,12 @@ SysTick_Handler(void)
 		///////////////////////////////
 		frame_1000Hz = true;
 
+		currentTime = micros();
+		deltaTime1000Hz = currentTime - previous1000HzTime;
+		previous1000HzTime = currentTime;
+
+		readMPU6000();
+
 		accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
 		accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
 		accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
@@ -275,6 +281,8 @@ systemInit(void)
 	dmaInit();
 	cycleCounterInit();
 
+	checkFirstTime(true);
+
 //	delay(1000);
 	/*		LOW LEVEL INITIALIZATION	*/
 
@@ -290,10 +298,15 @@ systemInit(void)
 
 	dshotInit(DSHOT600);
 	motorInit();
+	motors3dOn(MOTOR1);
+	motors3dOn(MOTOR2);
+
 
 	spi1Init();
 
 	usart1Init();
+
+	tim9Init();
 
 	/*		SENSOR INITIALIZATION		*/
 
@@ -304,7 +317,10 @@ systemInit(void)
 
 	while(!ibusInit());
 
-	motorZeroCommand();
+
+	motor_initialized = 1;
+
+//	motorZeroCommand();
 
 
 }

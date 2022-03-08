@@ -1,0 +1,56 @@
+\hypertarget{arm__cosine__distance__f32_8c_source}{}\doxysection{arm\+\_\+cosine\+\_\+distance\+\_\+f32.\+c}
+\label{arm__cosine__distance__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_cosine\_distance\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/DistanceFunctions/arm\_cosine\_distance\_f32.c}}
+\mbox{\hyperlink{arm__cosine__distance__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00002}00002 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00003}00003 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00004}00004 \textcolor{comment}{ * Title:        arm\_cosine\_distance\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00005}00005 \textcolor{comment}{ * Description:  Cosine distance between two vectors}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00006}00006 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00008}00008 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00010}00010 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00011}00011 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00012}00012 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00013}00013 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00014}00014 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00015}00015 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00017}00017 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00018}00018 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00019}00019 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00020}00020 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00021}00021 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00022}00022 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00023}00023 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00024}00024 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00025}00025 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00026}00026 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00027}00027 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00028}00028 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{distance__functions_8h}{dsp/distance\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00031}00031 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00032}00032 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00052}\mbox{\hyperlink{group___cosine_dist_ga376f5fccfe6ddba6ed7121bc1cec7f70}{00052}} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___cosine_dist_ga376f5fccfe6ddba6ed7121bc1cec7f70}{arm\_cosine\_distance\_f32}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pA,\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pB, uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00053}00053 \{}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00054}00054     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} pwra,pwrb,dot,tmp;}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00056}00056     \mbox{\hyperlink{group__power_gad0630e3743da2b5aedbe2bb624a8532f}{arm\_power\_f32}}(pA, blockSize, \&pwra);}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00057}00057     \mbox{\hyperlink{group__power_gad0630e3743da2b5aedbe2bb624a8532f}{arm\_power\_f32}}(pB, blockSize, \&pwrb);}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00059}00059     \mbox{\hyperlink{group___basic_dot_prod_gadf26f6bc62d6416528663ad3e46fbf67}{arm\_dot\_prod\_f32}}(pA,pB,blockSize,\&dot);}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00061}00061     \mbox{\hyperlink{group___s_q_r_t_ga5f37f479666ee8ff9711b334286c60ed}{arm\_sqrt\_f32}}(pwra * pwrb, \&tmp);}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00062}00062     \textcolor{keywordflow}{return}(1.0f -\/ dot / tmp);}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00064}00064 \}}
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__cosine__distance__f32_8c_source_l00067}00067 }
+
+\end{DoxyCode}

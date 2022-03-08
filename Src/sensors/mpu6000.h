@@ -1,46 +1,16 @@
-/*
-  October 2012
+/** @file 		mpu6000.c
+ *  @brief
+ *  	This file contains all the functions to initalize and read data from the MPU-6000
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		06 MAR 2022
+ *  @bug
+ */
 
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
-///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-// MPU6000 Defines and Variables
-///////////////////////////////////////////////////////////////////////////////
+/* Defines */
 
 // Registers
 
@@ -112,19 +82,13 @@
 #define BITS_DLPF_CFG_98HZ          0x02
 #define BITS_DLPF_CFG_42HZ          0x03
 
-#define MPU6000_CS_GPIO       GPIOA
-#define MPU6000_CS_GPIO_CLOCK RCC_AHB1Periph_GPIOA
-#define MPU6000_CS_PIN        GPIO_Pin_4
+#define DISABLE_MPU6000		  		GPIOA->BSRR |= GPIO_BSRR_BS4
+#define ENABLE_MPU6000        		GPIOA->BSRR |= GPIO_BSRR_BR4
 
-#define DISABLE_MPU6000		  GPIOA->BSRR |= GPIO_BSRR_BS4
-#define ENABLE_MPU6000        GPIOA->BSRR |= GPIO_BSRR_BR4
+#define GYRO_SCALE_FACTOR  			0.000532632f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
+#define ACCEL_SCALE_FACTOR 			0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
-#define GYRO_SCALE_FACTOR  (0.000532632f * 2)  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
-#define ACCEL_SCALE_FACTOR 0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
-
-///////////////////////////////////////////////////////////////////////////////
-// MPU6000 Variables
-///////////////////////////////////////////////////////////////////////////////
+/* Global Variables */
 
 extern uint8_t rawData[16];
 
@@ -168,28 +132,8 @@ extern float   mpu6000Temperature;
 
 extern int16andUint8_t rawMPU6000Temperature;
 
-///////////////////////////////////////////////////////////////////////////////
-// MPU6000 Initialization
-///////////////////////////////////////////////////////////////////////////////
-
+/* Function Prototypes */
 bool mpu6000Init(void);
-
-///////////////////////////////////////////////////////////////////////////////
-// Read MPU6000
-///////////////////////////////////////////////////////////////////////////////
-
 void readMPU6000(void);
-
-///////////////////////////////////////////////////////////////////////////////
-// Compute MPU6000 Runtime Data
-///////////////////////////////////////////////////////////////////////////////
-
 void computeMPU6000RTData(void);
-
-///////////////////////////////////////////////////////////////////////////////
-// Compute MPU6000 Temperature Compensation Bias
-///////////////////////////////////////////////////////////////////////////////
-
 void computeMPU6000TCBias(void);
-
-///////////////////////////////////////////////////////////////////////////////

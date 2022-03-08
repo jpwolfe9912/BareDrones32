@@ -1,0 +1,104 @@
+\hypertarget{arm__dct4__init__q31_8c_source}{}\doxysection{arm\+\_\+dct4\+\_\+init\+\_\+q31.\+c}
+\label{arm__dct4__init__q31_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_dct4\_init\_q31.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_dct4\_init\_q31.c}}
+\mbox{\hyperlink{arm__dct4__init__q31_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_dct4\_init\_q31.c}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Initialization function of DCT-\/4 \& IDCT4 Q31}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{transform__functions_8h}{dsp/transform\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__common__tables_8h}{arm\_common\_tables.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00060}\mbox{\hyperlink{group___d_c_t4___i_d_c_t4_ga631bb59c7c97c814ff7147ecba6a716a}{00060}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4_ga631bb59c7c97c814ff7147ecba6a716a}{arm\_dct4\_init\_q31}}(}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00061}00061   \mbox{\hyperlink{structarm__dct4__instance__q31}{arm\_dct4\_instance\_q31}} * S,}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00062}00062   \mbox{\hyperlink{structarm__rfft__instance__q31}{arm\_rfft\_instance\_q31}} * S\_RFFT,}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00063}00063   \mbox{\hyperlink{structarm__cfft__radix4__instance__q31}{arm\_cfft\_radix4\_instance\_q31}} * S\_CFFT,}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00064}00064   uint16\_t N,}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00065}00065   uint16\_t Nby2,}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00066}00066   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} normalize)}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00067}00067 \{}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00068}00068   \textcolor{comment}{/* Initialize the default arm status */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00069}00069   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00071}00071   \textcolor{comment}{/* Initialize the DCT4 length */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00072}00072   S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a37d49571fe35012087153c093705cd11}{N}} = N;}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00074}00074   \textcolor{comment}{/* Initialize the half of DCT4 length */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00075}00075   S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_afa64b1618089e35c2b55cff71cb29715}{Nby2}} = Nby2;}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00077}00077   \textcolor{comment}{/* Initialize the DCT4 Normalizing factor */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00078}00078   S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a3a2f571658a202a38fa508098001b47c}{normalize}} = normalize;}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00080}00080   \textcolor{comment}{/* Initialize Real FFT Instance */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00081}00081   S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a16c74f8496e1691e62da3c57e0c676eb}{pRfft}} = S\_RFFT;}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00083}00083   \textcolor{comment}{/* Initialize Complex FFT Instance */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00084}00084   S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a0b1f4a05c1824bab3b9bd837a260232a}{pCfft}} = S\_CFFT;}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00086}00086   \textcolor{keywordflow}{switch} (N)}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00087}00087   \{}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00088}00088 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_8192)}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00089}00089     \textcolor{comment}{/* Initialize the table modifier values */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00090}00090   \textcolor{keywordflow}{case} 8192U:}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00091}00091     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a9760c603af5d85652496dbffd63a8a2e}{pTwiddle}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga16bf6bbe5c4c9b35f88253cf7bdcc435}{WeightsQ31\_8192}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00092}00092     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_aa974df00a55867c29876179e57f2ac7f}{pCosFactor}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gaf687c4bbdbc700a3ad5d807d28de63e4}{cos\_factorsQ31\_8192}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00093}00093     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00094}00094 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00096}00096 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00097}00097   \textcolor{keywordflow}{case} 2048U:}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00098}00098     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a9760c603af5d85652496dbffd63a8a2e}{pTwiddle}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga725b65c25a02b3cad329e18bb832f65e}{WeightsQ31\_2048}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00099}00099     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_aa974df00a55867c29876179e57f2ac7f}{pCosFactor}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gaa15fc3fb058482defda371113cd12e74}{cos\_factorsQ31\_2048}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00100}00100     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00101}00101 \textcolor{preprocessor}{  \#endif }}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00103}00103 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00104}00104   \textcolor{keywordflow}{case} 512U:}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00105}00105     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a9760c603af5d85652496dbffd63a8a2e}{pTwiddle}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga31a8217a96f7d3171921e98398f31596}{WeightsQ31\_512}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00106}00106     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_aa974df00a55867c29876179e57f2ac7f}{pCosFactor}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga3559569e603cb918911074be88523d0e}{cos\_factorsQ31\_512}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00107}00107     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00108}00108 \textcolor{preprocessor}{  \#endif }}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00110}00110 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00111}00111   \textcolor{keywordflow}{case} 128U:}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00112}00112     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a9760c603af5d85652496dbffd63a8a2e}{pTwiddle}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga02d7024538a87214296b01d83ba36b02}{WeightsQ31\_128}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00113}00113     S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_aa974df00a55867c29876179e57f2ac7f}{pCosFactor}} = \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gabb8ee2004a3520fd08388db637d43875}{cos\_factorsQ31\_128}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00114}00114     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00115}00115 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00116}00116   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00117}00117     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a74897e18d4b8f62b12a7d8a01dd2bb35}{ARM\_MATH\_ARGUMENT\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00118}00118   \}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00120}00120   \textcolor{comment}{/* Initialize the RFFT/RIFFT Function */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00121}00121   \mbox{\hyperlink{group___real_f_f_t_ga5abde938abbe72e95c5bab080eb33c45}{arm\_rfft\_init\_q31}}(S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a16c74f8496e1691e62da3c57e0c676eb}{pRfft}},  S-\/>\mbox{\hyperlink{structarm__dct4__instance__q31_a37d49571fe35012087153c093705cd11}{N}}, 0U, 1U);}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00123}00123   \textcolor{comment}{/* return the status of DCT4 Init function */}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00124}00124   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00125}00125 \}}
+\DoxyCodeLine{\Hypertarget{arm__dct4__init__q31_8c_source_l00126}00126 }
+
+\end{DoxyCode}

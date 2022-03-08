@@ -1,0 +1,156 @@
+\hypertarget{fast__math__functions_8h_source}{}\doxysection{fast\+\_\+math\+\_\+functions.\+h}
+\label{fast__math__functions_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/dsp/fast\_math\_functions.h@{Autodrone32/Libraries/CMSIS/Include/dsp/fast\_math\_functions.h}}
+\mbox{\hyperlink{fast__math__functions_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00001}00001 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00002}00002 \textcolor{comment}{ * @file     fast\_math\_functions.h}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00003}00003 \textcolor{comment}{ * @brief    Public header file for CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00004}00004 \textcolor{comment}{ * @version  V1.9.0}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00005}00005 \textcolor{comment}{ * @date     23 April 2021}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00006}00006 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00007}00007 \textcolor{comment}{ ******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00008}00008 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00009}00009 \textcolor{comment}{ * Copyright (c) 2010-\/2020 Arm Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00010}00010 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00011}00011 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00012}00012 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00013}00013 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00014}00014 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00015}00015 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00016}00016 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00017}00017 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00018}00018 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00019}00019 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00020}00020 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00021}00021 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00022}00022 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00023}00023 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00024}00024 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00026}00026  }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00027}00027 \textcolor{preprocessor}{\#ifndef \_FAST\_MATH\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00028}00028 \textcolor{preprocessor}{\#define \_FAST\_MATH\_FUNCTIONS\_H\_}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__types_8h}{arm\_math\_types.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00031}00031 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__memory_8h}{arm\_math\_memory.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{none_8h}{dsp/none.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00034}00034 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{utils_8h}{dsp/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00036}00036 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00037}00037 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00038}00038 \{}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00039}00039 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00045}\mbox{\hyperlink{fast__math__functions_8h_afcb9147c96853bea484cfc2dde07463d}{00045}} \textcolor{preprocessor}{\#define FAST\_MATH\_TABLE\_SIZE  512}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00046}\mbox{\hyperlink{fast__math__functions_8h_a4268f77b1811a0c7fc2532a0bf6108b0}{00046}} \textcolor{preprocessor}{\#define FAST\_MATH\_Q31\_SHIFT   (32 -\/ 10)}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00047}\mbox{\hyperlink{fast__math__functions_8h_a34716b73c631e65e8dd855e08384ecb2}{00047}} \textcolor{preprocessor}{\#define FAST\_MATH\_Q15\_SHIFT   (16 -\/ 10)}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00048}00048   }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00049}00049 \textcolor{preprocessor}{\#ifndef PI}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00050}\mbox{\hyperlink{fast__math__functions_8h_a598a3330b3c21701223ee0ca14316eca}{00050}} \textcolor{preprocessor}{  \#define PI               3.14159265358979f}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00051}00051 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00078}00078   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group__sin_gae164899c4a3fc0e946dc5d55555fe541}{arm\_sin\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00079}00079   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00087}00087   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group__sin_ga57aade7d8892585992cdc6375bd82f9c}{arm\_sin\_q31}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00088}00088   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00096}00096   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group__sin_ga1fc6d6640be6cfa688a8bea0a48397ee}{arm\_sin\_q15}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00097}00097   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00113}00113   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group__cos_gace15287f9c64b9b4084d1c797d4c49d8}{arm\_cos\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00114}00114   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00122}00122   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group__cos_gad80f121949ef885a77d83ab36e002567}{arm\_cos\_q31}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00123}00123   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00131}00131   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group__cos_gadfd60c24def501638c0d5db20f4c869b}{arm\_cos\_q15}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00132}00132   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} x);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00133}00133 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00146}00146   \textcolor{keywordtype}{void} \mbox{\hyperlink{fast__math__functions_8h_a1a97d95af11d143b26334c8ff278443e}{arm\_vlog\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00147}00147   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00148}00148         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00149}00149         uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00158}00158   \textcolor{keywordtype}{void} \mbox{\hyperlink{fast__math__functions_8h_aa2b569a40e82e69917f9560774f75a91}{arm\_vexp\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00159}00159   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00160}00160         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00161}00161         uint32\_t blockSize);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00197}\mbox{\hyperlink{group___s_q_r_t_ga5f37f479666ee8ff9711b334286c60ed}{00197}} \mbox{\hyperlink{cmsis__armcc_8h_ab904513442afdf77d4f8c74f23cbb040}{\_\_STATIC\_FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___s_q_r_t_ga5f37f479666ee8ff9711b334286c60ed}{arm\_sqrt\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00198}00198   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} in,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00199}00199   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pOut)}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00200}00200   \{}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00201}00201     \textcolor{keywordflow}{if} (in >= 0.0f)}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00202}00202     \{}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00203}00203 \textcolor{preprocessor}{\#if defined ( \_\_CC\_ARM )}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00204}00204 \textcolor{preprocessor}{  \#if defined \_\_TARGET\_FPU\_VFP}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00205}00205       *pOut = \_\_sqrtf(in);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00206}00206 \textcolor{preprocessor}{  \#else}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00207}00207       *pOut = sqrtf(in);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00208}00208 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00210}00210 \textcolor{preprocessor}{\#elif defined ( \_\_ICCARM\_\_ )}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00211}00211 \textcolor{preprocessor}{  \#if defined \_\_ARMVFP\_\_}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00212}00212       \mbox{\hyperlink{cmsis__armcc_8h_a1378040bcf22428955c6e3ce9c2053cd}{\_\_ASM}}(\textcolor{stringliteral}{"{}VSQRT.F32 \%0,\%1"{}} : \textcolor{stringliteral}{"{}=t"{}}(*pOut) : \textcolor{stringliteral}{"{}t"{}}(in));}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00213}00213 \textcolor{preprocessor}{  \#else}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00214}00214       *pOut = sqrtf(in);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00215}00215 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00217}00217 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00218}00218       *pOut = sqrtf(in);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00219}00219 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00221}00221       \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}});}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00222}00222     \}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00223}00223     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00224}00224     \{}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00225}00225       *pOut = 0.0f;}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00226}00226       \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a74897e18d4b8f62b12a7d8a01dd2bb35}{ARM\_MATH\_ARGUMENT\_ERROR}});}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00227}00227     \}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00228}00228   \}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00239}00239 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___s_q_r_t_ga119e25831e141d734d7ef10636670058}{arm\_sqrt\_q31}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00240}00240   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} in,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00241}00241   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pOut);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00252}00252 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___s_q_r_t_ga5abe5ca724f3e15849662b03752c1238}{arm\_sqrt\_q15}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00253}00253   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} in,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00254}00254   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pOut);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00255}00255 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00264}\mbox{\hyperlink{group___s_q_r_t_gaa9b8a2bea8a22489bfd968eb4687a7bd}{00264}}   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___s_q_r_t_gaa9b8a2bea8a22489bfd968eb4687a7bd}{arm\_vsqrt\_f32}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00265}00265   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pIn,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00266}00266   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pOut,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00267}00267   uint16\_t len);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00269}\mbox{\hyperlink{group___s_q_r_t_ga5955b76f2a60c1636ff507182000193d}{00269}}   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___s_q_r_t_ga5955b76f2a60c1636ff507182000193d}{arm\_vsqrt\_q31}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00270}00270   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pIn,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00271}00271   \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pOut,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00272}00272   uint16\_t len);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00274}\mbox{\hyperlink{group___s_q_r_t_ga793f913a2b3a8f45577db36136954cdc}{00274}}   \textcolor{keywordtype}{void} \mbox{\hyperlink{group___s_q_r_t_ga793f913a2b3a8f45577db36136954cdc}{arm\_vsqrt\_q15}}(}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00275}00275   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pIn,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00276}00276   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} * pOut,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00277}00277   uint16\_t len);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00278}00278 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00295}00295 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group__divide_ga3d5bc8179cdfb12288d58d99d635e4cb}{arm\_divide\_q15}}(\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} numerator,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00296}00296   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} denominator,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00297}00297   \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} *quotient,}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00298}00298   int16\_t *shift);}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00301}00301 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00302}00302 \}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00303}00303 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{fast__math__functions_8h_source_l00305}00305 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ifndef \_FAST\_MATH\_FUNCTIONS\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

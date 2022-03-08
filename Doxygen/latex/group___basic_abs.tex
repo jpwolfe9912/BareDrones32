@@ -1,0 +1,143 @@
+\hypertarget{group___basic_abs}{}\doxysection{Vector Absolute Value}
+\label{group___basic_abs}\index{Vector Absolute Value@{Vector Absolute Value}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___basic_abs_ga0e8fc7df3033cdbe9cda8a766a46e6d9}{arm\+\_\+abs\+\_\+f32}} (const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Floating-\/point vector absolute value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_abs_ga5cd90f9490ba8711c86e6f4bd7154359}{arm\+\_\+abs\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q15 vector absolute value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_abs_ga494bd5db5e2686d96f5548e80ba8ca89}{arm\+\_\+abs\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q31 vector absolute value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___basic_abs_ga097f1938c72471930b4e5647de40c505}{arm\+\_\+abs\+\_\+q7}} (const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t block\+Size)
+\begin{DoxyCompactList}\small\item\em Q7 vector absolute value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Computes the absolute value of a vector on an element-\/by-\/element basis.
+
+
+\begin{DoxyPre}
+    pDst[n] = abs(pSrc[n]),   0 <= n < blockSize.
+\end{DoxyPre}
+
+
+The functions support in-\/place computation allowing the source and destination pointers to reference the same memory buffer. There are separate functions for floating-\/point, Q7, Q15, and Q31 data types. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___basic_abs_ga0e8fc7df3033cdbe9cda8a766a46e6d9}\label{group___basic_abs_ga0e8fc7df3033cdbe9cda8a766a46e6d9}} 
+\index{Vector Absolute Value@{Vector Absolute Value}!arm\_abs\_f32@{arm\_abs\_f32}}
+\index{arm\_abs\_f32@{arm\_abs\_f32}!Vector Absolute Value@{Vector Absolute Value}}
+\doxysubsubsection{\texorpdfstring{arm\_abs\_f32()}{arm\_abs\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+abs\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Floating-\/point vector absolute value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__abs__f32_8c_source_l00113}{113}} of file \mbox{\hyperlink{arm__abs__f32_8c_source}{arm\+\_\+abs\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___basic_abs_ga5cd90f9490ba8711c86e6f4bd7154359}\label{group___basic_abs_ga5cd90f9490ba8711c86e6f4bd7154359}} 
+\index{Vector Absolute Value@{Vector Absolute Value}!arm\_abs\_q15@{arm\_abs\_q15}}
+\index{arm\_abs\_q15@{arm\_abs\_q15}!Vector Absolute Value@{Vector Absolute Value}}
+\doxysubsubsection{\texorpdfstring{arm\_abs\_q15()}{arm\_abs\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+abs\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q15 vector absolute value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. The Q15 value -\/1 (0x8000) will be saturated to the maximum allowable positive value 0x7\+FFF. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__abs__q15_8c_source_l00097}{97}} of file \mbox{\hyperlink{arm__abs__q15_8c_source}{arm\+\_\+abs\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group___basic_abs_ga494bd5db5e2686d96f5548e80ba8ca89}\label{group___basic_abs_ga494bd5db5e2686d96f5548e80ba8ca89}} 
+\index{Vector Absolute Value@{Vector Absolute Value}!arm\_abs\_q31@{arm\_abs\_q31}}
+\index{arm\_abs\_q31@{arm\_abs\_q31}!Vector Absolute Value@{Vector Absolute Value}}
+\doxysubsubsection{\texorpdfstring{arm\_abs\_q31()}{arm\_abs\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+abs\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q31 vector absolute value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. The Q31 value -\/1 (0x80000000) will be saturated to the maximum allowable positive value 0x7\+FFFFFFF. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__abs__q31_8c_source_l00099}{99}} of file \mbox{\hyperlink{arm__abs__q31_8c_source}{arm\+\_\+abs\+\_\+q31.\+c}}.
+
+\mbox{\Hypertarget{group___basic_abs_ga097f1938c72471930b4e5647de40c505}\label{group___basic_abs_ga097f1938c72471930b4e5647de40c505}} 
+\index{Vector Absolute Value@{Vector Absolute Value}!arm\_abs\_q7@{arm\_abs\_q7}}
+\index{arm\_abs\_q7@{arm\_abs\_q7}!Vector Absolute Value@{Vector Absolute Value}}
+\doxysubsubsection{\texorpdfstring{arm\_abs\_q7()}{arm\_abs\_q7()}}
+{\footnotesize\ttfamily void arm\+\_\+abs\+\_\+q7 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{block\+Size }\end{DoxyParamCaption})}
+
+
+
+Q7 vector absolute value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em block\+Size} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Conditions for optimum performance}
+Input and output buffers should be aligned by 32-\/bit 
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. The Q7 value -\/1 (0x80) will be saturated to the maximum allowable positive value 0x7F. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__abs__q7_8c_source_l00099}{99}} of file \mbox{\hyperlink{arm__abs__q7_8c_source}{arm\+\_\+abs\+\_\+q7.\+c}}.
+

@@ -1,0 +1,133 @@
+\hypertarget{mpu6000_8h_source}{}\doxysection{mpu6000.\+h}
+\label{mpu6000_8h_source}\index{Autodrone32/Src/sensors/mpu6000.h@{Autodrone32/Src/sensors/mpu6000.h}}
+\mbox{\hyperlink{mpu6000_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00011}00011 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00013}00013 \textcolor{comment}{/* Defines */}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00015}00015 \textcolor{comment}{// Registers}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00017}\mbox{\hyperlink{mpu6000_8h_a50a7c297758f3c5ff865c7787315e957}{00017}} \textcolor{preprocessor}{\#define MPU6000\_PRODUCT\_ID          0x68}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00019}\mbox{\hyperlink{mpu6000_8h_af3e3fe0932b86cda649d8867d4b2be60}{00019}} \textcolor{preprocessor}{\#define MPU6000\_SMPLRT\_DIV          0x19}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00020}\mbox{\hyperlink{mpu6000_8h_a181196f7315b66faf526a932e40a194a}{00020}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_CONFIG         0x1B}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00021}\mbox{\hyperlink{mpu6000_8h_a99e9c705dabcac566fe29cfa46e46a23}{00021}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_CONFIG        0x1C}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00022}\mbox{\hyperlink{mpu6000_8h_a3eb92834d57ebf3709c801b8fa3908a3}{00022}} \textcolor{preprocessor}{\#define MPU6000\_FIFO\_EN             0x23}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00023}\mbox{\hyperlink{mpu6000_8h_ad8b8153531f48bd60e0c8a79b6749bc5}{00023}} \textcolor{preprocessor}{\#define MPU6000\_INT\_PIN\_CFG         0x37}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00024}\mbox{\hyperlink{mpu6000_8h_a5796f899f82d6831fbc0bad0a67112ed}{00024}} \textcolor{preprocessor}{\#define MPU6000\_INT\_ENABLE          0x38}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00025}\mbox{\hyperlink{mpu6000_8h_a5dedce56cd111c2b78f560a081c074f8}{00025}} \textcolor{preprocessor}{\#define MPU6000\_INT\_STATUS          0x3A}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00026}\mbox{\hyperlink{mpu6000_8h_a613c43b8fcb05599010f718ac64e3e59}{00026}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_XOUT\_H        0x3B}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00027}\mbox{\hyperlink{mpu6000_8h_a8ad17c5eee467da85e55f8fbd0817f14}{00027}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_XOUT\_L        0x3C}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00028}\mbox{\hyperlink{mpu6000_8h_aaf959f6beb91b8e6d595ea5741d13de9}{00028}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_YOUT\_H        0x3D}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00029}\mbox{\hyperlink{mpu6000_8h_a5ee6018efa8c141a36666d22a8e87417}{00029}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_YOUT\_L        0x3E}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00030}\mbox{\hyperlink{mpu6000_8h_a0f4fe9730ce05b935e6c6745c85ba146}{00030}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_ZOUT\_H        0x3F}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00031}\mbox{\hyperlink{mpu6000_8h_afc2db7ec894067df8a957ea29fb70430}{00031}} \textcolor{preprocessor}{\#define MPU6000\_ACCEL\_ZOUT\_L        0x40}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00032}\mbox{\hyperlink{mpu6000_8h_a2f8cc9d1977784f1e6b29dc5c649e705}{00032}} \textcolor{preprocessor}{\#define MPU6000\_TEMP\_OUT\_H          0x41}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00033}\mbox{\hyperlink{mpu6000_8h_a784b73c8ef6c9f37ed37e05fe90d5fa6}{00033}} \textcolor{preprocessor}{\#define MPU6000\_TEMP\_OUT\_L          0x42}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00034}\mbox{\hyperlink{mpu6000_8h_a3b9781b431eb5edd17e5549b9de6f86a}{00034}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_XOUT\_H         0x43}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00035}\mbox{\hyperlink{mpu6000_8h_a6fcbc034dd445f101ac381f0bc911c4a}{00035}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_XOUT\_L         0x44}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00036}\mbox{\hyperlink{mpu6000_8h_a579f067c2c9257feacf1cfbb06913359}{00036}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_YOUT\_H         0x45}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00037}\mbox{\hyperlink{mpu6000_8h_a3362eb5e50af517aff6191fe57320255}{00037}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_YOUT\_L         0x46}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00038}\mbox{\hyperlink{mpu6000_8h_a49c4d3aae838adf673f332bc4e1d09ea}{00038}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_ZOUT\_H         0x47}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00039}\mbox{\hyperlink{mpu6000_8h_a55f04c3da8542c9129f2dd5f8587401e}{00039}} \textcolor{preprocessor}{\#define MPU6000\_GYRO\_ZOUT\_L         0x48}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00040}\mbox{\hyperlink{mpu6000_8h_a71469223fb6cff6d22c0e444ae5eada6}{00040}} \textcolor{preprocessor}{\#define MPU6000\_SIGNAL\_PATH\_RESET   0x68}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00041}\mbox{\hyperlink{mpu6000_8h_a64a048bbac4171d9ef809f8d490f64c5}{00041}} \textcolor{preprocessor}{\#define MPU6000\_USER\_CTRL           0x6A}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00042}\mbox{\hyperlink{mpu6000_8h_a3703bea6c3dd2f6e2ab8200abc4fc7f6}{00042}} \textcolor{preprocessor}{\#define MPU6000\_PWR\_MGMT\_1          0x6B}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00043}\mbox{\hyperlink{mpu6000_8h_a101e149ed591b1c1f2e733adc127d7f8}{00043}} \textcolor{preprocessor}{\#define MPU6000\_PWR\_MGMT\_2          0x6C}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00044}\mbox{\hyperlink{mpu6000_8h_a24f1f05ca6ded48a1da236c913be2068}{00044}} \textcolor{preprocessor}{\#define MPU6000\_FIFO\_COUNTH         0x72}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00045}\mbox{\hyperlink{mpu6000_8h_a534e9649304a588c43d610df0ae87647}{00045}} \textcolor{preprocessor}{\#define MPU6000\_FIFO\_COUNTL         0x73}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00046}\mbox{\hyperlink{mpu6000_8h_ae58335ad51c2c8e4d22878dfe9856a0e}{00046}} \textcolor{preprocessor}{\#define MPU6000\_FIFO\_R\_W            0x74}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00047}\mbox{\hyperlink{mpu6000_8h_aa428220132728481e7eb63f3cfe33293}{00047}} \textcolor{preprocessor}{\#define MPU6000\_WHOAMI              0x75}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00049}00049 \textcolor{comment}{// Bits}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00051}\mbox{\hyperlink{mpu6000_8h_a1fed8bd436e9b7dfccb1cae99ca89103}{00051}} \textcolor{preprocessor}{\#define BIT\_SLEEP                   0x40}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00052}\mbox{\hyperlink{mpu6000_8h_a30a2f1f788faf9cbdeec0b2bbb39fb8c}{00052}} \textcolor{preprocessor}{\#define BIT\_H\_RESET                 0x80}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00053}\mbox{\hyperlink{mpu6000_8h_ac38a8874c8758922c29421ba8ba643de}{00053}} \textcolor{preprocessor}{\#define BITS\_CLKSEL                 0x07}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00054}\mbox{\hyperlink{mpu6000_8h_a944417cd026a2bd2125bb8eaa76bf3ad}{00054}} \textcolor{preprocessor}{\#define MPU\_CLK\_SEL\_PLLGYROX        0x01}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00055}\mbox{\hyperlink{mpu6000_8h_a9dc4dc5665ac7d0bba0b9b21b9c71d12}{00055}} \textcolor{preprocessor}{\#define MPU\_CLK\_SEL\_PLLGYROZ        0x03}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00056}\mbox{\hyperlink{mpu6000_8h_aabc609c0666120a8f2d8041d7bb44989}{00056}} \textcolor{preprocessor}{\#define MPU\_EXT\_SYNC\_GYROX          0x02}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00057}\mbox{\hyperlink{mpu6000_8h_a9e7d0e86b5d40ec5bb8202b926c7f8d6}{00057}} \textcolor{preprocessor}{\#define BITS\_FS\_250DPS              0x00}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00058}\mbox{\hyperlink{mpu6000_8h_adf6b50b2041b449c5883c250c47f09e2}{00058}} \textcolor{preprocessor}{\#define BITS\_FS\_500DPS              0x08}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00059}\mbox{\hyperlink{mpu6000_8h_adaba564194d0798e5c122f555b1c61e2}{00059}} \textcolor{preprocessor}{\#define BITS\_FS\_1000DPS             0x10}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00060}\mbox{\hyperlink{mpu6000_8h_a5bb9754e23061a7f2f5cd10e4d3ad2df}{00060}} \textcolor{preprocessor}{\#define BITS\_FS\_2000DPS             0x18}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00061}\mbox{\hyperlink{mpu6000_8h_aac350763b2070c9d736fa2e866297bb7}{00061}} \textcolor{preprocessor}{\#define BITS\_FS\_2G                  0x00}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00062}\mbox{\hyperlink{mpu6000_8h_ae6fec98ad2a190e9b0051ad1f9a41b9a}{00062}} \textcolor{preprocessor}{\#define BITS\_FS\_4G                  0x08}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00063}\mbox{\hyperlink{mpu6000_8h_abdd09cc74774efdca365a8878aa5473c}{00063}} \textcolor{preprocessor}{\#define BITS\_FS\_8G                  0x10}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00064}\mbox{\hyperlink{mpu6000_8h_ac36bf9743672e06a5a7066b0a96d0287}{00064}} \textcolor{preprocessor}{\#define BITS\_FS\_16G                 0x18}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00065}\mbox{\hyperlink{mpu6000_8h_afca5f862287194d1e94e7b220e483c47}{00065}} \textcolor{preprocessor}{\#define BITS\_FS\_MASK                0x18}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00066}\mbox{\hyperlink{mpu6000_8h_a67c9b5662440c5544bd8beec01ba11ac}{00066}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_20HZ          0x04}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00067}\mbox{\hyperlink{mpu6000_8h_a584b3250b87795ebceb2760db71a3c2c}{00067}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_10HZ          0x05}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00068}\mbox{\hyperlink{mpu6000_8h_a27ac58c4ccfdccda1aa8aba51ed2fdfa}{00068}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_5HZ           0x06}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00069}\mbox{\hyperlink{mpu6000_8h_add820c891f6289f28169ec193989d071}{00069}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_2100HZ\_NOLPF  0x07}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00070}\mbox{\hyperlink{mpu6000_8h_aca8277059599ac72dc5b4a8bdd88837a}{00070}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_MASK          0x07}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00071}\mbox{\hyperlink{mpu6000_8h_aeb55354f7d86711bd32f4a9bd7abd80c}{00071}} \textcolor{preprocessor}{\#define BIT\_INT\_ANYRD\_2CLEAR        0x10}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00072}\mbox{\hyperlink{mpu6000_8h_a2cc3a4ac952a96bac26f12b0f892c159}{00072}} \textcolor{preprocessor}{\#define BIT\_RAW\_RDY\_EN              0x01}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00073}\mbox{\hyperlink{mpu6000_8h_ae434660d02cd8083270713af8b4a1593}{00073}} \textcolor{preprocessor}{\#define BIT\_I2C\_IF\_DIS              0x10}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00074}\mbox{\hyperlink{mpu6000_8h_ac7619400e4d4a27abd76e25fadc617a2}{00074}} \textcolor{preprocessor}{\#define BIT\_INT\_STATUS\_DATA         0x01}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00078}\mbox{\hyperlink{mpu6000_8h_a3907fa8a3f390985b6384cb152369764}{00078}} \textcolor{preprocessor}{\#define MPU6000\_CONFIG              0x1A}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00080}\mbox{\hyperlink{mpu6000_8h_a193025f8805cfadfdbe440b1a164d729}{00080}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_256HZ         0x00}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00081}\mbox{\hyperlink{mpu6000_8h_abcace62ae86342cf57aa7de5581f4130}{00081}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_188HZ         0x01}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00082}\mbox{\hyperlink{mpu6000_8h_acb24b04f00e68f89c16862a303b413ec}{00082}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_98HZ          0x02}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00083}\mbox{\hyperlink{mpu6000_8h_a44541217261cc05131a4113ad807dbf2}{00083}} \textcolor{preprocessor}{\#define BITS\_DLPF\_CFG\_42HZ          0x03}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00085}\mbox{\hyperlink{mpu6000_8h_a51e6f11d0ca0b59abc3203297edb38a8}{00085}} \textcolor{preprocessor}{\#define DISABLE\_MPU6000             GPIOA-\/>BSRR |= GPIO\_BSRR\_BS4}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00086}\mbox{\hyperlink{mpu6000_8h_a3d1264d5a39a7a78632a5e861758588c}{00086}} \textcolor{preprocessor}{\#define ENABLE\_MPU6000              GPIOA-\/>BSRR |= GPIO\_BSRR\_BR4}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00088}\mbox{\hyperlink{mpu6000_8h_a9a726f5df52d7d55a122b9949686036d}{00088}} \textcolor{preprocessor}{\#define GYRO\_SCALE\_FACTOR           0.000532632f  }\textcolor{comment}{// (4/131) * pi/180   (32.75 LSB = 1 DPS)}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00089}\mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{00089}} \textcolor{preprocessor}{\#define ACCEL\_SCALE\_FACTOR          0.004788403f  }\textcolor{comment}{// (16/65536) * 9.8065  (8192 LSB = 1 G)}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00091}00091 \textcolor{comment}{/* Global Variables */}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00093}00093 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{mpu6000_8h_ad8cd7815e7e75c2dc0158e8c4e0fdd81}{rawData}}[16];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00095}00095 \textcolor{keyword}{extern} \textcolor{keywordtype}{float}   \mbox{\hyperlink{mpu6000_8h_a9246f6c9e323d321d5578adbc8107b28}{accelOneG}};}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00097}00097 \textcolor{keyword}{extern} \textcolor{keywordtype}{float}   \mbox{\hyperlink{mpu6000_8h_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00099}00099 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00101}00101 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00103}00103 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00105}00105 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00107}00107 \textcolor{keyword}{extern} \mbox{\hyperlink{unionint16and_uint8__t}{int16andUint8\_t}} \mbox{\hyperlink{mpu6000_8h_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00109}00109 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{mpu6000_8h_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00113}00113 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{mpu6000_8h_a2f086a0eec38508f4d11b532552e51f9}{gyroRTBias}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00115}00115 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{mpu6000_8h_a8f989a8cbfaa7527db003cb247c21390}{gyroTCBias}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00117}00117 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00119}00119 \textcolor{keyword}{extern} int32\_t \mbox{\hyperlink{mpu6000_8h_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00121}00121 \textcolor{keyword}{extern} \mbox{\hyperlink{unionint16and_uint8__t}{int16andUint8\_t}} \mbox{\hyperlink{mpu6000_8h_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00123}00123 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{mpu6000_8h_ac06ab38f500b93844fb26bd1fa3a6f5c}{nonRotatedGyroData}}[3];}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00127}00127 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{mpu6000_8h_a28ac454a2eb6f0e7aeaa104f034e05b9}{accelCalibrating}};}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00129}00129 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{mpu6000_8h_afec3a9a296c531e6e5a02bd48dd46286}{mpu6000Calibrating}};}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00131}00131 \textcolor{keyword}{extern} \textcolor{keywordtype}{float}   \mbox{\hyperlink{mpu6000_8h_a867851a3e2970c8e01557538276c7575}{mpu6000Temperature}};}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00133}00133 \textcolor{keyword}{extern} \mbox{\hyperlink{unionint16and_uint8__t}{int16andUint8\_t}} \mbox{\hyperlink{mpu6000_8h_a3f0591e6aaa96e6766fc44658aec4647}{rawMPU6000Temperature}};}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00135}00135 \textcolor{comment}{/* Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00136}00136 \textcolor{keywordtype}{bool} \mbox{\hyperlink{mpu6000_8h_a9caac400f3fe07fc1f2b4d76a7fc01a7}{mpu6000Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00137}00137 \textcolor{keywordtype}{void} \mbox{\hyperlink{mpu6000_8h_a99b5b452148c80bf8808dec0d02cb665}{readMPU6000}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00138}00138 \textcolor{keywordtype}{void} \mbox{\hyperlink{mpu6000_8h_acb7732c2d9d2c63ad23af99706e5941d}{computeMPU6000RTData}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6000_8h_source_l00139}00139 \textcolor{keywordtype}{void} \mbox{\hyperlink{mpu6000_8h_a09f05343283ca43390d2bd303416ac02}{computeMPU6000TCBias}}(\textcolor{keywordtype}{void});}
+
+\end{DoxyCode}

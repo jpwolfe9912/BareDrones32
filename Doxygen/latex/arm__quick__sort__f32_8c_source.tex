@@ -1,0 +1,146 @@
+\hypertarget{arm__quick__sort__f32_8c_source}{}\doxysection{arm\+\_\+quick\+\_\+sort\+\_\+f32.\+c}
+\label{arm__quick__sort__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_quick\_sort\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_quick\_sort\_f32.c}}
+\mbox{\hyperlink{arm__quick__sort__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_quick\_sort\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating point quick sort}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__sorting_8h}{arm\_sorting.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00031}00031 \textcolor{keyword}{static} uint32\_t arm\_quick\_sort\_partition\_f32(\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pSrc, int32\_t first, int32\_t last, uint8\_t dir)}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00032}00032 \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00033}00033     \textcolor{comment}{/* This function will be called */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00034}00034     int32\_t i, j, pivot\_index;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00035}00035     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} pivot;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00036}00036     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00038}00038     \textcolor{comment}{/* The first element is the pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00039}00039     pivot\_index = first; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00040}00040     pivot = pSrc[pivot\_index];}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00042}00042     \textcolor{comment}{/* Initialize indices for do-\/while loops */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00043}00043     i = first -\/ 1;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00044}00044     j = last + 1; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00046}00046     \textcolor{keywordflow}{while}(i < j) }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00047}00047     \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00048}00048         \textcolor{comment}{/* The loop will stop as soon as the indices i and j cross each other.}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00049}00049 \textcolor{comment}{         *}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00050}00050 \textcolor{comment}{         * This event will happen surely since the values of the indices are incremented and }}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00051}00051 \textcolor{comment}{         * decrement in the do-\/while loops that are executed at least once. }}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00052}00052 \textcolor{comment}{         * It is impossible to loop forever inside the do-\/while loops since the pivot is}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00053}00053 \textcolor{comment}{         * always an element of the array and the conditions cannot be always true (at least }}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00054}00054 \textcolor{comment}{         * the i-\/th or the j-\/th element will be equal to the pivot-\/th element).}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00055}00055 \textcolor{comment}{         * For example, in the extreme case of an ordered array the do-\/while loop related to i will stop}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00056}00056 \textcolor{comment}{         * at the first iteration (because pSrc[i]=pSrc[pivot] already), and the loop related to j}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00057}00057 \textcolor{comment}{         * will stop after (last-\/first) iterations (when j=pivot=i=first). j is returned and}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00058}00058 \textcolor{comment}{         * j+1 is going to be used as pivot by other calls of the function, until j=pivot=last. */} }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00060}00060         \textcolor{comment}{/* Move indices to the right and to the left */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00061}00061         \textcolor{keywordflow}{if}(dir)}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00062}00062         \{    }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00063}00063             \textcolor{comment}{/* Compare left elements with pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00064}00064             \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00065}00065             \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00066}00066                 i++; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00067}00067             \} \textcolor{keywordflow}{while} (pSrc[i] < pivot \&\& i<last);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00068}00068        }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00069}00069             \textcolor{comment}{/* Compare right elements with pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00070}00070             \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00071}00071             \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00072}00072                 j-\/-\/; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00073}00073             \} \textcolor{keywordflow}{while} (pSrc[j] > pivot);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00074}00074         \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00075}00075         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00076}00076         \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00077}00077             \textcolor{comment}{/* Compare left elements with pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00078}00078             \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00079}00079             \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00080}00080                 i++; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00081}00081             \} \textcolor{keywordflow}{while} (pSrc[i] > pivot \&\& i<last);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00082}00082         }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00083}00083             \textcolor{comment}{/* Compare right elements with pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00084}00084             \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00085}00085             \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00086}00086                 j-\/-\/; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00087}00087             \} \textcolor{keywordflow}{while} (pSrc[j] < pivot);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00088}00088         \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00090}00090         \textcolor{comment}{/* If the indices didn't cross each other */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00091}00091         \textcolor{keywordflow}{if} (i < j) }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00092}00092         \{ }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00093}00093             \textcolor{comment}{/* i and j are in the wrong position -\/> Swap */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00094}00094             \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}}=pSrc[i];}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00095}00095             pSrc[i]=pSrc[j];}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00096}00096             pSrc[j]=\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00097}00097         \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00098}00098     \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00100}00100     \textcolor{keywordflow}{return} j; }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00101}00101 \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00103}00103 \textcolor{keyword}{static} \textcolor{keywordtype}{void} arm\_quick\_sort\_core\_f32(\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pSrc, int32\_t first, int32\_t last, uint8\_t dir)}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00104}00104 \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00105}00105     \textcolor{comment}{/* If the array [first ... last] has more than one element */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00106}00106     \textcolor{keywordflow}{if}(first<last)}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00107}00107     \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00108}00108         int32\_t pivot;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00110}00110         \textcolor{comment}{/* Compute pivot */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00111}00111         pivot = arm\_quick\_sort\_partition\_f32(pSrc, first, last, dir);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00113}00113         \textcolor{comment}{/* Iterate algorithm with two sub-\/arrays [first ... pivot] and [pivot+1 ... last] */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00114}00114         arm\_quick\_sort\_core\_f32(pSrc, first,   pivot, dir);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00115}00115         arm\_quick\_sort\_core\_f32(pSrc, pivot+1, last,  dir);}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00116}00116     \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00117}00117 \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00157}\mbox{\hyperlink{group___sorting_ga3fcc3887ce21fc0fb29fe6145a0cfe82}{00157}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga3fcc3887ce21fc0fb29fe6145a0cfe82}{arm\_quick\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00158}00158   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00159}00159         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00160}00160         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00161}00161         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00162}00162 \{}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00163}00163     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pA;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00165}00165     \textcolor{comment}{/* Out-\/of-\/place */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00166}00166     \textcolor{keywordflow}{if}(pSrc != pDst) }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00167}00167     \{   }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00168}00168         memcpy(pDst, pSrc, blockSize*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}) );}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00169}00169         pA = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00170}00170     \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00171}00171     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00172}00172         pA = pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00174}00174     arm\_quick\_sort\_core\_f32(pA, 0, blockSize-\/1, S-\/>\mbox{\hyperlink{structarm__sort__instance__f32_ac6f3976ef6b482e4c2b4a865bb362518}{dir}});}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00175}00175     \textcolor{comment}{/* The previous function could be called recursively a maximum }}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00176}00176 \textcolor{comment}{     * of (blockSize-\/1) times, generating a stack consumption of 4*(blockSize-\/1) bytes. */}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00177}00177 \}}
+\DoxyCodeLine{\Hypertarget{arm__quick__sort__f32_8c_source_l00178}00178 }
+
+\end{DoxyCode}

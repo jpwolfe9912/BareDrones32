@@ -1,0 +1,1378 @@
+\hypertarget{arm__mat__cmplx__mult__f32_8c_source}{}\doxysection{arm\+\_\+mat\+\_\+cmplx\+\_\+mult\+\_\+f32.\+c}
+\label{arm__mat__cmplx__mult__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cmplx\_mult\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_cmplx\_mult\_f32.c}}
+\mbox{\hyperlink{arm__mat__cmplx__mult__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_mat\_cmplx\_mult\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point matrix multiplication}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{matrix__functions_8h}{dsp/matrix\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00063}00063 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00065}00065 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00067}00067 \textcolor{preprocessor}{\#define MATRIX\_DIM2 2}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00068}00068 \textcolor{preprocessor}{\#define MATRIX\_DIM3 3}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00069}00069 \textcolor{preprocessor}{\#define MATRIX\_DIM4 4}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00071}00071 \mbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} arm\_mat\_cmplx\_mult\_f32\_2x2\_mve(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00072}00072     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00073}00073     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00074}00074     \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00075}00075 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00076}00076     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00077}00077     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00078}00078     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};   \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00079}00079     uint32x4\_t   vecColBOffs0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00080}00080     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA0 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00081}00081     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA1 = pInA0 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00082}00082     f32x4\_t    acc0, acc1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00083}00083     f32x4\_t    vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00085}00085     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t offsetB0[4] = \{ 0, 1,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00086}00086         MATRIX\_DIM2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, MATRIX\_DIM2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00087}00087     \};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00089}00089     vecColBOffs0 = vldrwq\_u32((uint32\_t \textcolor{keyword}{const} *) offsetB0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00091}00091     pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *)pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00093}00093     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00095}00095     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00096}00096     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00097}00097     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00099}00099     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00100}00100     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00101}00101     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00103}00103     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00104}00104     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00105}00105     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00106}00106     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00107}00107     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00109}00109     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00110}00110 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00111}00111 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00112}00112     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00114}00114     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00116}00116     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00117}00117     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00118}00118     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00120}00120     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00121}00121     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00122}00122     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00124}00124     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00125}00125     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00126}00126     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00127}00127     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM2 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00128}00128     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00129}00129 \textcolor{comment}{     * Return to application}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00130}00130 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00131}00131     \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00132}00132 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00133}00133 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00135}00135 \mbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} arm\_mat\_cmplx\_mult\_f32\_3x3\_mve(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00136}00136     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00137}00137     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00138}00138     \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00139}00139 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00140}00140     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00141}00141     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00142}00142     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};   \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00143}00143     uint32x4\_t   vecColBOffs0, vecColBOffs1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00144}00144     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA0 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00145}00145     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA1 = pInA0 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00146}00146     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA2 = pInA1 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00147}00147     f32x4\_t    acc0, acc1, acc2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00148}00148     f32x4\_t    vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00149}00149     \textcolor{comment}{/* enable predication to disable upper half complex vector element */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00150}00150     mve\_pred16\_t p0 = vctp32q(\mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00152}00152     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t offsetB0[4] = \{ 0, 1,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00153}00153         MATRIX\_DIM3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, MATRIX\_DIM3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00154}00154     \};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00155}00155     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t offsetB1[4] = \{ 2 * MATRIX\_DIM3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, 2 * MATRIX\_DIM3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00156}00156        INACTIVELANE, INACTIVELANE}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00157}00157     \};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00159}00159     vecColBOffs0 = vldrwq\_u32((uint32\_t \textcolor{keyword}{const} *) offsetB0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00160}00160     vecColBOffs1 = vldrwq\_u32((uint32\_t \textcolor{keyword}{const} *) offsetB1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00162}00162     pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *)pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00164}00164     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00166}00166     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00167}00167     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00168}00168     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00170}00170     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00171}00171     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00172}00172     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00174}00174     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00175}00175     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00176}00176     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00179}00179     vecB = vldrwq\_gather\_shifted\_offset\_z(pInB, vecColBOffs1, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00181}00181     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00182}00182     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00183}00183     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00185}00185     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00186}00186     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00187}00187     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00189}00189     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00190}00190     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00191}00191     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00194}00194     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00195}00195     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00196}00196     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00197}00197     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00198}00198     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00199}00199     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00200}00200     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00202}00202     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00203}00203 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00204}00204 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00205}00205     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00206}00206 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00207}00207     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00209}00209     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00210}00210     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00211}00211     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00213}00213     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00214}00214     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00215}00215     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00217}00217     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00218}00218     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00219}00219     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00221}00221      vecB = vldrwq\_gather\_shifted\_offset\_z(pInB, vecColBOffs1, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00223}00223     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00224}00224     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00225}00225     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00227}00227     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00228}00228     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00229}00229     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00231}00231     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00232}00232     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00233}00233     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00234}00234 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00236}00236     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00237}00237     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00238}00238     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00239}00239     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00240}00240     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00241}00241     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00242}00242     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00244}00244     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00245}00245 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00246}00246 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00247}00247     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00249}00249     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00251}00251     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00252}00252     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00253}00253     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00255}00255     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00256}00256     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00257}00257     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00259}00259     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00260}00260     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00261}00261     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00263}00263      vecB = vldrwq\_gather\_shifted\_offset\_z(pInB, vecColBOffs1, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00264}00264 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00265}00265     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00266}00266     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00267}00267     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00269}00269     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00270}00270     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00271}00271     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00273}00273     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00274}00274     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00275}00275     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00278}00278     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00279}00279     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00280}00280     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00281}00281     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00282}00282     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00283}00283     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM3 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00284}00284     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00285}00285 \textcolor{comment}{     * Return to application}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00286}00286 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00287}00287     \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00288}00288 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00289}00289 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00292}00292 \mbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} arm\_mat\_cmplx\_mult\_f32\_4x4\_mve(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00293}00293     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00294}00294     \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00295}00295     \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00296}00296 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00297}00297     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00298}00298     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00299}00299     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};   \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00300}00300     uint32x4\_t   vecColBOffs0, vecColBOffs1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00301}00301     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA0 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00302}00302     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA1 = pInA0 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00303}00303     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA2 = pInA1 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00304}00304     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}       *pInA3 = pInA2 + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00305}00305     f32x4\_t    acc0, acc1, acc2, acc3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00306}00306     f32x4\_t    vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00308}00308     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t offsetB0[4] = \{ 0, 1,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00309}00309         MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00310}00310     \};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00311}00311     \textcolor{keyword}{static} \textcolor{keyword}{const} uint32\_t offsetB1[4] = \{ 2 * MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, 2 * MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00312}00312         3 * MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}, 3 * MATRIX\_DIM4 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} + 1}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00313}00313     \};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00315}00315     vecColBOffs0 = vldrwq\_u32((uint32\_t \textcolor{keyword}{const} *) offsetB0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00316}00316     vecColBOffs1 = vldrwq\_u32((uint32\_t \textcolor{keyword}{const} *) offsetB1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00318}00318     pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *)pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00319}00319 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00320}00320     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00322}00322     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00323}00323     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00324}00324     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00326}00326     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00327}00327     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00328}00328     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00330}00330     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00331}00331     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00332}00332     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00333}00333 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00334}00334     vecA = vldrwq\_f32(pInA3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00335}00335     acc3 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00336}00336     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00338}00338     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00339}00339 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00340}00340     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00341}00341     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00342}00342     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00343}00343 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00344}00344     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00345}00345     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00346}00346     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00348}00348     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00349}00349     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00350}00350     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00351}00351 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00352}00352     vecA = vldrwq\_f32(\&pInA3[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00353}00353     acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00354}00354     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00356}00356     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00357}00357     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00358}00358     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00359}00359     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00360}00360     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00361}00361     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00362}00362     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc3[0] + acc3[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00363}00363     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc3[1] + acc3[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00364}00364     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00366}00366     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00367}00367 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00368}00368 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00369}00369     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00370}00370 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00371}00371     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00373}00373     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00374}00374     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00375}00375     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00376}00376 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00377}00377     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00378}00378     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00379}00379     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00380}00380 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00381}00381     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00382}00382     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00383}00383     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00384}00384 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00385}00385     vecA = vldrwq\_f32(pInA3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00386}00386     acc3 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00387}00387     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00388}00388 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00389}00389     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00390}00390 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00391}00391     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00392}00392     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00393}00393     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00394}00394 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00395}00395     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00396}00396     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00397}00397     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00399}00399     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00400}00400     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00401}00401     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00402}00402 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00403}00403     vecA = vldrwq\_f32(\&pInA3[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00404}00404     acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00405}00405     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00406}00406 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00407}00407     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00408}00408     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00409}00409     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00410}00410     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00411}00411     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00412}00412     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00413}00413     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc3[0] + acc3[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00414}00414     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc3[1] + acc3[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00415}00415     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00416}00416 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00417}00417     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00418}00418 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00419}00419 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00420}00420     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00421}00421 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00422}00422     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00423}00423 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00424}00424     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00425}00425     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00426}00426     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00427}00427 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00428}00428     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00429}00429     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00430}00430     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00431}00431 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00432}00432     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00433}00433     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00434}00434     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00435}00435 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00436}00436     vecA = vldrwq\_f32(pInA3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00437}00437     acc3 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00438}00438     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00439}00439 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00440}00440     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00441}00441 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00442}00442     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00443}00443     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00444}00444     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00445}00445 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00446}00446     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00447}00447     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00448}00448     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00449}00449 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00450}00450     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00451}00451     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00452}00452     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00453}00453 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00454}00454     vecA = vldrwq\_f32(\&pInA3[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00455}00455     acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00456}00456     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00457}00457 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00458}00458     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00459}00459     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00460}00460     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00461}00461     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00462}00462     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00463}00463     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00464}00464     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc3[0] + acc3[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00465}00465     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc3[1] + acc3[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00466}00466     pOut += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00467}00467 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00468}00468     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00469}00469 \textcolor{comment}{     * move to next B column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00470}00470 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00471}00471     pInB = pInB + \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00472}00472 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00473}00473     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00474}00474 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00475}00475     vecA = vldrwq\_f32(pInA0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00476}00476     acc0 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00477}00477     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00478}00478 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00479}00479     vecA = vldrwq\_f32(pInA1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00480}00480     acc1 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00481}00481     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00482}00482 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00483}00483     vecA = vldrwq\_f32(pInA2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00484}00484     acc2 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00485}00485     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00486}00486 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00487}00487     vecA = vldrwq\_f32(pInA3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00488}00488     acc3 = vcmulq(vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00489}00489     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00490}00490 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00491}00491     vecB = vldrwq\_gather\_shifted\_offset(pInB, vecColBOffs1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00492}00492 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00493}00493     vecA = vldrwq\_f32(\&pInA0[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00494}00494     acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00495}00495     acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00496}00496 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00497}00497     vecA = vldrwq\_f32(\&pInA1[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00498}00498     acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00499}00499     acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00500}00500 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00501}00501     vecA = vldrwq\_f32(\&pInA2[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00502}00502     acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00503}00503     acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00504}00504 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00505}00505     vecA = vldrwq\_f32(\&pInA3[4]);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00506}00506     acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00507}00507     acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00508}00508 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00509}00509     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00510}00510     pOut[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00511}00511     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00512}00512     pOut[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00513}00513     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00514}00514     pOut[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00515}00515     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 0] = acc3[0] + acc3[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00516}00516     pOut[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * MATRIX\_DIM4 + 1] = acc3[1] + acc3[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00517}00517     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00518}00518 \textcolor{comment}{     * Return to application}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00519}00519 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00520}00520     \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00521}00521 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00522}00522 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00523}00523 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___cmplx_matrix_mult_ga1adb839ac84445b8c2f04efa43faef35}{arm\_mat\_cmplx\_mult\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00524}00524   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00525}00525   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00526}00526   \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00527}00527 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00528}00528     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};   \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00529}00529     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};   \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00530}00530     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};  \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00531}00531     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *px;              \textcolor{comment}{/* Temporary output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00532}00532     uint16\_t  numRowsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}};    \textcolor{comment}{/* number of rows of input matrix A    */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00533}00533     uint16\_t  numColsB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};    \textcolor{comment}{/* number of columns of input matrix B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00534}00534     uint16\_t  numColsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};    \textcolor{comment}{/* number of columns of input matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00535}00535     uint16\_t  col, i = 0U, row = numRowsA;  \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00536}00536     \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};          \textcolor{comment}{/* status of matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00537}00537     uint32x4\_t vecOffs, vecColBOffs;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00538}00538     uint32\_t  blkCnt, rowCnt;           \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00539}00539 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00540}00540 \textcolor{preprocessor}{  \#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00541}00541 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00542}00542 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00543}00543   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00544}00544   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00545}00545      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) || (pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}))}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00546}00546   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00547}00547 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00548}00548     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00549}00549     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00550}00550   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00551}00551   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00552}00552 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*      \#ifdef ARM\_MATH\_MATRIX\_CHECK    */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00553}00553 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00554}00554   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00555}00555     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00556}00556 \textcolor{comment}{     * small squared matrix specialized routines}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00557}00557 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00558}00558     \textcolor{keywordflow}{if} (numRowsA == numColsB \&\& numColsB == numColsA)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00559}00559     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00560}00560         \textcolor{keywordflow}{if} (numRowsA == 1)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00561}00561         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00562}00562             pOut[0] = pInA[0] * pInB[0] -\/ pInA[1] * pInB[1];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00563}00563             pOut[1] = pInA[0] * pInB[1] + pInA[1] * pInB[0];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00564}00564             \textcolor{keywordflow}{return} (\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00565}00565         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00566}00566         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (numRowsA == 2)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00567}00567             \textcolor{keywordflow}{return} arm\_mat\_cmplx\_mult\_f32\_2x2\_mve(pSrcA, pSrcB, pDst);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00568}00568         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (numRowsA == 3)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00569}00569             \textcolor{keywordflow}{return} arm\_mat\_cmplx\_mult\_f32\_3x3\_mve(pSrcA, pSrcB, pDst);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00570}00570         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (numRowsA == 4)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00571}00571             \textcolor{keywordflow}{return} arm\_mat\_cmplx\_mult\_f32\_4x4\_mve(pSrcA, pSrcB, pDst);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00572}00572     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00573}00573 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00574}00574     vecColBOffs[0] = 0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00575}00575     vecColBOffs[1] = 1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00576}00576     vecColBOffs[2] = numColsB * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00577}00577     vecColBOffs[3] = (numColsB * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}) + 1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00578}00578 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00579}00579     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00580}00580 \textcolor{comment}{     * The following loop performs the dot-\/product of each row in pSrcA with each column in pSrcB}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00581}00581 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00582}00582 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00583}00583     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00584}00584 \textcolor{comment}{     * row loop}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00585}00585 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00586}00586     rowCnt = row >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00587}00587     \textcolor{keywordflow}{while} (rowCnt > 0u)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00588}00588     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00589}00589         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00590}00590 \textcolor{comment}{         * Output pointer is set to starting address of the row being processed}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00591}00591 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00592}00592         px = pOut + i * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00593}00593         i = i + 4 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00594}00594         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00595}00595 \textcolor{comment}{         * For every row wise process, the column loop counter is to be initiated}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00596}00596 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00597}00597         col = numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00598}00598         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00599}00599 \textcolor{comment}{         * For every row wise process, the pInB pointer is set}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00600}00600 \textcolor{comment}{         * to the starting address of the pSrcB data}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00601}00601 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00602}00602         pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00603}00603         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00604}00604 \textcolor{comment}{         * column loop}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00605}00605 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00606}00606         while (col > 0u)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00607}00607         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00608}00608             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00609}00609 \textcolor{comment}{             * generate 4 columns elements}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00610}00610 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00611}00611             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00612}00612 \textcolor{comment}{             * Matrix A columns number of MAC operations are to be performed}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00613}00613 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00614}00614 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00615}00615             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pSrcA0Vec, *pSrcA1Vec, *pSrcA2Vec, *pSrcA3Vec;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00616}00616             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA0 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00617}00617             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA1 = pInA0 + numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00618}00618             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA2 = pInA1 + numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00619}00619             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA3 = pInA2 + numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00620}00620             f32x4\_t acc0, acc1, acc2, acc3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00621}00621 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00622}00622             acc0 = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00623}00623             acc1 = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00624}00624             acc2 = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00625}00625             acc3 = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00626}00626 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00627}00627             pSrcA0Vec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pInA0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00628}00628             pSrcA1Vec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pInA1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00629}00629             pSrcA2Vec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pInA2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00630}00630             pSrcA3Vec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pInA3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00631}00631 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00632}00632             vecOffs = vecColBOffs;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00633}00633 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00634}00634             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00635}00635 \textcolor{comment}{             * process 1 x 4 block output}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00636}00636 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00637}00637             blkCnt = (numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}) >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00638}00638             \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00639}00639             \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00640}00640                 f32x4\_t vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00641}00641 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00642}00642                 vecB = vldrwq\_gather\_shifted\_offset(pInB, vecOffs);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00643}00643                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00644}00644 \textcolor{comment}{                 * move Matrix B read offsets, 4 rows down}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00645}00645 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00646}00646                 vecOffs = vecOffs + (uint32\_t) (numColsB * 2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00647}00647 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00648}00648                 vecA = vld1q(pSrcA0Vec);  pSrcA0Vec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00649}00649                 acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00650}00650                 acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00651}00651                 vecA = vld1q(pSrcA1Vec); pSrcA1Vec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00652}00652                 acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00653}00653                 acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00654}00654                 vecA = vld1q(pSrcA2Vec);  pSrcA2Vec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00655}00655                 acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00656}00656                 acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00657}00657                 vecA = vld1q(pSrcA3Vec);  pSrcA3Vec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00658}00658                 acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00659}00659                 acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00660}00660 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00661}00661                 blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00662}00662             \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00663}00663             }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00664}00664 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00665}00665             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00666}00666 \textcolor{comment}{             * tail}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00667}00667 \textcolor{comment}{             * (will be merged thru tail predication)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00668}00668 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00669}00669             blkCnt = (numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}) \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00670}00670             \textcolor{keywordflow}{if} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00671}00671             \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00672}00672                 mve\_pred16\_t p0 = vctp32q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00673}00673                 f32x4\_t vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00674}00674 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00675}00675                 vecB = vldrwq\_gather\_shifted\_offset\_z(pInB, vecOffs, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00676}00676                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00677}00677 \textcolor{comment}{                 * move Matrix B read offsets, 4 rows down}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00678}00678 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00679}00679                 vecOffs = vecOffs + (uint32\_t) (numColsB * 2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00680}00680 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00681}00681                 vecA = vld1q(pSrcA0Vec);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00682}00682                 acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00683}00683                 acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00684}00684                 vecA = vld1q(pSrcA1Vec);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00685}00685                 acc1 = vcmlaq(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00686}00686                 acc1 = vcmlaq\_rot90(acc1, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00687}00687                 vecA = vld1q(pSrcA2Vec);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00688}00688                 acc2 = vcmlaq(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00689}00689                 acc2 = vcmlaq\_rot90(acc2, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00690}00690                 vecA = vld1q(pSrcA3Vec);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00691}00691                 acc3 = vcmlaq(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00692}00692                 acc3 = vcmlaq\_rot90(acc3, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00693}00693 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00694}00694             \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00695}00695 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00696}00696             px[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00697}00697             px[0 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00698}00698             px[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 0] = acc1[0] + acc1[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00699}00699             px[1 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 1] = acc1[1] + acc1[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00700}00700             px[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 0] = acc2[0] + acc2[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00701}00701             px[2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 1] = acc2[1] + acc2[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00702}00702             px[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 0] = acc3[0] + acc3[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00703}00703             px[3 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}} * numColsB + 1] = acc3[1] + acc3[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00704}00704             px += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00705}00705             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00706}00706 \textcolor{comment}{             * Decrement the column loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00707}00707 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00708}00708             col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00709}00709             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00710}00710 \textcolor{comment}{             * Update the pointer pInB to point to the  starting address of the next column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00711}00711 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00712}00712             pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}} + (numColsB -\/ col) * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00713}00713         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00714}00714 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00715}00715         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00716}00716 \textcolor{comment}{         * Update the pointer pInA to point to the  starting address of the next row}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00717}00717 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00718}00718         pInA += (numColsA * 4) * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00719}00719         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00720}00720 \textcolor{comment}{         * Decrement the row loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00721}00721 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00722}00722         rowCnt -\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00723}00723 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00724}00724     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00725}00725 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00726}00726     rowCnt = row \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00727}00727     \textcolor{keywordflow}{while} (rowCnt > 0u)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00728}00728     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00729}00729            \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00730}00730 \textcolor{comment}{         * Output pointer is set to starting address of the row being processed}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00731}00731 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00732}00732         px = pOut + i * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00733}00733         i = i + numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00734}00734         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00735}00735 \textcolor{comment}{         * For every row wise process, the column loop counter is to be initiated}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00736}00736 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00737}00737         col = numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00738}00738         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00739}00739 \textcolor{comment}{         * For every row wise process, the pInB pointer is set}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00740}00740 \textcolor{comment}{         * to the starting address of the pSrcB data}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00741}00741 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00742}00742         pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00743}00743         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00744}00744 \textcolor{comment}{         * column loop}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00745}00745 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00746}00746         while (col > 0u)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00747}00747         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00748}00748             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00749}00749 \textcolor{comment}{             * generate 4 columns elements}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00750}00750 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00751}00751             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00752}00752 \textcolor{comment}{             * Matrix A columns number of MAC operations are to be performed}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00753}00753 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00754}00754 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00755}00755             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pSrcA0Vec;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00756}00756             \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pInA0 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00757}00757             f32x4\_t acc0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00758}00758 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00759}00759             acc0 = vdupq\_n\_f32(0.0f);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00760}00760 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00761}00761             pSrcA0Vec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pInA0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00762}00762            }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00763}00763             vecOffs = vecColBOffs;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00764}00764 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00765}00765             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00766}00766 \textcolor{comment}{             * process 1 x 4 block output}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00767}00767 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00768}00768             blkCnt = (numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}) >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00769}00769             \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00770}00770             \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00771}00771                 f32x4\_t vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00772}00772 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00773}00773                 vecB = vldrwq\_gather\_shifted\_offset(pInB, vecOffs);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00774}00774                 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00775}00775 \textcolor{comment}{                 * move Matrix B read offsets, 4 rows down}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00776}00776 \textcolor{comment}{                 */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00777}00777                 vecOffs = vecOffs + (uint32\_t) (numColsB * 2 * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00778}00778 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00779}00779                 vecA = vld1q(pSrcA0Vec);  }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00780}00780                 pSrcA0Vec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00781}00781                 acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00782}00782                 acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00783}00783                 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00784}00784 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00785}00785                 blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00786}00786             \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00787}00787 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00788}00788 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00789}00789             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00790}00790 \textcolor{comment}{             * tail}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00791}00791 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00792}00792             blkCnt = (numColsA * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}}) \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00793}00793             \textcolor{keywordflow}{if} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00794}00794             \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00795}00795                 mve\_pred16\_t p0 = vctp32q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00796}00796                 f32x4\_t vecB, vecA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00797}00797 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00798}00798                 vecB = vldrwq\_gather\_shifted\_offset\_z(pInB, vecOffs, p0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00799}00799                }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00800}00800                 vecA = vld1q(pSrcA0Vec);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00801}00801                 acc0 = vcmlaq(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00802}00802                 acc0 = vcmlaq\_rot90(acc0, vecA, vecB);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00803}00803 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00804}00804             \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00805}00805 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00806}00806             px[0] = acc0[0] + acc0[2];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00807}00807             px[1] = acc0[1] + acc0[3];}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00808}00808            }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00809}00809             px += \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00810}00810             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00811}00811 \textcolor{comment}{             * Decrement the column loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00812}00812 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00813}00813             col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00814}00814             \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00815}00815 \textcolor{comment}{             * Update the pointer pInB to point to the  starting address of the next column}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00816}00816 \textcolor{comment}{             */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00817}00817             pInB = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}} + (numColsB -\/ col) * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00818}00818         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00819}00819 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00820}00820         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00821}00821 \textcolor{comment}{         * Update the pointer pInA to point to the  starting address of the next row}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00822}00822 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00823}00823         pInA += numColsA  * \mbox{\hyperlink{arm__math__types_8h_ac978fc1d187e8f01c0a3aa7b76e28529}{CMPLX\_DIM}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00824}00824         rowCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00825}00825     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00826}00826 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00827}00827     }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00828}00828       \textcolor{comment}{/* Set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00829}00829     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00830}00830   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00831}00831 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00832}00832   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00833}00833   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00834}00834 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00835}00835 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00836}00836 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00837}00837 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00838}00838 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_NEON)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00839}00839 \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___cmplx_matrix_mult_ga1adb839ac84445b8c2f04efa43faef35}{arm\_mat\_cmplx\_mult\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00840}00840   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00841}00841   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00842}00842   \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00843}00843 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00844}00844   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn1 = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00845}00845   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00846}00846   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* input data matrix pointer A  */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00847}00847   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                 \textcolor{comment}{/* output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00848}00848   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *px;                                 \textcolor{comment}{/* Temporary output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00849}00849   uint16\_t numRowsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}};            \textcolor{comment}{/* number of rows of input matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00850}00850   uint16\_t numColsB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};            \textcolor{comment}{/* number of columns of input matrix B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00851}00851   uint16\_t numColsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};            \textcolor{comment}{/* number of columns of input matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00852}00852   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sumReal1, sumImag1;                  \textcolor{comment}{/* accumulator */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00853}00853   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} a1, a1B,b1, b1B, c1, d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00854}00854   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sumReal2, sumImag2;                  \textcolor{comment}{/* accumulator */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00855}00855 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00856}00856 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00857}00857   float32x4x2\_t a0V, a1V;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00858}00858   float32x4\_t accR0,accI0, accR1,accI1,tempR, tempI;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00859}00859   float32x2\_t accum = vdup\_n\_f32(0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00860}00860   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn1B = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};    }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00861}00861 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00862}00862   uint16\_t col, i = 0U, j, rowCnt, row = numRowsA, colCnt;      \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00863}00863   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00864}00864   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sumReal1B, sumImag1B; }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00865}00865   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sumReal2B, sumImag2B; }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00866}00866   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pxB;  }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00867}00867 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00868}00868 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00869}00869 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00870}00870 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00871}00871   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00872}00872   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00873}00873      (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) || (pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}}))}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00874}00874   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00875}00875 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00876}00876     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00877}00877     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00878}00878   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00879}00879   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00880}00880 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*      \#ifdef ARM\_MATH\_MATRIX\_CHECK    */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00881}00881 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00882}00882   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00883}00883     \textcolor{comment}{/* The following loop performs the dot-\/product of each row in pSrcA with each column in pSrcB */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00884}00884 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00885}00885     rowCnt = row >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00886}00886 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00887}00887     \textcolor{comment}{/* Row loop */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00888}00888     \textcolor{keywordflow}{while} (rowCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00889}00889     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00890}00890       \textcolor{comment}{/* Output pointer is set to starting address of the row being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00891}00891       px = pOut + 2 * i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00892}00892       pxB = px + 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00893}00893 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00894}00894       \textcolor{comment}{/* For every row wise process, the column loop counter is to be initiated */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00895}00895       col = numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00896}00896 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00897}00897       \textcolor{comment}{/* For every row wise process, the pIn2 pointer is set}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00898}00898 \textcolor{comment}{       ** to the starting address of the pSrcB data */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00899}00899       pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00900}00900 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00901}00901       j = 0U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00902}00902 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00903}00903       \textcolor{comment}{/* Column loop */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00904}00904       \textcolor{keywordflow}{while} (col > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00905}00905       \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00906}00906         \textcolor{comment}{/* Set the variable sum, that acts as accumulator, to zero */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00907}00907         sumReal1 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00908}00908         sumImag1 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00909}00909         sumReal1B = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00910}00910         sumImag1B = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00911}00911 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00912}00912         sumReal2 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00913}00913         sumImag2 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00914}00914         sumReal2B = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00915}00915         sumImag2B = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00916}00916 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00917}00917         \textcolor{comment}{/* Initiate the pointer pIn1 to point to the starting address of the column being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00918}00918         pIn1 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00919}00919         pIn1B = pIn1 + 2*numColsA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00920}00920 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00921}00921         accR0 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00922}00922         accI0 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00923}00923         accR1 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00924}00924         accI1 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00925}00925 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00926}00926         \textcolor{comment}{/* Compute 4 MACs simultaneously. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00927}00927         colCnt = numColsA >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00928}00928 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00929}00929         \textcolor{comment}{/* Matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00930}00930         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00931}00931         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00932}00932           \textcolor{comment}{/* Reading real part of complex matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00933}00933           a0V = vld2q\_f32(pIn1);  \textcolor{comment}{// load \& separate real/imag pSrcA (de-\/interleave 2)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00934}00934           a1V = vld2q\_f32(pIn1B);  \textcolor{comment}{// load \& separate real/imag pSrcA (de-\/interleave 2)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00935}00935 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00936}00936           pIn1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00937}00937           pIn1B += 8;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00938}00938 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00939}00939           tempR = vsetq\_lane\_f32(*pIn2,tempR,0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00940}00940           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00941}00941           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00942}00942 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00943}00943 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00944}00944           tempR = vsetq\_lane\_f32(*pIn2,tempR,1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00945}00945           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00946}00946           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00947}00947 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00948}00948           tempR = vsetq\_lane\_f32(*pIn2,tempR,2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00949}00949           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00950}00950           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00951}00951 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00952}00952           tempR = vsetq\_lane\_f32(*pIn2,tempR,3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00953}00953           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00954}00954           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00955}00955 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00956}00956           accR0 = vmlaq\_f32(accR0,a0V.val[0],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00957}00957           accR0 = vmlsq\_f32(accR0,a0V.val[1],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00958}00958 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00959}00959           accI0 = vmlaq\_f32(accI0,a0V.val[1],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00960}00960           accI0 = vmlaq\_f32(accI0,a0V.val[0],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00961}00961 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00962}00962           accR1 = vmlaq\_f32(accR1,a1V.val[0],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00963}00963           accR1 = vmlsq\_f32(accR1,a1V.val[1],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00964}00964 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00965}00965           accI1 = vmlaq\_f32(accI1,a1V.val[1],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00966}00966           accI1 = vmlaq\_f32(accI1,a1V.val[0],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00967}00967 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00968}00968           \textcolor{comment}{/* Decrement the loop count */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00969}00969           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00970}00970         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00971}00971 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00972}00972         accum = vpadd\_f32(vget\_low\_f32(accR0), vget\_high\_f32(accR0));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00973}00973         sumReal1 += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00974}00974 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00975}00975         accum = vpadd\_f32(vget\_low\_f32(accI0), vget\_high\_f32(accI0));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00976}00976         sumImag1 += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00977}00977 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00978}00978         accum = vpadd\_f32(vget\_low\_f32(accR1), vget\_high\_f32(accR1));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00979}00979         sumReal1B += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00980}00980 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00981}00981         accum = vpadd\_f32(vget\_low\_f32(accI1), vget\_high\_f32(accI1));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00982}00982         sumImag1B += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00983}00983 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00984}00984         \textcolor{comment}{/* If the columns of pSrcA is not a multiple of 4, compute any remaining MACs here.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00985}00985 \textcolor{comment}{         ** No loop unrolling is used. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00986}00986         colCnt = numColsA \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00987}00987 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00988}00988         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00989}00989         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00990}00990           \textcolor{comment}{/* c(m,n) = a(1,1)*b(1,1) + a(1,2)*b(2,1) + ... + a(m,p)*b(p,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00991}00991           a1 = *pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00992}00992           a1B = *pIn1B;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00993}00993 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00994}00994           c1 = *pIn2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00995}00995 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00996}00996           b1 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00997}00997           b1B = *(pIn1B + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00998}00998 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l00999}00999           d1 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01000}01000 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01001}01001           sumReal1 += a1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01002}01002           sumImag1 += b1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01003}01003 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01004}01004           sumReal1B += a1B * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01005}01005           sumImag1B += b1B * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01006}01006 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01007}01007           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01008}01008           pIn1B += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01009}01009           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01010}01010 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01011}01011           sumReal2 -\/= b1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01012}01012           sumImag2 += a1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01013}01013 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01014}01014           sumReal2B -\/= b1B * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01015}01015           sumImag2B += a1B * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01016}01016 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01017}01017           \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01018}01018           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01019}01019         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01020}01020 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01021}01021         sumReal1 += sumReal2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01022}01022         sumImag1 += sumImag2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01023}01023 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01024}01024         sumReal1B += sumReal2B;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01025}01025         sumImag1B += sumImag2B;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01026}01026 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01027}01027         \textcolor{comment}{/* Store the result in the destination buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01028}01028         *px++ = sumReal1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01029}01029         *px++ = sumImag1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01030}01030         *pxB++ = sumReal1B;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01031}01031         *pxB++ = sumImag1B;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01032}01032 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01033}01033         \textcolor{comment}{/* Update the pointer pIn2 to point to the  starting address of the next column */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01034}01034         j++;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01035}01035         pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}} + 2U * j;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01036}01036 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01037}01037         \textcolor{comment}{/* Decrement the column loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01038}01038         col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01039}01039       \} }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01040}01040 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01041}01041       \textcolor{comment}{/* Update the pointer pInA to point to the  starting address of the next 2 row */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01042}01042       i = i + 2*numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01043}01043       pInA = pInA + 4 * numColsA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01044}01044 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01045}01045       \textcolor{comment}{/* Decrement the row loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01046}01046       rowCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01047}01047     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01048}01048 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01049}01049     rowCnt = row \& 1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01050}01050     \textcolor{keywordflow}{while} (rowCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01051}01051     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01052}01052       \textcolor{comment}{/* Output pointer is set to starting address of the row being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01053}01053       px = pOut + 2 * i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01054}01054 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01055}01055       \textcolor{comment}{/* For every row wise process, the column loop counter is to be initiated */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01056}01056       col = numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01057}01057 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01058}01058       \textcolor{comment}{/* For every row wise process, the pIn2 pointer is set}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01059}01059 \textcolor{comment}{       ** to the starting address of the pSrcB data */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01060}01060       pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01061}01061 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01062}01062       j = 0U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01063}01063 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01064}01064       \textcolor{comment}{/* Column loop */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01065}01065       \textcolor{keywordflow}{while} (col > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01066}01066       \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01067}01067         \textcolor{comment}{/* Set the variable sum, that acts as accumulator, to zero */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01068}01068         sumReal1 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01069}01069         sumImag1 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01070}01070 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01071}01071         sumReal2 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01072}01072         sumImag2 = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01073}01073 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01074}01074         \textcolor{comment}{/* Initiate the pointer pIn1 to point to the starting address of the column being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01075}01075         pIn1 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01076}01076 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01077}01077         accR0 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01078}01078         accI0 = vdupq\_n\_f32(0.0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01079}01079 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01080}01080         \textcolor{comment}{/* Compute 4 MACs simultaneously. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01081}01081         colCnt = numColsA >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01082}01082 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01083}01083         \textcolor{comment}{/* Matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01084}01084         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01085}01085         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01086}01086           \textcolor{comment}{/* Reading real part of complex matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01087}01087           a0V = vld2q\_f32(pIn1);  \textcolor{comment}{// load \& separate real/imag pSrcA (de-\/interleave 2)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01088}01088           pIn1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01089}01089 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01090}01090           tempR = vsetq\_lane\_f32(*pIn2,tempR,0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01091}01091           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,0);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01092}01092           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01093}01093 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01094}01094           tempR = vsetq\_lane\_f32(*pIn2,tempR,1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01095}01095           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01096}01096           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01097}01097 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01098}01098           tempR = vsetq\_lane\_f32(*pIn2,tempR,2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01099}01099           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,2);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01100}01100           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01101}01101 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01102}01102           tempR = vsetq\_lane\_f32(*pIn2,tempR,3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01103}01103           tempI = vsetq\_lane\_f32(*(pIn2 + 1U),tempI,3);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01104}01104           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01105}01105 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01106}01106           accR0 = vmlaq\_f32(accR0,a0V.val[0],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01107}01107           accR0 = vmlsq\_f32(accR0,a0V.val[1],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01108}01108 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01109}01109           accI0 = vmlaq\_f32(accI0,a0V.val[1],tempR);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01110}01110           accI0 = vmlaq\_f32(accI0,a0V.val[0],tempI);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01111}01111 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01112}01112           \textcolor{comment}{/* Decrement the loop count */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01113}01113           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01114}01114         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01115}01115 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01116}01116         accum = vpadd\_f32(vget\_low\_f32(accR0), vget\_high\_f32(accR0));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01117}01117         sumReal1 += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01118}01118 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01119}01119         accum = vpadd\_f32(vget\_low\_f32(accI0), vget\_high\_f32(accI0));}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01120}01120         sumImag1 += vget\_lane\_f32(accum, 0) + vget\_lane\_f32(accum, 1);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01121}01121 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01122}01122         \textcolor{comment}{/* If the columns of pSrcA is not a multiple of 4, compute any remaining MACs here.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01123}01123 \textcolor{comment}{         ** No loop unrolling is used. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01124}01124         colCnt = numColsA \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01125}01125 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01126}01126         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01127}01127         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01128}01128           \textcolor{comment}{/* c(m,n) = a(1,1)*b(1,1) + a(1,2)*b(2,1) + ... + a(m,p)*b(p,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01129}01129           a1 = *pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01130}01130           c1 = *pIn2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01131}01131 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01132}01132           b1 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01133}01133           d1 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01134}01134 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01135}01135           sumReal1 += a1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01136}01136           sumImag1 += b1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01137}01137 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01138}01138           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01139}01139           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01140}01140 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01141}01141           sumReal2 -\/= b1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01142}01142           sumImag2 += a1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01143}01143 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01144}01144           \textcolor{comment}{/* Decrement the loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01145}01145           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01146}01146         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01147}01147 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01148}01148         sumReal1 += sumReal2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01149}01149         sumImag1 += sumImag2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01150}01150 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01151}01151         \textcolor{comment}{/* Store the result in the destination buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01152}01152         *px++ = sumReal1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01153}01153         *px++ = sumImag1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01154}01154 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01155}01155         \textcolor{comment}{/* Update the pointer pIn2 to point to the  starting address of the next column */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01156}01156         j++;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01157}01157         pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}} + 2U * j;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01158}01158 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01159}01159         \textcolor{comment}{/* Decrement the column loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01160}01160         col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01161}01161 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01162}01162       \} }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01163}01163 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01164}01164       \textcolor{comment}{/* Update the pointer pInA to point to the  starting address of the next row */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01165}01165       i = i + numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01166}01166       pInA = pInA + 2 * numColsA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01167}01167 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01168}01168       \textcolor{comment}{/* Decrement the row loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01169}01169       rowCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01170}01170 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01171}01171     \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01172}01172 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01173}01173     \textcolor{comment}{/* Set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01174}01174     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01175}01175   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01176}01176 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01177}01177   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01178}01178   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01179}01179 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01180}01180 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01181}\mbox{\hyperlink{group___cmplx_matrix_mult_ga1adb839ac84445b8c2f04efa43faef35}{01181}} \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{group___cmplx_matrix_mult_ga1adb839ac84445b8c2f04efa43faef35}{arm\_mat\_cmplx\_mult\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01182}01182   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcA,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01183}01183   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pSrcB,}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01184}01184         \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\_matrix\_instance\_f32}} * pDst)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01185}01185 \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01186}01186   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn1 = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* Input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01187}01187   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* Input data matrix pointer B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01188}01188   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pInA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                \textcolor{comment}{/* Input data matrix pointer A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01189}01189   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pOut = pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};                 \textcolor{comment}{/* Output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01190}01190   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *px;                                 \textcolor{comment}{/* Temporary output data matrix pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01191}01191   uint16\_t numRowsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}};            \textcolor{comment}{/* Number of rows of input matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01192}01192   uint16\_t numColsB = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};            \textcolor{comment}{/* Number of columns of input matrix B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01193}01193   uint16\_t numColsA = pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}};            \textcolor{comment}{/* Number of columns of input matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01194}01194   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} sumReal, sumImag;                    \textcolor{comment}{/* Accumulator */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01195}01195   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} a1, b1, c1, d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01196}01196   uint32\_t col, i = 0U, j, row = numRowsA, colCnt; \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01197}01197   \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\_status}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};                             \textcolor{comment}{/* status of matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01198}01198 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01199}01199 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01200}01200   \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} a0, b0, c0, d0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01201}01201 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01202}01202 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01203}01203 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_MATRIX\_CHECK}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01204}01204 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01205}01205   \textcolor{comment}{/* Check for matrix mismatch condition */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01206}01206   \textcolor{keywordflow}{if} ((pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}}) ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01207}01207       (pSrcA-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a1bcf80ccdc2acc29198f1592ae300390}{numRows}})  ||}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01208}01208       (pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}} != pDst-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_a4bb5ec0d13eb4c9cf887aa8366a44117}{numCols}})    )}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01209}01209   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01210}01210     \textcolor{comment}{/* Set status as ARM\_MATH\_SIZE\_MISMATCH */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01211}01211     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\_MATH\_SIZE\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01212}01212   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01213}01213   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01214}01214 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01215}01215 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#ifdef ARM\_MATH\_MATRIX\_CHECK */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01216}01216 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01217}01217   \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01218}01218     \textcolor{comment}{/* The following loop performs the dot-\/product of each row in pSrcA with each column in pSrcB */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01219}01219     \textcolor{comment}{/* row loop */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01220}01220     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01221}01221     \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01222}01222       \textcolor{comment}{/* Output pointer is set to starting address of the row being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01223}01223       px = pOut + 2 * i;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01224}01224 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01225}01225       \textcolor{comment}{/* For every row wise process, the column loop counter is to be initiated */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01226}01226       col = numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01227}01227 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01228}01228       \textcolor{comment}{/* For every row wise process, the pIn2 pointer is set}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01229}01229 \textcolor{comment}{       ** to the starting address of the pSrcB data */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01230}01230       pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01231}01231 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01232}01232       j = 0U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01233}01233 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01234}01234       \textcolor{comment}{/* column loop */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01235}01235       \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01236}01236       \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01237}01237         \textcolor{comment}{/* Set the variable sum, that acts as accumulator, to zero */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01238}01238         sumReal = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01239}01239         sumImag = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01240}01240 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01241}01241         \textcolor{comment}{/* Initiate pointer pIn1 to point to starting address of column being processed */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01242}01242         pIn1 = pInA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01243}01243 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01244}01244 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01245}01245 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01246}01246         \textcolor{comment}{/* Apply loop unrolling and compute 4 MACs simultaneously. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01247}01247         colCnt = numColsA >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01248}01248 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01249}01249         \textcolor{comment}{/* matrix multiplication */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01250}01250         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01251}01251         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01252}01252 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01253}01253           \textcolor{comment}{/* Reading real part of complex matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01254}01254           a0 = *pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01255}01255 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01256}01256           \textcolor{comment}{/* Reading real part of complex matrix B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01257}01257           c0 = *pIn2;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01258}01258 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01259}01259           \textcolor{comment}{/* Reading imaginary part of complex matrix A */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01260}01260           b0 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01261}01261 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01262}01262           \textcolor{comment}{/* Reading imaginary part of complex matrix B */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01263}01263           d0 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01264}01264 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01265}01265           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01266}01266           sumReal += a0 * c0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01267}01267           sumImag += b0 * c0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01268}01268 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01269}01269           \textcolor{comment}{/* update pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01270}01270           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01271}01271           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01272}01272 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01273}01273           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01274}01274           sumReal -\/= b0 * d0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01275}01275           sumImag += a0 * d0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01276}01276 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01277}01277           \textcolor{comment}{/* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01278}01278 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01279}01279           \textcolor{comment}{/* read real and imag values from pSrcA and pSrcB buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01280}01280           a1 = *(pIn1     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01281}01281           c1 = *(pIn2     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01282}01282           b1 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01283}01283           d1 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01284}01284 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01285}01285           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01286}01286           sumReal += a1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01287}01287           sumImag += b1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01288}01288 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01289}01289           \textcolor{comment}{/* update pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01290}01290           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01291}01291           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01292}01292 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01293}01293           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01294}01294           sumReal -\/= b1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01295}01295           sumImag += a1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01296}01296 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01297}01297           a0 = *(pIn1     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01298}01298           c0 = *(pIn2     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01299}01299           b0 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01300}01300           d0 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01301}01301 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01302}01302           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01303}01303           sumReal += a0 * c0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01304}01304           sumImag += b0 * c0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01305}01305 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01306}01306           \textcolor{comment}{/* update pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01307}01307           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01308}01308           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01309}01309 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01310}01310           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01311}01311           sumReal -\/= b0 * d0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01312}01312           sumImag += a0 * d0;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01313}01313 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01314}01314           \textcolor{comment}{/* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01315}01315 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01316}01316           a1 = *(pIn1     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01317}01317           c1 = *(pIn2     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01318}01318           b1 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01319}01319           d1 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01320}01320 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01321}01321           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01322}01322           sumReal += a1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01323}01323           sumImag += b1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01324}01324 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01325}01325           \textcolor{comment}{/* update pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01326}01326           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01327}01327           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01328}01328 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01329}01329           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01330}01330           sumReal -\/= b1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01331}01331           sumImag += a1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01332}01332 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01333}01333           \textcolor{comment}{/* Decrement loop count */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01334}01334           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01335}01335         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01336}01336 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01337}01337         \textcolor{comment}{/* If the columns of pSrcA is not a multiple of 4, compute any remaining MACs here.}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01338}01338 \textcolor{comment}{         ** No loop unrolling is used. */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01339}01339         colCnt = numColsA \% 0x4U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01340}01340 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01341}01341 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01342}01342 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01343}01343         \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01344}01344         colCnt = numColsA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01345}01345 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01346}01346 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01347}01347 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01348}01348         \textcolor{keywordflow}{while} (colCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01349}01349         \{}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01350}01350           \textcolor{comment}{/* c(m,n) = a(1,1) * b(1,1) + a(1,2) * b(2,1) + .... + a(m,p) * b(p,n) */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01351}01351           a1 = *(pIn1     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01352}01352           c1 = *(pIn2     );}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01353}01353           b1 = *(pIn1 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01354}01354           d1 = *(pIn2 + 1U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01355}01355 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01356}01356           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01357}01357           sumReal += a1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01358}01358           sumImag += b1 * c1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01359}01359 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01360}01360           \textcolor{comment}{/* update pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01361}01361           pIn1 += 2U;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01362}01362           pIn2 += 2 * numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01363}01363 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01364}01364           \textcolor{comment}{/* Multiply and Accumlates */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01365}01365           sumReal -\/= b1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01366}01366           sumImag += a1 * d1;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01367}01367 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01368}01368           \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01369}01369           colCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01370}01370         \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01371}01371 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01372}01372         \textcolor{comment}{/* Store result in destination buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01373}01373         *px++ = sumReal;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01374}01374         *px++ = sumImag;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01375}01375 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01376}01376         \textcolor{comment}{/* Update pointer pIn2 to point to starting address of next column */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01377}01377         j++;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01378}01378         pIn2 = pSrcB-\/>\mbox{\hyperlink{structarm__matrix__instance__f32_af5c3a2f15c98850cdcfbe6f87e5ac5df}{pData}} + 2U * j;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01379}01379 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01380}01380         \textcolor{comment}{/* Decrement column loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01381}01381         col-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01382}01382 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01383}01383       \} \textcolor{keywordflow}{while} (col > 0U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01384}01384 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01385}01385       \textcolor{comment}{/* Update pointer pInA to point to starting address of next row */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01386}01386       i = i + numColsB;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01387}01387       pInA = pInA + 2 * numColsA;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01388}01388 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01389}01389       \textcolor{comment}{/* Decrement row loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01390}01390       row-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01391}01391 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01392}01392     \} \textcolor{keywordflow}{while} (row > 0U);}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01393}01393 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01394}01394     \textcolor{comment}{/* Set status as ARM\_MATH\_SUCCESS */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01395}01395     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\_MATH\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01396}01396   \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01397}01397 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01398}01398   \textcolor{comment}{/* Return to application */}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01399}01399   \textcolor{keywordflow}{return} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}});}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01400}01400 \}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01401}01401 }
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01402}01402 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_MATH\_NEON) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01403}01403 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__mat__cmplx__mult__f32_8c_source_l01404}01404 }
+
+\end{DoxyCode}

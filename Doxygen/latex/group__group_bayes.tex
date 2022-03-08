@@ -1,0 +1,43 @@
+\hypertarget{group__group_bayes}{}\doxysection{Bayesian estimators}
+\label{group__group_bayes}\index{Bayesian estimators@{Bayesian estimators}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group__group_bayes_ga23f942747fc13865a66bf14bb44dd299}{arm\+\_\+gaussian\+\_\+naive\+\_\+bayes\+\_\+predict\+\_\+f32}} (const \mbox{\hyperlink{structarm__gaussian__naive__bayes__instance__f32}{arm\+\_\+gaussian\+\_\+naive\+\_\+bayes\+\_\+instance\+\_\+f32}} $\ast$S, const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$in, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Output\+Probabilities, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+BufferB)
+\begin{DoxyCompactList}\small\item\em Naive Gaussian Bayesian Estimator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implement the naive gaussian Bayes estimator. The training must be done from scikit-\/learn.
+
+The parameters can be easily generated from the scikit-\/learn object. Some examples are given in DSP/\+Testing/\+Pattern\+Generation/\+Bayes.\+py 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__group_bayes_ga23f942747fc13865a66bf14bb44dd299}\label{group__group_bayes_ga23f942747fc13865a66bf14bb44dd299}} 
+\index{Bayesian estimators@{Bayesian estimators}!arm\_gaussian\_naive\_bayes\_predict\_f32@{arm\_gaussian\_naive\_bayes\_predict\_f32}}
+\index{arm\_gaussian\_naive\_bayes\_predict\_f32@{arm\_gaussian\_naive\_bayes\_predict\_f32}!Bayesian estimators@{Bayesian estimators}}
+\doxysubsubsection{\texorpdfstring{arm\_gaussian\_naive\_bayes\_predict\_f32()}{arm\_gaussian\_naive\_bayes\_predict\_f32()}}
+{\footnotesize\ttfamily uint32\+\_\+t arm\+\_\+gaussian\+\_\+naive\+\_\+bayes\+\_\+predict\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__gaussian__naive__bayes__instance__f32}{arm\+\_\+gaussian\+\_\+naive\+\_\+bayes\+\_\+instance\+\_\+f32}} $\ast$}]{S,  }\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{in,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Output\+Probabilities,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+BufferB }\end{DoxyParamCaption})}
+
+
+
+Naive Gaussian Bayesian Estimator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em $\ast$S} & points to a naive bayes instance structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em $\ast$in} & points to the elements of the input vector. \\
+\hline
+\mbox{\texttt{ out}}  & {\em $\ast$p\+Output\+Probabilities} & points to a buffer of length number\+Of\+Classes containing estimated probabilities \\
+\hline
+\mbox{\texttt{ out}}  & {\em $\ast$p\+BufferB} & points to a temporary buffer of length number\+Of\+Classes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The predicted class 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__gaussian__naive__bayes__predict__f32_8c_source_l00335}{335}} of file \mbox{\hyperlink{arm__gaussian__naive__bayes__predict__f32_8c_source}{arm\+\_\+gaussian\+\_\+naive\+\_\+bayes\+\_\+predict\+\_\+f32.\+c}}.
+

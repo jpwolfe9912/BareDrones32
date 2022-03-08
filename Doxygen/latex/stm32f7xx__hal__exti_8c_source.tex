@@ -1,0 +1,339 @@
+\hypertarget{stm32f7xx__hal__exti_8c_source}{}\doxysection{stm32f7xx\+\_\+hal\+\_\+exti.\+c}
+\label{stm32f7xx__hal__exti_8c_source}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_exti.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_exti.c}}
+\mbox{\hyperlink{stm32f7xx__hal__exti_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00085}00085 \textcolor{comment}{/* Includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00086}00086 \textcolor{preprocessor}{\#include "{}../../../Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00103}00103 \textcolor{preprocessor}{\#ifdef HAL\_EXTI\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00105}00105 \textcolor{comment}{/* Private typedef -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00106}00106 \textcolor{comment}{/* Private defines -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00115}00115 \textcolor{comment}{/* Private macros -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00116}00116 \textcolor{comment}{/* Private variables -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00117}00117 \textcolor{comment}{/* Private function prototypes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00118}00118 \textcolor{comment}{/* Exported functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00142}00142 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group1_ga21c31dc6d13f1e32b4352e00ab6ad2b3}{HAL\_EXTI\_SetConfigLine}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, \mbox{\hyperlink{struct_e_x_t_i___config_type_def}{EXTI\_ConfigTypeDef}} *pExtiConfig)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00143}00143 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00144}00144   uint32\_t regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00145}00145   uint32\_t linepos;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00146}00146   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00148}00148   \textcolor{comment}{/* Check null pointer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00149}00149   \textcolor{keywordflow}{if} ((hexti == NULL) || (pExtiConfig == NULL))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00150}00150   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00151}00151     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00152}00152   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00154}00154   \textcolor{comment}{/* Check parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00155}00155   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00156}00156   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gaa19d2fffcd305b75bf037aaf8f071ba7}{IS\_EXTI\_MODE}}(pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00158}00158   \textcolor{comment}{/* Assign line number to handle */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00159}00159   hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} = pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00161}00161   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00162}00162   linepos = (pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00163}00163   maskline = (1uL << linepos);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00165}00165   \textcolor{comment}{/* Configure triggers for configurable lines */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00166}00166   \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga6f245ca02e17c1798fe43a66ea5b7fa4}{EXTI\_CONFIG}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00167}00167   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00168}00168     \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gaba684e88699639398fb59c361c13c113}{IS\_EXTI\_TRIGGER}}(pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00170}00170     \textcolor{comment}{/* Configure rising trigger */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00171}00171     \textcolor{comment}{/* Mask or set line */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00172}00172     \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}} \& \mbox{\hyperlink{group___e_x_t_i___trigger_ga648bd5d6c2bebd85b5ea85f8af9a2ccc}{EXTI\_TRIGGER\_RISING}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00173}00173     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00174}00174       \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR |= maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00175}00175     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00176}00176     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00177}00177     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00178}00178       \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR \&= \string~maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00179}00179     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00181}00181     \textcolor{comment}{/* Configure falling trigger */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00182}00182     \textcolor{comment}{/* Mask or set line */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00183}00183     \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}} \& \mbox{\hyperlink{group___e_x_t_i___trigger_ga7461c33165994159edf79a095c227937}{EXTI\_TRIGGER\_FALLING}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00184}00184     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00185}00185       \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR |= maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00186}00186     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00187}00187     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00188}00188     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00189}00189       \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR \&= \string~maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00190}00190     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00193}00193     \textcolor{comment}{/* Configure gpio port selection in case of gpio exti line */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00194}00194     \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}}) == \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00195}00195     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00196}00196       \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga839c895e37f0e74052194d91ad68a3ae}{IS\_EXTI\_GPIO\_PORT}}(pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gac9316e39886afa2fee1ff41a6e34c379}{GPIOSel}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00197}00197       \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga82f191b2ea96948f302dc6c2108ea534}{IS\_EXTI\_GPIO\_PIN}}(linepos));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00198}00198 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00199}00199       regval = \mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/>EXTICR[linepos >> 2u];}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00200}00200       regval \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga75b70d07448c3037234bc2abb8e3d884}{SYSCFG\_EXTICR1\_EXTI0}} << (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e187825ececb74bc0dc9bb16a22e8af}{SYSCFG\_EXTICR1\_EXTI1\_Pos}} * (linepos \& 0x03u)));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00201}00201       regval |= (pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gac9316e39886afa2fee1ff41a6e34c379}{GPIOSel}} << (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e187825ececb74bc0dc9bb16a22e8af}{SYSCFG\_EXTICR1\_EXTI1\_Pos}} * (linepos \& 0x03u)));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00202}00202       \mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/>EXTICR[linepos >> 2u] = regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00203}00203     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00204}00204   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00206}00206   \textcolor{comment}{/* Configure interrupt mode : read current mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00207}00207   \textcolor{comment}{/* Mask or set line */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00208}00208   \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}} \& \mbox{\hyperlink{group___e_x_t_i___mode_gae1e032ec592296be21f416a79a44f4f5}{EXTI\_MODE\_INTERRUPT}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00209}00209   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00210}00210     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR |= maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00211}00211   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00212}00212   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00213}00213   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00214}00214     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR \&= \string~maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00215}00215   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00217}00217   \textcolor{comment}{/* Configure event mode : read current mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00218}00218   \textcolor{comment}{/* Mask or set line */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00219}00219   \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}} \& \mbox{\hyperlink{group___e_x_t_i___mode_ga672fef88f86b5d8a421194e3dac0f2e1}{EXTI\_MODE\_EVENT}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00220}00220   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00221}00221     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR |= maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00222}00222   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00223}00223   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00224}00224   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00225}00225     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR \&= \string~maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00226}00226   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00227}00227 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00228}00228   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00229}00229 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00237}00237 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group1_gabc6617165a2712df438f38509c8205dd}{HAL\_EXTI\_GetConfigLine}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, \mbox{\hyperlink{struct_e_x_t_i___config_type_def}{EXTI\_ConfigTypeDef}} *pExtiConfig)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00238}00238 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00239}00239   uint32\_t regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00240}00240   uint32\_t linepos;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00241}00241   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00243}00243   \textcolor{comment}{/* Check null pointer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00244}00244   \textcolor{keywordflow}{if} ((hexti == NULL) || (pExtiConfig == NULL))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00245}00245   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00246}00246     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00247}00247   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00248}00248 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00249}00249   \textcolor{comment}{/* Check the parameter */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00250}00250   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00252}00252   \textcolor{comment}{/* Store handle line number to configuration structure */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00253}00253   pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} = hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00255}00255   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00256}00256   linepos = (pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00257}00257   maskline = (1uL << linepos);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00259}00259   \textcolor{comment}{/* 1] Get core mode : interrupt */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00260}00260 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00261}00261   \textcolor{comment}{/* Check if selected line is enable */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00262}00262   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR \& maskline) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00263}00263   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00264}00264     pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}} = \mbox{\hyperlink{group___e_x_t_i___mode_gae1e032ec592296be21f416a79a44f4f5}{EXTI\_MODE\_INTERRUPT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00265}00265   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00266}00266   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00267}00267   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00268}00268     pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}} = \mbox{\hyperlink{group___e_x_t_i___mode_ga9b50ed09da5b1dd0619d8792f142b049}{EXTI\_MODE\_NONE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00269}00269   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00271}00271   \textcolor{comment}{/* Get event mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00272}00272   \textcolor{comment}{/* Check if selected line is enable */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00273}00273   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR \& maskline) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00274}00274   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00275}00275     pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga0ffc93ec511ed9cf1663f6939bd3e839}{Mode}} |= \mbox{\hyperlink{group___e_x_t_i___mode_ga672fef88f86b5d8a421194e3dac0f2e1}{EXTI\_MODE\_EVENT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00276}00276   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00278}00278   \textcolor{comment}{/* Get default Trigger and GPIOSel configuration */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00279}00279   pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}} = \mbox{\hyperlink{group___e_x_t_i___trigger_gab0a4e8ed945992cb0cf071efe85748c8}{EXTI\_TRIGGER\_NONE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00280}00280   pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gac9316e39886afa2fee1ff41a6e34c379}{GPIOSel}} = 0x00u;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00281}00281 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00282}00282   \textcolor{comment}{/* 2] Get trigger for configurable lines : rising */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00283}00283   \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga6f245ca02e17c1798fe43a66ea5b7fa4}{EXTI\_CONFIG}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00284}00284   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00285}00285     \textcolor{comment}{/* Check if configuration of selected line is enable */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00286}00286     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR \& maskline) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00287}00287     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00288}00288       pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}} = \mbox{\hyperlink{group___e_x_t_i___trigger_ga648bd5d6c2bebd85b5ea85f8af9a2ccc}{EXTI\_TRIGGER\_RISING}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00289}00289     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00290}00290 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00291}00291     \textcolor{comment}{/* Get falling configuration */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00292}00292     \textcolor{comment}{/* Check if configuration of selected line is enable */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00293}00293     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR \& maskline) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00294}00294     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00295}00295       pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga73dd50a4d440463bf9e1cb02b72ac706}{Trigger}} |= \mbox{\hyperlink{group___e_x_t_i___trigger_ga7461c33165994159edf79a095c227937}{EXTI\_TRIGGER\_FALLING}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00296}00296     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00297}00297 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00298}00298     \textcolor{comment}{/* Get Gpio port selection for gpio lines */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00299}00299     \textcolor{keywordflow}{if} ((pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}}) == \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00300}00300     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00301}00301       \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga82f191b2ea96948f302dc6c2108ea534}{IS\_EXTI\_GPIO\_PIN}}(linepos));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00302}00302 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00303}00303       regval = \mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/>EXTICR[linepos >> 2u];}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00304}00304       pExtiConfig-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gac9316e39886afa2fee1ff41a6e34c379}{GPIOSel}} = ((regval << (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e187825ececb74bc0dc9bb16a22e8af}{SYSCFG\_EXTICR1\_EXTI1\_Pos}} * (3uL -\/ (linepos \& 0x03u)))) >> 24);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00305}00305     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00306}00306   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00308}00308   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00309}00309 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00316}00316 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group1_gae8ed1defdcf965a62618af09c45c7866}{HAL\_EXTI\_ClearConfigLine}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00317}00317 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00318}00318   uint32\_t regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00319}00319   uint32\_t linepos;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00320}00320   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00322}00322   \textcolor{comment}{/* Check null pointer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00323}00323   \textcolor{keywordflow}{if} (hexti == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00324}00324   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00325}00325     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00326}00326   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00328}00328   \textcolor{comment}{/* Check the parameter */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00329}00329   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00330}00330 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00331}00331   \textcolor{comment}{/* compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00332}00332   linepos = (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00333}00333   maskline = (1uL << linepos);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00334}00334 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00335}00335   \textcolor{comment}{/* 1] Clear interrupt mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00336}00336   \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR = (\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR \& \string~maskline);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00338}00338   \textcolor{comment}{/* 2] Clear event mode */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00339}00339   \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR = (\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR \& \string~maskline);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00341}00341   \textcolor{comment}{/* 3] Clear triggers in case of configurable lines */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00342}00342   \textcolor{keywordflow}{if} ((hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga6f245ca02e17c1798fe43a66ea5b7fa4}{EXTI\_CONFIG}}) != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00343}00343   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00344}00344     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR = (\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR \& \string~maskline);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00345}00345     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR = (\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR \& \string~maskline);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00346}00346 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00347}00347     \textcolor{comment}{/* Get Gpio port selection for gpio lines */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00348}00348     \textcolor{keywordflow}{if} ((hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}}) == \mbox{\hyperlink{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}{EXTI\_GPIO}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00349}00349     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00350}00350       \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga82f191b2ea96948f302dc6c2108ea534}{IS\_EXTI\_GPIO\_PIN}}(linepos));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00351}00351 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00352}00352       regval = \mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/>EXTICR[linepos >> 2u];}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00353}00353       regval \&= \string~(\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga75b70d07448c3037234bc2abb8e3d884}{SYSCFG\_EXTICR1\_EXTI0}} << (\mbox{\hyperlink{group___peripheral___registers___bits___definition_ga1e187825ececb74bc0dc9bb16a22e8af}{SYSCFG\_EXTICR1\_EXTI1\_Pos}} * (linepos \& 0x03u)));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00354}00354       \mbox{\hyperlink{group___peripheral__declaration_ga3c833fe1c486cb62250ccbca32899cb8}{SYSCFG}}-\/>EXTICR[linepos >> 2u] = regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00355}00355     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00356}00356   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00358}00358   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00359}00359 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00369}00369 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group1_gacb6ee7e9f2429c3c3a1c99d4fe2d26d7}{HAL\_EXTI\_RegisterCallback}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, \mbox{\hyperlink{group___e_x_t_i___exported___types_ga0ff36e8796a6ad3f2fc211e534c54c0e}{EXTI\_CallbackIDTypeDef}} CallbackID, \textcolor{keywordtype}{void} (*pPendingCbfn)(\textcolor{keywordtype}{void}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00370}00370 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00371}00371   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00373}00373   \textcolor{keywordflow}{switch} (CallbackID)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00374}00374   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00375}00375     \textcolor{keywordflow}{case}  \mbox{\hyperlink{group___e_x_t_i___exported___types_gga0ff36e8796a6ad3f2fc211e534c54c0ea9e0259c6eb4e5da890544489f133294b}{HAL\_EXTI\_COMMON\_CB\_ID}}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00376}00376       hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gaeae0a8364e2078d0c61240a6906fdfd3}{PendingCallback}} = pPendingCbfn;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00377}00377       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00379}00379     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00380}00380       \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00381}00381       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00382}00382   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00383}00383 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00384}00384   \textcolor{keywordflow}{return} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00385}00385 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00386}00386 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00394}00394 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group1_gaa5856ee92dc1265db144af025673ee46}{HAL\_EXTI\_GetHandle}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, uint32\_t ExtiLine)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00395}00395 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00396}00396   \textcolor{comment}{/* Check the parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00397}00397   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(ExtiLine));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00399}00399   \textcolor{comment}{/* Check null pointer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00400}00400   \textcolor{keywordflow}{if} (hexti == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00401}00401   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00402}00402     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00403}00403   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00404}00404   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00405}00405   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00406}00406     \textcolor{comment}{/* Store line number as handle private field */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00407}00407     hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} = ExtiLine;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00408}00408 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00409}00409     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00410}00410   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00411}00411 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00412}00412 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00434}00434 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group2_ga241422a810a8e2aeb0cd8467145d33bb}{HAL\_EXTI\_IRQHandler}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00435}00435 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00436}00436   uint32\_t regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00437}00437   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00438}00438 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00439}00439   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00440}00440   maskline = (1uL << (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00441}00441 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00442}00442   \textcolor{comment}{/* Get pending bit  */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00443}00443   regval = (\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>PR \& maskline);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00444}00444   \textcolor{keywordflow}{if} (regval != 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00445}00445   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00446}00446     \textcolor{comment}{/* Clear pending bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00447}00447     \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>PR = maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00448}00448 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00449}00449     \textcolor{comment}{/* Call callback */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00450}00450     \textcolor{keywordflow}{if} (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gaeae0a8364e2078d0c61240a6906fdfd3}{PendingCallback}} != NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00451}00451     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00452}00452       hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_gaeae0a8364e2078d0c61240a6906fdfd3}{PendingCallback}}();}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00453}00453     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00454}00454   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00455}00455 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00456}00456 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00466}00466 uint32\_t \mbox{\hyperlink{group___e_x_t_i___exported___functions___group2_ga96319c70ad567d85105e4608f8b0887e}{HAL\_EXTI\_GetPending}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, uint32\_t Edge)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00467}00467 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00468}00468   uint32\_t regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00469}00469   uint32\_t linepos;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00470}00470   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00471}00471 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00472}00472   \textcolor{comment}{/* Check parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00473}00473   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00474}00474   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga1ec20cce9b1da8e1bd3de992511ccc1e}{IS\_EXTI\_CONFIG\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00475}00475   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga8fc9a0110e16df06c61b51d46e50eb3f}{IS\_EXTI\_PENDING\_EDGE}}(Edge));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00476}00476 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00477}00477   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00478}00478   linepos = (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00479}00479   maskline = (1uL << linepos);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00480}00480 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00481}00481   \textcolor{comment}{/* return 1 if bit is set else 0 */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00482}00482   regval = ((\mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>PR \& maskline) >> linepos);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00483}00483   \textcolor{keywordflow}{return} regval;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00484}00484 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00485}00485 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00495}00495 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group2_gaa99dea85ad2aea36f0abbe022a82664d}{HAL\_EXTI\_ClearPending}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti, uint32\_t Edge)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00496}00496 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00497}00497   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00498}00498 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00499}00499   \textcolor{comment}{/* Check parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00500}00500   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00501}00501   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga1ec20cce9b1da8e1bd3de992511ccc1e}{IS\_EXTI\_CONFIG\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00502}00502   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga8fc9a0110e16df06c61b51d46e50eb3f}{IS\_EXTI\_PENDING\_EDGE}}(Edge));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00503}00503 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00504}00504   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00505}00505   maskline = (1uL << (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00506}00506 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00507}00507   \textcolor{comment}{/* Clear Pending bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00508}00508   \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>PR =  maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00509}00509 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00510}00510 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00516}00516 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___e_x_t_i___exported___functions___group2_ga6deebffde84bc80fa9ff1b7faa38615a}{HAL\_EXTI\_GenerateSWI}}(\mbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\_HandleTypeDef}} *hexti)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00517}00517 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00518}00518   uint32\_t maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00519}00519 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00520}00520   \textcolor{comment}{/* Check parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00521}00521   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\_EXTI\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00522}00522   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___e_x_t_i___private___macros_ga1ec20cce9b1da8e1bd3de992511ccc1e}{IS\_EXTI\_CONFIG\_LINE}}(hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00523}00523 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00524}00524   \textcolor{comment}{/* Compute line mask */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00525}00525   maskline = (1uL << (hexti-\/>\mbox{\hyperlink{group___s_t_m32_f7xx___h_a_l___driver_ga9c7a78e876a7dfb279a16029f915463f}{Line}} \& \mbox{\hyperlink{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}{EXTI\_PIN\_MASK}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00526}00526 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00527}00527   \textcolor{comment}{/* Generate Software interrupt */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00528}00528   \mbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>SWIER = maskline;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00529}00529 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00530}00530 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__exti_8c_source_l00539}00539 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HAL\_EXTI\_MODULE\_ENABLED */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

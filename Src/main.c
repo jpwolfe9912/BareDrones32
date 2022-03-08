@@ -17,9 +17,6 @@ homeData_t		homeData;
 
 uint16_t		timerValue;
 
-void			(*openLogPortPrintF)(const char *fmt, ...);
-
-float roll, pitch, yaw;
 
 int main(void)
 {
@@ -43,18 +40,6 @@ int main(void)
 		{
 			frame_1000Hz = false;
 
-			currentTime = micros();
-			deltaTime1000Hz = currentTime - previous1000HzTime;
-			previous1000HzTime = currentTime;
-			readMPU6000();
-
-			motor_value[0] = ibusChannels[0] / 2 - 452;
-			motor_value[1] = ibusChannels[1] / 2 - 452;
-			motor_value[2] = ibusChannels[2] / 2 - 452;
-			motor_value[3] = ibusChannels[3] / 2 - 452;
-			dshotWrite(motor_value);
-
-
 		}
 
 		if (frame_500Hz)
@@ -66,10 +51,10 @@ int main(void)
 			deltaTime500Hz    = currentTime - previous500HzTime;
 			previous500HzTime = currentTime;
 
-//			TIM_Cmd(TIM10, DISABLE);
-//			timerValue = TIM_GetCounter(TIM10);
-//			TIM_SetCounter(TIM10, 0);
-//			TIM_Cmd(TIM10, ENABLE);
+			tim9Disable();
+			timerValue = tim9GetCnt();
+			tim9ResetCnt();
+			tim9Enable();
 
 			dt500Hz = (float)timerValue * 0.0000005f;  // For integrations in 500 Hz loop
 
@@ -101,23 +86,14 @@ int main(void)
 
 			updateIMU(sensors.gyro500Hz[ROLL ], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
 					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
-			roll = getRoll();
-			pitch = getPitch();
-			yaw = getYaw();
+			sensors.attitude500Hz[ROLL ] = getRoll();
+			sensors.attitude500Hz[PITCH] = getPitch();
+			sensors.attitude500Hz[YAW  ] = getYaw();
 
-//			MargAHRSupdate(sensors.gyro500Hz[ROLL],   sensors.gyro500Hz[PITCH],  sensors.gyro500Hz[YAW],
-//					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS],
-//					sensors.mag10Hz[XAXIS],    sensors.mag10Hz[YAXIS],    sensors.mag10Hz[ZAXIS],
-//					eepromConfig.accelCutoff,
-//					magDataUpdate,
-//					dt500Hz);
-//
-//			magDataUpdate = false;
-//
-//			computeAxisCommands(dt500Hz);
-//			mixTable();
-//			writeServos();
-//			dshot_write(motor_value);
+			processFlightCommands();
+			computeAxisCommands(dt500Hz);
+			mixTable();
+			dshotWrite(motor_value);
 
 			executionTime500Hz = micros() - currentTime;
 
@@ -134,10 +110,6 @@ int main(void)
 			deltaTime100Hz    = currentTime - previous100HzTime;
 			previous100HzTime = currentTime;
 
-//			TIM_Cmd(TIM11, DISABLE);
-//			timerValue = TIM_GetCounter(TIM11);
-//			TIM_SetCounter(TIM11, 0);
-//			TIM_Cmd(TIM11, ENABLE);
 
 			dt100Hz = (float)timerValue * 0.0000005f;  // For integrations in 100 Hz loop
 
@@ -155,74 +127,57 @@ int main(void)
 
 			ibusProcess();
 
-//			createRotationMatrix();
-//			bodyAccelToEarthAccel();
-//			vertCompFilter(dt100Hz);
-//
-//			if (armed == true)
-//			{
-//				if ( eepromConfig.activeTelemetry == 1 )
-//				{
-//					// Roll Loop
-//					openLogPortPrintF("1,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", flightMode,
-//							rateCmd[ROLL],
-//							sensors.gyro500Hz[ROLL],
-//							ratePID[ROLL],
-//							attCmd[ROLL],
-//							sensors.attitude500Hz[ROLL],
-//							attPID[ROLL]);
-//				}
-//
-//				if ( eepromConfig.activeTelemetry == 2 )
-//				{
-//					// Pitch Loop
-//					openLogPortPrintF("2,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", flightMode,
-//							rateCmd[PITCH],
-//							sensors.gyro500Hz[PITCH],
-//							ratePID[PITCH],
-//							attCmd[PITCH],
-//							sensors.attitude500Hz[PITCH],
-//							attPID[PITCH]);
-//				}
-//
-//				if ( eepromConfig.activeTelemetry == 4 )
-//				{
-//					// Sensors
-//					openLogPortPrintF("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n", sensors.accel500Hz[XAXIS],
-//							sensors.accel500Hz[YAXIS],
-//							sensors.accel500Hz[ZAXIS],
-//							sensors.gyro500Hz[ROLL],
-//							sensors.gyro500Hz[PITCH],
-//							sensors.gyro500Hz[YAW],
-//							sensors.mag10Hz[XAXIS],
-//							sensors.mag10Hz[YAXIS],
-//							sensors.mag10Hz[ZAXIS],
-//							sensors.attitude500Hz[ROLL],
-//							sensors.attitude500Hz[PITCH],
-//							sensors.attitude500Hz[YAW]);
-//
-//				}
-//
-//				if ( eepromConfig.activeTelemetry == 8 )
-//				{
-//
-//				}
-//
-//				if ( eepromConfig.activeTelemetry == 16)
-//				{
-//					// Vertical Variables
-//					openLogPortPrintF("%9.4f, %9.4f, %9.4f, %4ld, %1d, %9.4f\n", verticalVelocityCmd,
-//							hDotEstimate,
-//							hEstimate,
-//							ms5611Temperature,
-//							verticalModeState,
-//							throttleCmd);
-//				}
-//			}
-			printf("ROLL:  %f - ", roll);
-			printf("PITCH: %f - ", pitch);
-			printf("YAW:   %f\r", yaw);
-//			printf("%d\n", (int16_t)(nonRotatedGyroData[ROLL] * 180 / PI));
+
+			if (armed == true)
+			{
+				if ( eepromConfig.activeTelemetry == 1 )
+				{
+					// Roll Loop
+					printf("1,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", mode,
+							rateCmd[ROLL],
+							sensors.gyro500Hz[ROLL],
+							ratePID[ROLL],
+							attCmd[ROLL],
+							sensors.attitude500Hz[ROLL],
+							attPID[ROLL]);
+				}
+
+				if ( eepromConfig.activeTelemetry == 2 )
+				{
+					// Pitch Loop
+					printf("2,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", mode,
+							rateCmd[PITCH],
+							sensors.gyro500Hz[PITCH],
+							ratePID[PITCH],
+							attCmd[PITCH],
+							sensors.attitude500Hz[PITCH],
+							attPID[PITCH]);
+				}
+
+				if ( eepromConfig.activeTelemetry == 4 )
+				{
+					// Sensors
+					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n", sensors.accel500Hz[XAXIS],
+							sensors.accel500Hz[YAXIS],
+							sensors.accel500Hz[ZAXIS],
+							sensors.gyro500Hz[ROLL],
+							sensors.gyro500Hz[PITCH],
+							sensors.gyro500Hz[YAW],
+							sensors.attitude500Hz[ROLL],
+							sensors.attitude500Hz[PITCH],
+							sensors.attitude500Hz[YAW]);
+
+				}
+
+				if ( eepromConfig.activeTelemetry == 8 )
+				{
+
+				}
+
+			}
+//			printf("ROLL:  %f - ", sensors.attitude500Hz[ROLL]);
+//			printf("PITCH: %f - ", sensors.attitude500Hz[PITCH]);
+//			printf("YAW:   %f\r", sensors.attitude500Hz[YAW]);
 
 
 			executionTime100Hz = micros() - currentTime;
@@ -238,9 +193,6 @@ int main(void)
 			currentTime      = micros();
 			deltaTime50Hz    = currentTime - previous50HzTime;
 			previous50HzTime = currentTime;
-
-
-//			processFlightCommands();
 
 //			if (newTemperatureReading && newPressureReading)
 //			{
@@ -279,14 +231,6 @@ int main(void)
 //			batMonTick();
 //
 //			cliCom();
-//
-//			if (eepromConfig.mavlinkEnabled == true)
-//			{
-//				mavlinkSendAttitude();
-//				mavlinkSendVfrHud();
-//			}
-
-//			printf("Channels: %u - %u - %u - %u\r", ibusChannels[0], ibusChannels[1], ibusChannels[2], ibusChannels[3]);
 
 			executionTime10Hz = micros() - currentTime;
 

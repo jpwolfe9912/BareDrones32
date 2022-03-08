@@ -1,0 +1,117 @@
+\hypertarget{arm__clip__q7_8c_source}{}\doxysection{arm\+\_\+clip\+\_\+q7.\+c}
+\label{arm__clip__q7_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/BasicMathFunctions/arm\_clip\_q7.c@{Autodrone32/Libraries/CMSIS/DSP/BasicMathFunctions/arm\_clip\_q7.c}}
+\mbox{\hyperlink{arm__clip__q7_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_clip\_q7.c}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point vector addition}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{basic__math__functions_8h}{dsp/basic\_math\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00050}00050 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00052}00052 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00053}00053 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___basic_clip_ga9ecee7fe0ea9bf00148305b0121fc4d7}{arm\_clip\_q7}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00054}00054   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00055}00055   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} low, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00056}00056   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} high, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00057}00057   uint32\_t numSamples)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00058}00058 \{}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00059}00059     uint32\_t  blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00060}00060     q7x16\_t curVec0, curVec1;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00061}00061     q7x16\_t vecLow, vecHigh;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00063}00063     vecLow = vdupq\_n\_s8(low);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00064}00064     vecHigh = vdupq\_n\_s8(high);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00066}00066     curVec0 = vld1q(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00067}00067     pSrc += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00068}00068     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00069}00069 \textcolor{comment}{     * unrolled x 2 to allow}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00070}00070 \textcolor{comment}{     * vldr/vstr/vmin/vmax}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00071}00071 \textcolor{comment}{     * stall free interleaving}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00072}00072 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00073}00073     blkCnt = numSamples >> 5;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00074}00074     \textcolor{keywordflow}{while} (blkCnt-\/-\/)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00075}00075     \{}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00076}00076         curVec0 = vmaxq(curVec0, vecLow);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00077}00077         curVec1 = vld1q(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00078}00078         pSrc += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00079}00079         curVec0 = vminq(curVec0, vecHigh);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00080}00080         vst1q(pDst, curVec0);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00081}00081         pDst += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00082}00082         curVec1 = vmaxq(curVec1, vecLow);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00083}00083         curVec0 = vld1q(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00084}00084         pSrc += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00085}00085         curVec1 = vminq(curVec1, vecHigh);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00086}00086         vst1q(pDst, curVec1);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00087}00087         pDst += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00089}00089     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00090}00090 \textcolor{comment}{     * Tail handling}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00091}00091 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00092}00092     blkCnt = numSamples -\/ ((numSamples >> 5) << 5);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00093}00093     \textcolor{keywordflow}{if} (blkCnt >= 16)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00094}00094     \{}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00095}00095         curVec0 = vmaxq(curVec0, vecLow);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00096}00096         curVec0 = vminq(curVec0, vecHigh);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00097}00097         vst1q(pDst, curVec0);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00098}00098         pDst += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00099}00099         curVec0 = vld1q(pSrc);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00100}00100         pSrc += 16;}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00101}00101     \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00103}00103     \textcolor{keywordflow}{if} (blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00104}00104     \{}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00105}00105         mve\_pred16\_t p0 = vctp8q(blkCnt \& 0xf);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00106}00106         curVec0 = vmaxq(curVec0, vecLow);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00107}00107         curVec0 = vminq(curVec0, vecHigh);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00108}00108         vstrbq\_p(pDst, curVec0, p0);}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00109}00109     \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00110}00110 \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00112}00112 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00113}\mbox{\hyperlink{group___basic_clip_ga9ecee7fe0ea9bf00148305b0121fc4d7}{00113}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___basic_clip_ga9ecee7fe0ea9bf00148305b0121fc4d7}{arm\_clip\_q7}}(\textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} * pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00114}00114   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} * pDst, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00115}00115   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} low, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00116}00116   \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\_t}} high, }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00117}00117   uint32\_t numSamples)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00118}00118 \{}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00119}00119     \textcolor{keywordflow}{for} (uint32\_t i = 0; i < numSamples; i++)}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00120}00120     \{                                        }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00121}00121         \textcolor{keywordflow}{if} (pSrc[i] > high)                  }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00122}00122             pDst[i] = high;                  }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00123}00123         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pSrc[i] < low)              }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00124}00124             pDst[i] = low;                   }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00125}00125         \textcolor{keywordflow}{else}                                 }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00126}00126             pDst[i] = pSrc[i];               }
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00127}00127     \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00128}00128 \}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00129}00129 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEI) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__clip__q7_8c_source_l00130}00130 }
+
+\end{DoxyCode}

@@ -1,0 +1,507 @@
+\hypertarget{none_8h}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+Include/dsp/none.h File Reference}
+\label{none_8h}\index{Autodrone32/Libraries/CMSIS/Include/dsp/none.h@{Autodrone32/Libraries/CMSIS/Include/dsp/none.h}}
+{\ttfamily \#include \char`\"{}arm\+\_\+math\+\_\+types.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{none_8h_aba3e538352fc7f9d6d15f9a18d469399}{mult\+Acc\+\_\+32x32\+\_\+keep32\+\_\+R}}(a,  x,  y)~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) a) $<$$<$ 32) + ((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) + 0x80000000\+LL ) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_a668fbf1cd1c3bc8faf1b1c83964ade23}{mult\+Sub\+\_\+32x32\+\_\+keep32\+\_\+R}}(a,  x,  y)~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) a) $<$$<$ 32) -\/ ((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) + 0x80000000\+LL ) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_a960f210642058d2b3d5368729a6e8375}{mult\+\_\+32x32\+\_\+keep32\+\_\+R}}(a,  x,  y)~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y + 0x80000000\+LL ) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_a58454519e12e8157f0a1c36071333655}{mult\+Acc\+\_\+32x32\+\_\+keep32}}(a,  x,  y)~    a += (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_a9ec66f3082a4c65c78075638255f42ab}{mult\+Sub\+\_\+32x32\+\_\+keep32}}(a,  x,  y)~    a -\/= (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_abb4baa0192bbb6fabc9251af4b4cb322}{mult\+\_\+32x32\+\_\+keep32}}(a,  x,  y)~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y ) $>$$>$ 32)
+\item 
+\#define \mbox{\hyperlink{none_8h_aa505179349146cf6186640b4c8b47714}{\+\_\+\+\_\+\+PKHBT}}(ARG1,  ARG2,  ARG3)
+\begin{DoxyCompactList}\small\item\em definition to pack two 16 bit values. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{none_8h_ac4be483b8d98e977a69baf4a292a76fe}{\+\_\+\+\_\+\+PKHTB}}(ARG1,  ARG2,  ARG3)
+\item 
+\#define \mbox{\hyperlink{none_8h_a3ebff224ad44c217fde9f530342e2960}{\+\_\+\+\_\+\+PACKq7}}(v0,  v1,  v2,  v3)
+\begin{DoxyCompactList}\small\item\em definition to pack four 8 bit values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} \mbox{\hyperlink{none_8h_ad3a8d07983196592f6edca8f84aec7c7}{clip\+\_\+q63\+\_\+to\+\_\+q31}} (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Clips Q63 to Q31 values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} \mbox{\hyperlink{none_8h_a027d446e8a72228f0a681779a7038a4e}{clip\+\_\+q63\+\_\+to\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Clips Q63 to Q15 values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} \mbox{\hyperlink{none_8h_afa69cfc57f04c36c2ba499525168fe0c}{clip\+\_\+q31\+\_\+to\+\_\+q7}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Clips Q31 to Q7 values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} \mbox{\hyperlink{none_8h_a8648908e55b9fd8893b36eb7050e69a8}{clip\+\_\+q31\+\_\+to\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Clips Q31 to Q15 values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}} \mbox{\hyperlink{none_8h_a1922856352479a1443dad21208351d35}{mult32x64}} (\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}} x, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} y)
+\begin{DoxyCompactList}\small\item\em Multiplies 32 X 64 and returns 32 bit result in 2.\+30 format. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a2fb737513178e1e4b473008d0ebca517}{\+\_\+\+\_\+\+QADD8}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a646b60c85d3e75c6c2bd78df06db9b40}{\+\_\+\+\_\+\+QSUB8}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_ae849a77250aa7bdc008f3f5e279de24e}{\+\_\+\+\_\+\+QADD16}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a8bbf1eddc4fe17ba0e45217355a1fed7}{\+\_\+\+\_\+\+SHADD16}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a3821f41c9144c9390bd2000c352c6454}{\+\_\+\+\_\+\+QSUB16}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a67078440657eb28859c39adc62ce16b9}{\+\_\+\+\_\+\+SHSUB16}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a12b3b944de6144cebccf3a815e964656}{\+\_\+\+\_\+\+QASX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a6242e7d226a6b9848a7002f8e486f88b}{\+\_\+\+\_\+\+SHASX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a995e63883c48c3c312c1492cb30d2e79}{\+\_\+\+\_\+\+QSAX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a048274994b64ee3b63d754b2dd76de4d}{\+\_\+\+\_\+\+SHSAX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a19acaeacb4ecb2c19e5df75c36b16895}{\+\_\+\+\_\+\+SMUSDX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a5459e095b1250db7f7c12763648f818b}{\+\_\+\+\_\+\+SMUADX}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \mbox{\hyperlink{none_8h_a3cfcec82d3ff1b8570010b771052cb96}{\+\_\+\+\_\+\+QADD}} (int32\+\_\+t x, int32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \mbox{\hyperlink{none_8h_a98e0174c04cb34aec3ce57d5a370953d}{\+\_\+\+\_\+\+QSUB}} (int32\+\_\+t x, int32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_ac2e3c09dbb7c8fe39d3edfa6cdd4a862}{\+\_\+\+\_\+\+SMLAD}} (uint32\+\_\+t x, uint32\+\_\+t y, uint32\+\_\+t sum)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_aa768ceb80ab9196f4f49aa8840474eac}{\+\_\+\+\_\+\+SMLADX}} (uint32\+\_\+t x, uint32\+\_\+t y, uint32\+\_\+t sum)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a72f55b9cc9aac9fea5ea37acdd642b19}{\+\_\+\+\_\+\+SMLSDX}} (uint32\+\_\+t x, uint32\+\_\+t y, uint32\+\_\+t sum)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint64\+\_\+t \mbox{\hyperlink{none_8h_a5e81e17e4b2c742f2bb2ca18721330b4}{\+\_\+\+\_\+\+SMLALD}} (uint32\+\_\+t x, uint32\+\_\+t y, uint64\+\_\+t sum)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint64\+\_\+t \mbox{\hyperlink{none_8h_ae97294482e85127ef97526a962ebd1b3}{\+\_\+\+\_\+\+SMLALDX}} (uint32\+\_\+t x, uint32\+\_\+t y, uint64\+\_\+t sum)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a1caa8809ee9d31e162d28ebb09b2a773}{\+\_\+\+\_\+\+SMUAD}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a7c93c24f4f94bcbb57fefcafa587e838}{\+\_\+\+\_\+\+SMUSD}} (uint32\+\_\+t x, uint32\+\_\+t y)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \mbox{\hyperlink{none_8h_a1d4c96261598742fea98a13d28fbb06a}{\+\_\+\+\_\+\+SXTB16}} (uint32\+\_\+t x)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \mbox{\hyperlink{none_8h_a5a21d62839618246ef1383fc5531425b}{\+\_\+\+\_\+\+SMMLA}} (int32\+\_\+t x, int32\+\_\+t y, int32\+\_\+t sum)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{none_8h_a3ebff224ad44c217fde9f530342e2960}\label{none_8h_a3ebff224ad44c217fde9f530342e2960}} 
+\index{none.h@{none.h}!\_\_PACKq7@{\_\_PACKq7}}
+\index{\_\_PACKq7@{\_\_PACKq7}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PACKq7}{\_\_PACKq7}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PACKq7(\begin{DoxyParamCaption}\item[{}]{v0,  }\item[{}]{v1,  }\item[{}]{v2,  }\item[{}]{v3 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                  ( (((int32\_t)(v0) <<  0) \& (int32\_t)0x000000FF) | \(\backslash\)}
+\DoxyCodeLine{                                  (((int32\_t)(v1) <<  8) \& (int32\_t)0x0000FF00) | \(\backslash\)}
+\DoxyCodeLine{                                  (((int32\_t)(v2) << 16) \& (int32\_t)0x00FF0000) | \(\backslash\)}
+\DoxyCodeLine{                                  (((int32\_t)(v3) << 24) \& (int32\_t)0xFF000000)  )}
+
+\end{DoxyCode}
+
+
+definition to pack four 8 bit values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00222}{222}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_aa505179349146cf6186640b4c8b47714}\label{none_8h_aa505179349146cf6186640b4c8b47714}} 
+\index{none.h@{none.h}!\_\_PKHBT@{\_\_PKHBT}}
+\index{\_\_PKHBT@{\_\_PKHBT}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PKHBT}{\_\_PKHBT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PKHBT(\begin{DoxyParamCaption}\item[{}]{ARG1,  }\item[{}]{ARG2,  }\item[{}]{ARG3 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                      ( (((int32\_t)(ARG1) <<    0) \& (int32\_t)0x0000FFFF) | \(\backslash\)}
+\DoxyCodeLine{                                      (((int32\_t)(ARG2) << ARG3) \& (int32\_t)0xFFFF0000)  )}
+
+\end{DoxyCode}
+
+
+definition to pack two 16 bit values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00212}{212}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_ac4be483b8d98e977a69baf4a292a76fe}\label{none_8h_ac4be483b8d98e977a69baf4a292a76fe}} 
+\index{none.h@{none.h}!\_\_PKHTB@{\_\_PKHTB}}
+\index{\_\_PKHTB@{\_\_PKHTB}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_PKHTB}{\_\_PKHTB}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PKHTB(\begin{DoxyParamCaption}\item[{}]{ARG1,  }\item[{}]{ARG2,  }\item[{}]{ARG3 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                      ( (((int32\_t)(ARG1) <<    0) \& (int32\_t)0xFFFF0000) | \(\backslash\)}
+\DoxyCodeLine{                                      (((int32\_t)(ARG2) >> ARG3) \& (int32\_t)0x0000FFFF)  )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00214}{214}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_abb4baa0192bbb6fabc9251af4b4cb322}\label{none_8h_abb4baa0192bbb6fabc9251af4b4cb322}} 
+\index{none.h@{none.h}!mult\_32x32\_keep32@{mult\_32x32\_keep32}}
+\index{mult\_32x32\_keep32@{mult\_32x32\_keep32}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{mult\_32x32\_keep32}{mult\_32x32\_keep32}}
+{\footnotesize\ttfamily \#define mult\+\_\+32x32\+\_\+keep32(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y ) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00205}{205}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a960f210642058d2b3d5368729a6e8375}\label{none_8h_a960f210642058d2b3d5368729a6e8375}} 
+\index{none.h@{none.h}!mult\_32x32\_keep32\_R@{mult\_32x32\_keep32\_R}}
+\index{mult\_32x32\_keep32\_R@{mult\_32x32\_keep32\_R}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{mult\_32x32\_keep32\_R}{mult\_32x32\_keep32\_R}}
+{\footnotesize\ttfamily \#define mult\+\_\+32x32\+\_\+keep32\+\_\+R(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y + 0x80000000\+LL ) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00193}{193}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a58454519e12e8157f0a1c36071333655}\label{none_8h_a58454519e12e8157f0a1c36071333655}} 
+\index{none.h@{none.h}!multAcc\_32x32\_keep32@{multAcc\_32x32\_keep32}}
+\index{multAcc\_32x32\_keep32@{multAcc\_32x32\_keep32}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{multAcc\_32x32\_keep32}{multAcc\_32x32\_keep32}}
+{\footnotesize\ttfamily \#define mult\+Acc\+\_\+32x32\+\_\+keep32(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a += (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00197}{197}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_aba3e538352fc7f9d6d15f9a18d469399}\label{none_8h_aba3e538352fc7f9d6d15f9a18d469399}} 
+\index{none.h@{none.h}!multAcc\_32x32\_keep32\_R@{multAcc\_32x32\_keep32\_R}}
+\index{multAcc\_32x32\_keep32\_R@{multAcc\_32x32\_keep32\_R}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{multAcc\_32x32\_keep32\_R}{multAcc\_32x32\_keep32\_R}}
+{\footnotesize\ttfamily \#define mult\+Acc\+\_\+32x32\+\_\+keep32\+\_\+R(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) a) $<$$<$ 32) + ((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) + 0x80000000\+LL ) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00185}{185}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a9ec66f3082a4c65c78075638255f42ab}\label{none_8h_a9ec66f3082a4c65c78075638255f42ab}} 
+\index{none.h@{none.h}!multSub\_32x32\_keep32@{multSub\_32x32\_keep32}}
+\index{multSub\_32x32\_keep32@{multSub\_32x32\_keep32}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{multSub\_32x32\_keep32}{multSub\_32x32\_keep32}}
+{\footnotesize\ttfamily \#define mult\+Sub\+\_\+32x32\+\_\+keep32(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a -\/= (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00201}{201}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a668fbf1cd1c3bc8faf1b1c83964ade23}\label{none_8h_a668fbf1cd1c3bc8faf1b1c83964ade23}} 
+\index{none.h@{none.h}!multSub\_32x32\_keep32\_R@{multSub\_32x32\_keep32\_R}}
+\index{multSub\_32x32\_keep32\_R@{multSub\_32x32\_keep32\_R}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{multSub\_32x32\_keep32\_R}{multSub\_32x32\_keep32\_R}}
+{\footnotesize\ttfamily \#define mult\+Sub\+\_\+32x32\+\_\+keep32\+\_\+R(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~    a = (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}) (((((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) a) $<$$<$ 32) -\/ ((\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}) x $\ast$ y) + 0x80000000\+LL ) $>$$>$ 32)}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00189}{189}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{none_8h_a3cfcec82d3ff1b8570010b771052cb96}\label{none_8h_a3cfcec82d3ff1b8570010b771052cb96}} 
+\index{none.h@{none.h}!\_\_QADD@{\_\_QADD}}
+\index{\_\_QADD@{\_\_QADD}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QADD()}{\_\_QADD()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \+\_\+\+\_\+\+QADD (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x,  }\item[{int32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00433}{433}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_ae849a77250aa7bdc008f3f5e279de24e}\label{none_8h_ae849a77250aa7bdc008f3f5e279de24e}} 
+\index{none.h@{none.h}!\_\_QADD16@{\_\_QADD16}}
+\index{\_\_QADD16@{\_\_QADD16}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QADD16()}{\_\_QADD16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QADD16 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00281}{281}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a2fb737513178e1e4b473008d0ebca517}\label{none_8h_a2fb737513178e1e4b473008d0ebca517}} 
+\index{none.h@{none.h}!\_\_QADD8@{\_\_QADD8}}
+\index{\_\_QADD8@{\_\_QADD8}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QADD8()}{\_\_QADD8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QADD8 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00245}{245}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a12b3b944de6144cebccf3a815e964656}\label{none_8h_a12b3b944de6144cebccf3a815e964656}} 
+\index{none.h@{none.h}!\_\_QASX@{\_\_QASX}}
+\index{\_\_QASX@{\_\_QASX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QASX()}{\_\_QASX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QASX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00346}{346}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a995e63883c48c3c312c1492cb30d2e79}\label{none_8h_a995e63883c48c3c312c1492cb30d2e79}} 
+\index{none.h@{none.h}!\_\_QSAX@{\_\_QSAX}}
+\index{\_\_QSAX@{\_\_QSAX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QSAX()}{\_\_QSAX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QSAX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00378}{378}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a98e0174c04cb34aec3ce57d5a370953d}\label{none_8h_a98e0174c04cb34aec3ce57d5a370953d}} 
+\index{none.h@{none.h}!\_\_QSUB@{\_\_QSUB}}
+\index{\_\_QSUB@{\_\_QSUB}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QSUB()}{\_\_QSUB()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \+\_\+\+\_\+\+QSUB (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x,  }\item[{int32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00444}{444}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a3821f41c9144c9390bd2000c352c6454}\label{none_8h_a3821f41c9144c9390bd2000c352c6454}} 
+\index{none.h@{none.h}!\_\_QSUB16@{\_\_QSUB16}}
+\index{\_\_QSUB16@{\_\_QSUB16}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QSUB16()}{\_\_QSUB16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QSUB16 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00314}{314}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a646b60c85d3e75c6c2bd78df06db9b40}\label{none_8h_a646b60c85d3e75c6c2bd78df06db9b40}} 
+\index{none.h@{none.h}!\_\_QSUB8@{\_\_QSUB8}}
+\index{\_\_QSUB8@{\_\_QSUB8}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_QSUB8()}{\_\_QSUB8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+QSUB8 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00263}{263}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a8bbf1eddc4fe17ba0e45217355a1fed7}\label{none_8h_a8bbf1eddc4fe17ba0e45217355a1fed7}} 
+\index{none.h@{none.h}!\_\_SHADD16@{\_\_SHADD16}}
+\index{\_\_SHADD16@{\_\_SHADD16}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SHADD16()}{\_\_SHADD16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SHADD16 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00298}{298}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a6242e7d226a6b9848a7002f8e486f88b}\label{none_8h_a6242e7d226a6b9848a7002f8e486f88b}} 
+\index{none.h@{none.h}!\_\_SHASX@{\_\_SHASX}}
+\index{\_\_SHASX@{\_\_SHASX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SHASX()}{\_\_SHASX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SHASX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00362}{362}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a048274994b64ee3b63d754b2dd76de4d}\label{none_8h_a048274994b64ee3b63d754b2dd76de4d}} 
+\index{none.h@{none.h}!\_\_SHSAX@{\_\_SHSAX}}
+\index{\_\_SHSAX@{\_\_SHSAX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SHSAX()}{\_\_SHSAX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SHSAX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00394}{394}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a67078440657eb28859c39adc62ce16b9}\label{none_8h_a67078440657eb28859c39adc62ce16b9}} 
+\index{none.h@{none.h}!\_\_SHSUB16@{\_\_SHSUB16}}
+\index{\_\_SHSUB16@{\_\_SHSUB16}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SHSUB16()}{\_\_SHSUB16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SHSUB16 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00330}{330}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_ac2e3c09dbb7c8fe39d3edfa6cdd4a862}\label{none_8h_ac2e3c09dbb7c8fe39d3edfa6cdd4a862}} 
+\index{none.h@{none.h}!\_\_SMLAD@{\_\_SMLAD}}
+\index{\_\_SMLAD@{\_\_SMLAD}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMLAD()}{\_\_SMLAD()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMLAD (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00455}{455}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_aa768ceb80ab9196f4f49aa8840474eac}\label{none_8h_aa768ceb80ab9196f4f49aa8840474eac}} 
+\index{none.h@{none.h}!\_\_SMLADX@{\_\_SMLADX}}
+\index{\_\_SMLADX@{\_\_SMLADX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMLADX()}{\_\_SMLADX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMLADX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00469}{469}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a5e81e17e4b2c742f2bb2ca18721330b4}\label{none_8h_a5e81e17e4b2c742f2bb2ca18721330b4}} 
+\index{none.h@{none.h}!\_\_SMLALD@{\_\_SMLALD}}
+\index{\_\_SMLALD@{\_\_SMLALD}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMLALD()}{\_\_SMLALD()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint64\+\_\+t \+\_\+\+\_\+\+SMLALD (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint64\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00497}{497}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_ae97294482e85127ef97526a962ebd1b3}\label{none_8h_ae97294482e85127ef97526a962ebd1b3}} 
+\index{none.h@{none.h}!\_\_SMLALDX@{\_\_SMLALDX}}
+\index{\_\_SMLALDX@{\_\_SMLALDX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMLALDX()}{\_\_SMLALDX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint64\+\_\+t \+\_\+\+\_\+\+SMLALDX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint64\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00512}{512}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a72f55b9cc9aac9fea5ea37acdd642b19}\label{none_8h_a72f55b9cc9aac9fea5ea37acdd642b19}} 
+\index{none.h@{none.h}!\_\_SMLSDX@{\_\_SMLSDX}}
+\index{\_\_SMLSDX@{\_\_SMLSDX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMLSDX()}{\_\_SMLSDX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMLSDX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00483}{483}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a5a21d62839618246ef1383fc5531425b}\label{none_8h_a5a21d62839618246ef1383fc5531425b}} 
+\index{none.h@{none.h}!\_\_SMMLA@{\_\_SMMLA}}
+\index{\_\_SMMLA@{\_\_SMMLA}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMMLA()}{\_\_SMMLA()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} int32\+\_\+t \+\_\+\+\_\+\+SMMLA (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x,  }\item[{int32\+\_\+t}]{y,  }\item[{int32\+\_\+t}]{sum }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00561}{561}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a1caa8809ee9d31e162d28ebb09b2a773}\label{none_8h_a1caa8809ee9d31e162d28ebb09b2a773}} 
+\index{none.h@{none.h}!\_\_SMUAD@{\_\_SMUAD}}
+\index{\_\_SMUAD@{\_\_SMUAD}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMUAD()}{\_\_SMUAD()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMUAD (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00527}{527}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a5459e095b1250db7f7c12763648f818b}\label{none_8h_a5459e095b1250db7f7c12763648f818b}} 
+\index{none.h@{none.h}!\_\_SMUADX@{\_\_SMUADX}}
+\index{\_\_SMUADX@{\_\_SMUADX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMUADX()}{\_\_SMUADX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMUADX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00421}{421}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a7c93c24f4f94bcbb57fefcafa587e838}\label{none_8h_a7c93c24f4f94bcbb57fefcafa587e838}} 
+\index{none.h@{none.h}!\_\_SMUSD@{\_\_SMUSD}}
+\index{\_\_SMUSD@{\_\_SMUSD}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMUSD()}{\_\_SMUSD()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMUSD (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00539}{539}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a19acaeacb4ecb2c19e5df75c36b16895}\label{none_8h_a19acaeacb4ecb2c19e5df75c36b16895}} 
+\index{none.h@{none.h}!\_\_SMUSDX@{\_\_SMUSDX}}
+\index{\_\_SMUSDX@{\_\_SMUSDX}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SMUSDX()}{\_\_SMUSDX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SMUSDX (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00410}{410}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a1d4c96261598742fea98a13d28fbb06a}\label{none_8h_a1d4c96261598742fea98a13d28fbb06a}} 
+\index{none.h@{none.h}!\_\_SXTB16@{\_\_SXTB16}}
+\index{\_\_SXTB16@{\_\_SXTB16}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{\_\_SXTB16()}{\_\_SXTB16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} uint32\+\_\+t \+\_\+\+\_\+\+SXTB16 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00551}{551}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a8648908e55b9fd8893b36eb7050e69a8}\label{none_8h_a8648908e55b9fd8893b36eb7050e69a8}} 
+\index{none.h@{none.h}!clip\_q31\_to\_q15@{clip\_q31\_to\_q15}}
+\index{clip\_q31\_to\_q15@{clip\_q31\_to\_q15}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{clip\_q31\_to\_q15()}{clip\_q31\_to\_q15()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} clip\+\_\+q31\+\_\+to\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Clips Q31 to Q15 values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00166}{166}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_afa69cfc57f04c36c2ba499525168fe0c}\label{none_8h_afa69cfc57f04c36c2ba499525168fe0c}} 
+\index{none.h@{none.h}!clip\_q31\_to\_q7@{clip\_q31\_to\_q7}}
+\index{clip\_q31\_to\_q7@{clip\_q31\_to\_q7}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{clip\_q31\_to\_q7()}{clip\_q31\_to\_q7()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ae541b6f232c305361e9b416fc9eed263}{q7\+\_\+t}} clip\+\_\+q31\+\_\+to\+\_\+q7 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Clips Q31 to Q7 values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00156}{156}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a027d446e8a72228f0a681779a7038a4e}\label{none_8h_a027d446e8a72228f0a681779a7038a4e}} 
+\index{none.h@{none.h}!clip\_q63\_to\_q15@{clip\_q63\_to\_q15}}
+\index{clip\_q63\_to\_q15@{clip\_q63\_to\_q15}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{clip\_q63\_to\_q15()}{clip\_q63\_to\_q15()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} clip\+\_\+q63\+\_\+to\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Clips Q63 to Q15 values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00146}{146}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_ad3a8d07983196592f6edca8f84aec7c7}\label{none_8h_ad3a8d07983196592f6edca8f84aec7c7}} 
+\index{none.h@{none.h}!clip\_q63\_to\_q31@{clip\_q63\_to\_q31}}
+\index{clip\_q63\_to\_q31@{clip\_q63\_to\_q31}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{clip\_q63\_to\_q31()}{clip\_q63\_to\_q31()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} clip\+\_\+q63\+\_\+to\+\_\+q31 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Clips Q63 to Q31 values. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00136}{136}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+
+\mbox{\Hypertarget{none_8h_a1922856352479a1443dad21208351d35}\label{none_8h_a1922856352479a1443dad21208351d35}} 
+\index{none.h@{none.h}!mult32x64@{mult32x64}}
+\index{mult32x64@{mult32x64}!none.h@{none.h}}
+\doxysubsubsection{\texorpdfstring{mult32x64()}{mult32x64()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_ab904513442afdf77d4f8c74f23cbb040}{\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE}} \mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}} mult32x64 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_a5aea1cb12fc02d9d44c8abf217eaa5c6}{q63\+\_\+t}}}]{x,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{y }\end{DoxyParamCaption})}
+
+
+
+Multiplies 32 X 64 and returns 32 bit result in 2.\+30 format. 
+
+
+
+Definition at line \mbox{\hyperlink{none_8h_source_l00176}{176}} of file \mbox{\hyperlink{none_8h_source}{none.\+h}}.
+

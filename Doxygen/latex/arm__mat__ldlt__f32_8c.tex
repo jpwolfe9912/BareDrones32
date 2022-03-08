@@ -1,0 +1,60 @@
+\hypertarget{arm__mat__ldlt__f32_8c}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+DSP/\+Matrix\+Functions/arm\+\_\+mat\+\_\+ldlt\+\_\+f32.c File Reference}
+\label{arm__mat__ldlt__f32_8c}\index{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_ldlt\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/MatrixFunctions/arm\_mat\_ldlt\_f32.c}}
+{\ttfamily \#include \char`\"{}dsp/matrix\+\_\+functions.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{arm__mat__ldlt__f32_8c_a36c1e280e122300e539a7639288f6f1a}{SWAP\+\_\+\+ROWS\+\_\+\+F32}}(A,  i,  j)
+\item 
+\#define \mbox{\hyperlink{arm__mat__ldlt__f32_8c_aa1fa418fb3398b2e89268e9dc749b99d}{SWAP\+\_\+\+COLS\+\_\+\+F32}}(A,  i,  j)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_chol_ga1d834976c8687e4925e5a061d65668c4}{arm\+\_\+mat\+\_\+ldlt\+\_\+f32}} (const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$p\+Src, \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$pl, \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$pd, uint16\+\_\+t $\ast$pp)
+\begin{DoxyCompactList}\small\item\em Floating-\/point LDL$^\wedge$t decomposition of positive semi-\/definite matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{arm__mat__ldlt__f32_8c_aa1fa418fb3398b2e89268e9dc749b99d}\label{arm__mat__ldlt__f32_8c_aa1fa418fb3398b2e89268e9dc749b99d}} 
+\index{arm\_mat\_ldlt\_f32.c@{arm\_mat\_ldlt\_f32.c}!SWAP\_COLS\_F32@{SWAP\_COLS\_F32}}
+\index{SWAP\_COLS\_F32@{SWAP\_COLS\_F32}!arm\_mat\_ldlt\_f32.c@{arm\_mat\_ldlt\_f32.c}}
+\doxysubsubsection{\texorpdfstring{SWAP\_COLS\_F32}{SWAP\_COLS\_F32}}
+{\footnotesize\ttfamily \#define SWAP\+\_\+\+COLS\+\_\+\+F32(\begin{DoxyParamCaption}\item[{}]{A,  }\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} w=0;w < n; w++)    \(\backslash\)}
+\DoxyCodeLine{  \{                          \(\backslash\)}
+\DoxyCodeLine{     float32\_t tmp;          \(\backslash\)}
+\DoxyCodeLine{     tmp = A[w*n + i];       \(\backslash\)}
+\DoxyCodeLine{     A[w*n + i] = A[w*n + j];\(\backslash\)}
+\DoxyCodeLine{     A[w*n + j] = tmp;       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__ldlt__f32_8c_source_l00336}{336}} of file \mbox{\hyperlink{arm__mat__ldlt__f32_8c_source}{arm\+\_\+mat\+\_\+ldlt\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{arm__mat__ldlt__f32_8c_a36c1e280e122300e539a7639288f6f1a}\label{arm__mat__ldlt__f32_8c_a36c1e280e122300e539a7639288f6f1a}} 
+\index{arm\_mat\_ldlt\_f32.c@{arm\_mat\_ldlt\_f32.c}!SWAP\_ROWS\_F32@{SWAP\_ROWS\_F32}}
+\index{SWAP\_ROWS\_F32@{SWAP\_ROWS\_F32}!arm\_mat\_ldlt\_f32.c@{arm\_mat\_ldlt\_f32.c}}
+\doxysubsubsection{\texorpdfstring{SWAP\_ROWS\_F32}{SWAP\_ROWS\_F32}}
+{\footnotesize\ttfamily \#define SWAP\+\_\+\+ROWS\+\_\+\+F32(\begin{DoxyParamCaption}\item[{}]{A,  }\item[{}]{i,  }\item[{}]{j }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} w=0;w < n; w++)    \(\backslash\)}
+\DoxyCodeLine{  \{                          \(\backslash\)}
+\DoxyCodeLine{     float32\_t tmp;          \(\backslash\)}
+\DoxyCodeLine{     tmp = A[i*n + w];       \(\backslash\)}
+\DoxyCodeLine{     A[i*n + w] = A[j*n + w];\(\backslash\)}
+\DoxyCodeLine{     A[j*n + w] = tmp;       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__ldlt__f32_8c_source_l00326}{326}} of file \mbox{\hyperlink{arm__mat__ldlt__f32_8c_source}{arm\+\_\+mat\+\_\+ldlt\+\_\+f32.\+c}}.
+

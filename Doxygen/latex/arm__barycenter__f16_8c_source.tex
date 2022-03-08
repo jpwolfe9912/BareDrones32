@@ -1,0 +1,247 @@
+\hypertarget{arm__barycenter__f16_8c_source}{}\doxysection{arm\+\_\+barycenter\+\_\+f16.\+c}
+\label{arm__barycenter__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_barycenter\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_barycenter\_f16.c}}
+\mbox{\hyperlink{arm__barycenter__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_barycenter\_f16.c}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Barycenter}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{support__functions__f16_8h}{dsp/support\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00031}00031 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00033}00033 \textcolor{preprocessor}{\#include <limits.h>}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00034}00034 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00065}00065 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00067}00067 \textcolor{keywordtype}{void} arm\_barycenter\_f16(\textcolor{keyword}{const} float16\_t *in, }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00068}00068   \textcolor{keyword}{const} float16\_t *weights, }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00069}00069   float16\_t *out, }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00070}00070   uint32\_t nbVectors,}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00071}00071   uint32\_t vecDim)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00072}00072 \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00073}00073     \textcolor{keyword}{const} float16\_t *pIn, *pW;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00074}00074     \textcolor{keyword}{const} float16\_t *pIn1, *pIn2, *pIn3, *pIn4;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00075}00075     float16\_t      *pOut;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00076}00076     uint32\_t        blkCntVector, blkCntSample;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00077}00077     float16\_t       accum, w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00079}00079     blkCntVector = nbVectors;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00080}00080     blkCntSample = vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00082}00082     accum = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00084}00084     pW = weights;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00085}00085     pIn = in;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00088}00088     arm\_fill\_f16(0.0f, out, vecDim);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00091}00091     \textcolor{comment}{/* Sum */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00092}00092     pIn1 = pIn;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00093}00093     pIn2 = pIn1 + vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00094}00094     pIn3 = pIn2 + vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00095}00095     pIn4 = pIn3 + vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00097}00097     blkCntVector = nbVectors >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00098}00098     \textcolor{keywordflow}{while} (blkCntVector > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00099}00099     \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00100}00100         f16x8\_t         outV, inV1, inV2, inV3, inV4;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00101}00101         float16\_t       w1, w2, w3, w4;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00102}00102 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00103}00103         pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00104}00104         w1 = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00105}00105         w2 = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00106}00106         w3 = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00107}00107         w4 = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00108}00108         accum += w1 + w2 + w3 + w4;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00110}00110         blkCntSample = vecDim >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00111}00111         \textcolor{keywordflow}{while} (blkCntSample > 0) \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00112}00112             outV = vld1q((\textcolor{keyword}{const} float16\_t *) pOut);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00113}00113             inV1 = vld1q(pIn1);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00114}00114             inV2 = vld1q(pIn2);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00115}00115             inV3 = vld1q(pIn3);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00116}00116             inV4 = vld1q(pIn4);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00117}00117             outV = vfmaq(outV, inV1, w1);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00118}00118             outV = vfmaq(outV, inV2, w2);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00119}00119             outV = vfmaq(outV, inV3, w3);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00120}00120             outV = vfmaq(outV, inV4, w4);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00121}00121             vst1q(pOut, outV);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00123}00123             pOut += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00124}00124             pIn1 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00125}00125             pIn2 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00126}00126             pIn3 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00127}00127             pIn4 += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00129}00129             blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00130}00130         \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00132}00132         blkCntSample = vecDim \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00133}00133         \textcolor{keywordflow}{while} (blkCntSample > 0) \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00134}00134             *pOut = *pOut + *pIn1++ * w1;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00135}00135             *pOut = *pOut + *pIn2++ * w2;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00136}00136             *pOut = *pOut + *pIn3++ * w3;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00137}00137             *pOut = *pOut + *pIn4++ * w4;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00138}00138             pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00139}00139             blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00140}00140         \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00142}00142         pIn1 += 3 * vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00143}00143         pIn2 += 3 * vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00144}00144         pIn3 += 3 * vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00145}00145         pIn4 += 3 * vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00147}00147         blkCntVector-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00148}00148     \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00150}00150     pIn = pIn1;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00152}00152     blkCntVector = nbVectors \& 3;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00153}00153     \textcolor{keywordflow}{while} (blkCntVector > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00154}00154     \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00155}00155         f16x8\_t         inV, outV;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00157}00157         pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00158}00158         w = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00159}00159         accum += w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00161}00161         blkCntSample = vecDim >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00162}00162         \textcolor{keywordflow}{while} (blkCntSample > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00163}00163         \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00164}00164             outV = vld1q\_f16(pOut);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00165}00165             inV = vld1q\_f16(pIn);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00166}00166             outV = vfmaq(outV, inV, w);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00167}00167             vst1q\_f16(pOut, outV);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00168}00168             pOut += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00169}00169             pIn += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00170}00170 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00171}00171             blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00172}00172         \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00174}00174         blkCntSample = vecDim \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00175}00175         \textcolor{keywordflow}{while} (blkCntSample > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00176}00176         \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00177}00177             *pOut = *pOut + *pIn++ * w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00178}00178             pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00179}00179             blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00180}00180         \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00182}00182         blkCntVector-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00183}00183     \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00185}00185     \textcolor{comment}{/* Normalize */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00186}00186     pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00187}00187     accum = 1.0f / accum;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00189}00189     blkCntSample = vecDim >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00190}00190     \textcolor{keywordflow}{while} (blkCntSample > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00191}00191     \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00192}00192         f16x8\_t         tmp;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00194}00194         tmp = vld1q((\textcolor{keyword}{const} float16\_t *) pOut);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00195}00195         tmp = vmulq(tmp, accum);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00196}00196         vst1q(pOut, tmp);}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00197}00197         pOut += 8;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00198}00198         blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00199}00199     \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00200}00200 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00201}00201     blkCntSample = vecDim \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00202}00202     \textcolor{keywordflow}{while} (blkCntSample > 0) }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00203}00203     \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00204}00204         *pOut = *pOut * accum;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00205}00205         pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00206}00206         blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00207}00207     \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00208}00208 \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00209}00209 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00210}00210 \textcolor{keywordtype}{void} arm\_barycenter\_f16(\textcolor{keyword}{const} float16\_t *in, \textcolor{keyword}{const} float16\_t *weights, float16\_t *out, uint32\_t nbVectors,uint32\_t vecDim)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00211}00211 \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00213}00213    \textcolor{keyword}{const} float16\_t *pIn,*pW;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00214}00214    float16\_t *pOut;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00215}00215    uint32\_t blkCntVector,blkCntSample;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00216}00216    float16\_t accum, w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00218}00218    blkCntVector = nbVectors;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00219}00219    blkCntSample = vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00221}00221    accum = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00223}00223    pW = weights;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00224}00224    pIn = in;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00225}00225 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00226}00226    \textcolor{comment}{/* Set counters to 0 */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00227}00227    blkCntSample = vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00228}00228    pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00230}00230    \textcolor{keywordflow}{while}(blkCntSample > 0)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00231}00231    \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00232}00232          *pOut = 0.0f;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00233}00233          pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00234}00234          blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00235}00235    \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00237}00237    \textcolor{comment}{/* Sum */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00238}00238    \textcolor{keywordflow}{while}(blkCntVector > 0)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00239}00239    \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00240}00240       pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00241}00241       w = *pW++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00242}00242       accum += w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00244}00244       blkCntSample = vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00245}00245       \textcolor{keywordflow}{while}(blkCntSample > 0)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00246}00246       \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00247}00247           *pOut = *pOut + *pIn++ * w;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00248}00248           pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00249}00249           blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00250}00250       \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00252}00252       blkCntVector-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00253}00253    \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00255}00255    \textcolor{comment}{/* Normalize */}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00256}00256    blkCntSample = vecDim;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00257}00257    pOut = out;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00259}00259    \textcolor{keywordflow}{while}(blkCntSample > 0)}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00260}00260    \{}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00261}00261          *pOut = *pOut / accum;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00262}00262          pOut++;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00263}00263          blkCntSample-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00264}00264    \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00266}00266 \}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00267}00267 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00273}00273 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{arm__barycenter__f16_8c_source_l00274}00274 }
+
+\end{DoxyCode}

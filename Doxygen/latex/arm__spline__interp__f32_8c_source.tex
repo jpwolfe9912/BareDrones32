@@ -1,0 +1,171 @@
+\hypertarget{arm__spline__interp__f32_8c_source}{}\doxysection{arm\+\_\+spline\+\_\+interp\+\_\+f32.\+c}
+\label{arm__spline__interp__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/InterpolationFunctions/arm\_spline\_interp\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/InterpolationFunctions/arm\_spline\_interp\_f32.c}}
+\mbox{\hyperlink{arm__spline__interp__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_spline\_interp\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating-\/point cubic spline interpolation}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interpolation__functions_8h}{dsp/interpolation\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00146}\mbox{\hyperlink{group___spline_interpolate_ga4ef053a783b251b085454b28f8aecb94}{00146}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___spline_interpolate_ga4ef053a783b251b085454b28f8aecb94}{arm\_spline\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00147}00147         \mbox{\hyperlink{structarm__spline__instance__f32}{arm\_spline\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00148}00148   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * xq,}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00149}00149         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00150}00150         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00151}00151 \{}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00152}00152     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * x = S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_ad15db0a88cd7095cda0e9b32efbbc772}{x}};}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00153}00153     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * y = S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_aec265976ff59be5ac710a5f5c687e6df}{y}};}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00154}00154     int32\_t n = S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_af5be28c7b7cbd186d14079f59192a50b}{n\_x}};}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00156}00156     \textcolor{comment}{/* Coefficients (a==y for i<=n-\/1) */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00157}00157     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * b = (S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_a6ceaa0b32c96a0b5be445ae8b51035ef}{coeffs}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00158}00158     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * c = (S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_a6ceaa0b32c96a0b5be445ae8b51035ef}{coeffs}})+(n-\/1);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00159}00159     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * d = (S-\/>\mbox{\hyperlink{structarm__spline__instance__f32_a6ceaa0b32c96a0b5be445ae8b51035ef}{coeffs}})+(2*(n-\/1));    }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00161}00161     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pXq = xq;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00162}00162     int32\_t blkCnt = (int32\_t)blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00163}00163     int32\_t blkCnt2;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00164}00164     int32\_t i;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00165}00165     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} x\_sc;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00167}00167 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_NEON}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00168}00168     float32x4\_t xiv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00169}00169     float32x4\_t aiv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00170}00170     float32x4\_t biv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00171}00171     float32x4\_t civ;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00172}00172     float32x4\_t div;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00174}00174     float32x4\_t xqv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00176}00176     float32x4\_t \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00177}00177     float32x4\_t diff;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00178}00178     float32x4\_t yv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00179}00179 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00181}00181     \textcolor{comment}{/* Create output for x(i)<x<x(i+1) */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00182}00182     \textcolor{keywordflow}{for} (i=0; i<n-\/1; i++)}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00183}00183     \{}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00184}00184 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_NEON}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00185}00185         xiv = vdupq\_n\_f32(x[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00187}00187         aiv = vdupq\_n\_f32(y[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00188}00188         biv = vdupq\_n\_f32(b[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00189}00189         civ = vdupq\_n\_f32(c[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00190}00190         div = vdupq\_n\_f32(d[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00192}00192         \textcolor{keywordflow}{while}( *(pXq+4) <= x[i+1] \&\& blkCnt > 4 )}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00193}00193         \{}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00194}00194             \textcolor{comment}{/* Load [xq(k) xq(k+1) xq(k+2) xq(k+3)] */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00195}00195             xqv = vld1q\_f32(pXq);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00196}00196             pXq+=4;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00197}00197         }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00198}00198             \textcolor{comment}{/* Compute [xq(k)-\/x(i) xq(k+1)-\/x(i) xq(k+2)-\/x(i) xq(k+3)-\/x(i)] */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00199}00199             diff = vsubq\_f32(xqv, xiv);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00200}00200             \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = diff;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00201}00201         }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00202}00202             \textcolor{comment}{/* y(i) = a(i) + ... */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00203}00203             yv = aiv;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00204}00204             \textcolor{comment}{/* ... + b(i)*(x-\/x(i)) + ... */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00205}00205             yv = vmlaq\_f32(yv, biv, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00206}00206             \textcolor{comment}{/* ... + c(i)*(x-\/x(i))\string^2 + ... */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00207}00207             \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = vmulq\_f32(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}}, diff);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00208}00208             yv = vmlaq\_f32(yv, civ, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00209}00209             \textcolor{comment}{/* ... + d(i)*(x-\/x(i))\string^3 */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00210}00210             \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = vmulq\_f32(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}}, diff);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00211}00211             yv = vmlaq\_f32(yv, div, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00212}00212         }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00213}00213             \textcolor{comment}{/* Store [y(k) y(k+1) y(k+2) y(k+3)] */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00214}00214             vst1q\_f32(pDst, yv);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00215}00215             pDst+=4;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00216}00216         }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00217}00217             blkCnt-\/=4;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00218}00218         \}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00219}00219 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00220}00220         \textcolor{keywordflow}{while}( *pXq <= x[i+1] \&\& blkCnt > 0 )}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00221}00221         \{}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00222}00222             x\_sc = *pXq++;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00224}00224             *pDst = y[i]+b[i]*(x\_sc-\/x[i])+c[i]*(x\_sc-\/x[i])*(x\_sc-\/x[i])+d[i]*(x\_sc-\/x[i])*(x\_sc-\/x[i])*(x\_sc-\/x[i]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00225}00225 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00226}00226             pDst++;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00227}00227             blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00228}00228         \}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00229}00229     \}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00231}00231     \textcolor{comment}{/* Create output for remaining samples (x>=x(n)) */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00232}00232 \textcolor{preprocessor}{\#ifdef ARM\_MATH\_NEON}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00233}00233     \textcolor{comment}{/* Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00234}00234     blkCnt2 = blkCnt >> 2;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00236}00236     \textcolor{keywordflow}{while}(blkCnt2 > 0) }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00237}00237     \{ }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00238}00238         \textcolor{comment}{/* Load [xq(k) xq(k+1) xq(k+2) xq(k+3)] */} }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00239}00239         xqv = vld1q\_f32(pXq);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00240}00240         pXq+=4;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00241}00241                                                          }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00242}00242         \textcolor{comment}{/* Compute [xq(k)-\/x(i) xq(k+1)-\/x(i) xq(k+2)-\/x(i) xq(k+3)-\/x(i)] */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00243}00243         diff = vsubq\_f32(xqv, xiv);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00244}00244         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = diff; }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00246}00246         \textcolor{comment}{/* y(i) = a(i) + ... */} }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00247}00247         yv = aiv; }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00248}00248         \textcolor{comment}{/* ... + b(i)*(x-\/x(i)) + ... */} }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00249}00249         yv = vmlaq\_f32(yv, biv, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00250}00250         \textcolor{comment}{/* ... + c(i)*(x-\/x(i))\string^2 + ... */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00251}00251         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = vmulq\_f32(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}}, diff);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00252}00252         yv = vmlaq\_f32(yv, civ, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00253}00253         \textcolor{comment}{/* ... + d(i)*(x-\/x(i))\string^3 */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00254}00254         \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = vmulq\_f32(\mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}}, diff);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00255}00255         yv = vmlaq\_f32(yv, div, \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00257}00257         \textcolor{comment}{/* Store [y(k) y(k+1) y(k+2) y(k+3)] */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00258}00258         vst1q\_f32(pDst, yv);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00259}00259         pDst+=4;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00260}00260 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00261}00261         blkCnt2-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00262}00262     \} }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00263}00263 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00264}00264     \textcolor{comment}{/* Tail */}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00265}00265     blkCnt2 = blkCnt \& 3;                                      }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00266}00266 \textcolor{preprocessor}{\#else                                                        }}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00267}00267     blkCnt2 = blkCnt;                                          }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00268}00268 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00270}00270     \textcolor{keywordflow}{while}(blkCnt2 > 0)                                       }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00271}00271     \{ }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00272}00272         x\_sc = *pXq++; }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00273}00273   }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00274}00274         *pDst = y[i-\/1]+b[i-\/1]*(x\_sc-\/x[i-\/1])+c[i-\/1]*(x\_sc-\/x[i-\/1])*(x\_sc-\/x[i-\/1])+d[i-\/1]*(x\_sc-\/x[i-\/1])*(x\_sc-\/x[i-\/1])*(x\_sc-\/x[i-\/1]);}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00275}00275  }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00276}00276         pDst++; }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00277}00277         blkCnt2-\/-\/;   }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00278}00278     \}   }
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00279}00279 \}}
+\DoxyCodeLine{\Hypertarget{arm__spline__interp__f32_8c_source_l00280}00280 }
+
+\end{DoxyCode}

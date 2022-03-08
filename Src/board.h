@@ -27,8 +27,13 @@
 #include "stm32f7xx_it.h"
 #include "arm_math.h"
 
+#include "pid.h"
+
 #include "Autodrone32.h"
 #include "main.h"
+#include "config.h"
+#include "utilities.h"
+#include "mixer.h"
 
 #include "drv_color.h"
 #include "drv_system.h"
@@ -48,12 +53,13 @@
 #include "drv_ibus.h"
 
 #include "motors.h"
-#include "pid.h"
 #include "flight_command.h"
+#include "compute_axis_commands.h"
 
 #include "mpu6000.h"
 #include "orientation.h"
 #include "sensor_fusion.h"
 #include "mpu6000_calibration.h"
+#include "accelCalibrationMPU.h"
 
 #endif /* INC_BOARD_H_ */

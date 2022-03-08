@@ -1,0 +1,100 @@
+\hypertarget{arm__bitreversal_8c}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+DSP/\+Transform\+Functions/arm\+\_\+bitreversal.c File Reference}
+\label{arm__bitreversal_8c}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_bitreversal.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_bitreversal.c}}
+{\ttfamily \#include \char`\"{}dsp/transform\+\_\+functions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}arm\+\_\+common\+\_\+tables.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{arm__bitreversal_8c_a81008b023cbc9d37b3ff849877d1eb52}{arm\+\_\+bitreversal\+\_\+f32}} (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, uint16\+\_\+t fft\+Size, uint16\+\_\+t bit\+Rev\+Factor, const uint16\+\_\+t $\ast$p\+Bit\+Rev\+Tab)
+\begin{DoxyCompactList}\small\item\em In-\/place floating-\/point bit reversal function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{arm__bitreversal_8c_a82acdff1d26c7021c2a016a6e7e9eaf8}{arm\+\_\+bitreversal\+\_\+q31}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, uint32\+\_\+t fft\+Len, uint16\+\_\+t bit\+Rev\+Factor, const uint16\+\_\+t $\ast$p\+Bit\+Rev\+Tab)
+\begin{DoxyCompactList}\small\item\em In-\/place Q31 bit reversal function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{arm__bitreversal_8c_aca90e3648bb9032de822180ab177f90c}{arm\+\_\+bitreversal\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src16, uint32\+\_\+t fft\+Len, uint16\+\_\+t bit\+Rev\+Factor, const uint16\+\_\+t $\ast$p\+Bit\+Rev\+Tab)
+\begin{DoxyCompactList}\small\item\em In-\/place Q15 bit reversal function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{arm__bitreversal_8c_a81008b023cbc9d37b3ff849877d1eb52}\label{arm__bitreversal_8c_a81008b023cbc9d37b3ff849877d1eb52}} 
+\index{arm\_bitreversal.c@{arm\_bitreversal.c}!arm\_bitreversal\_f32@{arm\_bitreversal\_f32}}
+\index{arm\_bitreversal\_f32@{arm\_bitreversal\_f32}!arm\_bitreversal.c@{arm\_bitreversal.c}}
+\doxysubsubsection{\texorpdfstring{arm\_bitreversal\_f32()}{arm\_bitreversal\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+bitreversal\+\_\+f32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint16\+\_\+t}]{fft\+Size,  }\item[{uint16\+\_\+t}]{bit\+Rev\+Factor,  }\item[{const uint16\+\_\+t $\ast$}]{p\+Bit\+Rev\+Tab }\end{DoxyParamCaption})}
+
+
+
+In-\/place floating-\/point bit reversal function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src} & points to in-\/place floating-\/point data buffer \\
+\hline
+\mbox{\texttt{ in}}  & {\em fft\+Size} & length of FFT \\
+\hline
+\mbox{\texttt{ in}}  & {\em bit\+Rev\+Factor} & bit reversal modifier that supports different size FFTs with the same bit reversal table \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Bit\+Rev\+Tab} & points to bit reversal table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__bitreversal_8c_source_l00042}{42}} of file \mbox{\hyperlink{arm__bitreversal_8c_source}{arm\+\_\+bitreversal.\+c}}.
+
+\mbox{\Hypertarget{arm__bitreversal_8c_aca90e3648bb9032de822180ab177f90c}\label{arm__bitreversal_8c_aca90e3648bb9032de822180ab177f90c}} 
+\index{arm\_bitreversal.c@{arm\_bitreversal.c}!arm\_bitreversal\_q15@{arm\_bitreversal\_q15}}
+\index{arm\_bitreversal\_q15@{arm\_bitreversal\_q15}!arm\_bitreversal.c@{arm\_bitreversal.c}}
+\doxysubsubsection{\texorpdfstring{arm\_bitreversal\_q15()}{arm\_bitreversal\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+bitreversal\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src16,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{uint16\+\_\+t}]{bit\+Rev\+Factor,  }\item[{const uint16\+\_\+t $\ast$}]{p\+Bit\+Rev\+Tab }\end{DoxyParamCaption})}
+
+
+
+In-\/place Q15 bit reversal function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src16} & points to in-\/place Q15 data buffer \\
+\hline
+\mbox{\texttt{ in}}  & {\em fft\+Len} & length of FFT \\
+\hline
+\mbox{\texttt{ in}}  & {\em bit\+Rev\+Factor} & bit reversal modifier that supports different size FFTs with the same bit reversal table \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Bit\+Rev\+Tab} & points to bit reversal table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__bitreversal_8c_source_l00184}{184}} of file \mbox{\hyperlink{arm__bitreversal_8c_source}{arm\+\_\+bitreversal.\+c}}.
+
+\mbox{\Hypertarget{arm__bitreversal_8c_a82acdff1d26c7021c2a016a6e7e9eaf8}\label{arm__bitreversal_8c_a82acdff1d26c7021c2a016a6e7e9eaf8}} 
+\index{arm\_bitreversal.c@{arm\_bitreversal.c}!arm\_bitreversal\_q31@{arm\_bitreversal\_q31}}
+\index{arm\_bitreversal\_q31@{arm\_bitreversal\_q31}!arm\_bitreversal.c@{arm\_bitreversal.c}}
+\doxysubsubsection{\texorpdfstring{arm\_bitreversal\_q31()}{arm\_bitreversal\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+bitreversal\+\_\+q31 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{uint32\+\_\+t}]{fft\+Len,  }\item[{uint16\+\_\+t}]{bit\+Rev\+Factor,  }\item[{const uint16\+\_\+t $\ast$}]{p\+Bit\+Rev\+Tab }\end{DoxyParamCaption})}
+
+
+
+In-\/place Q31 bit reversal function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em p\+Src} & points to in-\/place Q31 data buffer. \\
+\hline
+\mbox{\texttt{ in}}  & {\em fft\+Len} & length of FFT. \\
+\hline
+\mbox{\texttt{ in}}  & {\em bit\+Rev\+Factor} & bit reversal modifier that supports different size FFTs with the same bit reversal table \\
+\hline
+\mbox{\texttt{ in}}  & {\em p\+Bit\+Rev\+Tab} & points to bit reversal table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__bitreversal_8c_source_l00113}{113}} of file \mbox{\hyperlink{arm__bitreversal_8c_source}{arm\+\_\+bitreversal.\+c}}.
+

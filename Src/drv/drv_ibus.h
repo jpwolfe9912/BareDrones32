@@ -15,7 +15,7 @@
 #include "drv_lwrb.h"
 
 /* Defines */
-#define IBUS_FRAME_SIZE_MAX			32
+#define IBUS_FRAME_SIZE_MAX			33
 #define PAYLOAD_SIZE				(IBUS_FRAME_SIZE_MAX - 4U)
 #define RC_CHANNELS					(PAYLOAD_SIZE / 2U)
 #define ARRAY_LEN(x)				(sizeof(x) / sizeof((x)[0]))
@@ -32,6 +32,8 @@ extern uint8_t rxRingBufData[RXBUF_SIZE];
 
 extern uint8_t ibusPayload[PAYLOAD_SIZE];
 extern uint16_t ibusChannels[RC_CHANNELS];
+
+extern bool rcActive;
 
 enum {
 	IBUS_STATE_LENGTH,

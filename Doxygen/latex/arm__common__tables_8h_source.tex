@@ -1,0 +1,535 @@
+\hypertarget{arm__common__tables_8h_source}{}\doxysection{arm\+\_\+common\+\_\+tables.\+h}
+\label{arm__common__tables_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/arm\_common\_tables.h@{Autodrone32/Libraries/CMSIS/Include/arm\_common\_tables.h}}
+\mbox{\hyperlink{arm__common__tables_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_common\_tables.h}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00004}00004 \textcolor{comment}{ * Description:  Extern declaration for common tables}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00006}00006 \textcolor{comment}{ * @version  V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00007}00007 \textcolor{comment}{ * @date     23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00029}00029 \textcolor{preprocessor}{\#ifndef \_ARM\_COMMON\_TABLES\_H}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00030}00030 \textcolor{preprocessor}{\#define \_ARM\_COMMON\_TABLES\_H}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00032}00032 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__math__types_8h}{arm\_math\_types.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{fast__math__functions_8h}{dsp/fast\_math\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00035}00035 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00036}00036 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00037}00037 \{}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00038}00038 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00040}00040 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_FFT\_ALLOW\_TABLES)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00041}00041   \textcolor{comment}{/* Double Precision Float CFFT twiddles */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00042}00042 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREV\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00043}00043     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gae247e83ad50d474107254e25b36ad42b}{armBitRevTable}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00044}00044 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00046}00046 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00047}00047     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gabeb418730eacdce077316477b7f1e960}{twiddleCoefF64\_16}}[32];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00048}00048 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00050}00050 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00051}00051     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga3f7d1eaff3c6910ee7d85ae1c9015fe5}{twiddleCoefF64\_32}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00052}00052 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00054}00054 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00055}00055     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga6fe9e2b9200445a2313d7542c586639b}{twiddleCoefF64\_64}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00056}00056 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00058}00058 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00059}00059     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga252036ff16d9125ae72f547f4565f36f}{twiddleCoefF64\_128}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00060}00060 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00062}00062 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00063}00063     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga10e83806d2c02cc4f5f07ce46851a673}{twiddleCoefF64\_256}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00064}00064 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00066}00066 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00067}00067     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gadf57a6c3f49246e356cc72615c5dc8ba}{twiddleCoefF64\_512}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00068}00068 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00070}00070 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00071}00071     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga6626143034266d76fafe4195cd59e9ef}{twiddleCoefF64\_1024}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00072}00072 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00074}00074 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00075}00075     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga0d6a794c1315cceaa884e3bdc736e576}{twiddleCoefF64\_2048}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00076}00076 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00078}00078 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F64\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00079}00079     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gac0f43575fce0ab5e30d8731924dbc6d3}{twiddleCoefF64\_4096}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00080}00080 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00082}00082 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00083}00083     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gae75e243ec61706427314270f222e0c8e}{twiddleCoef\_16}}[32];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00084}00084 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00086}00086 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00087}00087     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga78a72c85d88185de98050c930cfc76e3}{twiddleCoef\_32}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00088}00088 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00090}00090 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00091}00091     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga4f3c6d98c7e66393b4ef3ac63746e43d}{twiddleCoef\_64}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00092}00092 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00094}00094 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00095}00095     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga948433536dafaac1381decfccf4e2d9c}{twiddleCoef\_128}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00096}00096 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00098}00098 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00099}00099     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gafe813758a03a798e972359a092315be4}{twiddleCoef\_256}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00100}00100 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00102}00102 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00103}00103     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gad8830f0c068ab2cc19f2f87d220fa148}{twiddleCoef\_512}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00104}00104 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00106}00106 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00107}00107     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga27c056eb130a4333d1cc5dd43ec738b1}{twiddleCoef\_1024}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00108}00108 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00110}00110 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00111}00111     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga23e7f30421a7905b21c2015429779633}{twiddleCoef\_2048}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00112}00112 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00114}00114 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_F32\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00115}00115     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gae0182d1dd3b2f21aad4e38a815a0bd40}{twiddleCoef\_4096}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00116}\mbox{\hyperlink{arm__common__tables_8h_a9bf8c85e4c91b9b55818b3d650d2c761}{00116}} \textcolor{preprocessor}{    \#define twiddleCoef twiddleCoef\_4096}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00117}00117 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00119}00119   \textcolor{comment}{/* Q31 */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00121}00121 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00122}00122     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gaef4697e1ba348c4ac9358f2b9e279e93}{twiddleCoef\_16\_q31}}[24];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00123}00123 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00125}00125 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00126}00126     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga8ba78d5e6ef4bdc58e8f0044e0664a0a}{twiddleCoef\_32\_q31}}[48];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00127}00127 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00129}00129 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00130}00130     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga6e0a7e941a25a0d74b2e6590307de47e}{twiddleCoef\_64\_q31}}[96];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00131}00131 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00133}00133 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00134}00134     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gafecf9ed9873415d9f5f17f37b30c7250}{twiddleCoef\_128\_q31}}[192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00135}00135 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00136}00136 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00137}00137 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00138}00138     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gaef1ea005053b715b851cf5f908168ede}{twiddleCoef\_256\_q31}}[384];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00139}00139 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00141}00141 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00142}00142     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga416c61b2f08542a39111e06b0378bebe}{twiddleCoef\_512\_q31}}[768];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00143}00143 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00145}00145 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00146}00146     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga514443c44b62b8b3d240afefebcda310}{twiddleCoef\_1024\_q31}}[1536];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00147}00147 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00149}00149 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00150}00150     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga9c5767de9f5a409fd0c2027e6ac67179}{twiddleCoef\_2048\_q31}}[3072];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00151}00151 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00153}00153 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q31\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00154}00154     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga67c0890317deab3391e276f22c1fc400}{twiddleCoef\_4096\_q31}}[6144];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00155}00155 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00157}00157 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00158}00158     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga8e4e2e05f4a3112184c96cb3308d6c39}{twiddleCoef\_16\_q15}}[24];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00159}00159 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00161}00161 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00162}00162     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gac194a4fe04a19051ae1811f69c6e5df2}{twiddleCoef\_32\_q15}}[48];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00163}00163 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00165}00165 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00166}00166     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gaa0cc411e0b3c82078e85cfdf1b84290f}{twiddleCoef\_64\_q15}}[96];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00167}00167 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00169}00169 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00170}00170     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gabfdd1c5cd2b3f96da5fe5f07c707a8e5}{twiddleCoef\_128\_q15}}[192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00171}00171 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00172}00172 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00173}00173 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00174}00174     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga6099ae5262a0a3a8d9ce1e6da02f0c2e}{twiddleCoef\_256\_q15}}[384];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00175}00175 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00177}00177 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00178}00178     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga6152621af210f847128c6f38958fa385}{twiddleCoef\_512\_q15}}[768];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00179}00179 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00181}00181 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00182}00182     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga8a0ec95d866fe96b740e77d6e1356b59}{twiddleCoef\_1024\_q15}}[1536];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00183}00183 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00185}00185 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00186}00186     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_gadd16ce08ffd1048c385e0534a3b19cbb}{twiddleCoef\_2048\_q15}}[3072];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00187}00187 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00189}00189 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_Q15\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00190}00190     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{group___c_f_f_t___c_i_f_f_t_ga9b409d6995eab17805b1d1881d4bc652}{twiddleCoef\_4096\_q15}}[6144];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00191}00191 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00193}00193   \textcolor{comment}{/* Double Precision Float RFFT twiddles */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00194}00194 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00195}00195     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a6702a021f921954dae357439911b6569}{twiddleCoefF64\_rfft\_32}}[32];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00196}00196 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00198}00198 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00199}00199     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a9249087a0b9317ebb150ae8e1834e35e}{twiddleCoefF64\_rfft\_64}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00200}00200 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00202}00202 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00203}00203     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_aacb771dda277c7654446ece9088ee402}{twiddleCoefF64\_rfft\_128}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00204}00204 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00206}00206 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00207}00207     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a4be460ea08d836d232fbf664a9567168}{twiddleCoefF64\_rfft\_256}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00208}00208 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00209}00209 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00210}00210 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00211}00211     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a95bf8fb3fb42bdc3f0bba7bcdad4e3c1}{twiddleCoefF64\_rfft\_512}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00212}00212 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00214}00214 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00215}00215     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_aa7cb285b16ee3223298507fb616bdc54}{twiddleCoefF64\_rfft\_1024}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00216}00216 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00218}00218 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00219}00219     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a5b0adec27abc67cda691be1698d208f9}{twiddleCoefF64\_rfft\_2048}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00220}00220 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00222}00222 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F64\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00223}00223     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint64\_t \mbox{\hyperlink{arm__common__tables_8h_a7aaf5d07f8791a57a96ef1efcb1390c4}{twiddleCoefF64\_rfft\_4096}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00224}00224 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00225}00225 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00227}00227 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00228}00228     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a5992afe8574289cd71921651b80bd57d}{twiddleCoef\_rfft\_32}}[32];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00229}00229 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00231}00231 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00232}00232     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a2759d8789e1e6ae2ba7fb8d7f5e9c2ab}{twiddleCoef\_rfft\_64}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00233}00233 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00234}00234 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00235}00235 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00236}00236     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_af089dd2fe1a543d40a3325982bf45e7c}{twiddleCoef\_rfft\_128}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00237}00237 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00238}00238 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00239}00239 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00240}00240     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a5c5c161dd469d8e6806664956dae31f9}{twiddleCoef\_rfft\_256}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00241}00241 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00243}00243 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00244}00244     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a94bd2fc98798f87003fef5cd0c04d1f5}{twiddleCoef\_rfft\_512}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00245}00245 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00246}00246 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00247}00247 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00248}00248     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_aa7d8d3aa9898d557385748a13c959a4c}{twiddleCoef\_rfft\_1024}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00249}00249 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00251}00251 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00252}00252     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a749a5995ebd433a163f7adc474dabcaa}{twiddleCoef\_rfft\_2048}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00253}00253 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00255}00255 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_TWIDDLECOEF\_RFFT\_F32\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00256}00256     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a8013d68dd2476c86b77173bb98b87b29}{twiddleCoef\_rfft\_4096}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00257}00257 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00259}00259 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00260}00260   \textcolor{comment}{/* Double precision floating-\/point bit reversal tables */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00262}00262 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00263}\mbox{\hyperlink{arm__common__tables_8h_a9e9f4894ade7990c4c509281dfd99ec2}{00263}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_16\_TABLE\_LENGTH ((uint16\_t)12)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00264}00264     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a93185e473a5ef214df3cda2b2c1f0c4f}{armBitRevIndexTableF64\_16}}[\mbox{\hyperlink{arm__common__tables_8h_a9e9f4894ade7990c4c509281dfd99ec2}{ARMBITREVINDEXTABLEF64\_16\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00265}00265 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00266}00266 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00267}00267 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00268}\mbox{\hyperlink{arm__common__tables_8h_ae5ef20068548f45138dc4bf40989f9e1}{00268}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_32\_TABLE\_LENGTH ((uint16\_t)24)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00269}00269     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a7b12bc3c0be3726d66f84e4a9e4cf626}{armBitRevIndexTableF64\_32}}[\mbox{\hyperlink{arm__common__tables_8h_ae5ef20068548f45138dc4bf40989f9e1}{ARMBITREVINDEXTABLEF64\_32\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00270}00270 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00271}00271 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00272}00272 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00273}\mbox{\hyperlink{arm__common__tables_8h_a6f996ff937874ba909ca5265fd6c8455}{00273}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_64\_TABLE\_LENGTH ((uint16\_t)56)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00274}00274     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ac72a2646602f8c65f59e2af69b2aea83}{armBitRevIndexTableF64\_64}}[\mbox{\hyperlink{arm__common__tables_8h_a6f996ff937874ba909ca5265fd6c8455}{ARMBITREVINDEXTABLEF64\_64\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00275}00275 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00277}00277 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00278}\mbox{\hyperlink{arm__common__tables_8h_a82b30cc4559de97ad7f0eeedadfdd285}{00278}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_128\_TABLE\_LENGTH ((uint16\_t)112)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00279}00279     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a9281ca70965263a894335d20d0b1f0d1}{armBitRevIndexTableF64\_128}}[\mbox{\hyperlink{arm__common__tables_8h_a82b30cc4559de97ad7f0eeedadfdd285}{ARMBITREVINDEXTABLEF64\_128\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00280}00280 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00281}00281 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00282}00282 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00283}\mbox{\hyperlink{arm__common__tables_8h_a3af828bcadc39036451ed57b4277d685}{00283}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_256\_TABLE\_LENGTH ((uint16\_t)240)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00284}00284     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a4a56e1ec5371004c610f5fef424ecfd4}{armBitRevIndexTableF64\_256}}[\mbox{\hyperlink{arm__common__tables_8h_a3af828bcadc39036451ed57b4277d685}{ARMBITREVINDEXTABLEF64\_256\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00285}00285 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00287}00287 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00288}\mbox{\hyperlink{arm__common__tables_8h_a3316f754a4f274f0c503926d01efcc23}{00288}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_512\_TABLE\_LENGTH ((uint16\_t)480)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00289}00289     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ad9c8b0059d81ee8eabc8cfd361cf755e}{armBitRevIndexTableF64\_512}}[\mbox{\hyperlink{arm__common__tables_8h_a3316f754a4f274f0c503926d01efcc23}{ARMBITREVINDEXTABLEF64\_512\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00290}00290 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00292}00292 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00293}\mbox{\hyperlink{arm__common__tables_8h_a119613ed1a3c45f0501d0a7cabba0f57}{00293}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_1024\_TABLE\_LENGTH ((uint16\_t)992)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00294}00294     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_af0bd8bdf8675b934fcbd53d27b6227ab}{armBitRevIndexTableF64\_1024}}[\mbox{\hyperlink{arm__common__tables_8h_a119613ed1a3c45f0501d0a7cabba0f57}{ARMBITREVINDEXTABLEF64\_1024\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00295}00295 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00296}00296 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00297}00297 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00298}\mbox{\hyperlink{arm__common__tables_8h_ad1bac5cba75df66c56b4fc4cbb40413a}{00298}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_2048\_TABLE\_LENGTH ((uint16\_t)1984)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00299}00299     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a21b5e404fb792fe1972f33837056931a}{armBitRevIndexTableF64\_2048}}[\mbox{\hyperlink{arm__common__tables_8h_ad1bac5cba75df66c56b4fc4cbb40413a}{ARMBITREVINDEXTABLEF64\_2048\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00300}00300 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00302}00302 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT64\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00303}\mbox{\hyperlink{arm__common__tables_8h_a3e952bdf63f5a516cb1a3035d824983c}{00303}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLEF64\_4096\_TABLE\_LENGTH ((uint16\_t)4032)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00304}00304     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a46d8e5a55269c7ed74d1fc1387c98927}{armBitRevIndexTableF64\_4096}}[\mbox{\hyperlink{arm__common__tables_8h_a3e952bdf63f5a516cb1a3035d824983c}{ARMBITREVINDEXTABLEF64\_4096\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00305}00305 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00306}00306   \textcolor{comment}{/* floating-\/point bit reversal tables */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00308}00308 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00309}\mbox{\hyperlink{arm__common__tables_8h_ae238c932ca2cc11cc8aebdfc953adb63}{00309}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_16\_TABLE\_LENGTH ((uint16\_t)20)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00310}00310     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a1d4574fdfbfd5698054602b26ad97575}{armBitRevIndexTable16}}[\mbox{\hyperlink{arm__common__tables_8h_ae238c932ca2cc11cc8aebdfc953adb63}{ARMBITREVINDEXTABLE\_16\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00311}00311 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00312}00312 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00313}00313 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00314}\mbox{\hyperlink{arm__common__tables_8h_a53e4f11ab8b72fd91e9654efe1154ca5}{00314}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_32\_TABLE\_LENGTH ((uint16\_t)48)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00315}00315     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a5eee9bb0fadbf7753c02cfcff1226185}{armBitRevIndexTable32}}[\mbox{\hyperlink{arm__common__tables_8h_a53e4f11ab8b72fd91e9654efe1154ca5}{ARMBITREVINDEXTABLE\_32\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00316}00316 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00318}00318 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00319}\mbox{\hyperlink{arm__common__tables_8h_aa4cbc689396d844f626d942ef28eb4ba}{00319}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_64\_TABLE\_LENGTH ((uint16\_t)56)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00320}00320     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a07798450c81fc35b0e1b79359ee06ea1}{armBitRevIndexTable64}}[\mbox{\hyperlink{arm__common__tables_8h_aa4cbc689396d844f626d942ef28eb4ba}{ARMBITREVINDEXTABLE\_64\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00321}00321 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00322}00322 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00323}00323 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00324}\mbox{\hyperlink{arm__common__tables_8h_abb73376f7efda869394aab2acef4291c}{00324}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_128\_TABLE\_LENGTH ((uint16\_t)208)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00325}00325     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a04711bbb245f2ac7202db666eaaf10f2}{armBitRevIndexTable128}}[\mbox{\hyperlink{arm__common__tables_8h_abb73376f7efda869394aab2acef4291c}{ARMBITREVINDEXTABLE\_128\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00326}00326 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00328}00328 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00329}\mbox{\hyperlink{arm__common__tables_8h_aa7dc18c3b4f8d76f5a29f7b182007934}{00329}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_256\_TABLE\_LENGTH ((uint16\_t)440)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00330}00330     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a77b17c8e7539af315c57de27610d8407}{armBitRevIndexTable256}}[\mbox{\hyperlink{arm__common__tables_8h_aa7dc18c3b4f8d76f5a29f7b182007934}{ARMBITREVINDEXTABLE\_256\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00331}00331 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00332}00332 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00333}00333 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00334}\mbox{\hyperlink{arm__common__tables_8h_ab21231782baf177ef3edad11aeba5a4f}{00334}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_512\_TABLE\_LENGTH ((uint16\_t)448)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00335}00335     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a297a311183fb6d17d7ee0152ad1e43f3}{armBitRevIndexTable512}}[\mbox{\hyperlink{arm__common__tables_8h_ab21231782baf177ef3edad11aeba5a4f}{ARMBITREVINDEXTABLE\_512\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00336}00336 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00338}00338 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00339}\mbox{\hyperlink{arm__common__tables_8h_a5f6f615f438c5134a9b7e746139705df}{00339}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_1024\_TABLE\_LENGTH ((uint16\_t)1800)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00340}00340     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a08dd0b98fa4cc50cad0f48ce752f8149}{armBitRevIndexTable1024}}[\mbox{\hyperlink{arm__common__tables_8h_a5f6f615f438c5134a9b7e746139705df}{ARMBITREVINDEXTABLE\_1024\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00341}00341 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00342}00342 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00343}00343 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00344}\mbox{\hyperlink{arm__common__tables_8h_a3c561d85c5fc37cf2e111123d32353c3}{00344}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_2048\_TABLE\_LENGTH ((uint16\_t)3808)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00345}00345     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_adaa1b91f1cb7be2c5e236a3c3352caa0}{armBitRevIndexTable2048}}[\mbox{\hyperlink{arm__common__tables_8h_a3c561d85c5fc37cf2e111123d32353c3}{ARMBITREVINDEXTABLE\_2048\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00346}00346 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00347}00347 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00348}00348 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FLT\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00349}\mbox{\hyperlink{arm__common__tables_8h_ae89013dc2971400f8afa166c578ad944}{00349}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_4096\_TABLE\_LENGTH ((uint16\_t)4032)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00350}00350     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a8ffa3e551ae1de2bdafc33beba9c83eb}{armBitRevIndexTable4096}}[\mbox{\hyperlink{arm__common__tables_8h_ae89013dc2971400f8afa166c578ad944}{ARMBITREVINDEXTABLE\_4096\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00351}00351 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00352}00352 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00353}00353 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00354}00354   \textcolor{comment}{/* fixed-\/point bit reversal tables */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00356}00356 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_16)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00357}\mbox{\hyperlink{arm__common__tables_8h_ab8f00f11c681f734778ea7d9cecb3fe3}{00357}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_16\_TABLE\_LENGTH ((uint16\_t)12)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00358}00358     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a4685f68ca0a6c8f40d1a5738d2ce3797}{armBitRevIndexTable\_fixed\_16}}[\mbox{\hyperlink{arm__common__tables_8h_ab8f00f11c681f734778ea7d9cecb3fe3}{ARMBITREVINDEXTABLE\_FIXED\_16\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00359}00359 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00361}00361 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00362}\mbox{\hyperlink{arm__common__tables_8h_aae3857ea311fb1832bb4451ec77c77c4}{00362}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_32\_TABLE\_LENGTH ((uint16\_t)24)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00363}00363     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ac5dc7168ea9694ae75adac3cc567bce8}{armBitRevIndexTable\_fixed\_32}}[\mbox{\hyperlink{arm__common__tables_8h_aae3857ea311fb1832bb4451ec77c77c4}{ARMBITREVINDEXTABLE\_FIXED\_32\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00364}00364 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00366}00366 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_64)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00367}\mbox{\hyperlink{arm__common__tables_8h_ad3ffb74158ea438cc1a78eb17991df55}{00367}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_64\_TABLE\_LENGTH ((uint16\_t)56)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00368}00368     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a162819f8903f8b65ff40adc195aec214}{armBitRevIndexTable\_fixed\_64}}[\mbox{\hyperlink{arm__common__tables_8h_ad3ffb74158ea438cc1a78eb17991df55}{ARMBITREVINDEXTABLE\_FIXED\_64\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00369}00369 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00370}00370 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00371}00371 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00372}\mbox{\hyperlink{arm__common__tables_8h_a274d724b2798c114102f561ac4d9cb17}{00372}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_128\_TABLE\_LENGTH ((uint16\_t)112)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00373}00373     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ae026eb3302d18a88f6d9a45070bb34a9}{armBitRevIndexTable\_fixed\_128}}[\mbox{\hyperlink{arm__common__tables_8h_a274d724b2798c114102f561ac4d9cb17}{ARMBITREVINDEXTABLE\_FIXED\_128\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00374}00374 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00375}00375 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00376}00376 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_256)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00377}\mbox{\hyperlink{arm__common__tables_8h_a11c6f68fdde47cf4d0143354533399c9}{00377}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_256\_TABLE\_LENGTH ((uint16\_t)240)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00378}00378     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a14e05e3c3a86ebd7ee0d33c85d67803f}{armBitRevIndexTable\_fixed\_256}}[\mbox{\hyperlink{arm__common__tables_8h_a11c6f68fdde47cf4d0143354533399c9}{ARMBITREVINDEXTABLE\_FIXED\_256\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00379}00379 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00380}00380 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00381}00381 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00382}\mbox{\hyperlink{arm__common__tables_8h_a03e3f60f55c4cb2d4b34cc1b4f805e6e}{00382}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_512\_TABLE\_LENGTH ((uint16\_t)480)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00383}00383     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ae78e67d99c9870210f5776a6dab7266e}{armBitRevIndexTable\_fixed\_512}}[\mbox{\hyperlink{arm__common__tables_8h_a03e3f60f55c4cb2d4b34cc1b4f805e6e}{ARMBITREVINDEXTABLE\_FIXED\_512\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00384}00384 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00385}00385 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00386}00386 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_1024)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00387}\mbox{\hyperlink{arm__common__tables_8h_ab78db333c5f36a927cf5f6b492e93dd3}{00387}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_1024\_TABLE\_LENGTH ((uint16\_t)992)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00388}00388     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a579beb19201fab01210c37253447fa52}{armBitRevIndexTable\_fixed\_1024}}[\mbox{\hyperlink{arm__common__tables_8h_ab78db333c5f36a927cf5f6b492e93dd3}{ARMBITREVINDEXTABLE\_FIXED\_1024\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00389}00389 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00390}00390 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00391}00391 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00392}\mbox{\hyperlink{arm__common__tables_8h_a7dbfc9019953b525d83184a50f9976cc}{00392}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_2048\_TABLE\_LENGTH ((uint16\_t)1984)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00393}00393     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_ad888a207e20f601ed80b2ad43428c8cc}{armBitRevIndexTable\_fixed\_2048}}[\mbox{\hyperlink{arm__common__tables_8h_a7dbfc9019953b525d83184a50f9976cc}{ARMBITREVINDEXTABLE\_FIXED\_2048\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00394}00394 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00396}00396 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_BITREVIDX\_FXT\_4096)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00397}\mbox{\hyperlink{arm__common__tables_8h_acbf48883fbb31d3dc71d232aa8e8f91f}{00397}} \textcolor{preprocessor}{    \#define ARMBITREVINDEXTABLE\_FIXED\_4096\_TABLE\_LENGTH ((uint16\_t)4032)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00398}00398     \textcolor{keyword}{extern} \textcolor{keyword}{const} uint16\_t \mbox{\hyperlink{arm__common__tables_8h_a2db644df1e878209441166cbb8d0db4f}{armBitRevIndexTable\_fixed\_4096}}[\mbox{\hyperlink{arm__common__tables_8h_acbf48883fbb31d3dc71d232aa8e8f91f}{ARMBITREVINDEXTABLE\_FIXED\_4096\_TABLE\_LENGTH}}];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00399}00399 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00400}00400 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00401}00401 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_REALCOEF\_F32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00402}00402     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___real_f_f_t___table_ga8b1ad947c470596674fa3364e16045c6}{realCoefA}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00403}00403     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___real_f_f_t___table_gac52f98b52a1f03bfac8b57a67ba07397}{realCoefB}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00404}00404 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00405}00405 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00406}00406 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_REALCOEF\_Q31)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00407}00407     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___real_f_f_t___table_gaf1592a6cf0504675205074a43c3728a2}{realCoefAQ31}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00408}00408     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___real_f_f_t___table_ga1eb5745728a61c3715755f5d69a4a960}{realCoefBQ31}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00409}00409 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00410}00410 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00411}00411 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_REALCOEF\_Q15)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00412}00412     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_af8699e77c7774359b96ef388efa7d453}{realCoefAQ15}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00413}00413     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a3b12ecbb17514304c09f90d26cada4cd}{realCoefBQ15}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00414}00414 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00415}00415 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00416}00416 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_F32\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00417}00417     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gad00f29d896d64d6da7afbbb9d3e182a4}{Weights\_128}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00418}00418     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga16248ed86161ef97538011b49f13e8b7}{cos\_factors\_128}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00419}00419 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00420}00420 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00421}00421 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_F32\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00422}00422     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gaeb67b0be5b3c2139d660e02cedeed908}{Weights\_512}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00423}00423     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga49fd288352ca5bb43f5cec52273b0d80}{cos\_factors\_512}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00424}00424 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00425}00425 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00426}00426 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_F32\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00427}00427     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gac3a2a00b3106dfcb5e0a582f50c65692}{Weights\_2048}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00428}00428     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga1ba5306e0bc44730b40ab34cced45fd6}{cos\_factors\_2048}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00429}00429 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00430}00430 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00431}00431 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_F32\_8192)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00432}00432     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga45a8ec91e5da91790566105bc7e6f0c2}{Weights\_8192}}[16384];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00433}00433     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gac12484542bc6aaecc754c855457411de}{cos\_factors\_8192}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00434}00434 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00435}00435 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00436}00436 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q15\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00437}00437     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a8e8f0253c5a4337bd90968838db6164d}{WeightsQ15\_128}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00438}00438     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a373f2b52659505b0bb5066cd6c8a9041}{cos\_factorsQ15\_128}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00439}00439 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00440}00440 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00441}00441 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q15\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00442}00442     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a0492a1e2539ffb9d5276a357dab9dca1}{WeightsQ15\_512}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00443}00443     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_af3a2b1f1c23720eed1c1fd380fcc43f9}{cos\_factorsQ15\_512}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00444}00444 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00445}00445 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00446}00446 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q15\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00447}00447     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_ab858d2072b29f338b5dabf5cde9aaf66}{WeightsQ15\_2048}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00448}00448     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_afd1bd60aa573ba5ee349a05aaa32d915}{cos\_factorsQ15\_2048}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00449}00449 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00450}00450 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00451}00451 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q15\_8192)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00452}00452     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a94e0c6d08e4c2eee4d75dc5cde0e4019}{WeightsQ15\_8192}}[16384];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00453}00453     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_ac5e090785e32ca38103873d5cad0d813}{cos\_factorsQ15\_8192}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00454}00454 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00455}00455 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00456}00456 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_128)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00457}00457     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga02d7024538a87214296b01d83ba36b02}{WeightsQ31\_128}}[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00458}00458     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gabb8ee2004a3520fd08388db637d43875}{cos\_factorsQ31\_128}}[128];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00459}00459 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00460}00460 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00461}00461 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_512)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00462}00462     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga31a8217a96f7d3171921e98398f31596}{WeightsQ31\_512}}[1024];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00463}00463     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga3559569e603cb918911074be88523d0e}{cos\_factorsQ31\_512}}[512];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00464}00464 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00465}00465 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00466}00466 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_2048)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00467}00467     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga725b65c25a02b3cad329e18bb832f65e}{WeightsQ31\_2048}}[4096];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00468}00468     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gaa15fc3fb058482defda371113cd12e74}{cos\_factorsQ31\_2048}}[2048];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00469}00469 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00470}00470 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00471}00471 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FFT\_TABLES) || defined(ARM\_TABLE\_DCT4\_Q31\_8192)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00472}00472     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_ga16bf6bbe5c4c9b35f88253cf7bdcc435}{WeightsQ31\_8192}}[16384];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00473}00473     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{group___d_c_t4___i_d_c_t4___table_gaf687c4bbdbc700a3ad5d807d28de63e4}{cos\_factorsQ31\_8192}}[8192];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00474}00474 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00475}00475 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00476}00476 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_FFT\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00477}00477 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00478}00478 \textcolor{preprocessor}{\#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_FAST\_ALLOW\_TABLES)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00479}00479 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00480}00480 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_RECIP\_Q15)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00481}00481     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a56d3642e4ee33e3ada57ff11ecda1498}{armRecipTableQ15}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00482}00482 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00483}00483 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00484}00484 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_RECIP\_Q31)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00485}00485     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{arm__common__tables_8h_aae6056f6c4e8f7e494445196bf864479}{armRecipTableQ31}}[64];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00486}00486 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00487}00487 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00488}00488   \textcolor{comment}{/* Tables for Fast Math Sine and Cosine */}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00489}00489 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_SIN\_F32)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00490}00490     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{arm__common__tables_8h_a1dec82d596780f1a66ef4f76f137c1d9}{sinTable\_f32}}[\mbox{\hyperlink{fast__math__functions_8h_afcb9147c96853bea484cfc2dde07463d}{FAST\_MATH\_TABLE\_SIZE}} + 1];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00491}00491 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00492}00492 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00493}00493 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_SIN\_Q31)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00494}00494     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} \mbox{\hyperlink{arm__common__tables_8h_a8bfccee9e1c0042cf4a765f4b19d097d}{sinTable\_q31}}[\mbox{\hyperlink{fast__math__functions_8h_afcb9147c96853bea484cfc2dde07463d}{FAST\_MATH\_TABLE\_SIZE}} + 1];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00495}00495 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00496}00496 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00497}00497 \textcolor{preprocessor}{  \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_SIN\_Q15)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00498}00498     \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} \mbox{\hyperlink{arm__common__tables_8h_a9cbcfe313f61add745ebfeddb4fecd55}{sinTable\_q15}}[\mbox{\hyperlink{fast__math__functions_8h_afcb9147c96853bea484cfc2dde07463d}{FAST\_MATH\_TABLE\_SIZE}} + 1];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00499}00499 \textcolor{preprocessor}{  \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00500}00500 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00501}00501 \textcolor{preprocessor}{  \#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00502}00502 \textcolor{preprocessor}{     \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_FAST\_SQRT\_Q31\_MVE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00503}00503        \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} sqrtTable\_Q31[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00504}00504 \textcolor{preprocessor}{     \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00505}00505 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00506}00506 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00507}00507 \textcolor{preprocessor}{  \#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00508}00508 \textcolor{preprocessor}{     \#if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_ALL\_FAST\_TABLES) || defined(ARM\_TABLE\_FAST\_SQRT\_Q15\_MVE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00509}00509        \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\_t}} sqrtTable\_Q15[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00510}00510 \textcolor{preprocessor}{     \#endif }\textcolor{comment}{/* !defined(ARM\_DSP\_CONFIG\_TABLES) defined(ARM\_ALL\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00511}00511 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00512}00512 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00513}00513 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* if !defined(ARM\_DSP\_CONFIG\_TABLES) || defined(ARM\_FAST\_TABLES) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00514}00514 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00515}00515 \textcolor{preprocessor}{\#if (defined(ARM\_MATH\_MVEF) || defined(ARM\_MATH\_HELIUM)) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00516}00516        \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} exp\_tab[8];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00517}00517        \textcolor{keyword}{extern} \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \_\_logf\_lut\_f32[8];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00518}00518 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* (defined(ARM\_MATH\_MVEF) || defined(ARM\_MATH\_HELIUM)) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00519}00519 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00520}00520 \textcolor{preprocessor}{\#if (defined(ARM\_MATH\_MVEI) || defined(ARM\_MATH\_HELIUM)) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00521}00521 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} hwLUT[256];}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00522}00522 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* (defined(ARM\_MATH\_MVEI) || defined(ARM\_MATH\_HELIUM)) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00523}00523 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00524}00524 \textcolor{preprocessor}{\#ifdef   \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00525}00525 \}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00526}00526 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00527}00527 }
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00528}00528 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/*  ARM\_COMMON\_TABLES\_H */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__common__tables_8h_source_l00529}00529 }
+
+\end{DoxyCode}

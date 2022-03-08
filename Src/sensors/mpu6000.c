@@ -1,47 +1,21 @@
-/*
-  October 2012
+/** @file 		mpu6000.c
+ *  @brief
+ *  	This file contains all the functions to initalize and read data from the MPU-6000
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		06 MAR 2022
+ *  @bug
+ */
 
-  aq32Plus Rev -
+/* Includes */
+#include "board.h"
 
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-
-#include "../board.h"
-
-///////////////////////////////////////
-
+/* Global Variables */
 float accelOneG = 9.8065;
 
 uint8_t rawData[16];
 
+// Accel
 int32_t accelSum100Hz[3] = { 0, 0, 0 };
 
 int32_t accelSum500Hz[3] = { 0, 0, 0 };
@@ -56,7 +30,7 @@ int16andUint8_t rawAccel[3];
 
 float nonRotatedAccelData[3];
 
-///////////////////////////////////////
+// Gyro
 
 float gyroRTBias[3];
 
@@ -70,11 +44,13 @@ int16andUint8_t rawGyro[3];
 
 float nonRotatedGyroData[3];
 
-///////////////////////////////////////
+// Calibration
 
 uint8_t accelCalibrating = false;
 
 uint8_t mpu6000Calibrating = false;
+
+// Temperature
 
 float   mpu6000Temperature;
 
@@ -82,11 +58,13 @@ int16andUint8_t rawMPU6000Temperature;
 
 uint8_t whoami[3];
 
-///////////////////////////////////////////////////////////////////////////////
-// MPU6000 Initialization
-///////////////////////////////////////////////////////////////////////////////
-
-bool mpu6000Init(void)
+/** @brief MPU-6000 initialization sequence
+ *
+ *  @return bool True if initialization was successful.
+ *  			 False if unsuccessful.
+ */
+bool
+mpu6000Init(void)
 {
     ///////////////////////////////////
 	printf("\nInitializing MPU-6000\n");
@@ -148,20 +126,28 @@ bool mpu6000Init(void)
 
 	delay(100);
 
-	printf("\nDo you want to calibrate the IMU? \'y\' or \'n\'\n");
+#ifdef STLINK
+	printf("\nDo you want to calibrate the MPU6000? \'y\' or \'n\'\n");
 	if(serialWaitFor('y')){
 		mpu6000Calibration();
 	}
+
+	printf("\nDo you want to calibrate the accelerometer? \'y\' or \'n\'\n");
+	if(serialWaitFor('y')){
+		accelCalibrationMPU();
+	}
+#endif
 
 	computeMPU6000RTData();
 	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Read MPU6000
-///////////////////////////////////////////////////////////////////////////////
-
-void readMPU6000(void)
+/** @brief Reads MPU-6000 raw data and packs accel, gyro, temp data into variables
+ *
+ *  @return Void.
+ */
+void
+readMPU6000(void)
 {
 	spiReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 16);
 
@@ -183,11 +169,12 @@ void readMPU6000(void)
     rawGyro[YAW  ].bytes[0]			= 	rawData[15];
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Compute MPU6000 Runtime Data
-///////////////////////////////////////////////////////////////////////////////
-
-void computeMPU6000RTData(void)
+/** @brief Computes IMU runtime data to find gyro bias.
+ *
+ *  @return Void.
+ */
+void
+computeMPU6000RTData(void)
 {
     uint8_t  axis;
     uint16_t samples;
@@ -225,11 +212,12 @@ void computeMPU6000RTData(void)
     mpu6000Calibrating = false;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Compute MPU6000 Temperature Compensation Bias
-///////////////////////////////////////////////////////////////////////////////
-
-void computeMPU6000TCBias(void)
+/** @brief Calculates the IMU temperature bias.
+ *
+ *  @return Void.
+ */
+void
+computeMPU6000TCBias(void)
 {
     mpu6000Temperature = (float) (rawMPU6000Temperature.value) / 340.0f + 35.0f;
 
@@ -241,6 +229,3 @@ void computeMPU6000TCBias(void)
     gyroTCBias[PITCH]  = eepromConfig.gyroTCBiasSlope[PITCH]  * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[PITCH];
     gyroTCBias[YAW  ]  = eepromConfig.gyroTCBiasSlope[YAW  ]  * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[YAW  ];
 }
-
-///////////////////////////////////////////////////////////////////////////////
-

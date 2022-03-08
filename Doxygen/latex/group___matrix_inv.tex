@@ -1,0 +1,196 @@
+\hypertarget{group___matrix_inv}{}\doxysection{Matrix Inverse}
+\label{group___matrix_inv}\index{Matrix Inverse@{Matrix Inverse}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_ga542be7aabbf7a2297a4b62cf212910e3}{arm\+\_\+mat\+\_\+inverse\+\_\+f32}} (const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$p\+Src, \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$p\+Dst)
+\begin{DoxyCompactList}\small\item\em Floating-\/point matrix inverse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_gaede2367c02df083cc915ddd5d8fae838}{arm\+\_\+mat\+\_\+inverse\+\_\+f64}} (const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$p\+Src, \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$p\+Dst)
+\begin{DoxyCompactList}\small\item\em Floating-\/point (64 bit) matrix inverse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_ga58fa7bf2d93ab84f19037822ede54606}{arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f32}} (const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$lt, const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$a, \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Solve LT . X = A where LT is a lower triangular matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_ga62d2f013f5557e1c80a5201b2f8f5c8d}{arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f64}} (const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$lt, const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$a, \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Solve LT . X = A where LT is a lower triangular matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_gadc17a01342ba23538bc7927c732d1284}{arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f32}} (const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$ut, const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$a, \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Solve UT . X = A where UT is an upper triangular matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} \mbox{\hyperlink{group___matrix_inv_ga7601bbff0c47c2e282857b39459fe369}{arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f64}} (const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$ut, const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$a, \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$dst)
+\begin{DoxyCompactList}\small\item\em Solve UT . X = A where UT is an upper triangular matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Computes the inverse of a matrix.
+
+The inverse is defined only if the input matrix is square and non-\/singular (the determinant is non-\/zero). The function checks that the input and output matrices are square and of the same size.
+
+Matrix inversion is numerically sensitive and the CMSIS DSP library only supports matrix inversion of floating-\/point matrices.
+
+\begin{DoxyParagraph}{Algorithm}
+The Gauss-\/\+Jordan method is used to find the inverse. The algorithm performs a sequence of elementary row-\/operations until it reduces the input matrix to an identity matrix. Applying the same sequence of elementary row-\/operations to an identity matrix yields the inverse matrix. If the input matrix is singular, then the algorithm terminates and returns error status {\ttfamily ARM\+\_\+\+MATH\+\_\+\+SINGULAR}.  
+\end{DoxyParagraph}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___matrix_inv_ga542be7aabbf7a2297a4b62cf212910e3}\label{group___matrix_inv_ga542be7aabbf7a2297a4b62cf212910e3}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_inverse\_f32@{arm\_mat\_inverse\_f32}}
+\index{arm\_mat\_inverse\_f32@{arm\_mat\_inverse\_f32}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_inverse\_f32()}{arm\_mat\_inverse\_f32()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+inverse\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{p\+Dst }\end{DoxyParamCaption})}
+
+
+
+Floating-\/point matrix inverse. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to input matrix structure. The source matrix is modified by the function. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to output matrix structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+execution status
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\+\_\+\+MATH\+\_\+\+SUCCESS}} \+: Operation successful
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\+\_\+\+MATH\+\_\+\+SIZE\+\_\+\+MISMATCH}} \+: Matrix size check failed
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a91509ea9c819dbd592ac13a6b05382dc}{ARM\+\_\+\+MATH\+\_\+\+SINGULAR}} \+: Input matrix is found to be singular (non-\/invertible) 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__inverse__f32_8c_source_l00975}{975}} of file \mbox{\hyperlink{arm__mat__inverse__f32_8c_source}{arm\+\_\+mat\+\_\+inverse\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___matrix_inv_gaede2367c02df083cc915ddd5d8fae838}\label{group___matrix_inv_gaede2367c02df083cc915ddd5d8fae838}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_inverse\_f64@{arm\_mat\_inverse\_f64}}
+\index{arm\_mat\_inverse\_f64@{arm\_mat\_inverse\_f64}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_inverse\_f64()}{arm\_mat\_inverse\_f64()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+inverse\+\_\+f64 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{p\+Dst }\end{DoxyParamCaption})}
+
+
+
+Floating-\/point (64 bit) matrix inverse. 
+
+Floating-\/point matrix inverse.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to input matrix structure. The source matrix is modified by the function. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to output matrix structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+execution status
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a9f8b2a10bd827fb4600e77d455902eb0}{ARM\+\_\+\+MATH\+\_\+\+SUCCESS}} \+: Operation successful
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a7071b92f1f6bc3c5c312a237ea91105b}{ARM\+\_\+\+MATH\+\_\+\+SIZE\+\_\+\+MISMATCH}} \+: Matrix size check failed
+\item \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6a91509ea9c819dbd592ac13a6b05382dc}{ARM\+\_\+\+MATH\+\_\+\+SINGULAR}} \+: Input matrix is found to be singular (non-\/invertible) 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__inverse__f64_8c_source_l00051}{51}} of file \mbox{\hyperlink{arm__mat__inverse__f64_8c_source}{arm\+\_\+mat\+\_\+inverse\+\_\+f64.\+c}}.
+
+\mbox{\Hypertarget{group___matrix_inv_ga58fa7bf2d93ab84f19037822ede54606}\label{group___matrix_inv_ga58fa7bf2d93ab84f19037822ede54606}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_solve\_lower\_triangular\_f32@{arm\_mat\_solve\_lower\_triangular\_f32}}
+\index{arm\_mat\_solve\_lower\_triangular\_f32@{arm\_mat\_solve\_lower\_triangular\_f32}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_solve\_lower\_triangular\_f32()}{arm\_mat\_solve\_lower\_triangular\_f32()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{lt,  }\item[{const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{dst }\end{DoxyParamCaption})}
+
+
+
+Solve LT . X = A where LT is a lower triangular matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em lt} & The lower triangular matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & The matrix a \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst} & The solution X of LT . X = A \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The function returns ARM\+\_\+\+MATH\+\_\+\+SINGULAR, if the system can\textquotesingle{}t be solved. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__solve__lower__triangular__f32_8c_source_l00255}{255}} of file \mbox{\hyperlink{arm__mat__solve__lower__triangular__f32_8c_source}{arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___matrix_inv_ga62d2f013f5557e1c80a5201b2f8f5c8d}\label{group___matrix_inv_ga62d2f013f5557e1c80a5201b2f8f5c8d}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_solve\_lower\_triangular\_f64@{arm\_mat\_solve\_lower\_triangular\_f64}}
+\index{arm\_mat\_solve\_lower\_triangular\_f64@{arm\_mat\_solve\_lower\_triangular\_f64}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_solve\_lower\_triangular\_f64()}{arm\_mat\_solve\_lower\_triangular\_f64()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f64 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{lt,  }\item[{const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{dst }\end{DoxyParamCaption})}
+
+
+
+Solve LT . X = A where LT is a lower triangular matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em lt} & The lower triangular matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & The matrix a \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst} & The solution X of LT . X = A \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The function returns ARM\+\_\+\+MATH\+\_\+\+SINGULAR, if the system can\textquotesingle{}t be solved. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__solve__lower__triangular__f64_8c_source_l00049}{49}} of file \mbox{\hyperlink{arm__mat__solve__lower__triangular__f64_8c_source}{arm\+\_\+mat\+\_\+solve\+\_\+lower\+\_\+triangular\+\_\+f64.\+c}}.
+
+\mbox{\Hypertarget{group___matrix_inv_gadc17a01342ba23538bc7927c732d1284}\label{group___matrix_inv_gadc17a01342ba23538bc7927c732d1284}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_solve\_upper\_triangular\_f32@{arm\_mat\_solve\_upper\_triangular\_f32}}
+\index{arm\_mat\_solve\_upper\_triangular\_f32@{arm\_mat\_solve\_upper\_triangular\_f32}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_solve\_upper\_triangular\_f32()}{arm\_mat\_solve\_upper\_triangular\_f32()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{ut,  }\item[{const \mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f32}{arm\+\_\+matrix\+\_\+instance\+\_\+f32}} $\ast$}]{dst }\end{DoxyParamCaption})}
+
+
+
+Solve UT . X = A where UT is an upper triangular matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ut} & The upper triangular matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & The matrix a \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst} & The solution X of UT . X = A \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The function returns ARM\+\_\+\+MATH\+\_\+\+SINGULAR, if the system can\textquotesingle{}t be solved. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__solve__upper__triangular__f32_8c_source_l00247}{247}} of file \mbox{\hyperlink{arm__mat__solve__upper__triangular__f32_8c_source}{arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group___matrix_inv_ga7601bbff0c47c2e282857b39459fe369}\label{group___matrix_inv_ga7601bbff0c47c2e282857b39459fe369}} 
+\index{Matrix Inverse@{Matrix Inverse}!arm\_mat\_solve\_upper\_triangular\_f64@{arm\_mat\_solve\_upper\_triangular\_f64}}
+\index{arm\_mat\_solve\_upper\_triangular\_f64@{arm\_mat\_solve\_upper\_triangular\_f64}!Matrix Inverse@{Matrix Inverse}}
+\doxysubsubsection{\texorpdfstring{arm\_mat\_solve\_upper\_triangular\_f64()}{arm\_mat\_solve\_upper\_triangular\_f64()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a5e459c6409dfcd2927bb8a57491d7cf6}{arm\+\_\+status}} arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f64 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{ut,  }\item[{const \mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{a,  }\item[{\mbox{\hyperlink{structarm__matrix__instance__f64}{arm\+\_\+matrix\+\_\+instance\+\_\+f64}} $\ast$}]{dst }\end{DoxyParamCaption})}
+
+
+
+Solve UT . X = A where UT is an upper triangular matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ut} & The upper triangular matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & The matrix a \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst} & The solution X of UT . X = A \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The function returns ARM\+\_\+\+MATH\+\_\+\+SINGULAR, if the system can\textquotesingle{}t be solved. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__mat__solve__upper__triangular__f64_8c_source_l00049}{49}} of file \mbox{\hyperlink{arm__mat__solve__upper__triangular__f64_8c_source}{arm\+\_\+mat\+\_\+solve\+\_\+upper\+\_\+triangular\+\_\+f64.\+c}}.
+

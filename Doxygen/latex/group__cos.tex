@@ -1,0 +1,127 @@
+\hypertarget{group__cos}{}\doxysection{Cosine}
+\label{group__cos}\index{Cosine@{Cosine}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} \mbox{\hyperlink{group__cos_gace15287f9c64b9b4084d1c797d4c49d8}{arm\+\_\+cos\+\_\+f32}} (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Fast approximation to the trigonometric cosine function for floating-\/point data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} \mbox{\hyperlink{group__cos_gadfd60c24def501638c0d5db20f4c869b}{arm\+\_\+cos\+\_\+q15}} (\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Fast approximation to the trigonometric cosine function for Q15 data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} \mbox{\hyperlink{group__cos_gad80f121949ef885a77d83ab36e002567}{arm\+\_\+cos\+\_\+q31}} (\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em Fast approximation to the trigonometric cosine function for Q31 data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Computes the trigonometric cosine function using a combination of table lookup and linear interpolation. There are separate functions for Q15, Q31, and floating-\/point data types. The input to the floating-\/point version is in radians while the fixed-\/point Q15 and Q31 have a scaled input with the range \mbox{[}0 +0.\+9999\mbox{]} mapping to \mbox{[}0 2$\ast$pi). The fixed-\/point range is chosen so that a value of 2$\ast$pi wraps around to 0.
+
+The implementation is based on table lookup using 512 values together with linear interpolation. The steps used are\+:
+\begin{DoxyEnumerate}
+\item Calculation of the nearest integer table index
+\item Compute the fractional portion (fract) of the table index.
+\item The final result equals {\ttfamily (1.\+0f-\/fract)$\ast$a + fract$\ast$b;}
+\end{DoxyEnumerate}
+
+where 
+\begin{DoxyPre}
+   a = Table[index];
+   b = Table[index+1];
+\end{DoxyPre}
+
+
+end of sin group 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__cos_gace15287f9c64b9b4084d1c797d4c49d8}\label{group__cos_gace15287f9c64b9b4084d1c797d4c49d8}} 
+\index{Cosine@{Cosine}!arm\_cos\_f32@{arm\_cos\_f32}}
+\index{arm\_cos\_f32@{arm\_cos\_f32}!Cosine@{Cosine}}
+\doxysubsubsection{\texorpdfstring{arm\_cos\_f32()}{arm\_cos\_f32()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} arm\+\_\+cos\+\_\+f32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Fast approximation to the trigonometric cosine function for floating-\/point data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & input value in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x)
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & input value in radians. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x). 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cos__f32_8c_source_l00070}{70}} of file \mbox{\hyperlink{arm__cos__f32_8c_source}{arm\+\_\+cos\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group__cos_gadfd60c24def501638c0d5db20f4c869b}\label{group__cos_gadfd60c24def501638c0d5db20f4c869b}} 
+\index{Cosine@{Cosine}!arm\_cos\_q15@{arm\_cos\_q15}}
+\index{arm\_cos\_q15@{arm\_cos\_q15}!Cosine@{Cosine}}
+\doxysubsubsection{\texorpdfstring{arm\_cos\_q15()}{arm\_cos\_q15()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} arm\+\_\+cos\+\_\+q15 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Fast approximation to the trigonometric cosine function for Q15 data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & Scaled input value in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x)
+\end{DoxyReturn}
+The Q15 input value is in the range \mbox{[}0 +0.\+9999\mbox{]} and is mapped to a radian value in the range \mbox{[}0 2$\ast$\+PI).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & Scaled input value in radians. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x). 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cos__q15_8c_source_l00049}{49}} of file \mbox{\hyperlink{arm__cos__q15_8c_source}{arm\+\_\+cos\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group__cos_gad80f121949ef885a77d83ab36e002567}\label{group__cos_gad80f121949ef885a77d83ab36e002567}} 
+\index{Cosine@{Cosine}!arm\_cos\_q31@{arm\_cos\_q31}}
+\index{arm\_cos\_q31@{arm\_cos\_q31}!Cosine@{Cosine}}
+\doxysubsubsection{\texorpdfstring{arm\_cos\_q31()}{arm\_cos\_q31()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} arm\+\_\+cos\+\_\+q31 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Fast approximation to the trigonometric cosine function for Q31 data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & Scaled input value in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x)
+\end{DoxyReturn}
+The Q31 input value is in the range \mbox{[}0 +0.\+9999\mbox{]} and is mapped to a radian value in the range \mbox{[}0 2$\ast$\+PI).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & Scaled input value in radians. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cos(x). 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cos__q31_8c_source_l00049}{49}} of file \mbox{\hyperlink{arm__cos__q31_8c_source}{arm\+\_\+cos\+\_\+q31.\+c}}.
+

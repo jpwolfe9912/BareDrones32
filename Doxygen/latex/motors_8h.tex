@@ -1,0 +1,265 @@
+\hypertarget{motors_8h}{}\doxysection{Autodrone32/\+Src/motors.h File Reference}
+\label{motors_8h}\index{Autodrone32/Src/motors.h@{Autodrone32/Src/motors.h}}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}} \{ \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}{MOTOR1}}
+, \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}
+, \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3}{MOTOR3}}
+, \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}
+ \}
+\item 
+enum \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}} \{ \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}{DSHOT\+\_\+\+CMD\+\_\+\+MOTOR\+\_\+\+STOP}} = 0
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON1}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON2}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON3}}
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON4}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON5}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}{DSHOT\+\_\+\+CMD\+\_\+\+ESC\+\_\+\+INFO}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+1}}
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+2}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}{DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+OFF}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}{DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+ON}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}{DSHOT\+\_\+\+CMD\+\_\+\+SETTINGS\+\_\+\+REQUEST}}
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}{DSHOT\+\_\+\+CMD\+\_\+\+SAVE\+\_\+\+SETTINGS}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+NORMAL}} = 20
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+REVERSED}} = 21
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}{DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+ON}}
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}{DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+ON}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}{DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+ON}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}{DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+ON}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}{DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+OFF}}
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}{DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+OFF}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}{DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+OFF}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}{DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+OFF}}
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}{DSHOT\+\_\+\+CMD\+\_\+\+AUDIO\+\_\+\+STREAM\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF}} = 30
+, \newline
+\mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}{DSHOT\+\_\+\+CMD\+\_\+\+SILENT\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF}} = 31
+, \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}{DSHOT\+\_\+\+CMD\+\_\+\+MAX}} = 47
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{motors_8h_aa29e2982047be0f7afbb10c8d6f3f5c3}{motor\+Init}} (void)
+\item 
+void \mbox{\hyperlink{motors_8h_ad8212c23e29c5167936740551506694a}{motor\+Zero\+Command}} (void)
+\item 
+void \mbox{\hyperlink{motors_8h_af0236ac9f1631bb2e0fae9975680339c}{motors3d\+On}} (\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}} motor)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}{motor\+\_\+value}} \mbox{[}4\mbox{]}
+\item 
+\mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} \mbox{\hyperlink{motors_8h_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\+\_\+initialized}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0c}\label{motors_8h_aaa1523141a62366e704d681c82094c0c}} 
+\index{motors.h@{motors.h}!dshotCommands\_e@{dshotCommands\_e}}
+\index{dshotCommands\_e@{dshotCommands\_e}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{dshotCommands\_e}{dshotCommands\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{motors_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_MOTOR\_STOP@{DSHOT\_CMD\_MOTOR\_STOP}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_MOTOR\_STOP@{DSHOT\_CMD\_MOTOR\_STOP}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}\label{motors_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}} 
+DSHOT\+\_\+\+CMD\+\_\+\+MOTOR\+\_\+\+STOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON1@{DSHOT\_CMD\_BEACON1}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_BEACON1@{DSHOT\_CMD\_BEACON1}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON2@{DSHOT\_CMD\_BEACON2}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_BEACON2@{DSHOT\_CMD\_BEACON2}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}\label{motors_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON3@{DSHOT\_CMD\_BEACON3}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_BEACON3@{DSHOT\_CMD\_BEACON3}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}\label{motors_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON4@{DSHOT\_CMD\_BEACON4}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_BEACON4@{DSHOT\_CMD\_BEACON4}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON5@{DSHOT\_CMD\_BEACON5}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_BEACON5@{DSHOT\_CMD\_BEACON5}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_ESC\_INFO@{DSHOT\_CMD\_ESC\_INFO}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_ESC\_INFO@{DSHOT\_CMD\_ESC\_INFO}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}\label{motors_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}} 
+DSHOT\+\_\+\+CMD\+\_\+\+ESC\+\_\+\+INFO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_1@{DSHOT\_CMD\_SPIN\_DIRECTION\_1}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_1@{DSHOT\_CMD\_SPIN\_DIRECTION\_1}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_2@{DSHOT\_CMD\_SPIN\_DIRECTION\_2}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_2@{DSHOT\_CMD\_SPIN\_DIRECTION\_2}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_3D\_MODE\_OFF@{DSHOT\_CMD\_3D\_MODE\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_3D\_MODE\_OFF@{DSHOT\_CMD\_3D\_MODE\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}} 
+DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_3D\_MODE\_ON@{DSHOT\_CMD\_3D\_MODE\_ON}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_3D\_MODE\_ON@{DSHOT\_CMD\_3D\_MODE\_ON}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}\label{motors_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}} 
+DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SETTINGS\_REQUEST@{DSHOT\_CMD\_SETTINGS\_REQUEST}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SETTINGS\_REQUEST@{DSHOT\_CMD\_SETTINGS\_REQUEST}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SETTINGS\+\_\+\+REQUEST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SAVE\_SETTINGS@{DSHOT\_CMD\_SAVE\_SETTINGS}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SAVE\_SETTINGS@{DSHOT\_CMD\_SAVE\_SETTINGS}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SAVE\+\_\+\+SETTINGS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL@{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL@{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+NORMAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED@{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED@{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+REVERSED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED0\_ON@{DSHOT\_CMD\_LED0\_ON}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED0\_ON@{DSHOT\_CMD\_LED0\_ON}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}\label{motors_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED1\_ON@{DSHOT\_CMD\_LED1\_ON}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED1\_ON@{DSHOT\_CMD\_LED1\_ON}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}\label{motors_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED2\_ON@{DSHOT\_CMD\_LED2\_ON}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED2\_ON@{DSHOT\_CMD\_LED2\_ON}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED3\_ON@{DSHOT\_CMD\_LED3\_ON}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED3\_ON@{DSHOT\_CMD\_LED3\_ON}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED0\_OFF@{DSHOT\_CMD\_LED0\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED0\_OFF@{DSHOT\_CMD\_LED0\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED1\_OFF@{DSHOT\_CMD\_LED1\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED1\_OFF@{DSHOT\_CMD\_LED1\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED2\_OFF@{DSHOT\_CMD\_LED2\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED2\_OFF@{DSHOT\_CMD\_LED2\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}\label{motors_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED3\_OFF@{DSHOT\_CMD\_LED3\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_LED3\_OFF@{DSHOT\_CMD\_LED3\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}\label{motors_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF@{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF@{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}} 
+DSHOT\+\_\+\+CMD\+\_\+\+AUDIO\+\_\+\+STREAM\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF@{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF@{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}\label{motors_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SILENT\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_MAX@{DSHOT\_CMD\_MAX}!motors.h@{motors.h}}\index{motors.h@{motors.h}!DSHOT\_CMD\_MAX@{DSHOT\_CMD\_MAX}}}\mbox{\Hypertarget{motors_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}\label{motors_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}} 
+DSHOT\+\_\+\+CMD\+\_\+\+MAX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{motors_8h_source_l00023}{23}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+
+\mbox{\Hypertarget{motors_8h_a52d59931063c311b3db496e3dd723b9e}\label{motors_8h_a52d59931063c311b3db496e3dd723b9e}} 
+\index{motors.h@{motors.h}!motors\_e@{motors\_e}}
+\index{motors\_e@{motors\_e}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motors\_e}{motors\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR1@{MOTOR1}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTOR1@{MOTOR1}}}\mbox{\Hypertarget{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}\label{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}} 
+MOTOR1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR2@{MOTOR2}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTOR2@{MOTOR2}}}\mbox{\Hypertarget{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}\label{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}} 
+MOTOR2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR3@{MOTOR3}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTOR3@{MOTOR3}}}\mbox{\Hypertarget{motors_8h_a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3}\label{motors_8h_a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3}} 
+MOTOR3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR4@{MOTOR4}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTOR4@{MOTOR4}}}\mbox{\Hypertarget{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}\label{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}} 
+MOTOR4&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{motors_8h_source_l00015}{15}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{motors_8h_aa29e2982047be0f7afbb10c8d6f3f5c3}\label{motors_8h_aa29e2982047be0f7afbb10c8d6f3f5c3}} 
+\index{motors.h@{motors.h}!motorInit@{motorInit}}
+\index{motorInit@{motorInit}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motorInit()}{motorInit()}}
+{\footnotesize\ttfamily void motor\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00014}{14}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8h_af0236ac9f1631bb2e0fae9975680339c}\label{motors_8h_af0236ac9f1631bb2e0fae9975680339c}} 
+\index{motors.h@{motors.h}!motors3dOn@{motors3dOn}}
+\index{motors3dOn@{motors3dOn}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motors3dOn()}{motors3dOn()}}
+{\footnotesize\ttfamily void motors3d\+On (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}}}]{motor }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00037}{37}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8h_ad8212c23e29c5167936740551506694a}\label{motors_8h_ad8212c23e29c5167936740551506694a}} 
+\index{motors.h@{motors.h}!motorZeroCommand@{motorZeroCommand}}
+\index{motorZeroCommand@{motorZeroCommand}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motorZeroCommand()}{motorZeroCommand()}}
+{\footnotesize\ttfamily void motor\+Zero\+Command (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00027}{27}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{motors_8h_a7b0aa4cd41f19f0945cc0f63d768bb7e}\label{motors_8h_a7b0aa4cd41f19f0945cc0f63d768bb7e}} 
+\index{motors.h@{motors.h}!motor\_initialized@{motor\_initialized}}
+\index{motor\_initialized@{motor\_initialized}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motor\_initialized}{motor\_initialized}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} motor\+\_\+initialized\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00012}{12}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}\label{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}} 
+\index{motors.h@{motors.h}!motor\_value@{motor\_value}}
+\index{motor\_value@{motor\_value}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motor\_value}{motor\_value}}
+{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+value\mbox{[}4\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00010}{10}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+

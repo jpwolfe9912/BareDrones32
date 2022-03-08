@@ -1,0 +1,805 @@
+\hypertarget{_autodrone32_8h}{}\doxysection{Autodrone32/\+Src/\+Autodrone32.h File Reference}
+\label{_autodrone32_8h}\index{Autodrone32/Src/Autodrone32.h@{Autodrone32/Src/Autodrone32.h}}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{unionint16and_uint8__t}{int16and\+Uint8\+\_\+t}}
+\item 
+union \mbox{\hyperlink{unionint32and_uint8__t}{int32and\+Uint8\+\_\+t}}
+\item 
+union \mbox{\hyperlink{unionuint16and_uint8__t}{uint16and\+Uint8\+\_\+t}}
+\item 
+union \mbox{\hyperlink{unionuint32and_uint8__t}{uint32and\+Uint8\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structheading__t}{heading\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structgps__t}{gps\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}}~3.\+14159265358979f
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a3b947f4b635461030ff2d87833e5049e}{TWO\+\_\+\+PI}}~(2.\+0f $\ast$ \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a0a3cc1d5cde549e408f825ddd7f5853d}{D2R}}~(\mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}} / 180.\+0f)
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a39c663074332446065723e9be9350139}{R2D}}~(180.\+0f / \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a31cfbcec47fb6b6cd7fa8f8df94de550}{KNOTS2\+MPS}}~0.\+51444444f
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aacdf1719d113d68a71127426f7c730cd}{EARTH\+\_\+\+RADIUS}}~6371000f
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aa7866fa5e4e0ee9b034e9dab6599a9cc}{SQR}}(x)~((x) $\ast$ (x))
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}~0
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}~1
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}~2
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{THROTTLE}}~3
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{AUX1}}~4
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{AUX2}}~5
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a6f9b1805488210e791f5a08407e155a3}{AUX3}}~6
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a3690a0a2d199eaa84ccf706971d2de13}{AUX4}}~7
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a942e2917864cbb00ef263f23c9b3e9d3}{AUX5}}~8
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_ad03bd2be6022c9f31e03dd1418fcbe7f}{AUX6}}~9
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a3441a014886bd1ebd09b87b781654c39}{AUX7}}~10
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aa1405824e2047a6551fb3ec2cf4daa3c}{AUX8}}~11
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}~0
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}~1
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}~2
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_ad9365648c4acd0f83d7a5faa319d3f20}{MINCOMMAND}}~2000
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}~3000
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a1ca7e1fbdf49e02ec34430622f94f064}{MAXCOMMAND}}~4000
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{NUMBER\+\_\+\+OF\+\_\+\+PIDS}}~12
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a235532884e69e785781acb60c65bed49}{ROLL\+\_\+\+RATE\+\_\+\+PID}}~0
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a1958b73d2ee48b59a1c8f506881ee0f0}{PITCH\+\_\+\+RATE\+\_\+\+PID}}~1
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a8fea470ced437a1f4a6e41b1a30b0d05}{YAW\+\_\+\+RATE\+\_\+\+PID}}~2
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}{ROLL\+\_\+\+ATT\+\_\+\+PID}}~3
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}{PITCH\+\_\+\+ATT\+\_\+\+PID}}~4
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}{HEADING\+\_\+\+PID}}~5
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a7403e40c27c7e3e0f8f3c046c71cb28d}{NDOT\+\_\+\+PID}}~6
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a99423cf91f79ff41398886d7e9a0ba52}{EDOT\+\_\+\+PID}}~7
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_aa6830d4f5afbd59e14b09b97edc46b0a}{HDOT\+\_\+\+PID}}~8
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a636c29b30dac9cfdb5ae0482e9a89544}{N\+\_\+\+PID}}~9
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a9d6686ebdd73dab7ed8c5cd65c45c1b7}{E\+\_\+\+PID}}~10
+\item 
+\#define \mbox{\hyperlink{_autodrone32_8h_a717f3163fff352053746cbea6c54fc39}{H\+\_\+\+PID}}~11
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef volatile uint8\+\_\+t \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}{sensors\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structheading__t}{heading\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}{heading\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structgps__t}{gps\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}{gps\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}{home\+Data\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}{eeprom\+Config\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \newline
+\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55baa2abea1d538017e7e9cb014f246c8d28}{MIXERTYPE\+\_\+\+TRI}}
+, \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55babb1e0f4c04118444865127cfa34046f8}{MIXERTYPE\+\_\+\+QUADX}}
+, \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba83e952b59fd2f0a4bda645905497392a}{MIXERTYPE\+\_\+\+HEX6X}}
+, \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1cb09cb175b4ac08483661b361a52128}{MIXERTYPE\+\_\+\+Y6}}
+, \newline
+\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba3bda90df383f8942a1773d66a7aed125}{MIXERTYPE\+\_\+\+FREE}}
+ \}
+\item 
+enum \{ \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}}
+, \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a20364949ea9fb383c6b8baf4bf249c6a}{ROVER}}
+ \}
+\item 
+enum \{ \newline
+\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a13bf189935703fd9bb7b08f6e4f20ffd}{ALT\+\_\+\+DISENGAGED\+\_\+\+THROTTLE\+\_\+\+ACTIVE}}
+, \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a495e513812504424d03296e0e8e8ef55}{ALT\+\_\+\+HOLD\+\_\+\+FIXED\+\_\+\+AT\+\_\+\+ENGAGEMENT\+\_\+\+ALT}}
+, \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a23b9da3f6605abb338ef644004f650d3}{ALT\+\_\+\+HOLD\+\_\+\+AT\+\_\+\+REFERENCE\+\_\+\+ALTITUDE}}
+, \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653}{VERTICAL\+\_\+\+VELOCITY\+\_\+\+HOLD\+\_\+\+AT\+\_\+\+REFERENCE\+\_\+\+VELOCITY}}
+, \newline
+\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5ae0e1424fffc0494b932a603b02d7a1f6}{ALT\+\_\+\+DISENGAGED\+\_\+\+THROTTLE\+\_\+\+INACTIVE}}
+ \}
+\item 
+enum \{ \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5b9000695b6b8c61a7e9a7735b8a61cd}{DLPF\+\_\+256\+HZ}}
+, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04ac45d842116ac3b29058ec9268a6723da}{DLPF\+\_\+188\+HZ}}
+, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5a97019caa3efd2212b18642e1b53734}{DLPF\+\_\+98\+HZ}}
+, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a6b7e5dfe392c119f05dbf3563aa30ea1}{DLPF\+\_\+42\+HZ}}
+ \}
+\item 
+enum \{ \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06cac271a6034e77f707fe192841a95de390}{PPM}}
+, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caef99a276e1f3b62b5df98acc27b38028}{PWM}}
+, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06ca3b0361d7c922463802f9a82f455e5c59}{SPEKTRUM}}
+, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caed8e53b2adc8420cc50140048a3caf6e}{SBUS}}
+ \}
+\item 
+enum \{ \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea65f6b55fdc64778bf10632a795b97761}{USB}}
+, \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27}{UART1}}
+, \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea1131083beae26b9314a6fca36032b44a}{UART2}}
+ \}
+\item 
+enum \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}{crc\+Flags}} \{ \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}{CRC\+\_\+\+History\+Bad}} = 1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}
+\item 
+\mbox{\hyperlink{structheading__t}{heading\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}{heading}}
+\item 
+\mbox{\hyperlink{structgps__t}{gps\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}{gps}}
+\item 
+\mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}{home\+Data}}
+\item 
+\mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eeprom\+Config}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}\label{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX1@{AUX1}}
+\index{AUX1@{AUX1}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX1}{AUX1}}
+{\footnotesize\ttfamily \#define AUX1~4}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00033}{33}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}\label{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX2@{AUX2}}
+\index{AUX2@{AUX2}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX2}{AUX2}}
+{\footnotesize\ttfamily \#define AUX2~5}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00034}{34}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a6f9b1805488210e791f5a08407e155a3}\label{_autodrone32_8h_a6f9b1805488210e791f5a08407e155a3}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX3@{AUX3}}
+\index{AUX3@{AUX3}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX3}{AUX3}}
+{\footnotesize\ttfamily \#define AUX3~6}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00035}{35}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a3690a0a2d199eaa84ccf706971d2de13}\label{_autodrone32_8h_a3690a0a2d199eaa84ccf706971d2de13}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX4@{AUX4}}
+\index{AUX4@{AUX4}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX4}{AUX4}}
+{\footnotesize\ttfamily \#define AUX4~7}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00036}{36}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a942e2917864cbb00ef263f23c9b3e9d3}\label{_autodrone32_8h_a942e2917864cbb00ef263f23c9b3e9d3}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX5@{AUX5}}
+\index{AUX5@{AUX5}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX5}{AUX5}}
+{\footnotesize\ttfamily \#define AUX5~8}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00037}{37}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_ad03bd2be6022c9f31e03dd1418fcbe7f}\label{_autodrone32_8h_ad03bd2be6022c9f31e03dd1418fcbe7f}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX6@{AUX6}}
+\index{AUX6@{AUX6}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX6}{AUX6}}
+{\footnotesize\ttfamily \#define AUX6~9}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00038}{38}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a3441a014886bd1ebd09b87b781654c39}\label{_autodrone32_8h_a3441a014886bd1ebd09b87b781654c39}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX7@{AUX7}}
+\index{AUX7@{AUX7}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX7}{AUX7}}
+{\footnotesize\ttfamily \#define AUX7~10}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00039}{39}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa1405824e2047a6551fb3ec2cf4daa3c}\label{_autodrone32_8h_aa1405824e2047a6551fb3ec2cf4daa3c}} 
+\index{Autodrone32.h@{Autodrone32.h}!AUX8@{AUX8}}
+\index{AUX8@{AUX8}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{AUX8}{AUX8}}
+{\footnotesize\ttfamily \#define AUX8~11}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00040}{40}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a0a3cc1d5cde549e408f825ddd7f5853d}\label{_autodrone32_8h_a0a3cc1d5cde549e408f825ddd7f5853d}} 
+\index{Autodrone32.h@{Autodrone32.h}!D2R@{D2R}}
+\index{D2R@{D2R}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{D2R}{D2R}}
+{\footnotesize\ttfamily \#define D2R~(\mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}} / 180.\+0f)}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00017}{17}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a9d6686ebdd73dab7ed8c5cd65c45c1b7}\label{_autodrone32_8h_a9d6686ebdd73dab7ed8c5cd65c45c1b7}} 
+\index{Autodrone32.h@{Autodrone32.h}!E\_PID@{E\_PID}}
+\index{E\_PID@{E\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{E\_PID}{E\_PID}}
+{\footnotesize\ttfamily \#define E\+\_\+\+PID~10}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00159}{159}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aacdf1719d113d68a71127426f7c730cd}\label{_autodrone32_8h_aacdf1719d113d68a71127426f7c730cd}} 
+\index{Autodrone32.h@{Autodrone32.h}!EARTH\_RADIUS@{EARTH\_RADIUS}}
+\index{EARTH\_RADIUS@{EARTH\_RADIUS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{EARTH\_RADIUS}{EARTH\_RADIUS}}
+{\footnotesize\ttfamily \#define EARTH\+\_\+\+RADIUS~6371000f}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00023}{23}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a99423cf91f79ff41398886d7e9a0ba52}\label{_autodrone32_8h_a99423cf91f79ff41398886d7e9a0ba52}} 
+\index{Autodrone32.h@{Autodrone32.h}!EDOT\_PID@{EDOT\_PID}}
+\index{EDOT\_PID@{EDOT\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{EDOT\_PID}{EDOT\_PID}}
+{\footnotesize\ttfamily \#define EDOT\+\_\+\+PID~7}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00155}{155}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a717f3163fff352053746cbea6c54fc39}\label{_autodrone32_8h_a717f3163fff352053746cbea6c54fc39}} 
+\index{Autodrone32.h@{Autodrone32.h}!H\_PID@{H\_PID}}
+\index{H\_PID@{H\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{H\_PID}{H\_PID}}
+{\footnotesize\ttfamily \#define H\+\_\+\+PID~11}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00160}{160}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa6830d4f5afbd59e14b09b97edc46b0a}\label{_autodrone32_8h_aa6830d4f5afbd59e14b09b97edc46b0a}} 
+\index{Autodrone32.h@{Autodrone32.h}!HDOT\_PID@{HDOT\_PID}}
+\index{HDOT\_PID@{HDOT\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{HDOT\_PID}{HDOT\_PID}}
+{\footnotesize\ttfamily \#define HDOT\+\_\+\+PID~8}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00156}{156}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}\label{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}} 
+\index{Autodrone32.h@{Autodrone32.h}!HEADING\_PID@{HEADING\_PID}}
+\index{HEADING\_PID@{HEADING\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{HEADING\_PID}{HEADING\_PID}}
+{\footnotesize\ttfamily \#define HEADING\+\_\+\+PID~5}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00152}{152}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a31cfbcec47fb6b6cd7fa8f8df94de550}\label{_autodrone32_8h_a31cfbcec47fb6b6cd7fa8f8df94de550}} 
+\index{Autodrone32.h@{Autodrone32.h}!KNOTS2MPS@{KNOTS2MPS}}
+\index{KNOTS2MPS@{KNOTS2MPS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{KNOTS2MPS}{KNOTS2MPS}}
+{\footnotesize\ttfamily \#define KNOTS2\+MPS~0.\+51444444f}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00021}{21}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a1ca7e1fbdf49e02ec34430622f94f064}\label{_autodrone32_8h_a1ca7e1fbdf49e02ec34430622f94f064}} 
+\index{Autodrone32.h@{Autodrone32.h}!MAXCOMMAND@{MAXCOMMAND}}
+\index{MAXCOMMAND@{MAXCOMMAND}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{MAXCOMMAND}{MAXCOMMAND}}
+{\footnotesize\ttfamily \#define MAXCOMMAND~4000}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00048}{48}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}\label{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}} 
+\index{Autodrone32.h@{Autodrone32.h}!MIDCOMMAND@{MIDCOMMAND}}
+\index{MIDCOMMAND@{MIDCOMMAND}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{MIDCOMMAND}{MIDCOMMAND}}
+{\footnotesize\ttfamily \#define MIDCOMMAND~3000}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00047}{47}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_ad9365648c4acd0f83d7a5faa319d3f20}\label{_autodrone32_8h_ad9365648c4acd0f83d7a5faa319d3f20}} 
+\index{Autodrone32.h@{Autodrone32.h}!MINCOMMAND@{MINCOMMAND}}
+\index{MINCOMMAND@{MINCOMMAND}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{MINCOMMAND}{MINCOMMAND}}
+{\footnotesize\ttfamily \#define MINCOMMAND~2000}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00046}{46}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a636c29b30dac9cfdb5ae0482e9a89544}\label{_autodrone32_8h_a636c29b30dac9cfdb5ae0482e9a89544}} 
+\index{Autodrone32.h@{Autodrone32.h}!N\_PID@{N\_PID}}
+\index{N\_PID@{N\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{N\_PID}{N\_PID}}
+{\footnotesize\ttfamily \#define N\+\_\+\+PID~9}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00158}{158}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a7403e40c27c7e3e0f8f3c046c71cb28d}\label{_autodrone32_8h_a7403e40c27c7e3e0f8f3c046c71cb28d}} 
+\index{Autodrone32.h@{Autodrone32.h}!NDOT\_PID@{NDOT\_PID}}
+\index{NDOT\_PID@{NDOT\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{NDOT\_PID}{NDOT\_PID}}
+{\footnotesize\ttfamily \#define NDOT\+\_\+\+PID~6}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00154}{154}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}\label{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}} 
+\index{Autodrone32.h@{Autodrone32.h}!NUMBER\_OF\_PIDS@{NUMBER\_OF\_PIDS}}
+\index{NUMBER\_OF\_PIDS@{NUMBER\_OF\_PIDS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{NUMBER\_OF\_PIDS}{NUMBER\_OF\_PIDS}}
+{\footnotesize\ttfamily \#define NUMBER\+\_\+\+OF\+\_\+\+PIDS~12}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00144}{144}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}\label{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}} 
+\index{Autodrone32.h@{Autodrone32.h}!PI@{PI}}
+\index{PI@{PI}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily \#define PI~3.\+14159265358979f}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00012}{12}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}\label{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}} 
+\index{Autodrone32.h@{Autodrone32.h}!PITCH@{PITCH}}
+\index{PITCH@{PITCH}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{PITCH}{PITCH}}
+{\footnotesize\ttfamily \#define PITCH~1}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00030}{30}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}\label{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}} 
+\index{Autodrone32.h@{Autodrone32.h}!PITCH\_ATT\_PID@{PITCH\_ATT\_PID}}
+\index{PITCH\_ATT\_PID@{PITCH\_ATT\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{PITCH\_ATT\_PID}{PITCH\_ATT\_PID}}
+{\footnotesize\ttfamily \#define PITCH\+\_\+\+ATT\+\_\+\+PID~4}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00151}{151}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a1958b73d2ee48b59a1c8f506881ee0f0}\label{_autodrone32_8h_a1958b73d2ee48b59a1c8f506881ee0f0}} 
+\index{Autodrone32.h@{Autodrone32.h}!PITCH\_RATE\_PID@{PITCH\_RATE\_PID}}
+\index{PITCH\_RATE\_PID@{PITCH\_RATE\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{PITCH\_RATE\_PID}{PITCH\_RATE\_PID}}
+{\footnotesize\ttfamily \#define PITCH\+\_\+\+RATE\+\_\+\+PID~1}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00147}{147}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a39c663074332446065723e9be9350139}\label{_autodrone32_8h_a39c663074332446065723e9be9350139}} 
+\index{Autodrone32.h@{Autodrone32.h}!R2D@{R2D}}
+\index{R2D@{R2D}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{R2D}{R2D}}
+{\footnotesize\ttfamily \#define R2D~(180.\+0f / \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00019}{19}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}\label{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}} 
+\index{Autodrone32.h@{Autodrone32.h}!ROLL@{ROLL}}
+\index{ROLL@{ROLL}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{ROLL}{ROLL}}
+{\footnotesize\ttfamily \#define ROLL~0}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00029}{29}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}\label{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}} 
+\index{Autodrone32.h@{Autodrone32.h}!ROLL\_ATT\_PID@{ROLL\_ATT\_PID}}
+\index{ROLL\_ATT\_PID@{ROLL\_ATT\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{ROLL\_ATT\_PID}{ROLL\_ATT\_PID}}
+{\footnotesize\ttfamily \#define ROLL\+\_\+\+ATT\+\_\+\+PID~3}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00150}{150}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a235532884e69e785781acb60c65bed49}\label{_autodrone32_8h_a235532884e69e785781acb60c65bed49}} 
+\index{Autodrone32.h@{Autodrone32.h}!ROLL\_RATE\_PID@{ROLL\_RATE\_PID}}
+\index{ROLL\_RATE\_PID@{ROLL\_RATE\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{ROLL\_RATE\_PID}{ROLL\_RATE\_PID}}
+{\footnotesize\ttfamily \#define ROLL\+\_\+\+RATE\+\_\+\+PID~0}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00146}{146}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa7866fa5e4e0ee9b034e9dab6599a9cc}\label{_autodrone32_8h_aa7866fa5e4e0ee9b034e9dab6599a9cc}} 
+\index{Autodrone32.h@{Autodrone32.h}!SQR@{SQR}}
+\index{SQR@{SQR}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{SQR}{SQR}}
+{\footnotesize\ttfamily \#define SQR(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) $\ast$ (x))}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00025}{25}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}\label{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}} 
+\index{Autodrone32.h@{Autodrone32.h}!THROTTLE@{THROTTLE}}
+\index{THROTTLE@{THROTTLE}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{THROTTLE}{THROTTLE}}
+{\footnotesize\ttfamily \#define THROTTLE~3}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00032}{32}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a3b947f4b635461030ff2d87833e5049e}\label{_autodrone32_8h_a3b947f4b635461030ff2d87833e5049e}} 
+\index{Autodrone32.h@{Autodrone32.h}!TWO\_PI@{TWO\_PI}}
+\index{TWO\_PI@{TWO\_PI}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{TWO\_PI}{TWO\_PI}}
+{\footnotesize\ttfamily \#define TWO\+\_\+\+PI~(2.\+0f $\ast$ \mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{PI}})}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00015}{15}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}\label{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}} 
+\index{Autodrone32.h@{Autodrone32.h}!XAXIS@{XAXIS}}
+\index{XAXIS@{XAXIS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{XAXIS}{XAXIS}}
+{\footnotesize\ttfamily \#define XAXIS~0}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00042}{42}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}\label{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}} 
+\index{Autodrone32.h@{Autodrone32.h}!YAW@{YAW}}
+\index{YAW@{YAW}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{YAW}{YAW}}
+{\footnotesize\ttfamily \#define YAW~2}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00031}{31}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a8fea470ced437a1f4a6e41b1a30b0d05}\label{_autodrone32_8h_a8fea470ced437a1f4a6e41b1a30b0d05}} 
+\index{Autodrone32.h@{Autodrone32.h}!YAW\_RATE\_PID@{YAW\_RATE\_PID}}
+\index{YAW\_RATE\_PID@{YAW\_RATE\_PID}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{YAW\_RATE\_PID}{YAW\_RATE\_PID}}
+{\footnotesize\ttfamily \#define YAW\+\_\+\+RATE\+\_\+\+PID~2}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00148}{148}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}\label{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}} 
+\index{Autodrone32.h@{Autodrone32.h}!YAXIS@{YAXIS}}
+\index{YAXIS@{YAXIS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{YAXIS}{YAXIS}}
+{\footnotesize\ttfamily \#define YAXIS~1}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00043}{43}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}\label{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}} 
+\index{Autodrone32.h@{Autodrone32.h}!ZAXIS@{ZAXIS}}
+\index{ZAXIS@{ZAXIS}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{ZAXIS}{ZAXIS}}
+{\footnotesize\ttfamily \#define ZAXIS~2}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00044}{44}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}\label{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}} 
+\index{Autodrone32.h@{Autodrone32.h}!eepromConfig\_t@{eepromConfig\_t}}
+\index{eepromConfig\_t@{eepromConfig\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{eepromConfig\_t}{eepromConfig\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} \mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}\label{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}} 
+\index{Autodrone32.h@{Autodrone32.h}!gps\_t@{gps\_t}}
+\index{gps\_t@{gps\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{gps\_t}{gps\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structgps__t}{gps\+\_\+t}} \mbox{\hyperlink{structgps__t}{gps\+\_\+t}}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}\label{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}} 
+\index{Autodrone32.h@{Autodrone32.h}!heading\_t@{heading\_t}}
+\index{heading\_t@{heading\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{heading\_t}{heading\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structheading__t}{heading\+\_\+t}} \mbox{\hyperlink{structheading__t}{heading\+\_\+t}}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}\label{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}} 
+\index{Autodrone32.h@{Autodrone32.h}!homeData\_t@{homeData\_t}}
+\index{homeData\_t@{homeData\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{homeData\_t}{homeData\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}} \mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}\label{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}} 
+\index{Autodrone32.h@{Autodrone32.h}!semaphore\_t@{semaphore\_t}}
+\index{semaphore\_t@{semaphore\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{semaphore\_t}{semaphore\_t}}
+{\footnotesize\ttfamily typedef volatile uint8\+\_\+t \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}}}
+
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00076}{76}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}\label{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}} 
+\index{Autodrone32.h@{Autodrone32.h}!sensors\_t@{sensors\_t}}
+\index{sensors\_t@{sensors\_t}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{sensors\_t}{sensors\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}} \mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55b}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55b}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIXERTYPE\_TRI@{MIXERTYPE\_TRI}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!MIXERTYPE\_TRI@{MIXERTYPE\_TRI}}}\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55baa2abea1d538017e7e9cb014f246c8d28}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55baa2abea1d538017e7e9cb014f246c8d28}} 
+MIXERTYPE\+\_\+\+TRI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIXERTYPE\_QUADX@{MIXERTYPE\_QUADX}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!MIXERTYPE\_QUADX@{MIXERTYPE\_QUADX}}}\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55babb1e0f4c04118444865127cfa34046f8}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55babb1e0f4c04118444865127cfa34046f8}} 
+MIXERTYPE\+\_\+\+QUADX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIXERTYPE\_HEX6X@{MIXERTYPE\_HEX6X}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!MIXERTYPE\_HEX6X@{MIXERTYPE\_HEX6X}}}\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba83e952b59fd2f0a4bda645905497392a}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba83e952b59fd2f0a4bda645905497392a}} 
+MIXERTYPE\+\_\+\+HEX6X&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIXERTYPE\_Y6@{MIXERTYPE\_Y6}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!MIXERTYPE\_Y6@{MIXERTYPE\_Y6}}}\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1cb09cb175b4ac08483661b361a52128}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1cb09cb175b4ac08483661b361a52128}} 
+MIXERTYPE\+\_\+\+Y6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIXERTYPE\_FREE@{MIXERTYPE\_FREE}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!MIXERTYPE\_FREE@{MIXERTYPE\_FREE}}}\mbox{\Hypertarget{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba3bda90df383f8942a1773d66a7aed125}\label{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba3bda90df383f8942a1773d66a7aed125}} 
+MIXERTYPE\+\_\+\+FREE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00166}{166}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7}\label{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLIGHT@{FLIGHT}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!FLIGHT@{FLIGHT}}}\mbox{\Hypertarget{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a1e3af4a87374fcc9dcb397ee98b47b65}\label{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a1e3af4a87374fcc9dcb397ee98b47b65}} 
+FLIGHT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROVER@{ROVER}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!ROVER@{ROVER}}}\mbox{\Hypertarget{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a20364949ea9fb383c6b8baf4bf249c6a}\label{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a20364949ea9fb383c6b8baf4bf249c6a}} 
+ROVER&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00177}{177}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALT\_DISENGAGED\_THROTTLE\_ACTIVE@{ALT\_DISENGAGED\_THROTTLE\_ACTIVE}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!ALT\_DISENGAGED\_THROTTLE\_ACTIVE@{ALT\_DISENGAGED\_THROTTLE\_ACTIVE}}}\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a13bf189935703fd9bb7b08f6e4f20ffd}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a13bf189935703fd9bb7b08f6e4f20ffd}} 
+ALT\+\_\+\+DISENGAGED\+\_\+\+THROTTLE\+\_\+\+ACTIVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALT\_HOLD\_FIXED\_AT\_ENGAGEMENT\_ALT@{ALT\_HOLD\_FIXED\_AT\_ENGAGEMENT\_ALT}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!ALT\_HOLD\_FIXED\_AT\_ENGAGEMENT\_ALT@{ALT\_HOLD\_FIXED\_AT\_ENGAGEMENT\_ALT}}}\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a495e513812504424d03296e0e8e8ef55}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a495e513812504424d03296e0e8e8ef55}} 
+ALT\+\_\+\+HOLD\+\_\+\+FIXED\+\_\+\+AT\+\_\+\+ENGAGEMENT\+\_\+\+ALT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALT\_HOLD\_AT\_REFERENCE\_ALTITUDE@{ALT\_HOLD\_AT\_REFERENCE\_ALTITUDE}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!ALT\_HOLD\_AT\_REFERENCE\_ALTITUDE@{ALT\_HOLD\_AT\_REFERENCE\_ALTITUDE}}}\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a23b9da3f6605abb338ef644004f650d3}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a23b9da3f6605abb338ef644004f650d3}} 
+ALT\+\_\+\+HOLD\+\_\+\+AT\+\_\+\+REFERENCE\+\_\+\+ALTITUDE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VERTICAL\_VELOCITY\_HOLD\_AT\_REFERENCE\_VELOCITY@{VERTICAL\_VELOCITY\_HOLD\_AT\_REFERENCE\_VELOCITY}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!VERTICAL\_VELOCITY\_HOLD\_AT\_REFERENCE\_VELOCITY@{VERTICAL\_VELOCITY\_HOLD\_AT\_REFERENCE\_VELOCITY}}}\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653}} 
+VERTICAL\+\_\+\+VELOCITY\+\_\+\+HOLD\+\_\+\+AT\+\_\+\+REFERENCE\+\_\+\+VELOCITY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALT\_DISENGAGED\_THROTTLE\_INACTIVE@{ALT\_DISENGAGED\_THROTTLE\_INACTIVE}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!ALT\_DISENGAGED\_THROTTLE\_INACTIVE@{ALT\_DISENGAGED\_THROTTLE\_INACTIVE}}}\mbox{\Hypertarget{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5ae0e1424fffc0494b932a603b02d7a1f6}\label{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5ae0e1424fffc0494b932a603b02d7a1f6}} 
+ALT\+\_\+\+DISENGAGED\+\_\+\+THROTTLE\+\_\+\+INACTIVE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00186}{186}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04}\label{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLPF\_256HZ@{DLPF\_256HZ}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!DLPF\_256HZ@{DLPF\_256HZ}}}\mbox{\Hypertarget{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5b9000695b6b8c61a7e9a7735b8a61cd}\label{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5b9000695b6b8c61a7e9a7735b8a61cd}} 
+DLPF\+\_\+256\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLPF\_188HZ@{DLPF\_188HZ}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!DLPF\_188HZ@{DLPF\_188HZ}}}\mbox{\Hypertarget{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04ac45d842116ac3b29058ec9268a6723da}\label{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04ac45d842116ac3b29058ec9268a6723da}} 
+DLPF\+\_\+188\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLPF\_98HZ@{DLPF\_98HZ}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!DLPF\_98HZ@{DLPF\_98HZ}}}\mbox{\Hypertarget{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5a97019caa3efd2212b18642e1b53734}\label{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5a97019caa3efd2212b18642e1b53734}} 
+DLPF\+\_\+98\+HZ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLPF\_42HZ@{DLPF\_42HZ}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!DLPF\_42HZ@{DLPF\_42HZ}}}\mbox{\Hypertarget{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a6b7e5dfe392c119f05dbf3563aa30ea1}\label{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a6b7e5dfe392c119f05dbf3563aa30ea1}} 
+DLPF\+\_\+42\+HZ&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00196}{196}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06c}\label{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06c}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PPM@{PPM}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!PPM@{PPM}}}\mbox{\Hypertarget{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06cac271a6034e77f707fe192841a95de390}\label{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06cac271a6034e77f707fe192841a95de390}} 
+PPM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PWM@{PWM}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!PWM@{PWM}}}\mbox{\Hypertarget{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caef99a276e1f3b62b5df98acc27b38028}\label{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caef99a276e1f3b62b5df98acc27b38028}} 
+PWM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPEKTRUM@{SPEKTRUM}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!SPEKTRUM@{SPEKTRUM}}}\mbox{\Hypertarget{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06ca3b0361d7c922463802f9a82f455e5c59}\label{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06ca3b0361d7c922463802f9a82f455e5c59}} 
+SPEKTRUM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SBUS@{SBUS}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!SBUS@{SBUS}}}\mbox{\Hypertarget{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caed8e53b2adc8420cc50140048a3caf6e}\label{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caed8e53b2adc8420cc50140048a3caf6e}} 
+SBUS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00202}{202}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9e}\label{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9e}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USB@{USB}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!USB@{USB}}}\mbox{\Hypertarget{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea65f6b55fdc64778bf10632a795b97761}\label{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea65f6b55fdc64778bf10632a795b97761}} 
+USB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART1@{UART1}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!UART1@{UART1}}}\mbox{\Hypertarget{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27}\label{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27}} 
+UART1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UART2@{UART2}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!UART2@{UART2}}}\mbox{\Hypertarget{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea1131083beae26b9314a6fca36032b44a}\label{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea1131083beae26b9314a6fca36032b44a}} 
+UART2&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00208}{208}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+\mbox{\Hypertarget{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}\label{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}} 
+\index{Autodrone32.h@{Autodrone32.h}!crcFlags@{crcFlags}}
+\index{crcFlags@{crcFlags}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{crcFlags}{crcFlags}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}{crc\+Flags}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CRC\_HistoryBad@{CRC\_HistoryBad}!Autodrone32.h@{Autodrone32.h}}\index{Autodrone32.h@{Autodrone32.h}!CRC\_HistoryBad@{CRC\_HistoryBad}}}\mbox{\Hypertarget{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}\label{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}} 
+CRC\+\_\+\+History\+Bad&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_autodrone32_8h_source_l00403}{403}} of file \mbox{\hyperlink{_autodrone32_8h_source}{Autodrone32.\+h}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}\label{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}} 
+\index{Autodrone32.h@{Autodrone32.h}!eepromConfig@{eepromConfig}}
+\index{eepromConfig@{eepromConfig}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{eepromConfig}{eepromConfig}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structeeprom_config__t}{eeprom\+Config\+\_\+t}} eeprom\+Config\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}\label{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}} 
+\index{Autodrone32.h@{Autodrone32.h}!gps@{gps}}
+\index{gps@{gps}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{gps}{gps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structgps__t}{gps\+\_\+t}} gps\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}\label{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}} 
+\index{Autodrone32.h@{Autodrone32.h}!heading@{heading}}
+\index{heading@{heading}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{heading}{heading}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structheading__t}{heading\+\_\+t}} heading\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}\label{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}} 
+\index{Autodrone32.h@{Autodrone32.h}!homeData@{homeData}}
+\index{homeData@{homeData}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{homeData}{homeData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structhome_data__t}{home\+Data\+\_\+t}} home\+Data\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}\label{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}} 
+\index{Autodrone32.h@{Autodrone32.h}!sensors@{sensors}}
+\index{sensors@{sensors}!Autodrone32.h@{Autodrone32.h}}
+\doxysubsubsection{\texorpdfstring{sensors}{sensors}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structsensors__t}{sensors\+\_\+t}} sensors\hspace{0.3cm}{\ttfamily [extern]}}
+

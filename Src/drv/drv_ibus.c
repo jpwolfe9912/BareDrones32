@@ -64,11 +64,12 @@ ibusInit(void)
 		color(RED, YES);
 		printf("\niBus Initialization Failed. Try again?\n");
 		color(WHITE, NO);
+#ifdef STLINK
 		if(serialWaitFor('y'))
 			return false;
 		else
 			return true;
-
+#endif
 	}
 	else{
 		color(GREEN, YES);

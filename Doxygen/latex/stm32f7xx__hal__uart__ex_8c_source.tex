@@ -1,0 +1,454 @@
+\hypertarget{stm32f7xx__hal__uart__ex_8c_source}{}\doxysection{stm32f7xx\+\_\+hal\+\_\+uart\+\_\+ex.\+c}
+\label{stm32f7xx__hal__uart__ex_8c_source}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_uart\_ex.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_uart\_ex.c}}
+\mbox{\hyperlink{stm32f7xx__hal__uart__ex_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00037}00037 \textcolor{comment}{/* Includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00038}00038 \textcolor{preprocessor}{\#include "{}../../../Libraries/STM32F7xx\_HAL\_Driver/Inc/stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00049}00049 \textcolor{preprocessor}{\#ifdef HAL\_UART\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00051}00051 \textcolor{comment}{/* Private typedef -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00052}00052 \textcolor{comment}{/* Private define -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00054}00054 \textcolor{comment}{/* Private macros -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00055}00055 \textcolor{comment}{/* Private variables -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00056}00056 \textcolor{comment}{/* Private function prototypes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00060}00060 \textcolor{preprocessor}{\#if defined(USART\_CR1\_UESM)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00061}00061 \textcolor{keyword}{static} \textcolor{keywordtype}{void} UARTEx\_Wakeup\_AddressConfig(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, UART\_WakeUpTypeDef WakeUpSelection);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00062}00062 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USART\_CR1\_UESM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00067}00067 \textcolor{comment}{/* Exported functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00150}00150 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___u_a_r_t_ex___exported___functions___group1_ga27862dc24258939a758a877b674977af}{HAL\_RS485Ex\_Init}}(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, uint32\_t Polarity, uint32\_t AssertionTime,}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00151}00151                                    uint32\_t DeassertionTime)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00152}00152 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00153}00153   uint32\_t \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00155}00155   \textcolor{comment}{/* Check the UART handle allocation */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00156}00156   \textcolor{keywordflow}{if} (huart == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00157}00157   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00158}00158     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00159}00159   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00160}00160   \textcolor{comment}{/* Check the Driver Enable UART instance */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00161}00161   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___exported__macros_ga827242f3578a36fee4b5f888ca91ab1a}{IS\_UART\_DRIVER\_ENABLE\_INSTANCE}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00163}00163   \textcolor{comment}{/* Check the Driver Enable polarity */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00164}00164   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___u_a_r_t___private___macros_gaecf169f01673ae67b12b3155e074bf12}{IS\_UART\_DE\_POLARITY}}(Polarity));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00166}00166   \textcolor{comment}{/* Check the Driver Enable assertion time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00167}00167   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___u_a_r_t___private___macros_ga8acf6b6648717b7192439f1b426321a4}{IS\_UART\_ASSERTIONTIME}}(AssertionTime));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00169}00169   \textcolor{comment}{/* Check the Driver Enable deassertion time */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00170}00170   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___u_a_r_t___private___macros_ga7e060b24713e3fb49f4f0f4fa71dd85f}{IS\_UART\_DEASSERTIONTIME}}(DeassertionTime));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00172}00172   \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab596705b6ce037e8debc149ccee148da}{gState}} == \mbox{\hyperlink{group___u_a_r_t___state___definition_gacd81aeb745b71fc1c121cc686369600d}{HAL\_UART\_STATE\_RESET}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00173}00173   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00174}00174     \textcolor{comment}{/* Allocate lock resource and initialize it */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00175}00175     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ad4cf225029dbefe8d3fe660c33b8bb6b}{Lock}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_ab367482e943333a1299294eadaad284ba9bd487430440139444e6e7ff226005c0}{HAL\_UNLOCKED}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00177}00177 \textcolor{preprocessor}{\#if (USE\_HAL\_UART\_REGISTER\_CALLBACKS == 1)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00178}00178     UART\_InitCallbacksToDefault(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00180}00180     \textcolor{keywordflow}{if} (huart-\/>MspInitCallback == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00181}00181     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00182}00182       huart-\/>MspInitCallback = \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga0e553b32211877322f949b14801bbfa7}{HAL\_UART\_MspInit}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00183}00183     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00185}00185     \textcolor{comment}{/* Init the low level hardware */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00186}00186     huart-\/>MspInitCallback(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00187}00187 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00188}00188     \textcolor{comment}{/* Init the low level hardware : GPIO, CLOCK, CORTEX */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00189}00189     \mbox{\hyperlink{group___u_a_r_t___exported___functions___group1_ga0e553b32211877322f949b14801bbfa7}{HAL\_UART\_MspInit}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00190}00190 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* (USE\_HAL\_UART\_REGISTER\_CALLBACKS) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00191}00191   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00192}00192 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00193}00193   huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab596705b6ce037e8debc149ccee148da}{gState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_gabe7a46b4b59e60aa480bdf2aa4c2fd8e}{HAL\_UART\_STATE\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00195}00195   \textcolor{comment}{/* Disable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00196}00196   \mbox{\hyperlink{group___u_a_r_t___exported___macros_gad2f9fbdb4adf3a09939e201eaeea072f}{\_\_HAL\_UART\_DISABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00198}00198   \textcolor{comment}{/* Set the UART Communication parameters */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00199}00199   \textcolor{keywordflow}{if} (\mbox{\hyperlink{group___u_a_r_t___private___functions_ga5a87d1b1c4284cae14f5a1402efaa11b}{UART\_SetConfig}}(huart) == \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00200}00200   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00201}00201     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00202}00202   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00204}00204   \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a4785c6c4b0e998062a50b706a739c6c5}{AdvancedInit}}.\mbox{\hyperlink{struct_u_a_r_t___adv_feature_init_type_def_ad3ebc9a49be4aa143250abfbe6c427d1}{AdvFeatureInit}} != \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gab696b28f33174d038e0bfd300c1b2a77}{UART\_ADVFEATURE\_NO\_INIT}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00205}00205   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00206}00206     \mbox{\hyperlink{group___u_a_r_t___private___functions_gacd304011919c5ccd02544208c7aa451b}{UART\_AdvFeatureConfig}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00207}00207   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00209}00209   \textcolor{comment}{/* Enable the Driver Enable mode by setting the DEM bit in the CR3 register */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00210}00210   \mbox{\hyperlink{group___exported__macro_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_add5b8e29a64c55dcd65ca4201118e9d1}{CR3}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gacd65f9fd10ee8e99db1118828deb0441}{USART\_CR3\_DEM}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00212}00212   \textcolor{comment}{/* Set the Driver Enable polarity */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00213}00213   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_add5b8e29a64c55dcd65ca4201118e9d1}{CR3}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2000c42015289291da1c58fe27800d64}{USART\_CR3\_DEP}}, Polarity);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00214}00214 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00215}00215   \textcolor{comment}{/* Set the Driver Enable assertion and deassertion times */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00216}00216   \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = (AssertionTime << \mbox{\hyperlink{group___u_a_r_t___c_r1___d_e_a_t___a_d_d_r_e_s_s___l_s_b___p_o_s_ga90d12dcdf8fd18f3be92d9699abe02cd}{UART\_CR1\_DEAT\_ADDRESS\_LSB\_POS}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00217}00217   \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} |= (DeassertionTime << \mbox{\hyperlink{group___u_a_r_t___c_r1___d_e_d_t___a_d_d_r_e_s_s___l_s_b___p_o_s_gaed41cd9ed039e3a075d0f4c433bea021}{UART\_CR1\_DEDT\_ADDRESS\_LSB\_POS}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00218}00218   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, (\mbox{\hyperlink{group___peripheral___registers___bits___definition_gab2d95af966e08146e1172c4b828bda38}{USART\_CR1\_DEDT}} | \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga6bdc2e80e4545996ecb5901915d13e28}{USART\_CR1\_DEAT}}), \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00220}00220   \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00221}00221   \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga49eb5ea4996a957afeb8be2793ba3fe9}{\_\_HAL\_UART\_ENABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00222}00222 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00223}00223   \textcolor{comment}{/* TEACK and/or REACK to check before moving huart-\/>gState and huart-\/>RxState to Ready */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00224}00224   \textcolor{keywordflow}{return} (\mbox{\hyperlink{group___u_a_r_t___private___functions_gad945067db34d4e1c3bd27a14fa8d7d25}{UART\_CheckIdleState}}(huart));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00225}00225 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00226}00226 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00290}00290 \textcolor{preprocessor}{\#if defined(USART\_CR3\_UCESM)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00300}00300 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_UARTEx\_EnableClockStopMode(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00301}00301 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00302}00302   \textcolor{comment}{/* Process Locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00303}00303   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00305}00305   \textcolor{comment}{/* Set UCESM bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00306}00306   \mbox{\hyperlink{group___exported__macro_ga5daccb3b4245b833e81ff60fd1f4cf80}{ATOMIC\_SET\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_add5b8e29a64c55dcd65ca4201118e9d1}{CR3}}, USART\_CR3\_UCESM);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00308}00308   \textcolor{comment}{/* Process Unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00309}00309   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00311}00311   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00312}00312 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00313}00313 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00319}00319 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_UARTEx\_DisableClockStopMode(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00320}00320 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00321}00321   \textcolor{comment}{/* Process Locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00322}00322   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00323}00323 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00324}00324   \textcolor{comment}{/* Clear UCESM bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00325}00325   \mbox{\hyperlink{group___exported__macro_ga08dfef58d3b054b80745eda49e8907fb}{ATOMIC\_CLEAR\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_add5b8e29a64c55dcd65ca4201118e9d1}{CR3}}, USART\_CR3\_UCESM);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00326}00326 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00327}00327   \textcolor{comment}{/* Process Unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00328}00328   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00330}00330   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00331}00331 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00332}00332 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00333}00333 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USART\_CR3\_UCESM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00347}00347 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___u_a_r_t_ex___exported___functions___group3_gabb9d4edfed47241a86a304856cb4e3c6}{HAL\_MultiProcessorEx\_AddressLength\_Set}}(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, uint32\_t AddressLength)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00348}00348 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00349}00349   \textcolor{comment}{/* Check the UART handle allocation */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00350}00350   \textcolor{keywordflow}{if} (huart == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00351}00351   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00352}00352     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00353}00353   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00354}00354 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00355}00355   \textcolor{comment}{/* Check the address length parameter */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00356}00356   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___u_a_r_t_ex___private___macros_gaa4cf2a15ad7ae46e2905debeef35a908}{IS\_UART\_ADDRESSLENGTH\_DETECT}}(AddressLength));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00358}00358   huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab596705b6ce037e8debc149ccee148da}{gState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_gabe7a46b4b59e60aa480bdf2aa4c2fd8e}{HAL\_UART\_STATE\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00359}00359 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00360}00360   \textcolor{comment}{/* Disable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00361}00361   \mbox{\hyperlink{group___u_a_r_t___exported___macros_gad2f9fbdb4adf3a09939e201eaeea072f}{\_\_HAL\_UART\_DISABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00362}00362 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00363}00363   \textcolor{comment}{/* Set the address length */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00364}00364   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2d8588feb26d8b36054a060d6b691823}{USART\_CR2\_ADDM7}}, AddressLength);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00365}00365 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00366}00366   \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00367}00367   \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga49eb5ea4996a957afeb8be2793ba3fe9}{\_\_HAL\_UART\_ENABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00368}00368 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00369}00369   \textcolor{comment}{/* TEACK and/or REACK to check before moving huart-\/>gState to Ready */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00370}00370   \textcolor{keywordflow}{return} (\mbox{\hyperlink{group___u_a_r_t___private___functions_gad945067db34d4e1c3bd27a14fa8d7d25}{UART\_CheckIdleState}}(huart));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00371}00371 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00373}00373 \textcolor{preprocessor}{\#if defined(USART\_CR1\_UESM)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00386}00386 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_UARTEx\_StopModeWakeUpSourceConfig(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, UART\_WakeUpTypeDef WakeUpSelection)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00387}00387 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00388}00388   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00389}00389   uint32\_t tickstart;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00390}00390 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00391}00391   \textcolor{comment}{/* check the wake-\/up from stop mode UART instance */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00392}00392   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(IS\_UART\_WAKEUP\_FROMSTOP\_INSTANCE(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00393}00393   \textcolor{comment}{/* check the wake-\/up selection parameter */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00394}00394   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(IS\_UART\_WAKEUP\_SELECTION(WakeUpSelection.WakeUpEvent));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00395}00395 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00396}00396   \textcolor{comment}{/* Process Locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00397}00397   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00398}00398 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00399}00399   huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab596705b6ce037e8debc149ccee148da}{gState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_gabe7a46b4b59e60aa480bdf2aa4c2fd8e}{HAL\_UART\_STATE\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00400}00400 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00401}00401   \textcolor{comment}{/* Disable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00402}00402   \mbox{\hyperlink{group___u_a_r_t___exported___macros_gad2f9fbdb4adf3a09939e201eaeea072f}{\_\_HAL\_UART\_DISABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00403}00403 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00404}00404 \textcolor{preprocessor}{\#if defined(USART\_CR3\_WUS)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00405}00405   \textcolor{comment}{/* Set the wake-\/up selection scheme */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00406}00406   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_add5b8e29a64c55dcd65ca4201118e9d1}{CR3}}, USART\_CR3\_WUS, WakeUpSelection.WakeUpEvent);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00407}00407 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USART\_CR3\_WUS */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00408}00408 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00409}00409   \textcolor{keywordflow}{if} (WakeUpSelection.WakeUpEvent == UART\_WAKEUP\_ON\_ADDRESS)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00410}00410   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00411}00411     UARTEx\_Wakeup\_AddressConfig(huart, WakeUpSelection);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00412}00412   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00413}00413 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00414}00414   \textcolor{comment}{/* Enable the Peripheral */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00415}00415   \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga49eb5ea4996a957afeb8be2793ba3fe9}{\_\_HAL\_UART\_ENABLE}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00416}00416 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00417}00417   \textcolor{comment}{/* Init tickstart for timeout management */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00418}00418   tickstart = \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00420}00420   \textcolor{comment}{/* Wait until REACK flag is set */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00421}00421   \textcolor{keywordflow}{if} (\mbox{\hyperlink{group___u_a_r_t___private___functions_gad377d340a4703ef434289d54794c281f}{UART\_WaitOnFlagUntilTimeout}}(huart, USART\_ISR\_REACK, \mbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}}, tickstart, \mbox{\hyperlink{group___u_a_r_t___time_out___value_gaddb45b57fd556fb7cd763daa479f8ced}{HAL\_UART\_TIMEOUT\_VALUE}}) != \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00422}00422   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00423}00423     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5}{HAL\_TIMEOUT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00424}00424   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00425}00425   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00426}00426   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00427}00427     \textcolor{comment}{/* Initialize the UART State */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00428}00428     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab596705b6ce037e8debc149ccee148da}{gState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00429}00429   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00430}00430 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00431}00431   \textcolor{comment}{/* Process Unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00432}00432   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00433}00433 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00434}00434   \textcolor{keywordflow}{return} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00435}00435 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00436}00436 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00443}00443 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_UARTEx\_EnableStopMode(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00444}00444 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00445}00445   \textcolor{comment}{/* Process Locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00446}00446   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00447}00447 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00448}00448   \textcolor{comment}{/* Set UESM bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00449}00449   \mbox{\hyperlink{group___exported__macro_ga5daccb3b4245b833e81ff60fd1f4cf80}{ATOMIC\_SET\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, USART\_CR1\_UESM);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00450}00450 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00451}00451   \textcolor{comment}{/* Process Unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00452}00452   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00453}00453 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00454}00454   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00455}00455 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00456}00456 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00462}00462 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} HAL\_UARTEx\_DisableStopMode(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00463}00463 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00464}00464   \textcolor{comment}{/* Process Locked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00465}00465   \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00466}00466 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00467}00467   \textcolor{comment}{/* Clear UESM bit */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00468}00468   \mbox{\hyperlink{group___exported__macro_ga08dfef58d3b054b80745eda49e8907fb}{ATOMIC\_CLEAR\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, USART\_CR1\_UESM);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00469}00469 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00470}00470   \textcolor{comment}{/* Process Unlocked */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00471}00471   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00472}00472 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00473}00473   \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00474}00474 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00475}00475 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00476}00476 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USART\_CR1\_UESM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00494}00494 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___u_a_r_t_ex___exported___functions___group3_ga33da590bebd5fd13ce9020ac1fc05e15}{HAL\_UARTEx\_ReceiveToIdle}}(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, uint8\_t *pData, uint16\_t Size, uint16\_t *RxLen,}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00495}00495                                            uint32\_t Timeout)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00496}00496 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00497}00497   uint8\_t  *pdata8bits;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00498}00498   uint16\_t *pdata16bits;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00499}00499   uint16\_t uhMask;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00500}00500   uint32\_t tickstart;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00501}00501 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00502}00502   \textcolor{comment}{/* Check that a Rx process is not already ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00503}00503   \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} == \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00504}00504   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00505}00505     \textcolor{keywordflow}{if} ((pData == NULL) || (Size == 0U))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00506}00506     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00507}00507       \textcolor{keywordflow}{return}  \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00508}00508     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00509}00509 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00510}00510     \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00511}00511 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00512}00512     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a123c5063e6a3b1901b2fbe5f88c53a7e}{ErrorCode}} = \mbox{\hyperlink{group___u_a_r_t___error___definition_ga275de35cb518c19c284764f3ecb1aac5}{HAL\_UART\_ERROR\_NONE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00513}00513     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_ga7e0aa32633802a0b89a96df4909ededf}{HAL\_UART\_STATE\_BUSY\_RX}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00514}00514     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a861b12a5639c751ef2c54a2508b7919f}{ReceptionType}} = \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\_UART\_RECEPTION\_TOIDLE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00515}00515 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00516}00516     \textcolor{comment}{/* Init tickstart for timeout management */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00517}00517     tickstart = \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00518}00518 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00519}00519     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ac12f5f1f6295b3c3327d5feabf5a96fb}{RxXferSize}}  = Size;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00520}00520     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ad95a26d6b12b7087bba3d1b769175db2}{RxXferCount}} = Size;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00521}00521 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00522}00522     \textcolor{comment}{/* Computation of UART mask to apply to RDR register */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00523}00523     \mbox{\hyperlink{group___u_a_r_t_ex___private___macros_gad9330184a8bd9399a36bcc93215a50d1}{UART\_MASK\_COMPUTATION}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00524}00524     uhMask = huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ab8dae64f3b86c2eb2b7a080fcdee3ef4}{Mask}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00525}00525 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00526}00526     \textcolor{comment}{/* In case of 9bits/No Parity transfer, pRxData needs to be handled as a uint16\_t pointer */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00527}00527     \textcolor{keywordflow}{if} ((huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a6b5ab0619ea07655a7f3bc92f78fafaa}{Init}}.\mbox{\hyperlink{struct_u_a_r_t___init_type_def_ae5e60b9a021fe0009588fc86c7584a5a}{WordLength}} == \mbox{\hyperlink{group___u_a_r_t_ex___word___length_gaf867be43de35fd3c32fe0b4dd4058f7e}{UART\_WORDLENGTH\_9B}}) \&\& (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a6b5ab0619ea07655a7f3bc92f78fafaa}{Init}}.\mbox{\hyperlink{struct_u_a_r_t___init_type_def_a1d60a99b8f3965f01ab23444b154ba79}{Parity}} == \mbox{\hyperlink{group___u_a_r_t___parity_ga270dea6e1a92dd83fe58802450bdd60c}{UART\_PARITY\_NONE}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00528}00528     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00529}00529       pdata8bits  = NULL;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00530}00530       pdata16bits = (uint16\_t *) pData;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00531}00531     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00532}00532     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00533}00533     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00534}00534       pdata8bits  = pData;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00535}00535       pdata16bits = NULL;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00536}00536     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00537}00537 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00538}00538     \mbox{\hyperlink{stm32f7xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00539}00539 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00540}00540     \textcolor{comment}{/* Initialize output number of received elements */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00541}00541     *RxLen = 0U;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00542}00542 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00543}00543     \textcolor{comment}{/* as long as data have to be received */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00544}00544     \textcolor{keywordflow}{while} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ad95a26d6b12b7087bba3d1b769175db2}{RxXferCount}} > 0U)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00545}00545     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00546}00546       \textcolor{comment}{/* Check if IDLE flag is set */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00547}00547       \textcolor{keywordflow}{if} (\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga261fe8a2afe84ec048113654266c5bf6}{\_\_HAL\_UART\_GET\_FLAG}}(huart, \mbox{\hyperlink{group___u_a_r_t___flags_ga5d7a320c505672f7508e3bd99f532a69}{UART\_FLAG\_IDLE}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00548}00548       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00549}00549         \textcolor{comment}{/* Clear IDLE flag in ISR */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00550}00550         \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\_\_HAL\_UART\_CLEAR\_FLAG}}(huart, \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga75ee9be0ac2236931ef3d9514e7dedf4}{UART\_CLEAR\_IDLEF}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00551}00551 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00552}00552         \textcolor{comment}{/* If Set, but no data ever received, clear flag without exiting loop */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00553}00553         \textcolor{comment}{/* If Set, and data has already been received, this means Idle Event is valid : End reception */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00554}00554         \textcolor{keywordflow}{if} (*RxLen > 0U)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00555}00555         \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00556}00556           huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00557}00557 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00558}00558           \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00559}00559         \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00560}00560       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00561}00561 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00562}00562       \textcolor{comment}{/* Check if RXNE flag is set */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00563}00563       \textcolor{keywordflow}{if} (\mbox{\hyperlink{group___u_a_r_t___exported___macros_ga261fe8a2afe84ec048113654266c5bf6}{\_\_HAL\_UART\_GET\_FLAG}}(huart, \mbox{\hyperlink{group___u_a_r_t___flags_ga9d1b2860d84a87abb05c3b2fed3c108c}{UART\_FLAG\_RXNE}}))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00564}00564       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00565}00565         \textcolor{keywordflow}{if} (pdata8bits == NULL)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00566}00566         \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00567}00567           *pdata16bits = (uint16\_t)(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_a8aa81f5cac584bdef4235fcc7e8fa745}{RDR}} \& uhMask);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00568}00568           pdata16bits++;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00569}00569         \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00570}00570         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00571}00571         \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00572}00572           *pdata8bits = (uint8\_t)(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_a8aa81f5cac584bdef4235fcc7e8fa745}{RDR}} \& (uint8\_t)uhMask);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00573}00573           pdata8bits++;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00574}00574         \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00575}00575         \textcolor{comment}{/* Increment number of received elements */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00576}00576         *RxLen += 1U;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00577}00577         huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ad95a26d6b12b7087bba3d1b769175db2}{RxXferCount}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00578}00578       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00579}00579 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00580}00580       \textcolor{comment}{/* Check for the Timeout */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00581}00581       \textcolor{keywordflow}{if} (Timeout != \mbox{\hyperlink{stm32f7xx__hal__def_8h_aad28bc64749c50dcedd6bf819fdc6974}{HAL\_MAX\_DELAY}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00582}00582       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00583}00583         \textcolor{keywordflow}{if} (((\mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}() -\/ tickstart) > Timeout) || (Timeout == 0U))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00584}00584         \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00585}00585           huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00586}00586 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00587}00587           \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5}{HAL\_TIMEOUT}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00588}00588         \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00589}00589       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00590}00590     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00591}00591 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00592}00592     \textcolor{comment}{/* Set number of received elements in output parameter : RxLen */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00593}00593     *RxLen = huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ac12f5f1f6295b3c3327d5feabf5a96fb}{RxXferSize}} -\/ huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_ad95a26d6b12b7087bba3d1b769175db2}{RxXferCount}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00594}00594     \textcolor{comment}{/* At end of Rx process, restore huart-\/>RxState to Ready */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00595}00595     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} = \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00596}00596 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00597}00597     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00598}00598   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00599}00599   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00600}00600   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00601}00601     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7}{HAL\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00602}00602   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00603}00603 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00604}00604 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00619}00619 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___u_a_r_t_ex___exported___functions___group3_gae70c60d3f42f1c205ebc834de99342a7}{HAL\_UARTEx\_ReceiveToIdle\_IT}}(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, uint8\_t *pData, uint16\_t Size)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00620}00620 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00621}00621   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00622}00622 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00623}00623   \textcolor{comment}{/* Check that a Rx process is not already ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00624}00624   \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} == \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00625}00625   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00626}00626     \textcolor{keywordflow}{if} ((pData == NULL) || (Size == 0U))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00627}00627     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00628}00628       \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00629}00629     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00630}00630 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00631}00631     \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00632}00632 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00633}00633     \textcolor{comment}{/* Set Reception type to reception till IDLE Event*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00634}00634     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a861b12a5639c751ef2c54a2508b7919f}{ReceptionType}} = \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\_UART\_RECEPTION\_TOIDLE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00635}00635 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00636}00636     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} =  \mbox{\hyperlink{group___u_a_r_t___private___functions_ga6629cec6016bd4dc0ea1bbce9e20898f}{UART\_Start\_Receive\_IT}}(huart, pData, Size);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00637}00637 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00638}00638     \textcolor{comment}{/* Check Rx process has been successfully started */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00639}00639     \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00640}00640     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00641}00641       \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a861b12a5639c751ef2c54a2508b7919f}{ReceptionType}} == \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\_UART\_RECEPTION\_TOIDLE}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00642}00642       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00643}00643         \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\_\_HAL\_UART\_CLEAR\_FLAG}}(huart, \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga75ee9be0ac2236931ef3d9514e7dedf4}{UART\_CLEAR\_IDLEF}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00644}00644         \mbox{\hyperlink{group___exported__macro_ga5daccb3b4245b833e81ff60fd1f4cf80}{ATOMIC\_SET\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5221d09eebd12445a20f221bf98066f8}{USART\_CR1\_IDLEIE}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00645}00645       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00646}00646       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00647}00647       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00648}00648         \textcolor{comment}{/* In case of errors already pending when reception is started,}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00649}00649 \textcolor{comment}{           Interrupts may have already been raised and lead to reception abortion.}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00650}00650 \textcolor{comment}{           (Overrun error for instance).}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00651}00651 \textcolor{comment}{           In such case Reception Type has been reset to HAL\_UART\_RECEPTION\_STANDARD. */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00652}00652         \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00653}00653       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00654}00654     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00655}00655 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00656}00656     \textcolor{keywordflow}{return} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00657}00657   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00658}00658   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00659}00659   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00660}00660     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7}{HAL\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00661}00661   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00662}00662 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00663}00663 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00681}00681 \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{group___u_a_r_t_ex___exported___functions___group3_gaf482a22a09d594e0aa687937aef17949}{HAL\_UARTEx\_ReceiveToIdle\_DMA}}(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, uint8\_t *pData, uint16\_t Size)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00682}00682 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00683}00683   \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00684}00684 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00685}00685   \textcolor{comment}{/* Check that a Rx process is not already ongoing */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00686}00686   \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a198c30da19a1529e1665bec6dc455815}{RxState}} == \mbox{\hyperlink{group___u_a_r_t___state___definition_ga5f9ebc1c0e62dbad395ecf020e88bce9}{HAL\_UART\_STATE\_READY}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00687}00687   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00688}00688     \textcolor{keywordflow}{if} ((pData == NULL) || (Size == 0U))}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00689}00689     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00690}00690       \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00691}00691     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00692}00692 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00693}00693     \mbox{\hyperlink{stm32f7xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(huart);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00694}00694 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00695}00695     \textcolor{comment}{/* Set Reception type to reception till IDLE Event*/}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00696}00696     huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a861b12a5639c751ef2c54a2508b7919f}{ReceptionType}} = \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\_UART\_RECEPTION\_TOIDLE}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00697}00697 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00698}00698     \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} =  \mbox{\hyperlink{group___u_a_r_t___private___functions_ga3821d988f1d6feb39dc86ab5010d0a9c}{UART\_Start\_Receive\_DMA}}(huart, pData, Size);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00699}00699 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00700}00700     \textcolor{comment}{/* Check Rx process has been successfully started */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00701}00701     \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00702}00702     \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00703}00703       \textcolor{keywordflow}{if} (huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a861b12a5639c751ef2c54a2508b7919f}{ReceptionType}} == \mbox{\hyperlink{group___u_a_r_t___r_e_c_e_p_t_i_o_n___t_y_p_e___values_ga0b12e95686ebebc1d6c8c77331e5bac6}{HAL\_UART\_RECEPTION\_TOIDLE}})}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00704}00704       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00705}00705         \mbox{\hyperlink{group___u_a_r_t___exported___macros_ga9bd035161d41cde4f2568c7af06493bf}{\_\_HAL\_UART\_CLEAR\_FLAG}}(huart, \mbox{\hyperlink{group___u_a_r_t___i_t___c_l_e_a_r___flags_ga75ee9be0ac2236931ef3d9514e7dedf4}{UART\_CLEAR\_IDLEF}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00706}00706         \mbox{\hyperlink{group___exported__macro_ga5daccb3b4245b833e81ff60fd1f4cf80}{ATOMIC\_SET\_BIT}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_ab0ec7102960640751d44e92ddac994f0}{CR1}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga5221d09eebd12445a20f221bf98066f8}{USART\_CR1\_IDLEIE}});}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00707}00707       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00708}00708       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00709}00709       \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00710}00710         \textcolor{comment}{/* In case of errors already pending when reception is started,}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00711}00711 \textcolor{comment}{           Interrupts may have already been raised and lead to reception abortion.}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00712}00712 \textcolor{comment}{           (Overrun error for instance).}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00713}00713 \textcolor{comment}{           In such case Reception Type has been reset to HAL\_UART\_RECEPTION\_STANDARD. */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00714}00714         \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00715}00715       \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00716}00716     \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00717}00717 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00718}00718     \textcolor{keywordflow}{return} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00719}00719   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00720}00720   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00721}00721   \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00722}00722     \textcolor{keywordflow}{return} \mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7}{HAL\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00723}00723   \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00724}00724 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00725}00725 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00737}00737 \textcolor{preprocessor}{\#if defined(USART\_CR1\_UESM)}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00738}00738 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00745}00745 \textcolor{keyword}{static} \textcolor{keywordtype}{void} UARTEx\_Wakeup\_AddressConfig(\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def}{UART\_HandleTypeDef}} *huart, UART\_WakeUpTypeDef WakeUpSelection)}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00746}00746 \{}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00747}00747   \mbox{\hyperlink{stm32f7xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\mbox{\hyperlink{group___u_a_r_t_ex___private___macros_gaa4cf2a15ad7ae46e2905debeef35a908}{IS\_UART\_ADDRESSLENGTH\_DETECT}}(WakeUpSelection.AddressLength));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00748}00748 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00749}00749   \textcolor{comment}{/* Set the USART address length */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00750}00750   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga2d8588feb26d8b36054a060d6b691823}{USART\_CR2\_ADDM7}}, WakeUpSelection.AddressLength);}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00751}00751 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00752}00752   \textcolor{comment}{/* Set the USART address node */}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00753}00753   \mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(huart-\/>\mbox{\hyperlink{struct_____u_a_r_t___handle_type_def_a2b30b6d22df80fbebd8ceefc6f162310}{Instance}}-\/>\mbox{\hyperlink{struct_u_s_a_r_t___type_def_afdfa307571967afb1d97943e982b6586}{CR2}}, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga3ee77fac25142271ad56d49685e518b3}{USART\_CR2\_ADD}}, ((uint32\_t)WakeUpSelection.Address << \mbox{\hyperlink{group___u_a_r_t___c_r2___a_d_d_r_e_s_s___l_s_b___p_o_s_ga28e21d5a49aa9e9812b870697c554d97}{UART\_CR2\_ADDRESS\_LSB\_POS}}));}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00754}00754 \}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00755}00755 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USART\_CR1\_UESM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00756}00756 }
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00761}00761 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HAL\_UART\_MODULE\_ENABLED */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f7xx__hal__uart__ex_8c_source_l00762}00762 }
+
+\end{DoxyCode}

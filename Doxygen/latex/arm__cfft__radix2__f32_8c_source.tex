@@ -1,0 +1,444 @@
+\hypertarget{arm__cfft__radix2__f32_8c_source}{}\doxysection{arm\+\_\+cfft\+\_\+radix2\+\_\+f32.\+c}
+\label{arm__cfft__radix2__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_radix2\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/TransformFunctions/arm\_cfft\_radix2\_f32.c}}
+\mbox{\hyperlink{arm__cfft__radix2__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_cfft\_radix2\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Radix-\/2 Decimation in Frequency CFFT \& CIFFT Floating point processing function}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{transform__functions_8h}{dsp/transform\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00031}00031 \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__cfft__radix2__f32_8c_aa0577fd1717a219c08235967d877731d}{arm\_radix2\_butterfly\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00032}00032         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00033}00033         uint32\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00034}00034   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pCoef,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00035}00035         uint16\_t twidCoefModifier);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00037}00037 \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__cfft__radix2__f32_8c_abab72ded0de6645d6977cdb0e61b3a3b}{arm\_radix2\_butterfly\_inverse\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00038}00038         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00039}00039         uint32\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00040}00040   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pCoef,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00041}00041         uint16\_t twidCoefModifier,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00042}00042         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} onebyfftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00044}00044 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__cfft__radix2__f32_8c_a81008b023cbc9d37b3ff849877d1eb52}{arm\_bitreversal\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00045}00045         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00046}00046         uint16\_t fftSize,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00047}00047         uint16\_t bitRevFactor,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00048}00048   \textcolor{keyword}{const} uint16\_t * pBitRevTab);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00067}\mbox{\hyperlink{group___complex_f_f_t_ga9fadd650b802f612ae558ddaab789a6d}{00067}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___complex_f_f_t_ga9fadd650b802f612ae558ddaab789a6d}{arm\_cfft\_radix2\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00068}00068 \textcolor{keyword}{const} \mbox{\hyperlink{structarm__cfft__radix2__instance__f32}{arm\_cfft\_radix2\_instance\_f32}} * S,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00069}00069       \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00070}00070 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00072}00072    \textcolor{keywordflow}{if} (S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_ad6ca6e223f986ebfd94c5ee1e410aa73}{ifftFlag}} == 1U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00073}00073    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00074}00074       \textcolor{comment}{/* Complex IFFT radix-\/2 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00075}00075       \mbox{\hyperlink{arm__cfft__radix2__f32_8c_abab72ded0de6645d6977cdb0e61b3a3b}{arm\_radix2\_butterfly\_inverse\_f32}}(pSrc, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_ab8db3bbe7c61e6bb8ca2a55e3446e11a}{fftLen}}, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_a8292d9775f5c5472f59915649fe3b378}{pTwiddle}},}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00076}00076       S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_afe772e5b5001c9d8e85032115a8df5bf}{twidCoefModifier}}, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_acf295a7b97b7d48a9cae4d1ab5ed00f6}{onebyfftLen}});}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00077}00077    \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00078}00078    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00079}00079    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00080}00080       \textcolor{comment}{/* Complex FFT radix-\/2 */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00081}00081       \mbox{\hyperlink{arm__cfft__radix2__f32_8c_aa0577fd1717a219c08235967d877731d}{arm\_radix2\_butterfly\_f32}}(pSrc, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_ab8db3bbe7c61e6bb8ca2a55e3446e11a}{fftLen}}, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_a8292d9775f5c5472f59915649fe3b378}{pTwiddle}},}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00082}00082       S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_afe772e5b5001c9d8e85032115a8df5bf}{twidCoefModifier}});}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00083}00083    \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00085}00085    \textcolor{keywordflow}{if} (S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_a09a221a818c6d0e064557a99e2fe9a8b}{bitReverseFlag}} == 1U)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00086}00086    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00087}00087       \textcolor{comment}{/* Bit Reversal */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00088}00088       \mbox{\hyperlink{arm__cfft__radix2__f32_8c_a81008b023cbc9d37b3ff849877d1eb52}{arm\_bitreversal\_f32}}(pSrc, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_ab8db3bbe7c61e6bb8ca2a55e3446e11a}{fftLen}}, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_a33386d95319dc3ee7097b3a8e52e01ec}{bitRevFactor}}, S-\/>\mbox{\hyperlink{structarm__cfft__radix2__instance__f32_a3b229432d381b0a511a9cdbe3aa74e78}{pBitRevTable}});}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00089}00089    \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00100}00100 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00101}00101 \textcolor{comment}{ ** Internal helper function used by the FFTs}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00102}00102 \textcolor{comment}{ ** -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00113}\mbox{\hyperlink{arm__cfft__radix2__f32_8c_aa0577fd1717a219c08235967d877731d}{00113}} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__cfft__radix2__f32_8c_aa0577fd1717a219c08235967d877731d}{arm\_radix2\_butterfly\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00114}00114         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00115}00115         uint32\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00116}00116   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pCoef,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00117}00117         uint16\_t twidCoefModifier)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00118}00118 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00120}00120         uint32\_t i, j, k, l;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00121}00121         uint32\_t n1, n2, ia;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00122}00122         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} xt, yt, cosVal, sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00123}00123         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} p0, p1, p2, p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00124}00124         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} a0, a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00126}00126 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00128}00128    \textcolor{comment}{/*  Initializations for the first stage */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00129}00129    n2 = fftLen >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00130}00130    ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00131}00131    i = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00132}00132 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00133}00133    \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00134}00134    \textcolor{keywordflow}{for} (k = n2; k > 0; k-\/-\/)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00135}00135    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00136}00136       cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00137}00137       sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00139}00139       \textcolor{comment}{/*  Twiddle coefficients index modifier */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00140}00140       ia += twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00141}00141 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00142}00142       \textcolor{comment}{/*  index calculation for the input as, */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00143}00143       \textcolor{comment}{/*  pSrc[i + 0], pSrc[i + fftLen/1] */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00144}00144       l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00146}00146       \textcolor{comment}{/*  Butterfly implementation */}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00147}00147       a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00148}00148       xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00150}00150       yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00151}00151       a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00153}00153       p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00154}00154       p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00155}00155       p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00156}00156       p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00158}00158       pSrc[2 * i]     = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00159}00159       pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00161}00161       pSrc[2 * l]     = p0 + p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00162}00162       pSrc[2 * l + 1] = p2 -\/ p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00164}00164       i++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00165}00165    \}                             \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00167}00167    twidCoefModifier <<= 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00168}00168 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00169}00169    \textcolor{comment}{// loop for stage}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00170}00170    \textcolor{keywordflow}{for} (k = n2; k > 2; k = k >> 1)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00171}00171    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00172}00172       n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00173}00173       n2 = n2 >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00174}00174       ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00176}00176       \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00177}00177       j = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00178}00178       \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00179}00179       \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00180}00180          cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00181}00181          sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00182}00182          ia += twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00183}00183 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00184}00184          \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00185}00185          i = j;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00186}00186          \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00187}00187          \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00188}00188             l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00189}00189             a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00190}00190             xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00191}00191 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00192}00192             yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00193}00193             a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00195}00195             p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00196}00196             p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00197}00197             p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00198}00198             p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00200}00200             pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00201}00201             pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00203}00203             pSrc[2 * l]     = p0 + p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00204}00204             pSrc[2 * l + 1] = p2 -\/ p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00206}00206             i += n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00207}00207          \} \textcolor{keywordflow}{while} ( i < fftLen );                        \textcolor{comment}{// butterfly loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00208}00208          j++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00209}00209       \} \textcolor{keywordflow}{while} ( j < n2);                          \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00210}00210       twidCoefModifier <<= 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00211}00211    \}                             \textcolor{comment}{// stages loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00213}00213    \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00214}00214    \textcolor{keywordflow}{for} (i = 0; i < fftLen; i += 2)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00215}00215    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00216}00216       a0 = pSrc[2 * i] + pSrc[2 * i + 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00217}00217       xt = pSrc[2 * i] -\/ pSrc[2 * i + 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00219}00219       yt = pSrc[2 * i + 1] -\/ pSrc[2 * i + 3];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00220}00220       a1 = pSrc[2 * i + 3] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00222}00222       pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00223}00223       pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00224}00224       pSrc[2 * i + 2] = xt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00225}00225       pSrc[2 * i + 3] = yt;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00226}00226    \}                             \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00227}00227 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00228}00228 \textcolor{preprocessor}{\#else }\textcolor{comment}{/* \#if defined (ARM\_MATH\_DSP) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00229}00229 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00230}00230    n2 = fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00232}00232    \textcolor{comment}{// loop for stage}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00233}00233    \textcolor{keywordflow}{for} (k = fftLen; k > 1; k = k >> 1)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00234}00234    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00235}00235       n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00236}00236       n2 = n2 >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00237}00237       ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00238}00238 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00239}00239       \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00240}00240       j = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00241}00241       \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00242}00242       \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00243}00243          cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00244}00244          sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00245}00245          ia += twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00246}00246 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00247}00247          \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00248}00248          i = j;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00249}00249          \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00250}00250          \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00251}00251             l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00252}00252             a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00253}00253             xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00255}00255             yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00256}00256             a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00257}00257 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00258}00258             p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00259}00259             p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00260}00260             p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00261}00261             p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00263}00263             pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00264}00264             pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00266}00266             pSrc[2 * l]     = p0 + p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00267}00267             pSrc[2 * l + 1] = p2 -\/ p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00269}00269             i += n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00270}00270          \} \textcolor{keywordflow}{while} (i < fftLen);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00271}00271          j++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00272}00272       \} \textcolor{keywordflow}{while} (j < n2);}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00273}00273       twidCoefModifier <<= 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00274}00274    \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00275}00275 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00276}00276 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_DSP) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00278}00278 \}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00279}00279 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00280}00280 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00281}\mbox{\hyperlink{arm__cfft__radix2__f32_8c_abab72ded0de6645d6977cdb0e61b3a3b}{00281}} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__cfft__radix2__f32_8c_abab72ded0de6645d6977cdb0e61b3a3b}{arm\_radix2\_butterfly\_inverse\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00282}00282         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00283}00283         uint32\_t fftLen,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00284}00284   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pCoef,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00285}00285         uint16\_t twidCoefModifier,}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00286}00286         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} onebyfftLen)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00287}00287 \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00289}00289         uint32\_t i, j, k, l;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00290}00290         uint32\_t n1, n2, ia;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00291}00291         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} xt, yt, cosVal, sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00292}00292         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} p0, p1, p2, p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00293}00293         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} a0, a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00295}00295 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_DSP)}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00296}00296 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00297}00297    n2 = fftLen >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00298}00298    ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00299}00299 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00300}00300    \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00301}00301    \textcolor{keywordflow}{for} (i = 0; i < n2; i++)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00302}00302    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00303}00303       cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00304}00304       sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00305}00305       ia += twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00307}00307       l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00308}00308       a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00309}00309       xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00311}00311       yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00312}00312       a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00313}00313 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00314}00314       p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00315}00315       p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00316}00316       p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00317}00317       p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00318}00318 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00319}00319       pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00320}00320       pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00321}00321 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00322}00322       pSrc[2 * l]     = p0 -\/ p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00323}00323       pSrc[2 * l + 1] = p2 + p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00324}00324    \}                             \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00326}00326    twidCoefModifier <<= 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00327}00327 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00328}00328    \textcolor{comment}{// loop for stage}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00329}00329    \textcolor{keywordflow}{for} (k = fftLen / 2; k > 2; k = k >> 1)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00330}00330    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00331}00331       n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00332}00332       n2 = n2 >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00333}00333       ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00334}00334 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00335}00335       \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00336}00336       j = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00337}00337       \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00338}00338       \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00339}00339          cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00340}00340          sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00341}00341          ia += twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00342}00342 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00343}00343          \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00344}00344          i = j;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00345}00345          \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00346}00346          \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00347}00347             l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00348}00348             a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00349}00349             xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00350}00350 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00351}00351             yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00352}00352             a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00353}00353 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00354}00354             p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00355}00355             p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00356}00356             p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00357}00357             p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00358}00358 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00359}00359             pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00360}00360             pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00361}00361 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00362}00362             pSrc[2 * l]     = p0 -\/ p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00363}00363             pSrc[2 * l + 1] = p2 + p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00364}00364 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00365}00365             i += n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00366}00366          \} \textcolor{keywordflow}{while} ( i < fftLen );                 \textcolor{comment}{// butterfly loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00367}00367          j++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00368}00368       \} \textcolor{keywordflow}{while} (j < n2);                      \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00369}00369 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00370}00370       twidCoefModifier <<= 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00371}00371    \}                             \textcolor{comment}{// stages loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00372}00372 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00373}00373    \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00374}00374    \textcolor{keywordflow}{for} (i = 0; i < fftLen; i += 2)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00375}00375    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00376}00376       a0 = pSrc[2 * i] + pSrc[2 * i + 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00377}00377       xt = pSrc[2 * i] -\/ pSrc[2 * i + 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00378}00378 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00379}00379       a1 = pSrc[2 * i + 3] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00380}00380       yt = pSrc[2 * i + 1] -\/ pSrc[2 * i + 3];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00381}00381 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00382}00382       p0 = a0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00383}00383       p2 = xt * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00384}00384       p1 = a1 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00385}00385       p3 = yt * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00386}00386 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00387}00387       pSrc[2 * i] = p0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00388}00388       pSrc[2 * i + 1] = p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00389}00389       pSrc[2 * i + 2] = p2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00390}00390       pSrc[2 * i + 3] = p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00391}00391    \}                             \textcolor{comment}{// butterfly loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00392}00392 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00393}00393 \textcolor{preprocessor}{\#else }\textcolor{comment}{/* \#if defined (ARM\_MATH\_DSP) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00394}00394 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00395}00395    n2 = fftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00396}00396 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00397}00397    \textcolor{comment}{// loop for stage}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00398}00398    \textcolor{keywordflow}{for} (k = fftLen; k > 2; k = k >> 1)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00399}00399    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00400}00400       n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00401}00401       n2 = n2 >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00402}00402       ia = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00403}00403 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00404}00404       \textcolor{comment}{// loop for groups}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00405}00405       j = 0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00406}00406       \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00407}00407       \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00408}00408          cosVal = pCoef[ia * 2];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00409}00409          sinVal = pCoef[(ia * 2) + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00410}00410          ia = ia + twidCoefModifier;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00411}00411 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00412}00412          \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00413}00413          i = j;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00414}00414          \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00415}00415          \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00416}00416             l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00417}00417             a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00418}00418             xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00420}00420             yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00421}00421             a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00422}00422 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00423}00423             p0 = xt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00424}00424             p1 = yt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00425}00425             p2 = yt * cosVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00426}00426             p3 = xt * sinVal;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00427}00427 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00428}00428             pSrc[2 * i] = a0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00429}00429             pSrc[2 * i + 1] = a1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00430}00430 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00431}00431             pSrc[2 * l]     = p0 -\/ p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00432}00432             pSrc[2 * l + 1] = p2 + p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00433}00433 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00434}00434             i += n1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00435}00435          \} \textcolor{keywordflow}{while} ( i < fftLen );                    \textcolor{comment}{// butterfly loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00436}00436          j++;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00437}00437       \} \textcolor{keywordflow}{while} ( j < n2 );                      \textcolor{comment}{// groups loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00438}00438 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00439}00439       twidCoefModifier = twidCoefModifier << 1U;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00440}00440    \}                             \textcolor{comment}{// stages loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00441}00441 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00442}00442    n1 = n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00443}00443    n2 = n2 >> 1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00444}00444 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00445}00445    \textcolor{comment}{// loop for butterfly}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00446}00446    \textcolor{keywordflow}{for} (i = 0; i < fftLen; i += n1)}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00447}00447    \{}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00448}00448       l = i + n2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00449}00449 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00450}00450       a0 = pSrc[2 * i] + pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00451}00451       xt = pSrc[2 * i] -\/ pSrc[2 * l];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00452}00452 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00453}00453       a1 = pSrc[2 * l + 1] + pSrc[2 * i + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00454}00454       yt = pSrc[2 * i + 1] -\/ pSrc[2 * l + 1];}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00455}00455 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00456}00456       p0 = a0 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00457}00457       p2 = xt * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00458}00458       p1 = a1 * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00459}00459       p3 = yt * onebyfftLen;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00460}00460 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00461}00461       pSrc[2 * i] = p0;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00462}00462       pSrc[2 * l] = p2;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00463}00463 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00464}00464       pSrc[2 * i + 1] = p1;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00465}00465       pSrc[2 * l + 1] = p3;}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00466}00466    \}                             \textcolor{comment}{// butterfly loop end}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00467}00467 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00468}00468 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_DSP) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00469}00469 }
+\DoxyCodeLine{\Hypertarget{arm__cfft__radix2__f32_8c_source_l00470}00470 \}}
+
+\end{DoxyCode}

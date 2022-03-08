@@ -1,0 +1,59 @@
+\hypertarget{tz__context_8h_source}{}\doxysection{tz\+\_\+context.\+h}
+\label{tz__context_8h_source}\index{Autodrone32/Libraries/CMSIS/Include/tz\_context.h@{Autodrone32/Libraries/CMSIS/Include/tz\_context.h}}
+\mbox{\hyperlink{tz__context_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00001}00001 \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00002}00002 \textcolor{comment}{ * @file     tz\_context.h}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00003}00003 \textcolor{comment}{ * @brief    Context Management for Armv8-\/M TrustZone}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00004}00004 \textcolor{comment}{ * @version  V1.0.1}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00005}00005 \textcolor{comment}{ * @date     10. January 2018}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00006}00006 \textcolor{comment}{ ******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00007}00007 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00008}00008 \textcolor{comment}{ * Copyright (c) 2017-\/2018 Arm Limited. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00009}00009 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00010}00010 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00011}00011 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00012}00012 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00013}00013 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00014}00014 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00016}00016 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00017}00017 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00018}00018 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00019}00019 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00020}00020 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00021}00021 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00022}00022 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00023}00023 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00025}00025 \textcolor{preprocessor}{\#if   defined ( \_\_ICCARM\_\_ )}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00026}00026 \textcolor{preprocessor}{  \#pragma system\_include         }\textcolor{comment}{/* treat file as system include file for MISRA check */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00027}00027 \textcolor{preprocessor}{\#elif defined (\_\_clang\_\_)}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00028}00028 \textcolor{preprocessor}{  \#pragma clang system\_header   }\textcolor{comment}{/* treat file as system include file */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00029}00029 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00031}00031 \textcolor{preprocessor}{\#ifndef TZ\_CONTEXT\_H}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00032}\mbox{\hyperlink{tz__context_8h_a0200b87f7b7d4ee2d4e12149f51f5302}{00032}} \textcolor{preprocessor}{\#define TZ\_CONTEXT\_H}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00033}00033  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00034}00034 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00035}00035  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00036}00036 \textcolor{preprocessor}{\#ifndef TZ\_MODULEID\_T}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00037}\mbox{\hyperlink{tz__context_8h_a78775dae56f0c9698cdab6e1ca74503f}{00037}} \textcolor{preprocessor}{\#define TZ\_MODULEID\_T}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00039}\mbox{\hyperlink{tz__context_8h_ad5ef21485fe5f60263bc0b48006202cb}{00039}} \textcolor{keyword}{typedef} uint32\_t \mbox{\hyperlink{tz__context_8h_ad5ef21485fe5f60263bc0b48006202cb}{TZ\_ModuleId\_t}};}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00040}00040 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00041}00041  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00043}\mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{00043}} \textcolor{keyword}{typedef} uint32\_t \mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{TZ\_MemoryId\_t}};}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00044}00044   }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00047}\mbox{\hyperlink{tz__context_8h_a926e2ec472535a6d2b8125be1a79e3c0}{00047}} uint32\_t \mbox{\hyperlink{tz__context_8h_a926e2ec472535a6d2b8125be1a79e3c0}{TZ\_InitContextSystem\_S}} (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00048}00048  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00053}\mbox{\hyperlink{tz__context_8h_acd016f166bee549a0d3e970132e64a90}{00053}} \mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{TZ\_MemoryId\_t}} \mbox{\hyperlink{tz__context_8h_acd016f166bee549a0d3e970132e64a90}{TZ\_AllocModuleContext\_S}} (\mbox{\hyperlink{tz__context_8h_ad5ef21485fe5f60263bc0b48006202cb}{TZ\_ModuleId\_t}} module);}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00054}00054  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00058}\mbox{\hyperlink{tz__context_8h_ac84f678fbe974f8b02c683e0b8046524}{00058}} uint32\_t \mbox{\hyperlink{tz__context_8h_ac84f678fbe974f8b02c683e0b8046524}{TZ\_FreeModuleContext\_S}} (\mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{TZ\_MemoryId\_t}} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00059}00059  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00063}\mbox{\hyperlink{tz__context_8h_a4748f6bcdd5fed279ac5a6cd7eca2689}{00063}} uint32\_t \mbox{\hyperlink{tz__context_8h_a4748f6bcdd5fed279ac5a6cd7eca2689}{TZ\_LoadContext\_S}} (\mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{TZ\_MemoryId\_t}} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00064}00064  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00068}\mbox{\hyperlink{tz__context_8h_ac106570f4905f82922fd335aeb08a1bf}{00068}} uint32\_t \mbox{\hyperlink{tz__context_8h_ac106570f4905f82922fd335aeb08a1bf}{TZ\_StoreContext\_S}} (\mbox{\hyperlink{tz__context_8h_a7acd18a8eb2350fe7ad5715fdbfa8f8c}{TZ\_MemoryId\_t}} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00069}00069  }
+\DoxyCodeLine{\Hypertarget{tz__context_8h_source_l00070}00070 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// TZ\_CONTEXT\_H}}
+
+\end{DoxyCode}

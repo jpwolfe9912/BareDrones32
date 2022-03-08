@@ -1,0 +1,120 @@
+\hypertarget{group___r_c_c___get___clock__source}{}\doxysection{Get Clock source}
+\label{group___r_c_c___get___clock__source}\index{Get Clock source@{Get Clock source}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___r_c_c___get___clock__source_ga32f72b8c5b7e97b415867c57f9fafed6}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+SYSCLK\+\_\+\+CONFIG}}(\+\_\+\+\_\+\+RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+\_\+)~\mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\+\_\+\+REG}}(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$CFGR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga0eea5e5f7743a7e8995b8beeb18355c1}{RCC\+\_\+\+CFGR\+\_\+\+SW}}, (\+\_\+\+\_\+\+RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Macro to configure the system clock source. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___r_c_c___get___clock__source_gac99c2453d9e77c8b457acc0210e754c2}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+SYSCLK\+\_\+\+SOURCE}}()~(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$CFGR \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga15bf2269500dc97e137315f44aa015c9}{RCC\+\_\+\+CFGR\+\_\+\+SWS}})
+\begin{DoxyCompactList}\small\item\em Macro to get the clock source used as system clock. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___r_c_c___get___clock__source_ga9e21c193560567cfc3f908d733d9b19b}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+CONFIG}}(\+\_\+\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+\_\+)~                  (\mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\+\_\+\+REG}}(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$BDCR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa9e761cf5e09906a38e9c7e8e750514c}{RCC\+\_\+\+BDCR\+\_\+\+LSEDRV}}, (uint32\+\_\+t)(\+\_\+\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+\_\+) ))
+\begin{DoxyCompactList}\small\item\em Macro to configures the External Low Speed oscillator (LSE) drive capability. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___r_c_c___get___clock__source_ga3ea1390f8124e2b3b8d53e95541d6e53}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+PLL\+\_\+\+OSCSOURCE}}()~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$PLLCFGR \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga92cb53ea81d2c47537eb217cc6659a2e}{RCC\+\_\+\+PLLCFGR\+\_\+\+PLLSRC}}))
+\begin{DoxyCompactList}\small\item\em Macro to get the oscillator used as PLL clock source. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+~\newline
+ 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group___r_c_c___get___clock__source_ga3ea1390f8124e2b3b8d53e95541d6e53}\label{group___r_c_c___get___clock__source_ga3ea1390f8124e2b3b8d53e95541d6e53}} 
+\index{Get Clock source@{Get Clock source}!\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE@{\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE}}
+\index{\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE@{\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE}!Get Clock source@{Get Clock source}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE}{\_\_HAL\_RCC\_GET\_PLL\_OSCSOURCE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+PLL\+\_\+\+OSCSOURCE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~((uint32\+\_\+t)(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$PLLCFGR \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga92cb53ea81d2c47537eb217cc6659a2e}{RCC\+\_\+\+PLLCFGR\+\_\+\+PLLSRC}}))}
+
+
+
+Macro to get the oscillator used as PLL clock source. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em The} & oscillator used as PLL clock source. The returned value can be one of the following\+:
+\begin{DoxyItemize}
+\item RCC\+\_\+\+PLLSOURCE\+\_\+\+HSI\+: HSI oscillator is used as PLL clock source.
+\item RCC\+\_\+\+PLLSOURCE\+\_\+\+HSE\+: HSE oscillator is used as PLL clock source. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source_l00980}{980}} of file \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source}{stm32f7xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\mbox{\Hypertarget{group___r_c_c___get___clock__source_gac99c2453d9e77c8b457acc0210e754c2}\label{group___r_c_c___get___clock__source_gac99c2453d9e77c8b457acc0210e754c2}} 
+\index{Get Clock source@{Get Clock source}!\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE@{\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE}}
+\index{\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE@{\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE}!Get Clock source@{Get Clock source}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE}{\_\_HAL\_RCC\_GET\_SYSCLK\_SOURCE}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+SYSCLK\+\_\+\+SOURCE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$CFGR \& \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga15bf2269500dc97e137315f44aa015c9}{RCC\+\_\+\+CFGR\+\_\+\+SWS}})}
+
+
+
+Macro to get the clock source used as system clock. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em The} & clock source used as system clock. The returned value can be one of the following\+:
+\begin{DoxyItemize}
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+STATUS\+\_\+\+HSI\+: HSI used as system clock.
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+STATUS\+\_\+\+HSE\+: HSE used as system clock.
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+STATUS\+\_\+\+PLLCLK\+: PLL used as system clock. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source_l00955}{955}} of file \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source}{stm32f7xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\mbox{\Hypertarget{group___r_c_c___get___clock__source_ga9e21c193560567cfc3f908d733d9b19b}\label{group___r_c_c___get___clock__source_ga9e21c193560567cfc3f908d733d9b19b}} 
+\index{Get Clock source@{Get Clock source}!\_\_HAL\_RCC\_LSEDRIVE\_CONFIG@{\_\_HAL\_RCC\_LSEDRIVE\_CONFIG}}
+\index{\_\_HAL\_RCC\_LSEDRIVE\_CONFIG@{\_\_HAL\_RCC\_LSEDRIVE\_CONFIG}!Get Clock source@{Get Clock source}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_RCC\_LSEDRIVE\_CONFIG}{\_\_HAL\_RCC\_LSEDRIVE\_CONFIG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+CONFIG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+\_\+ }\end{DoxyParamCaption})~                  (\mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\+\_\+\+REG}}(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$BDCR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_gaa9e761cf5e09906a38e9c7e8e750514c}{RCC\+\_\+\+BDCR\+\_\+\+LSEDRV}}, (uint32\+\_\+t)(\+\_\+\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+\_\+) ))}
+
+
+
+Macro to configures the External Low Speed oscillator (LSE) drive capability. 
+
+\begin{DoxyNote}{Note}
+As the LSE is in the Backup domain and write access is denied to this domain after reset, you have to enable write access using \mbox{\hyperlink{group___p_w_r___exported___functions___group1_ga3d07cef39bf294db4aed7e06e5dbf9af}{HAL\+\_\+\+PWR\+\_\+\+Enable\+Bk\+Up\+Access()}} function before to configure the LSE (to be done once after reset). 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+RCC\+\_\+\+LSEDRIVE\+\_\+\+\_\+} & specifies the new state of the LSE drive capability. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item RCC\+\_\+\+LSEDRIVE\+\_\+\+LOW\+: LSE oscillator low drive capability. \item RCC\+\_\+\+LSEDRIVE\+\_\+\+MEDIUMLOW\+: LSE oscillator medium low drive capability. \item RCC\+\_\+\+LSEDRIVE\+\_\+\+MEDIUMHIGH\+: LSE oscillator medium high drive capability. \item RCC\+\_\+\+LSEDRIVE\+\_\+\+HIGH\+: LSE oscillator high drive capability. \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source_l00971}{971}} of file \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source}{stm32f7xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\mbox{\Hypertarget{group___r_c_c___get___clock__source_ga32f72b8c5b7e97b415867c57f9fafed6}\label{group___r_c_c___get___clock__source_ga32f72b8c5b7e97b415867c57f9fafed6}} 
+\index{Get Clock source@{Get Clock source}!\_\_HAL\_RCC\_SYSCLK\_CONFIG@{\_\_HAL\_RCC\_SYSCLK\_CONFIG}}
+\index{\_\_HAL\_RCC\_SYSCLK\_CONFIG@{\_\_HAL\_RCC\_SYSCLK\_CONFIG}!Get Clock source@{Get Clock source}}
+\doxysubsubsection{\texorpdfstring{\_\_HAL\_RCC\_SYSCLK\_CONFIG}{\_\_HAL\_RCC\_SYSCLK\_CONFIG}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+SYSCLK\+\_\+\+CONFIG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+\_\+ }\end{DoxyParamCaption})~\mbox{\hyperlink{group___exported__macro_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\+\_\+\+REG}}(\mbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/$>$CFGR, \mbox{\hyperlink{group___peripheral___registers___bits___definition_ga0eea5e5f7743a7e8995b8beeb18355c1}{RCC\+\_\+\+CFGR\+\_\+\+SW}}, (\+\_\+\+\_\+\+RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+\_\+))}
+
+
+
+Macro to configure the system clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+\_\+} & specifies the system clock source. This parameter can be one of the following values\+:
+\begin{DoxyItemize}
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+HSI\+: HSI oscillator is used as system clock source.
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+HSE\+: HSE oscillator is used as system clock source.
+\item RCC\+\_\+\+SYSCLKSOURCE\+\_\+\+PLLCLK\+: PLL output is used as system clock source. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source_l00946}{946}} of file \mbox{\hyperlink{stm32f7xx__hal__rcc_8h_source}{stm32f7xx\+\_\+hal\+\_\+rcc.\+h}}.
+

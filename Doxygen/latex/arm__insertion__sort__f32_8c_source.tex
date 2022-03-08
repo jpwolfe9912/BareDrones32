@@ -1,0 +1,70 @@
+\hypertarget{arm__insertion__sort__f32_8c_source}{}\doxysection{arm\+\_\+insertion\+\_\+sort\+\_\+f32.\+c}
+\label{arm__insertion__sort__f32_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_insertion\_sort\_f32.c@{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_insertion\_sort\_f32.c}}
+\mbox{\hyperlink{arm__insertion__sort__f32_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_insertion\_sort\_f32.c}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Floating point insertion sort}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{support__functions_8h}{dsp/support\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00030}00030 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__sorting_8h}{arm\_sorting.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00058}\mbox{\hyperlink{group___sorting_ga222cc58e433c7bb2e2ddbf299285357a}{00058}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___sorting_ga222cc58e433c7bb2e2ddbf299285357a}{arm\_insertion\_sort\_f32}}(}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00059}00059   \textcolor{keyword}{const} \mbox{\hyperlink{structarm__sort__instance__f32}{arm\_sort\_instance\_f32}} * S, }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00060}00060         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pSrc, }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00061}00061         \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}* pDst, }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00062}00062         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00063}00063 \{}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00064}00064     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pA;}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00065}00065     uint8\_t dir = S-\/>\mbox{\hyperlink{structarm__sort__instance__f32_ac6f3976ef6b482e4c2b4a865bb362518}{dir}};}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00066}00066     uint32\_t i, j;}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00067}00067     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00069}00069     \textcolor{keywordflow}{if}(pSrc != pDst) \textcolor{comment}{// out-\/of-\/place}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00070}00070     \{   }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00071}00071         memcpy(pDst, pSrc, blockSize*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}}) );}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00072}00072         pA = pDst;}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00073}00073     \}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00074}00074     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00075}00075         pA = pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00076}00076  }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00077}00077     \textcolor{comment}{// Real all the element of the input array}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00078}00078     \textcolor{keywordflow}{for}(i=0; i<blockSize; i++)}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00079}00079     \{}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00080}00080     \textcolor{comment}{// Move the i-\/th element to the right position}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00081}00081         \textcolor{keywordflow}{for} (j = i; j>0 \&\& dir==(pA[j]<pA[j-\/1]); j-\/-\/)}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00082}00082         \{}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00083}00083         \textcolor{comment}{// Swap}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00084}00084             \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}} = pA[j];}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00085}00085         pA[j] = pA[j-\/1];}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00086}00086         pA[j-\/1] = \mbox{\hyperlink{drv__serial_8c_a2643ad9dd7301f6523ce47c52fab0058}{temp}};}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00087}00087         \}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00089}00089 \} }
+\DoxyCodeLine{\Hypertarget{arm__insertion__sort__f32_8c_source_l00090}00090 }
+
+\end{DoxyCode}

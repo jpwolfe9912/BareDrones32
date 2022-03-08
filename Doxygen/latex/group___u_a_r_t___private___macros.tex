@@ -1,0 +1,1050 @@
+\hypertarget{group___u_a_r_t___private___macros}{}\doxysection{UART Private Macros}
+\label{group___u_a_r_t___private___macros}\index{UART Private Macros@{UART Private Macros}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga3b4ab2ec164132268de4719de4625a82}{UART\+\_\+\+DIV\+\_\+\+SAMPLING8}}(\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)~((((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+)$\ast$2U) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em BRR division operation to set BRR register in 8-\/bit oversampling mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gac2423ff86559eb91198bcc438caec865}{UART\+\_\+\+DIV\+\_\+\+SAMPLING16}}(\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)~(((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em BRR division operation to set BRR register in 16-\/bit oversampling mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaa8f50c3cc4c04875ea490fb81a08731d}{IS\+\_\+\+UART\+\_\+\+BAUDRATE}}(\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+) $<$ 27000001U)
+\begin{DoxyCompactList}\small\item\em Check UART Baud rate. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8acf6b6648717b7192439f1b426321a4}{IS\+\_\+\+UART\+\_\+\+ASSERTIONTIME}}(\+\_\+\+\_\+\+TIME\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)
+\begin{DoxyCompactList}\small\item\em Check UART assertion time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7e060b24713e3fb49f4f0f4fa71dd85f}{IS\+\_\+\+UART\+\_\+\+DEASSERTIONTIME}}(\+\_\+\+\_\+\+TIME\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)
+\begin{DoxyCompactList}\small\item\em Check UART deassertion time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga0fa4dec621a59f8c07f42548cdbb7f18}{IS\+\_\+\+UART\+\_\+\+STOPBITS}}(\+\_\+\+\_\+\+STOPBITS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame number of stop bits is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga57b0798bfa43d210f492eb3c5e218a86}{IS\+\_\+\+UART\+\_\+\+PARITY}}(\+\_\+\+\_\+\+PARITY\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame parity is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga92977d9daf0c39d875df200ae0ae6acd}{IS\+\_\+\+UART\+\_\+\+HARDWARE\+\_\+\+FLOW\+\_\+\+CONTROL}}(\+\_\+\+\_\+\+CONTROL\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART hardware flow control is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gae5b637b9191dea1f8fd3846b886dd38b}{IS\+\_\+\+UART\+\_\+\+MODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)~((((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) \& ($\sim$((uint32\+\_\+t)(\mbox{\hyperlink{group___u_a_r_t___mode_gab47c162935901e89322e2ce6700b6744}{UART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}})))) == 0x00U) \&\& ((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) != 0x00U))
+\begin{DoxyCompactList}\small\item\em Ensure that UART communication mode is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga754855879401ab846803a03eec2f7f10}{IS\+\_\+\+UART\+\_\+\+STATE}}(\+\_\+\+\_\+\+STATE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8d918253e015c4a8aa07316a89f8265e}{IS\+\_\+\+UART\+\_\+\+OVERSAMPLING}}(\+\_\+\+\_\+\+SAMPLING\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART oversampling is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga6452a4420dac4abd4f0ea0e1677f37a9}{IS\+\_\+\+UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE}}(\+\_\+\+\_\+\+ONEBIT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame sampling is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga88f07bdfe1fcdff17edbbba2f196110d}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATEMODE}}(\+\_\+\+\_\+\+MODE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART auto Baud rate detection mode is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaa2ad21da17caf46375c7bd4efbde8b17}{IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT}}(\+\_\+\+\_\+\+TIMEOUT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART receiver timeout setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaee43ee42a5b1ba061322ab0763c6ef4f}{IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+VALUE}}(\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+)~((\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+) $<$= 0x\+FFFFFFU)
+\begin{DoxyCompactList}\small\item\em Check the receiver timeout value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga13d7f9876db68d9d6316204a8a2588de}{IS\+\_\+\+UART\+\_\+\+LIN}}(\+\_\+\+\_\+\+LIN\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART LIN state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gac8ac0d0dc7fad5edf53150ce05d902ee}{IS\+\_\+\+UART\+\_\+\+LIN\+\_\+\+BREAK\+\_\+\+DETECT\+\_\+\+LENGTH}}(\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART LIN break detection length is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga433107c59f6d1c66a38e53e38fdc0a57}{IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+TX}}(\+\_\+\+\_\+\+DMATX\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA TX state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga85c4c9339de2076106942cd9ab61ad77}{IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+RX}}(\+\_\+\+\_\+\+DMARX\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA RX state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga2298a324be00d275d98b336569ee3f97}{IS\+\_\+\+UART\+\_\+\+HALF\+\_\+\+DUPLEX}}(\+\_\+\+\_\+\+HDSEL\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART half-\/duplex state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga144aecf3ad6ca3ce6653ae113c9a6141}{IS\+\_\+\+UART\+\_\+\+WAKEUPMETHOD}}(\+\_\+\+\_\+\+WAKEUP\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART wake-\/up method is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga5cf62c9c598753525888cc7c24be3cb2}{IS\+\_\+\+UART\+\_\+\+REQUEST\+\_\+\+PARAMETER}}(\+\_\+\+\_\+\+PARAM\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART request parameter is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gad91bec43fbbaa25cec138ef8fcfbdad5}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+INIT}}(\+\_\+\+\_\+\+INIT\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART advanced features initialization is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga4295a61b0afe152975609cedb9034fdc}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+TXINV}}(\+\_\+\+\_\+\+TXINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame TX inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7f53ad0eca57b7ffabcae9007b7bbfa6}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+RXINV}}(\+\_\+\+\_\+\+RXINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame RX inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga8f6cd85ae5ce7f8dd0ed9227ef5154f6}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINV}}(\+\_\+\+\_\+\+DATAINV\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame data inversion setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaf095ad39d3035f722c6976921a84dbea}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP}}(\+\_\+\+\_\+\+SWAP\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame RX/\+TX pins swap setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga57b4229ecb4387a0bb9137fed8de13b8}{IS\+\_\+\+UART\+\_\+\+OVERRUN}}(\+\_\+\+\_\+\+OVERRUN\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame overrun setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga7318c3e5c175b896444697a0a9407b2f}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE}}(\+\_\+\+\_\+\+AUTOBAUDRATE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART auto Baud rate state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga15b46dfa0d80a4583864a31da73e3c99}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DMAONRXERROR}}(\+\_\+\+\_\+\+DMA\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART DMA enabling or disabling on error setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga82289de330949918b037acf94fb12aef}{IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST}}(\+\_\+\+\_\+\+MSBFIRST\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART frame MSB first setting is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_ga9df22e11f8bc82847fbe16b6f073ae04}{IS\+\_\+\+UART\+\_\+\+MUTE\+\_\+\+MODE}}(\+\_\+\+\_\+\+MUTE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART mute mode state is valid. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___u_a_r_t___private___macros_gaecf169f01673ae67b12b3155e074bf12}{IS\+\_\+\+UART\+\_\+\+DE\+\_\+\+POLARITY}}(\+\_\+\+\_\+\+POLARITY\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Ensure that UART driver enable polarity is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga7318c3e5c175b896444697a0a9407b2f}\label{group___u_a_r_t___private___macros_ga7318c3e5c175b896444697a0a9407b2f}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_AUTOBAUDRATE@{IS\_UART\_ADVFEATURE\_AUTOBAUDRATE}}
+\index{IS\_UART\_ADVFEATURE\_AUTOBAUDRATE@{IS\_UART\_ADVFEATURE\_AUTOBAUDRATE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_AUTOBAUDRATE}{IS\_UART\_ADVFEATURE\_AUTOBAUDRATE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+AUTOBAUDRATE\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                            (((\_\_AUTOBAUDRATE\_\_) == \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___auto_baud_rate___enable_gaca66b20599569c6b7576f0600050bb61}{UART\_ADVFEATURE\_AUTOBAUDRATE\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                                           ((\_\_AUTOBAUDRATE\_\_) == \mbox{\hyperlink{group___u_a_r_t___auto_baud_rate___enable_gad4eee70c6d23721dd95c6a2465e10ca4}{UART\_ADVFEATURE\_AUTOBAUDRATE\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART auto Baud rate state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+AUTOBAUDRATE\+\_\+\+\_\+} & UART auto Baud rate state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{AUTOBAUDRATE}} is valid) or RESET ({\bfseries{AUTOBAUDRATE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01423}{1423}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga88f07bdfe1fcdff17edbbba2f196110d}\label{group___u_a_r_t___private___macros_ga88f07bdfe1fcdff17edbbba2f196110d}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE@{IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE}}
+\index{IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE@{IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE}{IS\_UART\_ADVFEATURE\_AUTOBAUDRATEMODE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+AUTOBAUDRATEMODE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+MODE\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                        (((\_\_MODE\_\_) == \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga87bcd5d6ca1b354785788366c9c47606}{UART\_ADVFEATURE\_AUTOBAUDRATE\_ONSTARTBIT}})    || \(\backslash\)}
+\DoxyCodeLine{                                                        ((\_\_MODE\_\_) == \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga8ac0407640f138067bdcf2ad6cdc04cc}{UART\_ADVFEATURE\_AUTOBAUDRATE\_ONFALLINGEDGE}}) || \(\backslash\)}
+\DoxyCodeLine{                                                        ((\_\_MODE\_\_) == \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_ga0bdbaec8f1186a4bbbdef5e09896a3e2}{UART\_ADVFEATURE\_AUTOBAUDRATE\_ON0X7FFRAME}})   || \(\backslash\)}
+\DoxyCodeLine{                                                        ((\_\_MODE\_\_) == \mbox{\hyperlink{group___u_a_r_t___auto_baud___rate___mode_gaa325fa0ee642902e4746a53f9b58720d}{UART\_ADVFEATURE\_AUTOBAUDRATE\_ON0X55FRAME}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART auto Baud rate detection mode is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+MODE\+\_\+\+\_\+} & UART auto Baud rate detection mode. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{MODE}} is valid) or RESET ({\bfseries{MODE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01284}{1284}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga8f6cd85ae5ce7f8dd0ed9227ef5154f6}\label{group___u_a_r_t___private___macros_ga8f6cd85ae5ce7f8dd0ed9227ef5154f6}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_DATAINV@{IS\_UART\_ADVFEATURE\_DATAINV}}
+\index{IS\_UART\_ADVFEATURE\_DATAINV@{IS\_UART\_ADVFEATURE\_DATAINV}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_DATAINV}{IS\_UART\_ADVFEATURE\_DATAINV}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DATAINV(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+DATAINV\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                 (((\_\_DATAINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___data___inv_gab9aca2bdf257bd77e42213fdfdb884d3}{UART\_ADVFEATURE\_DATAINV\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                                 ((\_\_DATAINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___data___inv_ga090ecbcdc57b47144aefee8faf1eaf23}{UART\_ADVFEATURE\_DATAINV\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame data inversion setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+DATAINV\+\_\+\+\_\+} & UART frame data inversion setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{DATAINV}} is valid) or RESET ({\bfseries{DATAINV}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01399}{1399}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga15b46dfa0d80a4583864a31da73e3c99}\label{group___u_a_r_t___private___macros_ga15b46dfa0d80a4583864a31da73e3c99}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_DMAONRXERROR@{IS\_UART\_ADVFEATURE\_DMAONRXERROR}}
+\index{IS\_UART\_ADVFEATURE\_DMAONRXERROR@{IS\_UART\_ADVFEATURE\_DMAONRXERROR}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_DMAONRXERROR}{IS\_UART\_ADVFEATURE\_DMAONRXERROR}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+DMAONRXERROR(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+DMA\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                   (((\_\_DMA\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___disable__on___rx___error_ga14469fd73075e481184234019a7b6734}{UART\_ADVFEATURE\_DMA\_ENABLEONRXERROR}}) || \(\backslash\)}
+\DoxyCodeLine{                                                   ((\_\_DMA\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___disable__on___rx___error_gae838b9dfc0c2c082d5382973b369012b}{UART\_ADVFEATURE\_DMA\_DISABLEONRXERROR}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART DMA enabling or disabling on error setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+DMA\+\_\+\+\_\+} & UART DMA enabling or disabling on error setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{DMA}} is valid) or RESET ({\bfseries{DMA}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01432}{1432}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gad91bec43fbbaa25cec138ef8fcfbdad5}\label{group___u_a_r_t___private___macros_gad91bec43fbbaa25cec138ef8fcfbdad5}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_INIT@{IS\_UART\_ADVFEATURE\_INIT}}
+\index{IS\_UART\_ADVFEATURE\_INIT@{IS\_UART\_ADVFEATURE\_INIT}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_INIT}{IS\_UART\_ADVFEATURE\_INIT}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+INIT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+INIT\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                            ((\_\_INIT\_\_) <= (\mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gab696b28f33174d038e0bfd300c1b2a77}{UART\_ADVFEATURE\_NO\_INIT}}                | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga17c49d1895d43bfd6e0cf993103731ae}{UART\_ADVFEATURE\_TXINVERT\_INIT}}          | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gad5a4923f3e771d276c6a5332e3945e2a}{UART\_ADVFEATURE\_RXINVERT\_INIT}}          | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga3066937ab29631f78820865605e83628}{UART\_ADVFEATURE\_DATAINVERT\_INIT}}        | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga56b48c24063e0f04b09f592c3ce7d2ac}{UART\_ADVFEATURE\_SWAP\_INIT}}              | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga053355b64de3105a19f3e5560f3557e4}{UART\_ADVFEATURE\_RXOVERRUNDISABLE\_INIT}}  | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_gafd2fb1991911b82d75556eafe228ef90}{UART\_ADVFEATURE\_DMADISABLEONERROR\_INIT}} | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga09fdbb71292c899d6dc89a41e5752564}{UART\_ADVFEATURE\_AUTOBAUDRATE\_INIT}}      | \(\backslash\)}
+\DoxyCodeLine{                                                            \mbox{\hyperlink{group___u_a_r_t___advanced___features___initialization___type_ga911654f44cd040f41871ec5af5ec1343}{UART\_ADVFEATURE\_MSBFIRST\_INIT}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART advanced features initialization is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+INIT\+\_\+\+\_\+} & UART advanced features initialization. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{INIT}} is valid) or RESET ({\bfseries{INIT}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01368}{1368}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga82289de330949918b037acf94fb12aef}\label{group___u_a_r_t___private___macros_ga82289de330949918b037acf94fb12aef}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_MSBFIRST@{IS\_UART\_ADVFEATURE\_MSBFIRST}}
+\index{IS\_UART\_ADVFEATURE\_MSBFIRST@{IS\_UART\_ADVFEATURE\_MSBFIRST}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_MSBFIRST}{IS\_UART\_ADVFEATURE\_MSBFIRST}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+MSBFIRST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+MSBFIRST\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                   (((\_\_MSBFIRST\_\_) == \mbox{\hyperlink{group___u_a_r_t___m_s_b___first_gae606b5f132b17af40d58c7d41fad35a5}{UART\_ADVFEATURE\_MSBFIRST\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                                   ((\_\_MSBFIRST\_\_) == \mbox{\hyperlink{group___u_a_r_t___m_s_b___first_gafb917e79562ccd13909c13056b34302f}{UART\_ADVFEATURE\_MSBFIRST\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame MSB first setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+MSBFIRST\+\_\+\+\_\+} & UART frame MSB first setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{MSBFIRST}} is valid) or RESET ({\bfseries{MSBFIRST}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01440}{1440}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga7f53ad0eca57b7ffabcae9007b7bbfa6}\label{group___u_a_r_t___private___macros_ga7f53ad0eca57b7ffabcae9007b7bbfa6}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_RXINV@{IS\_UART\_ADVFEATURE\_RXINV}}
+\index{IS\_UART\_ADVFEATURE\_RXINV@{IS\_UART\_ADVFEATURE\_RXINV}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_RXINV}{IS\_UART\_ADVFEATURE\_RXINV}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+RXINV(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+RXINV\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                             (((\_\_RXINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___rx___inv_gae9598a2e4fec4b9166ad5eab24027870}{UART\_ADVFEATURE\_RXINV\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                             ((\_\_RXINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___rx___inv_gae12343bc2373080ae518ce7b536205cb}{UART\_ADVFEATURE\_RXINV\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame RX inversion setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+RXINV\+\_\+\+\_\+} & UART frame RX inversion setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{RXINV}} is valid) or RESET ({\bfseries{RXINV}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01391}{1391}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gaf095ad39d3035f722c6976921a84dbea}\label{group___u_a_r_t___private___macros_gaf095ad39d3035f722c6976921a84dbea}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_SWAP@{IS\_UART\_ADVFEATURE\_SWAP}}
+\index{IS\_UART\_ADVFEATURE\_SWAP@{IS\_UART\_ADVFEATURE\_SWAP}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_SWAP}{IS\_UART\_ADVFEATURE\_SWAP}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+SWAP(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+SWAP\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                           (((\_\_SWAP\_\_) == \mbox{\hyperlink{group___u_a_r_t___rx___tx___swap_gad1217ff59732b36d4ee9b50e7ed81ec4}{UART\_ADVFEATURE\_SWAP\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                           ((\_\_SWAP\_\_) == \mbox{\hyperlink{group___u_a_r_t___rx___tx___swap_ga83138521e54eef41c75e9c37c2246eba}{UART\_ADVFEATURE\_SWAP\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame RX/\+TX pins swap setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+SWAP\+\_\+\+\_\+} & UART frame RX/\+TX pins swap setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{SWAP}} is valid) or RESET ({\bfseries{SWAP}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01407}{1407}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga4295a61b0afe152975609cedb9034fdc}\label{group___u_a_r_t___private___macros_ga4295a61b0afe152975609cedb9034fdc}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ADVFEATURE\_TXINV@{IS\_UART\_ADVFEATURE\_TXINV}}
+\index{IS\_UART\_ADVFEATURE\_TXINV@{IS\_UART\_ADVFEATURE\_TXINV}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ADVFEATURE\_TXINV}{IS\_UART\_ADVFEATURE\_TXINV}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ADVFEATURE\+\_\+\+TXINV(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TXINV\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                             (((\_\_TXINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___tx___inv_gaf2ef53664b0d4b93758575b9ee1b949b}{UART\_ADVFEATURE\_TXINV\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                             ((\_\_TXINV\_\_) == \mbox{\hyperlink{group___u_a_r_t___tx___inv_ga1e0ddbed5fc5ddce5314f63e96e29c3d}{UART\_ADVFEATURE\_TXINV\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame TX inversion setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+TXINV\+\_\+\+\_\+} & UART frame TX inversion setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{TXINV}} is valid) or RESET ({\bfseries{TXINV}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01383}{1383}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga8acf6b6648717b7192439f1b426321a4}\label{group___u_a_r_t___private___macros_ga8acf6b6648717b7192439f1b426321a4}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ASSERTIONTIME@{IS\_UART\_ASSERTIONTIME}}
+\index{IS\_UART\_ASSERTIONTIME@{IS\_UART\_ASSERTIONTIME}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ASSERTIONTIME}{IS\_UART\_ASSERTIONTIME}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ASSERTIONTIME(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TIME\+\_\+\+\_\+ }\end{DoxyParamCaption})~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)}
+
+
+
+Check UART assertion time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+TIME\+\_\+\+\_\+} & 5-\/bit value assertion time. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Test} & result (TRUE or FALSE). \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01209}{1209}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gaa8f50c3cc4c04875ea490fb81a08731d}\label{group___u_a_r_t___private___macros_gaa8f50c3cc4c04875ea490fb81a08731d}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_BAUDRATE@{IS\_UART\_BAUDRATE}}
+\index{IS\_UART\_BAUDRATE@{IS\_UART\_BAUDRATE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_BAUDRATE}{IS\_UART\_BAUDRATE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+BAUDRATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+ }\end{DoxyParamCaption})~((\+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+) $<$ 27000001U)}
+
+
+
+Check UART Baud rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+BAUDRATE\+\_\+\+\_\+} & Baudrate specified by the user. The maximum Baud Rate is derived from the maximum clock on F7 (i.\+e. 216 MHz) divided by the smallest oversampling used on the USART (i.\+e. 8) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{BAUDRATE}} is valid) or RESET ({\bfseries{BAUDRATE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01203}{1203}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gaecf169f01673ae67b12b3155e074bf12}\label{group___u_a_r_t___private___macros_gaecf169f01673ae67b12b3155e074bf12}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_DE\_POLARITY@{IS\_UART\_DE\_POLARITY}}
+\index{IS\_UART\_DE\_POLARITY@{IS\_UART\_DE\_POLARITY}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_DE\_POLARITY}{IS\_UART\_DE\_POLARITY}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+DE\+\_\+\+POLARITY(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+POLARITY\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                              (((\_\_POLARITY\_\_) == \mbox{\hyperlink{group___u_a_r_t___driver_enable___polarity_ga0cff167e046507f91497853b772282c5}{UART\_DE\_POLARITY\_HIGH}}) || \(\backslash\)}
+\DoxyCodeLine{                                              ((\_\_POLARITY\_\_) == \mbox{\hyperlink{group___u_a_r_t___driver_enable___polarity_ga92a5839b1b14f95ee4b8f4842a24f37b}{UART\_DE\_POLARITY\_LOW}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART driver enable polarity is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+POLARITY\+\_\+\+\_\+} & UART driver enable polarity. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{POLARITY}} is valid) or RESET ({\bfseries{POLARITY}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01482}{1482}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga7e060b24713e3fb49f4f0f4fa71dd85f}\label{group___u_a_r_t___private___macros_ga7e060b24713e3fb49f4f0f4fa71dd85f}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_DEASSERTIONTIME@{IS\_UART\_DEASSERTIONTIME}}
+\index{IS\_UART\_DEASSERTIONTIME@{IS\_UART\_DEASSERTIONTIME}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_DEASSERTIONTIME}{IS\_UART\_DEASSERTIONTIME}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+DEASSERTIONTIME(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TIME\+\_\+\+\_\+ }\end{DoxyParamCaption})~((\+\_\+\+\_\+\+TIME\+\_\+\+\_\+) $<$= 0x1\+FU)}
+
+
+
+Check UART deassertion time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+TIME\+\_\+\+\_\+} & 5-\/bit value deassertion time. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Test} & result (TRUE or FALSE). \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01215}{1215}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga85c4c9339de2076106942cd9ab61ad77}\label{group___u_a_r_t___private___macros_ga85c4c9339de2076106942cd9ab61ad77}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_DMA\_RX@{IS\_UART\_DMA\_RX}}
+\index{IS\_UART\_DMA\_RX@{IS\_UART\_DMA\_RX}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_DMA\_RX}{IS\_UART\_DMA\_RX}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+RX(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+DMARX\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                       (((\_\_DMARX\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___rx_gac65987cb4d8fd5da0f7dc695312f6afa}{UART\_DMA\_RX\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                       ((\_\_DMARX\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___rx_gab871994de6d36a02b8ec34af197dff1d}{UART\_DMA\_RX\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART DMA RX state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+DMARX\+\_\+\+\_\+} & UART DMA RX state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{DMARX}} is valid) or RESET ({\bfseries{DMARX}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01333}{1333}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga433107c59f6d1c66a38e53e38fdc0a57}\label{group___u_a_r_t___private___macros_ga433107c59f6d1c66a38e53e38fdc0a57}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_DMA\_TX@{IS\_UART\_DMA\_TX}}
+\index{IS\_UART\_DMA\_TX@{IS\_UART\_DMA\_TX}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_DMA\_TX}{IS\_UART\_DMA\_TX}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+DMA\+\_\+\+TX(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+DMATX\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                       (((\_\_DMATX\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___tx_gaa318cc9c1aa55acc5bb93f378ac7d8e4}{UART\_DMA\_TX\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                       ((\_\_DMATX\_\_) == \mbox{\hyperlink{group___u_a_r_t___d_m_a___tx_gab1c3e8113617fb9c8fc63b3f3d7c8c65}{UART\_DMA\_TX\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART DMA TX state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+DMATX\+\_\+\+\_\+} & UART DMA TX state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{DMATX}} is valid) or RESET ({\bfseries{DMATX}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01325}{1325}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga2298a324be00d275d98b336569ee3f97}\label{group___u_a_r_t___private___macros_ga2298a324be00d275d98b336569ee3f97}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_HALF\_DUPLEX@{IS\_UART\_HALF\_DUPLEX}}
+\index{IS\_UART\_HALF\_DUPLEX@{IS\_UART\_HALF\_DUPLEX}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_HALF\_DUPLEX}{IS\_UART\_HALF\_DUPLEX}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+HALF\+\_\+\+DUPLEX(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HDSEL\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                            (((\_\_HDSEL\_\_) == \mbox{\hyperlink{group___u_a_r_t___half___duplex___selection_ga282d253c045fd9a3785c6c3e3293346c}{UART\_HALF\_DUPLEX\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                            ((\_\_HDSEL\_\_) == \mbox{\hyperlink{group___u_a_r_t___half___duplex___selection_ga61e92cc4435c05d850f9fd5456f391e6}{UART\_HALF\_DUPLEX\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART half-\/duplex state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+HDSEL\+\_\+\+\_\+} & UART half-\/duplex state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{HDSEL}} is valid) or RESET ({\bfseries{HDSEL}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01341}{1341}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga92977d9daf0c39d875df200ae0ae6acd}\label{group___u_a_r_t___private___macros_ga92977d9daf0c39d875df200ae0ae6acd}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_HARDWARE\_FLOW\_CONTROL@{IS\_UART\_HARDWARE\_FLOW\_CONTROL}}
+\index{IS\_UART\_HARDWARE\_FLOW\_CONTROL@{IS\_UART\_HARDWARE\_FLOW\_CONTROL}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_HARDWARE\_FLOW\_CONTROL}{IS\_UART\_HARDWARE\_FLOW\_CONTROL}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+HARDWARE\+\_\+\+FLOW\+\_\+\+CONTROL(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+CONTROL\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (((\_\_CONTROL\_\_) == \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_gae0569001c06b7760cd38c481f84116cf}{UART\_HWCONTROL\_NONE}}) || \(\backslash\)}
+\DoxyCodeLine{   ((\_\_CONTROL\_\_) == \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga6d5dad09c6abf30f252084ba0f8c0b7d}{UART\_HWCONTROL\_RTS}})  || \(\backslash\)}
+\DoxyCodeLine{   ((\_\_CONTROL\_\_) == \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga352f517245986e3b86bc75f8472c51ea}{UART\_HWCONTROL\_CTS}})  || \(\backslash\)}
+\DoxyCodeLine{   ((\_\_CONTROL\_\_) == \mbox{\hyperlink{group___u_a_r_t___hardware___flow___control_ga7c91698e8f08ba7ed3f2a0ba9aa27d73}{UART\_HWCONTROL\_RTS\_CTS}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART hardware flow control is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+CONTROL\+\_\+\+\_\+} & UART hardware flow control. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{CONTROL}} is valid) or RESET ({\bfseries{CONTROL}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01242}{1242}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga13d7f9876db68d9d6316204a8a2588de}\label{group___u_a_r_t___private___macros_ga13d7f9876db68d9d6316204a8a2588de}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_LIN@{IS\_UART\_LIN}}
+\index{IS\_UART\_LIN@{IS\_UART\_LIN}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_LIN}{IS\_UART\_LIN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+LIN(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+LIN\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                     (((\_\_LIN\_\_) == \mbox{\hyperlink{group___u_a_r_t___l_i_n_ga7bc4a2de3d6b29235188020628c4b30c}{UART\_LIN\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                     ((\_\_LIN\_\_) == \mbox{\hyperlink{group___u_a_r_t___l_i_n_gaf3f2741d3af2737c51c3040e79fdc664}{UART\_LIN\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART LIN state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+LIN\+\_\+\+\_\+} & UART LIN state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{LIN}} is valid) or RESET ({\bfseries{LIN}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01309}{1309}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gac8ac0d0dc7fad5edf53150ce05d902ee}\label{group___u_a_r_t___private___macros_gac8ac0d0dc7fad5edf53150ce05d902ee}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH@{IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH}}
+\index{IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH@{IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH}{IS\_UART\_LIN\_BREAK\_DETECT\_LENGTH}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+LIN\+\_\+\+BREAK\+\_\+\+DETECT\+\_\+\+LENGTH(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                     (((\_\_LENGTH\_\_) == \mbox{\hyperlink{group___u_a_r_t___l_i_n___break___detection_ga027616b7a36b36e0e51ffee947533624}{UART\_LINBREAKDETECTLENGTH\_10B}}) || \(\backslash\)}
+\DoxyCodeLine{                                                     ((\_\_LENGTH\_\_) == \mbox{\hyperlink{group___u_a_r_t___l_i_n___break___detection_ga2f66fcd37de7a3ca9e1101305f2e23e6}{UART\_LINBREAKDETECTLENGTH\_11B}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART LIN break detection length is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+LENGTH\+\_\+\+\_\+} & UART LIN break detection length. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{LENGTH}} is valid) or RESET ({\bfseries{LENGTH}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01317}{1317}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gae5b637b9191dea1f8fd3846b886dd38b}\label{group___u_a_r_t___private___macros_gae5b637b9191dea1f8fd3846b886dd38b}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_MODE@{IS\_UART\_MODE}}
+\index{IS\_UART\_MODE@{IS\_UART\_MODE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_MODE}{IS\_UART\_MODE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+MODE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+MODE\+\_\+\+\_\+ }\end{DoxyParamCaption})~((((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) \& ($\sim$((uint32\+\_\+t)(\mbox{\hyperlink{group___u_a_r_t___mode_gab47c162935901e89322e2ce6700b6744}{UART\+\_\+\+MODE\+\_\+\+TX\+\_\+\+RX}})))) == 0x00U) \&\& ((\+\_\+\+\_\+\+MODE\+\_\+\+\_\+) != 0x00U))}
+
+
+
+Ensure that UART communication mode is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+MODE\+\_\+\+\_\+} & UART communication mode. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{MODE}} is valid) or RESET ({\bfseries{MODE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01253}{1253}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga9df22e11f8bc82847fbe16b6f073ae04}\label{group___u_a_r_t___private___macros_ga9df22e11f8bc82847fbe16b6f073ae04}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_MUTE\_MODE@{IS\_UART\_MUTE\_MODE}}
+\index{IS\_UART\_MUTE\_MODE@{IS\_UART\_MUTE\_MODE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_MUTE\_MODE}{IS\_UART\_MUTE\_MODE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+MUTE\+\_\+\+MODE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+MUTE\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                           (((\_\_MUTE\_\_) == \mbox{\hyperlink{group___u_a_r_t___mute___mode_ga11b6414641d82b941920c291e19aa042}{UART\_ADVFEATURE\_MUTEMODE\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                           ((\_\_MUTE\_\_) == \mbox{\hyperlink{group___u_a_r_t___mute___mode_gaa9ca3763538abf310102ac34e81cdcbc}{UART\_ADVFEATURE\_MUTEMODE\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART mute mode state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+MUTE\+\_\+\+\_\+} & UART mute mode state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{MUTE}} is valid) or RESET ({\bfseries{MUTE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01458}{1458}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga6452a4420dac4abd4f0ea0e1677f37a9}\label{group___u_a_r_t___private___macros_ga6452a4420dac4abd4f0ea0e1677f37a9}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_ONE\_BIT\_SAMPLE@{IS\_UART\_ONE\_BIT\_SAMPLE}}
+\index{IS\_UART\_ONE\_BIT\_SAMPLE@{IS\_UART\_ONE\_BIT\_SAMPLE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_ONE\_BIT\_SAMPLE}{IS\_UART\_ONE\_BIT\_SAMPLE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+ONE\+\_\+\+BIT\+\_\+\+SAMPLE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+ONEBIT\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                            (((\_\_ONEBIT\_\_) == \mbox{\hyperlink{group___u_a_r_t___one_bit___sampling_gadfcb0e9db2719321048b249b2c5cc15f}{UART\_ONE\_BIT\_SAMPLE\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                            ((\_\_ONEBIT\_\_) == \mbox{\hyperlink{group___u_a_r_t___one_bit___sampling_gadcc0aed6e7a466da3c45363f69dcbfb6}{UART\_ONE\_BIT\_SAMPLE\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame sampling is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+ONEBIT\+\_\+\+\_\+} & UART frame sampling. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{ONEBIT}} is valid) or RESET ({\bfseries{ONEBIT}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01276}{1276}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga57b4229ecb4387a0bb9137fed8de13b8}\label{group___u_a_r_t___private___macros_ga57b4229ecb4387a0bb9137fed8de13b8}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_OVERRUN@{IS\_UART\_OVERRUN}}
+\index{IS\_UART\_OVERRUN@{IS\_UART\_OVERRUN}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_OVERRUN}{IS\_UART\_OVERRUN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+OVERRUN(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+OVERRUN\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                          (((\_\_OVERRUN\_\_) == \mbox{\hyperlink{group___u_a_r_t___overrun___disable_gac467cc43fa4c3af4acb0fd161061c219}{UART\_ADVFEATURE\_OVERRUN\_ENABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                          ((\_\_OVERRUN\_\_) == \mbox{\hyperlink{group___u_a_r_t___overrun___disable_ga19961cd52b746dac7a6860faad2ab40d}{UART\_ADVFEATURE\_OVERRUN\_DISABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame overrun setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+OVERRUN\+\_\+\+\_\+} & UART frame overrun setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{OVERRUN}} is valid) or RESET ({\bfseries{OVERRUN}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01415}{1415}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga8d918253e015c4a8aa07316a89f8265e}\label{group___u_a_r_t___private___macros_ga8d918253e015c4a8aa07316a89f8265e}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_OVERSAMPLING@{IS\_UART\_OVERSAMPLING}}
+\index{IS\_UART\_OVERSAMPLING@{IS\_UART\_OVERSAMPLING}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_OVERSAMPLING}{IS\_UART\_OVERSAMPLING}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+OVERSAMPLING(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+SAMPLING\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                            (((\_\_SAMPLING\_\_) == \mbox{\hyperlink{group___u_a_r_t___over___sampling_gaa6a320ec65d248d76f21de818db1a2f0}{UART\_OVERSAMPLING\_16}}) || \(\backslash\)}
+\DoxyCodeLine{                                            ((\_\_SAMPLING\_\_) == \mbox{\hyperlink{group___u_a_r_t___over___sampling_gaeb13896e8bdc1bb041e01a86a868ee0b}{UART\_OVERSAMPLING\_8}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART oversampling is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+SAMPLING\+\_\+\+\_\+} & UART oversampling. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{SAMPLING}} is valid) or RESET ({\bfseries{SAMPLING}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01268}{1268}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga57b0798bfa43d210f492eb3c5e218a86}\label{group___u_a_r_t___private___macros_ga57b0798bfa43d210f492eb3c5e218a86}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_PARITY@{IS\_UART\_PARITY}}
+\index{IS\_UART\_PARITY@{IS\_UART\_PARITY}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_PARITY}{IS\_UART\_PARITY}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+PARITY(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+PARITY\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                    (((\_\_PARITY\_\_) == \mbox{\hyperlink{group___u_a_r_t___parity_ga270dea6e1a92dd83fe58802450bdd60c}{UART\_PARITY\_NONE}}) || \(\backslash\)}
+\DoxyCodeLine{                                    ((\_\_PARITY\_\_) == \mbox{\hyperlink{group___u_a_r_t___parity_ga063b14ac42ef9e8f4246c17a586b14eb}{UART\_PARITY\_EVEN}}) || \(\backslash\)}
+\DoxyCodeLine{                                    ((\_\_PARITY\_\_) == \mbox{\hyperlink{group___u_a_r_t___parity_ga229615e64964f68f7a856ea6ffea359e}{UART\_PARITY\_ODD}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame parity is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+PARITY\+\_\+\+\_\+} & UART frame parity. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{PARITY}} is valid) or RESET ({\bfseries{PARITY}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01233}{1233}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gaa2ad21da17caf46375c7bd4efbde8b17}\label{group___u_a_r_t___private___macros_gaa2ad21da17caf46375c7bd4efbde8b17}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_RECEIVER\_TIMEOUT@{IS\_UART\_RECEIVER\_TIMEOUT}}
+\index{IS\_UART\_RECEIVER\_TIMEOUT@{IS\_UART\_RECEIVER\_TIMEOUT}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_RECEIVER\_TIMEOUT}{IS\_UART\_RECEIVER\_TIMEOUT}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TIMEOUT\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                                (((\_\_TIMEOUT\_\_) == \mbox{\hyperlink{group___u_a_r_t___receiver___timeout_ga575c43813df656b21dc39aff6a968046}{UART\_RECEIVER\_TIMEOUT\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                                ((\_\_TIMEOUT\_\_) == \mbox{\hyperlink{group___u_a_r_t___receiver___timeout_ga6e25985f0dacc3e79ae552746952ac18}{UART\_RECEIVER\_TIMEOUT\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART receiver timeout setting is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+TIMEOUT\+\_\+\+\_\+} & UART receiver timeout setting. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{TIMEOUT}} is valid) or RESET ({\bfseries{TIMEOUT}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01294}{1294}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gaee43ee42a5b1ba061322ab0763c6ef4f}\label{group___u_a_r_t___private___macros_gaee43ee42a5b1ba061322ab0763c6ef4f}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_RECEIVER\_TIMEOUT\_VALUE@{IS\_UART\_RECEIVER\_TIMEOUT\_VALUE}}
+\index{IS\_UART\_RECEIVER\_TIMEOUT\_VALUE@{IS\_UART\_RECEIVER\_TIMEOUT\_VALUE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_RECEIVER\_TIMEOUT\_VALUE}{IS\_UART\_RECEIVER\_TIMEOUT\_VALUE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+ }\end{DoxyParamCaption})~((\+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+) $<$= 0x\+FFFFFFU)}
+
+
+
+Check the receiver timeout value. 
+
+\begin{DoxyNote}{Note}
+The maximum UART receiver timeout value is 0x\+FFFFFF. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+TIMEOUTVALUE\+\_\+\+\_\+} & receiver timeout value. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Test} & result (TRUE or FALSE) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01302}{1302}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga5cf62c9c598753525888cc7c24be3cb2}\label{group___u_a_r_t___private___macros_ga5cf62c9c598753525888cc7c24be3cb2}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_REQUEST\_PARAMETER@{IS\_UART\_REQUEST\_PARAMETER}}
+\index{IS\_UART\_REQUEST\_PARAMETER@{IS\_UART\_REQUEST\_PARAMETER}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_REQUEST\_PARAMETER}{IS\_UART\_REQUEST\_PARAMETER}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+REQUEST\+\_\+\+PARAMETER(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+PARAM\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                              (((\_\_PARAM\_\_) == \mbox{\hyperlink{group___u_a_r_t___request___parameters_ga8cdce81a934ab7d0c2eecb4d85300d4e}{UART\_AUTOBAUD\_REQUEST}})     || \(\backslash\)}
+\DoxyCodeLine{                                              ((\_\_PARAM\_\_) == \mbox{\hyperlink{group___u_a_r_t___request___parameters_ga52ced88a9f4ce90f3725901cf91f38b3}{UART\_SENDBREAK\_REQUEST}})    || \(\backslash\)}
+\DoxyCodeLine{                                              ((\_\_PARAM\_\_) == \mbox{\hyperlink{group___u_a_r_t___request___parameters_gadd5f511803928fd042f7fc6ef99f9cfb}{UART\_MUTE\_MODE\_REQUEST}})    || \(\backslash\)}
+\DoxyCodeLine{                                              ((\_\_PARAM\_\_) == \mbox{\hyperlink{group___u_a_r_t___request___parameters_gaf2ee2d4b1bdcbc7772ddc0da89566936}{UART\_RXDATA\_FLUSH\_REQUEST}}) || \(\backslash\)}
+\DoxyCodeLine{                                              ((\_\_PARAM\_\_) == \mbox{\hyperlink{group___u_a_r_t___request___parameters_gafecbd800f456ed666a42ac0842cd2c4b}{UART\_TXDATA\_FLUSH\_REQUEST}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART request parameter is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+PARAM\+\_\+\+\_\+} & UART request parameter. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{PARAM}} is valid) or RESET ({\bfseries{PARAM}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01357}{1357}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga754855879401ab846803a03eec2f7f10}\label{group___u_a_r_t___private___macros_ga754855879401ab846803a03eec2f7f10}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_STATE@{IS\_UART\_STATE}}
+\index{IS\_UART\_STATE@{IS\_UART\_STATE}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_STATE}{IS\_UART\_STATE}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+STATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+STATE\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                  (((\_\_STATE\_\_) == \mbox{\hyperlink{group___u_a_r_t___state_gaf32492459be708981ebc5615194cdae9}{UART\_STATE\_DISABLE}}) || \(\backslash\)}
+\DoxyCodeLine{                                  ((\_\_STATE\_\_) == \mbox{\hyperlink{group___u_a_r_t___state_gab6b470dccef2a518a45554b171acff5b}{UART\_STATE\_ENABLE}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+STATE\+\_\+\+\_\+} & UART state. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{STATE}} is valid) or RESET ({\bfseries{STATE}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01260}{1260}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga0fa4dec621a59f8c07f42548cdbb7f18}\label{group___u_a_r_t___private___macros_ga0fa4dec621a59f8c07f42548cdbb7f18}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_STOPBITS@{IS\_UART\_STOPBITS}}
+\index{IS\_UART\_STOPBITS@{IS\_UART\_STOPBITS}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_STOPBITS}{IS\_UART\_STOPBITS}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+STOPBITS(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+STOPBITS\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                        (((\_\_STOPBITS\_\_) == \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga4c280770879367f7af395b7b41f60d93}{UART\_STOPBITS\_0\_5}}) || \(\backslash\)}
+\DoxyCodeLine{                                        ((\_\_STOPBITS\_\_) == \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga7cf97e555292d574de8abc596ba0e2ce}{UART\_STOPBITS\_1}})   || \(\backslash\)}
+\DoxyCodeLine{                                        ((\_\_STOPBITS\_\_) == \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga99fcce2358d8ef0b60cf562e4d9fddd8}{UART\_STOPBITS\_1\_5}}) || \(\backslash\)}
+\DoxyCodeLine{                                        ((\_\_STOPBITS\_\_) == \mbox{\hyperlink{group___u_a_r_t___stop___bits_ga91616523380f7450aac6cb7e17f0c0f2}{UART\_STOPBITS\_2}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART frame number of stop bits is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+STOPBITS\+\_\+\+\_\+} & UART frame number of stop bits. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{STOPBITS}} is valid) or RESET ({\bfseries{STOPBITS}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01222}{1222}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga144aecf3ad6ca3ce6653ae113c9a6141}\label{group___u_a_r_t___private___macros_ga144aecf3ad6ca3ce6653ae113c9a6141}} 
+\index{UART Private Macros@{UART Private Macros}!IS\_UART\_WAKEUPMETHOD@{IS\_UART\_WAKEUPMETHOD}}
+\index{IS\_UART\_WAKEUPMETHOD@{IS\_UART\_WAKEUPMETHOD}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{IS\_UART\_WAKEUPMETHOD}{IS\_UART\_WAKEUPMETHOD}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+UART\+\_\+\+WAKEUPMETHOD(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+WAKEUP\+\_\+\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                                          (((\_\_WAKEUP\_\_) == \mbox{\hyperlink{group___u_a_r_t___wake_up___methods_ga2411ed44c5d82db84c5819e1e2b5b8b3}{UART\_WAKEUPMETHOD\_IDLELINE}}) || \(\backslash\)}
+\DoxyCodeLine{                                          ((\_\_WAKEUP\_\_) == \mbox{\hyperlink{group___u_a_r_t___wake_up___methods_ga4c6935f26f8f2a9fe70fd6306a9882cb}{UART\_WAKEUPMETHOD\_ADDRESSMARK}}))}
+
+\end{DoxyCode}
+
+
+Ensure that UART wake-\/up method is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+WAKEUP\+\_\+\+\_\+} & UART wake-\/up method . \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em SET} & ({\bfseries{WAKEUP}} is valid) or RESET ({\bfseries{WAKEUP}} is invalid) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01349}{1349}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_gac2423ff86559eb91198bcc438caec865}\label{group___u_a_r_t___private___macros_gac2423ff86559eb91198bcc438caec865}} 
+\index{UART Private Macros@{UART Private Macros}!UART\_DIV\_SAMPLING16@{UART\_DIV\_SAMPLING16}}
+\index{UART\_DIV\_SAMPLING16@{UART\_DIV\_SAMPLING16}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{UART\_DIV\_SAMPLING16}{UART\_DIV\_SAMPLING16}}
+{\footnotesize\ttfamily \#define UART\+\_\+\+DIV\+\_\+\+SAMPLING16(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  }\item[{}]{\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+ }\end{DoxyParamCaption})~(((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))}
+
+
+
+BRR division operation to set BRR register in 16-\/bit oversampling mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+PCLK\+\_\+\+\_\+} & UART clock. \\
+\hline
+{\em \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+} & Baud rate set by the user. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Division} & result \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01194}{1194}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+
+\mbox{\Hypertarget{group___u_a_r_t___private___macros_ga3b4ab2ec164132268de4719de4625a82}\label{group___u_a_r_t___private___macros_ga3b4ab2ec164132268de4719de4625a82}} 
+\index{UART Private Macros@{UART Private Macros}!UART\_DIV\_SAMPLING8@{UART\_DIV\_SAMPLING8}}
+\index{UART\_DIV\_SAMPLING8@{UART\_DIV\_SAMPLING8}!UART Private Macros@{UART Private Macros}}
+\doxysubsubsection{\texorpdfstring{UART\_DIV\_SAMPLING8}{UART\_DIV\_SAMPLING8}}
+{\footnotesize\ttfamily \#define UART\+\_\+\+DIV\+\_\+\+SAMPLING8(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+,  }\item[{}]{\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+ }\end{DoxyParamCaption})~((((\+\_\+\+\_\+\+PCLK\+\_\+\+\_\+)$\ast$2U) + ((\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+)/2U)) / (\+\_\+\+\_\+\+BAUD\+\_\+\+\_\+))}
+
+
+
+BRR division operation to set BRR register in 8-\/bit oversampling mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+\+PCLK\+\_\+\+\_\+} & UART clock. \\
+\hline
+{\em \+\_\+\+\_\+\+BAUD\+\_\+\+\_\+} & Baud rate set by the user. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Division} & result \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source_l01187}{1187}} of file \mbox{\hyperlink{stm32f7xx__hal__uart_8h_source}{stm32f7xx\+\_\+hal\+\_\+uart.\+h}}.
+

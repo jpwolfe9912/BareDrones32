@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['checkfirsttime_0',['checkFirstTime',['../config_8c.html#ad11ec57672a83816f90dd713cd28a65d',1,'checkFirstTime(bool eepromReset):&#160;config.c'],['../config_8h.html#ad11ec57672a83816f90dd713cd28a65d',1,'checkFirstTime(bool eepromReset):&#160;config.c']]],
+  ['color_1',['color',['../drv__color_8c.html#a46be05f812453cc1db381991d9591445',1,'color(uint8_t color, uint8_t bf):&#160;drv_color.c'],['../drv__color_8h.html#a46be05f812453cc1db381991d9591445',1,'color(uint8_t color, uint8_t bf):&#160;drv_color.c']]],
+  ['colordefault_2',['colorDefault',['../drv__color_8c.html#aa926233cbec85dc0871fdf95d7406dbe',1,'colorDefault(void):&#160;drv_color.c'],['../drv__color_8h.html#aa926233cbec85dc0871fdf95d7406dbe',1,'colorDefault(void):&#160;drv_color.c']]],
+  ['computeangles_3',['computeAngles',['../sensor__fusion_8c.html#a7b14436407f3a952572f288543075e4d',1,'computeAngles(void):&#160;sensor_fusion.c'],['../sensor__fusion_8h.html#a7b14436407f3a952572f288543075e4d',1,'computeAngles(void):&#160;sensor_fusion.c']]],
+  ['computeaxiscommands_4',['computeAxisCommands',['../compute__axis__commands_8c.html#a6ea978441fb2878a2926d7009c903962',1,'computeAxisCommands(float dt):&#160;compute_axis_commands.c'],['../compute__axis__commands_8h.html#a6ea978441fb2878a2926d7009c903962',1,'computeAxisCommands(float dt):&#160;compute_axis_commands.c']]],
+  ['computempu6000rtdata_5',['computeMPU6000RTData',['../mpu6000_8c.html#acb7732c2d9d2c63ad23af99706e5941d',1,'computeMPU6000RTData(void):&#160;mpu6000.c'],['../mpu6000_8h.html#acb7732c2d9d2c63ad23af99706e5941d',1,'computeMPU6000RTData(void):&#160;mpu6000.c']]],
+  ['computempu6000tcbias_6',['computeMPU6000TCBias',['../mpu6000_8c.html#a09f05343283ca43390d2bd303416ac02',1,'computeMPU6000TCBias(void):&#160;mpu6000.c'],['../mpu6000_8h.html#a09f05343283ca43390d2bd303416ac02',1,'computeMPU6000TCBias(void):&#160;mpu6000.c']]],
+  ['constrain_7',['constrain',['../utilities_8c.html#aa81f27853b4b3674705ffa1c5658ae45',1,'constrain(float input, float minValue, float maxValue):&#160;utilities.c'],['../utilities_8h.html#aa81f27853b4b3674705ffa1c5658ae45',1,'constrain(float input, float minValue, float maxValue):&#160;utilities.c']]],
+  ['crc32beeprom_8',['crc32bEEPROM',['../config_8c.html#abb54b6c03c4ecca3c9cf43638135a884',1,'crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd):&#160;config.c'],['../config_8h.html#abb54b6c03c4ecca3c9cf43638135a884',1,'crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd):&#160;config.c']]]
+];

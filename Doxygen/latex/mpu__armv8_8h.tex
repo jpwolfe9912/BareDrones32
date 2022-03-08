@@ -1,0 +1,533 @@
+\hypertarget{mpu__armv8_8h}{}\doxysection{Autodrone32/\+Libraries/\+CMSIS/\+Include/mpu\+\_\+armv8.h File Reference}
+\label{mpu__armv8_8h}\index{Autodrone32/Libraries/CMSIS/Include/mpu\_armv8.h@{Autodrone32/Libraries/CMSIS/Include/mpu\_armv8.h}}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_a_r_m___m_p_u___region__t}{ARM\+\_\+\+MPU\+\_\+\+Region\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a0b51a6c9e4d60a1d2f0d80ddd43e790c}{ARM\+\_\+\+MPU\+\_\+\+ARMV8\+\_\+H}}
+\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_ab4bfac6284dc050dc6fa6aeb8e954c2c}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE}}~( 0U )
+\begin{DoxyCompactList}\small\item\em Attribute for device memory (outer only) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a03266f9660485693eb1baec6ba255ab2}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+NON\+\_\+\+CACHEABLE}}~( 4U )
+\begin{DoxyCompactList}\small\item\em Attribute for non-\/cacheable, normal memory. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_ac2f1c567950e3785d75773362b525390}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+MEMORY\+\_\+}}(NT,  WB,  RA,  WA)~  (((NT \& 1U) $<$$<$ 3U) $\vert$ ((WB \& 1U) $<$$<$ 2U) $\vert$ ((RA \& 1U) $<$$<$ 1U) $\vert$ (WA \& 1U))
+\begin{DoxyCompactList}\small\item\em Attribute for normal memory (outer and inner) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_abfa9ae279357044cf5b74e77af22a686}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+Gn\+RnE}}~(0U)
+\begin{DoxyCompactList}\small\item\em Device memory type non Gathering, non Re-\/ordering, non Early Write Acknowledgement. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a6e08ae44fab85e03fea96ae6a5fcdfb0}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+Gn\+RE}}~(1U)
+\begin{DoxyCompactList}\small\item\em Device memory type non Gathering, non Re-\/ordering, Early Write Acknowledgement. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_adcc9977aabb4dc7177d30cbbac1b53d1}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+GRE}}~(2U)
+\begin{DoxyCompactList}\small\item\em Device memory type non Gathering, Re-\/ordering, Early Write Acknowledgement. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a496bcd6a2bbd038d8935049fec9d0fda}{ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+\+GRE}}~(3U)
+\begin{DoxyCompactList}\small\item\em Device memory type Gathering, Re-\/ordering, Early Write Acknowledgement. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a2c465cc9429b8233bcb9cd7cbef0e54c}{ARM\+\_\+\+MPU\+\_\+\+ATTR}}(O,  I)~(((O \& 0x\+FU) $<$$<$ 4U) $\vert$ (((O \& 0x\+FU) != 0U) ? (I \& 0x\+FU) \+: ((I \& 0x3U) $<$$<$ 2U)))
+\begin{DoxyCompactList}\small\item\em Memory Attribute. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a3d0f688198289f72264f73cf72a742e8}{ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+NON}}~(0U)
+\begin{DoxyCompactList}\small\item\em Normal memory non-\/shareable ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_ac4fddbdb9e1350bce6906de33c1fd500}{ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+OUTER}}~(2U)
+\begin{DoxyCompactList}\small\item\em Normal memory outer shareable ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a73c70127f24f34781ad463cbe51d8f6b}{ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+INNER}}~(3U)
+\begin{DoxyCompactList}\small\item\em Normal memory inner shareable ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_a81b2aa3fb55cdd5feadff02da10d391b}{ARM\+\_\+\+MPU\+\_\+\+AP\+\_\+}}(RO,  NP)~(((RO \& 1U) $<$$<$ 1U) $\vert$ (NP \& 1U))
+\begin{DoxyCompactList}\small\item\em Memory access permissions. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_afe39c2f98058bcac7e7e0501e64e7a9d}{ARM\+\_\+\+MPU\+\_\+\+RBAR}}(BASE,  SH,  RO,  NP,  XN)
+\begin{DoxyCompactList}\small\item\em Region Base Address Register value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{mpu__armv8_8h_aeaaa071276ba7956944e6c3dc05d677e}{ARM\+\_\+\+MPU\+\_\+\+RLAR}}(LIMIT,  IDX)
+\begin{DoxyCompactList}\small\item\em Region Limit Address Register value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a5a3f40314553baccdeea551f86d9a997}{ARM\+\_\+\+MPU\+\_\+\+Enable}} (uint32\+\_\+t MPU\+\_\+\+Control)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a61814eba4652a0fdfb76bbe222086327}{ARM\+\_\+\+MPU\+\_\+\+Disable}} (void)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a1799413f08a157d636a1491371c15ce2}{ARM\+\_\+\+MPU\+\_\+\+Set\+Mem\+Attr\+Ex}} (MPU\+\_\+\+Type $\ast$mpu, uint8\+\_\+t idx, uint8\+\_\+t attr)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_ab5b3c0a53d19c09a5550f1d9071ae65c}{ARM\+\_\+\+MPU\+\_\+\+Set\+Mem\+Attr}} (uint8\+\_\+t idx, uint8\+\_\+t attr)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a01fa1151c9ec0ba5de76f908c0999316}{ARM\+\_\+\+MPU\+\_\+\+Clr\+Region\+Ex}} (MPU\+\_\+\+Type $\ast$mpu, uint32\+\_\+t rnr)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a9dcb0afddf4ac351f33f3c7a5169c62c}{ARM\+\_\+\+MPU\+\_\+\+Clr\+Region}} (uint32\+\_\+t rnr)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a3d50ba8546252bea959e45c8fdf16993}{ARM\+\_\+\+MPU\+\_\+\+Set\+Region\+Ex}} (MPU\+\_\+\+Type $\ast$mpu, uint32\+\_\+t rnr, uint32\+\_\+t rbar, uint32\+\_\+t rlar)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a6d7f220015c070c0e469948c1775ee3d}{ARM\+\_\+\+MPU\+\_\+\+Set\+Region}} (uint32\+\_\+t rnr, uint32\+\_\+t rbar, uint32\+\_\+t rlar)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_a71ca7368cfeccb262823726de9985aa2}{ordered\+Cpy}} (volatile uint32\+\_\+t $\ast$dst, const uint32\+\_\+t $\ast$\mbox{\hyperlink{cmsis__iccarm_8h_a378ac21329d33f561f90265eef89f564}{\+\_\+\+\_\+\+RESTRICT}} src, uint32\+\_\+t len)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_ab6094419f2abd678f1f3b121cd115049}{ARM\+\_\+\+MPU\+\_\+\+Load\+Ex}} (MPU\+\_\+\+Type $\ast$mpu, uint32\+\_\+t rnr, \mbox{\hyperlink{struct_a_r_m___m_p_u___region__t}{ARM\+\_\+\+MPU\+\_\+\+Region\+\_\+t}} const $\ast$table, uint32\+\_\+t cnt)
+\item 
+\mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void \mbox{\hyperlink{mpu__armv8_8h_aca76614e3091c7324aa9d60e634621bf}{ARM\+\_\+\+MPU\+\_\+\+Load}} (uint32\+\_\+t rnr, \mbox{\hyperlink{struct_a_r_m___m_p_u___region__t}{ARM\+\_\+\+MPU\+\_\+\+Region\+\_\+t}} const $\ast$table, uint32\+\_\+t cnt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{mpu__armv8_8h_a81b2aa3fb55cdd5feadff02da10d391b}\label{mpu__armv8_8h_a81b2aa3fb55cdd5feadff02da10d391b}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_AP\_@{ARM\_MPU\_AP\_}}
+\index{ARM\_MPU\_AP\_@{ARM\_MPU\_AP\_}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_AP\_}{ARM\_MPU\_AP\_}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+AP\+\_\+(\begin{DoxyParamCaption}\item[{}]{RO,  }\item[{}]{NP }\end{DoxyParamCaption})~(((RO \& 1U) $<$$<$ 1U) $\vert$ (NP \& 1U))}
+
+
+
+Memory access permissions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em RO} & Read-\/\+Only\+: Set to 1 for read-\/only memory. \\
+\hline
+{\em NP} & Non-\/\+Privileged\+: Set to 1 for non-\/privileged memory. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00080}{80}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a0b51a6c9e4d60a1d2f0d80ddd43e790c}\label{mpu__armv8_8h_a0b51a6c9e4d60a1d2f0d80ddd43e790c}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ARMV8\_H@{ARM\_MPU\_ARMV8\_H}}
+\index{ARM\_MPU\_ARMV8\_H@{ARM\_MPU\_ARMV8\_H}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ARMV8\_H}{ARM\_MPU\_ARMV8\_H}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ARMV8\+\_\+H}
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00032}{32}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a2c465cc9429b8233bcb9cd7cbef0e54c}\label{mpu__armv8_8h_a2c465cc9429b8233bcb9cd7cbef0e54c}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR@{ARM\_MPU\_ATTR}}
+\index{ARM\_MPU\_ATTR@{ARM\_MPU\_ATTR}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR}{ARM\_MPU\_ATTR}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR(\begin{DoxyParamCaption}\item[{}]{O,  }\item[{}]{I }\end{DoxyParamCaption})~(((O \& 0x\+FU) $<$$<$ 4U) $\vert$ (((O \& 0x\+FU) != 0U) ? (I \& 0x\+FU) \+: ((I \& 0x3U) $<$$<$ 2U)))}
+
+
+
+Memory Attribute. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em O} & Outer memory attributes \\
+\hline
+{\em I} & O == ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+: Device memory attributes, else\+: Inner memory attributes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00065}{65}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_ab4bfac6284dc050dc6fa6aeb8e954c2c}\label{mpu__armv8_8h_ab4bfac6284dc050dc6fa6aeb8e954c2c}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_DEVICE@{ARM\_MPU\_ATTR\_DEVICE}}
+\index{ARM\_MPU\_ATTR\_DEVICE@{ARM\_MPU\_ATTR\_DEVICE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_DEVICE}{ARM\_MPU\_ATTR\_DEVICE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE~( 0U )}
+
+
+
+Attribute for device memory (outer only) 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00035}{35}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a496bcd6a2bbd038d8935049fec9d0fda}\label{mpu__armv8_8h_a496bcd6a2bbd038d8935049fec9d0fda}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_DEVICE\_GRE@{ARM\_MPU\_ATTR\_DEVICE\_GRE}}
+\index{ARM\_MPU\_ATTR\_DEVICE\_GRE@{ARM\_MPU\_ATTR\_DEVICE\_GRE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_DEVICE\_GRE}{ARM\_MPU\_ATTR\_DEVICE\_GRE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+\+GRE~(3U)}
+
+
+
+Device memory type Gathering, Re-\/ordering, Early Write Acknowledgement. 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00059}{59}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a6e08ae44fab85e03fea96ae6a5fcdfb0}\label{mpu__armv8_8h_a6e08ae44fab85e03fea96ae6a5fcdfb0}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_DEVICE\_nGnRE@{ARM\_MPU\_ATTR\_DEVICE\_nGnRE}}
+\index{ARM\_MPU\_ATTR\_DEVICE\_nGnRE@{ARM\_MPU\_ATTR\_DEVICE\_nGnRE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_DEVICE\_nGnRE}{ARM\_MPU\_ATTR\_DEVICE\_nGnRE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+Gn\+RE~(1U)}
+
+
+
+Device memory type non Gathering, non Re-\/ordering, Early Write Acknowledgement. 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00053}{53}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_abfa9ae279357044cf5b74e77af22a686}\label{mpu__armv8_8h_abfa9ae279357044cf5b74e77af22a686}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_DEVICE\_nGnRnE@{ARM\_MPU\_ATTR\_DEVICE\_nGnRnE}}
+\index{ARM\_MPU\_ATTR\_DEVICE\_nGnRnE@{ARM\_MPU\_ATTR\_DEVICE\_nGnRnE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_DEVICE\_nGnRnE}{ARM\_MPU\_ATTR\_DEVICE\_nGnRnE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+Gn\+RnE~(0U)}
+
+
+
+Device memory type non Gathering, non Re-\/ordering, non Early Write Acknowledgement. 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00050}{50}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_adcc9977aabb4dc7177d30cbbac1b53d1}\label{mpu__armv8_8h_adcc9977aabb4dc7177d30cbbac1b53d1}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_DEVICE\_nGRE@{ARM\_MPU\_ATTR\_DEVICE\_nGRE}}
+\index{ARM\_MPU\_ATTR\_DEVICE\_nGRE@{ARM\_MPU\_ATTR\_DEVICE\_nGRE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_DEVICE\_nGRE}{ARM\_MPU\_ATTR\_DEVICE\_nGRE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+DEVICE\+\_\+n\+GRE~(2U)}
+
+
+
+Device memory type non Gathering, Re-\/ordering, Early Write Acknowledgement. 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00056}{56}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_ac2f1c567950e3785d75773362b525390}\label{mpu__armv8_8h_ac2f1c567950e3785d75773362b525390}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_MEMORY\_@{ARM\_MPU\_ATTR\_MEMORY\_}}
+\index{ARM\_MPU\_ATTR\_MEMORY\_@{ARM\_MPU\_ATTR\_MEMORY\_}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_MEMORY\_}{ARM\_MPU\_ATTR\_MEMORY\_}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+MEMORY\+\_\+(\begin{DoxyParamCaption}\item[{}]{NT,  }\item[{}]{WB,  }\item[{}]{RA,  }\item[{}]{WA }\end{DoxyParamCaption})~  (((NT \& 1U) $<$$<$ 3U) $\vert$ ((WB \& 1U) $<$$<$ 2U) $\vert$ ((RA \& 1U) $<$$<$ 1U) $\vert$ (WA \& 1U))}
+
+
+
+Attribute for normal memory (outer and inner) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em NT} & Non-\/\+Transient\+: Set to 1 for non-\/transient data. \\
+\hline
+{\em WB} & Write-\/\+Back\+: Set to 1 to use write-\/back update policy. \\
+\hline
+{\em RA} & Read Allocation\+: Set to 1 to use cache allocation on read miss. \\
+\hline
+{\em WA} & Write Allocation\+: Set to 1 to use cache allocation on write miss. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00046}{46}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a03266f9660485693eb1baec6ba255ab2}\label{mpu__armv8_8h_a03266f9660485693eb1baec6ba255ab2}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ATTR\_NON\_CACHEABLE@{ARM\_MPU\_ATTR\_NON\_CACHEABLE}}
+\index{ARM\_MPU\_ATTR\_NON\_CACHEABLE@{ARM\_MPU\_ATTR\_NON\_CACHEABLE}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ATTR\_NON\_CACHEABLE}{ARM\_MPU\_ATTR\_NON\_CACHEABLE}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+ATTR\+\_\+\+NON\+\_\+\+CACHEABLE~( 4U )}
+
+
+
+Attribute for non-\/cacheable, normal memory. 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00038}{38}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_afe39c2f98058bcac7e7e0501e64e7a9d}\label{mpu__armv8_8h_afe39c2f98058bcac7e7e0501e64e7a9d}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_RBAR@{ARM\_MPU\_RBAR}}
+\index{ARM\_MPU\_RBAR@{ARM\_MPU\_RBAR}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_RBAR}{ARM\_MPU\_RBAR}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+RBAR(\begin{DoxyParamCaption}\item[{}]{BASE,  }\item[{}]{SH,  }\item[{}]{RO,  }\item[{}]{NP,  }\item[{}]{XN }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  ((BASE \& MPU\_RBAR\_BASE\_Msk) | \(\backslash\)}
+\DoxyCodeLine{  ((SH << MPU\_RBAR\_SH\_Pos) \& MPU\_RBAR\_SH\_Msk) | \(\backslash\)}
+\DoxyCodeLine{  ((\mbox{\hyperlink{mpu__armv8_8h_a81b2aa3fb55cdd5feadff02da10d391b}{ARM\_MPU\_AP\_}}(RO, NP) << MPU\_RBAR\_AP\_Pos) \& MPU\_RBAR\_AP\_Msk) | \(\backslash\)}
+\DoxyCodeLine{  ((XN << MPU\_RBAR\_XN\_Pos) \& MPU\_RBAR\_XN\_Msk))}
+
+\end{DoxyCode}
+
+
+Region Base Address Register value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em BASE} & The base address bits \mbox{[}31\+:5\mbox{]} of a memory region. The value is zero extended. Effective address gets 32 byte aligned. \\
+\hline
+{\em SH} & Defines the Shareability domain for this memory region. \\
+\hline
+{\em RO} & Read-\/\+Only\+: Set to 1 for a read-\/only memory region. \\
+\hline
+{\em NP} & Non-\/\+Privileged\+: Set to 1 for a non-\/privileged memory region. \textbackslash{}oaram XN e\+Xecute Never\+: Set to 1 for a non-\/executable memory region. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00089}{89}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_aeaaa071276ba7956944e6c3dc05d677e}\label{mpu__armv8_8h_aeaaa071276ba7956944e6c3dc05d677e}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_RLAR@{ARM\_MPU\_RLAR}}
+\index{ARM\_MPU\_RLAR@{ARM\_MPU\_RLAR}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_RLAR}{ARM\_MPU\_RLAR}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+RLAR(\begin{DoxyParamCaption}\item[{}]{LIMIT,  }\item[{}]{IDX }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  ((LIMIT \& MPU\_RLAR\_LIMIT\_Msk) | \(\backslash\)}
+\DoxyCodeLine{  ((IDX << MPU\_RLAR\_AttrIndx\_Pos) \& MPU\_RLAR\_AttrIndx\_Msk) | \(\backslash\)}
+\DoxyCodeLine{  (MPU\_RLAR\_EN\_Msk))}
+
+\end{DoxyCode}
+
+
+Region Limit Address Register value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em LIMIT} & The limit address bits \mbox{[}31\+:5\mbox{]} for this memory region. The value is one extended. \\
+\hline
+{\em IDX} & The attribute index to be associated with this memory region. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00099}{99}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a73c70127f24f34781ad463cbe51d8f6b}\label{mpu__armv8_8h_a73c70127f24f34781ad463cbe51d8f6b}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SH\_INNER@{ARM\_MPU\_SH\_INNER}}
+\index{ARM\_MPU\_SH\_INNER@{ARM\_MPU\_SH\_INNER}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SH\_INNER}{ARM\_MPU\_SH\_INNER}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+INNER~(3U)}
+
+
+
+Normal memory inner shareable ~\newline
+ 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00074}{74}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a3d0f688198289f72264f73cf72a742e8}\label{mpu__armv8_8h_a3d0f688198289f72264f73cf72a742e8}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SH\_NON@{ARM\_MPU\_SH\_NON}}
+\index{ARM\_MPU\_SH\_NON@{ARM\_MPU\_SH\_NON}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SH\_NON}{ARM\_MPU\_SH\_NON}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+NON~(0U)}
+
+
+
+Normal memory non-\/shareable ~\newline
+ 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00068}{68}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_ac4fddbdb9e1350bce6906de33c1fd500}\label{mpu__armv8_8h_ac4fddbdb9e1350bce6906de33c1fd500}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SH\_OUTER@{ARM\_MPU\_SH\_OUTER}}
+\index{ARM\_MPU\_SH\_OUTER@{ARM\_MPU\_SH\_OUTER}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SH\_OUTER}{ARM\_MPU\_SH\_OUTER}}
+{\footnotesize\ttfamily \#define ARM\+\_\+\+MPU\+\_\+\+SH\+\_\+\+OUTER~(2U)}
+
+
+
+Normal memory outer shareable ~\newline
+ 
+
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00071}{71}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mpu__armv8_8h_a9dcb0afddf4ac351f33f3c7a5169c62c}\label{mpu__armv8_8h_a9dcb0afddf4ac351f33f3c7a5169c62c}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ClrRegion@{ARM\_MPU\_ClrRegion}}
+\index{ARM\_MPU\_ClrRegion@{ARM\_MPU\_ClrRegion}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ClrRegion()}{ARM\_MPU\_ClrRegion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Clr\+Region (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{rnr }\end{DoxyParamCaption})}
+
+Clear and disable the given MPU region. 
+\begin{DoxyParams}{Parameters}
+{\em rnr} & Region number to be cleared. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00215}{215}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a01fa1151c9ec0ba5de76f908c0999316}\label{mpu__armv8_8h_a01fa1151c9ec0ba5de76f908c0999316}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_ClrRegionEx@{ARM\_MPU\_ClrRegionEx}}
+\index{ARM\_MPU\_ClrRegionEx@{ARM\_MPU\_ClrRegionEx}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_ClrRegionEx()}{ARM\_MPU\_ClrRegionEx()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Clr\+Region\+Ex (\begin{DoxyParamCaption}\item[{MPU\+\_\+\+Type $\ast$}]{mpu,  }\item[{uint32\+\_\+t}]{rnr }\end{DoxyParamCaption})}
+
+Clear and disable the given MPU region of the given MPU. 
+\begin{DoxyParams}{Parameters}
+{\em mpu} & Pointer to MPU to be used. \\
+\hline
+{\em rnr} & Region number to be cleared. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00206}{206}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a61814eba4652a0fdfb76bbe222086327}\label{mpu__armv8_8h_a61814eba4652a0fdfb76bbe222086327}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_Disable@{ARM\_MPU\_Disable}}
+\index{ARM\_MPU\_Disable@{ARM\_MPU\_Disable}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_Disable()}{ARM\_MPU\_Disable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Disable (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Disable the MPU. 
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00127}{127}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a5a3f40314553baccdeea551f86d9a997}\label{mpu__armv8_8h_a5a3f40314553baccdeea551f86d9a997}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_Enable@{ARM\_MPU\_Enable}}
+\index{ARM\_MPU\_Enable@{ARM\_MPU\_Enable}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_Enable()}{ARM\_MPU\_Enable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Enable (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{MPU\+\_\+\+Control }\end{DoxyParamCaption})}
+
+Enable the MPU. 
+\begin{DoxyParams}{Parameters}
+{\em MPU\+\_\+\+Control} & Default access permissions for unconfigured regions. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00115}{115}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_aca76614e3091c7324aa9d60e634621bf}\label{mpu__armv8_8h_aca76614e3091c7324aa9d60e634621bf}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_Load@{ARM\_MPU\_Load}}
+\index{ARM\_MPU\_Load@{ARM\_MPU\_Load}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_Load()}{ARM\_MPU\_Load()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Load (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{rnr,  }\item[{\mbox{\hyperlink{struct_a_r_m___m_p_u___region__t}{ARM\+\_\+\+MPU\+\_\+\+Region\+\_\+t}} const $\ast$}]{table,  }\item[{uint32\+\_\+t}]{cnt }\end{DoxyParamCaption})}
+
+Load the given number of MPU regions from a table. 
+\begin{DoxyParams}{Parameters}
+{\em rnr} & First region number to be configured. \\
+\hline
+{\em table} & Pointer to the MPU configuration table. \\
+\hline
+{\em cnt} & Amount of regions to be configured. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00315}{315}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_ab6094419f2abd678f1f3b121cd115049}\label{mpu__armv8_8h_ab6094419f2abd678f1f3b121cd115049}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_LoadEx@{ARM\_MPU\_LoadEx}}
+\index{ARM\_MPU\_LoadEx@{ARM\_MPU\_LoadEx}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_LoadEx()}{ARM\_MPU\_LoadEx()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Load\+Ex (\begin{DoxyParamCaption}\item[{MPU\+\_\+\+Type $\ast$}]{mpu,  }\item[{uint32\+\_\+t}]{rnr,  }\item[{\mbox{\hyperlink{struct_a_r_m___m_p_u___region__t}{ARM\+\_\+\+MPU\+\_\+\+Region\+\_\+t}} const $\ast$}]{table,  }\item[{uint32\+\_\+t}]{cnt }\end{DoxyParamCaption})}
+
+Load the given number of MPU regions from a table to the given MPU. 
+\begin{DoxyParams}{Parameters}
+{\em mpu} & Pointer to the MPU registers to be used. \\
+\hline
+{\em rnr} & First region number to be configured. \\
+\hline
+{\em table} & Pointer to the MPU configuration table. \\
+\hline
+{\em cnt} & Amount of regions to be configured. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00285}{285}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_ab5b3c0a53d19c09a5550f1d9071ae65c}\label{mpu__armv8_8h_ab5b3c0a53d19c09a5550f1d9071ae65c}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SetMemAttr@{ARM\_MPU\_SetMemAttr}}
+\index{ARM\_MPU\_SetMemAttr@{ARM\_MPU\_SetMemAttr}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SetMemAttr()}{ARM\_MPU\_SetMemAttr()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Set\+Mem\+Attr (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{attr }\end{DoxyParamCaption})}
+
+Set the memory attribute encoding. 
+\begin{DoxyParams}{Parameters}
+{\em idx} & The attribute index to be set \mbox{[}0-\/7\mbox{]} \\
+\hline
+{\em attr} & The attribute value to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00186}{186}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a1799413f08a157d636a1491371c15ce2}\label{mpu__armv8_8h_a1799413f08a157d636a1491371c15ce2}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SetMemAttrEx@{ARM\_MPU\_SetMemAttrEx}}
+\index{ARM\_MPU\_SetMemAttrEx@{ARM\_MPU\_SetMemAttrEx}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SetMemAttrEx()}{ARM\_MPU\_SetMemAttrEx()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Set\+Mem\+Attr\+Ex (\begin{DoxyParamCaption}\item[{MPU\+\_\+\+Type $\ast$}]{mpu,  }\item[{uint8\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{attr }\end{DoxyParamCaption})}
+
+Set the memory attribute encoding to the given MPU. 
+\begin{DoxyParams}{Parameters}
+{\em mpu} & Pointer to the MPU to be configured. \\
+\hline
+{\em idx} & The attribute index to be set \mbox{[}0-\/7\mbox{]} \\
+\hline
+{\em attr} & The attribute value to be set. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00169}{169}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a6d7f220015c070c0e469948c1775ee3d}\label{mpu__armv8_8h_a6d7f220015c070c0e469948c1775ee3d}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SetRegion@{ARM\_MPU\_SetRegion}}
+\index{ARM\_MPU\_SetRegion@{ARM\_MPU\_SetRegion}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SetRegion()}{ARM\_MPU\_SetRegion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Set\+Region (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{rnr,  }\item[{uint32\+\_\+t}]{rbar,  }\item[{uint32\+\_\+t}]{rlar }\end{DoxyParamCaption})}
+
+Configure the given MPU region. 
+\begin{DoxyParams}{Parameters}
+{\em rnr} & Region number to be configured. \\
+\hline
+{\em rbar} & Value for RBAR register. \\
+\hline
+{\em rlar} & Value for RLAR register. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00248}{248}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a3d50ba8546252bea959e45c8fdf16993}\label{mpu__armv8_8h_a3d50ba8546252bea959e45c8fdf16993}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!ARM\_MPU\_SetRegionEx@{ARM\_MPU\_SetRegionEx}}
+\index{ARM\_MPU\_SetRegionEx@{ARM\_MPU\_SetRegionEx}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{ARM\_MPU\_SetRegionEx()}{ARM\_MPU\_SetRegionEx()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ARM\+\_\+\+MPU\+\_\+\+Set\+Region\+Ex (\begin{DoxyParamCaption}\item[{MPU\+\_\+\+Type $\ast$}]{mpu,  }\item[{uint32\+\_\+t}]{rnr,  }\item[{uint32\+\_\+t}]{rbar,  }\item[{uint32\+\_\+t}]{rlar }\end{DoxyParamCaption})}
+
+Configure the given MPU region of the given MPU. 
+\begin{DoxyParams}{Parameters}
+{\em mpu} & Pointer to MPU to be used. \\
+\hline
+{\em rnr} & Region number to be configured. \\
+\hline
+{\em rbar} & Value for RBAR register. \\
+\hline
+{\em rlar} & Value for RLAR register. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00236}{236}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+
+\mbox{\Hypertarget{mpu__armv8_8h_a71ca7368cfeccb262823726de9985aa2}\label{mpu__armv8_8h_a71ca7368cfeccb262823726de9985aa2}} 
+\index{mpu\_armv8.h@{mpu\_armv8.h}!orderedCpy@{orderedCpy}}
+\index{orderedCpy@{orderedCpy}!mpu\_armv8.h@{mpu\_armv8.h}}
+\doxysubsubsection{\texorpdfstring{orderedCpy()}{orderedCpy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{cmsis__iccarm_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE}} void ordered\+Cpy (\begin{DoxyParamCaption}\item[{volatile uint32\+\_\+t $\ast$}]{dst,  }\item[{const uint32\+\_\+t $\ast$\mbox{\hyperlink{cmsis__iccarm_8h_a378ac21329d33f561f90265eef89f564}{\+\_\+\+\_\+\+RESTRICT}}}]{src,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+Memcopy with strictly ordered memory access, e.\+g. for register targets. 
+\begin{DoxyParams}{Parameters}
+{\em dst} & Destination data is copied to. \\
+\hline
+{\em src} & Source data is copied from. \\
+\hline
+{\em len} & Amount of data words to be copied. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mpu__armv8_8h_source_l00270}{270}} of file \mbox{\hyperlink{mpu__armv8_8h_source}{mpu\+\_\+armv8.\+h}}.
+

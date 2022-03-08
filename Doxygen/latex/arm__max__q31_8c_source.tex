@@ -1,0 +1,188 @@
+\hypertarget{arm__max__q31_8c_source}{}\doxysection{arm\+\_\+max\+\_\+q31.\+c}
+\label{arm__max__q31_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_max\_q31.c@{Autodrone32/Libraries/CMSIS/DSP/StatisticsFunctions/arm\_max\_q31.c}}
+\mbox{\hyperlink{arm__max__q31_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_max\_q31.c}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Maximum value of a Q31 vector}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{statistics__functions_8h}{dsp/statistics\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00048}00048 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVEI) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE)}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00050}00050 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__helium__utils_8h}{arm\_helium\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00052}00052 \textcolor{keywordtype}{void} \mbox{\hyperlink{group___max_ga74015f9e9852c710a981c5b488417298}{arm\_max\_q31}}(}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00053}00053     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00054}00054     uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00055}00055     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pResult,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00056}00056     uint32\_t * pIndex)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00057}00057 \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00058}00058     int32\_t         blkCnt;     \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00059}00059     q31x4\_t         extremValVec = vdupq\_n\_s32(\mbox{\hyperlink{arm__math__types_8h_a1eb725c94dbb052aa24b62321be0445b}{Q31\_MIN}});}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00060}00060     \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}}           maxValue = \mbox{\hyperlink{arm__math__types_8h_a1eb725c94dbb052aa24b62321be0445b}{Q31\_MIN}};}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00061}00061     uint32x4\_t      indexVec;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00062}00062     uint32x4\_t      extremIdxVec;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00063}00063     mve\_pred16\_t    p0;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00064}00064     uint32\_t        extremIdxArr[4];}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00065}00065 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00066}00066     indexVec = vidupq\_u32(0U, 1);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00068}00068     blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00069}00069     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00070}00070         mve\_pred16\_t    p = vctp32q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00071}00071         q31x4\_t         extremIdxVal = vld1q\_z\_s32(pSrc, p);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00072}00072         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00073}00073 \textcolor{comment}{         * Get current max per lane and current index per lane}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00074}00074 \textcolor{comment}{         * when a max is selected}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00075}00075 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00076}00076         p0 = vcmpgeq\_m(extremIdxVal, extremValVec, p);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00078}00078         extremValVec = vorrq\_m(extremValVec, extremIdxVal, extremIdxVal, p0);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00079}00079         \textcolor{comment}{/* store per-\/lane extrema indexes */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00080}00080         vst1q\_p\_u32(extremIdxArr, indexVec, p0);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00082}00082         indexVec += 4;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00083}00083         pSrc += 4;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00084}00084         blkCnt -\/= 4;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00085}00085     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00086}00086     \textcolor{keywordflow}{while} (blkCnt > 0);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00088}00088 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00089}00089     \textcolor{comment}{/* Get max value across the vector   */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00090}00090     maxValue = vmaxvq(maxValue, extremValVec);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00092}00092     \textcolor{comment}{/* set index for lower values to max possible index   */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00093}00093     p0 = vcmpgeq(extremValVec, maxValue);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00094}00094     extremIdxVec = vld1q\_u32(extremIdxArr);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00096}00096     indexVec = vpselq(extremIdxVec, vdupq\_n\_u32(blockSize -\/ 1), p0);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00097}00097     *pIndex = vminvq(blockSize -\/ 1, indexVec);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00098}00098     *pResult = maxValue;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00101}00101 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00102}\mbox{\hyperlink{group___max_ga74015f9e9852c710a981c5b488417298}{00102}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___max_ga74015f9e9852c710a981c5b488417298}{arm\_max\_q31}}(}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00103}00103   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00104}00104         uint32\_t blockSize,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00105}00105         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} * pResult,}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00106}00106         uint32\_t * pIndex)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00107}00107 \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00108}00108         \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\_t}} maxVal, out;                             \textcolor{comment}{/* Temporary variables to store the output value. */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00109}00109         uint32\_t blkCnt, outIndex;                     \textcolor{comment}{/* Loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00111}00111 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00112}00112         uint32\_t index;                                \textcolor{comment}{/* index of maximum value */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00113}00113 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00115}00115   \textcolor{comment}{/* Initialise index value to zero. */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00116}00116   outIndex = 0U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00117}00117   \textcolor{comment}{/* Load first input value that act as reference value for comparision */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00118}00118   out = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00120}00120 \textcolor{preprocessor}{\#if defined (ARM\_MATH\_LOOPUNROLL)}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00121}00121   \textcolor{comment}{/* Initialise index of maximum value. */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00122}00122   index = 0U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00124}00124   \textcolor{comment}{/* Loop unrolling: Compute 4 outputs at a time */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00125}00125   blkCnt = (blockSize -\/ 1U) >> 2U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00127}00127   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00128}00128   \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00129}00129     \textcolor{comment}{/* Initialize maxVal to next consecutive values one by one */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00130}00130     maxVal = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00131}00131 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00132}00132     \textcolor{comment}{/* compare for the maximum value */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00133}00133     \textcolor{keywordflow}{if} (out < maxVal)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00134}00134     \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00135}00135       \textcolor{comment}{/* Update the maximum value and it's index */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00136}00136       out = maxVal;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00137}00137       outIndex = index + 1U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00138}00138     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00140}00140     maxVal = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00141}00141     \textcolor{keywordflow}{if} (out < maxVal)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00142}00142     \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00143}00143       out = maxVal;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00144}00144       outIndex = index + 2U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00145}00145     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00147}00147     maxVal = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00148}00148     \textcolor{keywordflow}{if} (out < maxVal)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00149}00149     \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00150}00150       out = maxVal;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00151}00151       outIndex = index + 3U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00152}00152     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00154}00154     maxVal = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00155}00155     \textcolor{keywordflow}{if} (out < maxVal)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00156}00156     \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00157}00157       out = maxVal;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00158}00158       outIndex = index + 4U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00159}00159     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00161}00161     index += 4U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00163}00163     \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00164}00164     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00165}00165   \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00167}00167   \textcolor{comment}{/* Loop unrolling: Compute remaining outputs */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00168}00168   blkCnt = (blockSize -\/ 1U) \% 4U;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00170}00170 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00171}00171 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00172}00172   \textcolor{comment}{/* Initialize blkCnt with number of samples */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00173}00173   blkCnt = (blockSize -\/ 1U);}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00175}00175 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined (ARM\_MATH\_LOOPUNROLL) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00177}00177   \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00178}00178   \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00179}00179     \textcolor{comment}{/* Initialize maxVal to the next consecutive values one by one */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00180}00180     maxVal = *pSrc++;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00182}00182     \textcolor{comment}{/* compare for the maximum value */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00183}00183     \textcolor{keywordflow}{if} (out < maxVal)}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00184}00184     \{}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00185}00185       \textcolor{comment}{/* Update the maximum value and it's index */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00186}00186       out = maxVal;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00187}00187       outIndex = blockSize -\/ blkCnt;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00188}00188     \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00190}00190     \textcolor{comment}{/* Decrement loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00191}00191     blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00192}00192   \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00194}00194   \textcolor{comment}{/* Store the maximum value and it's index into destination pointers */}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00195}00195   *pResult = out;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00196}00196   *pIndex = outIndex;}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00197}00197 \}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00198}00198 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEI) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__max__q31_8c_source_l00199}00199 }
+
+\end{DoxyCode}

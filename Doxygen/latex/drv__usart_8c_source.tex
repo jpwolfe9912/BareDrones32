@@ -1,0 +1,113 @@
+\hypertarget{drv__usart_8c_source}{}\doxysection{drv\+\_\+usart.\+c}
+\label{drv__usart_8c_source}\index{Autodrone32/Src/drv/drv\_usart.c@{Autodrone32/Src/drv/drv\_usart.c}}
+\mbox{\hyperlink{drv__usart_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00013}\mbox{\hyperlink{drv__usart_8c_a12fd65992e4671d5e7423d7698a20c0b}{00013}} \textcolor{keywordtype}{char} \mbox{\hyperlink{drv__usart_8c_a12fd65992e4671d5e7423d7698a20c0b}{read}};}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00014}\mbox{\hyperlink{drv__usart_8c_a9d2fd22010aea54991d75a0c9daa6e8a}{00014}} uint8\_t \mbox{\hyperlink{drv__usart_8c_a9d2fd22010aea54991d75a0c9daa6e8a}{readFlag}} = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00016}00016 \textcolor{comment}{/*      Global Variables    */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00017}\mbox{\hyperlink{drv__ibus_8h_abc27f7b093c7752d4b4be63511d56de3}{00017}} uint8\_t \mbox{\hyperlink{drv__usart_8c_abc27f7b093c7752d4b4be63511d56de3}{rxBuf}}[\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\_SIZE}}];           \textcolor{comment}{// dma data}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00018}\mbox{\hyperlink{drv__ibus_8h_ad56fe77fc1b32fe496f0275fc420042a}{00018}} \mbox{\hyperlink{structlwrb}{lwrb\_t}} \mbox{\hyperlink{drv__usart_8c_ad56fe77fc1b32fe496f0275fc420042a}{rxRingBuf}};                    \textcolor{comment}{// ring buffer instance}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00019}\mbox{\hyperlink{drv__ibus_8h_a0ef69602fb068aec7cfdbcb82dc72b8b}{00019}} uint8\_t \mbox{\hyperlink{drv__usart_8c_a0ef69602fb068aec7cfdbcb82dc72b8b}{rxRingBufData}}[\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\_SIZE}}];   \textcolor{comment}{// ring buffer data}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00021}00021 \textcolor{comment}{/* Functions */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00027}00027 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00028}\mbox{\hyperlink{drv__usart_8c_a4a1e3139e4182520fba0cf2180d0ce0e}{00028}} \mbox{\hyperlink{drv__usart_8c_a4a1e3139e4182520fba0cf2180d0ce0e}{usart1Init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00029}00029 \{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00030}00030     printf(\textcolor{stringliteral}{"{}\(\backslash\)nInitializing USART 1\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00032}00032     \textcolor{comment}{// enable clock for GPIOB}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00033}00033     RCC-\/>AHB1ENR |= RCC\_AHB1ENR\_GPIOBEN;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00034}00034     \textcolor{comment}{// set mode, speed, type, pull, AF}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00035}00035     GPIOB-\/>MODER    \&= \string~GPIO\_MODER\_MODER6;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00036}00036     GPIOB-\/>MODER    |= GPIO\_MODER\_MODER6\_1;             \textcolor{comment}{// AF mode}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00037}00037     GPIOB-\/>OSPEEDR  |= GPIO\_OSPEEDR\_OSPEEDR6;           \textcolor{comment}{// high speed}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00038}00038     GPIOB-\/>OTYPER   \&= \string~GPIO\_OTYPER\_OT6;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00039}00039     GPIOB-\/>PUPDR    \&= \string~GPIO\_PUPDR\_PUPDR6;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00040}00040     GPIOB-\/>AFR[0]   \&= \string~GPIO\_AFRL\_AFRL6;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00041}00041     GPIOB-\/>AFR[0]   |= (0x7 << (4U * 6U));              \textcolor{comment}{// AF 7}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00043}00043     GPIOB-\/>MODER    \&= \string~GPIO\_MODER\_MODER7;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00044}00044     GPIOB-\/>MODER    |= GPIO\_MODER\_MODER7\_1;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00045}00045     GPIOB-\/>OSPEEDR  |= GPIO\_OSPEEDR\_OSPEEDR7;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00046}00046     GPIOB-\/>OTYPER   \&= \string~GPIO\_OTYPER\_OT7;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00047}00047     GPIOB-\/>PUPDR    \&= \string~GPIO\_PUPDR\_PUPDR7;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00048}00048     GPIOB-\/>AFR[0]   \&= \string~GPIO\_AFRL\_AFRL7;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00049}00049     GPIOB-\/>AFR[0]   |= (0x7 << (4U * 7U));}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00051}00051     NVIC\_SetPriority(USART1\_IRQn, NVIC\_EncodePriority(NVIC\_GetPriorityGrouping(), 0, 0));}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00052}00052     NVIC\_EnableIRQ(USART1\_IRQn);}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00055}00055     RCC-\/>APB2ENR    |= RCC\_APB2ENR\_USART1EN;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00057}00057     USART1-\/>CR1     \&= \string~USART\_CR1\_UE;       \textcolor{comment}{// disable usart}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00058}00058     USART1-\/>BRR     = 0x3AA;                \textcolor{comment}{// 115200 BR}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00059}00059     USART1-\/>CR1     \&= \string~USART\_CR1\_M;        \textcolor{comment}{// 8 bit transfer}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00060}00060     USART1-\/>CR2     \&= \string~USART\_CR2\_STOP;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00061}00061     USART1-\/>CR1     \&= \string~USART\_CR1\_PCE;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00062}00062     USART1-\/>CR1     |= USART\_CR1\_RE |       \textcolor{comment}{// enable rx, tx}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00063}00063             USART\_CR1\_TE;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00064}00064     USART1-\/>CR3     \&= \string~(USART\_CR3\_CTSE |}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00065}00065             USART\_CR3\_RTSE);}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00066}00066     USART1-\/>CR1     \&= \string~USART\_CR1\_OVER8;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00070}00070     \textcolor{comment}{// disable DMA 1 stream 1}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00071}00071     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_EN;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00072}00072     \textcolor{keywordflow}{while}(DMA2\_Stream2-\/>CR \& DMA\_SxCR\_EN)\{\}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00073}00073     DMA2\_Stream2-\/>CR    = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00074}00074     DMA2\_Stream2-\/>NDTR  = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00075}00075     DMA2\_Stream2-\/>PAR   = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00076}00076     DMA2\_Stream2-\/>M0AR  = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00077}00077     DMA2\_Stream2-\/>M1AR  = 0;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00078}00078     DMA2\_Stream2-\/>FCR   = 0x00000021U;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00079}00079     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_CHSEL;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00080}00080     DMA2-\/>LIFCR         |= (0x3F << 16U); \textcolor{comment}{//0x00000F40U;}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00082}00082     \textcolor{comment}{// stream 1 ch 4 DMA settings}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00083}00083     DMA2\_Stream2-\/>CR    |= (0x4 << 25U);            \textcolor{comment}{// channel 4}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00084}00084     DMA2\_Stream2-\/>M0AR  = (uint32\_t)\mbox{\hyperlink{drv__usart_8c_abc27f7b093c7752d4b4be63511d56de3}{rxBuf}};         \textcolor{comment}{// set mem address}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00085}00085     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_DIR;           \textcolor{comment}{// per to mem}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00086}00086     DMA2\_Stream2-\/>FCR   \&= \string~DMA\_SxFCR\_DMDIS;        \textcolor{comment}{// fifo dis}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00087}00087     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_MBURST;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00088}00088     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_PBURST;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00089}00089     DMA2\_Stream2-\/>PAR   = (uint32\_t)(\&(USART1-\/>RDR));\textcolor{comment}{// set per address}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00090}00090     DMA2\_Stream2-\/>NDTR  = \mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\_SIZE}};     \textcolor{comment}{// 64 bytes}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00091}00091     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_PINC;          \textcolor{comment}{// don't inc per}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00092}00092     DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_MINC;           \textcolor{comment}{// increment mem}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00093}00093     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_MSIZE;         \textcolor{comment}{// 8 bit size}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00094}00094     DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_PSIZE;         \textcolor{comment}{// 8 bit size}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00095}00095     DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_CIRC;           \textcolor{comment}{// circ mode en}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00096}00096     DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_PL;         \textcolor{comment}{// medium priority}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00097}00097     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(500);}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00098}00098 \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00106}00106 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00107}\mbox{\hyperlink{drv__usart_8c_ae297d1486a63281a8bed0d00f0f0b1f9}{00107}} \mbox{\hyperlink{drv__usart_8c_ae297d1486a63281a8bed0d00f0f0b1f9}{usart1Read}}(uint8\_t *pData, uint8\_t size)}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00108}00108 \{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00109}00109     \textcolor{keywordflow}{if}(!(USART1-\/>ISR \& USART\_ISR\_BUSY))\{        \textcolor{comment}{// wait for UART to be ready}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00110}00110         DMA2\_Stream2-\/>CR    \&= \string~DMA\_SxCR\_EN;    \textcolor{comment}{// disable DMA}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00111}00111         \textcolor{keywordflow}{while}(DMA2\_Stream2-\/>CR \& DMA\_SxCR\_EN);}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00112}00112         DMA2\_Stream2-\/>CR    |= (0x4 << 25U);    \textcolor{comment}{// set DMA channel}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00113}00113         DMA2\_Stream2-\/>NDTR  = size;             \textcolor{comment}{// set transfer size}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00114}00114         DMA2\_Stream2-\/>M0AR  = (uint32\_t)pData;  \textcolor{comment}{// set memory address}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00116}00116         DMA2-\/>LIFCR         |= (0x3F << 16U);   \textcolor{comment}{// clear flags}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00117}00117 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00118}00118         DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_TCIE;   \textcolor{comment}{// set transfer complete interrupts}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00119}00119         DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_HTIE;}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00121}00121         DMA2\_Stream2-\/>CR    |= DMA\_SxCR\_EN;     \textcolor{comment}{// enable DMA}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00123}00123         USART1-\/>CR3         |= USART\_CR3\_DMAR;  \textcolor{comment}{// enable DMA for UART}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00125}00125         USART1-\/>ICR         |= USART\_ICR\_IDLECF;\textcolor{comment}{// clear idle interrupt flag}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00126}00126         USART1-\/>CR1         |= USART\_CR1\_IDLEIE;\textcolor{comment}{// enable idle line interrupts}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00127}00127         USART1-\/>CR1         |= USART\_CR1\_UE;            \textcolor{comment}{// enable usart}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00128}00128     \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00129}00129 \}}
+
+\end{DoxyCode}

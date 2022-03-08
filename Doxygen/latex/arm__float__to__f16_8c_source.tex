@@ -1,0 +1,115 @@
+\hypertarget{arm__float__to__f16_8c_source}{}\doxysection{arm\+\_\+float\+\_\+to\+\_\+f16.\+c}
+\label{arm__float__to__f16_8c_source}\index{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_float\_to\_f16.c@{Autodrone32/Libraries/CMSIS/DSP/SupportFunctions/arm\_float\_to\_f16.c}}
+\mbox{\hyperlink{arm__float__to__f16_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00001}00001 \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00002}00002 \textcolor{comment}{ * Project:      CMSIS DSP Library}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00003}00003 \textcolor{comment}{ * Title:        arm\_float\_to\_q15.c}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00004}00004 \textcolor{comment}{ * Description:  Converts the elements of the floating-\/point vector to Q15 vector}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00005}00005 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00006}00006 \textcolor{comment}{ * \$Date:        23 April 2021}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00007}00007 \textcolor{comment}{ * \$Revision:    V1.9.0}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00008}00008 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00009}00009 \textcolor{comment}{ * Target Processor: Cortex-\/M and Cortex-\/A cores}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00010}00010 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00011}00011 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00012}00012 \textcolor{comment}{ * Copyright (C) 2010-\/2021 ARM Limited or its affiliates. All rights reserved.}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00013}00013 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00014}00014 \textcolor{comment}{ * SPDX-\/License-\/Identifier: Apache-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00015}00015 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00016}00016 \textcolor{comment}{ * Licensed under the Apache License, Version 2.0 (the License); you may}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00017}00017 \textcolor{comment}{ * not use this file except in compliance with the License.}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00018}00018 \textcolor{comment}{ * You may obtain a copy of the License at}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00019}00019 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00020}00020 \textcolor{comment}{ * www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00021}00021 \textcolor{comment}{ *}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00022}00022 \textcolor{comment}{ * Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00023}00023 \textcolor{comment}{ * distributed under the License is distributed on an AS IS BASIS, WITHOUT}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00024}00024 \textcolor{comment}{ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00025}00025 \textcolor{comment}{ * See the License for the specific language governing permissions and}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00026}00026 \textcolor{comment}{ * limitations under the License.}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00027}00027 \textcolor{comment}{ */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{support__functions__f16_8h}{dsp/support\_functions\_f16.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00031}00031 \textcolor{preprocessor}{\#if defined(ARM\_FLOAT16\_SUPPORTED)}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00052}00052 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) \&\& defined(\_\_CMSIS\_GCC\_H)}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00053}00053 \textcolor{preprocessor}{\#pragma GCC warning "{}Scalar version of arm\_float\_to\_f16 built. Helium version has build issues with gcc."{}}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00054}00054 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00056}00056 \textcolor{preprocessor}{\#if defined(ARM\_MATH\_MVE\_FLOAT16) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) \&\&  !defined(\_\_CMSIS\_GCC\_H)}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00058}00058 \textcolor{keywordtype}{void} arm\_float\_to\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00059}00059   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00060}00060         float16\_t * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00061}00061         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00062}00062 \{}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00063}00063     int32\_t  blkCnt;           \textcolor{comment}{/* loop counters */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00064}00064     float32x4x2\_t tmp;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00065}00065     float16x8\_t vecDst;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00066}00066     \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *pSrcVec;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00069}00069     pSrcVec = (\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} \textcolor{keyword}{const} *) pSrc;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00070}00070     blkCnt = blockSize >> 3;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00071}00071     \textcolor{keywordflow}{while} (blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00072}00072     \{}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00073}00073         \textcolor{comment}{/* convert from float32 to float16 and then store the results in the destination buffer */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00074}00074         tmp = vld2q(pSrcVec);   pSrcVec += 8;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00075}00075         \textcolor{comment}{/* narrow / merge */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00076}00076         vecDst = vcvtbq\_f16\_f32(vecDst, tmp.val[0]);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00077}00077         vecDst = vcvttq\_f16\_f32(vecDst, tmp.val[1]);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00078}00078         vst1q(pDst, vecDst);    pDst += 8;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00079}00079         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00080}00080 \textcolor{comment}{         * Decrement the blockSize loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00081}00081 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00082}00082         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00083}00083     \}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00085}00085     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00086}00086 \textcolor{comment}{     * tail}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00087}00087 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00088}00088     blkCnt = blockSize \& 7;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00089}00089     \textcolor{keywordflow}{if} (blkCnt > 0)}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00090}00090     \{}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00091}00091         mve\_pred16\_t p0 = vctp16q(blkCnt);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00092}00092         tmp = vld2q(pSrcVec);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00093}00093         vecDst = vcvtbq\_f16\_f32(vecDst, tmp.val[0]);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00094}00094         vecDst = vcvttq\_f16\_f32(vecDst, tmp.val[1]);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00095}00095         vstrhq\_p(pDst, vecDst, p0);}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00096}00096     \}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00097}00097 \}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00099}00099 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00101}00101 \textcolor{keywordtype}{void} arm\_float\_to\_f16(}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00102}00102   \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} * pSrc,}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00103}00103         float16\_t * pDst,}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00104}00104         uint32\_t blockSize)}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00105}00105 \{}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00106}00106     \textcolor{keyword}{const} \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\_t}} *pIn = pSrc;      \textcolor{comment}{/* Src pointer */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00107}00107     uint32\_t  blkCnt;           \textcolor{comment}{/* loop counter */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00109}00109     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00110}00110 \textcolor{comment}{     * Loop over blockSize number of values}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00111}00111 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00112}00112     blkCnt = blockSize;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00114}00114     \textcolor{keywordflow}{while} (blkCnt > 0U)}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00115}00115     \{}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00117}00117         *pDst++ = (float16\_t) * pIn++;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00118}00118         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00119}00119 \textcolor{comment}{         * Decrement the loop counter}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00120}00120 \textcolor{comment}{         */}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00121}00121         blkCnt-\/-\/;}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00122}00122     \}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00123}00123 \}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00124}00124 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(ARM\_MATH\_MVEF) \&\& !defined(ARM\_MATH\_AUTOVECTORIZE) */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00130}00130 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \#if defined(ARM\_FLOAT16\_SUPPORTED) */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{arm__float__to__f16_8c_source_l00131}00131 }
+
+\end{DoxyCode}

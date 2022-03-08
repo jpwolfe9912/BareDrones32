@@ -1,0 +1,123 @@
+\hypertarget{stm32f7xx__hal_8c}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Src/stm32f7xx\+\_\+hal.c File Reference}
+\label{stm32f7xx__hal_8c}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal.c}}
+
+
+HAL module driver. This is the common part of the HAL initialization.  
+
+
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_ga44c7835c74e12c08ffff5d5008e1c7d2}{\+\_\+\+\_\+\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+VERSION\+\_\+\+MAIN}}~(0x01)
+\begin{DoxyCompactList}\small\item\em STM32\+F7xx HAL Driver version number V1.\+2.\+10. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_gaa50b8a8eea0b0d74461deb22c4c04202}{\+\_\+\+\_\+\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+VERSION\+\_\+\+SUB1}}~(0x02)
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_ga53dbff262abd744a6cdde1ddd80a74e2}{\+\_\+\+\_\+\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+VERSION\+\_\+\+SUB2}}~(0x0A)
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_ga2935dc0e8f6abda089852a4fa1fd08e4}{\+\_\+\+\_\+\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+VERSION\+\_\+\+RC}}~(0x00)
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_gaf8aa58ffb2b48ff6c23db0746e7a414d}{\+\_\+\+\_\+\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+VERSION}}
+\item 
+\#define \mbox{\hyperlink{group___h_a_l___private___constants_gaeeece10cca80f3c632d3d77c3f2917b6}{IDCODE\+\_\+\+DEVID\+\_\+\+MASK}}~((uint32\+\_\+t)0x00000\+FFF)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4}{HAL\+\_\+\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em This function is used to initialize the HAL Library; it must be the first instruction to be executed in the main program (before to call any other HAL function), it performs the following\+: Configure the Flash prefetch, and instruction cache through ART accelerator. Configures the Sys\+Tick to generate an interrupt each 1 millisecond, which is clocked by the HSI (at this stage, the clock is not yet configured and thus the system is running from the internal HSI at 16 MHz). Set NVIC Group Priority to 4. Calls the \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga07e099a69ab23e79be8b7a80505de519}{HAL\+\_\+\+Msp\+Init()}} callback function defined in user file \char`\"{}stm32f7xx\+\_\+hal\+\_\+msp.\+c\char`\"{} to do the global low level hardware initialization. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f}{HAL\+\_\+\+De\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em This function de-\/\+Initializes common part of the HAL and stops the systick. This function is optional. ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga07e099a69ab23e79be8b7a80505de519}{HAL\+\_\+\+Msp\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the MSP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0}{HAL\+\_\+\+Msp\+De\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em De\+Initializes the MSP. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{HAL\+\_\+\+Init\+Tick}} (uint32\+\_\+t Tick\+Priority)
+\begin{DoxyCompactList}\small\item\em This function configures the source of the time base. The time source is configured to have 1ms time base with a dedicated Tick interrupt priority. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188}{HAL\+\_\+\+Inc\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em This function is called to increment a global variable \char`\"{}uw\+Tick\char`\"{} used as application time base. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\+\_\+\+Get\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Provides a tick value in millisecond. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b}{HAL\+\_\+\+Get\+Tick\+Prio}} (void)
+\begin{DoxyCompactList}\small\item\em This function returns a tick priority. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{stm32f7xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690}{HAL\+\_\+\+Set\+Tick\+Freq}} (\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} Freq)
+\begin{DoxyCompactList}\small\item\em Set new tick Freq. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6}{HAL\+\_\+\+Get\+Tick\+Freq}} (void)
+\begin{DoxyCompactList}\small\item\em Return tick frequency. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\+\_\+\+Delay}} (uint32\+\_\+t Delay)
+\begin{DoxyCompactList}\small\item\em This function provides minimum delay (in milliseconds) based on variable incremented. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6}{HAL\+\_\+\+Suspend\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Suspend Tick increment. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97}{HAL\+\_\+\+Resume\+Tick}} (void)
+\begin{DoxyCompactList}\small\item\em Resume Tick increment. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966}{HAL\+\_\+\+Get\+Hal\+Version}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the HAL revision. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8}{HAL\+\_\+\+Get\+REVID}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the device revision identifier. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84}{HAL\+\_\+\+Get\+DEVID}} (void)
+\begin{DoxyCompactList}\small\item\em Returns the device identifier. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506}{HAL\+\_\+\+Get\+UIDw0}} (void)
+\begin{DoxyCompactList}\small\item\em Returns first word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c}{HAL\+\_\+\+Get\+UIDw1}} (void)
+\begin{DoxyCompactList}\small\item\em Returns second word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700}{HAL\+\_\+\+Get\+UIDw2}} (void)
+\begin{DoxyCompactList}\small\item\em Returns third word of the unique device identifier (UID based on 96 bits) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGSleep\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during SLEEP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGSleep\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during SLEEP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGStop\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during STOP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGStop\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during STOP mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead}{HAL\+\_\+\+DBGMCU\+\_\+\+Enable\+DBGStandby\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Enable the Debug Module during STANDBY mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779}{HAL\+\_\+\+DBGMCU\+\_\+\+Disable\+DBGStandby\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Disable the Debug Module during STANDBY mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga20b6ca07582e10aec5e15ad2fda7dfc1}{HAL\+\_\+\+Enable\+Compensation\+Cell}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the I/O Compensation Cell. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga653f1166b0e37afd40372550d806e667}{HAL\+\_\+\+Disable\+Compensation\+Cell}} (void)
+\begin{DoxyCompactList}\small\item\em Power-\/down the I/O Compensation Cell. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_gac99ad862d5888a2672fdf7da1b8b25cd}{HAL\+\_\+\+Enable\+FMCMemory\+Swapping}} (void)
+\begin{DoxyCompactList}\small\item\em Enables the FMC Memory Mapping Swapping. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___h_a_l___exported___functions___group2_ga0863e6c3b386823ab0f5af6dd5121c32}{HAL\+\_\+\+Disable\+FMCMemory\+Swapping}} (void)
+\begin{DoxyCompactList}\small\item\em Disables the FMC Memory Mapping Swapping. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core__sc300_8h_aec43007d9998a0a0e01faede4133d6be}{\+\_\+\+\_\+\+IO}} uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___variables_ga9d411ea525781e633bf7ea7ef2f90728}{uw\+Tick}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{group___h_a_l___exported___variables_ga3000c5e83924ed2debb1849c738d4be2}{uw\+Tick\+Prio}} = (1UL $<$$<$ \mbox{\hyperlink{group__stm32f722xx_gae3fe3587d5100c787e02102ce3944460}{\+\_\+\+\_\+\+NVIC\+\_\+\+PRIO\+\_\+\+BITS}})
+\item 
+\mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\+\_\+\+Tick\+Freq\+Type\+Def}} \mbox{\hyperlink{group___h_a_l___exported___variables_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uw\+Tick\+Freq}} = \mbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aa94e043d780eb1c36291338f6d6314e42}{HAL\+\_\+\+TICK\+\_\+\+FREQ\+\_\+\+DEFAULT}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HAL module driver. This is the common part of the HAL initialization. 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS.
+
+\begin{DoxyVerb}==============================================================================
+                   ##### How to use this driver #####
+==============================================================================
+  [..]
+  The common HAL driver contains a set of generic and common APIs that can be
+  used by the PPP peripheral drivers and the user to start using the HAL. 
+  [..]
+  The HAL contains two APIs' categories: 
+       (+) Common HAL APIs
+       (+) Services HAL APIs\end{DoxyVerb}
+ 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal_8c_source}{stm32f7xx\+\_\+hal.\+c}}.
+

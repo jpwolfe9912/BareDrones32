@@ -1,0 +1,114 @@
+\hypertarget{group__cmplx__conj}{}\doxysection{Complex Conjugate}
+\label{group__cmplx__conj}\index{Complex Conjugate@{Complex Conjugate}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__cmplx__conj_ga1b5571244b051bb72db30886896da2da}{arm\+\_\+cmplx\+\_\+conj\+\_\+f32}} (const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t num\+Samples)
+\begin{DoxyCompactList}\small\item\em Floating-\/point complex conjugate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}{arm\+\_\+cmplx\+\_\+conj\+\_\+q15}} (const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t num\+Samples)
+\begin{DoxyCompactList}\small\item\em Q15 complex conjugate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cmplx__conj_ga652edf2688aae9b2f53c5da73f6cc2bc}{arm\+\_\+cmplx\+\_\+conj\+\_\+q31}} (const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Src, \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$p\+Dst, uint32\+\_\+t num\+Samples)
+\begin{DoxyCompactList}\small\item\em Q31 complex conjugate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Conjugates the elements of a complex data vector.
+
+The {\ttfamily p\+Src} points to the source data and {\ttfamily p\+Dst} points to the destination data where the result should be written. {\ttfamily num\+Samples} specifies the number of complex samples and the data in each array is stored in an interleaved fashion (real, imag, real, imag, ...). Each array has a total of {\ttfamily 2$\ast$num\+Samples} values.
+
+The underlying algorithm is used\+: 
+\begin{DoxyPre}
+for (n = 0; n < numSamples; n++) \{
+    pDst[(2*n)  ] =  pSrc[(2*n)  ];    // real part
+    pDst[(2*n)+1] = -\/pSrc[(2*n)+1];    // imag part
+\}
+\end{DoxyPre}
+
+
+There are separate functions for floating-\/point, Q15, and Q31 data types. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__cmplx__conj_ga1b5571244b051bb72db30886896da2da}\label{group__cmplx__conj_ga1b5571244b051bb72db30886896da2da}} 
+\index{Complex Conjugate@{Complex Conjugate}!arm\_cmplx\_conj\_f32@{arm\_cmplx\_conj\_f32}}
+\index{arm\_cmplx\_conj\_f32@{arm\_cmplx\_conj\_f32}!Complex Conjugate@{Complex Conjugate}}
+\doxysubsubsection{\texorpdfstring{arm\_cmplx\_conj\_f32()}{arm\_cmplx\_conj\_f32()}}
+{\footnotesize\ttfamily void arm\+\_\+cmplx\+\_\+conj\+\_\+f32 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{num\+Samples }\end{DoxyParamCaption})}
+
+
+
+Floating-\/point complex conjugate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+Samples} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{arm__cmplx__conj__f32_8c_source_l00123}{123}} of file \mbox{\hyperlink{arm__cmplx__conj__f32_8c_source}{arm\+\_\+cmplx\+\_\+conj\+\_\+f32.\+c}}.
+
+\mbox{\Hypertarget{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}\label{group__cmplx__conj_ga2eef7dba99852d5f7ec3e025b2e5653b}} 
+\index{Complex Conjugate@{Complex Conjugate}!arm\_cmplx\_conj\_q15@{arm\_cmplx\_conj\_q15}}
+\index{arm\_cmplx\_conj\_q15@{arm\_cmplx\_conj\_q15}!Complex Conjugate@{Complex Conjugate}}
+\doxysubsubsection{\texorpdfstring{arm\_cmplx\_conj\_q15()}{arm\_cmplx\_conj\_q15()}}
+{\footnotesize\ttfamily void arm\+\_\+cmplx\+\_\+conj\+\_\+q15 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_ab5a8fb21a5b3b983d5f54f31614052ea}{q15\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{num\+Samples }\end{DoxyParamCaption})}
+
+
+
+Q15 complex conjugate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+Samples} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. The Q15 value -\/1 (0x8000) is saturated to the maximum allowable positive value 0x7\+FFF. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__cmplx__conj__q15_8c_source_l00101}{101}} of file \mbox{\hyperlink{arm__cmplx__conj__q15_8c_source}{arm\+\_\+cmplx\+\_\+conj\+\_\+q15.\+c}}.
+
+\mbox{\Hypertarget{group__cmplx__conj_ga652edf2688aae9b2f53c5da73f6cc2bc}\label{group__cmplx__conj_ga652edf2688aae9b2f53c5da73f6cc2bc}} 
+\index{Complex Conjugate@{Complex Conjugate}!arm\_cmplx\_conj\_q31@{arm\_cmplx\_conj\_q31}}
+\index{arm\_cmplx\_conj\_q31@{arm\_cmplx\_conj\_q31}!Complex Conjugate@{Complex Conjugate}}
+\doxysubsubsection{\texorpdfstring{arm\_cmplx\_conj\_q31()}{arm\_cmplx\_conj\_q31()}}
+{\footnotesize\ttfamily void arm\+\_\+cmplx\+\_\+conj\+\_\+q31 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Src,  }\item[{\mbox{\hyperlink{arm__math__types_8h_adc89a3547f5324b7b3b95adec3806bc0}{q31\+\_\+t}} $\ast$}]{p\+Dst,  }\item[{uint32\+\_\+t}]{num\+Samples }\end{DoxyParamCaption})}
+
+
+
+Q31 complex conjugate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em p\+Src} & points to the input vector \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & points to the output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+Samples} & number of samples in each vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none
+\end{DoxyReturn}
+\begin{DoxyParagraph}{Scaling and Overflow Behavior}
+The function uses saturating arithmetic. The Q31 value -\/1 (0x80000000) is saturated to the maximum allowable positive value 0x7\+FFFFFFF. 
+\end{DoxyParagraph}
+
+
+Definition at line \mbox{\hyperlink{arm__cmplx__conj__q31_8c_source_l00107}{107}} of file \mbox{\hyperlink{arm__cmplx__conj__q31_8c_source}{arm\+\_\+cmplx\+\_\+conj\+\_\+q31.\+c}}.
+

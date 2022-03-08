@@ -1,0 +1,87 @@
+\hypertarget{stm32f7xx__hal__flash_8c}{}\doxysection{Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Src/stm32f7xx\+\_\+hal\+\_\+flash.c File Reference}
+\label{stm32f7xx__hal__flash_8c}\index{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_flash.c@{Autodrone32/Libraries/STM32F7xx\_HAL\_Driver/Src/stm32f7xx\_hal\_flash.c}}
+
+
+FLASH HAL module driver. This file provides firmware functions to manage the following functionalities of the internal FLASH memory\+:  
+
+
+{\ttfamily \#include \char`\"{}../../../\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/stm32f7xx\+\_\+hal.\+h\char`\"{}}\newline
+
+
+\doxysubsection{Detailed Description}
+FLASH HAL module driver. This file provides firmware functions to manage the following functionalities of the internal FLASH memory\+: 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team
+\begin{DoxyItemize}
+\item Program operations functions
+\item Memory Control functions
+\item Peripheral Errors functions
+\end{DoxyItemize}
+\end{DoxyAuthor}
+\begin{DoxyVerb}==============================================================================
+                      ##### FLASH peripheral features #####
+==============================================================================
+         
+[..] The Flash memory interface manages CPU AHB I-Code and D-Code accesses 
+     to the Flash memory. It implements the erase and program Flash memory operations 
+     and the read and write protection mechanisms.
+    
+[..] The Flash memory interface accelerates code execution with a system of instruction
+     prefetch and cache lines. 
+
+[..] The FLASH main features are:
+    (+) Flash memory read operations
+    (+) Flash memory program/erase operations
+    (+) Read / write protections
+    (+) Prefetch on I-Code
+    (+) 64 cache lines of 128 bits on I-Code
+    (+) 8 cache lines of 128 bits on D-Code
+    
+                   ##### How to use this driver #####
+==============================================================================
+  [..]                             
+    This driver provides functions and macros to configure and program the FLASH 
+    memory of all STM32F7xx devices.
+  
+    (#) FLASH Memory IO Programming functions: 
+         (++) Lock and Unlock the FLASH interface using HAL_FLASH_Unlock() and 
+              HAL_FLASH_Lock() functions
+         (++) Program functions: byte, half word, word and double word
+         (++) There Two modes of programming :
+          (+++) Polling mode using HAL_FLASH_Program() function
+          (+++) Interrupt mode using HAL_FLASH_Program_IT() function
+  
+    (#) Interrupts and flags management functions : 
+         (++) Handle FLASH interrupts by calling HAL_FLASH_IRQHandler()
+         (++) Wait for last FLASH operation according to its status
+         (++) Get error flag status by calling HAL_SetErrorCode()          
+  [..] 
+    In addition to these functions, this driver includes a set of macros allowing
+    to handle the following operations:
+     (+) Set the latency
+     (+) Enable/Disable the prefetch buffer
+     (+) Enable/Disable the Instruction cache and the Data cache
+     (+) Reset the Instruction cache and the Data cache
+     (+) Enable/Disable the FLASH interrupts
+     (+) Monitor the FLASH flags status
+  [..]     
+  (@) For any Flash memory program operation (erase or program), the CPU clock frequency
+      (HCLK) must be at least 1MHz. 
+  (@) The contents of the Flash memory are not guaranteed if a device reset occurs during 
+      a Flash memory operation.
+  (@) Any attempt to read the Flash memory while it is being written or erased, causes the 
+      bus to stall. Read operations are processed correctly once the program operation has 
+    completed. This means that code or data fetches cannot be performed while a write/erase 
+    operation is ongoing.\end{DoxyVerb}
+
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2017 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definition in file \mbox{\hyperlink{stm32f7xx__hal__flash_8c_source}{stm32f7xx\+\_\+hal\+\_\+flash.\+c}}.
+

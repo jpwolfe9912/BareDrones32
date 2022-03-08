@@ -1,0 +1,84 @@
+\hypertarget{struct_a_d_c___channel_conf_type_def}{}\doxysection{ADC\+\_\+\+Channel\+Conf\+Type\+Def Struct Reference}
+\label{struct_a_d_c___channel_conf_type_def}\index{ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}}
+
+
+Structure definition of ADC channel for regular group ~\newline
+  
+
+
+
+
+{\ttfamily \#include $<$stm32f7xx\+\_\+hal\+\_\+adc.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def_ae82bf9242a014164f9f6907f29782c44}{Channel}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def_ab926cc2abe3d17aeaf637d499aef6b1b}{Rank}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def_a72e649848c8a14f0adcba783cfb3b2cd}{Sampling\+Time}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_a_d_c___channel_conf_type_def_a674f76759cbcc4b3efb7f8db8aed67bb}{Offset}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure definition of ADC channel for regular group ~\newline
+ 
+
+\begin{DoxyNote}{Note}
+The setting of these parameters with function \mbox{\hyperlink{group___a_d_c___exported___functions___group3_gac6f70c4927204d6f50ab44c8e4800106}{HAL\+\_\+\+ADC\+\_\+\+Config\+Channel()}} is conditioned to ADC state. ADC can be either disabled or enabled without conversion on going on regular group. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source_l00115}{115}} of file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{struct_a_d_c___channel_conf_type_def_ae82bf9242a014164f9f6907f29782c44}\label{struct_a_d_c___channel_conf_type_def_ae82bf9242a014164f9f6907f29782c44}} 
+\index{ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}!Channel@{Channel}}
+\index{Channel@{Channel}!ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}}
+\doxysubsubsection{\texorpdfstring{Channel}{Channel}}
+{\footnotesize\ttfamily uint32\+\_\+t Channel}
+
+Specifies the channel to configure into ADC regular group. This parameter can be a value of \mbox{\hyperlink{group___a_d_c__channels}{ADC Common Channels}} 
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source_l00117}{117}} of file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+
+\mbox{\Hypertarget{struct_a_d_c___channel_conf_type_def_a674f76759cbcc4b3efb7f8db8aed67bb}\label{struct_a_d_c___channel_conf_type_def_a674f76759cbcc4b3efb7f8db8aed67bb}} 
+\index{ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}!Offset@{Offset}}
+\index{Offset@{Offset}!ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}}
+\doxysubsubsection{\texorpdfstring{Offset}{Offset}}
+{\footnotesize\ttfamily uint32\+\_\+t Offset}
+
+Reserved for future use, can be set to 0 
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source_l00131}{131}} of file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+
+\mbox{\Hypertarget{struct_a_d_c___channel_conf_type_def_ab926cc2abe3d17aeaf637d499aef6b1b}\label{struct_a_d_c___channel_conf_type_def_ab926cc2abe3d17aeaf637d499aef6b1b}} 
+\index{ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}!Rank@{Rank}}
+\index{Rank@{Rank}!ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}}
+\doxysubsubsection{\texorpdfstring{Rank}{Rank}}
+{\footnotesize\ttfamily uint32\+\_\+t Rank}
+
+Specifies the rank in the regular group sequencer. This parameter must be a number between Min\+\_\+\+Data = 1 and Max\+\_\+\+Data = 16 This parameter can be a value of \mbox{\hyperlink{group___a_d_c__regular__rank}{ADC group regular sequencer rank}} 
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source_l00119}{119}} of file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+
+\mbox{\Hypertarget{struct_a_d_c___channel_conf_type_def_a72e649848c8a14f0adcba783cfb3b2cd}\label{struct_a_d_c___channel_conf_type_def_a72e649848c8a14f0adcba783cfb3b2cd}} 
+\index{ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}!SamplingTime@{SamplingTime}}
+\index{SamplingTime@{SamplingTime}!ADC\_ChannelConfTypeDef@{ADC\_ChannelConfTypeDef}}
+\doxysubsubsection{\texorpdfstring{SamplingTime}{SamplingTime}}
+{\footnotesize\ttfamily uint32\+\_\+t Sampling\+Time}
+
+Sampling time value to be set for the selected channel. Unit\+: ADC clock cycles Conversion time is the addition of sampling time and processing time (12 ADC clock cycles at ADC resolution 12 bits, 11 cycles at 10 bits, 9 cycles at 8 bits, 7 cycles at 6 bits). This parameter can be a value of \mbox{\hyperlink{group___a_d_c__sampling__times}{ADC Sampling Times}} Caution\+: This parameter updates the parameter property of the channel, that can be used into regular and/or injected groups. If this same channel has been previously configured in the other group (regular/injected), it will be updated to last setting. Note\+: In case of usage of internal measurement channels (Vref\+Int/\+Vbat/\+Temp\+Sensor), sampling time constraints must be respected (sampling time can be adjusted in function of ADC clock frequency and sampling time setting) Refer to device datasheet for timings values, parameters TS\+\_\+vrefint, TS\+\_\+temp (values rough order\+: 4us min). 
+
+Definition at line \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source_l00122}{122}} of file \mbox{\hyperlink{stm32f7xx__hal__adc_8h_source}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Autodrone32/\+Libraries/\+STM32\+F7xx\+\_\+\+HAL\+\_\+\+Driver/\+Inc/\mbox{\hyperlink{stm32f7xx__hal__adc_8h}{stm32f7xx\+\_\+hal\+\_\+adc.\+h}}\end{DoxyCompactItemize}
