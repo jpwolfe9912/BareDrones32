@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['uart1_0',['UART1',['../_autodrone32_8h.html#a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27',1,'Autodrone32.h']]],
-  ['uart2_1',['UART2',['../_autodrone32_8h.html#a61dadd085c1777f559549e05962b2c9ea1131083beae26b9314a6fca36032b44a',1,'Autodrone32.h']]],
-  ['usb_2',['USB',['../_autodrone32_8h.html#a61dadd085c1777f559549e05962b2c9ea65f6b55fdc64778bf10632a795b97761',1,'Autodrone32.h']]]
+  ['vertical_5fvelocity_5fhold_5fat_5freference_5fvelocity_0',['VERTICAL_VELOCITY_HOLD_AT_REFERENCE_VELOCITY',['../_autodrone32_8h.html#a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653',1,'Autodrone32.h']]]
 ];

@@ -1,16 +1,13 @@
 /** @file 		drv_dshot.h
  *  @brief
- *  	This files enables the gpio, timer, and dma peripherals
- *  	to send dshot commands with pwm.
+ *  	This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __DRV_DSHOT_H_
-#define __DRV_DSHOT_H_
+#ifndef __DRV_DSHOT_H__
+#define __DRV_DSHOT_H__
 
 /* Defines */
 #define TIMER_CLOCK				108000000	// 108MHz
@@ -20,10 +17,6 @@
 #define DSHOT600_HZ     		MHZ_TO_HZ(108)
 #define DSHOT300_HZ     		MHZ_TO_HZ(54)
 #define DSHOT150_HZ     		MHZ_TO_HZ(27)
-
-//#define MOTOR_BIT_0            	7
-//#define MOTOR_BIT_1            	14
-//#define MOTOR_BITLENGTH        	20
 
 #define MOTOR_BIT_0            	60
 #define MOTOR_BIT_1            	120
@@ -36,7 +29,7 @@
 #define DSHOT_MAX_THROTTLE     	2047
 #define DSHOT_RANGE 			(DSHOT_MAX_THROTTLE - DSHOT_MIN_THROTTLE)
 
-/* Enumeration */
+/* Global Enums */
 typedef enum
 {
     DSHOT150,
@@ -44,9 +37,38 @@ typedef enum
     DSHOT600
 } dshot_type_e;
 
+
+typedef enum {
+    DSHOT_CMD_MOTOR_STOP = 0,
+    DSHOT_CMD_BEACON1,
+    DSHOT_CMD_BEACON2,
+    DSHOT_CMD_BEACON3,
+    DSHOT_CMD_BEACON4,
+    DSHOT_CMD_BEACON5,
+    DSHOT_CMD_ESC_INFO, // V2 includes settings
+    DSHOT_CMD_SPIN_DIRECTION_1,
+    DSHOT_CMD_SPIN_DIRECTION_2,
+    DSHOT_CMD_3D_MODE_OFF,
+    DSHOT_CMD_3D_MODE_ON,
+    DSHOT_CMD_SETTINGS_REQUEST, // Currently not implemented
+    DSHOT_CMD_SAVE_SETTINGS,
+    DSHOT_CMD_SPIN_DIRECTION_NORMAL = 20,
+    DSHOT_CMD_SPIN_DIRECTION_REVERSED = 21,
+    DSHOT_CMD_LED0_ON, // BLHeli32 only
+    DSHOT_CMD_LED1_ON, // BLHeli32 only
+    DSHOT_CMD_LED2_ON, // BLHeli32 only
+    DSHOT_CMD_LED3_ON, // BLHeli32 only
+    DSHOT_CMD_LED0_OFF, // BLHeli32 only
+    DSHOT_CMD_LED1_OFF, // BLHeli32 only
+    DSHOT_CMD_LED2_OFF, // BLHeli32 only
+    DSHOT_CMD_LED3_OFF, // BLHeli32 only
+    DSHOT_CMD_AUDIO_STREAM_MODE_ON_OFF = 30, // KISS audio Stream mode on/Off
+    DSHOT_CMD_SILENT_MODE_ON_OFF = 31, // KISS silent Mode on/Off
+    DSHOT_CMD_MAX = 47
+} dshotCommands_e;
+
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
 void dshotWrite(uint16_t *motor_value);
 
-
-#endif /* __DRV_DSHOT_H_ */
+#endif /* __DRV_DSHOT_H__ */

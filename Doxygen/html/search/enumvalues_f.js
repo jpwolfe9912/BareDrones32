@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vertical_5fvelocity_5fhold_5fat_5freference_5fvelocity_0',['VERTICAL_VELOCITY_HOLD_AT_REFERENCE_VELOCITY',['../_autodrone32_8h.html#a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653',1,'Autodrone32.h']]]
+  ['white_0',['WHITE',['../drv__color_8h.html#a37dbdc30935031c05304482e1be89d8fa283fc479650da98250635b9c3c0e7e50',1,'drv_color.h']]]
 ];

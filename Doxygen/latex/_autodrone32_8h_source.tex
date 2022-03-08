@@ -1,380 +1,340 @@
 \hypertarget{_autodrone32_8h_source}{}\doxysection{Autodrone32.\+h}
-\label{_autodrone32_8h_source}\index{Autodrone32/Src/Autodrone32.h@{Autodrone32/Src/Autodrone32.h}}
+\label{_autodrone32_8h_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/Autodrone32.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/Autodrone32.h}}
 \mbox{\hyperlink{_autodrone32_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00001}00001 \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00002}00002 \textcolor{comment}{ * Autodrone.h}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00003}00003 \textcolor{comment}{ *}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00004}00004 \textcolor{comment}{ *  Created on: Dec 24, 2021}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00005}00005 \textcolor{comment}{ *      Author: jeremywolfe}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00006}00006 \textcolor{comment}{ */}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00007}00007 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00008}00008 \textcolor{preprocessor}{\#ifndef INC\_AUTODRONE32\_H\_}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00009}00009 \textcolor{preprocessor}{\#define INC\_AUTODRONE32\_H\_}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00010}00010 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00011}00011 \textcolor{preprocessor}{\#ifndef PI}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00012}\mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{00012}} \textcolor{preprocessor}{    \#define PI  3.14159265358979f}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00013}00013 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00014}00014 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00015}\mbox{\hyperlink{_autodrone32_8h_a3b947f4b635461030ff2d87833e5049e}{00015}} \textcolor{preprocessor}{\#define TWO\_PI (2.0f * PI)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00016}00016 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00017}\mbox{\hyperlink{_autodrone32_8h_a0a3cc1d5cde549e408f825ddd7f5853d}{00017}} \textcolor{preprocessor}{\#define D2R  (PI / 180.0f)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00018}00018 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00019}\mbox{\hyperlink{_autodrone32_8h_a39c663074332446065723e9be9350139}{00019}} \textcolor{preprocessor}{\#define R2D  (180.0f / PI)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00021}\mbox{\hyperlink{_autodrone32_8h_a31cfbcec47fb6b6cd7fa8f8df94de550}{00021}} \textcolor{preprocessor}{\#define KNOTS2MPS 0.51444444f}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00022}00022 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00023}\mbox{\hyperlink{_autodrone32_8h_aacdf1719d113d68a71127426f7c730cd}{00023}} \textcolor{preprocessor}{\#define EARTH\_RADIUS 6371000f}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00024}00024 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00025}\mbox{\hyperlink{_autodrone32_8h_aa7866fa5e4e0ee9b034e9dab6599a9cc}{00025}} \textcolor{preprocessor}{\#define SQR(x)  ((x) * (x))}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00026}00026 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00028}00028 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00029}\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{00029}} \textcolor{preprocessor}{\#define ROLL     0}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00030}\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{00030}} \textcolor{preprocessor}{\#define PITCH    1}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00031}\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{00031}} \textcolor{preprocessor}{\#define YAW      2}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00032}\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{00032}} \textcolor{preprocessor}{\#define THROTTLE 3}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00033}\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{00033}} \textcolor{preprocessor}{\#define AUX1     4}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00034}\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{00034}} \textcolor{preprocessor}{\#define AUX2     5}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00035}\mbox{\hyperlink{_autodrone32_8h_a6f9b1805488210e791f5a08407e155a3}{00035}} \textcolor{preprocessor}{\#define AUX3     6}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00036}\mbox{\hyperlink{_autodrone32_8h_a3690a0a2d199eaa84ccf706971d2de13}{00036}} \textcolor{preprocessor}{\#define AUX4     7}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00037}\mbox{\hyperlink{_autodrone32_8h_a942e2917864cbb00ef263f23c9b3e9d3}{00037}} \textcolor{preprocessor}{\#define AUX5     8}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00038}\mbox{\hyperlink{_autodrone32_8h_ad03bd2be6022c9f31e03dd1418fcbe7f}{00038}} \textcolor{preprocessor}{\#define AUX6     9}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00039}\mbox{\hyperlink{_autodrone32_8h_a3441a014886bd1ebd09b87b781654c39}{00039}} \textcolor{preprocessor}{\#define AUX7     10}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00040}\mbox{\hyperlink{_autodrone32_8h_aa1405824e2047a6551fb3ec2cf4daa3c}{00040}} \textcolor{preprocessor}{\#define AUX8     11}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00041}00041 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00042}\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{00042}} \textcolor{preprocessor}{\#define XAXIS    0}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00043}\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{00043}} \textcolor{preprocessor}{\#define YAXIS    1}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00044}\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{00044}} \textcolor{preprocessor}{\#define ZAXIS    2}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00045}00045 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00046}\mbox{\hyperlink{_autodrone32_8h_ad9365648c4acd0f83d7a5faa319d3f20}{00046}} \textcolor{preprocessor}{\#define MINCOMMAND  2000}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00047}\mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{00047}} \textcolor{preprocessor}{\#define MIDCOMMAND  3000}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00048}\mbox{\hyperlink{_autodrone32_8h_a1ca7e1fbdf49e02ec34430622f94f064}{00048}} \textcolor{preprocessor}{\#define MAXCOMMAND  4000}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00049}00049 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00051}00051 \textcolor{comment}{// Misc Type Definitions}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00053}00053 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00054}\mbox{\hyperlink{unionint16and_uint8__t}{00054}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00055}\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{00055}}     int16\_t \mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00056}\mbox{\hyperlink{unionint16and_uint8__t_a46e4c05d20a047ec169f60d3167e912e}{00056}}     uint8\_t bytes[2];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00057}00057 \} \mbox{\hyperlink{unionint16and_uint8__t}{int16andUint8\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00058}00058 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00059}\mbox{\hyperlink{unionint32and_uint8__t}{00059}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00060}\mbox{\hyperlink{unionint32and_uint8__t_a01571c420f280137c16d319178731da5}{00060}}     int32\_t \mbox{\hyperlink{unionint32and_uint8__t_a01571c420f280137c16d319178731da5}{value}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00061}\mbox{\hyperlink{unionint32and_uint8__t_aac9cc4cbc93c66d4b3e0e9e037695d5a}{00061}}     uint8\_t bytes[4];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00062}00062 \} \mbox{\hyperlink{unionint32and_uint8__t}{int32andUint8\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00063}00063 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00064}\mbox{\hyperlink{unionuint16and_uint8__t}{00064}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00065}\mbox{\hyperlink{unionuint16and_uint8__t_a900b69af7d674b8db3bceae754b4955a}{00065}}     uint16\_t \mbox{\hyperlink{unionuint16and_uint8__t_a900b69af7d674b8db3bceae754b4955a}{value}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00066}\mbox{\hyperlink{unionuint16and_uint8__t_a46e4c05d20a047ec169f60d3167e912e}{00066}}      uint8\_t bytes[2];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00067}00067 \} \mbox{\hyperlink{unionuint16and_uint8__t}{uint16andUint8\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00068}00068 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00069}\mbox{\hyperlink{unionuint32and_uint8__t}{00069}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00070}\mbox{\hyperlink{unionuint32and_uint8__t_ae7f66047e6e39ba2bb6af8b95f00d1dd}{00070}}     uint32\_t \mbox{\hyperlink{unionuint32and_uint8__t_ae7f66047e6e39ba2bb6af8b95f00d1dd}{value}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00071}\mbox{\hyperlink{unionuint32and_uint8__t_aac9cc4cbc93c66d4b3e0e9e037695d5a}{00071}}      uint8\_t bytes[4];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00072}00072 \} \mbox{\hyperlink{unionuint32and_uint8__t}{uint32andUint8\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00073}00073 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00075}00075 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00076}\mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{00076}} \textcolor{keyword}{typedef} \textcolor{keyword}{volatile} uint8\_t \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00077}00077 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00079}00079 \textcolor{comment}{// Sensor Variables}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00081}00081 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00082}\mbox{\hyperlink{structsensors__t}{00082}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsensors__t}{sensors\_t}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00083}00083 \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00084}\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{00084}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00085}\mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{00085}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{accel100Hz}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00086}\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{00086}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00087}\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{00087}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00088}\mbox{\hyperlink{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}{00088}} \} \mbox{\hyperlink{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}{sensors\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00089}00089 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00090}00090 \textcolor{keyword}{extern} \mbox{\hyperlink{structsensors__t}{sensors\_t}} \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00091}00091 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00092}\mbox{\hyperlink{structheading__t}{00092}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structheading__t}{heading\_t}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00093}00093 \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00094}\mbox{\hyperlink{structheading__t_a6e374ac55d96352014b0fc2b4cad4f1e}{00094}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structheading__t_a6e374ac55d96352014b0fc2b4cad4f1e}{mag}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00095}\mbox{\hyperlink{structheading__t_ac6ff3063f65334a8dfe14c18639beefe}{00095}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structheading__t_ac6ff3063f65334a8dfe14c18639beefe}{tru}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00096}\mbox{\hyperlink{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}{00096}} \} \mbox{\hyperlink{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}{heading\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00097}00097 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00098}00098 \textcolor{keyword}{extern} \mbox{\hyperlink{structheading__t}{heading\_t}} \mbox{\hyperlink{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}{heading}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00099}00099 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00100}\mbox{\hyperlink{structgps__t}{00100}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structgps__t}{gps\_t}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00101}00101 \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00102}\mbox{\hyperlink{structgps__t_ad2a7363ca4d97bbf55432296fb1a448b}{00102}}     int32\_t  \mbox{\hyperlink{structgps__t_ad2a7363ca4d97bbf55432296fb1a448b}{latitude}};     \textcolor{comment}{// 1e-\/7 degrees}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00103}\mbox{\hyperlink{structgps__t_affaa89c8c5bcaf3f03054d63bb6629b1}{00103}}     int32\_t  \mbox{\hyperlink{structgps__t_affaa89c8c5bcaf3f03054d63bb6629b1}{longitude}};    \textcolor{comment}{// 1e-\/7 degrees}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00104}\mbox{\hyperlink{structgps__t_a5d8006e753a3e76ff637a4e092bbed71}{00104}}     int32\_t  \mbox{\hyperlink{structgps__t_a5d8006e753a3e76ff637a4e092bbed71}{height}};       \textcolor{comment}{// mm above ellipsoid}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00105}\mbox{\hyperlink{structgps__t_a0cfda942caf1148caed99307d7548db6}{00105}}     int32\_t  \mbox{\hyperlink{structgps__t_a0cfda942caf1148caed99307d7548db6}{hMSL}};         \textcolor{comment}{// mm above mean sea level}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00106}\mbox{\hyperlink{structgps__t_ad44388792a90a24fb4660e2b19033e17}{00106}}     int32\_t  \mbox{\hyperlink{structgps__t_ad44388792a90a24fb4660e2b19033e17}{velN}};         \textcolor{comment}{// cm/s}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00107}\mbox{\hyperlink{structgps__t_a49e3bcbbb98f50a1209b65ddfdbc876c}{00107}}     int32\_t  \mbox{\hyperlink{structgps__t_a49e3bcbbb98f50a1209b65ddfdbc876c}{velE}};         \textcolor{comment}{// cm/s}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00108}\mbox{\hyperlink{structgps__t_a7f6cccd3ad0a515faa0901fc7844f747}{00108}}     int32\_t  \mbox{\hyperlink{structgps__t_a7f6cccd3ad0a515faa0901fc7844f747}{velD}};         \textcolor{comment}{// cm/s}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00109}\mbox{\hyperlink{structgps__t_a220859a8b5da0232739a11cbe7f79fc5}{00109}}     uint32\_t \mbox{\hyperlink{structgps__t_a220859a8b5da0232739a11cbe7f79fc5}{speed}};        \textcolor{comment}{// cm/s}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00110}\mbox{\hyperlink{structgps__t_a54abeb658937083d5e5504ec3b46205a}{00110}}     uint32\_t \mbox{\hyperlink{structgps__t_a54abeb658937083d5e5504ec3b46205a}{gSpeed}};       \textcolor{comment}{// cm/s}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00111}\mbox{\hyperlink{structgps__t_a56d97146368cdc685b340cc5875fd5ff}{00111}}     int32\_t  \mbox{\hyperlink{structgps__t_a56d97146368cdc685b340cc5875fd5ff}{heading}};      \textcolor{comment}{// deg 1e-\/5}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00112}\mbox{\hyperlink{structgps__t_a930c169f06fc077f0f285e497af7c1b1}{00112}}     uint8\_t  \mbox{\hyperlink{structgps__t_a930c169f06fc077f0f285e497af7c1b1}{numSats}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00113}\mbox{\hyperlink{structgps__t_ab28bedaa845748de3c712f8ee3353c22}{00113}}     uint8\_t  \mbox{\hyperlink{structgps__t_ab28bedaa845748de3c712f8ee3353c22}{fix}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00114}\mbox{\hyperlink{structgps__t_aa07fc35358b8795854cc112869138e1c}{00114}}     uint8\_t  \mbox{\hyperlink{structgps__t_aa07fc35358b8795854cc112869138e1c}{statusFlags}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00115}\mbox{\hyperlink{structgps__t_aec46f860651ce8cd5fc40f319a0fe1b0}{00115}}     uint32\_t \mbox{\hyperlink{structgps__t_aec46f860651ce8cd5fc40f319a0fe1b0}{iTOW}};         \textcolor{comment}{// mSec}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00116}\mbox{\hyperlink{structgps__t_a57ca98d8f6d4baf0fe41c583c7dcb0d5}{00116}}     uint16\_t \mbox{\hyperlink{structgps__t_a57ca98d8f6d4baf0fe41c583c7dcb0d5}{year}};         \textcolor{comment}{// years}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00117}\mbox{\hyperlink{structgps__t_a3e00faf7fbf9805e9ec4d2edd6339050}{00117}}     uint8\_t  \mbox{\hyperlink{structgps__t_a3e00faf7fbf9805e9ec4d2edd6339050}{month}};        \textcolor{comment}{// months}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00118}\mbox{\hyperlink{structgps__t_a72369a1087b2aeffe374bb054cb97c12}{00118}}     uint8\_t  \mbox{\hyperlink{structgps__t_a72369a1087b2aeffe374bb054cb97c12}{day}};          \textcolor{comment}{// days}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00119}\mbox{\hyperlink{structgps__t_afc3ac40d8592082dbec200b28005c227}{00119}}     uint16\_t \mbox{\hyperlink{structgps__t_afc3ac40d8592082dbec200b28005c227}{hDop}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00120}\mbox{\hyperlink{structgps__t_a22f27114626d9536df67e4f29dc5e93b}{00120}}     uint16\_t \mbox{\hyperlink{structgps__t_a22f27114626d9536df67e4f29dc5e93b}{vDop}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00121}\mbox{\hyperlink{structgps__t_a099b5913cb597abb9786cad2e0affb59}{00121}}     uint8\_t  \mbox{\hyperlink{structgps__t_a099b5913cb597abb9786cad2e0affb59}{numCh}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00122}\mbox{\hyperlink{structgps__t_a79b7d09479ab7077da7a479f749ccdf6}{00122}}     uint8\_t  \mbox{\hyperlink{structgps__t_a79b7d09479ab7077da7a479f749ccdf6}{chn}}[50];      \textcolor{comment}{// channel number}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00123}\mbox{\hyperlink{structgps__t_a6ace849b8fcaa85ab44cc1f2eaa1eef3}{00123}}     uint8\_t  \mbox{\hyperlink{structgps__t_a6ace849b8fcaa85ab44cc1f2eaa1eef3}{svid}}[50];     \textcolor{comment}{// satellite ID}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00124}\mbox{\hyperlink{structgps__t_ade4f03788e25a49123afe9601c5bc3d6}{00124}}     uint8\_t  \mbox{\hyperlink{structgps__t_ade4f03788e25a49123afe9601c5bc3d6}{cno}}[50];      \textcolor{comment}{// carrier to noise ratio (signal strength)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00125}\mbox{\hyperlink{structgps__t_a942abd158be7b8de583e0191d9d6f164}{00125}}     uint8\_t  \mbox{\hyperlink{structgps__t_a942abd158be7b8de583e0191d9d6f164}{updated}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00126}\mbox{\hyperlink{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}{00126}} \} \mbox{\hyperlink{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}{gps\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00127}00127 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00128}00128 \textcolor{keyword}{extern} \mbox{\hyperlink{structgps__t}{gps\_t}} \mbox{\hyperlink{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}{gps}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00129}00129 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00130}\mbox{\hyperlink{structhome_data__t}{00130}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structhome_data__t}{homeData\_t}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00131}00131 \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00132}\mbox{\hyperlink{structhome_data__t_ad2a7363ca4d97bbf55432296fb1a448b}{00132}}     int32\_t \mbox{\hyperlink{structhome_data__t_ad2a7363ca4d97bbf55432296fb1a448b}{latitude}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00133}\mbox{\hyperlink{structhome_data__t_affaa89c8c5bcaf3f03054d63bb6629b1}{00133}}     int32\_t \mbox{\hyperlink{structhome_data__t_affaa89c8c5bcaf3f03054d63bb6629b1}{longitude}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00134}\mbox{\hyperlink{structhome_data__t_a0e13a4b4ae0cefdac2a413284239caa6}{00134}}     \textcolor{keywordtype}{float}   \mbox{\hyperlink{structhome_data__t_a0e13a4b4ae0cefdac2a413284239caa6}{altitude}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00135}\mbox{\hyperlink{structhome_data__t_a462c6c4caa2aff6c8fbf6d0b73a53e99}{00135}}     \textcolor{keywordtype}{float}   \mbox{\hyperlink{structhome_data__t_a462c6c4caa2aff6c8fbf6d0b73a53e99}{magHeading}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00136}\mbox{\hyperlink{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}{00136}} \} \mbox{\hyperlink{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}{homeData\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00137}00137 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00138}00138 \textcolor{keyword}{extern} \mbox{\hyperlink{structhome_data__t}{homeData\_t}} \mbox{\hyperlink{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}{homeData}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00139}00139 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00141}00141 \textcolor{comment}{// PID Definitions}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00143}00143 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00144}\mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{00144}} \textcolor{preprocessor}{\#define NUMBER\_OF\_PIDS   12}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00145}00145 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00146}\mbox{\hyperlink{_autodrone32_8h_a235532884e69e785781acb60c65bed49}{00146}} \textcolor{preprocessor}{\#define ROLL\_RATE\_PID     0}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00147}\mbox{\hyperlink{_autodrone32_8h_a1958b73d2ee48b59a1c8f506881ee0f0}{00147}} \textcolor{preprocessor}{\#define PITCH\_RATE\_PID    1}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00148}\mbox{\hyperlink{_autodrone32_8h_a8fea470ced437a1f4a6e41b1a30b0d05}{00148}} \textcolor{preprocessor}{\#define YAW\_RATE\_PID      2}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00149}00149 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00150}\mbox{\hyperlink{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}{00150}} \textcolor{preprocessor}{\#define ROLL\_ATT\_PID      3}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00151}\mbox{\hyperlink{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}{00151}} \textcolor{preprocessor}{\#define PITCH\_ATT\_PID     4}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00152}\mbox{\hyperlink{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}{00152}} \textcolor{preprocessor}{\#define HEADING\_PID       5}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00153}00153 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00154}\mbox{\hyperlink{_autodrone32_8h_a7403e40c27c7e3e0f8f3c046c71cb28d}{00154}} \textcolor{preprocessor}{\#define NDOT\_PID          6}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00155}\mbox{\hyperlink{_autodrone32_8h_a99423cf91f79ff41398886d7e9a0ba52}{00155}} \textcolor{preprocessor}{\#define EDOT\_PID          7}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00156}\mbox{\hyperlink{_autodrone32_8h_aa6830d4f5afbd59e14b09b97edc46b0a}{00156}} \textcolor{preprocessor}{\#define HDOT\_PID          8}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00157}00157 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00158}\mbox{\hyperlink{_autodrone32_8h_a636c29b30dac9cfdb5ae0482e9a89544}{00158}} \textcolor{preprocessor}{\#define N\_PID             9}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00159}\mbox{\hyperlink{_autodrone32_8h_a9d6686ebdd73dab7ed8c5cd65c45c1b7}{00159}} \textcolor{preprocessor}{\#define E\_PID            10}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00160}\mbox{\hyperlink{_autodrone32_8h_a717f3163fff352053746cbea6c54fc39}{00160}} \textcolor{preprocessor}{\#define H\_PID            11}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00161}00161 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00163}00163 \textcolor{comment}{// Mixer Configurations}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00165}00165 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00166}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55baa2abea1d538017e7e9cb014f246c8d28}{00166}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55baa2abea1d538017e7e9cb014f246c8d28}{MIXERTYPE\_TRI}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00167}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55babb1e0f4c04118444865127cfa34046f8}{00167}}        \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55babb1e0f4c04118444865127cfa34046f8}{MIXERTYPE\_QUADX}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00168}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba83e952b59fd2f0a4bda645905497392a}{00168}}        \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba83e952b59fd2f0a4bda645905497392a}{MIXERTYPE\_HEX6X}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00169}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1cb09cb175b4ac08483661b361a52128}{00169}}        \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1cb09cb175b4ac08483661b361a52128}{MIXERTYPE\_Y6}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00170}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba3bda90df383f8942a1773d66a7aed125}{00170}}        \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba3bda90df383f8942a1773d66a7aed125}{MIXERTYPE\_FREE}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00171}00171      \};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00172}00172 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00174}00174 \textcolor{comment}{// Flight Modes}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00176}00176 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00177}00177 \textcolor{keyword}{enum} \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00178}\mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a1e3af4a87374fcc9dcb397ee98b47b65}{00178}}     \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00179}00179     \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a20364949ea9fb383c6b8baf4bf249c6a}{ROVER}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00180}\mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a20364949ea9fb383c6b8baf4bf249c6a}{00180}} \};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00181}00181 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00183}00183 \textcolor{comment}{// Vertical Mode States}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00185}00185 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00186}\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a13bf189935703fd9bb7b08f6e4f20ffd}{00186}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a13bf189935703fd9bb7b08f6e4f20ffd}{ALT\_DISENGAGED\_THROTTLE\_ACTIVE}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00187}\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a495e513812504424d03296e0e8e8ef55}{00187}}        \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a495e513812504424d03296e0e8e8ef55}{ALT\_HOLD\_FIXED\_AT\_ENGAGEMENT\_ALT}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00188}\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a23b9da3f6605abb338ef644004f650d3}{00188}}        \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a23b9da3f6605abb338ef644004f650d3}{ALT\_HOLD\_AT\_REFERENCE\_ALTITUDE}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00189}\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653}{00189}}        \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5a1bcd8736c5e7d36916e596980ca03653}{VERTICAL\_VELOCITY\_HOLD\_AT\_REFERENCE\_VELOCITY}},}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00190}\mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5ae0e1424fffc0494b932a603b02d7a1f6}{00190}}        \mbox{\hyperlink{_autodrone32_8h_a99fb83031ce9923c84392b4e92f956b5ae0e1424fffc0494b932a603b02d7a1f6}{ALT\_DISENGAGED\_THROTTLE\_INACTIVE}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00009}00009 \textcolor{preprocessor}{\#ifndef \_\_AUTODRONE32\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00010}00010 \textcolor{preprocessor}{\#define \_\_AUTODRONE32\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00012}00012 \textcolor{preprocessor}{\#ifndef PI}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00013}\mbox{\hyperlink{_autodrone32_8h_a598a3330b3c21701223ee0ca14316eca}{00013}} \textcolor{preprocessor}{    \#define PI  3.14159265358979f}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00014}00014 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00016}\mbox{\hyperlink{_autodrone32_8h_a3b947f4b635461030ff2d87833e5049e}{00016}} \textcolor{preprocessor}{\#define TWO\_PI (2.0f * PI)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00018}\mbox{\hyperlink{_autodrone32_8h_a0a3cc1d5cde549e408f825ddd7f5853d}{00018}} \textcolor{preprocessor}{\#define D2R  (PI / 180.0f)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00020}\mbox{\hyperlink{_autodrone32_8h_a39c663074332446065723e9be9350139}{00020}} \textcolor{preprocessor}{\#define R2D  (180.0f / PI)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00022}\mbox{\hyperlink{_autodrone32_8h_a31cfbcec47fb6b6cd7fa8f8df94de550}{00022}} \textcolor{preprocessor}{\#define KNOTS2MPS 0.51444444f}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00024}\mbox{\hyperlink{_autodrone32_8h_aacdf1719d113d68a71127426f7c730cd}{00024}} \textcolor{preprocessor}{\#define EARTH\_RADIUS 6371000f}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00026}\mbox{\hyperlink{_autodrone32_8h_aa7866fa5e4e0ee9b034e9dab6599a9cc}{00026}} \textcolor{preprocessor}{\#define SQR(x)  ((x) * (x))}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00030}\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{00030}} \textcolor{preprocessor}{\#define ROLL     0}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00031}\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{00031}} \textcolor{preprocessor}{\#define PITCH    1}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00032}\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{00032}} \textcolor{preprocessor}{\#define YAW      2}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00033}\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{00033}} \textcolor{preprocessor}{\#define THROTTLE 3}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00034}\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{00034}} \textcolor{preprocessor}{\#define AUX1     4}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00035}\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{00035}} \textcolor{preprocessor}{\#define AUX2     5}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00036}\mbox{\hyperlink{_autodrone32_8h_a6f9b1805488210e791f5a08407e155a3}{00036}} \textcolor{preprocessor}{\#define AUX3     6}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00037}\mbox{\hyperlink{_autodrone32_8h_a3690a0a2d199eaa84ccf706971d2de13}{00037}} \textcolor{preprocessor}{\#define AUX4     7}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00038}\mbox{\hyperlink{_autodrone32_8h_a942e2917864cbb00ef263f23c9b3e9d3}{00038}} \textcolor{preprocessor}{\#define AUX5     8}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00039}\mbox{\hyperlink{_autodrone32_8h_ad03bd2be6022c9f31e03dd1418fcbe7f}{00039}} \textcolor{preprocessor}{\#define AUX6     9}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00040}\mbox{\hyperlink{_autodrone32_8h_a3441a014886bd1ebd09b87b781654c39}{00040}} \textcolor{preprocessor}{\#define AUX7     10}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00041}\mbox{\hyperlink{_autodrone32_8h_aa1405824e2047a6551fb3ec2cf4daa3c}{00041}} \textcolor{preprocessor}{\#define AUX8     11}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00043}\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{00043}} \textcolor{preprocessor}{\#define XAXIS    0}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00044}\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{00044}} \textcolor{preprocessor}{\#define YAXIS    1}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00045}\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{00045}} \textcolor{preprocessor}{\#define ZAXIS    2}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00047}\mbox{\hyperlink{_autodrone32_8h_ad9365648c4acd0f83d7a5faa319d3f20}{00047}} \textcolor{preprocessor}{\#define MINCOMMAND  2000}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00048}\mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{00048}} \textcolor{preprocessor}{\#define MIDCOMMAND  3000}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00049}\mbox{\hyperlink{_autodrone32_8h_a1ca7e1fbdf49e02ec34430622f94f064}{00049}} \textcolor{preprocessor}{\#define MAXCOMMAND  4000}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00052}00052 \textcolor{comment}{// Misc Type Definitions}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00054}00054 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00055}\mbox{\hyperlink{unionint16and_uint8__t}{00055}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00056}\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{00056}}     int16\_t \mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00057}\mbox{\hyperlink{unionint16and_uint8__t_a46e4c05d20a047ec169f60d3167e912e}{00057}}     uint8\_t bytes[2];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00058}00058 \} \mbox{\hyperlink{unionint16and_uint8__t}{int16andUint8\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00060}\mbox{\hyperlink{unionint32and_uint8__t}{00060}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00061}\mbox{\hyperlink{unionint32and_uint8__t_a01571c420f280137c16d319178731da5}{00061}}     int32\_t \mbox{\hyperlink{unionint32and_uint8__t_a01571c420f280137c16d319178731da5}{value}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00062}\mbox{\hyperlink{unionint32and_uint8__t_aac9cc4cbc93c66d4b3e0e9e037695d5a}{00062}}     uint8\_t bytes[4];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00063}00063 \} \mbox{\hyperlink{unionint32and_uint8__t}{int32andUint8\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00065}\mbox{\hyperlink{unionuint16and_uint8__t}{00065}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00066}\mbox{\hyperlink{unionuint16and_uint8__t_a900b69af7d674b8db3bceae754b4955a}{00066}}     uint16\_t \mbox{\hyperlink{unionuint16and_uint8__t_a900b69af7d674b8db3bceae754b4955a}{value}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00067}\mbox{\hyperlink{unionuint16and_uint8__t_a46e4c05d20a047ec169f60d3167e912e}{00067}}      uint8\_t bytes[2];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00068}00068 \} \mbox{\hyperlink{unionuint16and_uint8__t}{uint16andUint8\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00070}\mbox{\hyperlink{unionuint32and_uint8__t}{00070}} \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00071}\mbox{\hyperlink{unionuint32and_uint8__t_ae7f66047e6e39ba2bb6af8b95f00d1dd}{00071}}     uint32\_t \mbox{\hyperlink{unionuint32and_uint8__t_ae7f66047e6e39ba2bb6af8b95f00d1dd}{value}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00072}\mbox{\hyperlink{unionuint32and_uint8__t_aac9cc4cbc93c66d4b3e0e9e037695d5a}{00072}}      uint8\_t bytes[4];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00073}00073 \} \mbox{\hyperlink{unionuint32and_uint8__t}{uint32andUint8\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00077}\mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{00077}} \textcolor{keyword}{typedef} \textcolor{keyword}{volatile} uint8\_t \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00080}00080 \textcolor{comment}{// Sensor Variables}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00082}00082 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00083}\mbox{\hyperlink{structsensors__t}{00083}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structsensors__t}{sensors\_t}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00084}00084 \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00085}\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{00085}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00086}\mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{00086}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{accel100Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00087}\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{00087}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00088}\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{00088}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00089}\mbox{\hyperlink{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}{00089}} \} \mbox{\hyperlink{_autodrone32_8h_aa99cac3fe965603ac31b3250b69e263a}{sensors\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00091}00091 \textcolor{keyword}{extern} \mbox{\hyperlink{structsensors__t}{sensors\_t}} \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00093}\mbox{\hyperlink{structheading__t}{00093}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structheading__t}{heading\_t}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00094}00094 \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00095}\mbox{\hyperlink{structheading__t_a6e374ac55d96352014b0fc2b4cad4f1e}{00095}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structheading__t_a6e374ac55d96352014b0fc2b4cad4f1e}{mag}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00096}\mbox{\hyperlink{structheading__t_ac6ff3063f65334a8dfe14c18639beefe}{00096}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structheading__t_ac6ff3063f65334a8dfe14c18639beefe}{tru}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00097}\mbox{\hyperlink{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}{00097}} \} \mbox{\hyperlink{_autodrone32_8h_a4c9d658fd987e5275238eb04e4e6d3d9}{heading\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00099}00099 \textcolor{keyword}{extern} \mbox{\hyperlink{structheading__t}{heading\_t}} \mbox{\hyperlink{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}{heading}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00101}\mbox{\hyperlink{structgps__t}{00101}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structgps__t}{gps\_t}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00102}00102 \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00103}\mbox{\hyperlink{structgps__t_ad2a7363ca4d97bbf55432296fb1a448b}{00103}}     int32\_t  \mbox{\hyperlink{structgps__t_ad2a7363ca4d97bbf55432296fb1a448b}{latitude}};     \textcolor{comment}{// 1e-\/7 degrees}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00104}\mbox{\hyperlink{structgps__t_affaa89c8c5bcaf3f03054d63bb6629b1}{00104}}     int32\_t  \mbox{\hyperlink{structgps__t_affaa89c8c5bcaf3f03054d63bb6629b1}{longitude}};    \textcolor{comment}{// 1e-\/7 degrees}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00105}\mbox{\hyperlink{structgps__t_a5d8006e753a3e76ff637a4e092bbed71}{00105}}     int32\_t  \mbox{\hyperlink{structgps__t_a5d8006e753a3e76ff637a4e092bbed71}{height}};       \textcolor{comment}{// mm above ellipsoid}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00106}\mbox{\hyperlink{structgps__t_a0cfda942caf1148caed99307d7548db6}{00106}}     int32\_t  \mbox{\hyperlink{structgps__t_a0cfda942caf1148caed99307d7548db6}{hMSL}};         \textcolor{comment}{// mm above mean sea level}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00107}\mbox{\hyperlink{structgps__t_ad44388792a90a24fb4660e2b19033e17}{00107}}     int32\_t  \mbox{\hyperlink{structgps__t_ad44388792a90a24fb4660e2b19033e17}{velN}};         \textcolor{comment}{// cm/s}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00108}\mbox{\hyperlink{structgps__t_a49e3bcbbb98f50a1209b65ddfdbc876c}{00108}}     int32\_t  \mbox{\hyperlink{structgps__t_a49e3bcbbb98f50a1209b65ddfdbc876c}{velE}};         \textcolor{comment}{// cm/s}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00109}\mbox{\hyperlink{structgps__t_a7f6cccd3ad0a515faa0901fc7844f747}{00109}}     int32\_t  \mbox{\hyperlink{structgps__t_a7f6cccd3ad0a515faa0901fc7844f747}{velD}};         \textcolor{comment}{// cm/s}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00110}\mbox{\hyperlink{structgps__t_a220859a8b5da0232739a11cbe7f79fc5}{00110}}     uint32\_t \mbox{\hyperlink{structgps__t_a220859a8b5da0232739a11cbe7f79fc5}{speed}};        \textcolor{comment}{// cm/s}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00111}\mbox{\hyperlink{structgps__t_a54abeb658937083d5e5504ec3b46205a}{00111}}     uint32\_t \mbox{\hyperlink{structgps__t_a54abeb658937083d5e5504ec3b46205a}{gSpeed}};       \textcolor{comment}{// cm/s}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00112}\mbox{\hyperlink{structgps__t_a56d97146368cdc685b340cc5875fd5ff}{00112}}     int32\_t  \mbox{\hyperlink{structgps__t_a56d97146368cdc685b340cc5875fd5ff}{heading}};      \textcolor{comment}{// deg 1e-\/5}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00113}\mbox{\hyperlink{structgps__t_a930c169f06fc077f0f285e497af7c1b1}{00113}}     uint8\_t  \mbox{\hyperlink{structgps__t_a930c169f06fc077f0f285e497af7c1b1}{numSats}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00114}\mbox{\hyperlink{structgps__t_ab28bedaa845748de3c712f8ee3353c22}{00114}}     uint8\_t  \mbox{\hyperlink{structgps__t_ab28bedaa845748de3c712f8ee3353c22}{fix}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00115}\mbox{\hyperlink{structgps__t_aa07fc35358b8795854cc112869138e1c}{00115}}     uint8\_t  \mbox{\hyperlink{structgps__t_aa07fc35358b8795854cc112869138e1c}{statusFlags}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00116}\mbox{\hyperlink{structgps__t_aec46f860651ce8cd5fc40f319a0fe1b0}{00116}}     uint32\_t \mbox{\hyperlink{structgps__t_aec46f860651ce8cd5fc40f319a0fe1b0}{iTOW}};         \textcolor{comment}{// mSec}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00117}\mbox{\hyperlink{structgps__t_a57ca98d8f6d4baf0fe41c583c7dcb0d5}{00117}}     uint16\_t \mbox{\hyperlink{structgps__t_a57ca98d8f6d4baf0fe41c583c7dcb0d5}{year}};         \textcolor{comment}{// years}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00118}\mbox{\hyperlink{structgps__t_a3e00faf7fbf9805e9ec4d2edd6339050}{00118}}     uint8\_t  \mbox{\hyperlink{structgps__t_a3e00faf7fbf9805e9ec4d2edd6339050}{month}};        \textcolor{comment}{// months}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00119}\mbox{\hyperlink{structgps__t_a72369a1087b2aeffe374bb054cb97c12}{00119}}     uint8\_t  \mbox{\hyperlink{structgps__t_a72369a1087b2aeffe374bb054cb97c12}{day}};          \textcolor{comment}{// days}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00120}\mbox{\hyperlink{structgps__t_afc3ac40d8592082dbec200b28005c227}{00120}}     uint16\_t \mbox{\hyperlink{structgps__t_afc3ac40d8592082dbec200b28005c227}{hDop}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00121}\mbox{\hyperlink{structgps__t_a22f27114626d9536df67e4f29dc5e93b}{00121}}     uint16\_t \mbox{\hyperlink{structgps__t_a22f27114626d9536df67e4f29dc5e93b}{vDop}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00122}\mbox{\hyperlink{structgps__t_a099b5913cb597abb9786cad2e0affb59}{00122}}     uint8\_t  \mbox{\hyperlink{structgps__t_a099b5913cb597abb9786cad2e0affb59}{numCh}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00123}\mbox{\hyperlink{structgps__t_a79b7d09479ab7077da7a479f749ccdf6}{00123}}     uint8\_t  \mbox{\hyperlink{structgps__t_a79b7d09479ab7077da7a479f749ccdf6}{chn}}[50];      \textcolor{comment}{// channel number}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00124}\mbox{\hyperlink{structgps__t_a6ace849b8fcaa85ab44cc1f2eaa1eef3}{00124}}     uint8\_t  \mbox{\hyperlink{structgps__t_a6ace849b8fcaa85ab44cc1f2eaa1eef3}{svid}}[50];     \textcolor{comment}{// satellite ID}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00125}\mbox{\hyperlink{structgps__t_ade4f03788e25a49123afe9601c5bc3d6}{00125}}     uint8\_t  \mbox{\hyperlink{structgps__t_ade4f03788e25a49123afe9601c5bc3d6}{cno}}[50];      \textcolor{comment}{// carrier to noise ratio (signal strength)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00126}\mbox{\hyperlink{structgps__t_a942abd158be7b8de583e0191d9d6f164}{00126}}     uint8\_t  \mbox{\hyperlink{structgps__t_a942abd158be7b8de583e0191d9d6f164}{updated}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00127}\mbox{\hyperlink{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}{00127}} \} \mbox{\hyperlink{_autodrone32_8h_a278fa558ee1884d8935664e22a7e3a34}{gps\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00129}00129 \textcolor{keyword}{extern} \mbox{\hyperlink{structgps__t}{gps\_t}} \mbox{\hyperlink{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}{gps}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00131}\mbox{\hyperlink{structhome_data__t}{00131}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structhome_data__t}{homeData\_t}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00132}00132 \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00133}\mbox{\hyperlink{structhome_data__t_ad2a7363ca4d97bbf55432296fb1a448b}{00133}}     int32\_t \mbox{\hyperlink{structhome_data__t_ad2a7363ca4d97bbf55432296fb1a448b}{latitude}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00134}\mbox{\hyperlink{structhome_data__t_affaa89c8c5bcaf3f03054d63bb6629b1}{00134}}     int32\_t \mbox{\hyperlink{structhome_data__t_affaa89c8c5bcaf3f03054d63bb6629b1}{longitude}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00135}\mbox{\hyperlink{structhome_data__t_a0e13a4b4ae0cefdac2a413284239caa6}{00135}}     \textcolor{keywordtype}{float}   \mbox{\hyperlink{structhome_data__t_a0e13a4b4ae0cefdac2a413284239caa6}{altitude}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00136}\mbox{\hyperlink{structhome_data__t_a462c6c4caa2aff6c8fbf6d0b73a53e99}{00136}}     \textcolor{keywordtype}{float}   \mbox{\hyperlink{structhome_data__t_a462c6c4caa2aff6c8fbf6d0b73a53e99}{magHeading}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00137}\mbox{\hyperlink{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}{00137}} \} \mbox{\hyperlink{_autodrone32_8h_a5c11e46dabb5a19543127577dea2988a}{homeData\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00138}00138 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00139}00139 \textcolor{keyword}{extern} \mbox{\hyperlink{structhome_data__t}{homeData\_t}} \mbox{\hyperlink{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}{homeData}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00142}00142 \textcolor{comment}{// PID Definitions}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00144}00144 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00145}\mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{00145}} \textcolor{preprocessor}{\#define NUMBER\_OF\_PIDS      6}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00146}00146 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00147}\mbox{\hyperlink{_autodrone32_8h_a235532884e69e785781acb60c65bed49}{00147}} \textcolor{preprocessor}{\#define ROLL\_RATE\_PID       0}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00148}\mbox{\hyperlink{_autodrone32_8h_a1958b73d2ee48b59a1c8f506881ee0f0}{00148}} \textcolor{preprocessor}{\#define PITCH\_RATE\_PID      1}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00149}\mbox{\hyperlink{_autodrone32_8h_a8fea470ced437a1f4a6e41b1a30b0d05}{00149}} \textcolor{preprocessor}{\#define YAW\_RATE\_PID        2}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00151}\mbox{\hyperlink{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}{00151}} \textcolor{preprocessor}{\#define ROLL\_ATT\_PID        3}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00152}\mbox{\hyperlink{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}{00152}} \textcolor{preprocessor}{\#define PITCH\_ATT\_PID       4}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00153}\mbox{\hyperlink{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}{00153}} \textcolor{preprocessor}{\#define HEADING\_PID         5}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00156}00156 \textcolor{comment}{// Flight Modes}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00158}00158 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00159}00159 \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00160}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1e3af4a87374fcc9dcb397ee98b47b65}{00160}}     \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}},}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00161}00161     \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba20364949ea9fb383c6b8baf4bf249c6a}{ROVER}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00162}\mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba20364949ea9fb383c6b8baf4bf249c6a}{00162}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00165}00165 \textcolor{comment}{// MPU6000 DLPF Configurations}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00167}00167 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00168}\mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7ac45d842116ac3b29058ec9268a6723da}{00168}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a5b9000695b6b8c61a7e9a7735b8a61cd}{DLPF\_256HZ}}, \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7ac45d842116ac3b29058ec9268a6723da}{DLPF\_188HZ}}, \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a5a97019caa3efd2212b18642e1b53734}{DLPF\_98HZ}}, \mbox{\hyperlink{_autodrone32_8h_adf764cbdea00d65edcd07bb9953ad2b7a6b7e5dfe392c119f05dbf3563aa30ea1}{DLPF\_42HZ}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00169}00169 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00171}00171 \textcolor{comment}{// EEPROM}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00173}00173 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00174}\mbox{\hyperlink{structeeprom_config__t}{00174}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structeeprom_config__t}{eepromConfig\_t}}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00175}00175 \{}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00177}00177 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00178}\mbox{\hyperlink{structeeprom_config__t_ab22abc2906422da61885ac6c8e6a1a59}{00178}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ab22abc2906422da61885ac6c8e6a1a59}{version}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00179}00179 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00180}\mbox{\hyperlink{structeeprom_config__t_a94c97906cdb928950cc6c595f1269082}{00180}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a94c97906cdb928950cc6c595f1269082}{accelBiasMPU}}[3];          \textcolor{comment}{// Bias for MPU60x0 Accel}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00181}\mbox{\hyperlink{structeeprom_config__t_aff16de83c534d12d68254a62fc0bf054}{00181}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aff16de83c534d12d68254a62fc0bf054}{accelScaleFactorMPU}}[3];   \textcolor{comment}{// Scale factor for MPU60x0 Accel}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00182}00182 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00183}\mbox{\hyperlink{structeeprom_config__t_ab99ced47a5f7412dc1cc9fdf1d776459}{00183}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ab99ced47a5f7412dc1cc9fdf1d776459}{accelBiasMXR}}[3];          \textcolor{comment}{// Bias for MXR9150 Accel}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00184}\mbox{\hyperlink{structeeprom_config__t_a339cc867657e895b32b0f53c4790f822}{00184}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a339cc867657e895b32b0f53c4790f822}{accelScaleFactorMXR}}[3];   \textcolor{comment}{// Scale factor for MXR9150 Accel}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00185}00185 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00186}\mbox{\hyperlink{structeeprom_config__t_a563352aa54e517870299c1c76d37f0d5}{00186}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a563352aa54e517870299c1c76d37f0d5}{accelTCBiasSlope}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00187}\mbox{\hyperlink{structeeprom_config__t_a8f8c62c59a3820372cc5de91b37a303c}{00187}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a8f8c62c59a3820372cc5de91b37a303c}{accelTCBiasIntercept}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00189}\mbox{\hyperlink{structeeprom_config__t_a1b59d9164a5cdf76b78c835b2e60a968}{00189}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a1b59d9164a5cdf76b78c835b2e60a968}{gyroTCBiasSlope}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00190}\mbox{\hyperlink{structeeprom_config__t_a56308d2df2c36af6d5b3c7082b35dd3e}{00190}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a56308d2df2c36af6d5b3c7082b35dd3e}{gyroTCBiasIntercept}}[3];}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00191}00191 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00193}00193 \textcolor{comment}{// MPU6000 DLPF Configurations}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00195}00195 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00196}\mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04ac45d842116ac3b29058ec9268a6723da}{00196}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5b9000695b6b8c61a7e9a7735b8a61cd}{DLPF\_256HZ}}, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04ac45d842116ac3b29058ec9268a6723da}{DLPF\_188HZ}}, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a5a97019caa3efd2212b18642e1b53734}{DLPF\_98HZ}}, \mbox{\hyperlink{_autodrone32_8h_abc6126af1d45847bc59afa0aa3216b04a6b7e5dfe392c119f05dbf3563aa30ea1}{DLPF\_42HZ}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00192}\mbox{\hyperlink{structeeprom_config__t_ad1ec37921b361d7ce63fe1b660541333}{00192}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad1ec37921b361d7ce63fe1b660541333}{magBias}}[6];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00194}\mbox{\hyperlink{structeeprom_config__t_aa9fa535710329dfd1290daf1fe1e10a5}{00194}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa9fa535710329dfd1290daf1fe1e10a5}{accelCutoff}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00196}\mbox{\hyperlink{structeeprom_config__t_a107691d51b5af2832d82994cba98c3b7}{00196}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a107691d51b5af2832d82994cba98c3b7}{KpAcc}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00197}00197 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00199}00199 \textcolor{comment}{// Receiver Configurations}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00201}00201 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00202}\mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06cac271a6034e77f707fe192841a95de390}{00202}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06cac271a6034e77f707fe192841a95de390}{PPM}}, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caef99a276e1f3b62b5df98acc27b38028}{PWM}}, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06ca3b0361d7c922463802f9a82f455e5c59}{SPEKTRUM}}, \mbox{\hyperlink{_autodrone32_8h_adc29c2ff13d900c2f185ee95427fb06caed8e53b2adc8420cc50140048a3caf6e}{SBUS}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00198}\mbox{\hyperlink{structeeprom_config__t_abe80821ba89ad70fa5a8eccfbae1b198}{00198}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_abe80821ba89ad70fa5a8eccfbae1b198}{KiAcc}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00200}\mbox{\hyperlink{structeeprom_config__t_af0aeeec051f5673729528eada34eb444}{00200}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_af0aeeec051f5673729528eada34eb444}{KpMag}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00201}00201 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00202}\mbox{\hyperlink{structeeprom_config__t_aa7e39490a8935e07919aae25f575dd45}{00202}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa7e39490a8935e07919aae25f575dd45}{KiMag}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00203}00203 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00205}00205 \textcolor{comment}{// USB/UART Configurations}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00207}00207 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00208}\mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27}{00208}} \textcolor{keyword}{enum} \{ \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea65f6b55fdc64778bf10632a795b97761}{USB}}, \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ead78b5dd576e9a3ab80d6c77ff9d1cd27}{UART1}}, \mbox{\hyperlink{_autodrone32_8h_a61dadd085c1777f559549e05962b2c9ea1131083beae26b9314a6fca36032b44a}{UART2}} \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00204}\mbox{\hyperlink{structeeprom_config__t_ad6025b3ec5530410c58ab138965961a5}{00204}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad6025b3ec5530410c58ab138965961a5}{compFilterA}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00206}\mbox{\hyperlink{structeeprom_config__t_ac8bb4c274bee951c5cdfb771f8c14abe}{00206}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac8bb4c274bee951c5cdfb771f8c14abe}{compFilterB}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00207}00207 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00208}\mbox{\hyperlink{structeeprom_config__t_a1fae9709b532d02f3687af617a79722c}{00208}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a1fae9709b532d02f3687af617a79722c}{dlpfSetting}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00209}00209 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00211}00211 \textcolor{comment}{// EEPROM}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00213}00213 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00214}\mbox{\hyperlink{structeeprom_config__t}{00214}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structeeprom_config__t}{eepromConfig\_t}}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00215}00215 \{}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00217}00217 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00218}\mbox{\hyperlink{structeeprom_config__t_ab22abc2906422da61885ac6c8e6a1a59}{00218}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ab22abc2906422da61885ac6c8e6a1a59}{version}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00219}00219 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00220}\mbox{\hyperlink{structeeprom_config__t_a94c97906cdb928950cc6c595f1269082}{00220}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a94c97906cdb928950cc6c595f1269082}{accelBiasMPU}}[3];          \textcolor{comment}{// Bias for MPU60x0 Accel}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00221}\mbox{\hyperlink{structeeprom_config__t_aff16de83c534d12d68254a62fc0bf054}{00221}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aff16de83c534d12d68254a62fc0bf054}{accelScaleFactorMPU}}[3];   \textcolor{comment}{// Scale factor for MPU60x0 Accel}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00210}\mbox{\hyperlink{structeeprom_config__t_aace15d3b6ae9cf2b845a8583349c2138}{00210}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aace15d3b6ae9cf2b845a8583349c2138}{sensorOrientation}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00213}00213 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00214}\mbox{\hyperlink{structeeprom_config__t_a754f6a27273fade7b911ff2c2e21210e}{00214}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a754f6a27273fade7b911ff2c2e21210e}{rollAndPitchRateScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00215}\mbox{\hyperlink{structeeprom_config__t_a8f90af8f77a607661ad812a44bf427a4}{00215}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a8f90af8f77a607661ad812a44bf427a4}{yawRateScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00216}00216 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00217}\mbox{\hyperlink{structeeprom_config__t_a9a08871f138cc5097ddd31faf2d37d7a}{00217}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a9a08871f138cc5097ddd31faf2d37d7a}{attitudeScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00218}00218 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00219}\mbox{\hyperlink{structeeprom_config__t_aa4bf190e59618a4a7dc786074cccd295}{00219}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa4bf190e59618a4a7dc786074cccd295}{nDotEdotScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00220}00220 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00221}\mbox{\hyperlink{structeeprom_config__t_ac3563109dc3117ed71c4a392eaa10973}{00221}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac3563109dc3117ed71c4a392eaa10973}{hDotScaling}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00222}00222 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00223}\mbox{\hyperlink{structeeprom_config__t_ab99ced47a5f7412dc1cc9fdf1d776459}{00223}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ab99ced47a5f7412dc1cc9fdf1d776459}{accelBiasMXR}}[3];          \textcolor{comment}{// Bias for MXR9150 Accel}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00224}\mbox{\hyperlink{structeeprom_config__t_a339cc867657e895b32b0f53c4790f822}{00224}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a339cc867657e895b32b0f53c4790f822}{accelScaleFactorMXR}}[3];   \textcolor{comment}{// Scale factor for MXR9150 Accel}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00225}00225 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00226}\mbox{\hyperlink{structeeprom_config__t_a563352aa54e517870299c1c76d37f0d5}{00226}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a563352aa54e517870299c1c76d37f0d5}{accelTCBiasSlope}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00227}\mbox{\hyperlink{structeeprom_config__t_a8f8c62c59a3820372cc5de91b37a303c}{00227}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a8f8c62c59a3820372cc5de91b37a303c}{accelTCBiasIntercept}}[3];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00224}00224 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00225}\mbox{\hyperlink{structeeprom_config__t_a83782e33444b53bcb092cc7c41395563}{00225}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a83782e33444b53bcb092cc7c41395563}{receiverType}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00226}\mbox{\hyperlink{structeeprom_config__t_ae75b2d063d93b41f2a1c95638e2233c1}{00226}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ae75b2d063d93b41f2a1c95638e2233c1}{ppmChannels}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00227}\mbox{\hyperlink{structeeprom_config__t_a544b4c2f1c3090cdf3829b730934eaec}{00227}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a544b4c2f1c3090cdf3829b730934eaec}{slaveSpektrum}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00228}00228 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00229}\mbox{\hyperlink{structeeprom_config__t_a1b59d9164a5cdf76b78c835b2e60a968}{00229}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a1b59d9164a5cdf76b78c835b2e60a968}{gyroTCBiasSlope}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00230}\mbox{\hyperlink{structeeprom_config__t_a56308d2df2c36af6d5b3c7082b35dd3e}{00230}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a56308d2df2c36af6d5b3c7082b35dd3e}{gyroTCBiasIntercept}}[3];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00231}00231 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00232}\mbox{\hyperlink{structeeprom_config__t_ad1ec37921b361d7ce63fe1b660541333}{00232}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad1ec37921b361d7ce63fe1b660541333}{magBias}}[6];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00229}\mbox{\hyperlink{structeeprom_config__t_a2445da32b4a5fb7838bf4309a1ed43cd}{00229}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2445da32b4a5fb7838bf4309a1ed43cd}{rcMap}}[12];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00231}\mbox{\hyperlink{structeeprom_config__t_a75c74aaea4749b0ad3f51b48c5a90e52}{00231}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a75c74aaea4749b0ad3f51b48c5a90e52}{escPwmRate}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00232}\mbox{\hyperlink{structeeprom_config__t_a089b15108aad505d9fa2b5f8851a27dd}{00232}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a089b15108aad505d9fa2b5f8851a27dd}{servoPwmRate}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00233}00233 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00234}\mbox{\hyperlink{structeeprom_config__t_aa9fa535710329dfd1290daf1fe1e10a5}{00234}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa9fa535710329dfd1290daf1fe1e10a5}{accelCutoff}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00235}00235 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00236}\mbox{\hyperlink{structeeprom_config__t_a107691d51b5af2832d82994cba98c3b7}{00236}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a107691d51b5af2832d82994cba98c3b7}{KpAcc}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00237}00237 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00238}\mbox{\hyperlink{structeeprom_config__t_abe80821ba89ad70fa5a8eccfbae1b198}{00238}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_abe80821ba89ad70fa5a8eccfbae1b198}{KiAcc}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00234}\mbox{\hyperlink{structeeprom_config__t_ac06a95e1662c379031acb4653f855d5e}{00234}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac06a95e1662c379031acb4653f855d5e}{midCommand}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00235}\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{00235}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00236}\mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{00236}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{maxCheck}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00237}\mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{00237}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{minThrottle}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00238}\mbox{\hyperlink{structeeprom_config__t_a84baef155eccd803b22fae00a4acf452}{00238}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a84baef155eccd803b22fae00a4acf452}{maxThrottle}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00239}00239 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00240}\mbox{\hyperlink{structeeprom_config__t_af0aeeec051f5673729528eada34eb444}{00240}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_af0aeeec051f5673729528eada34eb444}{KpMag}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00241}00241 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00242}\mbox{\hyperlink{structeeprom_config__t_aa7e39490a8935e07919aae25f575dd45}{00242}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa7e39490a8935e07919aae25f575dd45}{KiMag}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00243}00243 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00244}\mbox{\hyperlink{structeeprom_config__t_ad6025b3ec5530410c58ab138965961a5}{00244}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad6025b3ec5530410c58ab138965961a5}{compFilterA}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00245}00245 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00246}\mbox{\hyperlink{structeeprom_config__t_ac8bb4c274bee951c5cdfb771f8c14abe}{00246}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac8bb4c274bee951c5cdfb771f8c14abe}{compFilterB}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00247}00247 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00248}\mbox{\hyperlink{structeeprom_config__t_a1fae9709b532d02f3687af617a79722c}{00248}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a1fae9709b532d02f3687af617a79722c}{dlpfSetting}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00249}00249 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00250}\mbox{\hyperlink{structeeprom_config__t_aace15d3b6ae9cf2b845a8583349c2138}{00250}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aace15d3b6ae9cf2b845a8583349c2138}{sensorOrientation}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00251}00251 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00253}00253 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00254}\mbox{\hyperlink{structeeprom_config__t_a754f6a27273fade7b911ff2c2e21210e}{00254}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a754f6a27273fade7b911ff2c2e21210e}{rollAndPitchRateScaling}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00255}\mbox{\hyperlink{structeeprom_config__t_a8f90af8f77a607661ad812a44bf427a4}{00255}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a8f90af8f77a607661ad812a44bf427a4}{yawRateScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00242}\mbox{\hyperlink{structeeprom_config__t_ac394d57d5bc5f46de1e4dc99b642ea20}{00242}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ac394d57d5bc5f46de1e4dc99b642ea20}{mixerConfiguration}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00243}\mbox{\hyperlink{structeeprom_config__t_ad4eb242b3da231f4c1a26530e51a0104}{00243}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad4eb242b3da231f4c1a26530e51a0104}{yawDirection}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00244}00244 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00245}\mbox{\hyperlink{structeeprom_config__t_a2592bc216f09bd7f2df046fcd00659ec}{00245}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a2592bc216f09bd7f2df046fcd00659ec}{triYawServoPwmRate}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00246}\mbox{\hyperlink{structeeprom_config__t_ab79e002f1edb7fd0e5ed306a8b45d069}{00246}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ab79e002f1edb7fd0e5ed306a8b45d069}{triYawServoMin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00247}\mbox{\hyperlink{structeeprom_config__t_ad67cf80970a95f6256baaff6b93a7bf3}{00247}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ad67cf80970a95f6256baaff6b93a7bf3}{triYawServoMid}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00248}\mbox{\hyperlink{structeeprom_config__t_a0d89008b90d8937d7018ce14e49abad6}{00248}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a0d89008b90d8937d7018ce14e49abad6}{triYawServoMax}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00249}\mbox{\hyperlink{structeeprom_config__t_a4e583adf854f5f02e3ca636e65d8d17c}{00249}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a4e583adf854f5f02e3ca636e65d8d17c}{triCopterYawCmd500HzLowPassTau}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00250}00250 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00251}\mbox{\hyperlink{structeeprom_config__t_abaa110c10c2871111faa2726006474f6}{00251}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_abaa110c10c2871111faa2726006474f6}{freeMixMotors}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00252}00252 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00253}\mbox{\hyperlink{structeeprom_config__t_a920729598a9cd9376b5a7e39a3e5346c}{00253}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a920729598a9cd9376b5a7e39a3e5346c}{freeMix}}[8][4];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00254}00254 }
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00256}00256 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00257}\mbox{\hyperlink{structeeprom_config__t_a9a08871f138cc5097ddd31faf2d37d7a}{00257}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a9a08871f138cc5097ddd31faf2d37d7a}{attitudeScaling}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00258}00258 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00259}\mbox{\hyperlink{structeeprom_config__t_aa4bf190e59618a4a7dc786074cccd295}{00259}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_aa4bf190e59618a4a7dc786074cccd295}{nDotEdotScaling}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00260}00260 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00261}\mbox{\hyperlink{structeeprom_config__t_ac3563109dc3117ed71c4a392eaa10973}{00261}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac3563109dc3117ed71c4a392eaa10973}{hDotScaling}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00257}\mbox{\hyperlink{structeeprom_config__t_ae166cdc0df2f558af82eadc822d90995}{00257}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ae166cdc0df2f558af82eadc822d90995}{rollAttAltCompensationGain}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00258}\mbox{\hyperlink{structeeprom_config__t_affcefb923cb2a79ef288cb9b8deff074}{00258}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_affcefb923cb2a79ef288cb9b8deff074}{rollAttAltCompensationLimit}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00259}00259 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00260}\mbox{\hyperlink{structeeprom_config__t_a432d27ae69e55f867f1b3be9440e7e48}{00260}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a432d27ae69e55f867f1b3be9440e7e48}{pitchAttAltCompensationGain}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00261}\mbox{\hyperlink{structeeprom_config__t_a931de289b660ea002685035876ed351c}{00261}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a931de289b660ea002685035876ed351c}{pitchAttAltCompensationLimit}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00262}00262 }
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00264}00264 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00265}\mbox{\hyperlink{structeeprom_config__t_a83782e33444b53bcb092cc7c41395563}{00265}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a83782e33444b53bcb092cc7c41395563}{receiverType}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00266}\mbox{\hyperlink{structeeprom_config__t_ae75b2d063d93b41f2a1c95638e2233c1}{00266}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ae75b2d063d93b41f2a1c95638e2233c1}{ppmChannels}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00267}\mbox{\hyperlink{structeeprom_config__t_a544b4c2f1c3090cdf3829b730934eaec}{00267}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a544b4c2f1c3090cdf3829b730934eaec}{slaveSpektrum}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00265}\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{00265}}     \mbox{\hyperlink{struct_p_i_ddata}{PIDdata\_t}} \mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[\mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{NUMBER\_OF\_PIDS}}];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00266}00266 }
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00268}00268 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00269}\mbox{\hyperlink{structeeprom_config__t_a2445da32b4a5fb7838bf4309a1ed43cd}{00269}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2445da32b4a5fb7838bf4309a1ed43cd}{rcMap}}[12];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00270}00270 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00271}\mbox{\hyperlink{structeeprom_config__t_a75c74aaea4749b0ad3f51b48c5a90e52}{00271}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a75c74aaea4749b0ad3f51b48c5a90e52}{escPwmRate}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00272}\mbox{\hyperlink{structeeprom_config__t_a089b15108aad505d9fa2b5f8851a27dd}{00272}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a089b15108aad505d9fa2b5f8851a27dd}{servoPwmRate}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00273}00273 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00274}\mbox{\hyperlink{structeeprom_config__t_ac06a95e1662c379031acb4653f855d5e}{00274}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ac06a95e1662c379031acb4653f855d5e}{midCommand}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00275}\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{00275}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00276}\mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{00276}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{maxCheck}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00277}\mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{00277}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{minThrottle}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00278}\mbox{\hyperlink{structeeprom_config__t_a84baef155eccd803b22fae00a4acf452}{00278}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_a84baef155eccd803b22fae00a4acf452}{maxThrottle}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00279}00279 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00281}00281 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00282}\mbox{\hyperlink{structeeprom_config__t_ac394d57d5bc5f46de1e4dc99b642ea20}{00282}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ac394d57d5bc5f46de1e4dc99b642ea20}{mixerConfiguration}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00283}\mbox{\hyperlink{structeeprom_config__t_ad4eb242b3da231f4c1a26530e51a0104}{00283}}     \textcolor{keywordtype}{float} \mbox{\hyperlink{structeeprom_config__t_ad4eb242b3da231f4c1a26530e51a0104}{yawDirection}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00269}\mbox{\hyperlink{structeeprom_config__t_a825037e36da093b402ac68facb565c0e}{00269}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a825037e36da093b402ac68facb565c0e}{osdEnabled}};              \textcolor{comment}{// 0 = Disabled, 1 = Enabled}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00270}\mbox{\hyperlink{structeeprom_config__t_aec30572e84be9c06729d2ac8f712e23b}{00270}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aec30572e84be9c06729d2ac8f712e23b}{defaultVideoStandard}};    \textcolor{comment}{// 0 = NTSC, 1 = PAL}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00271}\mbox{\hyperlink{structeeprom_config__t_af830b0ff70b39dbe770a8671bf29f84f}{00271}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af830b0ff70b39dbe770a8671bf29f84f}{metricUnits}};             \textcolor{comment}{// 1 = metric}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00273}\mbox{\hyperlink{structeeprom_config__t_a791702917444939ba6d599187dda8546}{00273}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a791702917444939ba6d599187dda8546}{osdDisplayAlt}};           \textcolor{comment}{// 1 = Display OSD Altitude}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00274}\mbox{\hyperlink{structeeprom_config__t_a5030c1816017f012c71e417778c9e2d5}{00274}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a5030c1816017f012c71e417778c9e2d5}{osdDisplayAltRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00275}\mbox{\hyperlink{structeeprom_config__t_a7165d3f988fac37834cf5f29f79b5dfd}{00275}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7165d3f988fac37834cf5f29f79b5dfd}{osdDisplayAltCol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00276}\mbox{\hyperlink{structeeprom_config__t_aebde652d6cc8f46cbbfeb97055c7043f}{00276}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aebde652d6cc8f46cbbfeb97055c7043f}{osdDisplayAltHoldState}};  \textcolor{comment}{// 1 = display altitude hold state, 0 = don't display}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00277}00277 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00278}\mbox{\hyperlink{structeeprom_config__t_a0430002f969b83c4a0afad0c6d89ccd4}{00278}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a0430002f969b83c4a0afad0c6d89ccd4}{osdDisplayAH}};            \textcolor{comment}{// 1 = Display OSD Artificial Horizon}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00279}\mbox{\hyperlink{structeeprom_config__t_af9c5d23fc0759d5c9829a08359623614}{00279}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af9c5d23fc0759d5c9829a08359623614}{osdDisplayAtt}};           \textcolor{comment}{// 1 = Display OSD Attitude}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00280}00280 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00281}\mbox{\hyperlink{structeeprom_config__t_a4caf7ef0cc97726402f052a185752ef9}{00281}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a4caf7ef0cc97726402f052a185752ef9}{osdDisplayHdg}};           \textcolor{comment}{// 1 = Display OSD Heading}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00282}\mbox{\hyperlink{structeeprom_config__t_ad3608a432f43fed2c9fa967dffa580cc}{00282}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ad3608a432f43fed2c9fa967dffa580cc}{osdDisplayHdgRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00283}\mbox{\hyperlink{structeeprom_config__t_aa0e5990e59e736b479606a4c65166d60}{00283}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa0e5990e59e736b479606a4c65166d60}{osdDisplayHdgCol}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00284}00284 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00285}\mbox{\hyperlink{structeeprom_config__t_a2592bc216f09bd7f2df046fcd00659ec}{00285}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a2592bc216f09bd7f2df046fcd00659ec}{triYawServoPwmRate}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00286}\mbox{\hyperlink{structeeprom_config__t_ab79e002f1edb7fd0e5ed306a8b45d069}{00286}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ab79e002f1edb7fd0e5ed306a8b45d069}{triYawServoMin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00287}\mbox{\hyperlink{structeeprom_config__t_ad67cf80970a95f6256baaff6b93a7bf3}{00287}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ad67cf80970a95f6256baaff6b93a7bf3}{triYawServoMid}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00288}\mbox{\hyperlink{structeeprom_config__t_a0d89008b90d8937d7018ce14e49abad6}{00288}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a0d89008b90d8937d7018ce14e49abad6}{triYawServoMax}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00289}\mbox{\hyperlink{structeeprom_config__t_a4e583adf854f5f02e3ca636e65d8d17c}{00289}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a4e583adf854f5f02e3ca636e65d8d17c}{triCopterYawCmd500HzLowPassTau}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00290}00290 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00291}\mbox{\hyperlink{structeeprom_config__t_abaa110c10c2871111faa2726006474f6}{00291}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_abaa110c10c2871111faa2726006474f6}{freeMixMotors}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00285}\mbox{\hyperlink{structeeprom_config__t_aa23db9a7ed0ddbd048e647d91e784f33}{00285}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa23db9a7ed0ddbd048e647d91e784f33}{osdDisplayHdgBar}};        \textcolor{comment}{// 1 = Display OSD Heading Bar (more visual)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00286}\mbox{\hyperlink{structeeprom_config__t_a7e49d00f3fd929cf2a12e11298ca10fd}{00286}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7e49d00f3fd929cf2a12e11298ca10fd}{osdDisplayHdgBarRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00287}\mbox{\hyperlink{structeeprom_config__t_a79ea36804a6a21d875e17791b2f4d1a5}{00287}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a79ea36804a6a21d875e17791b2f4d1a5}{osdDisplayHdgBarCol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00289}\mbox{\hyperlink{structeeprom_config__t_af1eae8e196aefdbd48f4b645d12d467b}{00289}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af1eae8e196aefdbd48f4b645d12d467b}{osdDisplayVoltage}};      \textcolor{comment}{// 1 = Display OSD Voltage}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00290}\mbox{\hyperlink{structeeprom_config__t_a17a193ad69f18f24efdf598e893e3920}{00290}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a17a193ad69f18f24efdf598e893e3920}{osdDisplayVoltageRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00291}\mbox{\hyperlink{structeeprom_config__t_aa8441fd3ade2081416ecaafc1c2cafad}{00291}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa8441fd3ade2081416ecaafc1c2cafad}{osdDisplayVoltageCol}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00292}00292 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00293}\mbox{\hyperlink{structeeprom_config__t_a920729598a9cd9376b5a7e39a3e5346c}{00293}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a920729598a9cd9376b5a7e39a3e5346c}{freeMix}}[8][4];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00294}00294 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00293}\mbox{\hyperlink{structeeprom_config__t_a7282ef0a4bd92641a792ee7d793fcd3e}{00293}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7282ef0a4bd92641a792ee7d793fcd3e}{osdDisplayCurrent}};      \textcolor{comment}{// 1 = Display OSD instantaneous current and used current}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00294}\mbox{\hyperlink{structeeprom_config__t_a97377748a9acd8cab8f4fe685be888d1}{00294}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a97377748a9acd8cab8f4fe685be888d1}{osdDisplayCurrentRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00295}\mbox{\hyperlink{structeeprom_config__t_a8172b8a01f87a848f64c8a3f842ec268}{00295}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a8172b8a01f87a848f64c8a3f842ec268}{osdDisplayCurrentCol}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00296}00296 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00297}\mbox{\hyperlink{structeeprom_config__t_ae166cdc0df2f558af82eadc822d90995}{00297}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_ae166cdc0df2f558af82eadc822d90995}{rollAttAltCompensationGain}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00298}\mbox{\hyperlink{structeeprom_config__t_affcefb923cb2a79ef288cb9b8deff074}{00298}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_affcefb923cb2a79ef288cb9b8deff074}{rollAttAltCompensationLimit}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00299}00299 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00300}\mbox{\hyperlink{structeeprom_config__t_a432d27ae69e55f867f1b3be9440e7e48}{00300}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a432d27ae69e55f867f1b3be9440e7e48}{pitchAttAltCompensationGain}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00301}\mbox{\hyperlink{structeeprom_config__t_a931de289b660ea002685035876ed351c}{00301}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a931de289b660ea002685035876ed351c}{pitchAttAltCompensationLimit}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00302}00302 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00297}\mbox{\hyperlink{structeeprom_config__t_aa4aebb7176049d62d689517b8e21878c}{00297}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa4aebb7176049d62d689517b8e21878c}{osdDisplayThrot}};      \textcolor{comment}{// 1 = Display OSD throttle -\/ for now, just rx input, maybe some day show rx input and processed throttle (alt,gps,etc)}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00298}\mbox{\hyperlink{structeeprom_config__t_a1ccec497938633da6a439c28b8c2bb39}{00298}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a1ccec497938633da6a439c28b8c2bb39}{osdDisplayThrotRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00299}\mbox{\hyperlink{structeeprom_config__t_ae6a24d0eca00b1377d9d937bec40d442}{00299}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ae6a24d0eca00b1377d9d937bec40d442}{osdDisplayThrotCol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00301}\mbox{\hyperlink{structeeprom_config__t_a2e12a8357b3564da6e16fd06aaa52881}{00301}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2e12a8357b3564da6e16fd06aaa52881}{osdDisplayRSSI}};          \textcolor{comment}{// 1 = Display OSD RSSI}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00302}\mbox{\hyperlink{structeeprom_config__t_a6d3dc13c6b1e6d5b85b9faac617bb4f1}{00302}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a6d3dc13c6b1e6d5b85b9faac617bb4f1}{osdDisplayRSSIRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00303}\mbox{\hyperlink{structeeprom_config__t_ad2bb2d54ef13f332fe15b0d3d96f880c}{00303}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ad2bb2d54ef13f332fe15b0d3d96f880c}{osdDisplayRSSICol}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00304}00304 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00305}\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{00305}}     \mbox{\hyperlink{struct_p_i_ddata}{PIDdata\_t}} \mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[\mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{NUMBER\_OF\_PIDS}}];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00305}\mbox{\hyperlink{structeeprom_config__t_a98a7bc71e06e92516f8c080d176c56e0}{00305}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a98a7bc71e06e92516f8c080d176c56e0}{osdDisplayTimer}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00306}\mbox{\hyperlink{structeeprom_config__t_a700a62bb5885d977e673699cef1f1d1b}{00306}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a700a62bb5885d977e673699cef1f1d1b}{osdDisplayTimerRow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00307}\mbox{\hyperlink{structeeprom_config__t_ac2deb058f866e8fef91518ede3275bc2}{00307}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ac2deb058f866e8fef91518ede3275bc2}{osdDisplayTimerCol}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00308}00308 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00309}\mbox{\hyperlink{structeeprom_config__t_a825037e36da093b402ac68facb565c0e}{00309}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a825037e36da093b402ac68facb565c0e}{osdEnabled}};              \textcolor{comment}{// 0 = Disabled, 1 = Enabled}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00310}\mbox{\hyperlink{structeeprom_config__t_aec30572e84be9c06729d2ac8f712e23b}{00310}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aec30572e84be9c06729d2ac8f712e23b}{defaultVideoStandard}};    \textcolor{comment}{// 0 = NTSC, 1 = PAL}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00311}\mbox{\hyperlink{structeeprom_config__t_af830b0ff70b39dbe770a8671bf29f84f}{00311}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af830b0ff70b39dbe770a8671bf29f84f}{metricUnits}};             \textcolor{comment}{// 1 = metric}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00312}00312 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00313}\mbox{\hyperlink{structeeprom_config__t_a791702917444939ba6d599187dda8546}{00313}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a791702917444939ba6d599187dda8546}{osdDisplayAlt}};           \textcolor{comment}{// 1 = Display OSD Altitude}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00314}\mbox{\hyperlink{structeeprom_config__t_a5030c1816017f012c71e417778c9e2d5}{00314}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a5030c1816017f012c71e417778c9e2d5}{osdDisplayAltRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00315}\mbox{\hyperlink{structeeprom_config__t_a7165d3f988fac37834cf5f29f79b5dfd}{00315}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7165d3f988fac37834cf5f29f79b5dfd}{osdDisplayAltCol}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00316}\mbox{\hyperlink{structeeprom_config__t_aebde652d6cc8f46cbbfeb97055c7043f}{00316}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aebde652d6cc8f46cbbfeb97055c7043f}{osdDisplayAltHoldState}};  \textcolor{comment}{// 1 = display altitude hold state, 0 = don't display}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00317}00317 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00318}\mbox{\hyperlink{structeeprom_config__t_a0430002f969b83c4a0afad0c6d89ccd4}{00318}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a0430002f969b83c4a0afad0c6d89ccd4}{osdDisplayAH}};            \textcolor{comment}{// 1 = Display OSD Artificial Horizon}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00319}\mbox{\hyperlink{structeeprom_config__t_af9c5d23fc0759d5c9829a08359623614}{00319}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af9c5d23fc0759d5c9829a08359623614}{osdDisplayAtt}};           \textcolor{comment}{// 1 = Display OSD Attitude}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00320}00320 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00321}\mbox{\hyperlink{structeeprom_config__t_a4caf7ef0cc97726402f052a185752ef9}{00321}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a4caf7ef0cc97726402f052a185752ef9}{osdDisplayHdg}};           \textcolor{comment}{// 1 = Display OSD Heading}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00322}\mbox{\hyperlink{structeeprom_config__t_ad3608a432f43fed2c9fa967dffa580cc}{00322}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ad3608a432f43fed2c9fa967dffa580cc}{osdDisplayHdgRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00323}\mbox{\hyperlink{structeeprom_config__t_aa0e5990e59e736b479606a4c65166d60}{00323}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa0e5990e59e736b479606a4c65166d60}{osdDisplayHdgCol}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00324}00324 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00325}\mbox{\hyperlink{structeeprom_config__t_aa23db9a7ed0ddbd048e647d91e784f33}{00325}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa23db9a7ed0ddbd048e647d91e784f33}{osdDisplayHdgBar}};        \textcolor{comment}{// 1 = Display OSD Heading Bar (more visual)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00326}\mbox{\hyperlink{structeeprom_config__t_a7e49d00f3fd929cf2a12e11298ca10fd}{00326}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7e49d00f3fd929cf2a12e11298ca10fd}{osdDisplayHdgBarRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00327}\mbox{\hyperlink{structeeprom_config__t_a79ea36804a6a21d875e17791b2f4d1a5}{00327}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a79ea36804a6a21d875e17791b2f4d1a5}{osdDisplayHdgBarCol}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00328}00328 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00329}\mbox{\hyperlink{structeeprom_config__t_af1eae8e196aefdbd48f4b645d12d467b}{00329}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_af1eae8e196aefdbd48f4b645d12d467b}{osdDisplayVoltage}};      \textcolor{comment}{// 1 = Display OSD Voltage}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00330}\mbox{\hyperlink{structeeprom_config__t_a17a193ad69f18f24efdf598e893e3920}{00330}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a17a193ad69f18f24efdf598e893e3920}{osdDisplayVoltageRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00331}\mbox{\hyperlink{structeeprom_config__t_aa8441fd3ade2081416ecaafc1c2cafad}{00331}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa8441fd3ade2081416ecaafc1c2cafad}{osdDisplayVoltageCol}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00332}00332 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00333}\mbox{\hyperlink{structeeprom_config__t_a7282ef0a4bd92641a792ee7d793fcd3e}{00333}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a7282ef0a4bd92641a792ee7d793fcd3e}{osdDisplayCurrent}};      \textcolor{comment}{// 1 = Display OSD instantaneous current and used current}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00334}\mbox{\hyperlink{structeeprom_config__t_a97377748a9acd8cab8f4fe685be888d1}{00334}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a97377748a9acd8cab8f4fe685be888d1}{osdDisplayCurrentRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00335}\mbox{\hyperlink{structeeprom_config__t_a8172b8a01f87a848f64c8a3f842ec268}{00335}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a8172b8a01f87a848f64c8a3f842ec268}{osdDisplayCurrentCol}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00336}00336 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00337}\mbox{\hyperlink{structeeprom_config__t_aa4aebb7176049d62d689517b8e21878c}{00337}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_aa4aebb7176049d62d689517b8e21878c}{osdDisplayThrot}};      \textcolor{comment}{// 1 = Display OSD throttle -\/ for now, just rx input, maybe some day show rx input and processed throttle (alt,gps,etc)}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00338}\mbox{\hyperlink{structeeprom_config__t_a1ccec497938633da6a439c28b8c2bb39}{00338}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a1ccec497938633da6a439c28b8c2bb39}{osdDisplayThrotRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00339}\mbox{\hyperlink{structeeprom_config__t_ae6a24d0eca00b1377d9d937bec40d442}{00339}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ae6a24d0eca00b1377d9d937bec40d442}{osdDisplayThrotCol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00310}00310 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00311}\mbox{\hyperlink{structeeprom_config__t_a550386df9b2a702ab64a92042681fa35}{00311}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a550386df9b2a702ab64a92042681fa35}{aglPin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00312}\mbox{\hyperlink{structeeprom_config__t_a895af807a0e66ed5176aeefc3809f106}{00312}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a895af807a0e66ed5176aeefc3809f106}{aglScale}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00313}\mbox{\hyperlink{structeeprom_config__t_a5f471164b8fca3ad70fdad6e96bc4a45}{00313}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a5f471164b8fca3ad70fdad6e96bc4a45}{aglBias}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00314}00314 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00315}\mbox{\hyperlink{structeeprom_config__t_a03507b4bb30963c78234c72c6b431cba}{00315}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a03507b4bb30963c78234c72c6b431cba}{currentMonitoring}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00316}\mbox{\hyperlink{structeeprom_config__t_a829074bc21efef40d22126c1ee1b7c06}{00316}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a829074bc21efef40d22126c1ee1b7c06}{currentMonitorPin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00317}\mbox{\hyperlink{structeeprom_config__t_a9a7aa7ad8c111bd5c09f2451a5f70566}{00317}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a9a7aa7ad8c111bd5c09f2451a5f70566}{currentMonitorScale}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00318}\mbox{\hyperlink{structeeprom_config__t_a3f4477b4c24ad368013feb6b74b87042}{00318}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a3f4477b4c24ad368013feb6b74b87042}{currentMonitorBias}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00319}00319 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00320}\mbox{\hyperlink{structeeprom_config__t_a4a57f37608efe5f7b7761e212112be9c}{00320}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a4a57f37608efe5f7b7761e212112be9c}{rssiPPM}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00321}\mbox{\hyperlink{structeeprom_config__t_aa50381f78f9ace88d16da010da856da3}{00321}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_aa50381f78f9ace88d16da010da856da3}{rssiPin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00322}\mbox{\hyperlink{structeeprom_config__t_afd77bc496c43402cece12d9d6e9e721d}{00322}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_afd77bc496c43402cece12d9d6e9e721d}{rssiMax}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00323}\mbox{\hyperlink{structeeprom_config__t_ad75b3708bdc4dc702a14ee55f9ead807}{00323}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_ad75b3708bdc4dc702a14ee55f9ead807}{rssiMin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00324}\mbox{\hyperlink{structeeprom_config__t_a0bbdbeff99a3e90f789640d7050a2ab0}{00324}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a0bbdbeff99a3e90f789640d7050a2ab0}{rssiWarning}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00326}\mbox{\hyperlink{structeeprom_config__t_a996556976c4a426925eae54cf54f5124}{00326}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a996556976c4a426925eae54cf54f5124}{voltageMonitorPin}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00327}\mbox{\hyperlink{structeeprom_config__t_abdd9e24950cac61d7bf7704a65e5f5c3}{00327}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_abdd9e24950cac61d7bf7704a65e5f5c3}{voltageMonitorScale}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00328}\mbox{\hyperlink{structeeprom_config__t_a927d41649d656b0c4ea3d2a6ea0313e8}{00328}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a927d41649d656b0c4ea3d2a6ea0313e8}{voltageMonitorBias}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00330}\mbox{\hyperlink{structeeprom_config__t_a5702cf3cd8d811e55f5f8e77563d5298}{00330}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a5702cf3cd8d811e55f5f8e77563d5298}{batteryCells}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00331}00331 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00332}\mbox{\hyperlink{structeeprom_config__t_a2a7fba4fce4b21c406cdb8e1bc05733c}{00332}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a2a7fba4fce4b21c406cdb8e1bc05733c}{batteryLow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00333}\mbox{\hyperlink{structeeprom_config__t_a193a4b94d8960f8d3ae77e11da638f18}{00333}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a193a4b94d8960f8d3ae77e11da638f18}{batteryVeryLow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00334}\mbox{\hyperlink{structeeprom_config__t_a100caeaea2d8090a9ab2bd3f000b9ba6}{00334}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a100caeaea2d8090a9ab2bd3f000b9ba6}{batteryMaxLow}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00335}00335 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00338}\mbox{\hyperlink{structeeprom_config__t_a8331c3665459f6d7309504ccce4e45f4}{00338}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a8331c3665459f6d7309504ccce4e45f4}{armCount}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00339}\mbox{\hyperlink{structeeprom_config__t_a4eb36c5679c8fb9f8b9cb2721880ef07}{00339}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a4eb36c5679c8fb9f8b9cb2721880ef07}{disarmCount}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00340}00340 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00341}\mbox{\hyperlink{structeeprom_config__t_a2e12a8357b3564da6e16fd06aaa52881}{00341}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2e12a8357b3564da6e16fd06aaa52881}{osdDisplayRSSI}};          \textcolor{comment}{// 1 = Display OSD RSSI}}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00342}\mbox{\hyperlink{structeeprom_config__t_a6d3dc13c6b1e6d5b85b9faac617bb4f1}{00342}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a6d3dc13c6b1e6d5b85b9faac617bb4f1}{osdDisplayRSSIRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00343}\mbox{\hyperlink{structeeprom_config__t_ad2bb2d54ef13f332fe15b0d3d96f880c}{00343}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ad2bb2d54ef13f332fe15b0d3d96f880c}{osdDisplayRSSICol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00342}00342 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00343}\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{00343}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00344}00344 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00345}\mbox{\hyperlink{structeeprom_config__t_a98a7bc71e06e92516f8c080d176c56e0}{00345}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a98a7bc71e06e92516f8c080d176c56e0}{osdDisplayTimer}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00346}\mbox{\hyperlink{structeeprom_config__t_a700a62bb5885d977e673699cef1f1d1b}{00346}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a700a62bb5885d977e673699cef1f1d1b}{osdDisplayTimerRow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00347}\mbox{\hyperlink{structeeprom_config__t_ac2deb058f866e8fef91518ede3275bc2}{00347}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_ac2deb058f866e8fef91518ede3275bc2}{osdDisplayTimerCol}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00345}\mbox{\hyperlink{structeeprom_config__t_acd517b469df973fae6a48f55c2de96dc}{00345}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_acd517b469df973fae6a48f55c2de96dc}{mavlinkEnabled}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00346}00346 }
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00348}00348 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00349}\mbox{\hyperlink{structeeprom_config__t_a2a966858773d9801f7ed82c71430ffc5}{00349}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2a966858773d9801f7ed82c71430ffc5}{verticalVelocityHoldOnly}};}
 \DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00350}00350 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00351}\mbox{\hyperlink{structeeprom_config__t_a550386df9b2a702ab64a92042681fa35}{00351}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a550386df9b2a702ab64a92042681fa35}{aglPin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00352}\mbox{\hyperlink{structeeprom_config__t_a895af807a0e66ed5176aeefc3809f106}{00352}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a895af807a0e66ed5176aeefc3809f106}{aglScale}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00353}\mbox{\hyperlink{structeeprom_config__t_a5f471164b8fca3ad70fdad6e96bc4a45}{00353}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a5f471164b8fca3ad70fdad6e96bc4a45}{aglBias}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00354}00354 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00355}\mbox{\hyperlink{structeeprom_config__t_a03507b4bb30963c78234c72c6b431cba}{00355}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a03507b4bb30963c78234c72c6b431cba}{currentMonitoring}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00356}\mbox{\hyperlink{structeeprom_config__t_a829074bc21efef40d22126c1ee1b7c06}{00356}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a829074bc21efef40d22126c1ee1b7c06}{currentMonitorPin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00357}\mbox{\hyperlink{structeeprom_config__t_a9a7aa7ad8c111bd5c09f2451a5f70566}{00357}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a9a7aa7ad8c111bd5c09f2451a5f70566}{currentMonitorScale}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00358}\mbox{\hyperlink{structeeprom_config__t_a3f4477b4c24ad368013feb6b74b87042}{00358}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a3f4477b4c24ad368013feb6b74b87042}{currentMonitorBias}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00359}00359 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00360}\mbox{\hyperlink{structeeprom_config__t_a4a57f37608efe5f7b7761e212112be9c}{00360}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a4a57f37608efe5f7b7761e212112be9c}{rssiPPM}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00361}\mbox{\hyperlink{structeeprom_config__t_aa50381f78f9ace88d16da010da856da3}{00361}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_aa50381f78f9ace88d16da010da856da3}{rssiPin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00362}\mbox{\hyperlink{structeeprom_config__t_afd77bc496c43402cece12d9d6e9e721d}{00362}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_afd77bc496c43402cece12d9d6e9e721d}{rssiMax}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00363}\mbox{\hyperlink{structeeprom_config__t_ad75b3708bdc4dc702a14ee55f9ead807}{00363}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_ad75b3708bdc4dc702a14ee55f9ead807}{rssiMin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00364}\mbox{\hyperlink{structeeprom_config__t_a0bbdbeff99a3e90f789640d7050a2ab0}{00364}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a0bbdbeff99a3e90f789640d7050a2ab0}{rssiWarning}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00365}00365 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00366}\mbox{\hyperlink{structeeprom_config__t_a996556976c4a426925eae54cf54f5124}{00366}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a996556976c4a426925eae54cf54f5124}{voltageMonitorPin}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00367}\mbox{\hyperlink{structeeprom_config__t_abdd9e24950cac61d7bf7704a65e5f5c3}{00367}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_abdd9e24950cac61d7bf7704a65e5f5c3}{voltageMonitorScale}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00368}\mbox{\hyperlink{structeeprom_config__t_a927d41649d656b0c4ea3d2a6ea0313e8}{00368}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a927d41649d656b0c4ea3d2a6ea0313e8}{voltageMonitorBias}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00369}00369 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00370}\mbox{\hyperlink{structeeprom_config__t_a5702cf3cd8d811e55f5f8e77563d5298}{00370}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_a5702cf3cd8d811e55f5f8e77563d5298}{batteryCells}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00371}00371 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00372}\mbox{\hyperlink{structeeprom_config__t_a2a7fba4fce4b21c406cdb8e1bc05733c}{00372}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a2a7fba4fce4b21c406cdb8e1bc05733c}{batteryLow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00373}\mbox{\hyperlink{structeeprom_config__t_a193a4b94d8960f8d3ae77e11da638f18}{00373}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a193a4b94d8960f8d3ae77e11da638f18}{batteryVeryLow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00374}\mbox{\hyperlink{structeeprom_config__t_a100caeaea2d8090a9ab2bd3f000b9ba6}{00374}}     \textcolor{keywordtype}{float}    \mbox{\hyperlink{structeeprom_config__t_a100caeaea2d8090a9ab2bd3f000b9ba6}{batteryMaxLow}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00375}00375 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00377}00377 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00378}\mbox{\hyperlink{structeeprom_config__t_a8331c3665459f6d7309504ccce4e45f4}{00378}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a8331c3665459f6d7309504ccce4e45f4}{armCount}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00379}\mbox{\hyperlink{structeeprom_config__t_a4eb36c5679c8fb9f8b9cb2721880ef07}{00379}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a4eb36c5679c8fb9f8b9cb2721880ef07}{disarmCount}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00380}00380 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00382}00382 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00383}\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{00383}}     uint16\_t \mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00384}00384 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00385}\mbox{\hyperlink{structeeprom_config__t_acd517b469df973fae6a48f55c2de96dc}{00385}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_acd517b469df973fae6a48f55c2de96dc}{mavlinkEnabled}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00386}00386 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00388}00388 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00389}\mbox{\hyperlink{structeeprom_config__t_a2a966858773d9801f7ed82c71430ffc5}{00389}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a2a966858773d9801f7ed82c71430ffc5}{verticalVelocityHoldOnly}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00390}00390 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00392}00392 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00393}\mbox{\hyperlink{structeeprom_config__t_a176f298874ff1895808eadb8810b56eb}{00393}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a176f298874ff1895808eadb8810b56eb}{externalHMC5883}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00394}\mbox{\hyperlink{structeeprom_config__t_adde71bba6215e89d3243bac9f41fb8d3}{00394}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_adde71bba6215e89d3243bac9f41fb8d3}{externalMS5611}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00395}00395 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00397}00397 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00398}\mbox{\hyperlink{structeeprom_config__t_aabb51ce50bd85faf7e6af7a8cd0de5e0}{00398}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_aabb51ce50bd85faf7e6af7a8cd0de5e0}{CRCFlags}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00399}\mbox{\hyperlink{structeeprom_config__t_ae6c812e9d37bbd28f9194f814db00b0b}{00399}}     uint32\_t \mbox{\hyperlink{structeeprom_config__t_ae6c812e9d37bbd28f9194f814db00b0b}{CRCAtEnd}}[1];}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00400}00400 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00401}\mbox{\hyperlink{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}{00401}} \} \mbox{\hyperlink{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}{eepromConfig\_t}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00402}00402 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00403}\mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}{00403}} \textcolor{keyword}{enum} \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}{crcFlags}} \{ \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}{CRC\_HistoryBad}} = 1 \};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00404}00404 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00405}00405 \textcolor{keyword}{extern} \mbox{\hyperlink{structeeprom_config__t}{eepromConfig\_t}} \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}};}
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00406}00406 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00408}00408 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00409}00409 }
-\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00410}00410 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* INC\_AUTODRONE32\_H\_ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00352}00352 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00353}\mbox{\hyperlink{structeeprom_config__t_a176f298874ff1895808eadb8810b56eb}{00353}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_a176f298874ff1895808eadb8810b56eb}{externalHMC5883}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00354}\mbox{\hyperlink{structeeprom_config__t_adde71bba6215e89d3243bac9f41fb8d3}{00354}}     uint8\_t \mbox{\hyperlink{structeeprom_config__t_adde71bba6215e89d3243bac9f41fb8d3}{externalMS5611}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00355}00355 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00357}00357 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00358}\mbox{\hyperlink{structeeprom_config__t_aabb51ce50bd85faf7e6af7a8cd0de5e0}{00358}}     uint8\_t  \mbox{\hyperlink{structeeprom_config__t_aabb51ce50bd85faf7e6af7a8cd0de5e0}{CRCFlags}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00359}\mbox{\hyperlink{structeeprom_config__t_ae6c812e9d37bbd28f9194f814db00b0b}{00359}}     uint32\_t \mbox{\hyperlink{structeeprom_config__t_ae6c812e9d37bbd28f9194f814db00b0b}{CRCAtEnd}}[1];}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00360}00360 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00361}\mbox{\hyperlink{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}{00361}} \} \mbox{\hyperlink{_autodrone32_8h_a98ca0d5ac0a1c3b1aee8ee1481978884}{eepromConfig\_t}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00362}00362 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00363}\mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}{00363}} \textcolor{keyword}{enum} \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3ada}{crcFlags}} \{ \mbox{\hyperlink{_autodrone32_8h_ad1575f9c73c6a8a82ada376fe68b3adaa49adcd1dfec4a4d9dc0d30f34af644f9}{CRC\_HistoryBad}} = 1 \};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00364}00364 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00365}00365 \textcolor{keyword}{extern} \mbox{\hyperlink{structeeprom_config__t}{eepromConfig\_t}} \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}};}
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00366}00366 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00367}00367 }
+\DoxyCodeLine{\Hypertarget{_autodrone32_8h_source_l00368}00368 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_\_AUTODRONE32\_H\_\_ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

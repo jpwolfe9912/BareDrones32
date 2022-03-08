@@ -1,17 +1,26 @@
-/*
- * motors.c
+/** @file 		motors.c
+ *  @brief
+ *  	This file contains functions to initialize the ESC or change modes
  *
- *  Created on: Feb 23, 2022
- *      Author: jeremywolfe
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		03 MAR 2022
  */
 
+/* Includes */
 #include "board.h"
 
+/* Global Variables */
 uint16_t motor_value[4];
 
 semaphore_t motor_initialized = 0;
 
-void motorInit(void)
+/** @brief Sets motor_value to 0 for all motors.
+ *
+ *  @return Void.
+ */
+void
+motorInit(void)
 {
 	printf("\nInitializing Motors\n");
 
@@ -19,20 +28,13 @@ void motorInit(void)
 	motor_value[1] = 0;
 	motor_value[2] = 0;
 	motor_value[3] = 0;
-//	delay(1000);
-
-
 }
 
-void motorZeroCommand(void)
-{
-//	motor_value[0] = 48;
-//	motor_value[1] = 48;
-//	motor_value[2] = 48;
-//	motor_value[3] = 48;
-//	delay(10);
-}
-
+/** @brief Changes motor mode to 3D.
+ *
+ *	@param motors_e motor The motor to set to 3D
+ *  @return Void.
+ */
 void
 motors3dOn(motors_e motor)
 {
@@ -40,9 +42,5 @@ motors3dOn(motors_e motor)
 	delay(10);
 	motor_value[motor] = 0;
 	delay(1500);
-//	motor_value[motor] = DSHOT_CMD_SAVE_SETTINGS;
-//	delay(6);
-
-
 }
 

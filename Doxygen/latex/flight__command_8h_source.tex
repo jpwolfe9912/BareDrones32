@@ -1,5 +1,5 @@
 \hypertarget{flight__command_8h_source}{}\doxysection{flight\+\_\+command.\+h}
-\label{flight__command_8h_source}\index{Autodrone32/Src/flight\_command.h@{Autodrone32/Src/flight\_command.h}}
+\label{flight__command_8h_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/flight\_command.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/flight\_command.h}}
 \mbox{\hyperlink{flight__command_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00001}00001 \textcolor{comment}{/*}}
@@ -37,48 +37,51 @@
 \DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00033}00033 \textcolor{comment}{*/}}
 \DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00034}00034 }
 \DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00036}00036 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00037}00037 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00038}00038 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00040}00040 \textcolor{comment}{// Process Pilot Commands Defines and Variables}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00042}00042 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00043}\mbox{\hyperlink{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}{00043}} \textcolor{preprocessor}{\#define DEADBAND       24}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00044}\mbox{\hyperlink{flight__command_8h_aff2db53de34ab9f0f712f2cdef478882}{00044}} \textcolor{preprocessor}{\#define DEADBAND\_SLOPE (1000/(1000-\/DEADBAND))}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00045}00045 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00046}\mbox{\hyperlink{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}{00046}} \textcolor{preprocessor}{\#define ALT\_DEADBAND       200}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00047}\mbox{\hyperlink{flight__command_8h_abde289a36c7acca8016f10eb346fab3e}{00047}} \textcolor{preprocessor}{\#define ALT\_DEADBAND\_SLOPE (1000/(1000-\/ALT\_DEADBAND))}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00048}00048 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00049}\mbox{\hyperlink{flight__command_8h_af8761c64817a68293f3ed254464d81c7}{00049}} \textcolor{preprocessor}{\#define THROTTLE\_WINDOW    48}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00050}00050 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00051}00051 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{flight__command_8h_ae767c84bb0f764c266954094c2869142}{rxCommand}}[12];}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00052}00052 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00053}00053 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[3];}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00054}00054 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_afba620164d81adc771510752f70e7cc8}{previousCommandInDetent}}[3];}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00055}00055 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00056}00056 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_ad58d530e3f054c8c8d45a203c46a3d5e}{channelOrder}}[12];}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00057}00057 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00059}00059 \textcolor{comment}{// Flight Mode Defines and Variables}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00061}00061 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00062}00062 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_a37e90f5e3bd99fac2021fb3a326607d4}{mode}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00063}00063 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00064}00064 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_aa5e0dd4f5a127ad9b7df7da86f717820}{headingHoldEngaged}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00067}00067 \textcolor{comment}{// Arm State Variables}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00069}00069 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00070}00070 \textcolor{keyword}{extern} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{flight__command_8h_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00071}00071 \textcolor{keyword}{extern} uint8\_t     \mbox{\hyperlink{flight__command_8h_aa17cd4729b354f25c53300d973288213}{armingTimer}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00072}00072 \textcolor{keyword}{extern} uint8\_t     \mbox{\hyperlink{flight__command_8h_abaaaab74a851da13a44ccd63988196cc}{disarmingTimer}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00073}00073 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00075}00075 \textcolor{comment}{// Verical Mode State Variables}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00077}00077 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00078}00078 \textcolor{keyword}{extern} uint8\_t  \mbox{\hyperlink{flight__command_8h_a2594cb793ee3ec9f0113f5fc28951451}{verticalModeState}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00079}00079 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00080}00080 \textcolor{keyword}{extern} uint8\_t  \mbox{\hyperlink{flight__command_8h_a4270f800c12dfc01db1f8e9e60af4095}{vertRefCmdInDetent}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00081}00081 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00082}00082 \textcolor{keyword}{extern} \textcolor{keywordtype}{float}    \mbox{\hyperlink{flight__command_8h_a79ae4259b91c06c5a05004cbc3ae5def}{verticalReferenceCommand}};}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00083}00083 }
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00085}00085 \textcolor{comment}{// Process Flight Commands}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00087}00087 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00088}00088 \textcolor{keywordtype}{void} \mbox{\hyperlink{flight__command_8h_a9cd2a65048398c923b5603a2ce46b2a2}{processFlightCommands}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00037}00037 \textcolor{preprocessor}{\#ifndef \_\_FLIGHT\_COMMAND\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00038}00038 \textcolor{preprocessor}{\#define \_\_FLIGHT\_COMMAND\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00041}00041 \textcolor{comment}{// Process Pilot Commands Defines and Variables}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00043}00043 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00044}\mbox{\hyperlink{flight__command_8h_a196c194bd32527a119ac607d3b2330b6}{00044}} \textcolor{preprocessor}{\#define DEADBAND       24}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00045}\mbox{\hyperlink{flight__command_8h_aff2db53de34ab9f0f712f2cdef478882}{00045}} \textcolor{preprocessor}{\#define DEADBAND\_SLOPE (1000/(1000-\/DEADBAND))}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00047}\mbox{\hyperlink{flight__command_8h_a9c78c544264501fdc2d5447a8f3a66c3}{00047}} \textcolor{preprocessor}{\#define ALT\_DEADBAND       200}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00048}\mbox{\hyperlink{flight__command_8h_abde289a36c7acca8016f10eb346fab3e}{00048}} \textcolor{preprocessor}{\#define ALT\_DEADBAND\_SLOPE (1000/(1000-\/ALT\_DEADBAND))}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00050}\mbox{\hyperlink{flight__command_8h_af8761c64817a68293f3ed254464d81c7}{00050}} \textcolor{preprocessor}{\#define THROTTLE\_WINDOW    48}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00052}00052 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{flight__command_8h_ae767c84bb0f764c266954094c2869142}{rxCommand}}[12];}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00054}00054 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[3];}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00055}00055 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_afba620164d81adc771510752f70e7cc8}{previousCommandInDetent}}[3];}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00057}00057 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_ad58d530e3f054c8c8d45a203c46a3d5e}{channelOrder}}[12];}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00060}00060 \textcolor{comment}{// Flight Mode Defines and Variables}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00062}00062 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00063}00063 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_a37e90f5e3bd99fac2021fb3a326607d4}{mode}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00065}00065 \textcolor{keyword}{extern} uint8\_t \mbox{\hyperlink{flight__command_8h_aa5e0dd4f5a127ad9b7df7da86f717820}{headingHoldEngaged}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00068}00068 \textcolor{comment}{// Arm State Variables}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00070}00070 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00071}00071 \textcolor{keyword}{extern} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{flight__command_8h_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00072}00072 \textcolor{keyword}{extern} uint8\_t     \mbox{\hyperlink{flight__command_8h_aa17cd4729b354f25c53300d973288213}{armingTimer}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00073}00073 \textcolor{keyword}{extern} uint8\_t     \mbox{\hyperlink{flight__command_8h_abaaaab74a851da13a44ccd63988196cc}{disarmingTimer}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00076}00076 \textcolor{comment}{// Verical Mode State Variables}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00078}00078 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00079}00079 \textcolor{keyword}{extern} uint8\_t  \mbox{\hyperlink{flight__command_8h_a2594cb793ee3ec9f0113f5fc28951451}{verticalModeState}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00081}00081 \textcolor{keyword}{extern} uint8\_t  \mbox{\hyperlink{flight__command_8h_a4270f800c12dfc01db1f8e9e60af4095}{vertRefCmdInDetent}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00083}00083 \textcolor{keyword}{extern} \textcolor{keywordtype}{float}    \mbox{\hyperlink{flight__command_8h_a79ae4259b91c06c5a05004cbc3ae5def}{verticalReferenceCommand}};}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00086}00086 \textcolor{comment}{// Process Flight Commands}}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00088}00088 \textcolor{comment}{}\textcolor{keyword}{extern} int16\_t \mbox{\hyperlink{flight__command_8h_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[8];}
 \DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00089}00089 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00090}00090 \textcolor{keywordtype}{void} \mbox{\hyperlink{flight__command_8h_a9cd2a65048398c923b5603a2ce46b2a2}{processFlightCommands}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{flight__command_8h_source_l00093}00093 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

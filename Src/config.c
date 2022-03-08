@@ -1,65 +1,25 @@
-/*
-  October 2012
-
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+/** @file 		config.c
+ *  @brief
+ *  	This file configures the EEPROM settings of the flight controller.
+ *
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		03 MAR 2022
  */
 
-///////////////////////////////////////////////////////////////////////////////
-
+/* Includes */
 #include "board.h"
 
-///////////////////////////////////////////////////////////////////////////////
-
-#define FLASH_WRITE_EEPROM_ADDR  0x08004000  // FLASH_Sector_1
-
+/* Global Variabels */
 const char rcChannelLetters[] = "AERT12345678";
 
+/* Static Variables */
 static uint8_t checkNewEEPROMConf = 29;
 
-///////////////////////////////////////////////////////////////////////////////
-
-void parseRcChannels(const char *input)
-{
-	const char *c, *s;
-
-	for (c = input; *c; c++)
-	{
-		s = strchr(rcChannelLetters, *c);
-		if (s)
-			eepromConfig.rcMap[s - rcChannelLetters] = c - input;
-	}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
+/** @brief CRC for the EEPROM
+ *
+ *  @return uint32_t CRC value.
+ */
 //uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd)
 //{
 //    return crc32B((uint32_t*)e, includeCRCAtEnd ? (uint32_t*)(e + 1) : e->CRCAtEnd);
@@ -132,9 +92,13 @@ void parseRcChannels(const char *input)
 //    return status;
 //}
 
-///////////////////////////////////////////////////////////////////////////////
-
-void checkFirstTime(bool eepromReset)
+/** @brief Sets all the default config values
+ *
+ *	@param bool eepromReset Whether or not you want to write config values to EEPROM
+ *  @return Void.
+ */
+void
+checkFirstTime(bool eepromReset)
 {
 	uint8_t test_val;
 
@@ -228,7 +192,6 @@ void checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.receiverType  = PWM;
 		eepromConfig.ppmChannels   = 9;
 		eepromConfig.slaveSpektrum = false;
 
@@ -237,7 +200,6 @@ void checkFirstTime(bool eepromReset)
 		eepromConfig.escPwmRate   = 450;
 		eepromConfig.servoPwmRate = 50;
 
-		eepromConfig.mixerConfiguration = MIXERTYPE_TRI;
 		eepromConfig.yawDirection       = 1.0f;
 
 		eepromConfig.triYawServoPwmRate             = 50;
@@ -296,9 +258,9 @@ void checkFirstTime(bool eepromReset)
 		eepromConfig.pitchAttAltCompensationLimit =  0.0f * D2R;
 
 		eepromConfig.midCommand   = 3000.0f;
-		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
-		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 200);
-		eepromConfig.minThrottle  = (float)(MINCOMMAND + 200);
+		eepromConfig.minCheck     = (float)(MINCOMMAND + 100);
+		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 100);
+		eepromConfig.minThrottle  = (float)(MINCOMMAND + 100);
 		eepromConfig.maxThrottle  = (float)(MAXCOMMAND);
 
 		///////////////////////////////
@@ -342,62 +304,6 @@ void checkFirstTime(bool eepromReset)
 		eepromConfig.PID[PITCH_ATT_PID].integratorState  =    0.0f;
 		eepromConfig.PID[PITCH_ATT_PID].filterState      =    0.0f;
 		eepromConfig.PID[PITCH_ATT_PID].prevResetState   =   false;
-
-		eepromConfig.PID[HEADING_PID].P                  =    3.0f;
-		eepromConfig.PID[HEADING_PID].I                  =    0.0f;
-		eepromConfig.PID[HEADING_PID].D                  =    0.0f;
-		eepromConfig.PID[HEADING_PID].Limit              =   90.0f * D2R;
-		eepromConfig.PID[HEADING_PID].integratorState    =    0.0f;
-		eepromConfig.PID[HEADING_PID].filterState        =    0.0f;
-		eepromConfig.PID[HEADING_PID].prevResetState     =   false;
-
-		eepromConfig.PID[NDOT_PID].P                     =    3.0f;
-		eepromConfig.PID[NDOT_PID].I                     =    0.0f;
-		eepromConfig.PID[NDOT_PID].D                     =    0.0f;
-		eepromConfig.PID[NDOT_PID].Limit                 = 1000.0f * eepromConfig.nDotEdotScaling * eepromConfig.PID[NDOT_PID].P;
-		eepromConfig.PID[NDOT_PID].integratorState       =    0.0f;
-		eepromConfig.PID[NDOT_PID].filterState           =    0.0f;
-		eepromConfig.PID[NDOT_PID].prevResetState        =   false;
-
-		eepromConfig.PID[EDOT_PID].P                     =    3.0f;
-		eepromConfig.PID[EDOT_PID].I                     =    0.0f;
-		eepromConfig.PID[EDOT_PID].D                     =    0.0f;
-		eepromConfig.PID[EDOT_PID].Limit                 = 1000.0f * eepromConfig.nDotEdotScaling * eepromConfig.PID[EDOT_PID].P;
-		eepromConfig.PID[EDOT_PID].integratorState       =    0.0f;
-		eepromConfig.PID[EDOT_PID].filterState           =    0.0f;
-		eepromConfig.PID[EDOT_PID].prevResetState        =   false;
-
-		eepromConfig.PID[HDOT_PID].P                     =    2.0f;
-		eepromConfig.PID[HDOT_PID].I                     =    0.0f;
-		eepromConfig.PID[HDOT_PID].D                     =    0.0f;
-		eepromConfig.PID[HDOT_PID].Limit                 = 1000.0f * eepromConfig.hDotScaling * eepromConfig.PID[HDOT_PID].P;
-		eepromConfig.PID[HDOT_PID].integratorState       =    0.0f;
-		eepromConfig.PID[HDOT_PID].filterState           =    0.0f;
-		eepromConfig.PID[HDOT_PID].prevResetState        =   false;
-
-		eepromConfig.PID[N_PID].P                        =    3.0f;
-		eepromConfig.PID[N_PID].I                        =    0.0f;
-		eepromConfig.PID[N_PID].D                        =    0.0f;
-		eepromConfig.PID[N_PID].Limit                    =   10.0f;
-		eepromConfig.PID[N_PID].integratorState          =    0.0f;
-		eepromConfig.PID[N_PID].filterState              =    0.0f;
-		eepromConfig.PID[N_PID].prevResetState           =   false;
-
-		eepromConfig.PID[E_PID].P                        =    3.0f;
-		eepromConfig.PID[E_PID].I                        =    0.0f;
-		eepromConfig.PID[E_PID].D                        =    0.0f;
-		eepromConfig.PID[E_PID].Limit                    =   10.0f;
-		eepromConfig.PID[E_PID].integratorState          =    0.0f;
-		eepromConfig.PID[E_PID].filterState              =    0.0f;
-		eepromConfig.PID[E_PID].prevResetState           =   false;
-
-		eepromConfig.PID[H_PID].P                        =    2.0f;
-		eepromConfig.PID[H_PID].I                        =    0.0f;
-		eepromConfig.PID[H_PID].D                        =    0.0f;
-		eepromConfig.PID[H_PID].Limit                    =   10.0f;
-		eepromConfig.PID[H_PID].integratorState          =    0.0f;
-		eepromConfig.PID[H_PID].filterState              =    0.0f;
-		eepromConfig.PID[H_PID].prevResetState           =   false;
 
 		///////////////////////////////
 

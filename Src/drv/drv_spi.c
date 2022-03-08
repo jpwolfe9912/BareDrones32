@@ -8,13 +8,10 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
 /* Includes */
 #include "board.h"
-
-/* Functions */
 
 /** @brief Initializes SPI1.
  *

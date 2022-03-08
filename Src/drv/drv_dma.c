@@ -8,7 +8,7 @@
 
 #include "board.h"
 
-/** @brief Initializes the dma clock and nvic.
+/** @brief Initializes the DMA clock and NVIC.
  *
  *  @return Void.
  */

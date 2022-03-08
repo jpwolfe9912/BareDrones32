@@ -1,8 +1,11 @@
-/*
- * drv_system.h
+/** @file 		drv_system.h
+ *  @brief
+ *  	This file contains all the basic functions to run the timing
+ *  	of the system as well as initialize the system.
  *
- *  Created on: Dec 24, 2021
- *      Author: jeremywolfe
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		03 MAR 2022
  */
 
 #ifndef __DRV_SYSTEM_H__
@@ -10,14 +13,7 @@
 
 
 
-///////////////////////////////////////////////////////////////////////////////
-// Frame Timing Defines and Variables
-///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////
-// Frame Timing Defines
-///////////////////////////////////////
-
+/* Defines */
 #define FRAME_COUNT   1000
 
 #define COUNT_500HZ   2         // Number of 1000 Hz frames for 500 Hz Loop
@@ -27,10 +23,7 @@
 #define COUNT_5HZ     200       // Number of 1000 Hz frames for   5 Hz Loop
 #define COUNT_1HZ     1000      // Number of 1000 Hz frames for   1 Hz Loop
 
-///////////////////////////////////////
-// Frame Timing Variables
-///////////////////////////////////////
-
+/* Global Variables */
 extern uint16_t frameCounter;
 
 extern semaphore_t frame_1000Hz;
@@ -66,8 +59,5 @@ uint32_t micros(void);
 uint32_t millis(void);
 
 void SysTick_Handler(void);
-
-///////////////////////////////////////////////////////////////////////////////
-
 
 #endif /* DRV_DRV_SYSTEM_H_ */

@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['updateimu_0',['updateIMU',['../sensor__fusion_8c.html#a1f31885b70f52713de86df45af82aea5',1,'updateIMU(float gx, float gy, float gz, float ax, float ay, float az):&#160;sensor_fusion.c'],['../sensor__fusion_8h.html#a1f31885b70f52713de86df45af82aea5',1,'updateIMU(float gx, float gy, float gz, float ax, float ay, float az):&#160;sensor_fusion.c']]],
-  ['updatepid_1',['updatePID',['../pid_8c.html#acb47bee3fd9e9579d91fc045a7f87e8d',1,'updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameters):&#160;pid.c'],['../pid_8h.html#acb47bee3fd9e9579d91fc045a7f87e8d',1,'updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameters):&#160;pid.c']]],
-  ['usagefault_5fhandler_2',['UsageFault_Handler',['../stm32f7xx__it_8c.html#a1d98923de2ed6b7309b66f9ba2971647',1,'UsageFault_Handler(void):&#160;stm32f7xx_it.c'],['../stm32f7xx__it_8h.html#a1d98923de2ed6b7309b66f9ba2971647',1,'UsageFault_Handler(void):&#160;stm32f7xx_it.c']]],
-  ['usart1_5firqhandler_3',['USART1_IRQHandler',['../drv__ibus_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc',1,'drv_ibus.c']]],
-  ['usart1init_4',['usart1Init',['../drv__usart_8c.html#a4a1e3139e4182520fba0cf2180d0ce0e',1,'usart1Init(void):&#160;drv_usart.c'],['../drv__usart_8h.html#a4a1e3139e4182520fba0cf2180d0ce0e',1,'usart1Init(void):&#160;drv_usart.c']]],
-  ['usart1read_5',['usart1Read',['../drv__usart_8c.html#ae297d1486a63281a8bed0d00f0f0b1f9',1,'usart1Read(uint8_t *pData, uint8_t size):&#160;drv_usart.c'],['../drv__usart_8h.html#ae297d1486a63281a8bed0d00f0f0b1f9',1,'usart1Read(uint8_t *pData, uint8_t size):&#160;drv_usart.c']]]
+  ['tim9disable_0',['tim9Disable',['../drv__tim_8c.html#a2f59f2fb71ac802b2c3b0ea0c49e287e',1,'tim9Disable(void):&#160;drv_tim.c'],['../drv__tim_8h.html#a2f59f2fb71ac802b2c3b0ea0c49e287e',1,'tim9Disable(void):&#160;drv_tim.c']]],
+  ['tim9enable_1',['tim9Enable',['../drv__tim_8c.html#a6c9a512e44b09d2e723a931f36c12aca',1,'tim9Enable(void):&#160;drv_tim.c'],['../drv__tim_8h.html#a6c9a512e44b09d2e723a931f36c12aca',1,'tim9Enable(void):&#160;drv_tim.c']]],
+  ['tim9getcnt_2',['tim9GetCnt',['../drv__tim_8c.html#a15a4227b06476cc7466b8c3caaf2f00a',1,'tim9GetCnt(void):&#160;drv_tim.c'],['../drv__tim_8h.html#a15a4227b06476cc7466b8c3caaf2f00a',1,'tim9GetCnt(void):&#160;drv_tim.c']]],
+  ['tim9init_3',['tim9Init',['../drv__tim_8c.html#a33b66a308a9d25bc1c069fa24c0ae1d0',1,'tim9Init(void):&#160;drv_tim.c'],['../drv__tim_8h.html#a33b66a308a9d25bc1c069fa24c0ae1d0',1,'tim9Init(void):&#160;drv_tim.c']]],
+  ['tim9resetcnt_4',['tim9ResetCnt',['../drv__tim_8c.html#a7cae8d82532ac034638eee6397141ed6',1,'tim9ResetCnt(void):&#160;drv_tim.c'],['../drv__tim_8h.html#a7cae8d82532ac034638eee6397141ed6',1,'tim9ResetCnt(void):&#160;drv_tim.c']]]
 ];

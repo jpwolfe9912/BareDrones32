@@ -21,7 +21,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <errno.h>
-
 #include "stm32f7xx.h"
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_it.h"
@@ -52,14 +51,14 @@
 #include "drv_dshot.h"
 #include "drv_ibus.h"
 
-#include "motors.h"
-#include "flight_command.h"
+#include "process_commands.h"
 #include "compute_axis_commands.h"
+#include "motors.h"
 
 #include "mpu6000.h"
 #include "orientation.h"
 #include "sensor_fusion.h"
 #include "mpu6000_calibration.h"
-#include "accelCalibrationMPU.h"
+#include "accel_calibration_mpu.h"
 
 #endif /* __BOARD_H__ */

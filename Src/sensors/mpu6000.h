@@ -1,6 +1,6 @@
-/** @file 		mpu6000.c
+/** @file 		mpu6000.h
  *  @brief
- *  	This file contains all the functions to initalize and read data from the MPU-6000
+ *  	This file contains all the functions to initalize and read data from the MPU-6000.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		06 MAR 2022
@@ -12,9 +12,7 @@
 #define __MPU6000_H__
 
 /* Defines */
-
 // Registers
-
 #define MPU6000_PRODUCT_ID			0x68
 
 #define MPU6000_SMPLRT_DIV	    	0x19
@@ -90,7 +88,6 @@
 #define ACCEL_SCALE_FACTOR 			0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
 /* Global Variables */
-
 extern uint8_t rawData[16];
 
 extern float   accelOneG;

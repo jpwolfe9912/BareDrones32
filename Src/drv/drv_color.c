@@ -10,12 +10,10 @@
 /* Includes */
 #include "board.h"
 
-/* Functions */
-
 /** @brief Changes color of print text
  *
- *  @param color The color you want to change to.
- *  @param bf If you want bf or not
+ *  @param uint8_t color The color you want to change to.
+ *  @param uint8_t bf If you want bf or not.
  *  @return Void.
  */
 void
@@ -24,7 +22,7 @@ color(uint8_t color, uint8_t bf)
 	printf("\033[%d;3%dm", bf, color);
 }
 
-/** @brief Changes color of print back to white with no bf
+/** @brief Changes color of print to white with no bf
  *
  *  @return Void.
  */

@@ -1,5 +1,5 @@
-\hypertarget{drv__ibus_8h}{}\doxysection{Autodrone32/\+Src/drv/drv\+\_\+ibus.h File Reference}
-\label{drv__ibus_8h}\index{Autodrone32/Src/drv/drv\_ibus.h@{Autodrone32/Src/drv/drv\_ibus.h}}
+\hypertarget{drv__ibus_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/drv/drv\+\_\+ibus.h File Reference}
+\label{drv__ibus_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_ibus.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_ibus.h}}
 
 
 This file initializes the ibus receiver protocol.  
@@ -20,10 +20,10 @@ This file initializes the ibus receiver protocol.
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \{ \mbox{\hyperlink{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2daa34e1b14fc82d7fcd38d47419a78edbb}{IBUS\+\_\+\+STATE\+\_\+\+LENGTH}}
-, \mbox{\hyperlink{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da1d724e6c3d2bfe57875b68d08b3cc35b}{IBUS\+\_\+\+STATE\+\_\+\+TYPE}}
-, \mbox{\hyperlink{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da585b57ae393bd2b7c30494b84fd559f4}{IBUS\+\_\+\+STATE\+\_\+\+PAYLOAD}}
-, \mbox{\hyperlink{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da404bbd90ff266bed464aa2a846164fc5}{IBUS\+\_\+\+STATE\+\_\+\+CRC}}
+enum \{ \mbox{\hyperlink{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5aa34e1b14fc82d7fcd38d47419a78edbb}{IBUS\+\_\+\+STATE\+\_\+\+LENGTH}}
+, \mbox{\hyperlink{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a1d724e6c3d2bfe57875b68d08b3cc35b}{IBUS\+\_\+\+STATE\+\_\+\+TYPE}}
+, \mbox{\hyperlink{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a585b57ae393bd2b7c30494b84fd559f4}{IBUS\+\_\+\+STATE\+\_\+\+PAYLOAD}}
+, \mbox{\hyperlink{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a404bbd90ff266bed464aa2a846164fc5}{IBUS\+\_\+\+STATE\+\_\+\+CRC}}
  \}
 \item 
 enum \mbox{\hyperlink{drv__ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibus\+Status\+\_\+e}} \{ \mbox{\hyperlink{drv__ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570ae428d7ce3228dba7302258f2a9f96f1d}{IBUS\+\_\+\+READY}}
@@ -41,15 +41,11 @@ void \mbox{\hyperlink{drv__ibus_8h_a6973c6b108b25985f4c960dab82d92c8}{ibus\+Proc
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8h_abc27f7b093c7752d4b4be63511d56de3}{rx\+Buf}} \mbox{[}\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\+\_\+\+SIZE}}\mbox{]}
-\item 
-\mbox{\hyperlink{group___l_w_r_b_ga16515e22c2777482f3e7c88841bd787c}{lwrb\+\_\+t}} \mbox{\hyperlink{drv__ibus_8h_ad56fe77fc1b32fe496f0275fc420042a}{rx\+Ring\+Buf}}
-\item 
-uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8h_a0ef69602fb068aec7cfdbcb82dc72b8b}{rx\+Ring\+Buf\+Data}} \mbox{[}\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\+\_\+\+SIZE}}\mbox{]}
-\item 
 uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8h_a1f7d351054db12d0e67ab4e90bb61e3c}{ibus\+Payload}} \mbox{[}\mbox{\hyperlink{drv__ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\+\_\+\+SIZE}}\mbox{]}
 \item 
 uint16\+\_\+t \mbox{\hyperlink{drv__ibus_8h_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibus\+Channels}} \mbox{[}\mbox{\hyperlink{drv__ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}
+\item 
+bool \mbox{\hyperlink{drv__ibus_8h_af6184e9a83b153bfe00e7716282f04d1}{rc\+Active}}
 \end{DoxyCompactItemize}
 
 
@@ -63,7 +59,7 @@ Jeremy Wolfe
 23 FEB 2022 
 \end{DoxyDate}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000008}{Bug}}]\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000007}{Bug}}]\end{DoxyRefDesc}
 
 
 Definition in file \mbox{\hyperlink{drv__ibus_8h_source}{drv\+\_\+ibus.\+h}}.
@@ -114,31 +110,31 @@ Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00020}{20}} of file \mb
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2d}\label{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2d}} 
+\mbox{\Hypertarget{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5}\label{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5}} 
 \doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
 {\footnotesize\ttfamily anonymous enum}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_LENGTH@{IBUS\_STATE\_LENGTH}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_LENGTH@{IBUS\_STATE\_LENGTH}}}\mbox{\Hypertarget{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2daa34e1b14fc82d7fcd38d47419a78edbb}\label{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2daa34e1b14fc82d7fcd38d47419a78edbb}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_LENGTH@{IBUS\_STATE\_LENGTH}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_LENGTH@{IBUS\_STATE\_LENGTH}}}\mbox{\Hypertarget{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5aa34e1b14fc82d7fcd38d47419a78edbb}\label{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5aa34e1b14fc82d7fcd38d47419a78edbb}} 
 IBUS\+\_\+\+STATE\+\_\+\+LENGTH&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_TYPE@{IBUS\_STATE\_TYPE}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_TYPE@{IBUS\_STATE\_TYPE}}}\mbox{\Hypertarget{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da1d724e6c3d2bfe57875b68d08b3cc35b}\label{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da1d724e6c3d2bfe57875b68d08b3cc35b}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_TYPE@{IBUS\_STATE\_TYPE}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_TYPE@{IBUS\_STATE\_TYPE}}}\mbox{\Hypertarget{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a1d724e6c3d2bfe57875b68d08b3cc35b}\label{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a1d724e6c3d2bfe57875b68d08b3cc35b}} 
 IBUS\+\_\+\+STATE\+\_\+\+TYPE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_PAYLOAD@{IBUS\_STATE\_PAYLOAD}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_PAYLOAD@{IBUS\_STATE\_PAYLOAD}}}\mbox{\Hypertarget{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da585b57ae393bd2b7c30494b84fd559f4}\label{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da585b57ae393bd2b7c30494b84fd559f4}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_PAYLOAD@{IBUS\_STATE\_PAYLOAD}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_PAYLOAD@{IBUS\_STATE\_PAYLOAD}}}\mbox{\Hypertarget{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a585b57ae393bd2b7c30494b84fd559f4}\label{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a585b57ae393bd2b7c30494b84fd559f4}} 
 IBUS\+\_\+\+STATE\+\_\+\+PAYLOAD&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_CRC@{IBUS\_STATE\_CRC}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_CRC@{IBUS\_STATE\_CRC}}}\mbox{\Hypertarget{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da404bbd90ff266bed464aa2a846164fc5}\label{drv__ibus_8h_a0411cd49bb5b71852cecd93bcbf0ca2da404bbd90ff266bed464aa2a846164fc5}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IBUS\_STATE\_CRC@{IBUS\_STATE\_CRC}!drv\_ibus.h@{drv\_ibus.h}}\index{drv\_ibus.h@{drv\_ibus.h}!IBUS\_STATE\_CRC@{IBUS\_STATE\_CRC}}}\mbox{\Hypertarget{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a404bbd90ff266bed464aa2a846164fc5}\label{drv__ibus_8h_a99fb83031ce9923c84392b4e92f956b5a404bbd90ff266bed464aa2a846164fc5}} 
 IBUS\+\_\+\+STATE\+\_\+\+CRC&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00036}{36}} of file \mbox{\hyperlink{drv__ibus_8h_source}{drv\+\_\+ibus.\+h}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00034}{34}} of file \mbox{\hyperlink{drv__ibus_8h_source}{drv\+\_\+ibus.\+h}}.
 
 \mbox{\Hypertarget{drv__ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}\label{drv__ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}} 
 \index{drv\_ibus.h@{drv\_ibus.h}!ibusStatus\_e@{ibusStatus\_e}}
@@ -162,7 +158,7 @@ IBUS\+\_\+\+ERROR&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00043}{43}} of file \mbox{\hyperlink{drv__ibus_8h_source}{drv\+\_\+ibus.\+h}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00041}{41}} of file \mbox{\hyperlink{drv__ibus_8h_source}{drv\+\_\+ibus.\+h}}.
 
 
 
@@ -178,11 +174,11 @@ Definition at line \mbox{\hyperlink{drv__ibus_8h_source_l00043}{43}} of file \mb
 Initializes ibus ring buffer and low level usart registers. 
 
 \begin{DoxyReturn}{Returns}
-Void. 
+bool True if initialization was successful. False if failed. 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00040}{40}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00042}{42}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 \mbox{\Hypertarget{drv__ibus_8h_a6973c6b108b25985f4c960dab82d92c8}\label{drv__ibus_8h_a6973c6b108b25985f4c960dab82d92c8}} 
 \index{drv\_ibus.h@{drv\_ibus.h}!ibusProcess@{ibusProcess}}
@@ -199,7 +195,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00088}{88}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00090}{90}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 
 
@@ -224,33 +220,13 @@ Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00023}{23}} of file \mb
 
 Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00022}{22}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
-\mbox{\Hypertarget{drv__ibus_8h_abc27f7b093c7752d4b4be63511d56de3}\label{drv__ibus_8h_abc27f7b093c7752d4b4be63511d56de3}} 
-\index{drv\_ibus.h@{drv\_ibus.h}!rxBuf@{rxBuf}}
-\index{rxBuf@{rxBuf}!drv\_ibus.h@{drv\_ibus.h}}
-\doxysubsubsection{\texorpdfstring{rxBuf}{rxBuf}}
-{\footnotesize\ttfamily uint8\+\_\+t rx\+Buf\mbox{[}\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\+\_\+\+SIZE}}\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+\mbox{\Hypertarget{drv__ibus_8h_af6184e9a83b153bfe00e7716282f04d1}\label{drv__ibus_8h_af6184e9a83b153bfe00e7716282f04d1}} 
+\index{drv\_ibus.h@{drv\_ibus.h}!rcActive@{rcActive}}
+\index{rcActive@{rcActive}!drv\_ibus.h@{drv\_ibus.h}}
+\doxysubsubsection{\texorpdfstring{rcActive}{rcActive}}
+{\footnotesize\ttfamily bool rc\+Active\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line \mbox{\hyperlink{drv__usart_8c_source_l00017}{17}} of file \mbox{\hyperlink{drv__usart_8c_source}{drv\+\_\+usart.\+c}}.
-
-\mbox{\Hypertarget{drv__ibus_8h_ad56fe77fc1b32fe496f0275fc420042a}\label{drv__ibus_8h_ad56fe77fc1b32fe496f0275fc420042a}} 
-\index{drv\_ibus.h@{drv\_ibus.h}!rxRingBuf@{rxRingBuf}}
-\index{rxRingBuf@{rxRingBuf}!drv\_ibus.h@{drv\_ibus.h}}
-\doxysubsubsection{\texorpdfstring{rxRingBuf}{rxRingBuf}}
-{\footnotesize\ttfamily \mbox{\hyperlink{group___l_w_r_b_ga16515e22c2777482f3e7c88841bd787c}{lwrb\+\_\+t}} rx\+Ring\+Buf\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{drv__usart_8c_source_l00018}{18}} of file \mbox{\hyperlink{drv__usart_8c_source}{drv\+\_\+usart.\+c}}.
-
-\mbox{\Hypertarget{drv__ibus_8h_a0ef69602fb068aec7cfdbcb82dc72b8b}\label{drv__ibus_8h_a0ef69602fb068aec7cfdbcb82dc72b8b}} 
-\index{drv\_ibus.h@{drv\_ibus.h}!rxRingBufData@{rxRingBufData}}
-\index{rxRingBufData@{rxRingBufData}!drv\_ibus.h@{drv\_ibus.h}}
-\doxysubsubsection{\texorpdfstring{rxRingBufData}{rxRingBufData}}
-{\footnotesize\ttfamily uint8\+\_\+t rx\+Ring\+Buf\+Data\mbox{[}\mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\+\_\+\+SIZE}}\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{drv__usart_8c_source_l00019}{19}} of file \mbox{\hyperlink{drv__usart_8c_source}{drv\+\_\+usart.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00029}{29}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 

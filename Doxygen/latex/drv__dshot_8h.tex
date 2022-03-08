@@ -1,5 +1,5 @@
-\hypertarget{drv__dshot_8h}{}\doxysection{Autodrone32/\+Src/drv/drv\+\_\+dshot.h File Reference}
-\label{drv__dshot_8h}\index{Autodrone32/Src/drv/drv\_dshot.h@{Autodrone32/Src/drv/drv\_dshot.h}}
+\hypertarget{drv__dshot_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/drv/drv\+\_\+dshot.h File Reference}
+\label{drv__dshot_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_dshot.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_dshot.h}}
 
 
 This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm.  
@@ -41,6 +41,41 @@ enum \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_
 , \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab5a79ea43e9dfa5f629052043f0656ba}{DSHOT300}}
 , \mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{DSHOT600}}
  \}
+\item 
+enum \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}} \{ \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}{DSHOT\+\_\+\+CMD\+\_\+\+MOTOR\+\_\+\+STOP}} = 0
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON1}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON2}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON3}}
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON4}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}{DSHOT\+\_\+\+CMD\+\_\+\+BEACON5}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}{DSHOT\+\_\+\+CMD\+\_\+\+ESC\+\_\+\+INFO}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+1}}
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+2}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}{DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+OFF}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}{DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+ON}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}{DSHOT\+\_\+\+CMD\+\_\+\+SETTINGS\+\_\+\+REQUEST}}
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}{DSHOT\+\_\+\+CMD\+\_\+\+SAVE\+\_\+\+SETTINGS}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+NORMAL}} = 20
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}{DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+REVERSED}} = 21
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}{DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+ON}}
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}{DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+ON}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}{DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+ON}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}{DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+ON}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}{DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+OFF}}
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}{DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+OFF}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}{DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+OFF}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}{DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+OFF}}
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}{DSHOT\+\_\+\+CMD\+\_\+\+AUDIO\+\_\+\+STREAM\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF}} = 30
+, \newline
+\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}{DSHOT\+\_\+\+CMD\+\_\+\+SILENT\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF}} = 31
+, \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}{DSHOT\+\_\+\+CMD\+\_\+\+MAX}} = 47
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -60,8 +95,6 @@ Jeremy Wolfe
 \begin{DoxyDate}{Date}
 23 FEB 2022 
 \end{DoxyDate}
-\begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000006}{Bug}}]\end{DoxyRefDesc}
 
 
 Definition in file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
@@ -77,7 +110,7 @@ Definition in file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00022}{22}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00019}{19}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}\label{drv__dshot_8h_a0bdf6606bebf55762108188171eedfd2}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT300\_HZ@{DSHOT300\_HZ}}
@@ -87,7 +120,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00022}{22}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00021}{21}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00018}{18}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}\label{drv__dshot_8h_ab970f1825d795e43dda1c3b29bf4762e}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT600\_HZ@{DSHOT600\_HZ}}
@@ -97,7 +130,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00021}{21}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00020}{20}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00017}{17}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}\label{drv__dshot_8h_a42f7d6070cbff87fb88786e7cdb644e1}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_DMA\_BUFFER\_SIZE@{DSHOT\_DMA\_BUFFER\_SIZE}}
@@ -107,7 +140,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00020}{20}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00033}{33}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00026}{26}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}\label{drv__dshot_8h_a37ad2d4b499b6d707e267600d9acd628}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_FRAME\_SIZE@{DSHOT\_FRAME\_SIZE}}
@@ -117,7 +150,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00033}{33}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00032}{32}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00025}{25}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}\label{drv__dshot_8h_af546990596fa51be07c6586e4cb72b48}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_MAX\_THROTTLE@{DSHOT\_MAX\_THROTTLE}}
@@ -127,7 +160,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00032}{32}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00036}{36}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00029}{29}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}\label{drv__dshot_8h_aaa2b94e58b47f075e461914fe4ccab2e}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_MIN\_THROTTLE@{DSHOT\_MIN\_THROTTLE}}
@@ -137,7 +170,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00036}{36}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00035}{35}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00028}{28}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}\label{drv__dshot_8h_a86beccb4c59f35943021b32bb3f5afe1}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_RANGE@{DSHOT\_RANGE}}
@@ -147,7 +180,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00035}{35}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00037}{37}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00030}{30}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}\label{drv__dshot_8h_ac4e5ba4f92976158d25da771f0ac9d1f}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!MHZ\_TO\_HZ@{MHZ\_TO\_HZ}}
@@ -157,7 +190,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00037}{37}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00018}{18}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00015}{15}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}\label{drv__dshot_8h_a05a634fcc0fc375b0a22b0e5ac1a0073}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BIT\_0@{MOTOR\_BIT\_0}}
@@ -167,7 +200,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00018}{18}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00028}{28}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00021}{21}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}\label{drv__dshot_8h_aafb219d04b1104a693f8cf120229fc7d}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BIT\_1@{MOTOR\_BIT\_1}}
@@ -177,7 +210,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00028}{28}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00029}{29}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00022}{22}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}\label{drv__dshot_8h_ae85650a4e6ed11d1a8a87c074153d938}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!MOTOR\_BITLENGTH@{MOTOR\_BITLENGTH}}
@@ -187,7 +220,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00029}{29}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00030}{30}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00023}{23}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}\label{drv__dshot_8h_a05ec5d63e2ba7621d706137124efca7d}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!TIMER\_CLOCK@{TIMER\_CLOCK}}
@@ -197,7 +230,7 @@ Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00030}{30}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00016}{16}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00013}{13}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 
 
@@ -224,7 +257,123 @@ DSHOT600&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00040}{40}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00033}{33}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
+
+\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}} 
+\index{drv\_dshot.h@{drv\_dshot.h}!dshotCommands\_e@{dshotCommands\_e}}
+\index{dshotCommands\_e@{dshotCommands\_e}!drv\_dshot.h@{drv\_dshot.h}}
+\doxysubsubsection{\texorpdfstring{dshotCommands\_e}{dshotCommands\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_MOTOR\_STOP@{DSHOT\_CMD\_MOTOR\_STOP}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_MOTOR\_STOP@{DSHOT\_CMD\_MOTOR\_STOP}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad}} 
+DSHOT\+\_\+\+CMD\+\_\+\+MOTOR\+\_\+\+STOP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON1@{DSHOT\_CMD\_BEACON1}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_BEACON1@{DSHOT\_CMD\_BEACON1}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON2@{DSHOT\_CMD\_BEACON2}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_BEACON2@{DSHOT\_CMD\_BEACON2}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON3@{DSHOT\_CMD\_BEACON3}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_BEACON3@{DSHOT\_CMD\_BEACON3}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON4@{DSHOT\_CMD\_BEACON4}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_BEACON4@{DSHOT\_CMD\_BEACON4}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_BEACON5@{DSHOT\_CMD\_BEACON5}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_BEACON5@{DSHOT\_CMD\_BEACON5}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178}} 
+DSHOT\+\_\+\+CMD\+\_\+\+BEACON5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_ESC\_INFO@{DSHOT\_CMD\_ESC\_INFO}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_ESC\_INFO@{DSHOT\_CMD\_ESC\_INFO}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50}} 
+DSHOT\+\_\+\+CMD\+\_\+\+ESC\+\_\+\+INFO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_1@{DSHOT\_CMD\_SPIN\_DIRECTION\_1}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_1@{DSHOT\_CMD\_SPIN\_DIRECTION\_1}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_2@{DSHOT\_CMD\_SPIN\_DIRECTION\_2}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_2@{DSHOT\_CMD\_SPIN\_DIRECTION\_2}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_3D\_MODE\_OFF@{DSHOT\_CMD\_3D\_MODE\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_3D\_MODE\_OFF@{DSHOT\_CMD\_3D\_MODE\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}} 
+DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_3D\_MODE\_ON@{DSHOT\_CMD\_3D\_MODE\_ON}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_3D\_MODE\_ON@{DSHOT\_CMD\_3D\_MODE\_ON}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}} 
+DSHOT\+\_\+\+CMD\+\_\+3\+D\+\_\+\+MODE\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SETTINGS\_REQUEST@{DSHOT\_CMD\_SETTINGS\_REQUEST}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SETTINGS\_REQUEST@{DSHOT\_CMD\_SETTINGS\_REQUEST}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SETTINGS\+\_\+\+REQUEST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SAVE\_SETTINGS@{DSHOT\_CMD\_SAVE\_SETTINGS}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SAVE\_SETTINGS@{DSHOT\_CMD\_SAVE\_SETTINGS}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SAVE\+\_\+\+SETTINGS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL@{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL@{DSHOT\_CMD\_SPIN\_DIRECTION\_NORMAL}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+NORMAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED@{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED@{DSHOT\_CMD\_SPIN\_DIRECTION\_REVERSED}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SPIN\+\_\+\+DIRECTION\+\_\+\+REVERSED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED0\_ON@{DSHOT\_CMD\_LED0\_ON}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED0\_ON@{DSHOT\_CMD\_LED0\_ON}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED1\_ON@{DSHOT\_CMD\_LED1\_ON}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED1\_ON@{DSHOT\_CMD\_LED1\_ON}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED2\_ON@{DSHOT\_CMD\_LED2\_ON}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED2\_ON@{DSHOT\_CMD\_LED2\_ON}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED3\_ON@{DSHOT\_CMD\_LED3\_ON}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED3\_ON@{DSHOT\_CMD\_LED3\_ON}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED0\_OFF@{DSHOT\_CMD\_LED0\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED0\_OFF@{DSHOT\_CMD\_LED0\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED0\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED1\_OFF@{DSHOT\_CMD\_LED1\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED1\_OFF@{DSHOT\_CMD\_LED1\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED1\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED2\_OFF@{DSHOT\_CMD\_LED2\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED2\_OFF@{DSHOT\_CMD\_LED2\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED2\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_LED3\_OFF@{DSHOT\_CMD\_LED3\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_LED3\_OFF@{DSHOT\_CMD\_LED3\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016}} 
+DSHOT\+\_\+\+CMD\+\_\+\+LED3\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF@{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF@{DSHOT\_CMD\_AUDIO\_STREAM\_MODE\_ON\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64}} 
+DSHOT\+\_\+\+CMD\+\_\+\+AUDIO\+\_\+\+STREAM\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF@{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF@{DSHOT\_CMD\_SILENT\_MODE\_ON\_OFF}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8}} 
+DSHOT\+\_\+\+CMD\+\_\+\+SILENT\+\_\+\+MODE\+\_\+\+ON\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DSHOT\_CMD\_MAX@{DSHOT\_CMD\_MAX}!drv\_dshot.h@{drv\_dshot.h}}\index{drv\_dshot.h@{drv\_dshot.h}!DSHOT\_CMD\_MAX@{DSHOT\_CMD\_MAX}}}\mbox{\Hypertarget{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}\label{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9}} 
+DSHOT\+\_\+\+CMD\+\_\+\+MAX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8h_source_l00041}{41}} of file \mbox{\hyperlink{drv__dshot_8h_source}{drv\+\_\+dshot.\+h}}.
 
 
 
@@ -249,7 +398,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00036}{36}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00034}{34}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}\label{drv__dshot_8h_ac2615e2db7d58bc52e98491e0132b606}} 
 \index{drv\_dshot.h@{drv\_dshot.h}!dshotWrite@{dshotWrite}}
@@ -271,5 +420,5 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00259}{259}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00256}{256}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 

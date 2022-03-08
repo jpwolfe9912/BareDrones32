@@ -14,7 +14,7 @@ var searchData=
   ['_5flink_11',['_link',['../syscalls_8c.html#a31da4cd5328defa76a9e2246992aba12',1,'syscalls.c']]],
   ['_5flseek_12',['_lseek',['../syscalls_8c.html#a7a61311bdf1cb025fc07dc2bdae22ce4',1,'syscalls.c']]],
   ['_5fopen_13',['_open',['../syscalls_8c.html#a270c9113047edd8d64186710ad76062b',1,'syscalls.c']]],
-  ['_5fsbrk_14',['_sbrk',['../sysmem_8c.html#a68125648bcce70b6bb3aa0be50e99700',1,'_sbrk(ptrdiff_t incr):&#160;sysmem.c'],['../utilities_8c.html#aae54d7b9578ba1fc171ce6f30f4c68a3',1,'_sbrk(int incr):&#160;utilities.c'],['../utilities_8h.html#aae54d7b9578ba1fc171ce6f30f4c68a3',1,'_sbrk(int incr):&#160;utilities.c']]],
+  ['_5fsbrk_14',['_sbrk',['../sysmem_8c.html#a68125648bcce70b6bb3aa0be50e99700',1,'sysmem.c']]],
   ['_5fstat_15',['_stat',['../syscalls_8c.html#a4711e961db985ed2c850a8be6597af50',1,'syscalls.c']]],
   ['_5ftimes_16',['_times',['../syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69',1,'syscalls.c']]],
   ['_5funlink_17',['_unlink',['../syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc',1,'syscalls.c']]],

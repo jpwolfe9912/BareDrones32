@@ -1,12 +1,13 @@
-/*
- * Autodrone.h
+/** @file 		Autodrone32.h
+ *  @brief
+ *  	This file contains many of the global variables and settings for the drone.
  *
- *  Created on: Dec 24, 2021
- *      Author: jeremywolfe
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
  */
 
-#ifndef __AUTODRONE32_H_
-#define __AUTODRONE32_H_
+#ifndef __AUTODRONE32_H__
+#define __AUTODRONE32_H__
 
 #ifndef PI
     #define PI  3.14159265358979f
@@ -141,34 +142,15 @@ extern homeData_t homeData;
 // PID Definitions
 ///////////////////////////////////////////////////////////////////////////////
 
-#define NUMBER_OF_PIDS   12
+#define NUMBER_OF_PIDS		6
 
-#define ROLL_RATE_PID     0
-#define PITCH_RATE_PID    1
-#define YAW_RATE_PID      2
+#define ROLL_RATE_PID		0
+#define PITCH_RATE_PID		1
+#define YAW_RATE_PID		2
 
-#define ROLL_ATT_PID      3
-#define PITCH_ATT_PID     4
-#define HEADING_PID       5
-
-#define NDOT_PID          6
-#define EDOT_PID          7
-#define HDOT_PID          8
-
-#define N_PID             9
-#define E_PID            10
-#define H_PID            11
-
-///////////////////////////////////////////////////////////////////////////////
-// Mixer Configurations
-///////////////////////////////////////////////////////////////////////////////
-
-enum { MIXERTYPE_TRI,
-	   MIXERTYPE_QUADX,
-       MIXERTYPE_HEX6X,
-       MIXERTYPE_Y6,
-       MIXERTYPE_FREE,
-     };
+#define ROLL_ATT_PID		3
+#define PITCH_ATT_PID		4
+#define HEADING_PID			5
 
 ///////////////////////////////////////////////////////////////////////////////
 // Flight Modes
@@ -180,32 +162,10 @@ enum {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// Vertical Mode States
-///////////////////////////////////////////////////////////////////////////////
-
-enum { ALT_DISENGAGED_THROTTLE_ACTIVE,
-       ALT_HOLD_FIXED_AT_ENGAGEMENT_ALT,
-       ALT_HOLD_AT_REFERENCE_ALTITUDE,
-       VERTICAL_VELOCITY_HOLD_AT_REFERENCE_VELOCITY,
-       ALT_DISENGAGED_THROTTLE_INACTIVE };
-
-///////////////////////////////////////////////////////////////////////////////
 // MPU6000 DLPF Configurations
 ///////////////////////////////////////////////////////////////////////////////
 
 enum { DLPF_256HZ, DLPF_188HZ, DLPF_98HZ, DLPF_42HZ };
-
-///////////////////////////////////////////////////////////////////////////////
-// Receiver Configurations
-///////////////////////////////////////////////////////////////////////////////
-
-enum { PPM, PWM, SPEKTRUM, SBUS };
-
-///////////////////////////////////////////////////////////////////////////////
-// USB/UART Configurations
-///////////////////////////////////////////////////////////////////////////////
-
-enum { USB, UART1, UART2 };
 
 ///////////////////////////////////////////////////////////////////////////////
 // EEPROM
@@ -404,7 +364,5 @@ enum crcFlags { CRC_HistoryBad = 1 };
 
 extern eepromConfig_t eepromConfig;
 
-///////////////////////////////////////////////////////////////////////////////
 
-
-#endif /* __AUTODRONE32_H_ */
+#endif /* __AUTODRONE32_H__ */

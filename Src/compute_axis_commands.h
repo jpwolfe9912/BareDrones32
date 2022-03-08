@@ -1,64 +1,21 @@
-/*
-  October 2012
-
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-///////////////////////////////////////////////////////////////////////////////
+/** @file 		compute_axis_commands.h
+ *  @brief
+ *  	This file creates the inputs to the PID controller and sends values to the mixer.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
+ */
 
 #ifndef __COMPUTE_AXIS_COMMANDS_H__
 #define __COMPUTE_AXIS_COMMANDS_H__
 
-///////////////////////////////////////////////////////////////////////////////
-
-extern float   attCmd[3];  // TODO: For telemetry only
-
-extern float   attPID[3];  // TODO: For telemetry only
-
+/* Global Variables */
+extern float   attCmd[3];
+extern float   attPID[3];
 extern float   ratePID[3];
+extern float   rateCmd[3];
 
-extern float   rateCmd[3]; // TODO: For telmetry only
-
-extern float   verticalVelocityCmd;
-
-extern float   headingReference;
-
-extern float   altitudeHoldReference;
-extern float   throttleReference;
-
-///////////////////////////////////////////////////////////////////////////////
-// Compute Axis Commands
-///////////////////////////////////////////////////////////////////////////////
-
+/* Function Prototypes */
 void computeAxisCommands(float dt);
 
-///////////////////////////////////////////////////////////////////////////////
-#endif
+#endif /* __COMPUTE_AXIS_COMMANDS_H__ */

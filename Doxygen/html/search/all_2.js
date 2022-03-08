@@ -4,7 +4,7 @@ var searchData=
   ['batterylow_1',['batteryLow',['../structeeprom_config__t.html#a2a7fba4fce4b21c406cdb8e1bc05733c',1,'eepromConfig_t']]],
   ['batterymaxlow_2',['batteryMaxLow',['../structeeprom_config__t.html#a100caeaea2d8090a9ab2bd3f000b9ba6',1,'eepromConfig_t']]],
   ['batteryverylow_3',['batteryVeryLow',['../structeeprom_config__t.html#a193a4b94d8960f8d3ae77e11da638f18',1,'eepromConfig_t']]],
-  ['beta_4',['beta',['../sensor__fusion_8h.html#aa773d9a6c0ccefaa0fc9ab66fec68ec1',1,'sensor_fusion.h']]],
+  ['beta_4',['beta',['../sensor__fusion_8c.html#aa773d9a6c0ccefaa0fc9ab66fec68ec1',1,'beta():&#160;sensor_fusion.c'],['../sensor__fusion_8h.html#aa773d9a6c0ccefaa0fc9ab66fec68ec1',1,'beta():&#160;sensor_fusion.c']]],
   ['betadef_5',['betaDef',['../sensor__fusion_8h.html#ab51f159bf643224a2bc1d7027fb00d62',1,'sensor_fusion.h']]],
   ['bf_6',['bf',['../drv__color_8h.html#a9d6235c623541ab4175144c028436097',1,'drv_color.h']]],
   ['bit_5fh_5freset_7',['BIT_H_RESET',['../mpu6000_8h.html#a30a2f1f788faf9cbdeec0b2bbb39fb8c',1,'mpu6000.h']]],

@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['ibus_5fbusy_0',['IBUS_BUSY',['../drv__ibus_8h.html#a5a62ceacfdb82fe56aba16e8387b8570af3691b782927b3922d91f4914033a510',1,'drv_ibus.h']]],
-  ['ibus_5ferror_1',['IBUS_ERROR',['../drv__ibus_8h.html#a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa',1,'drv_ibus.h']]],
-  ['ibus_5fready_2',['IBUS_READY',['../drv__ibus_8h.html#a5a62ceacfdb82fe56aba16e8387b8570ae428d7ce3228dba7302258f2a9f96f1d',1,'drv_ibus.h']]],
-  ['ibus_5fstate_5fcrc_3',['IBUS_STATE_CRC',['../drv__ibus_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da404bbd90ff266bed464aa2a846164fc5',1,'drv_ibus.h']]],
-  ['ibus_5fstate_5flength_4',['IBUS_STATE_LENGTH',['../drv__ibus_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2daa34e1b14fc82d7fcd38d47419a78edbb',1,'drv_ibus.h']]],
-  ['ibus_5fstate_5fpayload_5',['IBUS_STATE_PAYLOAD',['../drv__ibus_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da585b57ae393bd2b7c30494b84fd559f4',1,'drv_ibus.h']]],
-  ['ibus_5fstate_5ftype_6',['IBUS_STATE_TYPE',['../drv__ibus_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da1d724e6c3d2bfe57875b68d08b3cc35b',1,'drv_ibus.h']]]
+  ['motor1_0',['MOTOR1',['../motors_8h.html#a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28',1,'motors.h']]],
+  ['motor2_1',['MOTOR2',['../motors_8h.html#a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934',1,'motors.h']]],
+  ['motor3_2',['MOTOR3',['../motors_8h.html#a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3',1,'motors.h']]],
+  ['motor4_3',['MOTOR4',['../motors_8h.html#a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f',1,'motors.h']]]
 ];

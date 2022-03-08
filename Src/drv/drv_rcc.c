@@ -1,13 +1,13 @@
 /** @file 		drv_rcc.c
  *  @brief
- *  	This file initializes clock.
+ *  	This file initializes the RCC clock.
  *
  *
  *  @author 	Jeremy Wolfe
  *  @date 		03 MAR 2022
- *  @bug
  */
 
+/* Includes */
 #include "board.h"
 
 /** @brief Changes clock speed to 216 MHz

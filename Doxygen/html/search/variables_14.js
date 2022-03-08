@@ -6,12 +6,8 @@ var searchData=
   ['vele_3',['velE',['../structgps__t.html#a49e3bcbbb98f50a1209b65ddfdbc876c',1,'gps_t']]],
   ['veln_4',['velN',['../structgps__t.html#ad44388792a90a24fb4660e2b19033e17',1,'gps_t']]],
   ['version_5',['version',['../structeeprom_config__t.html#ab22abc2906422da61885ac6c8e6a1a59',1,'eepromConfig_t']]],
-  ['verticalmodestate_6',['verticalModeState',['../flight__command_8c.html#a2594cb793ee3ec9f0113f5fc28951451',1,'verticalModeState():&#160;flight_command.c'],['../flight__command_8h.html#a2594cb793ee3ec9f0113f5fc28951451',1,'verticalModeState():&#160;flight_command.c']]],
-  ['verticalreferencecommand_7',['verticalReferenceCommand',['../flight__command_8c.html#a79ae4259b91c06c5a05004cbc3ae5def',1,'verticalReferenceCommand():&#160;flight_command.c'],['../flight__command_8h.html#a79ae4259b91c06c5a05004cbc3ae5def',1,'verticalReferenceCommand():&#160;flight_command.c']]],
-  ['verticalvelocitycmd_8',['verticalVelocityCmd',['../compute__axis__commands_8c.html#a800904bb2535cfb17e45fb15cfcbc51f',1,'verticalVelocityCmd():&#160;compute_axis_commands.c'],['../compute__axis__commands_8h.html#a800904bb2535cfb17e45fb15cfcbc51f',1,'verticalVelocityCmd():&#160;compute_axis_commands.c']]],
-  ['verticalvelocityholdonly_9',['verticalVelocityHoldOnly',['../structeeprom_config__t.html#a2a966858773d9801f7ed82c71430ffc5',1,'eepromConfig_t']]],
-  ['vertrefcmdindetent_10',['vertRefCmdInDetent',['../flight__command_8c.html#a4270f800c12dfc01db1f8e9e60af4095',1,'vertRefCmdInDetent():&#160;flight_command.c'],['../flight__command_8h.html#a4270f800c12dfc01db1f8e9e60af4095',1,'vertRefCmdInDetent():&#160;flight_command.c']]],
-  ['voltagemonitorbias_11',['voltageMonitorBias',['../structeeprom_config__t.html#a927d41649d656b0c4ea3d2a6ea0313e8',1,'eepromConfig_t']]],
-  ['voltagemonitorpin_12',['voltageMonitorPin',['../structeeprom_config__t.html#a996556976c4a426925eae54cf54f5124',1,'eepromConfig_t']]],
-  ['voltagemonitorscale_13',['voltageMonitorScale',['../structeeprom_config__t.html#abdd9e24950cac61d7bf7704a65e5f5c3',1,'eepromConfig_t']]]
+  ['verticalvelocityholdonly_6',['verticalVelocityHoldOnly',['../structeeprom_config__t.html#a2a966858773d9801f7ed82c71430ffc5',1,'eepromConfig_t']]],
+  ['voltagemonitorbias_7',['voltageMonitorBias',['../structeeprom_config__t.html#a927d41649d656b0c4ea3d2a6ea0313e8',1,'eepromConfig_t']]],
+  ['voltagemonitorpin_8',['voltageMonitorPin',['../structeeprom_config__t.html#a996556976c4a426925eae54cf54f5124',1,'eepromConfig_t']]],
+  ['voltagemonitorscale_9',['voltageMonitorScale',['../structeeprom_config__t.html#abdd9e24950cac61d7bf7704a65e5f5c3',1,'eepromConfig_t']]]
 ];

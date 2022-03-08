@@ -1,46 +1,41 @@
-/*
-  October 2012
+/** @file 		utilities.c
+ *  @brief
+ *  	This files contains random useful functions.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
+ */
 
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-
+/* Includes */
 #include "board.h"
 
-///////////////////////////////////////////////////////////////////////////////
-// Constrain
-///////////////////////////////////////////////////////////////////////////////
+/** @brief Constrains an input between two values.
+ *
+ *  @param input Value to be constrained.
+ *  @param minValue Lower threshold.
+ *  @param maxValue Upper threshold.
+ *  @return float Constrained value.
+ */
+float
+constrain(float input, float minValue, float maxValue)
+{
+    if (input < minValue)
+        return minValue;
+    else if (input > maxValue)
+        return maxValue;
+    else
+        return input;
+}
 
-float constrain(float input, float minValue, float maxValue)
+/** @brief Constrains an input uint16_t between two values.
+ *
+ *  @param input Value to be constrained.
+ *  @param minValue Lower threshold.
+ *  @param maxValue Upper threshold.
+ *  @return uint16_t Constrained value.
+ */
+uint16_t
+constrain16(uint16_t input, uint16_t minValue, uint16_t maxValue)
 {
     if (input < minValue)
         return minValue;
@@ -51,22 +46,13 @@ float constrain(float input, float minValue, float maxValue)
 }
 
 
-uint16_t constrain16(uint16_t input, uint16_t minValue, uint16_t maxValue)
-{
-    if (input < minValue)
-        return minValue;
-    else if (input > maxValue)
-        return maxValue;
-    else
-        return input;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//  Standard Radian Format Limiter
-////////////////////////////////////////////////////////////////////////////////
-
-float standardRadianFormat(float angle)
+/** @brief Puts a value in standard radian format.
+ *
+ *  @param angle Value to be formatted.
+ *  @return float Formatted value.
+ */
+float
+standardRadianFormat(float angle)
 {
     if (angle >= PI)
         return (angle - 2 * PI);
@@ -76,7 +62,13 @@ float standardRadianFormat(float angle)
         return (angle);
 }
 
-uint16_t dshot3dFormat(int16_t rxCmd)
+/** @brief Formats values from an iBus receiver for 3D mode.
+ *
+ *  @param rxCommand Value from iBus receiver.
+ *  @return uint16_t Formatted value.
+ */
+uint16_t
+dshot3dFormat(int16_t rxCmd)
 {
 	if(rxCmd < 0){
 		return (constrain16((47 - rxCmd), 48, 1047));
@@ -86,25 +78,21 @@ uint16_t dshot3dFormat(int16_t rxCmd)
 
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// String to Float Conversion
-///////////////////////////////////////////////////////////////////////////////
-
-// Simple and fast atof (ascii to float) function.
-//
-// - Executes about 5x faster than standard MSCRT library atof().
-// - An attractive alternative if the number of calls is in the millions.
-// - Assumes input is a proper integer, fraction, or scientific format.
-// - Matches library atof() to 15 digits (except at extreme exponents).
-// - Follows atof() precedent of essentially no error checking.
-//
-// 09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
-//
-
-#define white_space(c) ((c) == ' ' || (c) == '\t')
-#define valid_digit(c) ((c) >= '0' && (c) <= '9')
-
-float stringToFloat(const char *p)
+/** @brief Simple and fast atof (ascii to float) function.
+ *
+ * 		Executes about 5x faster than standard MSCRT library atof()
+ * 		-An attractive alternative if the number of calls is in the millions.
+ * 		-Assumes input is a proper integer, fraction, or scientific format.
+ * 		-Matches library atof() to 15 digits (except at extreme exponents).
+ * 		-Follows atof() precedent of essentially no error checking.
+ *
+ * 		09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
+ *
+ *  @param *p Pointer to string.
+ *  @return float Converted float value.
+ */
+float
+stringToFloat(const char *p)
 {
     int frac = 0;
     double sign, value, scale;
@@ -185,5 +173,3 @@ float stringToFloat(const char *p)
 
     return sign * (frac ? (value / scale) : (value * scale));
 }
-
-///////////////////////////////////////////////////////////////////////////////

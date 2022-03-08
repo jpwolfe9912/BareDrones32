@@ -1,264 +1,277 @@
 \hypertarget{drv__system_8c_source}{}\doxysection{drv\+\_\+system.\+c}
-\label{drv__system_8c_source}\index{Autodrone32/Src/drv/drv\_system.c@{Autodrone32/Src/drv/drv\_system.c}}
+\label{drv__system_8c_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_system.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_system.c}}
 \mbox{\hyperlink{drv__system_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00001}00001 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00013}00013 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00015}00015 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00016}00016 \textcolor{comment}{// Cycles per microsecond}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00017}00017 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t usTicks = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00018}00018 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00021}00021 \textcolor{comment}{// Current uptime for 1kHz systick timer. will rollover after 49 days.}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00022}00022 \textcolor{comment}{// Hopefully we won't care.}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00023}00023 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t sysTickUptime = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00024}00024 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t sysTickCycleCounter = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00025}00025 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00031}00031 \textcolor{keyword}{static} \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00032}00032 cycleCounterInit(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00033}00033 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00034}00034     usTicks = \mbox{\hyperlink{group___s_t_m32_f7xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000000;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00035}00035 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00036}00036     \textcolor{comment}{// enable DWT access}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00037}00037     CoreDebug-\/>DEMCR |= CoreDebug\_DEMCR\_TRCENA\_Msk;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00038}00038     \textcolor{comment}{// enable the CPU cycle counter}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00039}00039     DWT-\/>CTRL |= DWT\_CTRL\_CYCCNTENA\_Msk;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00040}00040 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00013}00013 \textcolor{comment}{/* Static Variables */}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00014}00014 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t usTicks = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00015}00015 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t sysTickUptime = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00016}00016 \textcolor{keyword}{static} \textcolor{keyword}{volatile} uint32\_t sysTickCycleCounter = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00018}00018 \textcolor{comment}{/* Global Variables */}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00020}\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{00020}} uint16\_t \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00022}\mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{00022}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}}= \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00023}\mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{00023}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00024}\mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{00024}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00025}\mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{00025}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}}  = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00026}\mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{00026}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}}  = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00027}\mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{00027}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}}   = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00028}\mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{00028}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}}   = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00030}\mbox{\hyperlink{drv__system_8c_a5925b466d8920083a8e0a5e04a4ee0d6}{00030}} uint32\_t \mbox{\hyperlink{drv__system_8c_a5925b466d8920083a8e0a5e04a4ee0d6}{deltaTime1000Hz}}, \mbox{\hyperlink{drv__system_8c_a90cbb74d7416e63e9173fae104bcbf47}{executionTime1000Hz}}, \mbox{\hyperlink{drv__system_8c_a8edce47a25fdf8c472d0c095ec826e7e}{previous1000HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00031}\mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{00031}} uint32\_t \mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{deltaTime500Hz}},  \mbox{\hyperlink{drv__system_8c_ae58c88ab7dbdc2d5fabd75a0a2d04bc7}{executionTime500Hz}},  \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00032}\mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{00032}} uint32\_t \mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{deltaTime100Hz}},  \mbox{\hyperlink{drv__system_8c_a360c69c5011c2bc857ed484268ccd45d}{executionTime100Hz}},  \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00033}\mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{00033}} uint32\_t \mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{deltaTime50Hz}},   \mbox{\hyperlink{drv__system_8c_a69d58f899bf1e2c44f83e73a3110c9a0}{executionTime50Hz}},   \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00034}\mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{00034}} uint32\_t \mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{deltaTime10Hz}},   \mbox{\hyperlink{drv__system_8c_a00fbde9960f7008aa692f27edabc5080}{executionTime10Hz}},   \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00035}\mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{00035}} uint32\_t \mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{deltaTime5Hz}},    \mbox{\hyperlink{drv__system_8c_a4975d176620751a3f371567c0f210013}{executionTime5Hz}},    \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00036}\mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{00036}} uint32\_t \mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{deltaTime1Hz}},    \mbox{\hyperlink{drv__system_8c_a15fe4aee27ddd59cfe196004ba827fd4}{executionTime1Hz}},    \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00038}\mbox{\hyperlink{drv__system_8c_aae9b062cb8a38789284d845851789d8e}{00038}} \textcolor{keywordtype}{float} \mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}}, \mbox{\hyperlink{drv__system_8c_aae9b062cb8a38789284d845851789d8e}{dt100Hz}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00040}\mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{00040}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00041}00041 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00043}00043 \textcolor{comment}{// Frame Timing Variables}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00045}00045 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00046}\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{00046}} uint16\_t \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00047}00047 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00048}\mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{00048}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}}= \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00049}\mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{00049}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00050}\mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{00050}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00051}\mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{00051}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}}  = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00052}\mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{00052}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}}  = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00053}\mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{00053}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}}   = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00054}\mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{00054}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}}   = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00042}\mbox{\hyperlink{drv__system_8c_aa794ebe01a5f29bfc614d907cfbd1199}{00042}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aa794ebe01a5f29bfc614d907cfbd1199}{execUp}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00044}00044 \textcolor{comment}{/* Static Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00045}00045 \textcolor{keyword}{static} \textcolor{keywordtype}{void} cycleCounterInit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00050}00050 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00051}\mbox{\hyperlink{drv__system_8c_ab5e09814056d617c521549e542639b7e}{00051}} \mbox{\hyperlink{drv__system_8c_ab5e09814056d617c521549e542639b7e}{SysTick\_Handler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00053}00053     uint8\_t index;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00054}00054     uint32\_t currentTime;}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00055}00055 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00056}\mbox{\hyperlink{drv__system_8c_a5925b466d8920083a8e0a5e04a4ee0d6}{00056}} uint32\_t \mbox{\hyperlink{drv__system_8c_a5925b466d8920083a8e0a5e04a4ee0d6}{deltaTime1000Hz}}, \mbox{\hyperlink{drv__system_8c_a90cbb74d7416e63e9173fae104bcbf47}{executionTime1000Hz}}, \mbox{\hyperlink{drv__system_8c_a8edce47a25fdf8c472d0c095ec826e7e}{previous1000HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00057}\mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{00057}} uint32\_t \mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{deltaTime500Hz}},  \mbox{\hyperlink{drv__system_8c_ae58c88ab7dbdc2d5fabd75a0a2d04bc7}{executionTime500Hz}},  \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00058}\mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{00058}} uint32\_t \mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{deltaTime100Hz}},  \mbox{\hyperlink{drv__system_8c_a360c69c5011c2bc857ed484268ccd45d}{executionTime100Hz}},  \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00059}\mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{00059}} uint32\_t \mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{deltaTime50Hz}},   \mbox{\hyperlink{drv__system_8c_a69d58f899bf1e2c44f83e73a3110c9a0}{executionTime50Hz}},   \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00060}\mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{00060}} uint32\_t \mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{deltaTime10Hz}},   \mbox{\hyperlink{drv__system_8c_a00fbde9960f7008aa692f27edabc5080}{executionTime10Hz}},   \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00061}\mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{00061}} uint32\_t \mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{deltaTime5Hz}},    \mbox{\hyperlink{drv__system_8c_a4975d176620751a3f371567c0f210013}{executionTime5Hz}},    \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00062}\mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{00062}} uint32\_t \mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{deltaTime1Hz}},    \mbox{\hyperlink{drv__system_8c_a15fe4aee27ddd59cfe196004ba827fd4}{executionTime1Hz}},    \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00063}00063 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00064}\mbox{\hyperlink{drv__system_8c_aae9b062cb8a38789284d845851789d8e}{00064}} \textcolor{keywordtype}{float} \mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}}, \mbox{\hyperlink{drv__system_8c_aae9b062cb8a38789284d845851789d8e}{dt100Hz}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00056}00056     sysTickCycleCounter = DWT-\/>CYCCNT;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00057}00057     sysTickUptime++;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00059}00059 \textcolor{comment}{//    watchDogsTick();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00061}00061     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}}         == \textcolor{keyword}{true})  \&\&}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00062}00062         (\mbox{\hyperlink{mpu6000_8c_a28ac454a2eb6f0e7aeaa104f034e05b9}{accelCalibrating}}    == \textcolor{keyword}{false}) \&\&}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00063}00063         (\mbox{\hyperlink{mpu6000_8c_afec3a9a296c531e6e5a02bd48dd46286}{mpu6000Calibrating}}  == \textcolor{keyword}{false}))}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00064}00064     \{}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00066}\mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{00066}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00067}00067 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00068}\mbox{\hyperlink{drv__system_8c_aa794ebe01a5f29bfc614d907cfbd1199}{00068}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{drv__system_8c_aa794ebe01a5f29bfc614d907cfbd1199}{execUp}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00072}00072 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00073}\mbox{\hyperlink{drv__system_8c_ab5e09814056d617c521549e542639b7e}{00073}} \mbox{\hyperlink{drv__system_8c_ab5e09814056d617c521549e542639b7e}{SysTick\_Handler}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00074}00074 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00075}00075     uint8\_t index;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00076}00076     uint32\_t currentTime;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00077}00077 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00078}00078     sysTickCycleCounter = DWT-\/>CYCCNT;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00079}00079     sysTickUptime++;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00080}00080 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00081}00081 \textcolor{comment}{//    watchDogsTick();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00066}00066         \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}}++;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00067}00067         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} > \mbox{\hyperlink{drv__system_8h_a7a6c3aace699ca6cbaf8ac2072ce5485}{FRAME\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00068}00068             \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} = 1;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00071}00071         \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00073}00073         currentTime = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00074}00074         \mbox{\hyperlink{drv__system_8c_a5925b466d8920083a8e0a5e04a4ee0d6}{deltaTime1000Hz}} = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a8edce47a25fdf8c472d0c095ec826e7e}{previous1000HzTime}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00075}00075         \mbox{\hyperlink{drv__system_8c_a8edce47a25fdf8c472d0c095ec826e7e}{previous1000HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00077}00077         \mbox{\hyperlink{mpu6000_8c_a99b5b452148c80bf8808dec0d02cb665}{readMPU6000}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00079}00079         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00080}00080         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00081}00081         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00082}00082 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00083}00083     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}}         == \textcolor{keyword}{true})  \&\&}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00084}00084         (\mbox{\hyperlink{mpu6000_8c_a28ac454a2eb6f0e7aeaa104f034e05b9}{accelCalibrating}}    == \textcolor{keyword}{false}) \&\&}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00085}00085         (\mbox{\hyperlink{mpu6000_8c_afec3a9a296c531e6e5a02bd48dd46286}{mpu6000Calibrating}}  == \textcolor{keyword}{false}))}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00086}00086     \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00087}00087 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00088}00088         \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}}++;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00089}00089         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} > \mbox{\hyperlink{drv__system_8h_a7a6c3aace699ca6cbaf8ac2072ce5485}{FRAME\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00090}00090             \mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} = 1;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00091}00091 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00093}00093         \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00094}00094 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00095}00095         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00096}00096         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00097}00097         \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00098}00098 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00099}00099         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00100}00100         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00101}00101         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00102}00102 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00103}00103         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00104}00104         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00105}00105         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00083}00083         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00084}00084         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00085}00085         \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] += \mbox{\hyperlink{mpu6000_8c_a5562437265f7f124fc527841ddcdd08e}{rawAccel}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00087}00087         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00088}00088         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00089}00089         \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] += \mbox{\hyperlink{mpu6000_8c_ab3c99192faa4bd4a16a806f69894d716}{rawGyro}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ].\mbox{\hyperlink{unionint16and_uint8__t_a7375fa3485ce43bbc621f90ce895d52a}{value}};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00093}00093         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_ac7dd88805f6ac024cb6af88bbcb6237f}{COUNT\_500HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00094}00094         \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00095}00095             \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00097}00097             \textcolor{keywordflow}{for} (index = 0; index < 3; index++)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00098}00098             \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00099}00099                 \mbox{\hyperlink{mpu6000_8c_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[index];}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00100}00100                 \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[index] = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00102}00102                 \mbox{\hyperlink{mpu6000_8c_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[index];}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00103}00103                 \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[index] = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00104}00104             \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00105}00105         \}}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00106}00106 }
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00108}00108 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00109}00109         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_ac7dd88805f6ac024cb6af88bbcb6237f}{COUNT\_500HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00109}00109         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_afb27e6aa93f9b1075ba4915fd02ba6af}{COUNT\_100HZ}}) == 0)}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00110}00110         \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00111}00111             \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00111}00111             \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00112}00112 }
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00113}00113             \textcolor{keywordflow}{for} (index = 0; index < 3; index++)}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00114}00114             \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00115}00115                 \mbox{\hyperlink{mpu6000_8c_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[index];}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00116}00116                 \mbox{\hyperlink{mpu6000_8c_ae49703792e28d6cbf6ee3ea7865d57d0}{accelSum500Hz}}[index] = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00117}00117 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00118}00118                 \mbox{\hyperlink{mpu6000_8c_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[index];}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00119}00119                 \mbox{\hyperlink{mpu6000_8c_a609b7052270e90b7935a73beff1c735a}{gyroSum500Hz}}[index] = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00120}00120             \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00121}00121         \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00122}00122 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00124}00124 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00125}00125         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_afb27e6aa93f9b1075ba4915fd02ba6af}{COUNT\_100HZ}}) == 0)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00126}00126         \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00127}00127             \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00128}00128 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00129}00129             \textcolor{keywordflow}{for} (index = 0; index < 3; index++)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00130}00130             \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00131}00131                 \mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[index];}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00132}00132                 \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[index] = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00133}00133             \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00115}00115                 \mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[index] = \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[index];}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00116}00116                 \mbox{\hyperlink{mpu6000_8c_aa6157ca8f0701d2de179241f789d0be5}{accelSum100Hz}}[index] = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00117}00117             \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00119}00119 \textcolor{comment}{//          if (!newTemperatureReading)}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00120}00120 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00121}00121 \textcolor{comment}{//              readTemperatureRequestPressure();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00122}00122 \textcolor{comment}{//              newTemperatureReading = true;}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00123}00123 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00124}00124 \textcolor{comment}{//          else}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00125}00125 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00126}00126 \textcolor{comment}{//              readPressureRequestTemperature();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00127}00127 \textcolor{comment}{//              newPressureReading = true;}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00128}00128 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00129}00129 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00130}00130 \textcolor{comment}{//          sdCardCountDown();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00131}00131         \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00132}00132 }
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00134}00134 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00135}00135 \textcolor{comment}{//          if (!newTemperatureReading)}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00136}00136 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00137}00137 \textcolor{comment}{//              readTemperatureRequestPressure();}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00138}00138 \textcolor{comment}{//              newTemperatureReading = true;}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00139}00139 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00140}00140 \textcolor{comment}{//          else}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00141}00141 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00142}00142 \textcolor{comment}{//              readPressureRequestTemperature();}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00143}00143 \textcolor{comment}{//              newPressureReading = true;}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00144}00144 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00145}00145 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00146}00146 \textcolor{comment}{//          sdCardCountDown();}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00147}00147         \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00148}00148 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00150}00150 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00151}00151         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_a4adc0875bc3d641329c65cbbf392332a}{COUNT\_50HZ}}) == 0)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00152}00152             \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00153}00153 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00155}00155 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00156}00156         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_a73f02504e37e4ff04020f0387e8e9997}{COUNT\_10HZ}}) == 0)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00157}00157             \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00158}00158 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00160}00160 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00161}00161         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_aa1776adb0a0550755eae7c1d88082d48}{COUNT\_5HZ}}) == 0)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00162}00162             \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00163}00163 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00165}00165 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00166}00166         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_abeefb7f1b7285db8e21bcdc9ac647163}{COUNT\_1HZ}}) == 0)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00167}00167             \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00168}00168 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00170}00170 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00171}00171         \mbox{\hyperlink{drv__system_8c_a90cbb74d7416e63e9173fae104bcbf47}{executionTime1000Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00172}00172 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00174}00174     \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00175}00175     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\_initialized}})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00176}00176         \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshotWrite}}(\mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00177}00177 \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00178}00178 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00188}00188 uint32\_t}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00189}\mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{00189}} \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00190}00190 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00191}00191     \textcolor{keyword}{register} uint32\_t oldCycle, cycle, timeMs;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00192}00192 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00193}00193     \textcolor{keywordflow}{do}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00194}00194     \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00195}00195         timeMs = \_\_LDREXW(\&sysTickUptime);}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00196}00196         cycle = DWT-\/>CYCCNT;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00197}00197         oldCycle = sysTickCycleCounter;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00198}00198     \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00199}00199     \textcolor{keywordflow}{while} ( \_\_STREXW( timeMs , \&sysTickUptime ) );}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00200}00200 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00201}00201     \textcolor{keywordflow}{return} (timeMs * 1000) + (cycle -\/ oldCycle) / usTicks;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00202}00202 \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00203}00203 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00208}00208 uint32\_t}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00209}\mbox{\hyperlink{drv__system_8c_acd8d13c328bebdf9eddea27ff9448c2d}{00209}} \mbox{\hyperlink{drv__system_8c_acd8d13c328bebdf9eddea27ff9448c2d}{millis}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00210}00210 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00211}00211     \textcolor{keywordflow}{return} sysTickUptime;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00212}00212 \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00213}00213 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00214}00214 \textcolor{comment}{//void checkResetType()}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00215}00215 \textcolor{comment}{//\{}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00216}00216 \textcolor{comment}{//    uint32\_t rst = RCC-\/>CSR;}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00217}00217 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00218}00218 \textcolor{comment}{//    evrPush(( rst \& (RCC\_CSR\_PORRSTF | RCC\_CSR\_PADRSTF | RCC\_CSR\_SFTRSTF) ) ? EVR\_NormalReset : EVR\_AbnormalReset , rst >> 24 );}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00219}00219 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00220}00220 \textcolor{comment}{//    RCC\_ClearFlag();}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00221}00221 \textcolor{comment}{//\}}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00222}00222 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00227}\mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{00227}} \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{delayMicroseconds}}(uint32\_t us)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00228}00228 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00229}00229     uint32\_t elapsed = 0;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00230}00230     uint32\_t lastCount = DWT-\/>CYCCNT;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00135}00135         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_a4adc0875bc3d641329c65cbbf392332a}{COUNT\_50HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00136}00136             \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00137}00137 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00140}00140         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_a73f02504e37e4ff04020f0387e8e9997}{COUNT\_10HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00141}00141             \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00145}00145         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_aa1776adb0a0550755eae7c1d88082d48}{COUNT\_5HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00146}00146             \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00147}00147 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00150}00150         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{drv__system_8c_aa68bfa29ccf5a3621ed0876ef290a3e2}{frameCounter}} \% \mbox{\hyperlink{drv__system_8h_abeefb7f1b7285db8e21bcdc9ac647163}{COUNT\_1HZ}}) == 0)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00151}00151             \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00155}00155         \mbox{\hyperlink{drv__system_8c_a90cbb74d7416e63e9173fae104bcbf47}{executionTime1000Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00158}00158     \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00159}00159     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\_initialized}})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00160}00160         \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshotWrite}}(\mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00161}00161 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00172}00172 uint32\_t}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00173}\mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{00173}} \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00174}00174 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00175}00175     \textcolor{keyword}{register} uint32\_t oldCycle, cycle, timeMs;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00177}00177     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00178}00178     \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00179}00179         timeMs = \_\_LDREXW(\&sysTickUptime);}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00180}00180         cycle = DWT-\/>CYCCNT;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00181}00181         oldCycle = sysTickCycleCounter;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00182}00182     \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00183}00183     \textcolor{keywordflow}{while} ( \_\_STREXW( timeMs , \&sysTickUptime ) );}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00185}00185     \textcolor{keywordflow}{return} (timeMs * 1000) + (cycle -\/ oldCycle) / usTicks;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00186}00186 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00192}00192 uint32\_t}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00193}\mbox{\hyperlink{drv__system_8c_acd8d13c328bebdf9eddea27ff9448c2d}{00193}} \mbox{\hyperlink{drv__system_8c_acd8d13c328bebdf9eddea27ff9448c2d}{millis}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00194}00194 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00195}00195     \textcolor{keywordflow}{return} sysTickUptime;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00196}00196 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00198}00198 \textcolor{comment}{//void checkResetType()}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00199}00199 \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00200}00200 \textcolor{comment}{//    uint32\_t rst = RCC-\/>CSR;}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00201}00201 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00202}00202 \textcolor{comment}{//    evrPush(( rst \& (RCC\_CSR\_PORRSTF | RCC\_CSR\_PADRSTF | RCC\_CSR\_SFTRSTF) ) ? EVR\_NormalReset : EVR\_AbnormalReset , rst >> 24 );}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00203}00203 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00204}00204 \textcolor{comment}{//    RCC\_ClearFlag();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00205}00205 \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00206}00206 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00211}\mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{00211}} \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{delayMicroseconds}}(uint32\_t us)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00212}00212 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00213}00213     uint32\_t elapsed = 0;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00214}00214     uint32\_t lastCount = DWT-\/>CYCCNT;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00216}00216     \textcolor{keywordflow}{for} (;;) \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00217}00217         \textcolor{keyword}{register} uint32\_t current\_count = DWT-\/>CYCCNT;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00218}00218         uint32\_t elapsed\_us;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00220}00220         \textcolor{comment}{// measure the time elapsed since the last time we checked}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00221}00221         elapsed += current\_count -\/ lastCount;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00222}00222         lastCount = current\_count;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00223}00223 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00224}00224         \textcolor{comment}{// convert to microseconds}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00225}00225         elapsed\_us = elapsed / usTicks;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00226}00226         \textcolor{keywordflow}{if} (elapsed\_us >= us)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00227}00227             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00229}00229         \textcolor{comment}{// reduce the delay by the elapsed time}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00230}00230         us -\/= elapsed\_us;}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00231}00231 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00232}00232     \textcolor{keywordflow}{for} (;;) \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00233}00233         \textcolor{keyword}{register} uint32\_t current\_count = DWT-\/>CYCCNT;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00234}00234         uint32\_t elapsed\_us;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00235}00235 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00236}00236         \textcolor{comment}{// measure the time elapsed since the last time we checked}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00237}00237         elapsed += current\_count -\/ lastCount;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00238}00238         lastCount = current\_count;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00239}00239 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00240}00240         \textcolor{comment}{// convert to microseconds}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00241}00241         elapsed\_us = elapsed / usTicks;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00242}00242         \textcolor{keywordflow}{if} (elapsed\_us >= us)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00243}00243             \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00244}00244 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00245}00245         \textcolor{comment}{// reduce the delay by the elapsed time}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00246}00246         us -\/= elapsed\_us;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00232}00232         \textcolor{comment}{// keep fractional microseconds for the next iteration}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00233}00233         elapsed \%= usTicks;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00234}00234     \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00235}00235 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00241}\mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{00241}} \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(uint32\_t ms)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00242}00242 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00243}00243     \textcolor{keywordflow}{while} (ms-\/-\/)}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00244}00244         \mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{delayMicroseconds}}(1000);}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00245}00245 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00246}00246 }
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00247}00247 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00248}00248         \textcolor{comment}{// keep fractional microseconds for the next iteration}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00249}00249         elapsed \%= usTicks;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00250}00250     \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00251}00251 \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00252}00252 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00257}\mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{00257}} \textcolor{keywordtype}{void} \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(uint32\_t ms)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00258}00258 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00259}00259     \textcolor{keywordflow}{while} (ms-\/-\/)}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00260}00260         \mbox{\hyperlink{drv__system_8c_adaddd7b123c186ab936b79a7715e312b}{delayMicroseconds}}(1000);}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00261}00261 \}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00262}00262 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00252}00252 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00253}\mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{00253}} \mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{systemInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00254}00254 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00255}00255     \mbox{\hyperlink{drv__rcc_8c_a014b986015eabce9cb0593c170b8cd19}{rcc216MHzInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00257}00257     SysTick\_Config(\mbox{\hyperlink{group___s_t_m32_f7xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000);}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00258}00258 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00259}00259     \mbox{\hyperlink{drv__dma_8c_a2efa21dedda1992b5cb10ca9335d17f2}{dmaInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00260}00260     cycleCounterInit();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00262}00262     \mbox{\hyperlink{config_8c_ad11ec57672a83816f90dd713cd28a65d}{checkFirstTime}}(\textcolor{keyword}{true});}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00263}00263 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00268}00268 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00269}\mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{00269}} \mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{systemInit}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00270}00270 \{}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00271}00271     \mbox{\hyperlink{drv__rcc_8c_a014b986015eabce9cb0593c170b8cd19}{rcc216MHzInit}}();}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00272}00272 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00273}00273     SysTick\_Config(\mbox{\hyperlink{group___s_t_m32_f7xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000);}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00274}00274 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00275}00275     \mbox{\hyperlink{drv__dma_8c_a2efa21dedda1992b5cb10ca9335d17f2}{dmaInit}}();}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00276}00276     cycleCounterInit();}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00277}00277 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00278}00278 \textcolor{comment}{//  delay(1000);}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00279}00279     \textcolor{comment}{/*      LOW LEVEL INITIALIZATION    */}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00280}00280 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00281}00281     \mbox{\hyperlink{drv__serial_8h_a0c569386540e18af22f2d8c74e4f22c3}{serialInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00264}00264 \textcolor{comment}{//  delay(1000);}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00265}00265     \textcolor{comment}{/*      LOW LEVEL INITIALIZATION    */}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00266}00266 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00267}00267     \mbox{\hyperlink{drv__serial_8h_a0c569386540e18af22f2d8c74e4f22c3}{serialInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00268}00268 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00270}00270     \mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8f}{color}}(\mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8faafe71cad474c15ce63b300c470eef8cc}{CYAN}}, \mbox{\hyperlink{drv__color_8h_a9d6235c623541ab4175144c028436097a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00271}00271     printf(\textcolor{stringliteral}{"{}\(\backslash\)nBEGINNING AUTODRONE INITIALIZATION\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00272}00272     printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00273}00273     printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00274}00274     \mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8f}{color}}(\mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8fa283fc479650da98250635b9c3c0e7e50}{WHITE}}, \mbox{\hyperlink{drv__color_8h_a9d6235c623541ab4175144c028436097a0d077f5b932ce05e5b9f30c6087a2f31}{NO}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00275}00275 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00277}00277     \mbox{\hyperlink{drv__dshot_8c_a62a368c6713202c7b690eccdede30231}{dshotInit}}(\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{DSHOT600}});}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00278}00278     \mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{motorInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00279}00279 \textcolor{comment}{//  motors3dOn(MOTOR1);}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00280}00280 \textcolor{comment}{//  motors3dOn(MOTOR2);}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00281}00281 }
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00282}00282 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00283}00283 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00284}00284     \mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8f}{color}}(\mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8faafe71cad474c15ce63b300c470eef8cc}{CYAN}}, \mbox{\hyperlink{drv__color_8h_a9d6235c623541ab4175144c028436097a99f136a862ba5c7d16967231c29f09d6}{YES}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00285}00285     printf(\textcolor{stringliteral}{"{}\(\backslash\)nBEGINNING AUTODRONE INITIALIZATION\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00286}00286     printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00287}00287     printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00288}00288     \mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8f}{color}}(\mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8fa283fc479650da98250635b9c3c0e7e50}{WHITE}}, \mbox{\hyperlink{drv__color_8h_a9d6235c623541ab4175144c028436097a0d077f5b932ce05e5b9f30c6087a2f31}{NO}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00289}00289 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00283}00283     \mbox{\hyperlink{drv__spi_8c_afdbacf07d926a145cc4d681c38980d03}{spi1Init}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00285}00285     \mbox{\hyperlink{drv__usart_8c_a4a1e3139e4182520fba0cf2180d0ce0e}{usart1Init}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00287}00287     \mbox{\hyperlink{drv__tim_8c_a33b66a308a9d25bc1c069fa24c0ae1d0}{tim9Init}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00288}00288 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00289}00289     \textcolor{comment}{/*      SENSOR INITIALIZATION       */}}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00290}00290 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00291}00291     \mbox{\hyperlink{drv__dshot_8c_a62a368c6713202c7b690eccdede30231}{dshotInit}}(\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2afab356171ef575e3e86add298e53b8aa6f}{DSHOT600}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00292}00292     \mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{motorInit}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00291}00291     \mbox{\hyperlink{orientation_8c_a984965787babc0e320b14ca56a0929ab}{orientSensors}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00292}00292     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{mpu6000_8c_a9caac400f3fe07fc1f2b4d76a7fc01a7}{mpu6000Init}}());}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00293}00293 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00294}00294     \mbox{\hyperlink{drv__spi_8c_afdbacf07d926a145cc4d681c38980d03}{spi1Init}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00294}00294     \mbox{\hyperlink{sensor__fusion_8c_ac8dc50fbcbc0f076fd8239217094c5ee}{madgwickInit}}();}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00295}00295 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00296}00296     \mbox{\hyperlink{drv__usart_8c_a4a1e3139e4182520fba0cf2180d0ce0e}{usart1Init}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00296}00296     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{drv__ibus_8c_af79bcf473fa604b9bcddae0117ff0615}{ibusInit}}());}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00297}00297 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00298}00298     \textcolor{comment}{/*      SENSOR INITIALIZATION       */}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00299}00299 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00300}00300     \mbox{\hyperlink{orientation_8c_a984965787babc0e320b14ca56a0929ab}{orientSensors}}();}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00301}00301     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{mpu6000_8c_a9caac400f3fe07fc1f2b4d76a7fc01a7}{mpu6000Init}}());}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00302}00302 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00303}00303     \mbox{\hyperlink{sensor__fusion_8c_ac8dc50fbcbc0f076fd8239217094c5ee}{madgwickInit}}();}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00304}00304 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00305}00305     \textcolor{keywordflow}{while}(!\mbox{\hyperlink{drv__ibus_8c_af79bcf473fa604b9bcddae0117ff0615}{ibusInit}}());}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00298}00298     \mbox{\hyperlink{pid_8c_a34f1eb3b081b092ebb280449a0442028}{initPID}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00299}00299     \mbox{\hyperlink{pid_8c_aa4ba6c35e0b8d3b3c1fb61ca83c2b6af}{initPIDvalues}}();}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00302}00302     \mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\_initialized}} = 1;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00304}00304 \textcolor{comment}{//  motorZeroCommand();}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00306}00306 \}}
 \DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00307}00307 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00308}00308     \mbox{\hyperlink{motors_8c_af0236ac9f1631bb2e0fae9975680339c}{motors3dOn}}(\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}{MOTOR1}});}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00309}00309     \mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\_initialized}} = 1;}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00310}00310 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00311}00311 \textcolor{comment}{//  motorZeroCommand();}}
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00312}00312 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00313}00313 }
-\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00314}00314 \}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00313}00313 \textcolor{keyword}{static} \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00314}00314 cycleCounterInit(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00315}00315 \{}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00316}00316     usTicks = \mbox{\hyperlink{group___s_t_m32_f7xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}} / 1000000;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00317}00317 }
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00318}00318     \textcolor{comment}{// enable DWT access}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00319}00319     CoreDebug-\/>DEMCR |= CoreDebug\_DEMCR\_TRCENA\_Msk;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00320}00320     \textcolor{comment}{// enable the CPU cycle counter}}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00321}00321     DWT-\/>CTRL |= DWT\_CTRL\_CYCCNTENA\_Msk;}
+\DoxyCodeLine{\Hypertarget{drv__system_8c_source_l00322}00322 \}}
 
 \end{DoxyCode}

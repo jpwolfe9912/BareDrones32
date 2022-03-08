@@ -1,64 +1,28 @@
-/*
-  October 2012
-
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+/** @file 		config.h
+ *  @brief
+ *  	This file configures the EEPROM settings of the flight controller.
+ *
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		03 MAR 2022
+ */
 
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-///////////////////////////////////////////////////////////////////////////////
+/* Defines */
+#define FLASH_WRITE_EEPROM_ADDR  0x08004000  // FLASH_Sector_1
 
+/* Global Variables */
 extern const char rcChannelLetters[12];
 
-///////////////////////////////////////////////////////////////////////////////
-
+/* Function Prototypes */
 void parseRcChannels(const char *input);
-
-///////////////////////////////////////////////////////////////////////////////
-
 uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd);
-
-///////////////////////////////////////////////////////////////////////////////
-
 void readEEPROM(void);
-
-///////////////////////////////////////////////////////////////////////////////
-
 int writeEEPROM(void);
-
-///////////////////////////////////////////////////////////////////////////////
-
 void checkFirstTime(bool eepromReset);
 
 ///////////////////////////////////////////////////////////////////////////////

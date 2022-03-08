@@ -1,10 +1,15 @@
-\hypertarget{compute__axis__commands_8h}{}\doxysection{Autodrone32/\+Src/compute\+\_\+axis\+\_\+commands.h File Reference}
-\label{compute__axis__commands_8h}\index{Autodrone32/Src/compute\_axis\_commands.h@{Autodrone32/Src/compute\_axis\_commands.h}}
+\hypertarget{compute__axis__commands_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/compute\+\_\+axis\+\_\+commands.h File Reference}
+\label{compute__axis__commands_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/compute\_axis\_commands.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/compute\_axis\_commands.h}}
+
+
+This file creates the inputs to the PID controller and sends values to the mixer.  
+
+
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{compute__axis__commands_8h_a6ea978441fb2878a2926d7009c903962}{compute\+Axis\+Commands}} (float dt)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Computes the commands that get sent to the mixer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,15 +20,22 @@ float \mbox{\hyperlink{compute__axis__commands_8h_ab07bd323d95ccecc4ad892c23b921
 float \mbox{\hyperlink{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}{rate\+PID}} \mbox{[}3\mbox{]}
 \item 
 float \mbox{\hyperlink{compute__axis__commands_8h_ac6595ac6fa25e26be6455e68cc6cdea9}{rate\+Cmd}} \mbox{[}3\mbox{]}
-\item 
-float \mbox{\hyperlink{compute__axis__commands_8h_a800904bb2535cfb17e45fb15cfcbc51f}{vertical\+Velocity\+Cmd}}
-\item 
-float \mbox{\hyperlink{compute__axis__commands_8h_acf47deadcb64887bffcfc75e4b4cf36e}{heading\+Reference}}
-\item 
-float \mbox{\hyperlink{compute__axis__commands_8h_aeadf10edda82c844091f32339605e1c3}{altitude\+Hold\+Reference}}
-\item 
-float \mbox{\hyperlink{compute__axis__commands_8h_a4c5161941d9a2168ef4bd69e018bfbe8}{throttle\+Reference}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file creates the inputs to the PID controller and sends values to the mixer. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+07 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{compute__axis__commands_8h_source}{compute\+\_\+axis\+\_\+commands.\+h}}.
+
 
 
 \doxysubsection{Function Documentation}
@@ -35,21 +47,23 @@ float \mbox{\hyperlink{compute__axis__commands_8h_a4c5161941d9a2168ef4bd69e018bf
 
 
 
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00061}{61}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
+Computes the commands that get sent to the mixer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The PID loop period in sec. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00024}{24}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{compute__axis__commands_8h_aeadf10edda82c844091f32339605e1c3}\label{compute__axis__commands_8h_aeadf10edda82c844091f32339605e1c3}} 
-\index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!altitudeHoldReference@{altitudeHoldReference}}
-\index{altitudeHoldReference@{altitudeHoldReference}!compute\_axis\_commands.h@{compute\_axis\_commands.h}}
-\doxysubsubsection{\texorpdfstring{altitudeHoldReference}{altitudeHoldReference}}
-{\footnotesize\ttfamily float altitude\+Hold\+Reference\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00051}{51}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
-
 \mbox{\Hypertarget{compute__axis__commands_8h_aa2d7eed0bc462ac7393d0def9c484b5e}\label{compute__axis__commands_8h_aa2d7eed0bc462ac7393d0def9c484b5e}} 
 \index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!attCmd@{attCmd}}
 \index{attCmd@{attCmd}!compute\_axis\_commands.h@{compute\_axis\_commands.h}}
@@ -58,7 +72,7 @@ Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00051}{51
 
 
 
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00041}{41}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
+Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00013}{13}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
 
 \mbox{\Hypertarget{compute__axis__commands_8h_ab07bd323d95ccecc4ad892c23b921712}\label{compute__axis__commands_8h_ab07bd323d95ccecc4ad892c23b921712}} 
 \index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!attPID@{attPID}}
@@ -68,17 +82,7 @@ Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00041}{41
 
 
 
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00043}{43}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
-
-\mbox{\Hypertarget{compute__axis__commands_8h_acf47deadcb64887bffcfc75e4b4cf36e}\label{compute__axis__commands_8h_acf47deadcb64887bffcfc75e4b4cf36e}} 
-\index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!headingReference@{headingReference}}
-\index{headingReference@{headingReference}!compute\_axis\_commands.h@{compute\_axis\_commands.h}}
-\doxysubsubsection{\texorpdfstring{headingReference}{headingReference}}
-{\footnotesize\ttfamily float heading\+Reference\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00049}{49}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
+Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00014}{14}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
 
 \mbox{\Hypertarget{compute__axis__commands_8h_ac6595ac6fa25e26be6455e68cc6cdea9}\label{compute__axis__commands_8h_ac6595ac6fa25e26be6455e68cc6cdea9}} 
 \index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!rateCmd@{rateCmd}}
@@ -88,7 +92,7 @@ Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00049}{49
 
 
 
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00047}{47}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
+Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00016}{16}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
 
 \mbox{\Hypertarget{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}\label{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}} 
 \index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!ratePID@{ratePID}}
@@ -98,25 +102,5 @@ Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00047}{47
 
 
 
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00045}{45}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
-
-\mbox{\Hypertarget{compute__axis__commands_8h_a4c5161941d9a2168ef4bd69e018bfbe8}\label{compute__axis__commands_8h_a4c5161941d9a2168ef4bd69e018bfbe8}} 
-\index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!throttleReference@{throttleReference}}
-\index{throttleReference@{throttleReference}!compute\_axis\_commands.h@{compute\_axis\_commands.h}}
-\doxysubsubsection{\texorpdfstring{throttleReference}{throttleReference}}
-{\footnotesize\ttfamily float throttle\+Reference\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00053}{53}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
-
-\mbox{\Hypertarget{compute__axis__commands_8h_a800904bb2535cfb17e45fb15cfcbc51f}\label{compute__axis__commands_8h_a800904bb2535cfb17e45fb15cfcbc51f}} 
-\index{compute\_axis\_commands.h@{compute\_axis\_commands.h}!verticalVelocityCmd@{verticalVelocityCmd}}
-\index{verticalVelocityCmd@{verticalVelocityCmd}!compute\_axis\_commands.h@{compute\_axis\_commands.h}}
-\doxysubsubsection{\texorpdfstring{verticalVelocityCmd}{verticalVelocityCmd}}
-{\footnotesize\ttfamily float vertical\+Velocity\+Cmd\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00055}{55}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
+Definition at line \mbox{\hyperlink{compute__axis__commands_8c_source_l00015}{15}} of file \mbox{\hyperlink{compute__axis__commands_8c_source}{compute\+\_\+axis\+\_\+commands.\+c}}.
 

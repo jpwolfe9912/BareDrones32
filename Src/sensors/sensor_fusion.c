@@ -12,11 +12,25 @@
 /* Defines */
 #include "board.h"
 
+/* Global Variables */
+float beta;				// algorithm gain
+float q0;
+float q1;
+float q2;
+float q3;	// quaternion of sensor frame relative to auxiliary frame
+float invSampleFreq;
+float roll;
+float pitch;
+float yaw;
+char anglesComputed;
+
 /* Static Function Prototypes */
 static float invSqrt(float x);
 
-/* Functions */
-
+/** @brief Initializes quaternion and other variables.
+ *
+ * 	@return Void.
+ */
 void
 madgwickInit(void)
 {
@@ -31,6 +45,17 @@ madgwickInit(void)
 	anglesComputed = 0;
 }
 
+/** @brief Creates quaternion from gyro and accel values.
+ *
+ *  @param float gx Gyro roll data in deg/s.
+ *  @param float gy Gyro pitch data in deg/s.
+ *  @param float gz Gyro yaw data in deg/s.
+ *  @param float ax Accel x-axis data in m/s^2.
+ *  @param float ay Accel y-axis data in m/s^2.
+ *  @param float az Accel z-axis data in m/s^2.
+ *
+ *  @return Void.
+ */
 void
 updateIMU(float gx, float gy, float gz, float ax, float ay, float az)
 {
@@ -102,10 +127,13 @@ updateIMU(float gx, float gy, float gz, float ax, float ay, float az)
 	anglesComputed = 0;
 }
 
-//-------------------------------------------------------------------------------------------
-// Fast inverse square-root
-// See: http://en.wikipedia.org/wiki/Fast_inverse_square_root
-
+/** @brief Fast inverse square-root.
+ *
+ * 		See: http://en.wikipedia.org/wiki/Fast_inverse_square_root
+ *
+ *	@param float x Input value.
+ * 	@return float Inverse square-root.
+ */
 float
 invSqrt(float x)
 {
@@ -119,8 +147,10 @@ invSqrt(float x)
 	return y;
 }
 
-//-------------------------------------------------------------------------------------------
-
+/** @brief Computes angles from quaternion
+ *
+ * 	@return Void.
+ */
 void
 computeAngles(void)
 {

@@ -1,49 +1,23 @@
-/*
-  August 2013
+/** @file 		pid.c
+ *  @brief
+ *  	This files initializes and updates the PID controller.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
+ */
 
-  Focused Flight32 Rev -
-
-  Copyright (c) 2013 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Designed to run on the AQ32 Flight Control Board
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)Paparazzi UAV
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-
+/* Includes */
 #include "board.h"
 
-///////////////////////////////////////////////////////////////////////////////
-
+/* Global Variables */
 uint8_t pidReset = true;
 
-///////////////////////////////////////////////////////////////////////////////
-
-void initPID(void)
+/** @brief Initializes the PID states.
+ *
+ *  @return Void.
+ */
+void
+initPID(void)
 {
     uint8_t index;
 
@@ -55,9 +29,16 @@ void initPID(void)
     }
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-float updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameters)
+/** @brief Updates the PID states.
+ *
+ *  @param error Commanded changed minus measured change.
+ *  @param deltaT Time between updates in sec.
+ *  @param reset If the PID states should be reset.
+ *  @param *PIDparameters Struct containing the parameters of the PID controller.
+ *  @return float Output from the algorithm.
+ */
+float
+updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameters)
 {
     float dTerm;
     float pidSum;
@@ -99,22 +80,77 @@ float updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDpar
     return pidLimited;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-void setPIDstates(uint8_t IDPid, float value)
+/** @brief Allows the user to change the PID values.
+ *
+ *  @return Void.
+ */
+void
+initPIDvalues(void)
 {
-    eepromConfig.PID[IDPid].integratorState = value;
-    eepromConfig.PID[IDPid].filterState     = value;
+	uint8_t ID;
+	bool again = true;
+
+	color(CYAN, YES);
+	printf("\nWould you like to change the PID states?\n");
+	colorDefault();
+	delay(1);
+	while(again){
+		if(serialWaitFor('y')){
+			printf("\nWhich PID would you like to change?\n");
+			printf("Roll Rate PID : 0\n");
+			printf("Pitch Rate PID: 1\n");
+			printf("Yaw Rate PID  : 2\n");
+			printf("Roll Att PID  : 3\n");
+			printf("Pitch Att PID : 4\n");
+			printf("Yaw Att PID   : 5\n");
+			serialRead8(&ID);
+
+			printf("P: \n");
+			serialReadF(&eepromConfig.PID[ID].P);
+			printf("I: \n");
+			serialReadF(&eepromConfig.PID[ID].I);
+			printf("D: \n");
+			serialReadF(&eepromConfig.PID[ID].D);
+			printf("Limit: \n");
+			serialReadF(&eepromConfig.PID[ID].Limit);
+			printf("Integrator State: \n");
+			serialReadF(&eepromConfig.PID[ID].integratorState);
+			printf("Filter State: \n");
+			serialReadF(&eepromConfig.PID[ID].filterState);
+
+			printf("\nWould you like to configure another state?\n");
+			if(serialWaitFor('y')){
+				again = true;
+			}
+			else{
+				again = false;
+			}
+		}
+	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
+/** @brief Set the state of the PIDs.
+ *
+ *	@param IDPid Which PID state you want to change.
+ *	@param value The value to write.
+ *  @return Void.
+ */
+void
+setPIDstates(uint8_t IDPid, float value)
+{
+	eepromConfig.PID[IDPid].integratorState = value;
+	eepromConfig.PID[IDPid].filterState     = value;
+}
 
-void zeroPIDstates(void)
+/** @brief Set all states to 0.
+ *
+ *  @return Void.
+ */
+void
+zeroPIDstates(void)
 {
     uint8_t index;
 
     for (index = 0; index < NUMBER_OF_PIDS; index++)
          setPIDstates(index, 0.0f);
 }
-
-///////////////////////////////////////////////////////////////////////////////

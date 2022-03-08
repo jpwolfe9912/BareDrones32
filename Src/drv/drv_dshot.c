@@ -1,11 +1,9 @@
 /** @file 		drv_dshot.c
  *  @brief
- *  	This files enables the gpio, timer, and dma peripherals
- *  	to send dshot commands with pwm.
+ *  	This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
 #include "board.h"
@@ -26,7 +24,7 @@ static void dshot_enable_dma_request(void);
 /* Functions */
 
 /** @brief Initializes the low level registers to set up
- *  the timer with PWM DMA
+ *  the timer with PWM DMA.
  *
  *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
  *  DSHOT600 is preferred
@@ -249,10 +247,9 @@ dshotInit(dshot_type_e dshot_type)
 
 }
 
-/** @brief Writes to the DMA buffer and starts the DMA stream
+/** @brief Writes to the DMA buffer and starts the DMA stream.
  *
- *  @param *motor_value A four length array with elements from
- *  0 to 2047.
+ *  @param *motor_value A four length array with elements from 0 to 2047.
  *  @return Void.
  */
 void
@@ -265,7 +262,7 @@ dshotWrite(uint16_t *motor_value)
 
 /* Static Functions */
 
-/** @brief Chooses the dshot speed
+/** @brief Chooses the dshot speed.
  *
  *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
  *  DSHOT600 is preferred
@@ -289,8 +286,7 @@ dshot_choose_type(dshot_type_e dshot_type)
 
 /** @brief Prepares all the DMA buffers.
  *
- *  @param *motor_value A four length array with elements from
- *  0 to 2047.
+ *  @param *motor_value A four length array with elements from 0 to 2047.
  *  @return Void.
  */
 static void
@@ -328,7 +324,7 @@ dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
 }
 
 /** @brief Puts a 1 or 0 into each index in the buffer based on what
- *  we want to send. Also calculates the checksum
+ *  we want to send. Also calculates the checksum.
  *
  *  @param *motor_dmabuffer A pointer to the location in memory
  *  that the buffer with the values is located.

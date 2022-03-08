@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Autodrone32: Autodrone32/Src/motors.h File Reference</title>
+<title>Autodrone32: /Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/motors.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_9f85bb2c43aece0d127cc8ccedadf091.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_817997d9a478439d9806bc549fca2c84.html">Src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,6 +74,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This file contains functions to initialize the ESC or change modes.  
+<a href="#details">More...</a></p>
+
 <p><a href="motors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -84,50 +87,14 @@ Enumerations</h2></td></tr>
 , <a class="el" href="motors_8h.html#a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f">MOTOR4</a>
  }</td></tr>
 <tr class="separator:a52d59931063c311b3db496e3dd723b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1523141a62366e704d681c82094c0c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a> { <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad">DSHOT_CMD_MOTOR_STOP</a> = 0
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5">DSHOT_CMD_BEACON1</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a">DSHOT_CMD_BEACON2</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb">DSHOT_CMD_BEACON3</a>
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515">DSHOT_CMD_BEACON4</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178">DSHOT_CMD_BEACON5</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50">DSHOT_CMD_ESC_INFO</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb">DSHOT_CMD_SPIN_DIRECTION_1</a>
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b">DSHOT_CMD_SPIN_DIRECTION_2</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4">DSHOT_CMD_3D_MODE_OFF</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd">DSHOT_CMD_3D_MODE_ON</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f">DSHOT_CMD_SETTINGS_REQUEST</a>
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d">DSHOT_CMD_SAVE_SETTINGS</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d">DSHOT_CMD_SPIN_DIRECTION_NORMAL</a> = 20
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d">DSHOT_CMD_SPIN_DIRECTION_REVERSED</a> = 21
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167">DSHOT_CMD_LED0_ON</a>
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89">DSHOT_CMD_LED1_ON</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df">DSHOT_CMD_LED2_ON</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c">DSHOT_CMD_LED3_ON</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c">DSHOT_CMD_LED0_OFF</a>
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e">DSHOT_CMD_LED1_OFF</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b">DSHOT_CMD_LED2_OFF</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016">DSHOT_CMD_LED3_OFF</a>
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64">DSHOT_CMD_AUDIO_STREAM_MODE_ON_OFF</a> = 30
-, <br />
-&#160;&#160;<a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8">DSHOT_CMD_SILENT_MODE_ON_OFF</a> = 31
-, <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9">DSHOT_CMD_MAX</a> = 47
-<br />
- }</td></tr>
-<tr class="separator:aaa1523141a62366e704d681c82094c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa29e2982047be0f7afbb10c8d6f3f5c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#aa29e2982047be0f7afbb10c8d6f3f5c3">motorInit</a> (void)</td></tr>
+<tr class="memdesc:aa29e2982047be0f7afbb10c8d6f3f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets motor_value to 0 for all motors.  <a href="motors_8h.html#aa29e2982047be0f7afbb10c8d6f3f5c3">More...</a><br /></td></tr>
 <tr class="separator:aa29e2982047be0f7afbb10c8d6f3f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8212c23e29c5167936740551506694a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#ad8212c23e29c5167936740551506694a">motorZeroCommand</a> (void)</td></tr>
-<tr class="separator:ad8212c23e29c5167936740551506694a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0236ac9f1631bb2e0fae9975680339c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#af0236ac9f1631bb2e0fae9975680339c">motors3dOn</a> (<a class="el" href="motors_8h.html#a52d59931063c311b3db496e3dd723b9e">motors_e</a> motor)</td></tr>
+<tr class="memdesc:af0236ac9f1631bb2e0fae9975680339c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes motor mode to 3D.  <a href="motors_8h.html#af0236ac9f1631bb2e0fae9975680339c">More...</a><br /></td></tr>
 <tr class="separator:af0236ac9f1631bb2e0fae9975680339c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -137,51 +104,13 @@ Variables</h2></td></tr>
 <tr class="memitem:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motor_initialized</a></td></tr>
 <tr class="separator:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="aaa1523141a62366e704d681c82094c0c" name="aaa1523141a62366e704d681c82094c0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa1523141a62366e704d681c82094c0c">&#9670;&nbsp;</a></span>dshotCommands_e</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >This file contains functions to initialize the ESC or change modes. </p>
+<dl class="section author"><dt>Author</dt><dd>Jeremy Wolfe </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>03 MAR 2022 </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="motors_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad" name="aaa1523141a62366e704d681c82094c0cab0c3021655f17e6b4bfee1ec7b5fe3ad"></a>DSHOT_CMD_MOTOR_STOP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5" name="aaa1523141a62366e704d681c82094c0ca20b43b803dca25c31df35a92e9d6d4b5"></a>DSHOT_CMD_BEACON1&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a" name="aaa1523141a62366e704d681c82094c0cae2ae75a225fd0bc99b40a9b1a133332a"></a>DSHOT_CMD_BEACON2&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb" name="aaa1523141a62366e704d681c82094c0cad59d07226b9d366bb40b4203b5cf58bb"></a>DSHOT_CMD_BEACON3&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515" name="aaa1523141a62366e704d681c82094c0ca331877381a329d279cb3cda196959515"></a>DSHOT_CMD_BEACON4&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178" name="aaa1523141a62366e704d681c82094c0ca25832a17d7aad05219bf2806f1828178"></a>DSHOT_CMD_BEACON5&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50" name="aaa1523141a62366e704d681c82094c0caf1ec372d01f65ff2e4043545f5c8dd50"></a>DSHOT_CMD_ESC_INFO&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb" name="aaa1523141a62366e704d681c82094c0ca65a833ddfe91356d9acc337610bb10cb"></a>DSHOT_CMD_SPIN_DIRECTION_1&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b" name="aaa1523141a62366e704d681c82094c0ca86251168ddc0ae18521ebd3e78af4d3b"></a>DSHOT_CMD_SPIN_DIRECTION_2&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4" name="aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4"></a>DSHOT_CMD_3D_MODE_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd" name="aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd"></a>DSHOT_CMD_3D_MODE_ON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f" name="aaa1523141a62366e704d681c82094c0ca286adb160bbf58786b6236f3ed3f9a8f"></a>DSHOT_CMD_SETTINGS_REQUEST&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d" name="aaa1523141a62366e704d681c82094c0ca132c9c02a39a3374880df9c97213e32d"></a>DSHOT_CMD_SAVE_SETTINGS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d" name="aaa1523141a62366e704d681c82094c0ca5a1d39bae4640deb0d3eb97a149fb13d"></a>DSHOT_CMD_SPIN_DIRECTION_NORMAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d" name="aaa1523141a62366e704d681c82094c0ca08fd59b6fe5d0f3bd70d8a8d66a2e31d"></a>DSHOT_CMD_SPIN_DIRECTION_REVERSED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167" name="aaa1523141a62366e704d681c82094c0caee323215d951520b2147efcc99e36167"></a>DSHOT_CMD_LED0_ON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89" name="aaa1523141a62366e704d681c82094c0cacbcfe04fa4b6bc8335f0c7327362ff89"></a>DSHOT_CMD_LED1_ON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df" name="aaa1523141a62366e704d681c82094c0ca194496df21ad800df83241e87c9167df"></a>DSHOT_CMD_LED2_ON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c" name="aaa1523141a62366e704d681c82094c0ca1f5ad80d7388d466629ba6ce885d2c8c"></a>DSHOT_CMD_LED3_ON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c" name="aaa1523141a62366e704d681c82094c0ca44590799c4705419d453dcbcfcf5186c"></a>DSHOT_CMD_LED0_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e" name="aaa1523141a62366e704d681c82094c0ca2a3cf9c6fd59a8bd76b36a1b714fa41e"></a>DSHOT_CMD_LED1_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b" name="aaa1523141a62366e704d681c82094c0caef967c7cf9f6e9d9d88a707338ef3f1b"></a>DSHOT_CMD_LED2_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016" name="aaa1523141a62366e704d681c82094c0caec668ba8f31604c840581f41bb753016"></a>DSHOT_CMD_LED3_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64" name="aaa1523141a62366e704d681c82094c0ca15e87ef34d6d2a5982daf4109dd48a64"></a>DSHOT_CMD_AUDIO_STREAM_MODE_ON_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8" name="aaa1523141a62366e704d681c82094c0ca0b846d949c6213a8aa54188c26e16bd8"></a>DSHOT_CMD_SILENT_MODE_ON_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9" name="aaa1523141a62366e704d681c82094c0cafc66a938e9a9d02926b78a78a31a7ff9"></a>DSHOT_CMD_MAX&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00023">23</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
-
-</div>
-</div>
+<p class="definition">Definition in file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a52d59931063c311b3db496e3dd723b9e" name="a52d59931063c311b3db496e3dd723b9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52d59931063c311b3db496e3dd723b9e">&#9670;&nbsp;</a></span>motors_e</h2>
 
@@ -200,7 +129,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f" name="a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f"></a>MOTOR4&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00015">15</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00019">19</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
 
 </div>
 </div>
@@ -221,7 +150,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00014">14</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p>Sets motor_value to 0 for all motors. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00023">23</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -241,27 +173,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00037">37</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p>Changes motor mode to 3D. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">motors_e</td><td>motor The motor to set to 3D </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-</div>
-</div>
-<a id="ad8212c23e29c5167936740551506694a" name="ad8212c23e29c5167936740551506694a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8212c23e29c5167936740551506694a">&#9670;&nbsp;</a></span>motorZeroCommand()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void motorZeroCommand </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00027">27</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00039">39</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -286,7 +207,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00012">12</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00016">16</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -310,7 +231,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00010">10</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00014">14</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>

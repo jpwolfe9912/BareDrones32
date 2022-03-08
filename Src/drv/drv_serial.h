@@ -21,6 +21,8 @@ extern "C" {
 /* Function Prototypes */
 void serialInit(void);
 void serialWrite(int ch);
+void serialRead8(uint8_t *num);
+void serialReadF(float *num);
 bool serialWaitFor(char wait);
 
 #ifdef __cplusplus

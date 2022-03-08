@@ -1,5 +1,10 @@
-\hypertarget{pid_8h}{}\doxysection{Autodrone32/\+Src/pid.h File Reference}
-\label{pid_8h}\index{Autodrone32/Src/pid.h@{Autodrone32/Src/pid.h}}
+\hypertarget{pid_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/pid.h File Reference}
+\label{pid_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/pid.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/pid.h}}
+
+
+This files initializes and updates the PID controller.  
+
+
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,18 +19,35 @@ typedef struct \mbox{\hyperlink{struct_p_i_ddata}{PIDdata}} \mbox{\hyperlink{pid
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{pid_8h_a34f1eb3b081b092ebb280449a0442028}{init\+PID}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Initializes the PID states. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{pid_8h_acb47bee3fd9e9579d91fc045a7f87e8d}{update\+PID}} (float error, float deltaT, uint8\+\_\+t reset, struct \mbox{\hyperlink{struct_p_i_ddata}{PIDdata}} $\ast$PIDparameters)
-\item 
+\begin{DoxyCompactList}\small\item\em Updates the PID states. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8h_aa4ba6c35e0b8d3b3c1fb61ca83c2b6af}{init\+PIDvalues}} (void)
+\begin{DoxyCompactList}\small\item\em Allows the user to change the PID values. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{pid_8h_a02dc45a9a10c03f0dc29ef31c0da5368}{set\+PIDstates}} (uint8\+\_\+t IDPid, float value)
-\item 
+\begin{DoxyCompactList}\small\item\em Set the state of the PIDs. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{pid_8h_aaf22589c0540858f845cba698115b4dd}{zero\+PIDstates}} (void)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Set all states to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 uint8\+\_\+t \mbox{\hyperlink{pid_8h_a2411ec293e48a57a17a63d25e1c47907}{pid\+Reset}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This files initializes and updates the PID controller. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+07 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{pid_8h_source}{pid.\+h}}.
+
 
 
 \doxysubsection{Typedef Documentation}
@@ -46,7 +68,31 @@ uint8\+\_\+t \mbox{\hyperlink{pid_8h_a2411ec293e48a57a17a63d25e1c47907}{pid\+Res
 
 
 
-Definition at line \mbox{\hyperlink{pid_8c_source_l00046}{46}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+Initializes the PID states. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pid_8c_source_l00020}{20}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+
+\mbox{\Hypertarget{pid_8h_aa4ba6c35e0b8d3b3c1fb61ca83c2b6af}\label{pid_8h_aa4ba6c35e0b8d3b3c1fb61ca83c2b6af}} 
+\index{pid.h@{pid.h}!initPIDvalues@{initPIDvalues}}
+\index{initPIDvalues@{initPIDvalues}!pid.h@{pid.h}}
+\doxysubsubsection{\texorpdfstring{initPIDvalues()}{initPIDvalues()}}
+{\footnotesize\ttfamily void init\+PIDvalues (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Allows the user to change the PID values. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pid_8c_source_l00088}{88}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
 
 \mbox{\Hypertarget{pid_8h_a02dc45a9a10c03f0dc29ef31c0da5368}\label{pid_8h_a02dc45a9a10c03f0dc29ef31c0da5368}} 
 \index{pid.h@{pid.h}!setPIDstates@{setPIDstates}}
@@ -56,7 +102,21 @@ Definition at line \mbox{\hyperlink{pid_8c_source_l00046}{46}} of file \mbox{\hy
 
 
 
-Definition at line \mbox{\hyperlink{pid_8c_source_l00104}{104}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+Set the state of the PIDs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em IDPid} & Which PID state you want to change. \\
+\hline
+{\em value} & The value to write. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pid_8c_source_l00139}{139}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
 
 \mbox{\Hypertarget{pid_8h_acb47bee3fd9e9579d91fc045a7f87e8d}\label{pid_8h_acb47bee3fd9e9579d91fc045a7f87e8d}} 
 \index{pid.h@{pid.h}!updatePID@{updatePID}}
@@ -66,7 +126,25 @@ Definition at line \mbox{\hyperlink{pid_8c_source_l00104}{104}} of file \mbox{\h
 
 
 
-Definition at line \mbox{\hyperlink{pid_8c_source_l00060}{60}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+Updates the PID states. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error} & Commanded changed minus measured change. \\
+\hline
+{\em deltaT} & Time between updates in sec. \\
+\hline
+{\em reset} & If the PID states should be reset. \\
+\hline
+{\em $\ast$\+PIDparameters} & Struct containing the parameters of the PID controller. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Output from the algorithm. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pid_8c_source_l00041}{41}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
 
 \mbox{\Hypertarget{pid_8h_aaf22589c0540858f845cba698115b4dd}\label{pid_8h_aaf22589c0540858f845cba698115b4dd}} 
 \index{pid.h@{pid.h}!zeroPIDstates@{zeroPIDstates}}
@@ -76,7 +154,14 @@ Definition at line \mbox{\hyperlink{pid_8c_source_l00060}{60}} of file \mbox{\hy
 
 
 
-Definition at line \mbox{\hyperlink{pid_8c_source_l00112}{112}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+Set all states to 0. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pid_8c_source_l00150}{150}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
 
 
 
@@ -89,5 +174,5 @@ Definition at line \mbox{\hyperlink{pid_8c_source_l00112}{112}} of file \mbox{\h
 
 
 
-Definition at line \mbox{\hyperlink{pid_8c_source_l00042}{42}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
+Definition at line \mbox{\hyperlink{pid_8c_source_l00013}{13}} of file \mbox{\hyperlink{pid_8c_source}{pid.\+c}}.
 

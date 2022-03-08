@@ -1,31 +1,71 @@
-\hypertarget{utilities_8h}{}\doxysection{Autodrone32/\+Src/utilities.h File Reference}
-\label{utilities_8h}\index{Autodrone32/Src/utilities.h@{Autodrone32/Src/utilities.h}}
+\hypertarget{utilities_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/utilities.h File Reference}
+\label{utilities_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/utilities.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/utilities.h}}
+
+
+This files contains random useful functions.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{utilities_8h_ab32337e24cb5172d57a8f679b05cb159}{white\+\_\+space}}(c)~((c) == \textquotesingle{} \textquotesingle{} $\vert$$\vert$ (c) == \textquotesingle{}\textbackslash{}t\textquotesingle{})
+\item 
+\#define \mbox{\hyperlink{utilities_8h_a77f89089972f027bab0d7f971c2b1969}{valid\+\_\+digit}}(c)~((c) $>$= \textquotesingle{}0\textquotesingle{} \&\& (c) $<$= \textquotesingle{}9\textquotesingle{})
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 float \mbox{\hyperlink{utilities_8h_aa81f27853b4b3674705ffa1c5658ae45}{constrain}} (float input, float min\+Value, float max\+Value)
-\item 
-caddr\+\_\+t \mbox{\hyperlink{utilities_8h_aae54d7b9578ba1fc171ce6f30f4c68a3}{\+\_\+sbrk}} (int incr)
-\item 
-uint16\+\_\+t \mbox{\hyperlink{utilities_8h_ad1fb92c1c794ed63da2e6d7b8c63ddd8}{sphere\+Fit}} (float d\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, uint16\+\_\+t N, uint16\+\_\+t Max\+Iterations, float Err, uint16\+\_\+t Population\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, float Sphere\+Origin\mbox{[}$\,$\mbox{]}, float $\ast$Sphere\+Radius)
-\item 
+\begin{DoxyCompactList}\small\item\em Constrains an input between two values. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{utilities_8h_ae404b748d442c3f634e367bcf74e4da3}{constrain16}} (uint16\+\_\+t input, uint16\+\_\+t min\+Value, uint16\+\_\+t max\+Value)
+\begin{DoxyCompactList}\small\item\em Constrains an input uint16\+\_\+t between two values. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{utilities_8h_a3eb5c7ac4a35ae17b26f4b67eec87eaf}{standard\+Radian\+Format}} (float angle)
-\item 
+\begin{DoxyCompactList}\small\item\em Puts a value in standard radian format. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{utilities_8h_a017121a07e1620055423b251be444174}{dshot3d\+Format}} (int16\+\_\+t rx\+Cmd)
+\begin{DoxyCompactList}\small\item\em Formats values from an i\+Bus receiver for 3D mode. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{utilities_8h_ad0b0dc4f3638f2b51fe386887ec638bf}{string\+To\+Float}} (const char $\ast$p)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Simple and fast atof (ascii to float) function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This files contains random useful functions. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+07 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{utilities_8h_source}{utilities.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{utilities_8h_a77f89089972f027bab0d7f971c2b1969}\label{utilities_8h_a77f89089972f027bab0d7f971c2b1969}} 
+\index{utilities.h@{utilities.h}!valid\_digit@{valid\_digit}}
+\index{valid\_digit@{valid\_digit}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{valid\_digit}{valid\_digit}}
+{\footnotesize\ttfamily \#define valid\+\_\+digit(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((c) $>$= \textquotesingle{}0\textquotesingle{} \&\& (c) $<$= \textquotesingle{}9\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{utilities_8h_source_l00014}{14}} of file \mbox{\hyperlink{utilities_8h_source}{utilities.\+h}}.
+
+\mbox{\Hypertarget{utilities_8h_ab32337e24cb5172d57a8f679b05cb159}\label{utilities_8h_ab32337e24cb5172d57a8f679b05cb159}} 
+\index{utilities.h@{utilities.h}!white\_space@{white\_space}}
+\index{white\_space@{white\_space}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{white\_space}{white\_space}}
+{\footnotesize\ttfamily \#define white\+\_\+space(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((c) == \textquotesingle{} \textquotesingle{} $\vert$$\vert$ (c) == \textquotesingle{}\textbackslash{}t\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{utilities_8h_source_l00013}{13}} of file \mbox{\hyperlink{utilities_8h_source}{utilities.\+h}}.
+
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{utilities_8h_aae54d7b9578ba1fc171ce6f30f4c68a3}\label{utilities_8h_aae54d7b9578ba1fc171ce6f30f4c68a3}} 
-\index{utilities.h@{utilities.h}!\_sbrk@{\_sbrk}}
-\index{\_sbrk@{\_sbrk}!utilities.h@{utilities.h}}
-\doxysubsubsection{\texorpdfstring{\_sbrk()}{\_sbrk()}}
-{\footnotesize\ttfamily caddr\+\_\+t \+\_\+sbrk (\begin{DoxyParamCaption}\item[{int}]{incr }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{utilities_8c_source_l00070}{70}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
-
 \mbox{\Hypertarget{utilities_8h_aa81f27853b4b3674705ffa1c5658ae45}\label{utilities_8h_aa81f27853b4b3674705ffa1c5658ae45}} 
 \index{utilities.h@{utilities.h}!constrain@{constrain}}
 \index{constrain@{constrain}!utilities.h@{utilities.h}}
@@ -34,13 +74,71 @@ Definition at line \mbox{\hyperlink{utilities_8c_source_l00070}{70}} of file \mb
 
 
 
-Definition at line \mbox{\hyperlink{utilities_8c_source_l00043}{43}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
+Constrains an input between two values. 
 
-\mbox{\Hypertarget{utilities_8h_ad1fb92c1c794ed63da2e6d7b8c63ddd8}\label{utilities_8h_ad1fb92c1c794ed63da2e6d7b8c63ddd8}} 
-\index{utilities.h@{utilities.h}!sphereFit@{sphereFit}}
-\index{sphereFit@{sphereFit}!utilities.h@{utilities.h}}
-\doxysubsubsection{\texorpdfstring{sphereFit()}{sphereFit()}}
-{\footnotesize\ttfamily uint16\+\_\+t sphere\+Fit (\begin{DoxyParamCaption}\item[{float}]{d\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]},  }\item[{uint16\+\_\+t}]{N,  }\item[{uint16\+\_\+t}]{Max\+Iterations,  }\item[{float}]{Err,  }\item[{uint16\+\_\+t}]{Population\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{Sphere\+Origin\mbox{[}$\,$\mbox{]},  }\item[{float $\ast$}]{Sphere\+Radius }\end{DoxyParamCaption})}
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Value to be constrained. \\
+\hline
+{\em min\+Value} & Lower threshold. \\
+\hline
+{\em max\+Value} & Upper threshold. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Constrained value. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{utilities_8c_source_l00020}{20}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
+
+\mbox{\Hypertarget{utilities_8h_ae404b748d442c3f634e367bcf74e4da3}\label{utilities_8h_ae404b748d442c3f634e367bcf74e4da3}} 
+\index{utilities.h@{utilities.h}!constrain16@{constrain16}}
+\index{constrain16@{constrain16}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{constrain16()}{constrain16()}}
+{\footnotesize\ttfamily uint16\+\_\+t constrain16 (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{input,  }\item[{uint16\+\_\+t}]{min\+Value,  }\item[{uint16\+\_\+t}]{max\+Value }\end{DoxyParamCaption})}
+
+
+
+Constrains an input uint16\+\_\+t between two values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Value to be constrained. \\
+\hline
+{\em min\+Value} & Lower threshold. \\
+\hline
+{\em max\+Value} & Upper threshold. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Constrained value. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{utilities_8c_source_l00038}{38}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
+
+\mbox{\Hypertarget{utilities_8h_a017121a07e1620055423b251be444174}\label{utilities_8h_a017121a07e1620055423b251be444174}} 
+\index{utilities.h@{utilities.h}!dshot3dFormat@{dshot3dFormat}}
+\index{dshot3dFormat@{dshot3dFormat}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{dshot3dFormat()}{dshot3dFormat()}}
+{\footnotesize\ttfamily uint16\+\_\+t dshot3d\+Format (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{rx\+Cmd }\end{DoxyParamCaption})}
+
+
+
+Formats values from an i\+Bus receiver for 3D mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rx\+Command} & Value from i\+Bus receiver. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Formatted value. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{utilities_8c_source_l00071}{71}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
 
 \mbox{\Hypertarget{utilities_8h_a3eb5c7ac4a35ae17b26f4b67eec87eaf}\label{utilities_8h_a3eb5c7ac4a35ae17b26f4b67eec87eaf}} 
 \index{utilities.h@{utilities.h}!standardRadianFormat@{standardRadianFormat}}
@@ -50,7 +148,19 @@ Definition at line \mbox{\hyperlink{utilities_8c_source_l00043}{43}} of file \mb
 
 
 
-Definition at line \mbox{\hyperlink{utilities_8c_source_l00098}{98}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
+Puts a value in standard radian format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & Value to be formatted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Formatted value. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{utilities_8c_source_l00055}{55}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
 
 \mbox{\Hypertarget{utilities_8h_ad0b0dc4f3638f2b51fe386887ec638bf}\label{utilities_8h_ad0b0dc4f3638f2b51fe386887ec638bf}} 
 \index{utilities.h@{utilities.h}!stringToFloat@{stringToFloat}}
@@ -60,5 +170,25 @@ Definition at line \mbox{\hyperlink{utilities_8c_source_l00098}{98}} of file \mb
 
 
 
-Definition at line \mbox{\hyperlink{utilities_8c_source_l00126}{126}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
+Simple and fast atof (ascii to float) function. 
+
+\begin{DoxyVerb}Executes about 5x faster than standard MSCRT library atof()
+-An attractive alternative if the number of calls is in the millions.
+-Assumes input is a proper integer, fraction, or scientific format.
+-Matches library atof() to 15 digits (except at extreme exponents).
+-Follows atof() precedent of essentially no error checking.
+
+09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
+\end{DoxyVerb}
+ 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$p} & Pointer to string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Converted float value. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{utilities_8c_source_l00095}{95}} of file \mbox{\hyperlink{utilities_8c_source}{utilities.\+c}}.
 

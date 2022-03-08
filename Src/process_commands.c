@@ -1,86 +1,32 @@
-/*
-  October 2012
-
-  aq32Plus Rev -
-
-  Copyright (c) 2012 John Ihlein.  All rights reserved.
-
-  Open Source STM32 Based Multicopter Controller Software
-
-  Includes code and/or ideas from:
-
-  1)AeroQuad
-  2)BaseFlight
-  3)CH Robotics
-  4)MultiWii
-  5)S.O.H. Madgwick
-  6)UAVX
-
-  Designed to run on the AQ32 Flight Control Board
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+/** @file 		process_commands.c
+ *  @brief
+ *  	This file processes the receiver inputs to ensure they are in the correct
+ *  	ranges for further computations.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
  */
 
-///////////////////////////////////////////////////////////////////////////////
-
+/* Includes */
 #include "board.h"
 
-///////////////////////////////////////////////////////////////////////////////
-// Process Pilot Commands Defines and Variables
-///////////////////////////////////////////////////////////////////////////////
-
+/* Global Variables */
 uint8_t  commandInDetent[3]         = { true, true, true };
 uint8_t  previousCommandInDetent[3] = { true, true, true };
 
+uint8_t mode;
+semaphore_t armed = false;
+uint8_t armingTimer    = 0;
+uint8_t disarmingTimer = 0;
 
-extern uint16_t ibusChannels[RC_CHANNELS];
-///////////////////////////////////////////////////////////////////////////////
-// Flight Mode Defines and Variables
-///////////////////////////////////////////////////////////////////////////////
-
-uint8_t mode = FLIGHT;
-
-uint8_t headingHoldEngaged     = false;
-
-///////////////////////////////////////////////////////////////////////////////
-// Arm State Variables
-///////////////////////////////////////////////////////////////////////////////
-
-semaphore_t armed          = false;
-uint8_t     armingTimer    = 0;
-uint8_t     disarmingTimer = 0;
-
-///////////////////////////////////////////////////////////////////////////////
-// Vertical Mode State Variables
-///////////////////////////////////////////////////////////////////////////////
-
-uint8_t  verticalModeState = ALT_DISENGAGED_THROTTLE_ACTIVE;
-
-uint16_t previousAUX2State = MINCOMMAND;
-uint16_t previousAUX4State = MINCOMMAND;
-
-uint8_t  vertRefCmdInDetent         = true;
-uint8_t  previousVertRefCmdInDetent = true;
-
-float    verticalReferenceCommand;
-
-///////////////////////////////////////////////////////////////////////////////
-// Read Flight Commands
-///////////////////////////////////////////////////////////////////////////////
 int16_t rxCommands[8];
 
-void processFlightCommands(void)
+/** @brief Processes receiver commands.
+ *
+ *  @return Void.
+ */
+void
+processCommands(void)
 {
 	uint8_t channel;
 	uint8_t channelsToRead = 8;
@@ -180,12 +126,5 @@ void processFlightCommands(void)
 	{
 		mode = ROVER;
 	}
-
-	///////////////////////////////////
 }
-
-///////////////////////////////////////////////////////////////////////////////
-
-
-
 

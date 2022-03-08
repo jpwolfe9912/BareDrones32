@@ -11,10 +11,10 @@
 #include "board.h"
 
 /* Static Function Prototypes */
-
 static ibusStatus_e ibus_process_frame(void);
 static void ibus_update(uint8_t* pData);
 static bool ibusFrameCRC(void);
+static void ibus_error_timeout(void);
 static void usart_rx_check(uint32_t bytesLeft);
 static void usart_process_data(const void *data, size_t len);
 
@@ -30,11 +30,13 @@ bool rcActive = false;
 
 ibusStatus_e status;
 
-/* Functions */
+uint8_t errorTimeOut;
 
-/** @brief Initializes ibus ring buffer and low level usart registers
+
+/** @brief Initializes ibus ring buffer and low level usart registers.
  *
- *	@return Void.
+ *	@return bool True if initialization was successful.
+ *				 False if failed.
  */
 bool
 ibusInit(void)
@@ -90,10 +92,9 @@ ibusProcess(void)
 	while(ibus_process_frame() == IBUS_BUSY);
 }
 
-/** @brief State machine that evaluates the raw data based on what
- *  what section it is parsing through
+/** @brief State machine that evaluates the raw data based on what section it is parsing through.
  *
- *  @return int The status of the function.
+ *  @return ibusStatus_e The status of the function.
  *  	READY, BUSY, ERROR
  */
 static ibusStatus_e
@@ -151,16 +152,18 @@ ibus_process_frame(void)
 		}
 	}
 	if(status == IBUS_ERROR){
+		ibus_error_timeout();
 		lwrb_reset(&rxRingBuf);
 		memset(rxBuf, 0x00, RXBUF_SIZE);
 	}
+	errorTimeOut = 0;
 	return status;
 }
 
-/** @brief packs the raw data stored in two bytes in an array
+/** @brief Packs the raw data stored in two bytes in an array.
  * 	into one 16 bit integer.
  *
- *  @param *pData A pointer to the raw data array that we want
+ *  @param *pData A pointer to the raw data array that we want.
  *  to pack.
  *  @return Void.
  */
@@ -173,13 +176,28 @@ ibus_update(uint8_t* pData)
 	}
 }
 
+/** @brief Counts up if an error is recorded and disarms the quad.
+ *
+ *  @return Void.
+ */
+static void
+ibus_error_timeout(void)
+{
+	errorTimeOut++;
+
+	if(errorTimeOut > 100){
+		armed = false;
+	}
+}
+
 /** @brief Checksum calculator for incoming data.
  *
  * 		This function calculates the checksum based on the incoming
  * 		data. It then compares that value with the checksum value
  * 		in the packet.
  *
- *  @return bool True if it matches. False if it does not match.
+ *  @return bool True if it matches.
+ *  			 False if it does not match.
  */
 static bool
 ibusFrameCRC(void)
@@ -197,7 +215,7 @@ ibusFrameCRC(void)
 }
 
 /**
- * @brief Check for new data received with DMA
+ * 	@brief	Check for new data received with DMA
  *
  * 		User must select context to call this function from:
  * 		- Only interrupts (DMA HT, DMA TC, UART IDLE) with same preemption priority level
@@ -273,12 +291,12 @@ usart_rx_check(uint32_t bytesLeft)
 	}
 }
 
-/** @brief Process received data over UART
+/** @brief	Process received data over UART
  *
  * 		Data are written to RX ringbuffer for application processing at later stage
  *
- * @param *data Pointer to the data to process
- * @param len Length in units of bytes
+ * 	@param *data Pointer to the data to process
+ * 	@param len Length in units of bytes
  */
 static void
 usart_process_data(const void* data, size_t len)
@@ -288,8 +306,9 @@ usart_process_data(const void* data, size_t len)
 
 /* Interrupt Handlers */
 
-/**
- * \brief           USART1 global interrupt handler
+/** @brief	USART1 global interrupt handler
+ *
+ * 	@return Void.
  */
 void
 USART1_IRQHandler(void) {
@@ -300,6 +319,10 @@ USART1_IRQHandler(void) {
 	}
 }
 
+/** @brief	DMA2_Stream2 global interrupt handler
+ *
+ * 	@return Void.
+ */
 void
 DMA2_Stream2_IRQHandler(void) {
 	/* Check half-transfer complete interrupt */

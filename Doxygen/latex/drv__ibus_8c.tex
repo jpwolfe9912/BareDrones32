@@ -1,5 +1,5 @@
-\hypertarget{drv__ibus_8c}{}\doxysection{Autodrone32/\+Src/drv/drv\+\_\+ibus.c File Reference}
-\label{drv__ibus_8c}\index{Autodrone32/Src/drv/drv\_ibus.c@{Autodrone32/Src/drv/drv\_ibus.c}}
+\hypertarget{drv__ibus_8c}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/drv/drv\+\_\+ibus.c File Reference}
+\label{drv__ibus_8c}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_ibus.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_ibus.c}}
 
 
 This file initializes the ibus receiver protocol.  
@@ -16,13 +16,13 @@ void \mbox{\hyperlink{drv__ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibus\+Proc
 void \mbox{\hyperlink{drv__ibus_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{USART1\+\_\+\+IRQHandler}} (void)
 \begin{DoxyCompactList}\small\item\em USART1 global interrupt handler. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{drv__ibus_8c_a7e367d7c7b74485c4c75cdef30ad01e1}{DMA2\+\_\+\+Stream2\+\_\+\+IRQHandler}} (void)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em DMA2\+\_\+\+Stream2 global interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{ibus\+Payload}} \mbox{[}\mbox{\hyperlink{drv__ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\+\_\+\+SIZE}}\mbox{]}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{drv__ibus_8c_a90f57f8436f43ccd09662bfb72bbd558}{ibus\+Channels}} \mbox{[}\mbox{\hyperlink{drv__ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}
+uint16\+\_\+t \mbox{\hyperlink{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibus\+Channels}} \mbox{[}\mbox{\hyperlink{drv__ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}
 \item 
 uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}
 \item 
@@ -37,6 +37,8 @@ uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8c_a360603720ae8b2c0e4931dd0f648c504}{de
 bool \mbox{\hyperlink{drv__ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rc\+Active}} = false
 \item 
 \mbox{\hyperlink{drv__ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibus\+Status\+\_\+e}} \mbox{\hyperlink{drv__ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{drv__ibus_8c_aa1faa97224188463799dfeb970d588aa}{error\+Time\+Out}}
 \end{DoxyCompactItemize}
 
 
@@ -50,7 +52,7 @@ Jeremy Wolfe
 23 FEB 2022 
 \end{DoxyDate}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000007}{Bug}}]\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000006}{Bug}}]\end{DoxyRefDesc}
 
 
 Definition in file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
@@ -66,7 +68,14 @@ Definition in file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00304}{304}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+DMA2\+\_\+\+Stream2 global interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00327}{327}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 \mbox{\Hypertarget{drv__ibus_8c_af79bcf473fa604b9bcddae0117ff0615}\label{drv__ibus_8c_af79bcf473fa604b9bcddae0117ff0615}} 
 \index{drv\_ibus.c@{drv\_ibus.c}!ibusInit@{ibusInit}}
@@ -79,11 +88,11 @@ Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00304}{304}} of file \m
 Initializes ibus ring buffer and low level usart registers. 
 
 \begin{DoxyReturn}{Returns}
-Void. 
+bool True if initialization was successful. False if failed. 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00040}{40}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00042}{42}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 \mbox{\Hypertarget{drv__ibus_8c_a6973c6b108b25985f4c960dab82d92c8}\label{drv__ibus_8c_a6973c6b108b25985f4c960dab82d92c8}} 
 \index{drv\_ibus.c@{drv\_ibus.c}!ibusProcess@{ibusProcess}}
@@ -100,7 +109,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00088}{88}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00090}{90}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 \mbox{\Hypertarget{drv__ibus_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}\label{drv__ibus_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}} 
 \index{drv\_ibus.c@{drv\_ibus.c}!USART1\_IRQHandler@{USART1\_IRQHandler}}
@@ -112,9 +121,12 @@ Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00088}{88}} of file \mb
 
 USART1 global interrupt handler. 
 
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00295}{295}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00314}{314}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
 
 
@@ -139,6 +151,16 @@ Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00025}{25}} of file \mb
 
 Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00027}{27}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
+\mbox{\Hypertarget{drv__ibus_8c_aa1faa97224188463799dfeb970d588aa}\label{drv__ibus_8c_aa1faa97224188463799dfeb970d588aa}} 
+\index{drv\_ibus.c@{drv\_ibus.c}!errorTimeOut@{errorTimeOut}}
+\index{errorTimeOut@{errorTimeOut}!drv\_ibus.c@{drv\_ibus.c}}
+\doxysubsubsection{\texorpdfstring{errorTimeOut}{errorTimeOut}}
+{\footnotesize\ttfamily uint8\+\_\+t error\+Time\+Out}
+
+
+
+Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00033}{33}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
+
 \mbox{\Hypertarget{drv__ibus_8c_a5060d9399d0f25c7695ab7a78146839b}\label{drv__ibus_8c_a5060d9399d0f25c7695ab7a78146839b}} 
 \index{drv\_ibus.c@{drv\_ibus.c}!frameLength@{frameLength}}
 \index{frameLength@{frameLength}!drv\_ibus.c@{drv\_ibus.c}}
@@ -159,11 +181,11 @@ Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00025}{25}} of file \mb
 
 Definition at line \mbox{\hyperlink{drv__ibus_8c_source_l00025}{25}} of file \mbox{\hyperlink{drv__ibus_8c_source}{drv\+\_\+ibus.\+c}}.
 
-\mbox{\Hypertarget{drv__ibus_8c_a90f57f8436f43ccd09662bfb72bbd558}\label{drv__ibus_8c_a90f57f8436f43ccd09662bfb72bbd558}} 
+\mbox{\Hypertarget{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}\label{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}} 
 \index{drv\_ibus.c@{drv\_ibus.c}!ibusChannels@{ibusChannels}}
 \index{ibusChannels@{ibusChannels}!drv\_ibus.c@{drv\_ibus.c}}
 \doxysubsubsection{\texorpdfstring{ibusChannels}{ibusChannels}}
-{\footnotesize\ttfamily uint16\+\_\+t ibus\+Channels}
+{\footnotesize\ttfamily uint16\+\_\+t ibus\+Channels\mbox{[}\mbox{\hyperlink{drv__ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}}
 
 
 

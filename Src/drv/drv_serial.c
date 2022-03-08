@@ -11,9 +11,11 @@
  *  @bug
  */
 
+/* Includes */
 #include "board.h"
 
-char temp = '\0';
+/* Global Variables */
+float temp;
 
 #ifdef USE_NUCLEO
 
@@ -50,6 +52,36 @@ serialWrite(int ch){
 	while (!(USART3->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
 	USART3->TDR = ch;								// transfers the value of the data register into ch
 	return 0;
+}
+
+/** @brief Uses interrupts to read uint8 data to the receive buffer.
+ *
+ *  @param uint8_t *num Pointer to the location you want to store the received number
+ *  @return Void.
+ */
+void
+serialRead8(uint8_t *num)
+{
+	USART3->CR1 |= USART_CR1_RXNEIE;
+	while(!temp);
+
+	*num = (uint8_t)temp;
+	USART3->CR1 &= ~USART_CR1_RXNEIE;
+}
+
+/** @brief Uses interrupts to read float data to the receive buffer.
+ *
+ *  @param *num Pointer to the location you want to store the received number
+ *  @return Void.
+ */
+void
+serialReadF(float *num)
+{
+	USART3->CR1 |= USART_CR1_RXNEIE;
+	while(!temp);
+
+	*num = temp;
+	USART3->CR1 &= ~USART_CR1_RXNEIE;
 }
 
 /** @brief Waits for a character.
@@ -135,6 +167,36 @@ serialWrite(int ch)
 	UART5->TDR = ch;						// transfers the value of the data register into ch
 }
 
+/** @brief Uses interrupts to read uint8 data to the receive buffer.
+ *
+ *  @param uint8_t *num Pointer to the location you want to store the received number
+ *  @return Void.
+ */
+void
+serialRead8(uint8_t *num)
+{
+	UART5->CR1 |= USART_CR1_RXNEIE;
+	while(!temp);
+
+	*num = (uint8_t)temp;
+	UART5->CR1 &= ~USART_CR1_RXNEIE;
+}
+
+/** @brief Uses interrupts to read float data to the receive buffer.
+ *
+ *  @param *num Pointer to the location you want to store the received number
+ *  @return Void.
+ */
+void
+serialReadF(float *num)
+{
+	UART5->CR1 |= USART_CR1_RXNEIE;
+	while(!temp);
+
+	*num = temp;
+	UART5->CR1 &= ~USART_CR1_RXNEIE;
+}
+
 /** @brief Waits for a character.
  *
  *  @param wait Character to wait for.
@@ -144,15 +206,18 @@ serialWrite(int ch)
 bool
 serialWaitFor(char wait)
 {
+	char tempChar;
+
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!temp);
-	if(temp == wait){
-		temp = '\0';
+	tempChar = (uint8_t)temp;
+	if(tempChar == wait){
+		temp = 0;
 		UART5->CR1 &= ~USART_CR1_RXNEIE;
 		return true;
 	}
 	else{
-		temp = '\0';
+		temp = 0;
 		UART5->CR1 &= ~USART_CR1_RXNEIE;
 		return false;
 	}

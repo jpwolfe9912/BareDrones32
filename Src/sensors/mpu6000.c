@@ -1,6 +1,6 @@
 /** @file 		mpu6000.c
  *  @brief
- *  	This file contains all the functions to initalize and read data from the MPU-6000
+ *  	This file contains all the functions to initalize and read data from the MPU-6000.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		06 MAR 2022

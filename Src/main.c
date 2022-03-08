@@ -1,6 +1,15 @@
+/** @file 		main.c
+ *  @brief
+ *  	This file runs all the other functions and carries out the scheduling of tasks.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		23 FEB 2022
+ */
+
+/* Includes */
 #include "board.h"
 
-
+/* Global Variables */
 __attribute__((__section__(".eeprom"), used)) const int8_t eepromArray[16384];
 
 eepromConfig_t	eepromConfig;
@@ -29,6 +38,7 @@ int main(void)
 	systemReady = false;
 
 	systemInit();
+
 
 	systemReady = true;
 
@@ -90,7 +100,7 @@ int main(void)
 			sensors.attitude500Hz[PITCH] = getPitchRadians();
 			sensors.attitude500Hz[YAW  ] = getYawRadians();
 
-			processFlightCommands();
+			processCommands();
 			computeAxisCommands(dt500Hz);
 			mixTable();
 			dshotWrite(motor_value);
@@ -315,28 +325,15 @@ int main(void)
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
-
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
-/**
  * @brief  This function is executed in case of error occurrence.
  * @retval None
  */
 void Error_Handler(void)
 {
-	/* USER CODE BEGIN Error_Handler_Debug */
-	/* User can add his own implementation to report the HAL error return state */
 	__disable_irq();
 	while (1)
 	{
 	}
-	/* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -355,5 +352,3 @@ void assert_failed(uint8_t *file, uint32_t line)
 	/* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,25 +1,19 @@
-/**
- ******************************************************************************
- * @file    tim.c
- * @brief   This file provides code for the configuration
- *          of the TIM instances.
- ******************************************************************************
- * @attention
+/** @file 		drv_tim.c
+ *  @brief
+ *  	This file enables use of a timer to ensure accurate timing of the PID loop.
  *
- * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
- * All rights reserved.</center></h2>
- *
- * This software component is licensed by ST under BSD 3-Clause license,
- * the "License"; You may not use this file except in compliance with the
- * License. You may obtain a copy of the License at:
- *                        opensource.org/licenses/BSD-3-Clause
- *
- ******************************************************************************
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
  */
 
-/* Includes ------------------------------------------------------------------*/
+/* Includes */
 #include "board.h"
 
+/** @brief Initializes the low level registers to set up
+ *  the timer.
+ *
+ *  @return Void.
+ */
 void
 tim9Init(void)
 {
@@ -30,24 +24,40 @@ tim9Init(void)
 	TIM9->CNT	= 4000;
 }
 
+/** @brief Gets the counter value.
+ *
+ *  @return Void.
+ */
 uint32_t
 tim9GetCnt(void)
 {
 	return TIM9->CNT;
 }
 
+/** @brief Resets the counter.
+ *
+ *  @return Void.
+ */
 void
 tim9ResetCnt(void)
 {
 	TIM9->CNT = 0;
 }
 
+/** @brief Enables the timer.
+ *
+ *  @return Void.
+ */
 void
 tim9Enable(void)
 {
 	TIM9->CR1	|= TIM_CR1_CEN;
 }
 
+/** @brief Disables the timer.
+ *
+ *  @return Void.
+ */
 void
 tim9Disable(void)
 {

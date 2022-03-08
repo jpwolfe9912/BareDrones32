@@ -1,15 +1,15 @@
 /** @file 		drv_usart.c
- *  @brief This file enables reading of usart data
- *  	for use with a serial receiver
+ *  @brief
+ *  	This file enables reading of usart data for use with a serial receiver.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
-
+/* Includes */
 #include "board.h"
 
+/* Global Variables */
 char read;
 uint8_t readFlag = 0;
 
@@ -17,8 +17,6 @@ uint8_t readFlag = 0;
 uint8_t rxBuf[RXBUF_SIZE];			// dma data
 lwrb_t rxRingBuf;					// ring buffer instance
 uint8_t rxRingBufData[RXBUF_SIZE];	// ring buffer data
-
-/* Functions */
 
 /** @brief Initializes the low level registers for usart1.
  *

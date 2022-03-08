@@ -1,92 +1,23 @@
 \hypertarget{utilities_8h_source}{}\doxysection{utilities.\+h}
-\label{utilities_8h_source}\index{Autodrone32/Src/utilities.h@{Autodrone32/Src/utilities.h}}
+\label{utilities_8h_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/utilities.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/utilities.h}}
 \mbox{\hyperlink{utilities_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00001}00001 \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00002}00002 \textcolor{comment}{  October 2012}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00003}00003 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00004}00004 \textcolor{comment}{  aq32Plus Rev -\/}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00005}00005 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00006}00006 \textcolor{comment}{  Copyright (c) 2012 John Ihlein.  All rights reserved.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00007}00007 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00008}00008 \textcolor{comment}{  Open Source STM32 Based Multicopter Controller Software}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00009}00009 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00010}00010 \textcolor{comment}{  Includes code and/or ideas from:}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00011}00011 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00012}00012 \textcolor{comment}{  1)AeroQuad}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00013}00013 \textcolor{comment}{  2)BaseFlight}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00014}00014 \textcolor{comment}{  3)CH Robotics}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00015}00015 \textcolor{comment}{  4)MultiWii}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00016}00016 \textcolor{comment}{  5)S.O.H. Madgwick}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00017}00017 \textcolor{comment}{  6)UAVX}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00018}00018 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00019}00019 \textcolor{comment}{  Designed to run on the AQ32 Flight Control Board}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00020}00020 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00021}00021 \textcolor{comment}{  This program is free software: you can redistribute it and/or modify}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00022}00022 \textcolor{comment}{  it under the terms of the GNU General Public License as published by}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00023}00023 \textcolor{comment}{  the Free Software Foundation, either version 3 of the License, or}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00024}00024 \textcolor{comment}{  (at your option) any later version.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00025}00025 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00026}00026 \textcolor{comment}{  This program is distributed in the hope that it will be useful,}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00027}00027 \textcolor{comment}{  but WITHOUT ANY WARRANTY; without even the implied warranty of}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00028}00028 \textcolor{comment}{  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00029}00029 \textcolor{comment}{  GNU General Public License for more details.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00030}00030 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00031}00031 \textcolor{comment}{  You should have received a copy of the GNU General Public License}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00032}00032 \textcolor{comment}{  along with this program. If not, see <http://www.gnu.org/licenses/>.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00033}00033 \textcolor{comment}{*/}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00034}00034 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00036}00036 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00037}00037 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00038}00038 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00040}00040 \textcolor{comment}{// Constrain}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00042}00042 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00043}00043 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_aa81f27853b4b3674705ffa1c5658ae45}{constrain}}(\textcolor{keywordtype}{float} input, \textcolor{keywordtype}{float} minValue, \textcolor{keywordtype}{float} maxValue);}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00044}00044 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00046}00046 \textcolor{comment}{// \_sbrk}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00048}00048 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00049}00049 \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00050}00050 \textcolor{comment}{ * newlib\_stubs.c}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00051}00051 \textcolor{comment}{ *}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00052}00052 \textcolor{comment}{ *  Created on: 2 Nov 2010}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00053}00053 \textcolor{comment}{ *      Author: nanoage.co.uk}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00054}00054 \textcolor{comment}{ */}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00055}00055 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00056}00056 \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00057}00057 \textcolor{comment}{ sbrk}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00058}00058 \textcolor{comment}{ Increase program data space.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00059}00059 \textcolor{comment}{ Malloc and related functions depend on this}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00060}00060 \textcolor{comment}{ */}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00061}00061 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00062}00062 caddr\_t \mbox{\hyperlink{utilities_8h_aae54d7b9578ba1fc171ce6f30f4c68a3}{\_sbrk}}(\textcolor{keywordtype}{int} incr);}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00063}00063 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00065}00065 \textcolor{comment}{//  Least Squares Fit a Sphere to 3D Data}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00067}00067 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00068}00068 \textcolor{comment}{// Least squares fit a sphere to 3D data, ImaginaryZ's blog,}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00069}00069 \textcolor{comment}{// Miscellaneous banter, Useful mathematics, game programming}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00070}00070 \textcolor{comment}{// tools and the occasional kink or two.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00071}00071 \textcolor{comment}{// 22 April 2011.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00072}00072 \textcolor{comment}{// http: imaginaryz.blogspot.com.au/2011/04/least-\/squares-\/fit-\/sphere-\/to-\/3d-\/data.html}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00073}00073 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00074}00074 \textcolor{comment}{// Substantially rewritten for UAVXArm by Prof. G.K. Egan (C) 2012.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00075}00075 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00076}00076 \textcolor{comment}{// Incorporated into AQ32Plus by J. Ihlein (C) 2012.}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00077}00077 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00078}\mbox{\hyperlink{utilities_8h_ad1fb92c1c794ed63da2e6d7b8c63ddd8}{00078}} uint16\_t \mbox{\hyperlink{utilities_8h_ad1fb92c1c794ed63da2e6d7b8c63ddd8}{sphereFit}}(\textcolor{keywordtype}{float}    d[][3],}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00079}00079                    uint16\_t N,}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00080}00080                    uint16\_t MaxIterations,}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00081}00081                    \textcolor{keywordtype}{float}    Err,}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00082}00082                    uint16\_t Population[][3],}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00083}00083                    \textcolor{keywordtype}{float}    SphereOrigin[],}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00084}00084                    \textcolor{keywordtype}{float}    * SphereRadius);}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00085}00085 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00087}00087 \textcolor{comment}{//  Standard Radian Format Limiter}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00089}00089 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00090}00090 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_a3eb5c7ac4a35ae17b26f4b67eec87eaf}{standardRadianFormat}}(\textcolor{keywordtype}{float} angle);}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00091}00091 }
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00093}00093 \textcolor{comment}{// String to Float Conversion}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00095}00095 \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00096}00096 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_ad0b0dc4f3638f2b51fe386887ec638bf}{stringToFloat}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *p);}
-\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00009}00009 \textcolor{preprocessor}{\#ifndef \_\_UTILITIES\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00010}00010 \textcolor{preprocessor}{\#define \_\_UTILITIES\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00012}00012 \textcolor{comment}{/* Defines */}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00013}\mbox{\hyperlink{utilities_8h_ab32337e24cb5172d57a8f679b05cb159}{00013}} \textcolor{preprocessor}{\#define white\_space(c) ((c) == ' ' || (c) == '\(\backslash\)t')}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00014}\mbox{\hyperlink{utilities_8h_a77f89089972f027bab0d7f971c2b1969}{00014}} \textcolor{preprocessor}{\#define valid\_digit(c) ((c) >= '0' \&\& (c) <= '9')}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00016}00016 \textcolor{comment}{/* Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00017}00017 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_aa81f27853b4b3674705ffa1c5658ae45}{constrain}}(\textcolor{keywordtype}{float} input, \textcolor{keywordtype}{float} minValue, \textcolor{keywordtype}{float} maxValue);}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00018}00018 uint16\_t \mbox{\hyperlink{utilities_8h_ae404b748d442c3f634e367bcf74e4da3}{constrain16}}(uint16\_t input, uint16\_t minValue, uint16\_t maxValue);}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00019}00019 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_a3eb5c7ac4a35ae17b26f4b67eec87eaf}{standardRadianFormat}}(\textcolor{keywordtype}{float} angle);}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00020}00020 uint16\_t \mbox{\hyperlink{utilities_8h_a017121a07e1620055423b251be444174}{dshot3dFormat}}(int16\_t rxCmd);}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00021}00021 \textcolor{keywordtype}{float} \mbox{\hyperlink{utilities_8h_ad0b0dc4f3638f2b51fe386887ec638bf}{stringToFloat}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *p);}
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{utilities_8h_source_l00024}00024 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_\_UTILITIES\_H\_\_ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

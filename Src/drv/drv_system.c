@@ -6,42 +6,16 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		03 MAR 2022
- *  @bug
  */
 
 #include "board.h"
 
-///////////////////////////////////////////////////////////////////////////////
-
-// Cycles per microsecond
+/* Static Variables */
 static volatile uint32_t usTicks = 0;
-
-///////////////////////////////////////////////////////////////////////////////
-
-// Current uptime for 1kHz systick timer. will rollover after 49 days.
-// Hopefully we won't care.
 static volatile uint32_t sysTickUptime = 0;
 static volatile uint32_t sysTickCycleCounter = 0;
 
-/** @brief Initializes the cycle counter so we can use delay
- *  and getTime functions
- *
- *  @return Void.
- */
-static void
-cycleCounterInit(void)
-{
-	usTicks = SystemCoreClock / 1000000;
-
-	// enable DWT access
-	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-	// enable the CPU cycle counter
-	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-}
-
-///////////////////////////////////////
-// Frame Timing Variables
-///////////////////////////////////////
+/* Global Variables */
 
 uint16_t frameCounter = 0;
 
@@ -66,6 +40,10 @@ float dt500Hz, dt100Hz;
 semaphore_t systemReady = false;
 
 semaphore_t execUp = false;
+
+/* Static Function Prototypes */
+static void cycleCounterInit(void);
+
 /**
  * @brief This function handles System tick timer.
  */
@@ -298,8 +276,8 @@ systemInit(void)
 
 	dshotInit(DSHOT600);
 	motorInit();
-	motors3dOn(MOTOR1);
-	motors3dOn(MOTOR2);
+//	motors3dOn(MOTOR1);
+//	motors3dOn(MOTOR2);
 
 
 	spi1Init();
@@ -317,10 +295,28 @@ systemInit(void)
 
 	while(!ibusInit());
 
+	initPID();
+	initPIDvalues();
+
 
 	motor_initialized = 1;
 
 //	motorZeroCommand();
 
+}
 
+/** @brief Initializes the cycle counter so we can use delay
+ *  and getTime functions
+ *
+ *  @return Void.
+ */
+static void
+cycleCounterInit(void)
+{
+	usTicks = SystemCoreClock / 1000000;
+
+	// enable DWT access
+	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+	// enable the CPU cycle counter
+	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }

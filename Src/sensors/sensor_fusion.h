@@ -21,18 +21,23 @@ void updateIMU(float gx, float gy, float gz, float ax, float ay, float az);
 void computeAngles(void);
 
 /* Global Variables */
-float beta;				// algorithm gain
-float q0;
-float q1;
-float q2;
-float q3;	// quaternion of sensor frame relative to auxiliary frame
-float invSampleFreq;
-float roll;
-float pitch;
-float yaw;
-char anglesComputed;
+extern float beta;				// algorithm gain
+extern float q0;
+extern float q1;
+extern float q2;
+extern float q3;	// quaternion of sensor frame relative to auxiliary frame
+extern float invSampleFreq;
+extern float roll;
+extern float pitch;
+extern float yaw;
+extern char anglesComputed;
 
 /* Inline Functions */
+
+/** @brief Computes roll angle in deg.
+ *
+ * 	@return float Roll.
+ */
 static inline float
 getRoll(void)
 {
@@ -40,6 +45,10 @@ getRoll(void)
 	return roll * 57.29578f;
 }
 
+/** @brief Computes pitch angle in deg.
+ *
+ * 	@return float Pitch.
+ */
 static inline float
 getPitch(void)
 {
@@ -47,13 +56,21 @@ getPitch(void)
 	return pitch * 57.29578f;
 }
 
+/** @brief Computes yaw angle in deg.
+ *
+ * 	@return float Yaw.
+ */
 static inline float
 getYaw(void)
 {
 	if (!anglesComputed) computeAngles();
-	return yaw * 57.29578f + 180.0f;
+	return yaw * 57.29578f;
 }
 
+/** @brief Computes roll angle in rad.
+ *
+ * 	@return float Roll.
+ */
 static inline float
 getRollRadians(void)
 {
@@ -61,6 +78,10 @@ getRollRadians(void)
 	return roll;
 }
 
+/** @brief Computes pitch angle in rad.
+ *
+ * 	@return float Pitch.
+ */
 static inline float
 getPitchRadians(void)
 {
@@ -68,6 +89,10 @@ getPitchRadians(void)
 	return pitch;
 }
 
+/** @brief Computes yaw angle in rad.
+ *
+ * 	@return float Yaw.
+ */
 static inline float
 getYawRadians(void)
 {

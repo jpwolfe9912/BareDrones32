@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Autodrone32: Autodrone32/Src/flight_command.h Source File</title>
+<title>Autodrone32: /Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/flight_command.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_9f85bb2c43aece0d127cc8ccedadf091.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_817997d9a478439d9806bc549fca2c84.html">Src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -104,63 +104,67 @@ $(function() {
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">*/</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// Process Pilot Commands Defines and Variables</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"></span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="flight__command_8h.html#a196c194bd32527a119ac607d3b2330b6">   43</a></span><span class="preprocessor">#define DEADBAND       24</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="flight__command_8h.html#aff2db53de34ab9f0f712f2cdef478882">   44</a></span><span class="preprocessor">#define DEADBAND_SLOPE (1000/(1000-DEADBAND))</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="flight__command_8h.html#a9c78c544264501fdc2d5447a8f3a66c3">   46</a></span><span class="preprocessor">#define ALT_DEADBAND       200</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="flight__command_8h.html#abde289a36c7acca8016f10eb346fab3e">   47</a></span><span class="preprocessor">#define ALT_DEADBAND_SLOPE (1000/(1000-ALT_DEADBAND))</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="flight__command_8h.html#af8761c64817a68293f3ed254464d81c7">   49</a></span><span class="preprocessor">#define THROTTLE_WINDOW    48</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">extern</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="flight__command_8h.html#ae767c84bb0f764c266954094c2869142">rxCommand</a>[12];</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#aa7ec4b36be7336ea09ed4944e3029c78">commandInDetent</a>[3];</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#afba620164d81adc771510752f70e7cc8">previousCommandInDetent</a>[3];</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#ad58d530e3f054c8c8d45a203c46a3d5e">channelOrder</a>[12];</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// Flight Mode Defines and Variables</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"></span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#a37e90f5e3bd99fac2021fb3a326607d4">mode</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#aa5e0dd4f5a127ad9b7df7da86f717820">headingHoldEngaged</a>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">// Arm State Variables</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"></span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">extern</span> <a class="code hl_typedef" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a> <a class="code hl_variable" href="flight__command_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a">armed</a>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="flight__command_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="flight__command_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// Verical Mode State Variables</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"></span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">extern</span> uint8_t  <a class="code hl_variable" href="flight__command_8h.html#a2594cb793ee3ec9f0113f5fc28951451">verticalModeState</a>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">extern</span> uint8_t  <a class="code hl_variable" href="flight__command_8h.html#a4270f800c12dfc01db1f8e9e60af4095">vertRefCmdInDetent</a>;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">extern</span> <span class="keywordtype">float</span>    <a class="code hl_variable" href="flight__command_8h.html#a79ae4259b91c06c5a05004cbc3ae5def">verticalReferenceCommand</a>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// Process Flight Commands</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="flight__command_8h.html#a9cd2a65048398c923b5603a2ce46b2a2">processFlightCommands</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#ifndef __FLIGHT_COMMAND_H__</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define __FLIGHT_COMMAND_H__</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// Process Pilot Commands Defines and Variables</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="flight__command_8h.html#a196c194bd32527a119ac607d3b2330b6">   44</a></span><span class="preprocessor">#define DEADBAND       24</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="flight__command_8h.html#aff2db53de34ab9f0f712f2cdef478882">   45</a></span><span class="preprocessor">#define DEADBAND_SLOPE (1000/(1000-DEADBAND))</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="flight__command_8h.html#a9c78c544264501fdc2d5447a8f3a66c3">   47</a></span><span class="preprocessor">#define ALT_DEADBAND       200</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="flight__command_8h.html#abde289a36c7acca8016f10eb346fab3e">   48</a></span><span class="preprocessor">#define ALT_DEADBAND_SLOPE (1000/(1000-ALT_DEADBAND))</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="flight__command_8h.html#af8761c64817a68293f3ed254464d81c7">   50</a></span><span class="preprocessor">#define THROTTLE_WINDOW    48</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">extern</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="flight__command_8h.html#ae767c84bb0f764c266954094c2869142">rxCommand</a>[12];</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#aa7ec4b36be7336ea09ed4944e3029c78">commandInDetent</a>[3];</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#afba620164d81adc771510752f70e7cc8">previousCommandInDetent</a>[3];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#ad58d530e3f054c8c8d45a203c46a3d5e">channelOrder</a>[12];</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// Flight Mode Defines and Variables</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"></span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#a37e90f5e3bd99fac2021fb3a326607d4">mode</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="flight__command_8h.html#aa5e0dd4f5a127ad9b7df7da86f717820">headingHoldEngaged</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// Arm State Variables</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">extern</span> <a class="code hl_typedef" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a> <a class="code hl_variable" href="flight__command_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a">armed</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="flight__command_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="flight__command_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// Verical Mode State Variables</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">extern</span> uint8_t  <a class="code hl_variable" href="flight__command_8h.html#a2594cb793ee3ec9f0113f5fc28951451">verticalModeState</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">extern</span> uint8_t  <a class="code hl_variable" href="flight__command_8h.html#a4270f800c12dfc01db1f8e9e60af4095">vertRefCmdInDetent</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">extern</span> <span class="keywordtype">float</span>    <a class="code hl_variable" href="flight__command_8h.html#a79ae4259b91c06c5a05004cbc3ae5def">verticalReferenceCommand</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">// Process Flight Commands</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment"></span><span class="keyword">extern</span> int16_t <a class="code hl_variable" href="flight__command_8h.html#ab51ddf40215639ed956046378ceb51d9">rxCommands</a>[8];</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="ttc" id="a_autodrone32_8h_html_a3d5a901a753342ccfc67d9706af13165"><div class="ttname"><a href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a></div><div class="ttdeci">volatile uint8_t semaphore_t</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00076">Autodrone32.h:76</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a2594cb793ee3ec9f0113f5fc28951451"><div class="ttname"><a href="flight__command_8h.html#a2594cb793ee3ec9f0113f5fc28951451">verticalModeState</a></div><div class="ttdeci">uint8_t verticalModeState</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00070">flight_command.c:70</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a37e90f5e3bd99fac2021fb3a326607d4"><div class="ttname"><a href="flight__command_8h.html#a37e90f5e3bd99fac2021fb3a326607d4">mode</a></div><div class="ttdeci">uint8_t mode</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00054">flight_command.c:54</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a4270f800c12dfc01db1f8e9e60af4095"><div class="ttname"><a href="flight__command_8h.html#a4270f800c12dfc01db1f8e9e60af4095">vertRefCmdInDetent</a></div><div class="ttdeci">uint8_t vertRefCmdInDetent</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00075">flight_command.c:75</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a79ae4259b91c06c5a05004cbc3ae5def"><div class="ttname"><a href="flight__command_8h.html#a79ae4259b91c06c5a05004cbc3ae5def">verticalReferenceCommand</a></div><div class="ttdeci">float verticalReferenceCommand</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00078">flight_command.c:78</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a8a1c07a2b10dfb3f7633b8db1d1dac4a"><div class="ttname"><a href="flight__command_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a">armed</a></div><div class="ttdeci">semaphore_t armed</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00062">flight_command.c:62</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_a9cd2a65048398c923b5603a2ce46b2a2"><div class="ttname"><a href="flight__command_8h.html#a9cd2a65048398c923b5603a2ce46b2a2">processFlightCommands</a></div><div class="ttdeci">void processFlightCommands(void)</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00084">flight_command.c:84</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_aa17cd4729b354f25c53300d973288213"><div class="ttname"><a href="flight__command_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a></div><div class="ttdeci">uint8_t armingTimer</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00063">flight_command.c:63</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_aa5e0dd4f5a127ad9b7df7da86f717820"><div class="ttname"><a href="flight__command_8h.html#aa5e0dd4f5a127ad9b7df7da86f717820">headingHoldEngaged</a></div><div class="ttdeci">uint8_t headingHoldEngaged</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00056">flight_command.c:56</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_aa7ec4b36be7336ea09ed4944e3029c78"><div class="ttname"><a href="flight__command_8h.html#aa7ec4b36be7336ea09ed4944e3029c78">commandInDetent</a></div><div class="ttdeci">uint8_t commandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00045">flight_command.c:45</a></div></div>
-<div class="ttc" id="aflight__command_8h_html_abaaaab74a851da13a44ccd63988196cc"><div class="ttname"><a href="flight__command_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a></div><div class="ttdeci">uint8_t disarmingTimer</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00064">flight_command.c:64</a></div></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">void</span> <a class="code hl_function" href="flight__command_8h.html#a9cd2a65048398c923b5603a2ce46b2a2">processFlightCommands</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_autodrone32_8h_html_a3d5a901a753342ccfc67d9706af13165"><div class="ttname"><a href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a></div><div class="ttdeci">volatile uint8_t semaphore_t</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00077">Autodrone32.h:77</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_a2594cb793ee3ec9f0113f5fc28951451"><div class="ttname"><a href="flight__command_8h.html#a2594cb793ee3ec9f0113f5fc28951451">verticalModeState</a></div><div class="ttdeci">uint8_t verticalModeState</div></div>
+<div class="ttc" id="aflight__command_8h_html_a37e90f5e3bd99fac2021fb3a326607d4"><div class="ttname"><a href="flight__command_8h.html#a37e90f5e3bd99fac2021fb3a326607d4">mode</a></div><div class="ttdeci">uint8_t mode</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00052">flight_command.c:52</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_a4270f800c12dfc01db1f8e9e60af4095"><div class="ttname"><a href="flight__command_8h.html#a4270f800c12dfc01db1f8e9e60af4095">vertRefCmdInDetent</a></div><div class="ttdeci">uint8_t vertRefCmdInDetent</div></div>
+<div class="ttc" id="aflight__command_8h_html_a79ae4259b91c06c5a05004cbc3ae5def"><div class="ttname"><a href="flight__command_8h.html#a79ae4259b91c06c5a05004cbc3ae5def">verticalReferenceCommand</a></div><div class="ttdeci">float verticalReferenceCommand</div></div>
+<div class="ttc" id="aflight__command_8h_html_a8a1c07a2b10dfb3f7633b8db1d1dac4a"><div class="ttname"><a href="flight__command_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a">armed</a></div><div class="ttdeci">semaphore_t armed</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00060">flight_command.c:60</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_a9cd2a65048398c923b5603a2ce46b2a2"><div class="ttname"><a href="flight__command_8h.html#a9cd2a65048398c923b5603a2ce46b2a2">processFlightCommands</a></div><div class="ttdeci">void processFlightCommands(void)</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00069">flight_command.c:69</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_aa17cd4729b354f25c53300d973288213"><div class="ttname"><a href="flight__command_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a></div><div class="ttdeci">uint8_t armingTimer</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00061">flight_command.c:61</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_aa5e0dd4f5a127ad9b7df7da86f717820"><div class="ttname"><a href="flight__command_8h.html#aa5e0dd4f5a127ad9b7df7da86f717820">headingHoldEngaged</a></div><div class="ttdeci">uint8_t headingHoldEngaged</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00054">flight_command.c:54</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_aa7ec4b36be7336ea09ed4944e3029c78"><div class="ttname"><a href="flight__command_8h.html#aa7ec4b36be7336ea09ed4944e3029c78">commandInDetent</a></div><div class="ttdeci">uint8_t commandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00043">flight_command.c:43</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_ab51ddf40215639ed956046378ceb51d9"><div class="ttname"><a href="flight__command_8h.html#ab51ddf40215639ed956046378ceb51d9">rxCommands</a></div><div class="ttdeci">int16_t rxCommands[8]</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00067">flight_command.c:67</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_abaaaab74a851da13a44ccd63988196cc"><div class="ttname"><a href="flight__command_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a></div><div class="ttdeci">uint8_t disarmingTimer</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00062">flight_command.c:62</a></div></div>
 <div class="ttc" id="aflight__command_8h_html_ad58d530e3f054c8c8d45a203c46a3d5e"><div class="ttname"><a href="flight__command_8h.html#ad58d530e3f054c8c8d45a203c46a3d5e">channelOrder</a></div><div class="ttdeci">uint8_t channelOrder[12]</div></div>
 <div class="ttc" id="aflight__command_8h_html_ae767c84bb0f764c266954094c2869142"><div class="ttname"><a href="flight__command_8h.html#ae767c84bb0f764c266954094c2869142">rxCommand</a></div><div class="ttdeci">float rxCommand[12]</div></div>
-<div class="ttc" id="aflight__command_8h_html_afba620164d81adc771510752f70e7cc8"><div class="ttname"><a href="flight__command_8h.html#afba620164d81adc771510752f70e7cc8">previousCommandInDetent</a></div><div class="ttdeci">uint8_t previousCommandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00046">flight_command.c:46</a></div></div>
+<div class="ttc" id="aflight__command_8h_html_afba620164d81adc771510752f70e7cc8"><div class="ttname"><a href="flight__command_8h.html#afba620164d81adc771510752f70e7cc8">previousCommandInDetent</a></div><div class="ttdeci">uint8_t previousCommandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="flight__command_8c_source.html#l00044">flight_command.c:44</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

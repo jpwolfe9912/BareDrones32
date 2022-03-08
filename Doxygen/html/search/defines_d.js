@@ -24,9 +24,11 @@ var searchData=
   ['phy_5fsr_21',['PHY_SR',['../stm32f7xx__hal__conf_8h.html#a32b55e84d27cf298a77f54b133cd1acc',1,'stm32f7xx_hal_conf.h']]],
   ['phy_5fwrite_5fto_22',['PHY_WRITE_TO',['../stm32f7xx__hal__conf_8h.html#a474bf13e28d09b667e41b151140ee39d',1,'stm32f7xx_hal_conf.h']]],
   ['pi_23',['PI',['../_autodrone32_8h.html#a598a3330b3c21701223ee0ca14316eca',1,'Autodrone32.h']]],
-  ['pitch_24',['PITCH',['../_autodrone32_8h.html#acd633835a520a62245ec6cfeb6d00e97',1,'Autodrone32.h']]],
-  ['pitch_5fatt_5fpid_25',['PITCH_ATT_PID',['../_autodrone32_8h.html#aa5049e31750ce30b89716ffca24dc90d',1,'Autodrone32.h']]],
-  ['pitch_5frate_5fpid_26',['PITCH_RATE_PID',['../_autodrone32_8h.html#a1958b73d2ee48b59a1c8f506881ee0f0',1,'Autodrone32.h']]],
-  ['prefetch_5fenable_27',['PREFETCH_ENABLE',['../stm32f7xx__hal__conf_8h.html#a13fc0d5e7bb925385c0cc0772ba6a391',1,'stm32f7xx_hal_conf.h']]],
-  ['putchar_5fprototype_28',['PUTCHAR_PROTOTYPE',['../drv__serial_8c.html#ac040eb6679fed6e591776425aa7abd9d',1,'drv_serial.c']]]
+  ['pidmixflight_24',['PIDMIXFLIGHT',['../mixer_8h.html#a01f41f3ca3e06ad102b8c2beaf0f3df9',1,'mixer.h']]],
+  ['pidmixrover_25',['PIDMIXROVER',['../mixer_8h.html#a614580853a315063dde796faa3697c52',1,'mixer.h']]],
+  ['pitch_26',['PITCH',['../_autodrone32_8h.html#acd633835a520a62245ec6cfeb6d00e97',1,'Autodrone32.h']]],
+  ['pitch_5fatt_5fpid_27',['PITCH_ATT_PID',['../_autodrone32_8h.html#aa5049e31750ce30b89716ffca24dc90d',1,'Autodrone32.h']]],
+  ['pitch_5frate_5fpid_28',['PITCH_RATE_PID',['../_autodrone32_8h.html#a1958b73d2ee48b59a1c8f506881ee0f0',1,'Autodrone32.h']]],
+  ['prefetch_5fenable_29',['PREFETCH_ENABLE',['../stm32f7xx__hal__conf_8h.html#a13fc0d5e7bb925385c0cc0772ba6a391',1,'stm32f7xx_hal_conf.h']]],
+  ['putchar_5fprototype_30',['PUTCHAR_PROTOTYPE',['../drv__serial_8c.html#ac040eb6679fed6e591776425aa7abd9d',1,'drv_serial.c']]]
 ];
