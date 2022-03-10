@@ -164,7 +164,7 @@ int main(void)
 							attPID[PITCH]);
 				}
 
-				if ( eepromConfig.activeTelemetry == 4 )
+				if ( eepromConfig.activeTelemetry == 3 )
 				{
 					// Sensors
 					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n", sensors.accel500Hz[XAXIS],
@@ -179,9 +179,13 @@ int main(void)
 
 				}
 
-				if ( eepromConfig.activeTelemetry == 8 )
+				if ( eepromConfig.activeTelemetry == 4 )
 				{
-
+					printf("4,%u,%u,%u,%u,\n",
+							motor_value[0],
+							motor_value[1],
+							motor_value[2],
+							motor_value[3]);
 				}
 
 			}

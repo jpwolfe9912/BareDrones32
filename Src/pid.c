@@ -105,20 +105,39 @@ initPIDvalues(void)
 			printf("Yaw Att PID   : 5\n");
 			serialRead8(&ID);
 
-			printf("P: \n");
-			serialReadF(&eepromConfig.PID[ID].P);
-			printf("I: \n");
-			serialReadF(&eepromConfig.PID[ID].I);
-			printf("D: \n");
-			serialReadF(&eepromConfig.PID[ID].D);
-			printf("Limit: \n");
-			serialReadF(&eepromConfig.PID[ID].Limit);
-			printf("Integrator State: \n");
-			serialReadF(&eepromConfig.PID[ID].integratorState);
-			printf("Filter State: \n");
-			serialReadF(&eepromConfig.PID[ID].filterState);
+			color(YELLOW, YES);
+			printf("\nConfiguring state %u\n", ID);
+			delay(1);
+			color(BLUE, YES);
+			printf("Current States:\n");
+			delay(1);
+			colorDefault();
+			printf("\nP(%1.2f): \nI(%1.2f): \nD(%1.2f): \nLimit(%1.2f): \nFilter State(%1.2f): \nIntegrator State(%1.2f): \n",
+					eepromConfig.PID[ID].P,
+					eepromConfig.PID[ID].I,
+					eepromConfig.PID[ID].D,
+					eepromConfig.PID[ID].Limit,
+					eepromConfig.PID[ID].integratorState,
+					eepromConfig.PID[ID].filterState);
+
+			serialReadPID(&eepromConfig.PID[ID].P,
+					&eepromConfig.PID[ID].I,
+					&eepromConfig.PID[ID].D,
+					&eepromConfig.PID[ID].Limit,
+					&eepromConfig.PID[ID].integratorState,
+					&eepromConfig.PID[ID].filterState);
+
+			printf("\nNew States:\n");
+			printf("\nP(%1.2f): \nI(%1.2f): \nD(%1.2f): \nLimit(%1.2f): \nFilter State(%1.2f): \nIntegrator State(%1.2f): \n",
+					eepromConfig.PID[ID].P,
+					eepromConfig.PID[ID].I,
+					eepromConfig.PID[ID].D,
+					eepromConfig.PID[ID].Limit,
+					eepromConfig.PID[ID].integratorState,
+					eepromConfig.PID[ID].filterState);
 
 			printf("\nWould you like to configure another state?\n");
+			delay(1);
 			if(serialWaitFor('y')){
 				again = true;
 			}
@@ -126,6 +145,8 @@ initPIDvalues(void)
 				again = false;
 			}
 		}
+		else
+			again = false;
 	}
 }
 

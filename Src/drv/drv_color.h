@@ -11,7 +11,7 @@
 #define __COLOR_H__
 
 /* Global Enums */
-enum color
+typedef enum
 {
 	BLACK,
 	RED,
@@ -21,13 +21,13 @@ enum color
 	PURPLE,
 	CYAN,
 	WHITE
-};
+}color_e;
 
-enum bf
+typedef enum
 {
 	NO,
 	YES
-};
+}bf_e;
 
 /* Function Prototypes */
 void color(uint8_t color, uint8_t bf);

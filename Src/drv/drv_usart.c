@@ -122,6 +122,6 @@ usart1Read(uint8_t *pData, uint8_t size)
 
 		USART1->ICR			|= USART_ICR_IDLECF;// clear idle interrupt flag
 		USART1->CR1			|= USART_CR1_IDLEIE;// enable idle line interrupts
-		USART1->CR1			|= USART_CR1_UE;			// enable usart
+		USART1->CR1			|= USART_CR1_UE;	// enable usart
 	}
 }

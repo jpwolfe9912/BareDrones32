@@ -17,7 +17,7 @@
  *  @return Void.
  */
 void
-color(uint8_t color, uint8_t bf)
+color(color_e color, bf_e bf)
 {
 	printf("\033[%d;3%dm", bf, color);
 }

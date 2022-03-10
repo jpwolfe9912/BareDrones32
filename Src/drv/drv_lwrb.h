@@ -1,3 +1,10 @@
+/** @file 		drv_lwrb.h
+ *  @brief
+ *  	This file is part of LwRB - Lightweight ring buffer library.
+ *
+ *  @author 	Tilen MAJERLE <tilen@majerle.eu>
+ */
+
 /*
  * Copyright (c) 2022 Tilen MAJERLE
  *

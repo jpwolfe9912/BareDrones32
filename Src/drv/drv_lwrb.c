@@ -1,6 +1,8 @@
-/**
- * \file            lwrb.c
- * \brief           Lightweight ring buffer
+/** @file 		drv_lwrb.c
+ *  @brief
+ *  	This file is part of LwRB - Lightweight ring buffer library.
+ *
+ *  @author 	Tilen MAJERLE <tilen@majerle.eu>
  */
 
 /*

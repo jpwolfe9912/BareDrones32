@@ -41,6 +41,5 @@ motors3dOn(motors_e motor)
 	motor_value[motor] = DSHOT_CMD_3D_MODE_ON;
 	delay(10);
 	motor_value[motor] = 0;
-	delay(1500);
 }
 

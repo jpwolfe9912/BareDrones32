@@ -405,7 +405,7 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.activeTelemetry          = 1;
+		eepromConfig.activeTelemetry          = 4;
 		eepromConfig.mavlinkEnabled           = false;
 
 		eepromConfig.verticalVelocityHoldOnly = true;

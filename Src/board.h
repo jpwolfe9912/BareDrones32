@@ -42,8 +42,6 @@
 #include "drv_serial.h"
 #include "drv_adc.h"
 #include "drv_dma.h"
-#include "drv_gpio.h"
-#include "drv_i2c.h"
 #include "drv_tim.h"
 #include "drv_usb_otg.h"
 

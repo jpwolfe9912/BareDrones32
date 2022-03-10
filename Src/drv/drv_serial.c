@@ -15,7 +15,10 @@
 #include "board.h"
 
 /* Global Variables */
-float temp;
+uint8_t temp;
+uint8_t serialBuf[100];
+bool endOfString;
+uint8_t serialIndex = 0;
 
 #ifdef USE_NUCLEO
 
@@ -51,7 +54,6 @@ void
 serialWrite(int ch){
 	while (!(USART3->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
 	USART3->TDR = ch;								// transfers the value of the data register into ch
-	return 0;
 }
 
 /** @brief Uses interrupts to read uint8 data to the receive buffer.
@@ -69,19 +71,23 @@ serialRead8(uint8_t *num)
 	USART3->CR1 &= ~USART_CR1_RXNEIE;
 }
 
-/** @brief Uses interrupts to read float data to the receive buffer.
+/** @brief Uses interrupts to read a string of PID values.
  *
- *  @param *num Pointer to the location you want to store the received number
+ *  @param * Pointer to the location you want to store the received number
  *  @return Void.
  */
 void
-serialReadF(float *num)
+serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter)
 {
+	endOfString = false;
+	charRec = false;
 	USART3->CR1 |= USART_CR1_RXNEIE;
-	while(!temp);
+	while(!endOfString);
 
-	*num = temp;
+	sscanf(serialBuf, "%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
+
 	USART3->CR1 &= ~USART_CR1_RXNEIE;
+	memset(serialBuf, '\0', sizeof(serialBuf));
 }
 
 /** @brief Waits for a character.
@@ -114,9 +120,16 @@ serialWaitFor(char wait)
  */
 void
 USART3_IRQHandler(void){
-	if(USART3->ISR & USART_ISR_RXNE){
+	if((USART3->ISR & USART_ISR_RXNE) && (USART3->CR1 & USART_CR1_RXNEIE)){
 		temp = USART3->RDR;
-		USART3->TDR = temp;
+		if(temp == '\r'){
+			endOfString = true;
+			i = 0;
+		}
+		else{
+			serialBuf[i] = temp;
+			i++;
+		}
 	}
 	if(USART3->ISR & USART_ISR_ORE)
 		USART3->ICR |= USART_ICR_ORECF;
@@ -175,26 +188,33 @@ serialWrite(int ch)
 void
 serialRead8(uint8_t *num)
 {
+	temp = '\0';
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!temp);
 
-	*num = (uint8_t)temp;
+	*num = (uint8_t)temp - 48;
 	UART5->CR1 &= ~USART_CR1_RXNEIE;
 }
 
-/** @brief Uses interrupts to read float data to the receive buffer.
+/** @brief Uses interrupts to read a string of PID values.
  *
- *  @param *num Pointer to the location you want to store the received number
+ *  @param * Pointer to the location you want to store the received number
  *  @return Void.
  */
 void
-serialReadF(float *num)
+serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter)
 {
-	UART5->CR1 |= USART_CR1_RXNEIE;
-	while(!temp);
+	serialIndex = 0;
+	memset(serialBuf, '\0', sizeof(serialBuf));
 
-	*num = temp;
+	endOfString = false;
+	UART5->CR1 |= USART_CR1_RXNEIE;
+	while(!endOfString);
+
+	sscanf(serialBuf, "\n%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
+
 	UART5->CR1 &= ~USART_CR1_RXNEIE;
+	memset(serialBuf, '\0', sizeof(serialBuf));
 }
 
 /** @brief Waits for a character.
@@ -206,13 +226,13 @@ serialReadF(float *num)
 bool
 serialWaitFor(char wait)
 {
-	char tempChar;
+	temp = '\0';
+	serialIndex = 0;
 
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!temp);
-	tempChar = (uint8_t)temp;
-	if(tempChar == wait){
-		temp = 0;
+	if(temp == wait){
+		temp = '\0';
 		UART5->CR1 &= ~USART_CR1_RXNEIE;
 		return true;
 	}
@@ -231,9 +251,18 @@ serialWaitFor(char wait)
 void
 UART5_IRQHandler(void)
 {
-	if(UART5->ISR & USART_ISR_RXNE){
+	if((UART5->ISR & USART_ISR_RXNE) &&(UART5->CR1 & USART_CR1_RXNEIE)){
 		temp = UART5->RDR;
 		UART5->TDR = temp;
+		if(temp == '\r'){
+			endOfString = true;
+			serialIndex = 0;
+		}
+		else{
+			serialBuf[serialIndex] = temp;
+			serialIndex++;
+		}
+
 	}
 	if(UART5->ISR & USART_ISR_ORE)
 		UART5->ICR |= USART_ICR_ORECF;
@@ -256,4 +285,3 @@ PUTCHAR_PROTOTYPE{
 	serialWrite(ch);
 	return ch;
 }
-

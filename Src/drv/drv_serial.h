@@ -8,25 +8,17 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __DRV_SERIAL_H__
 #define __DRV_SERIAL_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 /* Function Prototypes */
 void serialInit(void);
 void serialWrite(int ch);
 void serialRead8(uint8_t *num);
-void serialReadF(float *num);
+void serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter);
 bool serialWaitFor(char wait);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* __DRV_SERIAL_H__ */
