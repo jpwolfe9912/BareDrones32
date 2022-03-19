@@ -1,0 +1,183 @@
+\hypertarget{ibus_8c}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/sensors/ibus.c File Reference}
+\label{ibus_8c}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/sensors/ibus.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/sensors/ibus.c}}
+
+
+This file initializes the ibus receiver protocol.  
+
+
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{ibus_8c_af79bcf473fa604b9bcddae0117ff0615}{ibus\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes ibus ring buffer and low level usart registers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibus\+Process}} (void)
+\begin{DoxyCompactList}\small\item\em Waits for the parser to not be busy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{ibus\+Payload}} \mbox{[}\mbox{\hyperlink{ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\+\_\+\+SIZE}}\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}{ibus\+CRC}} \mbox{[}\mbox{\hyperlink{ibus_8h_aa93e89217587fdff12bf43b5d7f54f74}{CRC\+\_\+\+SIZE}}\mbox{]}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibus\+Channels}} \mbox{[}\mbox{\hyperlink{ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{ibus_8c_a5060d9399d0f25c7695ab7a78146839b}{frame\+Length}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{ibus_8c_abea449a895aa94f257f9208d671d4557}{dev\+ID}}
+\item 
+bool \mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rc\+Active}} = false
+\item 
+bool \mbox{\hyperlink{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}{failsafe}} = false
+\item 
+\mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibus\+Status\+\_\+e}} \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file initializes the ibus receiver protocol. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+23 FEB 2022 
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000009}{Bug}}]\end{DoxyRefDesc}
+
+
+Definition in file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ibus_8c_af79bcf473fa604b9bcddae0117ff0615}\label{ibus_8c_af79bcf473fa604b9bcddae0117ff0615}} 
+\index{ibus.c@{ibus.c}!ibusInit@{ibusInit}}
+\index{ibusInit@{ibusInit}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{ibusInit()}{ibusInit()}}
+{\footnotesize\ttfamily bool ibus\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes ibus ring buffer and low level usart registers. 
+
+\begin{DoxyReturn}{Returns}
+bool True if initialization was successful. False if failed. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00050}{50}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}\label{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}} 
+\index{ibus.c@{ibus.c}!ibusProcess@{ibusProcess}}
+\index{ibusProcess@{ibusProcess}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{ibusProcess()}{ibusProcess()}}
+{\footnotesize\ttfamily void ibus\+Process (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Waits for the parser to not be busy. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00099}{99}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ibus_8c_abea449a895aa94f257f9208d671d4557}\label{ibus_8c_abea449a895aa94f257f9208d671d4557}} 
+\index{ibus.c@{ibus.c}!devID@{devID}}
+\index{devID@{devID}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{devID}{devID}}
+{\footnotesize\ttfamily uint8\+\_\+t dev\+ID}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00027}{27}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}\label{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}} 
+\index{ibus.c@{ibus.c}!failsafe@{failsafe}}
+\index{failsafe@{failsafe}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{failsafe}{failsafe}}
+{\footnotesize\ttfamily bool failsafe = false}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00030}{30}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a5060d9399d0f25c7695ab7a78146839b}\label{ibus_8c_a5060d9399d0f25c7695ab7a78146839b}} 
+\index{ibus.c@{ibus.c}!frameLength@{frameLength}}
+\index{frameLength@{frameLength}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{frameLength}{frameLength}}
+{\footnotesize\ttfamily uint8\+\_\+t frame\+Length}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00027}{27}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}\label{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}} 
+\index{ibus.c@{ibus.c}!ibusChannels@{ibusChannels}}
+\index{ibusChannels@{ibusChannels}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{ibusChannels}{ibusChannels}}
+{\footnotesize\ttfamily uint16\+\_\+t ibus\+Channels\mbox{[}\mbox{\hyperlink{ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\+\_\+\+CHANNELS}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00024}{24}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}\label{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}} 
+\index{ibus.c@{ibus.c}!ibusCRC@{ibusCRC}}
+\index{ibusCRC@{ibusCRC}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{ibusCRC}{ibusCRC}}
+{\footnotesize\ttfamily uint8\+\_\+t ibus\+CRC\mbox{[}\mbox{\hyperlink{ibus_8h_aa93e89217587fdff12bf43b5d7f54f74}{CRC\+\_\+\+SIZE}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00023}{23}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}\label{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}} 
+\index{ibus.c@{ibus.c}!ibusPayload@{ibusPayload}}
+\index{ibusPayload@{ibusPayload}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{ibusPayload}{ibusPayload}}
+{\footnotesize\ttfamily uint8\+\_\+t ibus\+Payload\mbox{[}\mbox{\hyperlink{ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\+\_\+\+SIZE}}\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00022}{22}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}\label{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}} 
+\index{ibus.c@{ibus.c}!rcActive@{rcActive}}
+\index{rcActive@{rcActive}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{rcActive}{rcActive}}
+{\footnotesize\ttfamily bool rc\+Active = false}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00029}{29}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}\label{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}} 
+\index{ibus.c@{ibus.c}!state@{state}}
+\index{state@{state}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily uint8\+\_\+t state}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00026}{26}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+
+\mbox{\Hypertarget{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}\label{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}} 
+\index{ibus.c@{ibus.c}!status@{status}}
+\index{status@{status}!ibus.c@{ibus.c}}
+\doxysubsubsection{\texorpdfstring{status}{status}}
+{\footnotesize\ttfamily \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibus\+Status\+\_\+e}} status}
+
+
+
+Definition at line \mbox{\hyperlink{ibus_8c_source_l00032}{32}} of file \mbox{\hyperlink{ibus_8c_source}{ibus.\+c}}.
+

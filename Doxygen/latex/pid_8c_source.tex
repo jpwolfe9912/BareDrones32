@@ -71,59 +71,82 @@
 \DoxyCodeLine{\Hypertarget{pid_8c_source_l00090}00090     uint8\_t ID;}
 \DoxyCodeLine{\Hypertarget{pid_8c_source_l00091}00091     \textcolor{keywordtype}{bool} again = \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{pid_8c_source_l00092}00092 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00093}00093     \mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8f}{color}}(\mbox{\hyperlink{drv__color_8h_a37dbdc30935031c05304482e1be89d8faafe71cad474c15ce63b300c470eef8cc}{CYAN}}, \mbox{\hyperlink{drv__color_8h_a9d6235c623541ab4175144c028436097a99f136a862ba5c7d16967231c29f09d6}{YES}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00094}00094     printf(\textcolor{stringliteral}{"{}\(\backslash\)nWould you like to change the PID states?\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00095}00095     \mbox{\hyperlink{drv__color_8c_aa926233cbec85dc0871fdf95d7406dbe}{colorDefault}}();}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00096}00096     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1);}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00097}00097     \textcolor{keywordflow}{while}(again)\{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00098}00098         \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{charliteral}{'y'}))\{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00099}00099             printf(\textcolor{stringliteral}{"{}\(\backslash\)nWhich PID would you like to change?\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00100}00100             printf(\textcolor{stringliteral}{"{}Roll Rate PID : 0\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00101}00101             printf(\textcolor{stringliteral}{"{}Pitch Rate PID: 1\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00102}00102             printf(\textcolor{stringliteral}{"{}Yaw Rate PID  : 2\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00103}00103             printf(\textcolor{stringliteral}{"{}Roll Att PID  : 3\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00104}00104             printf(\textcolor{stringliteral}{"{}Pitch Att PID : 4\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00105}00105             printf(\textcolor{stringliteral}{"{}Yaw Att PID   : 5\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00106}00106             \mbox{\hyperlink{drv__serial_8h_ab7807d9820ac9ebb4fdbec073beeea69}{serialRead8}}(\&ID);}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00107}00107 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00108}00108             printf(\textcolor{stringliteral}{"{}P: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00109}00109             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aca74a684c7823144d7962beb8397621e}{P}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00110}00110             printf(\textcolor{stringliteral}{"{}I: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00111}00111             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a145f61de888f096c52a2945234a407b0}{I}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00112}00112             printf(\textcolor{stringliteral}{"{}D: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00113}00113             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aa6702f5ca985a5b97e1534be9d374bba}{D}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00114}00114             printf(\textcolor{stringliteral}{"{}Limit: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00115}00115             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a2fa6465d118b9767d31f39d1b99e2581}{Limit}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00116}00116             printf(\textcolor{stringliteral}{"{}Integrator State: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00117}00117             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00118}00118             printf(\textcolor{stringliteral}{"{}Filter State: \(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00119}00119             \mbox{\hyperlink{drv__serial_8h_ae890d38ee7f2de78781d49bd98414cd7}{serialReadF}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00120}00120 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00121}00121             printf(\textcolor{stringliteral}{"{}\(\backslash\)nWould you like to configure another state?\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00122}00122             \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{charliteral}{'y'}))\{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00123}00123                 again = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00124}00124             \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00125}00125             \textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00126}00126                 again = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00127}00127             \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00128}00128         \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00129}00129     \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00130}00130 \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00131}00131 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00138}00138 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00139}\mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{00139}} \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(uint8\_t IDPid, \textcolor{keywordtype}{float} value)}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00140}00140 \{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00141}00141     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[IDPid].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}} = value;}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00142}00142     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[IDPid].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}}     = value;}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00143}00143 \}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00144}00144 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00149}00149 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00150}\mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{00150}} \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00151}00151 \{}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00152}00152     uint8\_t index;}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00153}00153 }
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00154}00154     \textcolor{keywordflow}{for} (index = 0; index < \mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{NUMBER\_OF\_PIDS}}; index++)}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00155}00155          \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(index, 0.0f);}
-\DoxyCodeLine{\Hypertarget{pid_8c_source_l00156}00156 \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00093}00093 \textcolor{preprocessor}{\#ifdef STLINK}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00094}00094     \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979aafe71cad474c15ce63b300c470eef8cc}{CYAN}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00095}00095     printf(\textcolor{stringliteral}{"{}\(\backslash\)nWould you like to change the PID states?\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00096}00096     \mbox{\hyperlink{drv__color_8c_aa926233cbec85dc0871fdf95d7406dbe}{colorDefault}}();}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00097}00097     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00098}00098     \textcolor{keywordflow}{while}(again)\{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00099}00099         \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{charliteral}{'y'}))\{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00100}00100             printf(\textcolor{stringliteral}{"{}\(\backslash\)nWhich PID would you like to change?\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00101}00101             printf(\textcolor{stringliteral}{"{}Roll Rate PID : 0\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00102}00102             printf(\textcolor{stringliteral}{"{}Pitch Rate PID: 1\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00103}00103             printf(\textcolor{stringliteral}{"{}Yaw Rate PID  : 2\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00104}00104             printf(\textcolor{stringliteral}{"{}Roll Att PID  : 3\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00105}00105             printf(\textcolor{stringliteral}{"{}Pitch Att PID : 4\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00106}00106             printf(\textcolor{stringliteral}{"{}Yaw Att PID   : 5\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00107}00107             \mbox{\hyperlink{drv__serial_8h_ab7807d9820ac9ebb4fdbec073beeea69}{serialRead8}}(\&ID);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00109}00109             \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979ae735a848bf82163a19236ead1c3ef2d2}{YELLOW}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00110}00110             printf(\textcolor{stringliteral}{"{}\(\backslash\)nConfiguring state \%u\(\backslash\)n"{}}, ID);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00111}00111             \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00112}00112             \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979a35d6719cb4d7577c031b3d79057a1b79}{BLUE}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00113}00113             printf(\textcolor{stringliteral}{"{}Current States:\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00114}00114             \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00115}00115             \mbox{\hyperlink{drv__color_8c_aa926233cbec85dc0871fdf95d7406dbe}{colorDefault}}();}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00116}00116             printf(\textcolor{stringliteral}{"{}\(\backslash\)nP(\%1.2f): \(\backslash\)nI(\%1.2f): \(\backslash\)nD(\%1.2f): \(\backslash\)nLimit(\%1.2f): \(\backslash\)nFilter State(\%1.2f): \(\backslash\)nIntegrator State(\%1.2f): \(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00117}00117                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aca74a684c7823144d7962beb8397621e}{P}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00118}00118                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a145f61de888f096c52a2945234a407b0}{I}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00119}00119                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aa6702f5ca985a5b97e1534be9d374bba}{D}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00120}00120                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a2fa6465d118b9767d31f39d1b99e2581}{Limit}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00121}00121                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00122}00122                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00124}00124             \mbox{\hyperlink{drv__serial_8h_ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0}{serialReadPID}}(\&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aca74a684c7823144d7962beb8397621e}{P}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00125}00125                     \&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a145f61de888f096c52a2945234a407b0}{I}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00126}00126                     \&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aa6702f5ca985a5b97e1534be9d374bba}{D}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00127}00127                     \&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a2fa6465d118b9767d31f39d1b99e2581}{Limit}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00128}00128                     \&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00129}00129                     \&\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00131}00131             printf(\textcolor{stringliteral}{"{}\(\backslash\)nNew States:\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00132}00132             printf(\textcolor{stringliteral}{"{}\(\backslash\)nP(\%1.2f): \(\backslash\)nI(\%1.2f): \(\backslash\)nD(\%1.2f): \(\backslash\)nLimit(\%1.2f): \(\backslash\)nFilter State(\%1.2f): \(\backslash\)nIntegrator State(\%1.2f): \(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00133}00133                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aca74a684c7823144d7962beb8397621e}{P}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00134}00134                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a145f61de888f096c52a2945234a407b0}{I}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00135}00135                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_aa6702f5ca985a5b97e1534be9d374bba}{D}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00136}00136                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a2fa6465d118b9767d31f39d1b99e2581}{Limit}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00137}00137                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}},}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00138}00138                     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[ID].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00140}00140             printf(\textcolor{stringliteral}{"{}\(\backslash\)nWould you like to configure another state?\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00141}00141             \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00142}00142             \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{charliteral}{'y'}))\{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00143}00143                 again = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00144}00144             \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00145}00145             \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00146}00146                 again = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00147}00147             \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00148}00148         \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00149}00149         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00150}00150             again = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00151}00151     \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00152}00152 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00153}00153 \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00161}00161 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00162}\mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{00162}} \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(uint8\_t IDPid, \textcolor{keywordtype}{float} value)}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00163}00163 \{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00164}00164     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[IDPid].\mbox{\hyperlink{struct_p_i_ddata_a8c3fae38ac46139a6cb60dfbe0174c72}{integratorState}} = value;}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00165}00165     \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ad725b40cda69d752a3ab6af73be69665}{PID}}[IDPid].\mbox{\hyperlink{struct_p_i_ddata_afdab2a23e42182aa03b7f8d9de4a861c}{filterState}}     = value;}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00166}00166 \}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00172}00172 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00173}\mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{00173}} \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00174}00174 \{}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00175}00175     uint8\_t index;}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00177}00177     \textcolor{keywordflow}{for} (index = 0; index < \mbox{\hyperlink{_autodrone32_8h_adb5f5593a7f0b6da2433469fa680424c}{NUMBER\_OF\_PIDS}}; index++)}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00178}00178          \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(index, 0.0f);}
+\DoxyCodeLine{\Hypertarget{pid_8c_source_l00179}00179 \}}
 
 \end{DoxyCode}

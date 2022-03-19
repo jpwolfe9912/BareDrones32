@@ -2,7 +2,7 @@ var searchData=
 [
   ['serialinit_0',['serialInit',['../drv__serial_8h.html#a0c569386540e18af22f2d8c74e4f22c3',1,'drv_serial.h']]],
   ['serialread8_1',['serialRead8',['../drv__serial_8h.html#ab7807d9820ac9ebb4fdbec073beeea69',1,'drv_serial.h']]],
-  ['serialreadf_2',['serialReadF',['../drv__serial_8h.html#ae890d38ee7f2de78781d49bd98414cd7',1,'drv_serial.h']]],
+  ['serialreadpid_2',['serialReadPID',['../drv__serial_8h.html#ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0',1,'drv_serial.h']]],
   ['serialwaitfor_3',['serialWaitFor',['../drv__serial_8h.html#a6d78b04465ba4c91dd115bb4bf4662eb',1,'drv_serial.h']]],
   ['serialwrite_4',['serialWrite',['../drv__serial_8h.html#aa43494de2ff609909ddd35979dcb4218',1,'drv_serial.h']]],
   ['setpidstates_5',['setPIDstates',['../pid_8c.html#a02dc45a9a10c03f0dc29ef31c0da5368',1,'setPIDstates(uint8_t IDPid, float value):&#160;pid.c'],['../pid_8h.html#a02dc45a9a10c03f0dc29ef31c0da5368',1,'setPIDstates(uint8_t IDPid, float value):&#160;pid.c']]],
@@ -16,7 +16,7 @@ var searchData=
   ['svc_5fhandler_13',['SVC_Handler',['../stm32f7xx__it_8c.html#a3e5ddb3df0d62f2dc357e64a3f04a6ce',1,'SVC_Handler(void):&#160;stm32f7xx_it.c'],['../stm32f7xx__it_8h.html#a3e5ddb3df0d62f2dc357e64a3f04a6ce',1,'SVC_Handler(void):&#160;stm32f7xx_it.c']]],
   ['systemclock_5fconfig_14',['SystemClock_Config',['../drv__system_8h.html#a70af21c671abfcc773614a9a4f63d920',1,'drv_system.h']]],
   ['systemcoreclockupdate_15',['SystemCoreClockUpdate',['../group___s_t_m32_f7xx___system___private___functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f',1,'system_stm32f7xx.c']]],
-  ['systeminit_16',['SystemInit',['../group___s_t_m32_f7xx___system___private___functions.html#ga93f514700ccf00d08dbdcff7f1224eb2',1,'system_stm32f7xx.c']]],
-  ['systeminit_17',['systemInit',['../drv__system_8c.html#ab11a117f1e08391f23d1da05930e7acf',1,'systemInit(void):&#160;drv_system.c'],['../drv__system_8h.html#ab11a117f1e08391f23d1da05930e7acf',1,'systemInit(void):&#160;drv_system.c']]],
+  ['systeminit_16',['systemInit',['../drv__system_8c.html#ab11a117f1e08391f23d1da05930e7acf',1,'systemInit(void):&#160;drv_system.c'],['../drv__system_8h.html#ab11a117f1e08391f23d1da05930e7acf',1,'systemInit(void):&#160;drv_system.c']]],
+  ['systeminit_17',['SystemInit',['../group___s_t_m32_f7xx___system___private___functions.html#ga93f514700ccf00d08dbdcff7f1224eb2',1,'system_stm32f7xx.c']]],
   ['systick_5fhandler_18',['SysTick_Handler',['../drv__system_8c.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;drv_system.c'],['../drv__system_8h.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;drv_system.c']]]
 ];

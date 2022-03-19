@@ -5,6 +5,5 @@ var searchData=
   ['heading_2',['heading',['../structgps__t.html#a56d97146368cdc685b340cc5875fd5ff',1,'gps_t::heading()'],['../_autodrone32_8h.html#a15de01b6a723694ef8a8762257f77282',1,'heading():&#160;Autodrone32.h']]],
   ['height_3',['height',['../structgps__t.html#a5d8006e753a3e76ff637a4e092bbed71',1,'gps_t']]],
   ['hmsl_4',['hMSL',['../structgps__t.html#a0cfda942caf1148caed99307d7548db6',1,'gps_t']]],
-  ['homedata_5',['homeData',['../_autodrone32_8h.html#af8f7ecb6c6b59d5ecab88bd230764ea3',1,'Autodrone32.h']]],
-  ['hpcd_5fusb_5fotg_5ffs_6',['hpcd_USB_OTG_FS',['../drv__usb__otg_8c.html#a3ec0d70a6cb9406d997fb3d006cc940d',1,'hpcd_USB_OTG_FS():&#160;drv_usb_otg.c'],['../drv__usb__otg_8h.html#a3ec0d70a6cb9406d997fb3d006cc940d',1,'hpcd_USB_OTG_FS():&#160;drv_usb_otg.c']]]
+  ['homedata_5',['homeData',['../_autodrone32_8h.html#af8f7ecb6c6b59d5ecab88bd230764ea3',1,'Autodrone32.h']]]
 ];

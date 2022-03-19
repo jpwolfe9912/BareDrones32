@@ -66,12 +66,191 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">drv_adc.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This file initializes and enables the adc for reading the battery voltage.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="board_8h_source.html">board.h</a>&quot;</code><br />
 </div>
 <p><a href="drv__adc_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7c16ba5c3fef890dc74bb9b9f9b14360"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#a7c16ba5c3fef890dc74bb9b9f9b14360">adc1Ch8Init</a> (void)</td></tr>
+<tr class="memdesc:a7c16ba5c3fef890dc74bb9b9f9b14360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes ADC1 for Channel 8.  <a href="drv__adc_8c.html#a7c16ba5c3fef890dc74bb9b9f9b14360">More...</a><br /></td></tr>
+<tr class="separator:a7c16ba5c3fef890dc74bb9b9f9b14360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11d827c0d1ee89d0ea0e0bb7a5f32d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#ab11d827c0d1ee89d0ea0e0bb7a5f32d9">batMonRead</a> (void)</td></tr>
+<tr class="memdesc:ab11d827c0d1ee89d0ea0e0bb7a5f32d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the ADC conversion.  <a href="drv__adc_8c.html#ab11d827c0d1ee89d0ea0e0bb7a5f32d9">More...</a><br /></td></tr>
+<tr class="separator:ab11d827c0d1ee89d0ea0e0bb7a5f32d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06406eadf297fa89a6eaf9586b227a69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#a06406eadf297fa89a6eaf9586b227a69">ADC_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a06406eadf297fa89a6eaf9586b227a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC global interrupt handler.  <a href="drv__adc_8c.html#a06406eadf297fa89a6eaf9586b227a69">More...</a><br /></td></tr>
+<tr class="separator:a06406eadf297fa89a6eaf9586b227a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295198ed574625d416158a5fc54205ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#a295198ed574625d416158a5fc54205ea">DMA2_Stream4_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a295198ed574625d416158a5fc54205ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA2_Stream4 global interrupt handler.  <a href="drv__adc_8c.html#a295198ed574625d416158a5fc54205ea">More...</a><br /></td></tr>
+<tr class="separator:a295198ed574625d416158a5fc54205ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:adad4597b410d69ce98a90ecf81465ce8"><td class="memItemLeft" align="right" valign="top">uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#adad4597b410d69ce98a90ecf81465ce8">val</a> = (uint16_t*)0x20010000</td></tr>
+<tr class="separator:adad4597b410d69ce98a90ecf81465ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a855408c36f973de1305b920c1e2d7125"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#a855408c36f973de1305b920c1e2d7125">battVoltage</a></td></tr>
+<tr class="separator:a855408c36f973de1305b920c1e2d7125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa90e358397010f1098d4c1fbcf3566"><td class="memItemLeft" align="right" valign="top"><a class="el" href="drv__adc_8h.html#a065db3c6827b30adb091f74d479ed862">battCells_e</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__adc_8c.html#acaa90e358397010f1098d4c1fbcf3566">cells</a></td></tr>
+<tr class="separator:acaa90e358397010f1098d4c1fbcf3566"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >This file initializes and enables the adc for reading the battery voltage. </p>
+<dl class="section author"><dt>Author</dt><dd>Jeremy Wolfe </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>10 MAR 2022 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7c16ba5c3fef890dc74bb9b9f9b14360" name="a7c16ba5c3fef890dc74bb9b9f9b14360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c16ba5c3fef890dc74bb9b9f9b14360">&#9670;&nbsp;</a></span>adc1Ch8Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void adc1Ch8Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes ADC1 for Channel 8. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00026">26</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<a id="a06406eadf297fa89a6eaf9586b227a69" name="a06406eadf297fa89a6eaf9586b227a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06406eadf297fa89a6eaf9586b227a69">&#9670;&nbsp;</a></span>ADC_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ADC global interrupt handler. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00171">171</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<a id="ab11d827c0d1ee89d0ea0e0bb7a5f32d9" name="ab11d827c0d1ee89d0ea0e0bb7a5f32d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11d827c0d1ee89d0ea0e0bb7a5f32d9">&#9670;&nbsp;</a></span>batMonRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void batMonRead </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the ADC conversion. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00110">110</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<a id="a295198ed574625d416158a5fc54205ea" name="a295198ed574625d416158a5fc54205ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295198ed574625d416158a5fc54205ea">&#9670;&nbsp;</a></span>DMA2_Stream4_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DMA2_Stream4_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA2_Stream4 global interrupt handler. </p>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00191">191</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a855408c36f973de1305b920c1e2d7125" name="a855408c36f973de1305b920c1e2d7125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a855408c36f973de1305b920c1e2d7125">&#9670;&nbsp;</a></span>battVoltage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float battVoltage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00014">14</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<a id="acaa90e358397010f1098d4c1fbcf3566" name="acaa90e358397010f1098d4c1fbcf3566"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa90e358397010f1098d4c1fbcf3566">&#9670;&nbsp;</a></span>cells</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="drv__adc_8h.html#a065db3c6827b30adb091f74d479ed862">battCells_e</a> cells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00015">15</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
+<a id="adad4597b410d69ce98a90ecf81465ce8" name="adad4597b410d69ce98a90ecf81465ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adad4597b410d69ce98a90ecf81465ce8">&#9670;&nbsp;</a></span>val</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t* val = (uint16_t*)0x20010000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="drv__adc_8c_source.html#l00013">13</a> of file <a class="el" href="drv__adc_8c_source.html">drv_adc.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

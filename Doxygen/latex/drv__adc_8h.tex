@@ -1,2 +1,143 @@
 \hypertarget{drv__adc_8h}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/drv/drv\+\_\+adc.h File Reference}
 \label{drv__adc_8h}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_adc.h@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_adc.h}}
+
+
+This file initializes and enables the adc for reading the battery voltage.  
+
+
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \{ \newline
+\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}{NO\+\_\+\+BATT}}
+, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}{THREE}} = 3
+, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}{FOUR}}
+, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}{FIVE}}
+, \newline
+\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}{SIX}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{drv__adc_8h_a7c16ba5c3fef890dc74bb9b9f9b14360}{adc1\+Ch8\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes ADC1 for Channel 8. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}{bat\+Mon\+Read}} (void)
+\begin{DoxyCompactList}\small\item\em Starts the ADC conversion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}{val}}
+\item 
+float \mbox{\hyperlink{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}{batt\+Voltage}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file initializes and enables the adc for reading the battery voltage. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+10 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{drv__adc_8h_source}{drv\+\_\+adc.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}} 
+\index{drv\_adc.h@{drv\_adc.h}!battCells\_e@{battCells\_e}}
+\index{battCells\_e@{battCells\_e}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{battCells\_e}{battCells\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_BATT@{NO\_BATT}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!NO\_BATT@{NO\_BATT}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}} 
+NO\+\_\+\+BATT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{THREE@{THREE}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!THREE@{THREE}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}} 
+THREE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FOUR@{FOUR}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!FOUR@{FOUR}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}} 
+FOUR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FIVE@{FIVE}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!FIVE@{FIVE}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}} 
+FIVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SIX@{SIX}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!SIX@{SIX}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}} 
+SIX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8h_source_l00015}{15}} of file \mbox{\hyperlink{drv__adc_8h_source}{drv\+\_\+adc.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{drv__adc_8h_a7c16ba5c3fef890dc74bb9b9f9b14360}\label{drv__adc_8h_a7c16ba5c3fef890dc74bb9b9f9b14360}} 
+\index{drv\_adc.h@{drv\_adc.h}!adc1Ch8Init@{adc1Ch8Init}}
+\index{adc1Ch8Init@{adc1Ch8Init}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{adc1Ch8Init()}{adc1Ch8Init()}}
+{\footnotesize\ttfamily void adc1\+Ch8\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes ADC1 for Channel 8. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00026}{26}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}\label{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}} 
+\index{drv\_adc.h@{drv\_adc.h}!batMonRead@{batMonRead}}
+\index{batMonRead@{batMonRead}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{batMonRead()}{batMonRead()}}
+{\footnotesize\ttfamily void bat\+Mon\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Starts the ADC conversion. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00110}{110}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}\label{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}} 
+\index{drv\_adc.h@{drv\_adc.h}!battVoltage@{battVoltage}}
+\index{battVoltage@{battVoltage}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{battVoltage}{battVoltage}}
+{\footnotesize\ttfamily float batt\+Voltage\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00014}{14}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}\label{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}} 
+\index{drv\_adc.h@{drv\_adc.h}!val@{val}}
+\index{val@{val}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily uint16\+\_\+t$\ast$ val\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00013}{13}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+

@@ -15,323 +15,297 @@
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018 }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019 \mbox{\hyperlink{structsensors__t}{sensors\_t}}      \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021 \mbox{\hyperlink{structheading__t}{heading\_t}}      \mbox{\hyperlink{_autodrone32_8h_a15de01b6a723694ef8a8762257f77282}{heading}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021 uint16\_t        timerValue;}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023 \mbox{\hyperlink{structgps__t}{gps\_t}}          \mbox{\hyperlink{_autodrone32_8h_a40e64225817385bd622cf97b693b4940}{gps}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025 \mbox{\hyperlink{structhome_data__t}{homeData\_t}}        \mbox{\hyperlink{_autodrone32_8h_af8f7ecb6c6b59d5ecab88bd230764ea3}{homeData}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025     uint32\_t currentTime;}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027 uint16\_t        timerValue;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027     \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032     uint32\_t currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034     arm\_matrix\_instance\_f32 a;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035     arm\_matrix\_instance\_f32 b;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036     arm\_matrix\_instance\_f32 x;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038     \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040     \mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{systemInit}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029     \mbox{\hyperlink{drv__system_8c_ab11a117f1e08391f23d1da05930e7acf}{systemInit}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031     \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033     uint16\_t frameCounter50Hz = 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035     \textcolor{keywordflow}{while} (1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036     \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037         \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039             \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041         \}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00042}00042 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00043}00043     \mbox{\hyperlink{drv__system_8c_aad8916c16115773b6551592004a57ade}{systemReady}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00044}00044 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045     uint16\_t frameCounter50Hz = 0;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00046}00046 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00047}00047     \textcolor{keywordflow}{while} (1)}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00048}00048     \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00049}00049         \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00050}00050         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00051}00051             \mbox{\hyperlink{drv__system_8c_a3e986cca055af175d3b4bfc8b63e2247}{frame\_1000Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00052}00052 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00053}00053         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00054}00054 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00055}00055         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00056}00056         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00057}00057 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00058}00058             \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00059}00059 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00060}00060             currentTime       = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00061}00061             \mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{deltaTime500Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00062}00062             \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}} = currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00063}00063 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00064}00064             \mbox{\hyperlink{drv__tim_8c_a2f59f2fb71ac802b2c3b0ea0c49e287e}{tim9Disable}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00065}00065             timerValue = \mbox{\hyperlink{drv__tim_8c_a15a4227b06476cc7466b8c3caaf2f00a}{tim9GetCnt}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00066}00066             \mbox{\hyperlink{drv__tim_8c_a7cae8d82532ac034638eee6397141ed6}{tim9ResetCnt}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00067}00067             \mbox{\hyperlink{drv__tim_8c_a6c9a512e44b09d2e723a931f36c12aca}{tim9Enable}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00068}00068 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00069}00069             \mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}} = (float)timerValue * 0.0000005f;  \textcolor{comment}{// For integrations in 500 Hz loop}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00070}00070 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00071}00071             \mbox{\hyperlink{mpu6000_8c_a09f05343283ca43390d2bd303416ac02}{computeMPU6000TCBias}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00072}00072 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00073}00073             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00074}00074             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00075}00075             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a5a49a78cbbf03e6f554f7f45972c17da}{accelSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00043}00043         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00044}00044         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00046}00046             \mbox{\hyperlink{drv__system_8c_a5bc81534b194107aa0bda674e62d914b}{frame\_500Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00048}00048             currentTime       = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00049}00049             \mbox{\hyperlink{drv__system_8c_a9192ceeb04576c0ef538acd62120abc6}{deltaTime500Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00050}00050             \mbox{\hyperlink{drv__system_8c_a579f91679fa797932e1a318adcc083dd}{previous500HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00052}00052             \mbox{\hyperlink{drv__tim_8c_a2f59f2fb71ac802b2c3b0ea0c49e287e}{tim9Disable}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00053}00053             timerValue = \mbox{\hyperlink{drv__tim_8c_a15a4227b06476cc7466b8c3caaf2f00a}{tim9GetCnt}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00054}00054             \mbox{\hyperlink{drv__tim_8c_a7cae8d82532ac034638eee6397141ed6}{tim9ResetCnt}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00055}00055             \mbox{\hyperlink{drv__tim_8c_a6c9a512e44b09d2e723a931f36c12aca}{tim9Enable}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00057}00057             \mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}} = (float)timerValue * 0.0000005f;  \textcolor{comment}{// For integrations in 500 Hz loop}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00059}00059             \mbox{\hyperlink{rotations_8c_a4adc96eb39842aa957a90bfd4ad2dfe9}{computeRotations500Hz}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00061}00061             \mbox{\hyperlink{madgwick_8c_a1f31885b70f52713de86df45af82aea5}{updateIMU}}(\mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00062}00062                     \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00063}00063             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] = getRollRadians();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00064}00064             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] = getPitchRadians();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00065}00065             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] = getYawRadians();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00067}00067             \mbox{\hyperlink{process__commands_8c_a39a28317532c5c1468f7351836bc1288}{processCommands}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00068}00068             \mbox{\hyperlink{compute__axis__commands_8c_a6ea978441fb2878a2926d7009c903962}{computeAxisCommands}}(\mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00069}00069             \mbox{\hyperlink{mixer_8c_a53acefc5f5c00f0de5453c82a05fa8dd}{mixTable}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00070}00070             \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshotWrite}}(\mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00072}00072             \mbox{\hyperlink{drv__system_8c_ae58c88ab7dbdc2d5fabd75a0a2d04bc7}{executionTime500Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00074}00074         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00075}00075 }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00076}00076 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00077}00077             arm\_mat\_init\_f32(\&a, 3, 3, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{orientation_8c_a3dc49f4b46f57265f699543f15cb4299}{mpuOrientationMatrix}});}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00078}00078 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00079}00079             arm\_mat\_init\_f32(\&b, 3, 1, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00080}00080 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00081}00081             arm\_mat\_init\_f32(\&x, 3, 1,          \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00079}00079         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a3d65536b5e54c7a79f88ed535c15187c}{frame\_200Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00080}00080         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00081}00081             \mbox{\hyperlink{drv__system_8c_a3d65536b5e54c7a79f88ed535c15187c}{frame\_200Hz}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00082}00082 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00083}00083             arm\_mat\_mult\_f32(\&a, \&b, \&x);}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00084}00084 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}00085             \mbox{\hyperlink{mpu6000_8c_ac06ab38f500b93844fb26bd1fa3a6f5c}{nonRotatedGyroData}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] = ((float)\mbox{\hyperlink{mpu6000_8c_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}]  * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_a2f086a0eec38508f4d11b532552e51f9}{gyroRTBias}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] -\/ \mbox{\hyperlink{mpu6000_8c_a8f989a8cbfaa7527db003cb247c21390}{gyroTCBias}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ]) * \mbox{\hyperlink{mpu6000_8h_a9a726f5df52d7d55a122b9949686036d}{GYRO\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00086}00086             \mbox{\hyperlink{mpu6000_8c_ac06ab38f500b93844fb26bd1fa3a6f5c}{nonRotatedGyroData}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_a2f086a0eec38508f4d11b532552e51f9}{gyroRTBias}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] -\/ \mbox{\hyperlink{mpu6000_8c_a8f989a8cbfaa7527db003cb247c21390}{gyroTCBias}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}]) * \mbox{\hyperlink{mpu6000_8h_a9a726f5df52d7d55a122b9949686036d}{GYRO\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087             \mbox{\hyperlink{mpu6000_8c_ac06ab38f500b93844fb26bd1fa3a6f5c}{nonRotatedGyroData}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] = ((float)\mbox{\hyperlink{mpu6000_8c_a10474e229ecbd68ab6c06e35efca291c}{gyroSummedSamples500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}]   * 0.5f -\/ \mbox{\hyperlink{mpu6000_8c_a2f086a0eec38508f4d11b532552e51f9}{gyroRTBias}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] -\/ \mbox{\hyperlink{mpu6000_8c_a8f989a8cbfaa7527db003cb247c21390}{gyroTCBias}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ]) * \mbox{\hyperlink{mpu6000_8h_a9a726f5df52d7d55a122b9949686036d}{GYRO\_SCALE\_FACTOR}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00083}00083             currentTime     = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00084}00084             \mbox{\hyperlink{drv__system_8c_acecaf43562535550b9e4fa9449a0f14d}{deltaTime200Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a9676b93dc4bc7c8c171582286055525c}{previous200HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}00085             \mbox{\hyperlink{drv__system_8c_a9676b93dc4bc7c8c171582286055525c}{previous200HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087             \mbox{\hyperlink{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibusProcess}}();}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00088}00088 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00089}00089             arm\_mat\_init\_f32(\&a, 3, 3, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{orientation_8c_a3dc49f4b46f57265f699543f15cb4299}{mpuOrientationMatrix}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00090}00090 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00091}00091             arm\_mat\_init\_f32(\&b, 3, 1, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{mpu6000_8c_ac06ab38f500b93844fb26bd1fa3a6f5c}{nonRotatedGyroData}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00092}00092 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00093}00093             arm\_mat\_init\_f32(\&x, 3, 1,          \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00094}00094 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00095}00095             arm\_mat\_mult\_f32(\&a, \&b, \&x);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00089}00089             \mbox{\hyperlink{drv__system_8c_a36f29833b4647a10eb9b77babaaec666}{executionTime200Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00090}00090         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00094}00094         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00095}00095         \{}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00096}00096 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00097}00097             \mbox{\hyperlink{sensor__fusion_8c_a1f31885b70f52713de86df45af82aea5}{updateIMU}}(\mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00098}00098                     \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}], \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}]);}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00099}00099             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] = getRollRadians();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00100}00100             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] = getPitchRadians();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00101}00101             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] = getYawRadians();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00097}00097             \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00099}00099             currentTime       = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00100}00100             \mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{deltaTime100Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00101}00101             \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}} = currentTime;}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00102}00102 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00103}00103             \mbox{\hyperlink{process__commands_8c_a39a28317532c5c1468f7351836bc1288}{processCommands}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00104}00104             \mbox{\hyperlink{compute__axis__commands_8c_a6ea978441fb2878a2926d7009c903962}{computeAxisCommands}}(\mbox{\hyperlink{drv__system_8c_a5b935d43abfd4e3887e74108a02ae05c}{dt500Hz}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00105}00105             \mbox{\hyperlink{mixer_8c_a53acefc5f5c00f0de5453c82a05fa8dd}{mixTable}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00106}00106             \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshotWrite}}(\mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00107}00107 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00108}00108             \mbox{\hyperlink{drv__system_8c_ae58c88ab7dbdc2d5fabd75a0a2d04bc7}{executionTime500Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00109}00109 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00110}00110         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00111}00111 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00113}00113 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00114}00114         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00115}00115         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00116}00116 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00117}00117             \mbox{\hyperlink{drv__system_8c_aceb7d67a1d5e5e9a9809929b399eca97}{frame\_100Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00118}00118 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00119}00119             currentTime       = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00120}00120             \mbox{\hyperlink{drv__system_8c_a2bd9c3ea951fa27b2d5f9a09812e9b5f}{deltaTime100Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00121}00121             \mbox{\hyperlink{drv__system_8c_a5090fbce44cf76cdc220e9ab32382bc5}{previous100HzTime}} = currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00122}00122 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00123}00123 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00124}00124             \mbox{\hyperlink{drv__system_8c_aae9b062cb8a38789284d845851789d8e}{dt100Hz}} = (float)timerValue * 0.0000005f;  \textcolor{comment}{// For integrations in 100 Hz loop}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00125}00125 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00126}00126             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00127}00127             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00128}00128             \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00129}00129 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00130}00130             arm\_mat\_init\_f32(\&a, 3, 3, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{orientation_8c_a3dc49f4b46f57265f699543f15cb4299}{mpuOrientationMatrix}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00131}00131 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00132}00132             arm\_mat\_init\_f32(\&b, 3, 1, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00133}00133 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00134}00134             arm\_mat\_init\_f32(\&x, 3, 1,          \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{accel100Hz}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00103}00103             \mbox{\hyperlink{rotations_8c_a331561827f9d2644aaa5ed41f01b3769}{computeRotations100Hz}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00106}00106             \textcolor{keywordflow}{if} (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00107}00107             \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00108}00108                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 1 )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00109}00109                 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00110}00110                     \textcolor{comment}{// Roll Loop}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00111}00111                     printf(\textcolor{stringliteral}{"{}1,\%9.4f,\%1d,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00112}00112                             \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{battVoltage}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00113}00113                             \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00114}00114                             \mbox{\hyperlink{compute__axis__commands_8c_ac6595ac6fa25e26be6455e68cc6cdea9}{rateCmd}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00115}00115                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00116}00116                             \mbox{\hyperlink{compute__axis__commands_8c_ab77481ff9ad18ebb1f89ab1946ca7dae}{ratePID}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00117}00117                             \mbox{\hyperlink{compute__axis__commands_8c_aa2d7eed0bc462ac7393d0def9c484b5e}{attCmd}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00118}00118                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00119}00119                             \mbox{\hyperlink{compute__axis__commands_8c_ab07bd323d95ccecc4ad892c23b921712}{attPID}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00120}00120                 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00122}00122                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 2 )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00123}00123                 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00124}00124                     \textcolor{comment}{// Pitch Loop}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00125}00125                     printf(\textcolor{stringliteral}{"{}2,\%9.4f,\%1d,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00126}00126                             \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{battVoltage}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00127}00127                             \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00128}00128                             \mbox{\hyperlink{compute__axis__commands_8c_ac6595ac6fa25e26be6455e68cc6cdea9}{rateCmd}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00129}00129                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00130}00130                             \mbox{\hyperlink{compute__axis__commands_8c_ab77481ff9ad18ebb1f89ab1946ca7dae}{ratePID}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00131}00131                             \mbox{\hyperlink{compute__axis__commands_8c_aa2d7eed0bc462ac7393d0def9c484b5e}{attCmd}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00132}00132                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00133}00133                             \mbox{\hyperlink{compute__axis__commands_8c_ab07bd323d95ccecc4ad892c23b921712}{attPID}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00134}00134                 \}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00135}00135 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00136}00136             arm\_mat\_mult\_f32(\&a, \&b, \&x);}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00137}00137 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00138}00138             \mbox{\hyperlink{drv__ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibusProcess}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00139}00139 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00140}00140 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00141}00141             \textcolor{keywordflow}{if} (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{true})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00142}00142             \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00143}00143                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 1 )}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00144}00144                 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00145}00145                     \textcolor{comment}{// Roll Loop}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00146}00146                     printf(\textcolor{stringliteral}{"{}1,\%1d,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f\(\backslash\)n"{}}, \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}},}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00147}00147                             \mbox{\hyperlink{compute__axis__commands_8c_ac6595ac6fa25e26be6455e68cc6cdea9}{rateCmd}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00148}00148                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00149}00149                             \mbox{\hyperlink{compute__axis__commands_8c_ab77481ff9ad18ebb1f89ab1946ca7dae}{ratePID}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00150}00150                             \mbox{\hyperlink{compute__axis__commands_8c_aa2d7eed0bc462ac7393d0def9c484b5e}{attCmd}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00151}00151                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00152}00152                             \mbox{\hyperlink{compute__axis__commands_8c_ab07bd323d95ccecc4ad892c23b921712}{attPID}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}]);}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00153}00153                 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00154}00154 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00155}00155                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 2 )}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00156}00156                 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00157}00157                     \textcolor{comment}{// Pitch Loop}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00158}00158                     printf(\textcolor{stringliteral}{"{}2,\%1d,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f,\%9.4f\(\backslash\)n"{}}, \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}},}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00159}00159                             \mbox{\hyperlink{compute__axis__commands_8c_ac6595ac6fa25e26be6455e68cc6cdea9}{rateCmd}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00160}00160                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00161}00161                             \mbox{\hyperlink{compute__axis__commands_8c_ab77481ff9ad18ebb1f89ab1946ca7dae}{ratePID}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00162}00162                             \mbox{\hyperlink{compute__axis__commands_8c_aa2d7eed0bc462ac7393d0def9c484b5e}{attCmd}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00163}00163                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00164}00164                             \mbox{\hyperlink{compute__axis__commands_8c_ab07bd323d95ccecc4ad892c23b921712}{attPID}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}]);}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00165}00165                 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00166}00166 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00167}00167                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 4 )}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00168}00168                 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00169}00169                     \textcolor{comment}{// Sensors}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00170}00170                     printf(\textcolor{stringliteral}{"{}3,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\(\backslash\)n"{}}, \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00171}00171                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00172}00172                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00173}00173                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00174}00174                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00175}00175                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00176}00176                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00177}00177                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00178}00178                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00136}00136                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 3 )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00137}00137                 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00138}00138                     \textcolor{comment}{// Sensors}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00139}00139                     printf(\textcolor{stringliteral}{"{}3,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\%8.4f,\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00140}00140                             \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{battVoltage}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00141}00141                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00142}00142                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00143}00143                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a300c0da2a8ccecb8d188fa5d988b9244}{accel500Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00144}00144                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00145}00145                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00146}00146                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a096936016bc19288738dbf774d57d563}{gyro500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00147}00147                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00148}00148                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00149}00149                             \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_a648770241f13383e5c763d3d137e017e}{attitude500Hz}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00151}00151                 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00153}00153                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 4 )}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00154}00154                 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00155}00155                     printf(\textcolor{stringliteral}{"{}4,\%9.4f,\%u,\%u,\%u,\%u,\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00156}00156                             \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{battVoltage}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00157}00157                             \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[0],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00158}00158                             \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[1],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00159}00159                             \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[2],}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00160}00160                             \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[3]);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00161}00161                 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00163}00163             \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00166}00166             \mbox{\hyperlink{drv__system_8c_a360c69c5011c2bc857ed484268ccd45d}{executionTime100Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00168}00168         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00169}00169         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00170}00170         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00171}00171             frameCounter50Hz++;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00172}00172             \textcolor{keywordflow}{if} (frameCounter50Hz > \mbox{\hyperlink{drv__system_8h_a7a6c3aace699ca6cbaf8ac2072ce5485}{FRAME\_COUNT}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00173}00173                 frameCounter50Hz = 1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00175}00175             \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00176}00176             currentTime      = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00177}00177             \mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{deltaTime50Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00178}00178             \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}} = currentTime;}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00179}00179 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00180}00180                 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00181}00181 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00182}00182                 \textcolor{keywordflow}{if} ( \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}} == 8 )}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00183}00183                 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00184}00184 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00185}00185                 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00186}00186 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00187}00187             \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00188}00188 \textcolor{comment}{//          printf("{}ROLL:  \%f -\/ "{}, sensors.attitude500Hz[ROLL]);}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00189}00189 \textcolor{comment}{//          printf("{}PITCH: \%f -\/ "{}, sensors.attitude500Hz[PITCH]);}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00190}00190 \textcolor{comment}{//          printf("{}YAW:   \%f\(\backslash\)r"{}, sensors.attitude500Hz[YAW]);}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00180}00180 \textcolor{comment}{//          if (newTemperatureReading \&\& newPressureReading)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00181}00181 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00182}00182 \textcolor{comment}{//              d1Value = d1.value;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00183}00183 \textcolor{comment}{//              d2Value = d2.value;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00184}00184 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00185}00185 \textcolor{comment}{//              calculateTemperature();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00186}00186 \textcolor{comment}{//              calculatePressureAltitude();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00187}00187 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00188}00188 \textcolor{comment}{//              newTemperatureReading = false;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00189}00189 \textcolor{comment}{//              newPressureReading    = false;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00190}00190 \textcolor{comment}{//          \}}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00191}00191 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00192}00192 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00193}00193             \mbox{\hyperlink{drv__system_8c_a360c69c5011c2bc857ed484268ccd45d}{executionTime100Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00194}00194 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00195}00195         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00196}00196         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00197}00197         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198             frameCounter50Hz++;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199             \textcolor{keywordflow}{if} (frameCounter50Hz > \mbox{\hyperlink{drv__system_8h_a7a6c3aace699ca6cbaf8ac2072ce5485}{FRAME\_COUNT}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00200}00200                 frameCounter50Hz = 1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00192}00192 \textcolor{comment}{//          sensors.pressureAlt50Hz = firstOrderFilter(sensors.pressureAlt50Hz, \&firstOrderFilters[PRESSURE\_ALT\_LOWPASS]);}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00193}00193 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00194}00194 \textcolor{comment}{//          rssiMeasure();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00196}00196 \textcolor{comment}{//          updateMax7456(currentTime, 0);}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00197}00197 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198             \mbox{\hyperlink{drv__system_8c_a69d58f899bf1e2c44f83e73a3110c9a0}{executionTime50Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00200}00200         \}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00201}00201 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00202}00202             \mbox{\hyperlink{drv__system_8c_ac8f4528d73bfd0f549103f4214c9559e}{frame\_50Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00203}00203             currentTime      = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00204}00204             \mbox{\hyperlink{drv__system_8c_ac1a754416f6a406396c2b90f213596fa}{deltaTime50Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205             \mbox{\hyperlink{drv__system_8c_a39f28cc129401a0ee05f530647b6a1a4}{previous50HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00204}00204         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205         \{}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00206}00206 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00207}00207 \textcolor{comment}{//          if (newTemperatureReading \&\& newPressureReading)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00208}00208 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00209}00209 \textcolor{comment}{//              d1Value = d1.value;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00210}00210 \textcolor{comment}{//              d2Value = d2.value;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00211}00211 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00212}00212 \textcolor{comment}{//              calculateTemperature();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00213}00213 \textcolor{comment}{//              calculatePressureAltitude();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00214}00214 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00215}00215 \textcolor{comment}{//              newTemperatureReading = false;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00216}00216 \textcolor{comment}{//              newPressureReading    = false;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00217}00217 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00218}00218 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00219}00219 \textcolor{comment}{//          sensors.pressureAlt50Hz = firstOrderFilter(sensors.pressureAlt50Hz, \&firstOrderFilters[PRESSURE\_ALT\_LOWPASS]);}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00220}00220 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00221}00221 \textcolor{comment}{//          rssiMeasure();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00222}00222 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00223}00223 \textcolor{comment}{//          updateMax7456(currentTime, 0);}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00207}00207             \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00208}00208 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00209}00209             currentTime      = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00210}00210             \mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{deltaTime10Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00211}00211             \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00213}00213 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00214}00214 \textcolor{comment}{//          batMonTick();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00215}00215 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00216}00216 \textcolor{comment}{//          cliCom();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00217}00217 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00218}00218             \mbox{\hyperlink{drv__system_8c_a00fbde9960f7008aa692f27edabc5080}{executionTime10Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00219}00219 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00220}00220         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00221}00221 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00223}00223 }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00224}00224 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00225}00225             \mbox{\hyperlink{drv__system_8c_a69d58f899bf1e2c44f83e73a3110c9a0}{executionTime50Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00226}00226 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00227}00227         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00228}00228 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00230}00230 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00231}00231         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00232}00232         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00233}00233 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00234}00234             \mbox{\hyperlink{drv__system_8c_a34031cd368be2a6003c864540df51370}{frame\_10Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00225}00225 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00227}00227 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00228}00228         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00229}00229         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00230}00230             \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00231}00231 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00232}00232             currentTime     = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00233}00233             \mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{deltaTime5Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00234}00234             \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}} = currentTime;}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00235}00235 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00236}00236             currentTime      = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00237}00237             \mbox{\hyperlink{drv__system_8c_a616a4f9e0c3138f30ac4f6236fcec271}{deltaTime10Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00238}00238             \mbox{\hyperlink{drv__system_8c_ac5cb532ae91fb14524aa29efa61051fd}{previous10HzTime}} = currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00239}00239 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00236}00236             \mbox{\hyperlink{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}{batMonRead}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00237}00237 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00238}00238 \textcolor{comment}{//          if (gpsValid() == true)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00239}00239 \textcolor{comment}{//          \{}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00240}00240 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00241}00241 \textcolor{comment}{//          batMonTick();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00241}00241 \textcolor{comment}{//          \}}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00242}00242 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00243}00243 \textcolor{comment}{//          cliCom();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00244}00244 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00245}00245             \mbox{\hyperlink{drv__system_8c_a00fbde9960f7008aa692f27edabc5080}{executionTime10Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00246}00246 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00247}00247         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00248}00248 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00250}00250 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00251}00251 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00252}00252 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00254}00254 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00255}00255         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00256}00256         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00257}00257             \mbox{\hyperlink{drv__system_8c_a10bad01cb92dd51bc784ac6ccd4a4e59}{frame\_5Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00258}00258 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00259}00259             currentTime     = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00260}00260             \mbox{\hyperlink{drv__system_8c_a5fdc99d0e02d51a59ae258803e0a4e39}{deltaTime5Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00261}00261             \mbox{\hyperlink{drv__system_8c_a08f9c7861c986386328f9cea9d005904}{previous5HzTime}} = currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00262}00262 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00263}00263 \textcolor{comment}{//          if (gpsValid() == true)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00264}00264 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00265}00265 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00266}00266 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00267}00267 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00268}00268 \textcolor{comment}{//          if (eepromConfig.mavlinkEnabled == true)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00269}00269 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00270}00270 \textcolor{comment}{//              mavlinkSendGpsRaw();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00271}00271 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00243}00243 \textcolor{comment}{//          if (eepromConfig.mavlinkEnabled == true)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00244}00244 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00245}00245 \textcolor{comment}{//              mavlinkSendGpsRaw();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00246}00246 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00247}00247 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00248}00248 \textcolor{comment}{//          if (batMonVeryLowWarning > 0)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00249}00249 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00250}00250 \textcolor{comment}{//              LED1\_TOGGLE;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00251}00251 \textcolor{comment}{//              batMonVeryLowWarning-\/-\/;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00252}00252 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00253}00253 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00254}00254 \textcolor{comment}{//          if (execUp == true)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00255}00255 \textcolor{comment}{//              BLUE\_LED\_TOGGLE;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00257}00257             \mbox{\hyperlink{drv__system_8c_a4975d176620751a3f371567c0f210013}{executionTime5Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00258}00258         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00259}00259 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00261}00261 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00262}00262         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00263}00263         \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00264}00264             \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00265}00265 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00266}00266             currentTime     = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00267}00267             \mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{deltaTime1Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00268}00268             \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}} = currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00269}00269 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00270}00270 \textcolor{comment}{//          if (execUp == true)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00271}00271 \textcolor{comment}{//              GREEN\_LED\_TOGGLE;}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00272}00272 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00273}00273 \textcolor{comment}{//          if (batMonVeryLowWarning > 0)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00274}00274 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00275}00275 \textcolor{comment}{//              LED1\_TOGGLE;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00276}00276 \textcolor{comment}{//              batMonVeryLowWarning-\/-\/;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00277}00277 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00278}00278 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00279}00279 \textcolor{comment}{//          if (execUp == true)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00280}00280 \textcolor{comment}{//              BLUE\_LED\_TOGGLE;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00281}00281 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00282}00282             \mbox{\hyperlink{drv__system_8c_a4975d176620751a3f371567c0f210013}{executionTime5Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00283}00283         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00284}00284 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00286}00286 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00287}00287         \textcolor{keywordflow}{if} (\mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00288}00288         \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00289}00289             \mbox{\hyperlink{drv__system_8c_afd8b59660428e4436a07fb4d00acc42f}{frame\_1Hz}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00290}00290 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00291}00291             currentTime     = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00292}00292             \mbox{\hyperlink{drv__system_8c_a80ab042ec88ec8c59dc3adcbe2ad2c27}{deltaTime1Hz}}    = currentTime -\/ \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}};}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00293}00293             \mbox{\hyperlink{drv__system_8c_a9659463160f072dced763354bea48eb2}{previous1HzTime}} = currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00294}00294 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00295}00295 \textcolor{comment}{//          if (execUp == true)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00296}00296 \textcolor{comment}{//              GREEN\_LED\_TOGGLE;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00297}00297 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00298}00298 \textcolor{comment}{//          if (execUp == false)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00299}00299 \textcolor{comment}{//              execUpCount++;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00300}00300 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00301}00301 \textcolor{comment}{//          if ((execUpCount == 5) \&\& (execUp == false))}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00302}00302 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00303}00303 \textcolor{comment}{//              execUp = true;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00304}00304 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00305}00305 \textcolor{comment}{//              pwmEscInit();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00306}00306 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00307}00307 \textcolor{comment}{//              homeData.magHeading = sensors.attitude500Hz[YAW];}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00308}00308 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00309}00309 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00310}00310 \textcolor{comment}{//          if (batMonLowWarning > 0)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00311}00311 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00312}00312 \textcolor{comment}{//              LED1\_TOGGLE;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00313}00313 \textcolor{comment}{//              batMonLowWarning-\/-\/;}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00314}00314 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00315}00315 \textcolor{comment}{//}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00316}00316 \textcolor{comment}{//          if (eepromConfig.mavlinkEnabled == true)}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00317}00317 \textcolor{comment}{//          \{}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00318}00318 \textcolor{comment}{//              mavlinkSendHeartbeat();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00319}00319 \textcolor{comment}{//              mavlinkSendSysStatus();}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00320}00320 \textcolor{comment}{//          \}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00321}00321 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00322}00322             \mbox{\hyperlink{drv__system_8c_a15fe4aee27ddd59cfe196004ba827fd4}{executionTime1Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00323}00323         \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00324}00324     \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00325}00325 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00326}00326 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00331}\mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{00331}} \textcolor{keywordtype}{void} \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00332}00332 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00333}00333     \_\_disable\_irq();}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00334}00334     \textcolor{keywordflow}{while} (1)}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00335}00335     \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00336}00336     \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00337}00337 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00338}00338 }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00339}00339 \textcolor{preprocessor}{\#ifdef  USE\_FULL\_ASSERT}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00347}00347 \textcolor{keywordtype}{void} assert\_failed(uint8\_t *file, uint32\_t line)}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00348}00348 \{}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00349}00349     \textcolor{comment}{/* USER CODE BEGIN 6 */}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00350}00350     \textcolor{comment}{/* User can add his own implementation to report the file name and line number,}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00351}00351 \textcolor{comment}{     ex: printf("{}Wrong parameters value: file \%s on line \%d\(\backslash\)r\(\backslash\)n"{}, file, line) */}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00352}00352     \textcolor{comment}{/* USER CODE END 6 */}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00353}00353 \}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00354}00354 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USE\_FULL\_ASSERT */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00273}00273 \textcolor{comment}{//          if (execUp == false)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00274}00274 \textcolor{comment}{//              execUpCount++;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00275}00275 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00276}00276 \textcolor{comment}{//          if ((execUpCount == 5) \&\& (execUp == false))}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00277}00277 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00278}00278 \textcolor{comment}{//              execUp = true;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00279}00279 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00280}00280 \textcolor{comment}{//              pwmEscInit();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00281}00281 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00282}00282 \textcolor{comment}{//              homeData.magHeading = sensors.attitude500Hz[YAW];}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00283}00283 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00284}00284 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00285}00285 \textcolor{comment}{//          if (batMonLowWarning > 0)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00286}00286 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00287}00287 \textcolor{comment}{//              LED1\_TOGGLE;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00288}00288 \textcolor{comment}{//              batMonLowWarning-\/-\/;}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00289}00289 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00290}00290 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00291}00291 \textcolor{comment}{//          if (eepromConfig.mavlinkEnabled == true)}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00292}00292 \textcolor{comment}{//          \{}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00293}00293 \textcolor{comment}{//              mavlinkSendHeartbeat();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00294}00294 \textcolor{comment}{//              mavlinkSendSysStatus();}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00295}00295 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00296}00296 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00297}00297             \mbox{\hyperlink{drv__system_8c_a15fe4aee27ddd59cfe196004ba827fd4}{executionTime1Hz}} = \mbox{\hyperlink{drv__system_8c_af543edc4b91ee97e556de2f0bbc709ad}{micros}}() -\/ currentTime;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00298}00298         \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00299}00299     \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00300}00300 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00306}\mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{00306}} \textcolor{keywordtype}{void} \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00307}00307 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00308}00308     \_\_disable\_irq();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00309}00309     \textcolor{keywordflow}{while} (1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00310}00310     \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00311}00311     \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00312}00312 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00313}00313 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00314}00314 \textcolor{preprocessor}{\#ifdef  USE\_FULL\_ASSERT}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00322}00322 \textcolor{keywordtype}{void} assert\_failed(uint8\_t *file, uint32\_t line)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00323}00323 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00324}00324     \textcolor{comment}{/* USER CODE BEGIN 6 */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00325}00325     \textcolor{comment}{/* User can add his own implementation to report the file name and line number,}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00326}00326 \textcolor{comment}{     ex: printf("{}Wrong parameters value: file \%s on line \%d\(\backslash\)r\(\backslash\)n"{}, file, line) */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00327}00327     \textcolor{comment}{/* USER CODE END 6 */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00328}00328 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00329}00329 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* USE\_FULL\_ASSERT */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

@@ -2,7 +2,7 @@ var searchData=
 [
   ['gps_0',['gps',['../_autodrone32_8h.html#a40e64225817385bd622cf97b693b4940',1,'Autodrone32.h']]],
   ['gps_5ft_1',['gps_t',['../structgps__t.html',1,'gps_t'],['../_autodrone32_8h.html#a278fa558ee1884d8935664e22a7e3a34',1,'gps_t():&#160;Autodrone32.h']]],
-  ['green_2',['GREEN',['../drv__color_8h.html#a37dbdc30935031c05304482e1be89d8faa60bd322f93178d68184e30e162571ca',1,'drv_color.h']]],
+  ['green_2',['GREEN',['../drv__color_8h.html#a0a204139fa728b63f637526a181ca979aa60bd322f93178d68184e30e162571ca',1,'drv_color.h']]],
   ['gspeed_3',['gSpeed',['../structgps__t.html#a54abeb658937083d5e5504ec3b46205a',1,'gps_t']]],
   ['gyro500hz_4',['gyro500Hz',['../structsensors__t.html#a096936016bc19288738dbf774d57d563',1,'sensors_t']]],
   ['gyro_5fscale_5ffactor_5',['GYRO_SCALE_FACTOR',['../mpu6000_8h.html#a9a726f5df52d7d55a122b9949686036d',1,'mpu6000.h']]],

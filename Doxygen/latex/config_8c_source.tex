@@ -87,9 +87,9 @@
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00102}00102 \{}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00103}00103     uint8\_t test\_val;}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00104}00104 }
-\DoxyCodeLine{\Hypertarget{config_8c_source_l00105}00105 \textcolor{comment}{//  test\_val = *(uint8\_t *)FLASH\_WRITE\_EEPROM\_ADDR;}}
+\DoxyCodeLine{\Hypertarget{config_8c_source_l00105}00105     test\_val = *(uint8\_t *)\mbox{\hyperlink{config_8h_ac3b89e8ed612ac7a29df09c9bb84e29e}{FLASH\_WRITE\_EEPROM\_ADDR}};}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00106}00106 }
-\DoxyCodeLine{\Hypertarget{config_8c_source_l00107}00107     \textcolor{keywordflow}{if} (eepromReset || test\_val != checkNewEEPROMConf)}
+\DoxyCodeLine{\Hypertarget{config_8c_source_l00107}00107     \textcolor{keywordflow}{if} (eepromReset || (test\_val != checkNewEEPROMConf))}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00108}00108     \{}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00109}00109         \textcolor{comment}{// Default settings}}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00110}00110         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_ab22abc2906422da61885ac6c8e6a1a59}{version}} = checkNewEEPROMConf;}
@@ -371,7 +371,7 @@
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00404}00404         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a4eb36c5679c8fb9f8b9cb2721880ef07}{disarmCount}}            =  0;}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00405}00405 }
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00407}00407 }
-\DoxyCodeLine{\Hypertarget{config_8c_source_l00408}00408         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}}          = 1;}
+\DoxyCodeLine{\Hypertarget{config_8c_source_l00408}00408         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a5ce88c7c959b0ad00e87d025bed1e97b}{activeTelemetry}}          = 4;}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00409}00409         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_acd517b469df973fae6a48f55c2de96dc}{mavlinkEnabled}}           = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00410}00410 }
 \DoxyCodeLine{\Hypertarget{config_8c_source_l00411}00411         \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a2a966858773d9801f7ed82c71430ffc5}{verticalVelocityHoldOnly}} = \textcolor{keyword}{true};}

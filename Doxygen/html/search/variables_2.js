@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ch_0',['ch',['../drv__serial_8c.html#a0523c05685d59544dca911cb6a3db77d',1,'drv_serial.c']]],
-  ['chn_1',['chn',['../structgps__t.html#a79b7d09479ab7077da7a479f749ccdf6',1,'gps_t']]],
-  ['cmd_2',['cmd',['../drv__ibus_8c.html#a4d43e8212bdc9dbee866506f04effcea',1,'drv_ibus.c']]],
+  ['cells_0',['cells',['../drv__adc_8c.html#acaa90e358397010f1098d4c1fbcf3566',1,'drv_adc.c']]],
+  ['ch_1',['ch',['../drv__serial_8c.html#a0523c05685d59544dca911cb6a3db77d',1,'drv_serial.c']]],
+  ['chn_2',['chn',['../structgps__t.html#a79b7d09479ab7077da7a479f749ccdf6',1,'gps_t']]],
   ['cno_3',['cno',['../structgps__t.html#ade4f03788e25a49123afe9601c5bc3d6',1,'gps_t']]],
   ['commandindetent_4',['commandInDetent',['../process__commands_8c.html#aa7ec4b36be7336ea09ed4944e3029c78',1,'commandInDetent():&#160;process_commands.c'],['../process__commands_8h.html#aa7ec4b36be7336ea09ed4944e3029c78',1,'commandInDetent():&#160;process_commands.c']]],
   ['compfiltera_5',['compFilterA',['../structeeprom_config__t.html#ad6025b3ec5530410c58ab138965961a5',1,'eepromConfig_t']]],

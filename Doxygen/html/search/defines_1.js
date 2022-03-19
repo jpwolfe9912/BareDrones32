@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['betadef_0',['betaDef',['../sensor__fusion_8h.html#ab51f159bf643224a2bc1d7027fb00d62',1,'sensor_fusion.h']]],
+  ['betadef_0',['betaDef',['../madgwick_8h.html#ab51f159bf643224a2bc1d7027fb00d62',1,'madgwick.h']]],
   ['bit_5fh_5freset_1',['BIT_H_RESET',['../mpu6000_8h.html#a30a2f1f788faf9cbdeec0b2bbb39fb8c',1,'mpu6000.h']]],
   ['bit_5fi2c_5fif_5fdis_2',['BIT_I2C_IF_DIS',['../mpu6000_8h.html#ae434660d02cd8083270713af8b4a1593',1,'mpu6000.h']]],
   ['bit_5fint_5fanyrd_5f2clear_3',['BIT_INT_ANYRD_2CLEAR',['../mpu6000_8h.html#aeb55354f7d86711bd32f4a9bd7abd80c',1,'mpu6000.h']]],

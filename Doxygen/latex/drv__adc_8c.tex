@@ -1,3 +1,147 @@
 \hypertarget{drv__adc_8c}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/drv/drv\+\_\+adc.c File Reference}
 \label{drv__adc_8c}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_adc.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_adc.c}}
+
+
+This file initializes and enables the adc for reading the battery voltage.  
+
+
 {\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{drv__adc_8c_a7c16ba5c3fef890dc74bb9b9f9b14360}{adc1\+Ch8\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes ADC1 for Channel 8. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}{bat\+Mon\+Read}} (void)
+\begin{DoxyCompactList}\small\item\em Starts the ADC conversion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__adc_8c_a06406eadf297fa89a6eaf9586b227a69}{ADC\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em ADC global interrupt handler. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__adc_8c_a295198ed574625d416158a5fc54205ea}{DMA2\+\_\+\+Stream4\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em DMA2\+\_\+\+Stream4 global interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}{val}} = (uint16\+\_\+t$\ast$)0x20010000
+\item 
+float \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{batt\+Voltage}}
+\item 
+\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \mbox{\hyperlink{drv__adc_8c_acaa90e358397010f1098d4c1fbcf3566}{cells}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file initializes and enables the adc for reading the battery voltage. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+10 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{drv__adc_8c_a7c16ba5c3fef890dc74bb9b9f9b14360}\label{drv__adc_8c_a7c16ba5c3fef890dc74bb9b9f9b14360}} 
+\index{drv\_adc.c@{drv\_adc.c}!adc1Ch8Init@{adc1Ch8Init}}
+\index{adc1Ch8Init@{adc1Ch8Init}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{adc1Ch8Init()}{adc1Ch8Init()}}
+{\footnotesize\ttfamily void adc1\+Ch8\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes ADC1 for Channel 8. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00026}{26}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_a06406eadf297fa89a6eaf9586b227a69}\label{drv__adc_8c_a06406eadf297fa89a6eaf9586b227a69}} 
+\index{drv\_adc.c@{drv\_adc.c}!ADC\_IRQHandler@{ADC\_IRQHandler}}
+\index{ADC\_IRQHandler@{ADC\_IRQHandler}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{ADC\_IRQHandler()}{ADC\_IRQHandler()}}
+{\footnotesize\ttfamily void ADC\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+ADC global interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00171}{171}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}\label{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}} 
+\index{drv\_adc.c@{drv\_adc.c}!batMonRead@{batMonRead}}
+\index{batMonRead@{batMonRead}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{batMonRead()}{batMonRead()}}
+{\footnotesize\ttfamily void bat\+Mon\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Starts the ADC conversion. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00110}{110}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_a295198ed574625d416158a5fc54205ea}\label{drv__adc_8c_a295198ed574625d416158a5fc54205ea}} 
+\index{drv\_adc.c@{drv\_adc.c}!DMA2\_Stream4\_IRQHandler@{DMA2\_Stream4\_IRQHandler}}
+\index{DMA2\_Stream4\_IRQHandler@{DMA2\_Stream4\_IRQHandler}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{DMA2\_Stream4\_IRQHandler()}{DMA2\_Stream4\_IRQHandler()}}
+{\footnotesize\ttfamily void DMA2\+\_\+\+Stream4\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+DMA2\+\_\+\+Stream4 global interrupt handler. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00191}{191}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}\label{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}} 
+\index{drv\_adc.c@{drv\_adc.c}!battVoltage@{battVoltage}}
+\index{battVoltage@{battVoltage}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{battVoltage}{battVoltage}}
+{\footnotesize\ttfamily float batt\+Voltage}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00014}{14}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_acaa90e358397010f1098d4c1fbcf3566}\label{drv__adc_8c_acaa90e358397010f1098d4c1fbcf3566}} 
+\index{drv\_adc.c@{drv\_adc.c}!cells@{cells}}
+\index{cells@{cells}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{cells}{cells}}
+{\footnotesize\ttfamily \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} cells}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00015}{15}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}\label{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}} 
+\index{drv\_adc.c@{drv\_adc.c}!val@{val}}
+\index{val@{val}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily uint16\+\_\+t$\ast$ val = (uint16\+\_\+t$\ast$)0x20010000}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00013}{13}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+

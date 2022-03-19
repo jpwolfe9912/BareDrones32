@@ -106,8 +106,34 @@
 \DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00122}00122 }
 \DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00123}00123         USART1-\/>ICR         |= USART\_ICR\_IDLECF;\textcolor{comment}{// clear idle interrupt flag}}
 \DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00124}00124         USART1-\/>CR1         |= USART\_CR1\_IDLEIE;\textcolor{comment}{// enable idle line interrupts}}
-\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00125}00125         USART1-\/>CR1         |= USART\_CR1\_UE;            \textcolor{comment}{// enable usart}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00125}00125         USART1-\/>CR1         |= USART\_CR1\_UE;    \textcolor{comment}{// enable usart}}
 \DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00126}00126     \}}
 \DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00127}00127 \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00128}00128 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00129}00129 \textcolor{comment}{/* Interrupt Handlers */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00135}00135 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00136}\mbox{\hyperlink{drv__usart_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{00136}} \mbox{\hyperlink{drv__usart_8c_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{USART1\_IRQHandler}}(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00137}00137     \textcolor{comment}{/* Check for IDLE line interrupt */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00138}00138     \textcolor{keywordflow}{if} (USART1-\/>ISR \& USART\_ISR\_IDLE) \{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00139}00139         USART1-\/>ICR     |= USART\_ICR\_IDLECF;    \textcolor{comment}{/* Clear IDLE line flag */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00140}00140 \textcolor{comment}{//      usart\_rx\_check(DMA2\_Stream2-\/>NDTR);     /* Check for data to process */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00141}00141     \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00142}00142 \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00148}00148 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00149}\mbox{\hyperlink{drv__usart_8c_a7e367d7c7b74485c4c75cdef30ad01e1}{00149}} \mbox{\hyperlink{drv__usart_8c_a7e367d7c7b74485c4c75cdef30ad01e1}{DMA2\_Stream2\_IRQHandler}}(\textcolor{keywordtype}{void}) \{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00150}00150     \textcolor{comment}{/* Check half-\/transfer complete interrupt */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00151}00151     \textcolor{keywordflow}{if}(DMA2-\/>LISR \& DMA\_LISR\_TCIF2)\{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00152}00152         DMA2-\/>LIFCR     |= DMA\_LIFCR\_CTCIF2;    \textcolor{comment}{/* Clear half-\/transfer complete flag */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00153}00153 \textcolor{comment}{//      usart\_rx\_check(DMA2\_Stream2-\/>NDTR);     /* Check for data to process */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00154}00154     \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00155}00155 }
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00156}00156     \textcolor{comment}{/* Check transfer-\/complete interrupt */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00157}00157     \textcolor{keywordflow}{if}(DMA2-\/>LISR \& DMA\_LISR\_HTIF2)\{}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00158}00158         DMA2-\/>LIFCR     |= DMA\_LIFCR\_CHTIF2;    \textcolor{comment}{/* Clear half-\/transfer complete flag */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00159}00159 \textcolor{comment}{//      usart\_rx\_check(DMA2\_Stream2-\/>NDTR);     /* Check for data to process */}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00160}00160     \}}
+\DoxyCodeLine{\Hypertarget{drv__usart_8c_source_l00161}00161 \}}
 
 \end{DoxyCode}

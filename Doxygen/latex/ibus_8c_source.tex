@@ -1,0 +1,366 @@
+\hypertarget{ibus_8c_source}{}\doxysection{ibus.\+c}
+\label{ibus_8c_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/sensors/ibus.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/sensors/ibus.c}}
+\mbox{\hyperlink{ibus_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00011}00011 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00013}00013 \textcolor{comment}{/* Static Function Prototypes */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00014}00014 \textcolor{keyword}{static} \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibusStatus\_e}} ibus\_process\_frame(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00015}00015 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ibus\_update(uint8\_t* pData);}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00016}00016 \textcolor{keyword}{static} \textcolor{keywordtype}{bool} ibus\_frame\_crc(uint8\_t *pData);}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00017}00017 \textcolor{keyword}{static} \textcolor{keywordtype}{void} ibus\_error\_timeout(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00018}00018 \textcolor{comment}{//static void usart\_rx\_check(uint32\_t bytesLeft);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00019}00019 \textcolor{comment}{//static void usart\_process\_data(const void *data, size\_t len);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00021}00021 \textcolor{comment}{/* Global Variables */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00022}\mbox{\hyperlink{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{00022}} uint8\_t \mbox{\hyperlink{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{ibusPayload}}[\mbox{\hyperlink{ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\_SIZE}}];   \textcolor{comment}{// payload buffer}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00023}\mbox{\hyperlink{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}{00023}} uint8\_t \mbox{\hyperlink{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}{ibusCRC}}[\mbox{\hyperlink{ibus_8h_aa93e89217587fdff12bf43b5d7f54f74}{CRC\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00024}\mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{00024}} uint16\_t \mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\_CHANNELS}}];}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00026}\mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{00026}} uint8\_t \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00027}\mbox{\hyperlink{ibus_8c_abea449a895aa94f257f9208d671d4557}{00027}} uint8\_t \mbox{\hyperlink{ibus_8c_a5060d9399d0f25c7695ab7a78146839b}{frameLength}}, \mbox{\hyperlink{ibus_8c_abea449a895aa94f257f9208d671d4557}{devID}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00029}\mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{00029}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rcActive}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00030}\mbox{\hyperlink{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}{00030}} \textcolor{keywordtype}{bool} \mbox{\hyperlink{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}{failsafe}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00032}\mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{00032}} \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibusStatus\_e}} \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00034}00034 \textcolor{comment}{/* Static Variables */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00035}00035 \textcolor{keyword}{static} uint8\_t errorTimeOut = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00036}00036 \textcolor{keyword}{static} uint8\_t framePos = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00037}00037 \textcolor{keyword}{static} uint8\_t payloadPos = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00038}00038 \textcolor{keyword}{static} uint8\_t crcPos = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00040}00040 \textcolor{keyword}{static} uint32\_t errorCount = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00041}00041 \textcolor{keyword}{static} uint32\_t readyCount = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00049}00049 \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00050}\mbox{\hyperlink{ibus_8c_af79bcf473fa604b9bcddae0117ff0615}{00050}} \mbox{\hyperlink{ibus_8c_af79bcf473fa604b9bcddae0117ff0615}{ibusInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00051}00051 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00052}00052     uint8\_t ibus\_initialized = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00054}00054     printf(\textcolor{stringliteral}{"{}\(\backslash\)nInitializing iBus Receiver\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00056}00056     \mbox{\hyperlink{group___l_w_r_b_ga7906eb420b729bca01a6e1e4b318b432}{lwrb\_init}}(\&\mbox{\hyperlink{drv__usart_8c_ad56fe77fc1b32fe496f0275fc420042a}{rxRingBuf}}, \mbox{\hyperlink{drv__usart_8c_a0ef69602fb068aec7cfdbcb82dc72b8b}{rxRingBufData}}, \textcolor{keyword}{sizeof}(\mbox{\hyperlink{drv__usart_8c_a0ef69602fb068aec7cfdbcb82dc72b8b}{rxRingBufData}}));}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00058}00058     \mbox{\hyperlink{drv__usart_8c_ae297d1486a63281a8bed0d00f0f0b1f9}{usart1Read}}(\mbox{\hyperlink{drv__usart_8c_abc27f7b093c7752d4b4be63511d56de3}{rxBuf}}, \mbox{\hyperlink{drv__usart_8h_a630686ccbe0cb17e592951055a5da582}{RXBUF\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00061}00061     \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00063}00063     \textcolor{keywordflow}{for}(uint8\_t i = 0; i < 10; i++)\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00064}00064         \mbox{\hyperlink{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibusProcess}}();}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00065}00065         \textcolor{keywordflow}{if}(\mbox{\hyperlink{ibus_8c_abea449a895aa94f257f9208d671d4557}{devID}} == 0x40)\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00066}00066             ibus\_initialized = 1;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00067}00067             \mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rcActive}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00068}00068             \mbox{\hyperlink{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}{failsafe}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00069}00069             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00070}00070         \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00071}00071         \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(5);}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00072}00072     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00074}00074     \textcolor{keywordflow}{if}(!ibus\_initialized)\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00075}00075         \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979af80f9a890089d211842d59625e561f88}{RED}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00076}00076         printf(\textcolor{stringliteral}{"{}\(\backslash\)niBus Initialization Failed. Try again?\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00077}00077         \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979a283fc479650da98250635b9c3c0e7e50}{WHITE}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a0d077f5b932ce05e5b9f30c6087a2f31}{NO}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00078}00078 \textcolor{preprocessor}{\#ifdef STLINK}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00079}00079         \textcolor{keywordflow}{if}(\mbox{\hyperlink{drv__serial_8h_a6d78b04465ba4c91dd115bb4bf4662eb}{serialWaitFor}}(\textcolor{charliteral}{'y'}))}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00080}00080             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00081}00081         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00082}00082             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00083}00083 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00084}00084     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00085}00085     \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00086}00086         \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979aa60bd322f93178d68184e30e162571ca}{GREEN}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a99f136a862ba5c7d16967231c29f09d6}{YES}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00087}00087         printf(\textcolor{stringliteral}{"{}\(\backslash\)niBus receiver recognized\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00088}00088         \mbox{\hyperlink{drv__color_8c_a51793d1b3d6e4669841c63ba39e428ce}{color}}(\mbox{\hyperlink{drv__color_8h_a0a204139fa728b63f637526a181ca979a283fc479650da98250635b9c3c0e7e50}{WHITE}}, \mbox{\hyperlink{drv__color_8h_a3754b48ed3011b2b338eb948daa47cd7a0d077f5b932ce05e5b9f30c6087a2f31}{NO}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00089}00089         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00090}00090     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00091}00091     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00092}00092 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00098}00098 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00099}\mbox{\hyperlink{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{00099}} \mbox{\hyperlink{ibus_8c_a6973c6b108b25985f4c960dab82d92c8}{ibusProcess}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00100}00100 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00101}00101     \textcolor{keywordflow}{while}(ibus\_process\_frame() == \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570af3691b782927b3922d91f4914033a510}{IBUS\_BUSY}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00102}00102     \textcolor{keywordflow}{if}(\mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00103}00103         errorCount++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00104}00104     \textcolor{keywordflow}{if}(\mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570ae428d7ce3228dba7302258f2a9f96f1d}{IBUS\_READY}})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00105}00105         readyCount++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00106}00106 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00113}00113 \textcolor{keyword}{static} \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570}{ibusStatus\_e}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00114}00114 ibus\_process\_frame(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00115}00115 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00116}00116     uint8\_t b = \mbox{\hyperlink{drv__usart_8c_abc27f7b093c7752d4b4be63511d56de3}{rxBuf}}[framePos++];}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00117}00117     \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570af3691b782927b3922d91f4914033a510}{IBUS\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00118}00118     \textcolor{keywordflow}{switch}(\mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}})\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00119}00119         \textcolor{keywordflow}{case} \mbox{\hyperlink{ibus_8h_a99fb83031ce9923c84392b4e92f956b5aa34e1b14fc82d7fcd38d47419a78edbb}{IBUS\_STATE\_LENGTH}}: \{              \textcolor{comment}{// length byte}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00120}00120             \textcolor{keywordflow}{if}(b == 0x20)\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00121}00121                 \mbox{\hyperlink{ibus_8c_a5060d9399d0f25c7695ab7a78146839b}{frameLength}} = b;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00122}00122                 \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00123}00123             \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00124}00124             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00125}00125                 \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00126}00126             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00127}00127         \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00128}00128         \textcolor{keywordflow}{case} \mbox{\hyperlink{ibus_8h_a99fb83031ce9923c84392b4e92f956b5a1d724e6c3d2bfe57875b68d08b3cc35b}{IBUS\_STATE\_TYPE}}: \{                  \textcolor{comment}{// type byte}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00129}00129             \textcolor{keywordflow}{if}(b == 0x40)\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00130}00130                 \mbox{\hyperlink{ibus_8c_abea449a895aa94f257f9208d671d4557}{devID}} = b;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00131}00131                 \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00132}00132             \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00133}00133             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00134}00134                 \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00135}00135             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00136}00136         \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00137}00137         \textcolor{keywordflow}{case} \mbox{\hyperlink{ibus_8h_a99fb83031ce9923c84392b4e92f956b5a585b57ae393bd2b7c30494b84fd559f4}{IBUS\_STATE\_PAYLOAD}}: \{                \textcolor{comment}{// payload bytes}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00138}00138             \mbox{\hyperlink{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{ibusPayload}}[payloadPos++] = b;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00139}00139             \textcolor{keywordflow}{if}(payloadPos == \mbox{\hyperlink{ibus_8h_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\_SIZE}})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00140}00140             \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00141}00141                 ibus\_update(\mbox{\hyperlink{ibus_8c_a1f7d351054db12d0e67ab4e90bb61e3c}{ibusPayload}});}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00142}00142                 \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}}++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00143}00143                 payloadPos = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00144}00144             \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00145}00145             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00146}00146         \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00147}00147         \textcolor{keywordflow}{case} \mbox{\hyperlink{ibus_8h_a99fb83031ce9923c84392b4e92f956b5a404bbd90ff266bed464aa2a846164fc5}{IBUS\_STATE\_CRC}}: \{                    \textcolor{comment}{// crc bytes}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00148}00148             \mbox{\hyperlink{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}{ibusCRC}}[crcPos++] = b;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00149}00149             \textcolor{keywordflow}{if}(crcPos == \mbox{\hyperlink{ibus_8h_aa93e89217587fdff12bf43b5d7f54f74}{CRC\_SIZE}})\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00150}00150                 \textcolor{keywordflow}{if}(ibus\_frame\_crc(\mbox{\hyperlink{ibus_8c_ab6ecd5f765d3c1f673159f359963d201}{ibusCRC}}))}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00151}00151                 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00152}00152                     \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570ae428d7ce3228dba7302258f2a9f96f1d}{IBUS\_READY}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00153}00153                 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00154}00154                 \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00155}00155                     \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} = \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00156}00156                 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00157}00157                 crcPos = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00158}00158             \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00159}00159             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00160}00160         \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00161}00161     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00162}00162     \textcolor{keywordflow}{if}(\mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570a9b0874166f6a82f4ab575a4ec09259fa}{IBUS\_ERROR}})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00163}00163     \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00164}00164         ibus\_error\_timeout();}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00166}00166         \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}} = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00167}00167     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00168}00168     \textcolor{keywordflow}{if}(\mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}} == \mbox{\hyperlink{ibus_8h_a5a62ceacfdb82fe56aba16e8387b8570ae428d7ce3228dba7302258f2a9f96f1d}{IBUS\_READY}})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00169}00169     \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00170}00170         \mbox{\hyperlink{ibus_8c_a0b57aa10271a66f3dc936bba1d2f3830}{state}} = 0;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00171}00171     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00172}00172     \textcolor{keywordflow}{return} \mbox{\hyperlink{ibus_8c_a2cc3a1395706a276ba8a808b6f72e5c0}{status}};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00173}00173 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00174}00174 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00175}00175 \textcolor{comment}{//static ibusStatus\_e}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00176}00176 \textcolor{comment}{//ibus\_process\_frame(void)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00177}00177 \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00178}00178 \textcolor{comment}{//  uint8\_t b;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00179}00179 \textcolor{comment}{//  if(lwrb\_read(\&rxRingBuf, \&b, 1) == 1)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00180}00180 \textcolor{comment}{//      status = IBUS\_BUSY;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00181}00181 \textcolor{comment}{//      switch(state)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00182}00182 \textcolor{comment}{//          case IBUS\_STATE\_LENGTH: \{               // length byte}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00183}00183 \textcolor{comment}{//              if(b == 0x20)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00184}00184 \textcolor{comment}{//                  frameLength = b;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00185}00185 \textcolor{comment}{//                  framePos = 0;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00186}00186 \textcolor{comment}{//                  ++state;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00187}00187 \textcolor{comment}{//              \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00188}00188 \textcolor{comment}{//              else}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00189}00189 \textcolor{comment}{//                  status = IBUS\_ERROR;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00190}00190 \textcolor{comment}{//              break;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00191}00191 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00192}00192 \textcolor{comment}{//          case IBUS\_STATE\_TYPE: \{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00193}00193 \textcolor{comment}{//              cmd = b;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00194}00194 \textcolor{comment}{//              if(cmd == 0x40)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00195}00195 \textcolor{comment}{//                  dev\_id = cmd;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00196}00196 \textcolor{comment}{//                  ++state;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00197}00197 \textcolor{comment}{//              \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00198}00198 \textcolor{comment}{//              else}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00199}00199 \textcolor{comment}{//                  status = IBUS\_ERROR;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00200}00200 \textcolor{comment}{//              break;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00201}00201 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00202}00202 \textcolor{comment}{//          case IBUS\_STATE\_PAYLOAD: \{              // payload bytes}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00203}00203 \textcolor{comment}{//              ibusPayload[framePos++] = b;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00204}00204 \textcolor{comment}{//              -\/-\/frameLength;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00205}00205 \textcolor{comment}{//              if(framePos == PAYLOAD\_SIZE)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00206}00206 \textcolor{comment}{//                  ibus\_update(ibusPayload);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00207}00207 \textcolor{comment}{//                  ++state;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00208}00208 \textcolor{comment}{//                  framePos = 0;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00209}00209 \textcolor{comment}{//              \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00210}00210 \textcolor{comment}{//              break;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00211}00211 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00212}00212 \textcolor{comment}{//          case IBUS\_STATE\_CRC: \{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00213}00213 \textcolor{comment}{//              if(framePos == 1)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00214}00214 \textcolor{comment}{//                  if(ibusFrameCRC())\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00215}00215 \textcolor{comment}{//                      state = 0;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00216}00216 \textcolor{comment}{//                      status = IBUS\_READY;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00217}00217 \textcolor{comment}{//                  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00218}00218 \textcolor{comment}{//                  else\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00219}00219 \textcolor{comment}{//                      status = IBUS\_ERROR;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00220}00220 \textcolor{comment}{//                  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00221}00221 \textcolor{comment}{//              \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00222}00222 \textcolor{comment}{//              else\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00223}00223 \textcolor{comment}{//                  framePos++;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00224}00224 \textcolor{comment}{//              \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00225}00225 \textcolor{comment}{//              break;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00226}00226 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00227}00227 \textcolor{comment}{//      \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00228}00228 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00229}00229 \textcolor{comment}{//  if(status == IBUS\_ERROR)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00230}00230 \textcolor{comment}{//      ibus\_error\_timeout();}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00231}00231 \textcolor{comment}{//      lwrb\_reset(\&rxRingBuf);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00232}00232 \textcolor{comment}{//      memset(rxBuf, 0x00, RXBUF\_SIZE);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00233}00233 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00234}00234 \textcolor{comment}{//  return status;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00235}00235 \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00236}00236 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00244}00244 \textcolor{keyword}{static} \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00245}00245 ibus\_update(uint8\_t *pData)}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00246}00246 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00247}00247     \textcolor{keywordflow}{for}(uint8\_t ch\_index = 0, bf\_index = 0; ch\_index < \mbox{\hyperlink{ibus_8h_aad403df27c4671b0787f75525ee666ad}{RC\_CHANNELS}}; ch\_index++, bf\_index += 2)}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00248}00248     \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00249}00249         \mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[ch\_index] = pData[bf\_index + 1] << 8 | pData[bf\_index];}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00250}00250     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00251}00251 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00252}00252 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00262}00262 \textcolor{keyword}{static} \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00263}00263 ibus\_frame\_crc(uint8\_t *pData)}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00264}00264 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00265}00265     uint16\_t checksum\_cal = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00266}00266     uint16\_t checksum\_ibus;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00268}00268     \textcolor{keywordflow}{for}(uint8\_t i = 0; i < 30; i++)}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00269}00269     \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00270}00270         checksum\_cal -\/= \mbox{\hyperlink{drv__usart_8c_abc27f7b093c7752d4b4be63511d56de3}{rxBuf}}[i];}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00271}00271     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00273}00273     checksum\_ibus = pData[1] << 8 | pData[0]; \textcolor{comment}{// checksum value from ibus}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00274}00274     \textcolor{keywordflow}{return} (checksum\_ibus == checksum\_cal);}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00275}00275 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00277}00277 \textcolor{comment}{//static bool}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00278}00278 \textcolor{comment}{//ibus\_frame\_crc(void)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00279}00279 \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00280}00280 \textcolor{comment}{//  uint16\_t checksum\_cal = 0xFFFF;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00281}00281 \textcolor{comment}{//  uint16\_t checksum\_ibus;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00282}00282 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00283}00283 \textcolor{comment}{//  for(int i = 0; i < 30; i++)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00284}00284 \textcolor{comment}{//  \{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00285}00285 \textcolor{comment}{//      checksum\_cal -\/= rxRingBufData[i];}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00286}00286 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00287}00287 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00288}00288 \textcolor{comment}{//  checksum\_ibus = rxRingBufData[31] << 8 | rxRingBufData[30]; // checksum value from ibus}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00289}00289 \textcolor{comment}{//  return (checksum\_ibus == checksum\_cal);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00290}00290 \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00291}00291 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00296}00296 \textcolor{keyword}{static} \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00297}00297 ibus\_error\_timeout(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00298}00298 \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00299}00299     errorTimeOut++;}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00300}00300 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00301}00301     \textcolor{keywordflow}{if}(errorTimeOut > 100)}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00302}00302     \{}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00303}00303         \mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rcActive}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00304}00304         \mbox{\hyperlink{ibus_8c_a6d620a6bd078d03d656eb1470b11da22}{failsafe}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00305}00305     \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00306}00306 \}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00309}00309 \textcolor{comment}{// *    @brief  Check for new data received with DMA}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00310}00310 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00311}00311 \textcolor{comment}{// *        User must select context to call this function from:}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00312}00312 \textcolor{comment}{// *        -\/ Only interrupts (DMA HT, DMA TC, UART IDLE) with same preemption priority level}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00313}00313 \textcolor{comment}{// *        -\/ Only thread context (outside interrupts)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00314}00314 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00315}00315 \textcolor{comment}{// *        If called from both context-\/es, exclusive access protection must be implemented}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00316}00316 \textcolor{comment}{// *        This mode is not advised as it usually means architecture design problems}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00317}00317 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00318}00318 \textcolor{comment}{// *        When IDLE interrupt is not present, application must rely only on thread context,}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00319}00319 \textcolor{comment}{// *        by manually calling function as quickly as possible, to make sure}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00320}00320 \textcolor{comment}{// *        data are read from raw buffer and processed.}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00321}00321 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00322}00322 \textcolor{comment}{// *        Not doing reads fast enough may cause DMA to overflow unread received bytes,}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00323}00323 \textcolor{comment}{// *        hence application will lost useful data.}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00324}00324 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00325}00325 \textcolor{comment}{// *        Solutions to this are:}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00326}00326 \textcolor{comment}{// *        -\/ Improve architecture design to achieve faster reads}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00327}00327 \textcolor{comment}{// *        -\/ Increase raw buffer size and allow DMA to write more data before this function is called}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00328}00328 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00329}00329 \textcolor{comment}{// *    @param bytesLeft The value in the DMA\_NDTR register}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00330}00330 \textcolor{comment}{// */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00331}00331 \textcolor{comment}{//static void}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00332}00332 \textcolor{comment}{//usart\_rx\_check(uint32\_t bytesLeft)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00333}00333 \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00334}00334 \textcolor{comment}{//  static size\_t old\_pos;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00335}00335 \textcolor{comment}{//  size\_t pos;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00336}00336 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00337}00337 \textcolor{comment}{//  if(rxBuf[0] == 0)\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00338}00338 \textcolor{comment}{//      ibus\_error\_timeout();}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00339}00339 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00340}00340 \textcolor{comment}{//  else\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00341}00341 \textcolor{comment}{//      failsafe = false;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00342}00342 \textcolor{comment}{//      errorTimeOut = 0;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00343}00343 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00344}00344 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00345}00345 \textcolor{comment}{//  /* Calculate current position in buffer and check for new data available */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00346}00346 \textcolor{comment}{//  pos = ARRAY\_LEN(rxBuf) -\/ bytesLeft;}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00347}00347 \textcolor{comment}{//  if (pos != old\_pos) \{                       /* Check change in received data */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00348}00348 \textcolor{comment}{//      if (pos > old\_pos) \{                    /* Current position is over previous one */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00349}00349 \textcolor{comment}{//          /*}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00350}00350 \textcolor{comment}{//           * Processing is done in "{}linear"{} mode.}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00351}00351 \textcolor{comment}{//           *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00352}00352 \textcolor{comment}{//           * Application processing is fast with single data block,}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00353}00353 \textcolor{comment}{//           * length is simply calculated by subtracting pointers}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00354}00354 \textcolor{comment}{//           *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00355}00355 \textcolor{comment}{//           * [   0   ]}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00356}00356 \textcolor{comment}{//           * [   1   ] <-\/ old\_pos |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00357}00357 \textcolor{comment}{//           * [   2   ]            |                                    |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00358}00358 \textcolor{comment}{//           * [   3   ]            | Single block (len = pos -\/ old\_pos) |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00359}00359 \textcolor{comment}{//           * [   4   ]            |                                    |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00360}00360 \textcolor{comment}{//           * [   5   ]            |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00361}00361 \textcolor{comment}{//           * [   6   ] <-\/ pos}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00362}00362 \textcolor{comment}{//           * [   7   ]}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00363}00363 \textcolor{comment}{//           * [ N -\/ 1 ]}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00364}00364 \textcolor{comment}{//           */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00365}00365 \textcolor{comment}{//          usart\_process\_data(\&rxBuf[old\_pos], pos -\/ old\_pos);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00366}00366 \textcolor{comment}{//      \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00367}00367 \textcolor{comment}{//      else \{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00368}00368 \textcolor{comment}{//          /*}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00369}00369 \textcolor{comment}{//           * Processing is done in "{}overflow"{} mode..}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00370}00370 \textcolor{comment}{//           *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00371}00371 \textcolor{comment}{//           * Application must process data twice,}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00372}00372 \textcolor{comment}{//           * since there are 2 linear memory blocks to handle}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00373}00373 \textcolor{comment}{//           *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00374}00374 \textcolor{comment}{//           * [   0   ]            |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00375}00375 \textcolor{comment}{//           * [   1   ]            | Second block (len = pos)        |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00376}00376 \textcolor{comment}{//           * [   2   ]            |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00377}00377 \textcolor{comment}{//           * [   3   ] <-\/ pos}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00378}00378 \textcolor{comment}{//           * [   4   ] <-\/ old\_pos |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00379}00379 \textcolor{comment}{//           * [   5   ]            |                                 |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00380}00380 \textcolor{comment}{//           * [   6   ]            | First block (len = N -\/ old\_pos) |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00381}00381 \textcolor{comment}{//           * [   7   ]            |                                 |}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00382}00382 \textcolor{comment}{//           * [ N -\/ 1 ]            |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00383}00383 \textcolor{comment}{//           */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00384}00384 \textcolor{comment}{//          usart\_process\_data(\&rxBuf[old\_pos], ARRAY\_LEN(rxBuf) -\/ old\_pos);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00385}00385 \textcolor{comment}{//          if (pos > 0) \{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00386}00386 \textcolor{comment}{//              usart\_process\_data(\&rxBuf[0], pos);}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00387}00387 \textcolor{comment}{//          \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00388}00388 \textcolor{comment}{//      \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00389}00389 \textcolor{comment}{//      old\_pos = pos;                          /* Save current position as old for next transfers */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00390}00390 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00391}00391 \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00392}00392 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00394}00394 \textcolor{comment}{}\textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00395}00395 \textcolor{comment}{// *        Data are written to RX ringbuffer for application processing at later stage}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00396}00396 \textcolor{comment}{// *}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00397}00397 \textcolor{comment}{// *    @param *data Pointer to the data to process}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00398}00398 \textcolor{comment}{// *    @param len Length in units of bytes}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00399}00399 \textcolor{comment}{// */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00400}00400 \textcolor{comment}{//static void}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00401}00401 \textcolor{comment}{//usart\_process\_data(const void* data, size\_t len)}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00402}00402 \textcolor{comment}{//\{}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00403}00403 \textcolor{comment}{//  lwrb\_write(\&rxRingBuf, data, len);  /* Write data to receive buffer */}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00404}00404 \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{ibus_8c_source_l00405}00405 }
+
+\end{DoxyCode}

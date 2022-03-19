@@ -22,7 +22,7 @@ var searchData=
   ['aglscale_19',['aglScale',['../structeeprom_config__t.html#a895af807a0e66ed5176aeefc3809f106',1,'eepromConfig_t']]],
   ['ahbpresctable_20',['AHBPrescTable',['../group___s_t_m32_f7xx___system___private___variables.html#ga6e1d9cd666f0eacbfde31e9932a93466',1,'system_stm32f7xx.c']]],
   ['altitude_21',['altitude',['../structhome_data__t.html#a0e13a4b4ae0cefdac2a413284239caa6',1,'homeData_t']]],
-  ['anglescomputed_22',['anglesComputed',['../sensor__fusion_8c.html#a25a968f5ce1dd5581c3956626c89146b',1,'anglesComputed():&#160;sensor_fusion.c'],['../sensor__fusion_8h.html#a25a968f5ce1dd5581c3956626c89146b',1,'anglesComputed():&#160;sensor_fusion.c']]],
+  ['anglescomputed_22',['anglesComputed',['../madgwick_8c.html#a25a968f5ce1dd5581c3956626c89146b',1,'anglesComputed():&#160;madgwick.c'],['../madgwick_8h.html#a25a968f5ce1dd5581c3956626c89146b',1,'anglesComputed():&#160;madgwick.c']]],
   ['apbpresctable_23',['APBPrescTable',['../group___s_t_m32_f7xx___system___private___variables.html#ga5b4f8b768465842cf854a8f993b375e9',1,'system_stm32f7xx.c']]],
   ['armcount_24',['armCount',['../structeeprom_config__t.html#a8331c3665459f6d7309504ccce4e45f4',1,'eepromConfig_t']]],
   ['armed_25',['armed',['../process__commands_8c.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a',1,'armed():&#160;process_commands.c'],['../process__commands_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a',1,'armed():&#160;process_commands.c']]],

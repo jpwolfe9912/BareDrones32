@@ -1,5 +1,5 @@
 \hypertarget{process__commands_8c_source}{}\doxysection{process\+\_\+commands.\+c}
-\label{process__commands_8c_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/process\_commands.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/process\_commands.c}}
+\label{process__commands_8c_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/motion/process\_commands.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/motion/process\_commands.c}}
 \mbox{\hyperlink{process__commands_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00001}00001 }
@@ -23,99 +23,98 @@
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00031}00031     uint8\_t channel;}
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00032}00032     uint8\_t channelsToRead = 8;}
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00033}00033 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00034}00034     \textcolor{keywordflow}{if} ( \mbox{\hyperlink{drv__ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rcActive}} == \textcolor{keyword}{true} )}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00034}00034     \textcolor{keywordflow}{if} ( \mbox{\hyperlink{ibus_8c_af6184e9a83b153bfe00e7716282f04d1}{rcActive}} == \textcolor{keyword}{true} )}
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00035}00035     \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00036}00036 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00037}00037         \textcolor{comment}{/* Makes RPY from -\/1000 to 1000 */}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00038}00038         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}]  = (\mbox{\hyperlink{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}] * 2)  -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}; \textcolor{comment}{// Roll Range  -\/1000:1000}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00039}00039         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] = (\mbox{\hyperlink{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] * 2) -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}};   \textcolor{comment}{// Pitch Range -\/1000:1000}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00040}00040         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}]   = (\mbox{\hyperlink{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}] * 2)   -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}};   \textcolor{comment}{// Yaw Range   -\/1000:1000}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00041}00041 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00042}00042         \textcolor{comment}{/* Makes all other channels from 2000 to 4000 */}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00043}00043         \textcolor{keywordflow}{for} (channel = 3; channel < channelsToRead; channel++)}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00044}00044             \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = \mbox{\hyperlink{drv__ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[channel] * 2;}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00045}00045     \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00046}00046 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00047}00047     \textcolor{comment}{// Set past command in detent values}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00048}00048     \textcolor{keywordflow}{for} (channel = 0; channel < 3; channel++)}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00049}00049         \mbox{\hyperlink{process__commands_8c_afba620164d81adc771510752f70e7cc8}{previousCommandInDetent}}[channel] = \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel];}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00050}00050 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00051}00051     \textcolor{comment}{// Apply deadbands and set detent discretes'}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00052}00052     \textcolor{keywordflow}{for} (channel = 0; channel < 3; channel++)}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00053}00053     \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00054}00054         \textcolor{comment}{/* RPY is within deadband */}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00055}00055         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] <= \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) \&\& (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] >= -\/\mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}))}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00056}00056         \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00057}00057             \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = 0;          \textcolor{comment}{// set command to 0}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00058}00058             \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel] = \textcolor{keyword}{true}; \textcolor{comment}{// command IS within detent}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00059}00059         \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00060}00060         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00061}00061         \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00062}00062             \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel] = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00063}00063             \textcolor{keywordflow}{if} (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] > 0)}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00064}00064             \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00065}00065                 \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] -\/ \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) * \mbox{\hyperlink{process__commands_8h_aff2db53de34ab9f0f712f2cdef478882}{DEADBAND\_SLOPE}};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00066}00066             \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00067}00067             \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00068}00068             \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00069}00069                 \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] + \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) * \mbox{\hyperlink{process__commands_8h_aff2db53de34ab9f0f712f2cdef478882}{DEADBAND\_SLOPE}};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00070}00070             \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00071}00071         \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00072}00072     \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00073}00073 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00075}00075 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00076}00076     \textcolor{comment}{/*      Check for disarm switch */}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00077}00077     \textcolor{keywordflow}{if}(\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{AUX1}}] < \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})\{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00078}00078         \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}();}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00079}00079         \mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00080}00080         \mbox{\hyperlink{process__commands_8c_abaaaab74a851da13a44ccd63988196cc}{disarmingTimer}} = 0;}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00081}00081 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00082}00082         \textcolor{comment}{// Check for gyro bias command ( low throttle, left yaw, aft pitch, right roll )}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00083}00083         \textcolor{keywordflow}{if} ( (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] < (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) \&\&       \textcolor{comment}{//mincheck = 2200}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00084}00084                 (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] > (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{maxCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) \&\&   \textcolor{comment}{//maxcheck = 3800}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00085}00085                 (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] < (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) )}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00086}00086         \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00087}00087             \mbox{\hyperlink{mpu6000_8c_acb7732c2d9d2c63ad23af99706e5941d}{computeMPU6000RTData}}();}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00088}00088 \textcolor{comment}{//          pulseMotors(3);}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00089}00089         \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00090}00090     \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00091}00091 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00092}00092     \textcolor{comment}{/*      Check for arm switch and throttle low(<2200)    */}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00093}00093     \textcolor{keywordflow}{if}((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{AUX1}}] > \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00094}00094             (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{THROTTLE}}] < \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00095}00095             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))\{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00096}00096         \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}();}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00097}00097         \mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00098}00098     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00036}00036         \textcolor{comment}{/* Makes RPY from -\/1000 to 1000 */}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00037}00037         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}]  = (\mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] * 2) -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}; \textcolor{comment}{// Roll Range  -\/1000:1000}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00038}00038         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] = (\mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] * 2) -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}};   \textcolor{comment}{// Pitch Range -\/1000:1000}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00039}00039         \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}]   = (\mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] * 2) -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}};   \textcolor{comment}{// Yaw Range   -\/1000:1000}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00041}00041         \textcolor{comment}{/* Makes all other channels from 2000 to 4000 */}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00042}00042         \textcolor{keywordflow}{for} (channel = 3; channel < channelsToRead; channel++)}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00043}00043             \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = \mbox{\hyperlink{ibus_8c_a471e5bdeaa5f17529cc51a54fc4b12e5}{ibusChannels}}[channel] * 2;}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00044}00044     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00046}00046     \textcolor{comment}{// Set past command in detent values}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00047}00047     \textcolor{keywordflow}{for} (channel = 0; channel < 3; channel++)}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00048}00048         \mbox{\hyperlink{process__commands_8c_afba620164d81adc771510752f70e7cc8}{previousCommandInDetent}}[channel] = \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel];}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00050}00050     \textcolor{comment}{// Apply deadbands and set detent discretes'}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00051}00051     \textcolor{keywordflow}{for} (channel = 0; channel < 3; channel++)}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00052}00052     \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00053}00053         \textcolor{comment}{/* RPY is within deadband */}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00054}00054         \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] <= \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) \&\& (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] >= -\/\mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}))}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00055}00055         \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00056}00056             \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = 0;          \textcolor{comment}{// set command to 0}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00057}00057             \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel] = \textcolor{keyword}{true}; \textcolor{comment}{// command IS within detent}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00058}00058         \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00059}00059         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00060}00060         \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00061}00061             \mbox{\hyperlink{process__commands_8c_aa7ec4b36be7336ea09ed4944e3029c78}{commandInDetent}}[channel] = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00062}00062             \textcolor{keywordflow}{if} (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] > 0)}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00063}00063             \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00064}00064                 \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] -\/ \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) * \mbox{\hyperlink{process__commands_8h_aff2db53de34ab9f0f712f2cdef478882}{DEADBAND\_SLOPE}};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00065}00065             \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00066}00066             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00067}00067             \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00068}00068                 \mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] = (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[channel] + \mbox{\hyperlink{process__commands_8h_a196c194bd32527a119ac607d3b2330b6}{DEADBAND}}) * \mbox{\hyperlink{process__commands_8h_aff2db53de34ab9f0f712f2cdef478882}{DEADBAND\_SLOPE}};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00069}00069             \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00070}00070         \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00071}00071     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00075}00075     \textcolor{comment}{/*      Check for disarm switch */}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00076}00076     \textcolor{keywordflow}{if}(\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{AUX1}}] < \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})\{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00077}00077         \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}();}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00078}00078         \mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00079}00079         \mbox{\hyperlink{process__commands_8c_abaaaab74a851da13a44ccd63988196cc}{disarmingTimer}} = 0;}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00080}00080 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00081}00081         \textcolor{comment}{// Check for gyro bias command ( low throttle, left yaw, aft pitch, right roll )}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00082}00082         \textcolor{keywordflow}{if} ( (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}  ] < (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) \&\&       \textcolor{comment}{//mincheck = 2200}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00083}00083                 (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}} ] > (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a1128de0037d8dd93b3824b375c463bd3}{maxCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) \&\&   \textcolor{comment}{//maxcheck = 3800}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00084}00084                 (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}] < (\mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}} -\/ \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}})) )}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00085}00085         \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00086}00086             \mbox{\hyperlink{mpu6000_8c_acb7732c2d9d2c63ad23af99706e5941d}{computeMPU6000RTData}}();}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00087}00087 \textcolor{comment}{//          pulseMotors(3);}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00088}00088         \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00089}00089     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00091}00091     \textcolor{comment}{/*      Check for arm switch and throttle low(<2200)    */}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00092}00092     \textcolor{keywordflow}{if}((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a265717fcdca0aad3e296d063c4f1b760}{AUX1}}] > \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00093}00093             (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{THROTTLE}}] < \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a6daa80d9fe2438fcc4b755817f9502a6}{minCheck}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00094}00094             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))\{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00095}00095         \mbox{\hyperlink{pid_8c_aaf22589c0540858f845cba698115b4dd}{zeroPIDstates}}();}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00096}00096         \mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00097}00097     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00098}00098 }
 \DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00099}00099 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00100}00100 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00102}00102 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00103}00103     \textcolor{comment}{// Check for armed true and throttle command > minThrottle}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00104}00104 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00105}00105     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{true}) \&\& (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{THROTTLE}}] > \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{minThrottle}}))}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00106}00106         \mbox{\hyperlink{pid_8c_a2411ec293e48a57a17a63d25e1c47907}{pidReset}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00107}00107     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00108}00108         \mbox{\hyperlink{pid_8c_a2411ec293e48a57a17a63d25e1c47907}{pidReset}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00109}00109 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00111}00111 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00112}00112     \textcolor{comment}{// Check AUX1 for rate, attitude, or GPS mode (3 Position Switch) NOT COMPLETE YET....}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00113}00113 }
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00114}00114     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{AUX2}}] > \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00115}00115             (\mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} == \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba20364949ea9fb383c6b8baf4bf249c6a}{ROVER}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00116}00116             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00117}00117     \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00118}00118         \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} = \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00119}00119         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}{ROLL\_ATT\_PID}},  0.0f);}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00120}00120         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}{PITCH\_ATT\_PID}}, 0.0f);}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00121}00121         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}{HEADING\_PID}},   0.0f);}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00122}00122     \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00123}00123     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{AUX2}}] <= \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00124}00124             (\mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} == \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}}) \&\&}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00125}00125             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00126}00126     \{}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00127}00127         \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} = \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba20364949ea9fb383c6b8baf4bf249c6a}{ROVER}};}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00128}00128     \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00129}00129 \}}
-\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00130}00130 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00102}00102     \textcolor{comment}{// Check for armed true and throttle command > minThrottle}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00104}00104     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{true}) \&\& (\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a96e6d6c3e78916bb163b52f0ea38ba68}{THROTTLE}}] > \mbox{\hyperlink{_autodrone32_8h_adda7ce5d0896385ad80c08bee2de8394}{eepromConfig}}.\mbox{\hyperlink{structeeprom_config__t_a15003441b8f0bb4c12c4f417e76e27a9}{minThrottle}}))}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00105}00105         \mbox{\hyperlink{pid_8c_a2411ec293e48a57a17a63d25e1c47907}{pidReset}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00106}00106     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00107}00107         \mbox{\hyperlink{pid_8c_a2411ec293e48a57a17a63d25e1c47907}{pidReset}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00111}00111     \textcolor{comment}{// Check AUX1 for flight or rover mode}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00113}00113     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{AUX2}}] > \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00114}00114             (\mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} == \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba20364949ea9fb383c6b8baf4bf249c6a}{ROVER}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00115}00115             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00116}00116     \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00117}00117         \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} = \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba8ff0f0e920a26f5210452e85eabc54d3}{TRANS\_FLIGHT}};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00118}00118         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_aa6cdf8ae8cfa8c94747830d9e0431643}{ROLL\_ATT\_PID}},  0.0f);}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00119}00119         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_aa5049e31750ce30b89716ffca24dc90d}{PITCH\_ATT\_PID}}, 0.0f);}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00120}00120         \mbox{\hyperlink{pid_8c_a02dc45a9a10c03f0dc29ef31c0da5368}{setPIDstates}}(\mbox{\hyperlink{_autodrone32_8h_a52de2a501e95e89b76b389a9a9677a12}{HEADING\_PID}},   0.0f);}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00121}00121     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00122}00122     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((\mbox{\hyperlink{process__commands_8c_ab51ddf40215639ed956046378ceb51d9}{rxCommands}}[\mbox{\hyperlink{_autodrone32_8h_a30059d90eb19b3af333f29f0a44f39f8}{AUX2}}] <= \mbox{\hyperlink{_autodrone32_8h_a234028ed2ada0d36313adecfaf732ff9}{MIDCOMMAND}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00123}00123             (\mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} == \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba1e3af4a87374fcc9dcb397ee98b47b65}{FLIGHT}}) \&\&}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00124}00124             (\mbox{\hyperlink{process__commands_8c_a8a1c07a2b10dfb3f7633b8db1d1dac4a}{armed}} == \textcolor{keyword}{false}))}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00125}00125     \{}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00126}00126         \mbox{\hyperlink{process__commands_8c_a37e90f5e3bd99fac2021fb3a326607d4}{mode}} = \mbox{\hyperlink{_autodrone32_8h_a06fc87d81c62e9abb8790b6e5713c55ba8dc5461871ae730fcc0b532526747d60}{TRANS\_ROVER}};}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00127}00127     \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00128}00128 \}}
+\DoxyCodeLine{\Hypertarget{process__commands_8c_source_l00129}00129 }
 
 \end{DoxyCode}

@@ -85,8 +85,8 @@ Functions</h2></td></tr>
 <tr class="separator:aa43494de2ff609909ddd35979dcb4218"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7807d9820ac9ebb4fdbec073beeea69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__serial_8h.html#ab7807d9820ac9ebb4fdbec073beeea69">serialRead8</a> (uint8_t *num)</td></tr>
 <tr class="separator:ab7807d9820ac9ebb4fdbec073beeea69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae890d38ee7f2de78781d49bd98414cd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__serial_8h.html#ae890d38ee7f2de78781d49bd98414cd7">serialReadF</a> (float *num)</td></tr>
-<tr class="separator:ae890d38ee7f2de78781d49bd98414cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__serial_8h.html#ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0">serialReadPID</a> (float *P, float *I, float *D, float *limit, float *integrator, float *filter)</td></tr>
+<tr class="separator:ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d78b04465ba4c91dd115bb4bf4662eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drv__serial_8h.html#a6d78b04465ba4c91dd115bb4bf4662eb">serialWaitFor</a> (char wait)</td></tr>
 <tr class="separator:a6d78b04465ba4c91dd115bb4bf4662eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -95,7 +95,6 @@ Functions</h2></td></tr>
 <p >Based on which device you are using (Nucleo or Autodrone PCB), enable the corresponding Include in the preprocessor</p>
 <dl class="section author"><dt>Author</dt><dd>Jeremy Wolfe </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23 FEB 2022 </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000010">Bug:</a></b></dt><dd></dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="drv__serial_8h_source.html">drv_serial.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -135,18 +134,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae890d38ee7f2de78781d49bd98414cd7" name="ae890d38ee7f2de78781d49bd98414cd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae890d38ee7f2de78781d49bd98414cd7">&#9670;&nbsp;</a></span>serialReadF()</h2>
+<a id="ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0" name="ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d4cc1cc3bd6bdc2899bff4d2d8aeb0">&#9670;&nbsp;</a></span>serialReadPID()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void serialReadF </td>
+          <td class="memname">void serialReadPID </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>num</em></td><td>)</td>
+          <td class="paramname"><em>P</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>I</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>D</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>integrator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>filter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
