@@ -1,33 +1,27 @@
-/**
-  ******************************************************************************
-  * @file    adc.h
-  * @brief   This file contains all the function prototypes for
-  *          the adc.c file
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __ADC_H__
-#define __ADC_H__
+/** @file 		drv_adc.h
+ *  @brief
+ *  	This file initializes and enables the adc for reading the battery voltage.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		10 MAR 2022
+ */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef INC_DRV_ADC_H_
+#define INC_DRV_ADC_H_
 
-#ifdef __cplusplus
-}
-#endif
+extern uint16_t *val;
+extern float battVoltage;
 
-#endif /* __ADC_H__ */
+typedef enum
+{
+	NO_BATT,
+	THREE = 3,
+	FOUR,
+	FIVE,
+	SIX
+}battCells_e;
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+void adc1Ch8Init(void);
+void batMonRead(void);
+
+#endif /* INC_DRV_ADC_H_ */

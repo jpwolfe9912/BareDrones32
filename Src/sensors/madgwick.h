@@ -1,4 +1,4 @@
-/** @file 		sensor_fusion.h
+/** @file 		madgwick.h
  *  @brief
  *  	This file gives the function to create our RPY values.
  *

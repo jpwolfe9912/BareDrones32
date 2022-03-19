@@ -147,9 +147,9 @@ void
 serialInit(void)
 {
 
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN |
-			RCC_AHB1ENR_GPIODEN; 						// enable the clock for port C, D
-	RCC->APB1ENR |= RCC_APB1ENR_UART5EN; 						// enable the clock for UART5
+	RCC->AHB1ENR 	|= RCC_AHB1ENR_GPIOCEN |
+					   RCC_AHB1ENR_GPIODEN; 						// enable the clock for port C, D
+	RCC->APB1ENR 	|= RCC_APB1ENR_UART5EN; 						// enable the clock for UART5
 
 	GPIOC->AFR[1] |= (0x8 << (4 * 4U));							// set pin A2 as alternate function
 	GPIOD->AFR[0] |= (0x8 << (4 * 2U));							// set pin A3 as alternate function
@@ -211,7 +211,7 @@ serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, flo
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!endOfString);
 
-	sscanf(serialBuf, "\n%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
+	sscanf((char*)serialBuf, "\n%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
 
 	UART5->CR1 &= ~USART_CR1_RXNEIE;
 	memset(serialBuf, '\0', sizeof(serialBuf));

@@ -43,19 +43,20 @@
 #include "drv_adc.h"
 #include "drv_dma.h"
 #include "drv_tim.h"
-#include "drv_usb_otg.h"
 
 #include "drv_lwrb.h"
+#include "drv_worm.h"
 #include "drv_dshot.h"
-#include "drv_ibus.h"
 
 #include "process_commands.h"
 #include "compute_axis_commands.h"
 #include "motors.h"
+#include "rotations.h"
 
+#include "ibus.h"
 #include "mpu6000.h"
+#include "madgwick.h"
 #include "orientation.h"
-#include "sensor_fusion.h"
 #include "mpu6000_calibration.h"
 #include "accel_calibration_mpu.h"
 

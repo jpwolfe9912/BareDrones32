@@ -33,11 +33,10 @@ processCommands(void)
 
 	if ( rcActive == true )
 	{
-
 		/* Makes RPY from -1000 to 1000 */
-		rxCommands[ROLL]  = (ibusChannels[ROLL] * 2)  - MIDCOMMAND;	// Roll Range  -1000:1000
+		rxCommands[ROLL]  = (ibusChannels[ROLL ] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
 		rxCommands[PITCH] = (ibusChannels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
-		rxCommands[YAW]   = (ibusChannels[YAW] * 2)   - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rxCommands[YAW]   = (ibusChannels[YAW  ] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
 
 		/* Makes all other channels from 2000 to 4000 */
 		for (channel = 3; channel < channelsToRead; channel++)
@@ -109,13 +108,13 @@ processCommands(void)
 
 	///////////////////////////////////
 
-	// Check AUX1 for rate, attitude, or GPS mode (3 Position Switch) NOT COMPLETE YET....
+	// Check AUX1 for flight or rover mode
 
 	if ((rxCommands[AUX2] > MIDCOMMAND) &&
 			(mode == ROVER) &&
 			(armed == false))
 	{
-		mode = FLIGHT;
+		mode = TRANS_FLIGHT;
 		setPIDstates(ROLL_ATT_PID,  0.0f);
 		setPIDstates(PITCH_ATT_PID, 0.0f);
 		setPIDstates(HEADING_PID,   0.0f);
@@ -124,7 +123,7 @@ processCommands(void)
 			(mode == FLIGHT) &&
 			(armed == false))
 	{
-		mode = ROVER;
+		mode = TRANS_ROVER;
 	}
 }
 

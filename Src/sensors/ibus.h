@@ -1,15 +1,14 @@
-/** @file 		drv_ibus.h
+/** @file 		ibus.h
  *  @brief
  *  	This file initializes the ibus receiver protocol
  *
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
-#ifndef __DRV_IBUS_H__
-#define __DRV_IBUS_H__
+#ifndef __IBUS_H__
+#define __IBUS_H__
 
 /* Includes */
 #include "drv_lwrb.h"
@@ -17,6 +16,7 @@
 /* Defines */
 #define IBUS_FRAME_SIZE_MAX			32
 #define PAYLOAD_SIZE				(IBUS_FRAME_SIZE_MAX - 4U)
+#define CRC_SIZE					2
 #define RC_CHANNELS					(PAYLOAD_SIZE / 2U)
 #define ARRAY_LEN(x)				(sizeof(x) / sizeof((x)[0]))
 
@@ -26,9 +26,11 @@ void ibusProcess(void);
 
 /* Global Variables */
 extern uint8_t ibusPayload[PAYLOAD_SIZE];
+extern uint8_t ibusCRC[CRC_SIZE];
 extern uint16_t ibusChannels[RC_CHANNELS];
 
 extern bool rcActive;
+extern bool failsafe;
 
 /* Global Enums */
 enum {
@@ -44,4 +46,4 @@ typedef enum{
 	IBUS_ERROR
 }ibusStatus_e;
 
-#endif /* __DRV_IBUS_H__ */
+#endif /* __IBUS_H__ */

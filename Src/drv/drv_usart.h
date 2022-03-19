@@ -14,7 +14,7 @@
 #include "drv_lwrb.h"
 
 /* Defines */
-#define RXBUF_SIZE 					33
+#define RXBUF_SIZE 					32
 
 /* Prototypes */
 void usart1Init(void);

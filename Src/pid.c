@@ -90,6 +90,7 @@ initPIDvalues(void)
 	uint8_t ID;
 	bool again = true;
 
+#ifdef STLINK
 	color(CYAN, YES);
 	printf("\nWould you like to change the PID states?\n");
 	colorDefault();
@@ -148,6 +149,7 @@ initPIDvalues(void)
 		else
 			again = false;
 	}
+#endif
 }
 
 /** @brief Set the state of the PIDs.

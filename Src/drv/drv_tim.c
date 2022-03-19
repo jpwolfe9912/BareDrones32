@@ -9,8 +9,7 @@
 /* Includes */
 #include "board.h"
 
-/** @brief Initializes the low level registers to set up
- *  the timer.
+/** @brief Initializes the low level registers to set up timer 9.
  *
  *  @return Void.
  */
@@ -22,6 +21,7 @@ tim9Init(void)
 	TIM9->PSC 	= 108 - 1;
 	TIM9->ARR 	= 0xFFFF;
 	TIM9->CNT	= 4000;
+
 }
 
 /** @brief Gets the counter value.

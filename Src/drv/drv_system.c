@@ -16,11 +16,11 @@ static volatile uint32_t sysTickUptime = 0;
 static volatile uint32_t sysTickCycleCounter = 0;
 
 /* Global Variables */
-
 uint16_t frameCounter = 0;
 
 semaphore_t frame_1000Hz= false;
 semaphore_t frame_500Hz = false;
+semaphore_t frame_200Hz = false;
 semaphore_t frame_100Hz = false;
 semaphore_t frame_50Hz  = false;
 semaphore_t frame_10Hz  = false;
@@ -29,13 +29,14 @@ semaphore_t frame_1Hz   = false;
 
 uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
 uint32_t deltaTime500Hz,  executionTime500Hz,  previous500HzTime;
+uint32_t deltaTime200Hz,  executionTime200Hz,  previous200HzTime;
 uint32_t deltaTime100Hz,  executionTime100Hz,  previous100HzTime;
 uint32_t deltaTime50Hz,   executionTime50Hz,   previous50HzTime;
 uint32_t deltaTime10Hz,   executionTime10Hz,   previous10HzTime;
 uint32_t deltaTime5Hz,    executionTime5Hz,    previous5HzTime;
 uint32_t deltaTime1Hz,    executionTime1Hz,    previous1HzTime;
 
-float dt500Hz, dt100Hz;
+float dt500Hz;
 
 semaphore_t systemReady = false;
 
@@ -103,6 +104,11 @@ SysTick_Handler(void)
 				gyroSum500Hz[index] = 0;
 			}
 		}
+
+		///////////////////////////////
+
+		if ((frameCounter % COUNT_200HZ) == 0)
+			frame_200Hz = true;
 
 		///////////////////////////////
 
@@ -260,8 +266,6 @@ systemInit(void)
 	cycleCounterInit();
 
 	checkFirstTime(true);
-
-//	delay(1000);
 	/*		LOW LEVEL INITIALIZATION	*/
 
 	serialInit();
@@ -273,11 +277,12 @@ systemInit(void)
 	printf("----------------------------------\n");
 	color(WHITE, NO);
 
+	adc1Ch8Init();
 
 	dshotInit(DSHOT600);
 	motorInit();
-	motors3dOn(MOTOR4);
-	motors3dOn(MOTOR2);
+//	motors3dOn(MOTOR4);
+//	motors3dOn(MOTOR2);
 
 
 	spi1Init();

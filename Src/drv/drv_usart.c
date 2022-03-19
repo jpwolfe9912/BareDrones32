@@ -125,3 +125,37 @@ usart1Read(uint8_t *pData, uint8_t size)
 		USART1->CR1			|= USART_CR1_UE;	// enable usart
 	}
 }
+
+/* Interrupt Handlers */
+
+/** @brief	USART1 global interrupt handler
+ *
+ * 	@return Void.
+ */
+void
+USART1_IRQHandler(void) {
+	/* Check for IDLE line interrupt */
+	if (USART1->ISR & USART_ISR_IDLE) {
+		USART1->ICR		|= USART_ICR_IDLECF;	/* Clear IDLE line flag */
+//		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
+}
+
+/** @brief	DMA2_Stream2 global interrupt handler
+ *
+ * 	@return Void.
+ */
+void
+DMA2_Stream2_IRQHandler(void) {
+	/* Check half-transfer complete interrupt */
+	if(DMA2->LISR & DMA_LISR_TCIF2){
+		DMA2->LIFCR		|= DMA_LIFCR_CTCIF2;	/* Clear half-transfer complete flag */
+//		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
+
+	/* Check transfer-complete interrupt */
+	if(DMA2->LISR & DMA_LISR_HTIF2){
+		DMA2->LIFCR		|= DMA_LIFCR_CHTIF2;	/* Clear half-transfer complete flag */
+//		usart_rx_check(DMA2_Stream2->NDTR);		/* Check for data to process */
+	}
+}

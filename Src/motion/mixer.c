@@ -38,7 +38,9 @@ mixTable(void)
 {
 	uint8_t i;
 
-	if((mode == FLIGHT) && (armed == true))
+	if((mode == FLIGHT) &&
+			(armed == true) &&
+			(failsafe == false))
 	{
 		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
 		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
@@ -62,7 +64,9 @@ mixTable(void)
 
 		}
 	}
-	else if((mode == ROVER) && (armed == true))
+	else if((mode == ROVER) &&
+			(armed == true) &&
+			(failsafe == false))
 	{
 
 		motor_temp[0] = PIDMIXROVER(  1.0f,  1.0f);	// front left

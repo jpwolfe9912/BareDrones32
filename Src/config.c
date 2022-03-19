@@ -102,9 +102,9 @@ checkFirstTime(bool eepromReset)
 {
 	uint8_t test_val;
 
-//	test_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
+	test_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
 
-	if (eepromReset || test_val != checkNewEEPROMConf)
+	if (eepromReset || (test_val != checkNewEEPROMConf))
 	{
 		// Default settings
 		eepromConfig.version = checkNewEEPROMConf;

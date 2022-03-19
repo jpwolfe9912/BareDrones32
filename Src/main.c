@@ -18,27 +18,15 @@ uint8_t			execUpCount = 0;
 
 sensors_t		sensors;
 
-heading_t		heading;
-
-gps_t			gps;
-
-homeData_t		homeData;
-
 uint16_t		timerValue;
-
 
 int main(void)
 {
 	uint32_t currentTime;
 
-	arm_matrix_instance_f32 a;
-	arm_matrix_instance_f32 b;
-	arm_matrix_instance_f32 x;
-
 	systemReady = false;
 
 	systemInit();
-
 
 	systemReady = true;
 
@@ -68,31 +56,7 @@ int main(void)
 
 			dt500Hz = (float)timerValue * 0.0000005f;  // For integrations in 500 Hz loop
 
-			computeMPU6000TCBias();
-
-			nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples500Hz[XAXIS] * 0.5f - accelTCBias[XAXIS]) * ACCEL_SCALE_FACTOR;
-			nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples500Hz[YAXIS] * 0.5f - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;
-			nonRotatedAccelData[ZAXIS] = ((float)accelSummedSamples500Hz[ZAXIS] * 0.5f - accelTCBias[ZAXIS]) * ACCEL_SCALE_FACTOR;
-
-			arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
-
-			arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedAccelData);
-
-			arm_mat_init_f32(&x, 3, 1,          sensors.accel500Hz);
-
-			arm_mat_mult_f32(&a, &b, &x);
-
-			nonRotatedGyroData[ROLL ] = ((float)gyroSummedSamples500Hz[ROLL]  * 0.5f - gyroRTBias[ROLL ] - gyroTCBias[ROLL ]) * GYRO_SCALE_FACTOR;
-			nonRotatedGyroData[PITCH] = ((float)gyroSummedSamples500Hz[PITCH] * 0.5f - gyroRTBias[PITCH] - gyroTCBias[PITCH]) * GYRO_SCALE_FACTOR;
-			nonRotatedGyroData[YAW  ] = ((float)gyroSummedSamples500Hz[YAW]   * 0.5f - gyroRTBias[YAW  ] - gyroTCBias[YAW  ]) * GYRO_SCALE_FACTOR;
-
-			arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
-
-			arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedGyroData);
-
-			arm_mat_init_f32(&x, 3, 1,          sensors.gyro500Hz);
-
-			arm_mat_mult_f32(&a, &b, &x);
+			computeRotations500Hz();
 
 			updateIMU(sensors.gyro500Hz[ROLL ], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
 					sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
@@ -109,6 +73,22 @@ int main(void)
 
 		}
 
+
+		///////////////////////////////
+
+		if (frame_200Hz)
+		{
+			frame_200Hz = false;
+
+			currentTime     = micros();
+			deltaTime200Hz    = currentTime - previous200HzTime;
+			previous200HzTime = currentTime;
+
+			ibusProcess();
+
+			executionTime200Hz = micros() - currentTime;
+		}
+
 		///////////////////////////////
 
 		if (frame_100Hz)
@@ -120,22 +100,7 @@ int main(void)
 			deltaTime100Hz    = currentTime - previous100HzTime;
 			previous100HzTime = currentTime;
 
-
-			dt100Hz = (float)timerValue * 0.0000005f;  // For integrations in 100 Hz loop
-
-			nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples100Hz[XAXIS] * 0.1f - accelTCBias[XAXIS]) * ACCEL_SCALE_FACTOR;
-			nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples100Hz[YAXIS] * 0.1f - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;
-			nonRotatedAccelData[ZAXIS] = ((float)accelSummedSamples100Hz[ZAXIS] * 0.1f - accelTCBias[ZAXIS]) * ACCEL_SCALE_FACTOR;
-
-			arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
-
-			arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedAccelData);
-
-			arm_mat_init_f32(&x, 3, 1,          sensors.accel100Hz);
-
-			arm_mat_mult_f32(&a, &b, &x);
-
-			ibusProcess();
+			computeRotations100Hz();
 
 
 			if (armed == true)
@@ -143,7 +108,9 @@ int main(void)
 				if ( eepromConfig.activeTelemetry == 1 )
 				{
 					// Roll Loop
-					printf("1,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", mode,
+					printf("1,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
+							battVoltage,
+							mode,
 							rateCmd[ROLL],
 							sensors.gyro500Hz[ROLL],
 							ratePID[ROLL],
@@ -155,7 +122,9 @@ int main(void)
 				if ( eepromConfig.activeTelemetry == 2 )
 				{
 					// Pitch Loop
-					printf("2,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n", mode,
+					printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
+							battVoltage,
+							mode,
 							rateCmd[PITCH],
 							sensors.gyro500Hz[PITCH],
 							ratePID[PITCH],
@@ -167,7 +136,9 @@ int main(void)
 				if ( eepromConfig.activeTelemetry == 3 )
 				{
 					// Sensors
-					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n", sensors.accel500Hz[XAXIS],
+					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n",
+							battVoltage,
+							sensors.accel500Hz[XAXIS],
 							sensors.accel500Hz[YAXIS],
 							sensors.accel500Hz[ZAXIS],
 							sensors.gyro500Hz[ROLL],
@@ -181,7 +152,8 @@ int main(void)
 
 				if ( eepromConfig.activeTelemetry == 4 )
 				{
-					printf("4,%u,%u,%u,%u,\n",
+					printf("4,%9.4f,%u,%u,%u,%u,\n",
+							battVoltage,
 							motor_value[0],
 							motor_value[1],
 							motor_value[2],
@@ -189,9 +161,6 @@ int main(void)
 				}
 
 			}
-//			printf("ROLL:  %f - ", sensors.attitude500Hz[ROLL]);
-//			printf("PITCH: %f - ", sensors.attitude500Hz[PITCH]);
-//			printf("YAW:   %f\r", sensors.attitude500Hz[YAW]);
 
 
 			executionTime100Hz = micros() - currentTime;
@@ -263,6 +232,8 @@ int main(void)
 			currentTime     = micros();
 			deltaTime5Hz    = currentTime - previous5HzTime;
 			previous5HzTime = currentTime;
+
+			batMonRead();
 
 //			if (gpsValid() == true)
 //			{
