@@ -18,16 +18,18 @@
  * */
 
 void
-transistionInit(void)
-{
-
-}
-
-void
 modeTransition(void)
 {
-	if(mode == TRANS_FLIGHT)
-	{
+	wormDrive();
+	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
-	}
+	if(mode == TRANS_FLIGHT)
+		mode = FLIGHT;
+	else if(mode == TRANS_ROVER)
+		mode = ROVER;
+
+	arm1Hit = false;
+	arm2Hit = false;
+
+	SysTick->CTRL	|= SysTick_CTRL_ENABLE_Msk;
 }

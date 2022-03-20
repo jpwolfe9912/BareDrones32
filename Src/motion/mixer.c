@@ -39,8 +39,8 @@ mixTable(void)
 	uint8_t i;
 
 	if((mode == FLIGHT) &&
-			(armed == true) &&
-			(failsafe == false))
+	   (armed == true) &&
+	   (failsafe == false))
 	{
 		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
 		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
@@ -51,8 +51,8 @@ mixTable(void)
 		float minDeltaThrottle;
 		float deltaThrottle;
 
-		maxDeltaThrottle = (float)MAXCOMMAND - rxCommands[THROTTLE];
-		minDeltaThrottle = rxCommands[THROTTLE] - eepromConfig.minThrottle;
+		maxDeltaThrottle = (uint16_t)MAXCOMMAND - rxCommands[THROTTLE];
+		minDeltaThrottle = rxCommands[THROTTLE] - (uint16_t)eepromConfig.minThrottle;
 		deltaThrottle    = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
 
 		for (i = 0; i < numberMotor; i++)

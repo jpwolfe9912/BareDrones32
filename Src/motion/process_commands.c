@@ -73,7 +73,8 @@ processCommands(void)
 	///////////////////////////////////
 
 	/*		Check for disarm switch	*/
-	if(rxCommands[AUX1] < MIDCOMMAND){
+	if(rxCommands[AUX1] < MIDCOMMAND)
+	{
 		zeroPIDstates();
 		armed = false;
 		disarmingTimer = 0;
@@ -90,8 +91,9 @@ processCommands(void)
 
 	/*		Check for arm switch and throttle low(<2200)	*/
 	if((rxCommands[AUX1] > MIDCOMMAND) &&
-			(rxCommands[THROTTLE] < eepromConfig.minCheck) &&
-			(armed == false)){
+	   (rxCommands[THROTTLE] < eepromConfig.minCheck) &&
+	   (armed == false))
+	{
 		zeroPIDstates();
 		armed = true;
 	}
@@ -111,19 +113,22 @@ processCommands(void)
 	// Check AUX1 for flight or rover mode
 
 	if ((rxCommands[AUX2] > MIDCOMMAND) &&
-			(mode == ROVER) &&
-			(armed == false))
+		(mode == ROVER) &&
+		(armed == false))
 	{
 		mode = TRANS_FLIGHT;
 		setPIDstates(ROLL_ATT_PID,  0.0f);
 		setPIDstates(PITCH_ATT_PID, 0.0f);
 		setPIDstates(HEADING_PID,   0.0f);
+
+		modeTransition();
 	}
 	else if ((rxCommands[AUX2] <= MIDCOMMAND) &&
-			(mode == FLIGHT) &&
-			(armed == false))
+			 (mode == FLIGHT) &&
+			 (armed == false))
 	{
 		mode = TRANS_ROVER;
+		modeTransition();
 	}
 }
 

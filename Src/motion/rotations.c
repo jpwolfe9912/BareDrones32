@@ -46,27 +46,3 @@ computeRotations500Hz(void)
 
 	arm_mat_mult_f32(&a, &b, &x);
 }
-
-/** @brief Computes the body frame for 100Hz loop.
- *
- *  @return Void.
- */
-void
-computeRotations100Hz(void)
-{
-	arm_matrix_instance_f32 a;
-	arm_matrix_instance_f32 b;
-	arm_matrix_instance_f32 x;
-
-	nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples100Hz[XAXIS] * 0.1f - accelTCBias[XAXIS]) * ACCEL_SCALE_FACTOR;
-	nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples100Hz[YAXIS] * 0.1f - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;
-	nonRotatedAccelData[ZAXIS] = ((float)accelSummedSamples100Hz[ZAXIS] * 0.1f - accelTCBias[ZAXIS]) * ACCEL_SCALE_FACTOR;
-
-	arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
-
-	arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedAccelData);
-
-	arm_mat_init_f32(&x, 3, 1,          sensors.accel100Hz);
-
-	arm_mat_mult_f32(&a, &b, &x);
-}

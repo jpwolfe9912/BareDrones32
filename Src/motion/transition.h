@@ -6,9 +6,10 @@
  *  @date 		16 MAR 2022
  */
 
-#ifndef SRC_MOTION_TRANSITION_H_
-#define SRC_MOTION_TRANSITION_H_
+#ifndef __TRANSITION_H__
+#define __TRANSITION_H__
 
+/* Function Prototypes */
+void modeTransition(void);
 
-
-#endif /* SRC_MOTION_TRANSITION_H_ */
+#endif /* __TRANSITION_H__ */

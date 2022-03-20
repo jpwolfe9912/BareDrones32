@@ -10,8 +10,8 @@
 #define __MIXER_H__
 
 /* Defines */
-#define PIDMIXFLIGHT(X,Y,Z,T) (ratePID[ROLL] * (X) + ratePID[PITCH] * (Y) + eepromConfig.yawDirection * ratePID[YAW] * (Z) + throttleCmd * (T))
-#define PIDMIXROVER(X,T) (steerCmd * (X) + speedCmd * (T))
+#define PIDMIXFLIGHT(X,Y,Z,T) 	(ratePID[ROLL] * (X) + ratePID[PITCH] * (Y) + eepromConfig.yawDirection * ratePID[YAW] * (Z) + throttleCmd * (T))
+#define PIDMIXROVER(X,T) 		(steerCmd * (X) + speedCmd * (T))
 
 /* Global Variables */
 extern uint8_t numberMotor;

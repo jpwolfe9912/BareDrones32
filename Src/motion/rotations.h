@@ -9,8 +9,7 @@
 #ifndef SRC_ROTATIONS_H_
 #define SRC_ROTATIONS_H_
 
-/* Includes */
+/* Function Prototypes */
 void computeRotations500Hz(void);
-void computeRotations100Hz(void);
 
 #endif /* SRC_ROTATIONS_H_ */

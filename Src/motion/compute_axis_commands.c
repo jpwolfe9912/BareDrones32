@@ -29,7 +29,7 @@ computeAxisCommands(float dt)
 	{
 		attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
 		attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
-		rateCmd[YAW]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
+		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
 
 		error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
 		attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
@@ -45,7 +45,7 @@ computeAxisCommands(float dt)
 		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
 
-		error = rateCmd[PITCH] + sensors.gyro500Hz[PITCH];
+		error = rateCmd[PITCH] + sensors.gyro500Hz[PITCH];		// TODO check if this should be "+"
 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
 
 		error = rateCmd[YAW] - sensors.gyro500Hz[YAW];
