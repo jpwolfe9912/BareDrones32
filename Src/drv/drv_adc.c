@@ -10,9 +10,11 @@
 #include "board.h"
 
 /* Global Variables */
-uint16_t *val = (uint16_t*)0x20010000;
+uint16_t *rawBatt = (uint16_t*)0x20010000;
 float battVoltage;
 battCells_e cells;
+bool battLow = false;
+bool battEmpty = false;
 
 /* Static Function Prototypes */
 static battCells_e batt_cells(void);
@@ -89,7 +91,7 @@ adc1Ch8Init(void)
 	DMA2_Stream4->CR	|= DMA_SxCR_TCIE |
 						   DMA_SxCR_TEIE;
 	DMA2_Stream4->PAR = (uint32_t)(&(ADC1->DR));		// setting the ADC data register as the peripheral address
-	DMA2_Stream4->M0AR = (uint32_t)val;				// setting the "val" array as the memory location
+	DMA2_Stream4->M0AR = (uint32_t)rawBatt;				// setting the "rawBatt" array as the memory location
 	DMA2_Stream4->NDTR = 1;
 
 	DMA2_Stream4->CR	|= DMA_SxCR_EN;
@@ -110,7 +112,7 @@ void
 batMonRead(void)
 {
 	ADC1->CR2	|= ADC_CR2_SWSTART;
-	battVoltage = *val * 0.0088623f;
+	battVoltage = *rawBatt * 0.0088623f;
 	batt_warning();
 }
 
@@ -126,7 +128,7 @@ batt_cells(void)
 	for(uint8_t i = 0; i < 10; i++)
 	{
 		batMonRead();
-		summedVoltage += *val;
+		summedVoltage += *rawBatt;
 		delay(1);
 	}
 	avgVoltage = summedVoltage / 10;
@@ -155,11 +157,18 @@ batt_warning(void)
 		color(RED, YES);
 		printf("\nBATTERY EMPTY\n");
 		colorDefault();
+		battEmpty = true;
 	}
 	else if(battVoltage < (cells * 3.7)){
 		color(YELLOW, YES);
 		printf("\nBATTERY LOW\n");
 		colorDefault();
+		battLow = true;
+	}
+	else
+	{
+		battLow = false;
+		battEmpty = false;
 	}
 }
 
@@ -172,7 +181,7 @@ ADC_IRQHandler(void){
 	if(ADC1->SR & ADC_SR_OVR)	// data overrun
 	{
 		DMA2_Stream4->PAR = (uint32_t)(&(ADC1->DR));		// setting the ADC data register as the peripheral address
-		DMA2_Stream4->M0AR = (uint32_t)val;				// setting the "val" array as the memory location
+		DMA2_Stream4->M0AR = (uint32_t)rawBatt;				// setting the "rawBatt" array as the memory location
 		DMA2_Stream4->NDTR = 1;
 
 		ADC1->SR 	|= ADC_SR_OVR;

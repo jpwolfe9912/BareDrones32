@@ -16,11 +16,7 @@ float accelOneG = 9.8065;
 uint8_t rawData[16];
 
 // Accel
-int32_t accelSum100Hz[3] = { 0, 0, 0 };
-
 int32_t accelSum500Hz[3] = { 0, 0, 0 };
-
-int32_t accelSummedSamples100Hz[3];
 
 int32_t accelSummedSamples500Hz[3];
 
@@ -58,6 +54,8 @@ int16andUint8_t rawMPU6000Temperature;
 
 uint8_t whoami[3];
 
+bool mpu6000Initialized = false;
+
 /** @brief MPU-6000 initialization sequence
  *
  *  @return bool True if initialization was successful.
@@ -92,12 +90,14 @@ mpu6000Init(void)
 		printf("\nFailed to read device ID. Would you like to retry?\n");
 		color(WHITE, NO);
 		if(serialWaitFor('y')){
-			return false;
+			mpu6000Initialized = false;
+			return mpu6000Initialized;
 		}
 	}
 	else{
 		color(GREEN, YES);
 		printf("\nDevice ID recognized as 0x%X\n", whoami[2]);
+		mpu6000Initialized = true;
 		color(WHITE, NO);
 	}
 	delayMicroseconds(100);
@@ -139,7 +139,7 @@ mpu6000Init(void)
 #endif
 
 	computeMPU6000RTData();
-	return true;
+	return mpu6000Initialized;
 }
 
 /** @brief Reads MPU-6000 raw data and packs accel, gyro, temp data into variables
@@ -167,6 +167,15 @@ readMPU6000(void)
     rawGyro[PITCH].bytes[0]			= 	rawData[13];
     rawGyro[YAW  ].bytes[1]			= 	rawData[14];
     rawGyro[YAW  ].bytes[0]			= 	rawData[15];
+
+
+	accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
+	accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
+	accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
+
+	gyroSum500Hz[ROLL ] += rawGyro[ROLL ].value;
+	gyroSum500Hz[PITCH] += rawGyro[PITCH].value;
+	gyroSum500Hz[YAW  ] += rawGyro[YAW  ].value;
 }
 
 /** @brief Computes IMU runtime data to find gyro bias.

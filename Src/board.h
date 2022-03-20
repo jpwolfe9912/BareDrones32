@@ -34,6 +34,7 @@
 #include "utilities.h"
 #include "mixer.h"
 
+#include "drv_led.h"
 #include "drv_color.h"
 #include "drv_system.h"
 #include "drv_rcc.h"
@@ -52,6 +53,7 @@
 #include "compute_axis_commands.h"
 #include "motors.h"
 #include "rotations.h"
+#include "transition.h"
 
 #include "ibus.h"
 #include "mpu6000.h"

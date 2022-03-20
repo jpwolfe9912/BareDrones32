@@ -20,7 +20,9 @@ sensors_t		sensors;
 
 uint16_t		timerValue;
 
-int main(void)
+
+int
+main(void)
 {
 	uint32_t currentTime;
 
@@ -29,8 +31,6 @@ int main(void)
 	systemInit();
 
 	systemReady = true;
-
-	uint16_t frameCounter50Hz = 0;
 
 	while (1)
 	{
@@ -100,9 +100,6 @@ int main(void)
 			deltaTime100Hz    = currentTime - previous100HzTime;
 			previous100HzTime = currentTime;
 
-			computeRotations100Hz();
-
-
 			if (armed == true)
 			{
 				if ( eepromConfig.activeTelemetry == 1 )
@@ -168,32 +165,13 @@ int main(void)
 		}
 		if (frame_50Hz)
 		{
-			frameCounter50Hz++;
-			if (frameCounter50Hz > FRAME_COUNT)
-				frameCounter50Hz = 1;
 
 			frame_50Hz = false;
+
 			currentTime      = micros();
 			deltaTime50Hz    = currentTime - previous50HzTime;
 			previous50HzTime = currentTime;
 
-//			if (newTemperatureReading && newPressureReading)
-//			{
-//				d1Value = d1.value;
-//				d2Value = d2.value;
-//
-//				calculateTemperature();
-//				calculatePressureAltitude();
-//
-//				newTemperatureReading = false;
-//				newPressureReading    = false;
-//			}
-
-//			sensors.pressureAlt50Hz = firstOrderFilter(sensors.pressureAlt50Hz, &firstOrderFilters[PRESSURE_ALT_LOWPASS]);
-
-//			rssiMeasure();
-
-//			updateMax7456(currentTime, 0);
 
 			executionTime50Hz = micros() - currentTime;
 
@@ -209,12 +187,6 @@ int main(void)
 			currentTime      = micros();
 			deltaTime10Hz    = currentTime - previous10HzTime;
 			previous10HzTime = currentTime;
-
-//
-//			batMonTick();
-//
-//			cliCom();
-
 			executionTime10Hz = micros() - currentTime;
 
 		}
@@ -234,25 +206,8 @@ int main(void)
 			previous5HzTime = currentTime;
 
 			batMonRead();
-
-//			if (gpsValid() == true)
-//			{
-//
-//			}
-//
-//			if (eepromConfig.mavlinkEnabled == true)
-//			{
-//				mavlinkSendGpsRaw();
-//			}
-//
-//			if (batMonVeryLowWarning > 0)
-//			{
-//				LED1_TOGGLE;
-//				batMonVeryLowWarning--;
-//			}
-//
-//			if (execUp == true)
-//				BLUE_LED_TOGGLE;
+			if(battEmpty)
+				led4TOGGLE();
 
 			executionTime5Hz = micros() - currentTime;
 		}
@@ -267,32 +222,18 @@ int main(void)
 			deltaTime1Hz    = currentTime - previous1HzTime;
 			previous1HzTime = currentTime;
 
-//			if (execUp == true)
-//				GREEN_LED_TOGGLE;
-//
-//			if (execUp == false)
-//				execUpCount++;
-//
-//			if ((execUpCount == 5) && (execUp == false))
-//			{
-//				execUp = true;
-//
-//				pwmEscInit();
-//
-//				homeData.magHeading = sensors.attitude500Hz[YAW];
-//			}
-//
-//			if (batMonLowWarning > 0)
-//			{
-//				LED1_TOGGLE;
-//				batMonLowWarning--;
-//			}
-//
-//			if (eepromConfig.mavlinkEnabled == true)
-//			{
-//				mavlinkSendHeartbeat();
-//				mavlinkSendSysStatus();
-//			}
+			if(armed)
+				led1TOGGLE();
+			if(systemReady)
+				led2TOGGLE();
+			if(rcActive)
+				led3TOGGLE();
+			if(battLow)
+				led4TOGGLE();
+			if(mode == FLIGHT)
+				led5TOGGLE();
+			else if(mode == ROVER)
+				led5ON();
 
 			executionTime1Hz = micros() - currentTime;
 		}

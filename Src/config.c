@@ -200,7 +200,7 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.escPwmRate   = 450;
 		eepromConfig.servoPwmRate = 50;
 
-		eepromConfig.yawDirection       = 1.0f;
+		eepromConfig.yawDirection       = 1.0f;		// TODO check this value
 
 		eepromConfig.triYawServoPwmRate             = 50;
 		eepromConfig.triYawServoMin                 = 2000.0f;

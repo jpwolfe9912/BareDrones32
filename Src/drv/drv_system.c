@@ -77,18 +77,6 @@ SysTick_Handler(void)
 
 		readMPU6000();
 
-		accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
-		accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
-		accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
-
-		accelSum100Hz[XAXIS] += rawAccel[XAXIS].value;
-		accelSum100Hz[YAXIS] += rawAccel[YAXIS].value;
-		accelSum100Hz[ZAXIS] += rawAccel[ZAXIS].value;
-
-		gyroSum500Hz[ROLL ] += rawGyro[ROLL ].value;
-		gyroSum500Hz[PITCH] += rawGyro[PITCH].value;
-		gyroSum500Hz[YAW  ] += rawGyro[YAW  ].value;
-
 		///////////////////////////////
 
 		if ((frameCounter % COUNT_500HZ) == 0)
@@ -116,11 +104,6 @@ SysTick_Handler(void)
 		{
 			frame_100Hz = true;
 
-			for (index = 0; index < 3; index++)
-			{
-				accelSummedSamples100Hz[index] = accelSum100Hz[index];
-				accelSum100Hz[index] = 0;
-			}
 
 //			if (!newTemperatureReading)
 //			{
@@ -265,17 +248,17 @@ systemInit(void)
 	dmaInit();
 	cycleCounterInit();
 
+	ledInit();
+
 	checkFirstTime(true);
 	/*		LOW LEVEL INITIALIZATION	*/
-
 	serialInit();
-
 
 	color(CYAN, YES);
 	printf("\nBEGINNING AUTODRONE INITIALIZATION\n");
 	printf("----------------------------------\n");
 	printf("----------------------------------\n");
-	color(WHITE, NO);
+	colorDefault();
 
 	adc1Ch8Init();
 
@@ -305,8 +288,6 @@ systemInit(void)
 
 
 	motor_initialized = 1;
-
-//	motorZeroCommand();
 
 }
 

@@ -9,9 +9,7 @@
 #ifndef INC_DRV_ADC_H_
 #define INC_DRV_ADC_H_
 
-extern uint16_t *val;
-extern float battVoltage;
-
+/* Enumerations */
 typedef enum
 {
 	NO_BATT,
@@ -21,6 +19,14 @@ typedef enum
 	SIX
 }battCells_e;
 
+/* Global Variables */
+extern uint16_t *val;
+extern float battVoltage;
+extern battCells_e cells;
+extern bool battLow;
+extern bool battEmpty;
+
+/* Function Prototypes */
 void adc1Ch8Init(void);
 void batMonRead(void);
 

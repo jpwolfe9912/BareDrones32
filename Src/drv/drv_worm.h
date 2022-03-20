@@ -10,8 +10,12 @@
 #ifndef SRC_DRV_DRV_WORM_H_
 #define SRC_DRV_DRV_WORM_H_
 
+/* Global Variables */
+extern bool arm1Hit;
+extern bool arm2Hit;
+
 /* Function Prototypes */
 void wormInit(void);
-void wormDrive(float sp1, float sp2);
+void wormDrive(void);
 
 #endif /* SRC_DRV_DRV_WORM_H_ */

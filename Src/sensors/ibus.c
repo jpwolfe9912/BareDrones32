@@ -48,7 +48,7 @@ static uint32_t readyCount = 0;
 bool
 ibusInit(void)
 {
-	uint8_t ibus_initialized = 0;
+	bool ibus_initialized = false;
 
 	printf("\nInitializing iBus Receiver\n");
 
@@ -62,7 +62,7 @@ ibusInit(void)
 	for(uint8_t i = 0; i < 10; i++){
 		ibusProcess();
 		if(devID == 0x40){
-			ibus_initialized = 1;
+			ibus_initialized = true;
 			rcActive = true;
 			failsafe = false;
 			break;

@@ -237,7 +237,7 @@ serialWaitFor(char wait)
 		return true;
 	}
 	else{
-		temp = 0;
+		temp = '\0';
 		UART5->CR1 &= ~USART_CR1_RXNEIE;
 		return false;
 	}

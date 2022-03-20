@@ -1,6 +1,6 @@
 /** @file 		utilities.c
  *  @brief
- *  	This files contains random useful functions.
+ *  	This file contains random useful functions.
  *
  *  @author 	Jeremy Wolfe
  *  @date 		07 MAR 2022
