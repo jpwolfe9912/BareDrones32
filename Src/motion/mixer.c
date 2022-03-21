@@ -42,10 +42,10 @@ mixTable(void)
 	   (armed == true) &&
 	   (failsafe == false))
 	{
-		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
-		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
-		motor_temp[2] = PIDMIXFLIGHT(  1.0f,  1.0f,  1.0f, 1.0f );      // Rear Left   CCW
-		motor_temp[3] = PIDMIXFLIGHT(  1.0f, -1.0f, -1.0f, 1.0f );      // Front Left  CW
+		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f,  1.0f, 1.0f );      // Rear Right  CW
+		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f, -1.0f, 1.0f );      // Front Right CCW
+		motor_temp[2] = PIDMIXFLIGHT(  1.0f,  1.0f, -1.0f, 1.0f );      // Rear Left   CCW
+		motor_temp[3] = PIDMIXFLIGHT(  1.0f, -1.0f,  1.0f, 1.0f );      // Front Left  CW
 
 		float maxDeltaThrottle;
 		float minDeltaThrottle;

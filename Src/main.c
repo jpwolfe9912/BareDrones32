@@ -100,6 +100,8 @@ main(void)
 			deltaTime100Hz    = currentTime - previous100HzTime;
 			previous100HzTime = currentTime;
 
+
+
 			if (armed == true)
 			{
 				if ( eepromConfig.activeTelemetry == 1 )
@@ -208,6 +210,8 @@ main(void)
 			batMonRead();
 			if(battEmpty)
 				led4TOGGLE();
+			else
+				led4OFF();
 
 			executionTime5Hz = micros() - currentTime;
 		}
@@ -224,16 +228,26 @@ main(void)
 
 			if(armed)
 				led1TOGGLE();
+			else
+				led1OFF();
 			if(systemReady)
 				led2TOGGLE();
+			else
+				led2OFF();
 			if(rcActive)
 				led3TOGGLE();
+			else
+				led3OFF();
 			if(battLow)
 				led4TOGGLE();
+			else
+				led4OFF();
 			if(mode == FLIGHT)
 				led5TOGGLE();
 			else if(mode == ROVER)
 				led5ON();
+			else
+				led5OFF();
 
 			executionTime1Hz = micros() - currentTime;
 		}

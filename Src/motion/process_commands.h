@@ -20,7 +20,7 @@ extern float rxCommand[12];
 extern uint8_t commandInDetent[3];
 extern uint8_t previousCommandInDetent[3];
 
-extern uint8_t mode;
+extern modes_e mode;
 
 extern semaphore_t armed;
 extern uint8_t     armingTimer;

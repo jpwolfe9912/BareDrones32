@@ -10,6 +10,6 @@
 #define __MAIN_H__
 
 /* Defines */
-#define STLINK
+//#define STLINK
 
 #endif /* __MAIN_H__ */
