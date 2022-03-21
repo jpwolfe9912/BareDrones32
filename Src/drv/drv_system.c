@@ -274,6 +274,8 @@ systemInit(void)
 
 	tim9Init();
 
+	wormInit();
+
 	/*		SENSOR INITIALIZATION		*/
 
 	orientSensors();

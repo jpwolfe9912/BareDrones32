@@ -67,7 +67,7 @@ ibusInit(void)
 			failsafe = false;
 			break;
 		}
-		delay(5);
+		delay(10);
 	}
 
 	if(!ibus_initialized){

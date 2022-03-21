@@ -12,7 +12,7 @@
 
 /* Defines */
 #define DEADBAND       24
-#define DEADBAND_SLOPE (1000/(1000-DEADBAND))
+#define DEADBAND_SLOPE (1000.0f/(1000-DEADBAND))
 
 /* Global Variables */
 extern float rxCommand[12];
