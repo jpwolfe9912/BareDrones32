@@ -39,25 +39,5 @@
 \DoxyCodeLine{\Hypertarget{rotations_8c_source_l00046}00046 }
 \DoxyCodeLine{\Hypertarget{rotations_8c_source_l00047}00047     arm\_mat\_mult\_f32(\&a, \&b, \&x);}
 \DoxyCodeLine{\Hypertarget{rotations_8c_source_l00048}00048 \}}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00049}00049 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00054}00054 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00055}\mbox{\hyperlink{rotations_8c_a331561827f9d2644aaa5ed41f01b3769}{00055}} \mbox{\hyperlink{rotations_8c_a331561827f9d2644aaa5ed41f01b3769}{computeRotations100Hz}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00056}00056 \{}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00057}00057     arm\_matrix\_instance\_f32 a;}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00058}00058     arm\_matrix\_instance\_f32 b;}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00059}00059     arm\_matrix\_instance\_f32 x;}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00060}00060 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00061}00061     \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a5a899b303c8a64568d3744e2fd91d580}{XAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00062}00062     \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_a3e95c71037ba6d8d7a16e4501e15cefe}{YAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00063}00063     \mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] = ((float)\mbox{\hyperlink{mpu6000_8c_a0d90555c2b4f78a2b0bfd5ecbcc23301}{accelSummedSamples100Hz}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}] * 0.1f -\/ \mbox{\hyperlink{mpu6000_8c_ade31534035ac4fc1386d52ea7be9a269}{accelTCBias}}[\mbox{\hyperlink{_autodrone32_8h_aff84eb8d433e63ee955ed2bd48d6df77}{ZAXIS}}]) * \mbox{\hyperlink{mpu6000_8h_a585dc9036243cba230705899afcf4348}{ACCEL\_SCALE\_FACTOR}};}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00064}00064 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00065}00065     arm\_mat\_init\_f32(\&a, 3, 3, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{orientation_8c_a3dc49f4b46f57265f699543f15cb4299}{mpuOrientationMatrix}});}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00066}00066 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00067}00067     arm\_mat\_init\_f32(\&b, 3, 1, (\textcolor{keywordtype}{float} *)\mbox{\hyperlink{mpu6000_8c_af3c6ca67b3fd82aae7d738d2dac4c79d}{nonRotatedAccelData}});}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00068}00068 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00069}00069     arm\_mat\_init\_f32(\&x, 3, 1,          \mbox{\hyperlink{_autodrone32_8h_ae98e6f5c865af95578862f633a30b769}{sensors}}.\mbox{\hyperlink{structsensors__t_ae972d409944d3c6c758215730efae58a}{accel100Hz}});}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00070}00070 }
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00071}00071     arm\_mat\_mult\_f32(\&a, \&b, \&x);}
-\DoxyCodeLine{\Hypertarget{rotations_8c_source_l00072}00072 \}}
 
 \end{DoxyCode}

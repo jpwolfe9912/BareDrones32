@@ -199,161 +199,165 @@ $(function() {
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#ab223a09c3d0c71db42a9a8bbe2e388be">  156</a></span><a class="code hl_function" href="drv__spi_8c.html#ab223a09c3d0c71db42a9a8bbe2e388be">spiReadBytes</a>(uint8_t reg, uint8_t *pData, uint8_t size){</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    reg = reg | 0x80;           <span class="comment">// read operation</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    DMA2_Stream0-&gt;NDTR  = size;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)pData;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    DMA2_Stream3-&gt;NDTR  = size;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)&amp;reg;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>}</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">  190</a></span><a class="code hl_function" href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">spiWriteBytes</a>(uint8_t *pData, uint8_t size){</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="comment">// RX Setup</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keyword">volatile</span> uint8_t dummy <a class="code hl_function" href="main_8c.html#a98fd71583f8abd1b1b12cfe80e3bd29a">__attribute__</a>((unused));</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    DMA2_Stream0-&gt;NDTR  = size;</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)&amp;dummy;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="comment">// TX Setup</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="comment">// perhaps include a circular buffer</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    DMA2_Stream3-&gt;NDTR  = size;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)pData;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_TCIE;       <span class="comment">// RX interrupts</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#ab223a09c3d0c71db42a9a8bbe2e388be">  156</a></span><a class="code hl_function" href="drv__spi_8c.html#ab223a09c3d0c71db42a9a8bbe2e388be">spiReadBytes</a>(uint8_t reg, uint8_t *pData, uint8_t size)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>{</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    reg = reg | 0x80;           <span class="comment">// read operation</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    DMA2_Stream0-&gt;NDTR  = size;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)pData;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    DMA2_Stream3-&gt;NDTR  = size;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)&amp;reg;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">  191</a></span><a class="code hl_function" href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">spiWriteBytes</a>(uint8_t *pData, uint8_t size)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">// RX Setup</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">volatile</span> uint8_t dummy <a class="code hl_function" href="main_8c.html#a98fd71583f8abd1b1b12cfe80e3bd29a">__attribute__</a>((unused));</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    DMA2_Stream0-&gt;NDTR  = size;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)&amp;dummy;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="comment">// TX Setup</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">// perhaps include a circular buffer</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    DMA2_Stream3-&gt;NDTR  = size;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)pData;</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_TCIE;       <span class="comment">// RX interrupts</span></div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">  227</a></span><a class="code hl_function" href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">spiReadOneByte</a>(uint8_t reg, uint8_t *pData){</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    reg |= 0x80;        <span class="comment">// read operation</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    DMA2_Stream0-&gt;NDTR  = 3;</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)pData;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    DMA2_Stream3-&gt;NDTR  = 3;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)&amp;reg;</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">  229</a></span><a class="code hl_function" href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">spiReadOneByte</a>(uint8_t reg, uint8_t *pData)</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>{</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    reg |= 0x80;        <span class="comment">// read operation</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    DMA2_Stream0-&gt;NDTR  = 3;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)pData;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    DMA2_Stream3-&gt;NDTR  = 3;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)&amp;reg;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">  260</a></span><a class="code hl_function" href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">spiWriteOneByte</a>(uint8_t reg, uint8_t data){</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">// need to pass in array of values to be written</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="comment">// RX Setup</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keyword">volatile</span> uint8_t dummy <a class="code hl_function" href="main_8c.html#a98fd71583f8abd1b1b12cfe80e3bd29a">__attribute__</a>((unused));</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    uint8_t <a class="code hl_variable" href="drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5">temp</a>[2] = {reg, data};</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    DMA2_Stream0-&gt;NDTR  = 2;</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)&amp;dummy;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="comment">// TX Setup</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment">// perhaps include a circular buffer</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    DMA2_Stream3-&gt;NDTR  = 2;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)<a class="code hl_variable" href="drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5">temp</a>;</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>}</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">/* Interrupt Handlers */</span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">  296</a></span><a class="code hl_function" href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">DMA2_Stream0_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>{</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">if</span>(DMA2-&gt;LISR &amp; DMA_LISR_TCIF0){</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        DMA2-&gt;LIFCR     |= DMA_LIFCR_CTCIF0;</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <a class="code hl_define" href="drv__spi_8h.html#af64f6dca6126f4fb9299c912c7f8ad81">SPI1_DISABLE</a>;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        SPI1-&gt;CR2           &amp;= ~SPI_CR2_RXDMAEN;</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        SPI1-&gt;CR2           &amp;= ~SPI_CR2_TXDMAEN;</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        SPI1-&gt;CR1           &amp;= ~SPI_CR1_SPE;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    }</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>}</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">  318</a></span><a class="code hl_function" href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">DMA2_Stream3_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>{</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">if</span>(DMA2-&gt;LISR &amp; DMA_LISR_TCIF3){</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        DMA2-&gt;LIFCR     |= DMA_LIFCR_CTCIF3;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    }</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>}</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">  263</a></span><a class="code hl_function" href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">spiWriteOneByte</a>(uint8_t reg, uint8_t data)</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>{</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">// need to pass in array of values to be written</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">// RX Setup</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keyword">volatile</span> uint8_t dummy <a class="code hl_function" href="main_8c.html#a98fd71583f8abd1b1b12cfe80e3bd29a">__attribute__</a>((unused));</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    uint8_t <a class="code hl_variable" href="drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5">temp</a>[2] = {reg, data};</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">while</span>(DMA2_Stream0-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    DMA2_Stream0-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    DMA2_Stream0-&gt;NDTR  = 2;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    DMA2_Stream0-&gt;M0AR  = (uint32_t)&amp;dummy;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="comment">// TX Setup</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="comment">// perhaps include a circular buffer</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">while</span>(DMA2_Stream3-&gt;CR &amp; DMA_SxCR_EN);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    DMA2_Stream3-&gt;CR    |= (0x3 &lt;&lt; 25U);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    DMA2_Stream3-&gt;NDTR  = 2;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    DMA2_Stream3-&gt;M0AR  = (uint32_t)<a class="code hl_variable" href="drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5">temp</a>;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <a class="code hl_define" href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a>;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    DMA2_Stream0-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    DMA2_Stream3-&gt;CR    |= DMA_SxCR_EN;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    SPI1-&gt;CR2           |= SPI_CR2_RXDMAEN;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    SPI1-&gt;CR2           |= SPI_CR2_TXDMAEN;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    SPI1-&gt;CR1           |= SPI_CR1_SPE;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>}</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment">/* Interrupt Handlers */</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">  300</a></span><a class="code hl_function" href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">DMA2_Stream0_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>{</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordflow">if</span>(DMA2-&gt;LISR &amp; DMA_LISR_TCIF0){</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        DMA2-&gt;LIFCR     |= DMA_LIFCR_CTCIF0;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <a class="code hl_define" href="drv__spi_8h.html#af64f6dca6126f4fb9299c912c7f8ad81">SPI1_DISABLE</a>;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        DMA2_Stream0-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        DMA2_Stream3-&gt;CR    &amp;= ~DMA_SxCR_EN;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        SPI1-&gt;CR2           &amp;= ~SPI_CR2_RXDMAEN;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        SPI1-&gt;CR2           &amp;= ~SPI_CR2_TXDMAEN;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        SPI1-&gt;CR1           &amp;= ~SPI_CR1_SPE;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>}</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno"><a class="line" href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">  322</a></span><a class="code hl_function" href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">DMA2_Stream3_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>{</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">if</span>(DMA2-&gt;LISR &amp; DMA_LISR_TCIF3){</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        DMA2-&gt;LIFCR     |= DMA_LIFCR_CTCIF3;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>}</div>
 <div class="ttc" id="aboard_8h_html"><div class="ttname"><a href="board_8h.html">board.h</a></div><div class="ttdoc">This file bundles all the header files. This allows us to just include &quot;board.h&quot; in each file and hav...</div></div>
 <div class="ttc" id="adrv__serial_8c_html_a3cc119cb1a4beab046568bd21fcac3e5"><div class="ttname"><a href="drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5">temp</a></div><div class="ttdeci">uint8_t temp</div><div class="ttdef"><b>Definition:</b> <a href="drv__serial_8c_source.html#l00018">drv_serial.c:18</a></div></div>
-<div class="ttc" id="adrv__spi_8c_html_a3573b135702ff18ce4852e27547c4968"><div class="ttname"><a href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">spiReadOneByte</a></div><div class="ttdeci">void spiReadOneByte(uint8_t reg, uint8_t *pData)</div><div class="ttdoc">Reads one byte of data in.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00227">drv_spi.c:227</a></div></div>
-<div class="ttc" id="adrv__spi_8c_html_a7d61fb36806c4e37a2bf675ba2d62008"><div class="ttname"><a href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">spiWriteBytes</a></div><div class="ttdeci">void spiWriteBytes(uint8_t *pData, uint8_t size)</div><div class="ttdoc">Writes multiple bytes of data in.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00190">drv_spi.c:190</a></div></div>
-<div class="ttc" id="adrv__spi_8c_html_a877135f6494d6923d6f6ec32d75d9eeb"><div class="ttname"><a href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">DMA2_Stream3_IRQHandler</a></div><div class="ttdeci">void DMA2_Stream3_IRQHandler(void)</div><div class="ttdoc">This function handles DMA2 stream3 global interrupt.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00318">drv_spi.c:318</a></div></div>
-<div class="ttc" id="adrv__spi_8c_html_aaf6ce196dde98712e1223b99766e06c0"><div class="ttname"><a href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">DMA2_Stream0_IRQHandler</a></div><div class="ttdeci">void DMA2_Stream0_IRQHandler(void)</div><div class="ttdoc">This function handles DMA2 stream1 global interrupt.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00296">drv_spi.c:296</a></div></div>
+<div class="ttc" id="adrv__spi_8c_html_a3573b135702ff18ce4852e27547c4968"><div class="ttname"><a href="drv__spi_8c.html#a3573b135702ff18ce4852e27547c4968">spiReadOneByte</a></div><div class="ttdeci">void spiReadOneByte(uint8_t reg, uint8_t *pData)</div><div class="ttdoc">Reads one byte of data in.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00229">drv_spi.c:229</a></div></div>
+<div class="ttc" id="adrv__spi_8c_html_a7d61fb36806c4e37a2bf675ba2d62008"><div class="ttname"><a href="drv__spi_8c.html#a7d61fb36806c4e37a2bf675ba2d62008">spiWriteBytes</a></div><div class="ttdeci">void spiWriteBytes(uint8_t *pData, uint8_t size)</div><div class="ttdoc">Writes multiple bytes of data in.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00191">drv_spi.c:191</a></div></div>
+<div class="ttc" id="adrv__spi_8c_html_a877135f6494d6923d6f6ec32d75d9eeb"><div class="ttname"><a href="drv__spi_8c.html#a877135f6494d6923d6f6ec32d75d9eeb">DMA2_Stream3_IRQHandler</a></div><div class="ttdeci">void DMA2_Stream3_IRQHandler(void)</div><div class="ttdoc">This function handles DMA2 stream3 global interrupt.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00322">drv_spi.c:322</a></div></div>
+<div class="ttc" id="adrv__spi_8c_html_aaf6ce196dde98712e1223b99766e06c0"><div class="ttname"><a href="drv__spi_8c.html#aaf6ce196dde98712e1223b99766e06c0">DMA2_Stream0_IRQHandler</a></div><div class="ttdeci">void DMA2_Stream0_IRQHandler(void)</div><div class="ttdoc">This function handles DMA2 stream1 global interrupt.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00300">drv_spi.c:300</a></div></div>
 <div class="ttc" id="adrv__spi_8c_html_ab223a09c3d0c71db42a9a8bbe2e388be"><div class="ttname"><a href="drv__spi_8c.html#ab223a09c3d0c71db42a9a8bbe2e388be">spiReadBytes</a></div><div class="ttdeci">void spiReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)</div><div class="ttdoc">Reads multiple bytes of data in.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00156">drv_spi.c:156</a></div></div>
-<div class="ttc" id="adrv__spi_8c_html_aebb1dda4e95fbaba094d5beb79073279"><div class="ttname"><a href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">spiWriteOneByte</a></div><div class="ttdeci">void spiWriteOneByte(uint8_t reg, uint8_t data)</div><div class="ttdoc">Writes one byte of data.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00260">drv_spi.c:260</a></div></div>
+<div class="ttc" id="adrv__spi_8c_html_aebb1dda4e95fbaba094d5beb79073279"><div class="ttname"><a href="drv__spi_8c.html#aebb1dda4e95fbaba094d5beb79073279">spiWriteOneByte</a></div><div class="ttdeci">void spiWriteOneByte(uint8_t reg, uint8_t data)</div><div class="ttdoc">Writes one byte of data.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00263">drv_spi.c:263</a></div></div>
 <div class="ttc" id="adrv__spi_8c_html_afdbacf07d926a145cc4d681c38980d03"><div class="ttname"><a href="drv__spi_8c.html#afdbacf07d926a145cc4d681c38980d03">spi1Init</a></div><div class="ttdeci">void spi1Init(void)</div><div class="ttdoc">Initializes SPI1.</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8c_source.html#l00021">drv_spi.c:21</a></div></div>
 <div class="ttc" id="adrv__spi_8h_html_a969f555816dfb8f48a85c1795ff5e63d"><div class="ttname"><a href="drv__spi_8h.html#a969f555816dfb8f48a85c1795ff5e63d">SPI1_ENABLE</a></div><div class="ttdeci">#define SPI1_ENABLE</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8h_source.html#l00017">drv_spi.h:17</a></div></div>
 <div class="ttc" id="adrv__spi_8h_html_af64f6dca6126f4fb9299c912c7f8ad81"><div class="ttname"><a href="drv__spi_8h.html#af64f6dca6126f4fb9299c912c7f8ad81">SPI1_DISABLE</a></div><div class="ttdeci">#define SPI1_DISABLE</div><div class="ttdef"><b>Definition:</b> <a href="drv__spi_8h_source.html#l00018">drv_spi.h:18</a></div></div>
-<div class="ttc" id="adrv__system_8c_html_a7f2dfce1046bdd2a2b753643726c2346"><div class="ttname"><a href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a></div><div class="ttdeci">void delay(uint32_t ms)</div><div class="ttdoc">Delay in milliseconds.</div><div class="ttdef"><b>Definition:</b> <a href="drv__system_8c_source.html#l00247">drv_system.c:247</a></div></div>
+<div class="ttc" id="adrv__system_8c_html_a7f2dfce1046bdd2a2b753643726c2346"><div class="ttname"><a href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a></div><div class="ttdeci">void delay(uint32_t ms)</div><div class="ttdoc">Delay in milliseconds.</div><div class="ttdef"><b>Definition:</b> <a href="drv__system_8c_source.html#l00230">drv_system.c:230</a></div></div>
 <div class="ttc" id="amain_8c_html_a98fd71583f8abd1b1b12cfe80e3bd29a"><div class="ttname"><a href="main_8c.html#a98fd71583f8abd1b1b12cfe80e3bd29a">__attribute__</a></div><div class="ttdeci">__attribute__((__section__(&quot;.eeprom&quot;), used)) const</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00013">main.c:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

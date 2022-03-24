@@ -20,11 +20,15 @@ void \mbox{\hyperlink{drv__adc_8c_a295198ed574625d416158a5fc54205ea}{DMA2\+\_\+\
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}{val}} = (uint16\+\_\+t$\ast$)0x20010000
+uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8c_aea34ad0f8419270a03c011b844976da8}{raw\+Batt}} = (uint16\+\_\+t$\ast$)0x20010000
 \item 
 float \mbox{\hyperlink{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}{batt\+Voltage}}
 \item 
 \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \mbox{\hyperlink{drv__adc_8c_acaa90e358397010f1098d4c1fbcf3566}{cells}}
+\item 
+bool \mbox{\hyperlink{drv__adc_8c_ab7ebcda2eb57227df52a41b5f8c306b2}{batt\+Low}} = false
+\item 
+bool \mbox{\hyperlink{drv__adc_8c_a04b408c49d3fb293aacb6f23bf88b3a1}{batt\+Empty}} = false
 \end{DoxyCompactItemize}
 
 
@@ -59,7 +63,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00026}{26}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00028}{28}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
 \mbox{\Hypertarget{drv__adc_8c_a06406eadf297fa89a6eaf9586b227a69}\label{drv__adc_8c_a06406eadf297fa89a6eaf9586b227a69}} 
 \index{drv\_adc.c@{drv\_adc.c}!ADC\_IRQHandler@{ADC\_IRQHandler}}
@@ -76,7 +80,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00171}{171}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00180}{180}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
 \mbox{\Hypertarget{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}\label{drv__adc_8c_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}} 
 \index{drv\_adc.c@{drv\_adc.c}!batMonRead@{batMonRead}}
@@ -93,7 +97,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00110}{110}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00112}{112}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
 \mbox{\Hypertarget{drv__adc_8c_a295198ed574625d416158a5fc54205ea}\label{drv__adc_8c_a295198ed574625d416158a5fc54205ea}} 
 \index{drv\_adc.c@{drv\_adc.c}!DMA2\_Stream4\_IRQHandler@{DMA2\_Stream4\_IRQHandler}}
@@ -110,11 +114,31 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00191}{191}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00200}{200}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{drv__adc_8c_a04b408c49d3fb293aacb6f23bf88b3a1}\label{drv__adc_8c_a04b408c49d3fb293aacb6f23bf88b3a1}} 
+\index{drv\_adc.c@{drv\_adc.c}!battEmpty@{battEmpty}}
+\index{battEmpty@{battEmpty}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{battEmpty}{battEmpty}}
+{\footnotesize\ttfamily bool batt\+Empty = false}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00017}{17}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
+\mbox{\Hypertarget{drv__adc_8c_ab7ebcda2eb57227df52a41b5f8c306b2}\label{drv__adc_8c_ab7ebcda2eb57227df52a41b5f8c306b2}} 
+\index{drv\_adc.c@{drv\_adc.c}!battLow@{battLow}}
+\index{battLow@{battLow}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{battLow}{battLow}}
+{\footnotesize\ttfamily bool batt\+Low = false}
+
+
+
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00016}{16}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+
 \mbox{\Hypertarget{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}\label{drv__adc_8c_a855408c36f973de1305b920c1e2d7125}} 
 \index{drv\_adc.c@{drv\_adc.c}!battVoltage@{battVoltage}}
 \index{battVoltage@{battVoltage}!drv\_adc.c@{drv\_adc.c}}
@@ -135,11 +159,11 @@ Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00014}{14}} of file \mbo
 
 Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00015}{15}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
-\mbox{\Hypertarget{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}\label{drv__adc_8c_adad4597b410d69ce98a90ecf81465ce8}} 
-\index{drv\_adc.c@{drv\_adc.c}!val@{val}}
-\index{val@{val}!drv\_adc.c@{drv\_adc.c}}
-\doxysubsubsection{\texorpdfstring{val}{val}}
-{\footnotesize\ttfamily uint16\+\_\+t$\ast$ val = (uint16\+\_\+t$\ast$)0x20010000}
+\mbox{\Hypertarget{drv__adc_8c_aea34ad0f8419270a03c011b844976da8}\label{drv__adc_8c_aea34ad0f8419270a03c011b844976da8}} 
+\index{drv\_adc.c@{drv\_adc.c}!rawBatt@{rawBatt}}
+\index{rawBatt@{rawBatt}!drv\_adc.c@{drv\_adc.c}}
+\doxysubsubsection{\texorpdfstring{rawBatt}{rawBatt}}
+{\footnotesize\ttfamily uint16\+\_\+t$\ast$ raw\+Batt = (uint16\+\_\+t$\ast$)0x20010000}
 
 
 

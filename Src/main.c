@@ -102,8 +102,8 @@ main(void)
 
 
 
-			if (armed == true)
-			{
+//			if (armed == true)
+//			{
 				if ( eepromConfig.activeTelemetry == 1 )
 				{
 					// Roll Loop
@@ -134,6 +134,17 @@ main(void)
 
 				if ( eepromConfig.activeTelemetry == 3 )
 				{
+					// Yaw Loop
+					printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f\n",
+							battVoltage,
+							mode,
+							rateCmd[YAW],
+							sensors.gyro500Hz[YAW],
+							ratePID[YAW]);
+				}
+
+				if ( eepromConfig.activeTelemetry == 4 )
+				{
 					// Sensors
 					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n",
 							battVoltage,
@@ -149,7 +160,7 @@ main(void)
 
 				}
 
-				if ( eepromConfig.activeTelemetry == 4 )
+				if ( eepromConfig.activeTelemetry == 5 )
 				{
 					printf("4,%9.4f,%u,%u,%u,%u,\n",
 							battVoltage,
@@ -159,7 +170,7 @@ main(void)
 							motor_value[3]);
 				}
 
-			}
+//			}
 
 
 			executionTime100Hz = micros() - currentTime;
@@ -207,7 +218,7 @@ main(void)
 			deltaTime5Hz    = currentTime - previous5HzTime;
 			previous5HzTime = currentTime;
 
-			batMonRead();
+			battMonRead();
 			if(battEmpty)
 				led4TOGGLE();
 			else
@@ -227,15 +238,15 @@ main(void)
 			previous1HzTime = currentTime;
 
 			if(armed)
-				led1TOGGLE();
+				led1ON();
 			else
 				led1OFF();
 			if(systemReady)
-				led2TOGGLE();
+				led2ON();
 			else
 				led2OFF();
 			if(rcActive)
-				led3TOGGLE();
+				led3ON();
 			else
 				led3OFF();
 			if(battLow)

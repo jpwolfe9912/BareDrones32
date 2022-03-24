@@ -35,7 +35,7 @@ computeAxisCommands(float dt)
 		attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
 		rateCmd[ROLL ] = attPID[ROLL ];
 
-		error = standardRadianFormat(attCmd[PITCH] + sensors.attitude500Hz[PITCH]);
+		error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
 		attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
 		rateCmd[PITCH] = attPID[PITCH];
 
@@ -45,10 +45,10 @@ computeAxisCommands(float dt)
 		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
 
-		error = rateCmd[PITCH] + sensors.gyro500Hz[PITCH];		// TODO check if this should be "+"
+		error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];		// TODO check if this should be "+"
 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
 
-		error = rateCmd[YAW] - sensors.gyro500Hz[YAW];
+		error = rateCmd[YAW] + sensors.gyro500Hz[YAW];
 		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
 
 		///////////////////////////////////

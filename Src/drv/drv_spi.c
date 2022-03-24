@@ -153,7 +153,8 @@ spi1Init(void)
  *  @return Void.
  */
 void
-spiReadBytes(uint8_t reg, uint8_t *pData, uint8_t size){
+spiReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
+{
 	reg = reg | 0x80;			// read operation
 
 	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
@@ -187,7 +188,8 @@ spiReadBytes(uint8_t reg, uint8_t *pData, uint8_t size){
  *  @return Void.
  */
 void
-spiWriteBytes(uint8_t *pData, uint8_t size){
+spiWriteBytes(uint8_t *pData, uint8_t size)
+{
 	// RX Setup
 	volatile uint8_t dummy __attribute__((unused));
 
@@ -224,7 +226,8 @@ spiWriteBytes(uint8_t *pData, uint8_t size){
  *  @return Void.
  */
 void
-spiReadOneByte(uint8_t reg, uint8_t *pData){
+spiReadOneByte(uint8_t reg, uint8_t *pData)
+{
 	reg |= 0x80;		// read operation
 
 	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
@@ -257,7 +260,8 @@ spiReadOneByte(uint8_t reg, uint8_t *pData){
  *  @return Void.
  */
 void
-spiWriteOneByte(uint8_t reg, uint8_t data){
+spiWriteOneByte(uint8_t reg, uint8_t data)
+{
 	// need to pass in array of values to be written
 	// RX Setup
 	volatile uint8_t dummy __attribute__((unused));

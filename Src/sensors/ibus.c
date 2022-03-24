@@ -59,7 +59,7 @@ ibusInit(void)
 
 	status = IBUS_ERROR;
 
-	for(uint8_t i = 0; i < 100; i++){
+	for(uint8_t i = 0; i < 10; i++){
 		ibusProcess();
 		if(devID == 0x40){
 			ibus_initialized = true;
@@ -67,13 +67,14 @@ ibusInit(void)
 			failsafe = false;
 			break;
 		}
-		delay(10);
+		delay(5);
 	}
 
 	if(!ibus_initialized){
 		color(RED, YES);
 		printf("\niBus Initialization Failed. Try again?\n");
 		color(WHITE, NO);
+		return false;
 #ifdef STLINK
 		if(serialWaitFor('y'))
 			return false;
@@ -160,7 +161,7 @@ ibus_process_frame(void)
 			break;
 		}
 	}
-	ibus_timeout();
+//	ibus_timeout();
 
 	if(status == IBUS_ERROR)
 	{
@@ -237,6 +238,7 @@ ibus_timeout(void)
 	   (failsafeTimeOut > 100))
 	{
 		status = IBUS_ERROR;
+
 
 		errorTimeOut = 0;
 		failsafeTimeOut = 0;

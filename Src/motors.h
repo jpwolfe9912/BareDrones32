@@ -26,6 +26,6 @@ typedef enum
 
 /* Function Prototypes */
 void motorInit(void);
-void motors3dOn(motors_e motor);
+void motors3dOn(void);
 
 #endif /* __MOTORS_H__ */

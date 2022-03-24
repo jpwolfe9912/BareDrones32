@@ -209,7 +209,7 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.triCopterYawCmd500HzLowPassTau = 0.05f;
 
 		// Free Mix Defaults to Quad X
-		eepromConfig.freeMixMotors        = 4;
+		eepromConfig.freeMixMotors        = 3;
 
 		eepromConfig.freeMix[0][ROLL ]    =  1.0f;
 		eepromConfig.freeMix[0][PITCH]    = -1.0f;
@@ -405,7 +405,7 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.activeTelemetry          = 4;
+		eepromConfig.activeTelemetry          = 5;
 		eepromConfig.mavlinkEnabled           = false;
 
 		eepromConfig.verticalVelocityHoldOnly = true;

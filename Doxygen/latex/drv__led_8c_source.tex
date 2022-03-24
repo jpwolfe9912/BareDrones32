@@ -1,0 +1,125 @@
+\hypertarget{drv__led_8c_source}{}\doxysection{drv\+\_\+led.\+c}
+\label{drv__led_8c_source}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_led.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/drv/drv\_led.c}}
+\mbox{\hyperlink{drv__led_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{board_8h}{board.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00011}00011 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00012}\mbox{\hyperlink{drv__led_8c_ad2a6e110f4d87ca7951c90b18707e1e1}{00012}} \mbox{\hyperlink{drv__led_8c_ad2a6e110f4d87ca7951c90b18707e1e1}{ledInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00013}00013 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00014}00014     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00015}00015 \textcolor{comment}{     *  LEDs are PC0-\/4}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00016}00016 \textcolor{comment}{     */}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00017}00017     RCC-\/>AHB1ENR    |= RCC\_AHB1ENR\_GPIOCEN;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00019}00019     GPIOC-\/>MODER    \&= \string~(GPIO\_MODER\_MODER0 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00020}00020                          GPIO\_MODER\_MODER1 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00021}00021                          GPIO\_MODER\_MODER2 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00022}00022                          GPIO\_MODER\_MODER3 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00023}00023                          GPIO\_MODER\_MODER4);}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00025}00025     GPIOC-\/>MODER    |= GPIO\_MODER\_MODER0\_0 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00026}00026                        GPIO\_MODER\_MODER1\_0 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00027}00027                        GPIO\_MODER\_MODER2\_0 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00028}00028                        GPIO\_MODER\_MODER3\_0 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00029}00029                        GPIO\_MODER\_MODER4\_0;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00031}00031     GPIOC-\/>PUPDR    |= GPIO\_PUPDR\_PUPDR0\_1 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00032}00032                        GPIO\_PUPDR\_PUPDR1\_1 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00033}00033                        GPIO\_PUPDR\_PUPDR2\_1 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00034}00034                        GPIO\_PUPDR\_PUPDR3\_1 |}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00035}00035                        GPIO\_PUPDR\_PUPDR4\_1;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00038}00038 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00039}\mbox{\hyperlink{drv__led_8c_a6748a3f50afb0e4a50b7f3d2066faf69}{00039}} \mbox{\hyperlink{drv__led_8c_a6748a3f50afb0e4a50b7f3d2066faf69}{led1ON}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00041}00041     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BS0;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00044}00044 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00045}\mbox{\hyperlink{drv__led_8c_af2c868373f209d03154e1a061dc8b408}{00045}} \mbox{\hyperlink{drv__led_8c_af2c868373f209d03154e1a061dc8b408}{led1OFF}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00046}00046 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00047}00047     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BR0;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00048}00048 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00050}00050 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00051}\mbox{\hyperlink{drv__led_8c_acbaeefb2986092b28f59955b9d972a1d}{00051}} \mbox{\hyperlink{drv__led_8c_acbaeefb2986092b28f59955b9d972a1d}{led1TOGGLE}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00053}00053     GPIOC-\/>ODR      \string^= GPIO\_ODR\_OD0;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00056}00056 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00057}\mbox{\hyperlink{drv__led_8c_ac7052b5ca6e040423460904b0d59b575}{00057}} \mbox{\hyperlink{drv__led_8c_ac7052b5ca6e040423460904b0d59b575}{led2ON}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00058}00058 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00059}00059     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BS1;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00060}00060 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00062}00062 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00063}\mbox{\hyperlink{drv__led_8c_aecddbedf8b6c213edba4ee535f148921}{00063}} \mbox{\hyperlink{drv__led_8c_aecddbedf8b6c213edba4ee535f148921}{led2OFF}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00064}00064 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00065}00065     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BR1;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00066}00066 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00068}00068 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00069}\mbox{\hyperlink{drv__led_8c_a4d7508dad2a344b45cc4410ebbc5ade6}{00069}} \mbox{\hyperlink{drv__led_8c_a4d7508dad2a344b45cc4410ebbc5ade6}{led2TOGGLE}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00070}00070 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00071}00071     GPIOC-\/>ODR      \string^= GPIO\_ODR\_OD1;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00072}00072 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00074}00074 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00075}\mbox{\hyperlink{drv__led_8c_abc33b5b49107b5a8fe7eaf3ab34409bd}{00075}} \mbox{\hyperlink{drv__led_8c_abc33b5b49107b5a8fe7eaf3ab34409bd}{led3ON}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00076}00076 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00077}00077     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BS2;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00078}00078 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00080}00080 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00081}\mbox{\hyperlink{drv__led_8c_a2c57b579f4c2ab95857fdde0c025db0e}{00081}} \mbox{\hyperlink{drv__led_8c_a2c57b579f4c2ab95857fdde0c025db0e}{led3OFF}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00082}00082 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00083}00083     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BR2;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00084}00084 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00086}00086 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00087}\mbox{\hyperlink{drv__led_8c_a6625ca08df6621bfd83ddec030a16e01}{00087}} \mbox{\hyperlink{drv__led_8c_a6625ca08df6621bfd83ddec030a16e01}{led3TOGGLE}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00088}00088 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00089}00089     GPIOC-\/>ODR      \string^= GPIO\_ODR\_OD2;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00090}00090 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00092}00092 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00093}\mbox{\hyperlink{drv__led_8c_a4dc2bab6134b4d2a0f1eb21f36446071}{00093}} \mbox{\hyperlink{drv__led_8c_a4dc2bab6134b4d2a0f1eb21f36446071}{led4ON}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00094}00094 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00095}00095     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BS3;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00098}00098 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00099}\mbox{\hyperlink{drv__led_8c_a139026d680fa1f3be2a6d0b6468df3a9}{00099}} \mbox{\hyperlink{drv__led_8c_a139026d680fa1f3be2a6d0b6468df3a9}{led4OFF}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00100}00100 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00101}00101     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BR3;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00102}00102 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00104}00104 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00105}\mbox{\hyperlink{drv__led_8c_ac89a6092a352a5460fb36c1c30abffb6}{00105}} \mbox{\hyperlink{drv__led_8c_ac89a6092a352a5460fb36c1c30abffb6}{led4TOGGLE}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00106}00106 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00107}00107     GPIOC-\/>ODR      \string^= GPIO\_ODR\_OD3;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00108}00108 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00110}00110 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00111}\mbox{\hyperlink{drv__led_8c_ac9c4afa7fda60a0718b275e62aa28ea2}{00111}} \mbox{\hyperlink{drv__led_8c_ac9c4afa7fda60a0718b275e62aa28ea2}{led5ON}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00112}00112 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00113}00113     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BS4;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00114}00114 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00116}00116 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00117}\mbox{\hyperlink{drv__led_8c_a4b31eea3c9e58ff45b1caeaed6f405da}{00117}} \mbox{\hyperlink{drv__led_8c_a4b31eea3c9e58ff45b1caeaed6f405da}{led5OFF}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00118}00118 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00119}00119     GPIOC-\/>BSRR     |= GPIO\_BSRR\_BR4;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00120}00120 \}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00121}00121 }
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00122}00122 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00123}\mbox{\hyperlink{drv__led_8c_a8e65b74b10fd555a51e916e58bb290e9}{00123}} \mbox{\hyperlink{drv__led_8c_a8e65b74b10fd555a51e916e58bb290e9}{led5TOGGLE}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00124}00124 \{}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00125}00125     GPIOC-\/>ODR      \string^= GPIO\_ODR\_OD4;}
+\DoxyCodeLine{\Hypertarget{drv__led_8c_source_l00126}00126 \}}
+
+\end{DoxyCode}

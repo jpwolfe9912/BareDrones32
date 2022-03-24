@@ -128,6 +128,10 @@ processCommands(void)
 			 (armed == false))
 	{
 		mode = TRANS_ROVER;
+		setPIDstates(ROLL_ATT_PID,  0.0f);
+		setPIDstates(PITCH_ATT_PID, 0.0f);
+		setPIDstates(HEADING_PID,   0.0f);
+
 		modeTransition();
 	}
 }

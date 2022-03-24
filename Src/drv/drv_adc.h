@@ -6,28 +6,14 @@
  *  @date 		10 MAR 2022
  */
 
-#ifndef INC_DRV_ADC_H_
-#define INC_DRV_ADC_H_
-
-/* Enumerations */
-typedef enum
-{
-	NO_BATT,
-	THREE = 3,
-	FOUR,
-	FIVE,
-	SIX
-}battCells_e;
+#ifndef __DRV_ADC_H__
+#define __DRV_ADC_H__
 
 /* Global Variables */
-extern uint16_t *val;
-extern float battVoltage;
-extern battCells_e cells;
-extern bool battLow;
-extern bool battEmpty;
+extern uint16_t *rawADC;
 
 /* Function Prototypes */
 void adc1Ch8Init(void);
-void batMonRead(void);
+void adc1Ch8Start(void);
 
-#endif /* INC_DRV_ADC_H_ */
+#endif /* __DRV_ADC_H__ */

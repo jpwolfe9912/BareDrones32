@@ -20,7 +20,13 @@
 void
 modeTransition(void)
 {
+	systemReady = false;
+	motor_initialized = false;
+
 	wormDrive();
+
+	motors3dOn();
+
 	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
 	if(mode == TRANS_FLIGHT)
@@ -31,5 +37,7 @@ modeTransition(void)
 	arm1Hit = false;
 	arm2Hit = false;
 
-	SysTick->CTRL	|= SysTick_CTRL_ENABLE_Msk;
+	systemReady = true;
+	motor_initialized = true;
+
 }

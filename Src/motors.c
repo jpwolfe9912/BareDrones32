@@ -32,14 +32,18 @@ motorInit(void)
 
 /** @brief Changes motor mode to 3D.
  *
- *	@param motors_e motor The motor to set to 3D
  *  @return Void.
  */
 void
-motors3dOn(motors_e motor)
+motors3dOn(void)
 {
-	motor_value[motor] = DSHOT_CMD_3D_MODE_ON;
+	delay(1000);
+	motor_value[MOTOR2] = DSHOT_CMD_3D_MODE_ON;
+	motor_value[MOTOR4] = DSHOT_CMD_3D_MODE_ON;
 	delay(10);
-	motor_value[motor] = 0;
+
+	motor_value[MOTOR2] = 0;
+	motor_value[MOTOR4] = 0;
+	delay(1500);
 }
 

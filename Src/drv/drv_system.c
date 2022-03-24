@@ -57,11 +57,11 @@ SysTick_Handler(void)
 	sysTickCycleCounter = DWT->CYCCNT;
 	sysTickUptime++;
 
-//    watchDogsTick();
+	//    watchDogsTick();
 
 	if ((systemReady         == true)  &&
-		(accelCalibrating    == false) &&
-		(mpu6000Calibrating  == false))
+			(accelCalibrating    == false) &&
+			(mpu6000Calibrating  == false))
 	{
 
 		frameCounter++;
@@ -105,18 +105,18 @@ SysTick_Handler(void)
 			frame_100Hz = true;
 
 
-//			if (!newTemperatureReading)
-//			{
-//				readTemperatureRequestPressure();
-//				newTemperatureReading = true;
-//			}
-//			else
-//			{
-//				readPressureRequestTemperature();
-//				newPressureReading = true;
-//			}
-//
-//			sdCardCountDown();
+			//			if (!newTemperatureReading)
+			//			{
+			//				readTemperatureRequestPressure();
+			//				newTemperatureReading = true;
+			//			}
+			//			else
+			//			{
+			//				readPressureRequestTemperature();
+			//				newPressureReading = true;
+			//			}
+			//
+			//			sdCardCountDown();
 		}
 
 		///////////////////////////////
@@ -147,6 +147,7 @@ SysTick_Handler(void)
 	}
 	else if(!motor_initialized)
 		dshotWrite(motor_value);
+
 }
 
 /** @brief Gets system time in microseconds.
@@ -264,8 +265,9 @@ systemInit(void)
 
 	dshotInit(DSHOT600);
 	motorInit();
-//	motors3dOn(MOTOR4);
-//	motors3dOn(MOTOR2);
+	motors3dOn();
+	//	motors3dOn(MOTOR4);
+	//	motors3dOn(MOTOR2);
 
 
 	spi1Init();
@@ -277,6 +279,7 @@ systemInit(void)
 	wormInit();
 
 	/*		SENSOR INITIALIZATION		*/
+	battMonInit();
 
 	orientSensors();
 	while(!mpu6000Init());
@@ -287,7 +290,6 @@ systemInit(void)
 
 	initPID();
 	initPIDvalues();
-
 
 	motor_initialized = 1;
 

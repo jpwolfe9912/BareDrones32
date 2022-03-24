@@ -211,7 +211,7 @@ serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, flo
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!endOfString);
 
-	sscanf((char*)serialBuf, "\n%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
+	sscanf((char*)serialBuf, "%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
 
 	UART5->CR1 &= ~USART_CR1_RXNEIE;
 	memset(serialBuf, '\0', sizeof(serialBuf));

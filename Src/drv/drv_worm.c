@@ -87,8 +87,6 @@ wormInit(void)
 void
 wormDrive(void)
 {
-	SysTick->CTRL	&= ~SysTick_CTRL_ENABLE_Msk;	// disable systick interrupts
-
 	float speed = 0.5;
 
 	EXTI->IMR		&= ~(EXTI_IMR_IM13 |	// turn off GPIO interrupts

@@ -13,12 +13,13 @@ var searchData=
   ['mincheck_10',['minCheck',['../structeeprom_config__t.html#a6daa80d9fe2438fcc4b755817f9502a6',1,'eepromConfig_t']]],
   ['minthrottle_11',['minThrottle',['../structeeprom_config__t.html#a15003441b8f0bb4c12c4f417e76e27a9',1,'eepromConfig_t']]],
   ['mixerconfiguration_12',['mixerConfiguration',['../structeeprom_config__t.html#ac394d57d5bc5f46de1e4dc99b642ea20',1,'eepromConfig_t']]],
-  ['mode_13',['mode',['../process__commands_8c.html#a37e90f5e3bd99fac2021fb3a326607d4',1,'mode():&#160;process_commands.c'],['../process__commands_8h.html#a37e90f5e3bd99fac2021fb3a326607d4',1,'mode():&#160;process_commands.c']]],
+  ['mode_13',['mode',['../process__commands_8c.html#abdda914a8c6ac0445832f7dbf4f37286',1,'mode():&#160;process_commands.c'],['../process__commands_8h.html#abdda914a8c6ac0445832f7dbf4f37286',1,'mode():&#160;process_commands.c']]],
   ['month_14',['month',['../structgps__t.html#a3e00faf7fbf9805e9ec4d2edd6339050',1,'gps_t']]],
   ['motor_5finitialized_15',['motor_initialized',['../motors_8c.html#a7b0aa4cd41f19f0945cc0f63d768bb7e',1,'motor_initialized():&#160;motors.c'],['../motors_8h.html#a7b0aa4cd41f19f0945cc0f63d768bb7e',1,'motor_initialized():&#160;motors.c']]],
   ['motor_5ftemp_16',['motor_temp',['../mixer_8c.html#ae9e762cff09b8093e89b0d0282e02107',1,'motor_temp():&#160;mixer.c'],['../mixer_8h.html#ae9e762cff09b8093e89b0d0282e02107',1,'motor_temp():&#160;mixer.c']]],
   ['motor_5fvalue_17',['motor_value',['../motors_8c.html#a9e7bfc8712149ed5ab675edfc0773f21',1,'motor_value():&#160;motors.c'],['../motors_8h.html#a9e7bfc8712149ed5ab675edfc0773f21',1,'motor_value():&#160;motors.c']]],
   ['mpu6000calibrating_18',['mpu6000Calibrating',['../mpu6000_8c.html#afec3a9a296c531e6e5a02bd48dd46286',1,'mpu6000Calibrating():&#160;mpu6000.c'],['../mpu6000_8h.html#afec3a9a296c531e6e5a02bd48dd46286',1,'mpu6000Calibrating():&#160;mpu6000.c']]],
-  ['mpu6000temperature_19',['mpu6000Temperature',['../mpu6000_8c.html#a867851a3e2970c8e01557538276c7575',1,'mpu6000Temperature():&#160;mpu6000.c'],['../mpu6000_8h.html#a867851a3e2970c8e01557538276c7575',1,'mpu6000Temperature():&#160;mpu6000.c']]],
-  ['mpuorientationmatrix_20',['mpuOrientationMatrix',['../orientation_8c.html#a3dc49f4b46f57265f699543f15cb4299',1,'mpuOrientationMatrix():&#160;orientation.c'],['../orientation_8h.html#a3dc49f4b46f57265f699543f15cb4299',1,'mpuOrientationMatrix():&#160;orientation.c']]]
+  ['mpu6000initialized_19',['mpu6000Initialized',['../mpu6000_8c.html#abbf586d3e44c3e132efb79e0b305b936',1,'mpu6000Initialized():&#160;mpu6000.c'],['../mpu6000_8h.html#abbf586d3e44c3e132efb79e0b305b936',1,'mpu6000Initialized():&#160;mpu6000.c']]],
+  ['mpu6000temperature_20',['mpu6000Temperature',['../mpu6000_8c.html#a867851a3e2970c8e01557538276c7575',1,'mpu6000Temperature():&#160;mpu6000.c'],['../mpu6000_8h.html#a867851a3e2970c8e01557538276c7575',1,'mpu6000Temperature():&#160;mpu6000.c']]],
+  ['mpuorientationmatrix_21',['mpuOrientationMatrix',['../orientation_8c.html#a3dc49f4b46f57265f699543f15cb4299',1,'mpuOrientationMatrix():&#160;orientation.c'],['../orientation_8h.html#a3dc49f4b46f57265f699543f15cb4299',1,'mpuOrientationMatrix():&#160;orientation.c']]]
 ];

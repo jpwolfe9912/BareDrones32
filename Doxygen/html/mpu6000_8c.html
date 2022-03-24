@@ -100,12 +100,8 @@ Variables</h2></td></tr>
 <tr class="separator:a9246f6c9e323d321d5578adbc8107b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8cd7815e7e75c2dc0158e8c4e0fdd81"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#ad8cd7815e7e75c2dc0158e8c4e0fdd81">rawData</a> [16]</td></tr>
 <tr class="separator:ad8cd7815e7e75c2dc0158e8c4e0fdd81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6157ca8f0701d2de179241f789d0be5"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#aa6157ca8f0701d2de179241f789d0be5">accelSum100Hz</a> [3] = { 0, 0, 0 }</td></tr>
-<tr class="separator:aa6157ca8f0701d2de179241f789d0be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae49703792e28d6cbf6ee3ea7865d57d0"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#ae49703792e28d6cbf6ee3ea7865d57d0">accelSum500Hz</a> [3] = { 0, 0, 0 }</td></tr>
 <tr class="separator:ae49703792e28d6cbf6ee3ea7865d57d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d90555c2b4f78a2b0bfd5ecbcc23301"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#a0d90555c2b4f78a2b0bfd5ecbcc23301">accelSummedSamples100Hz</a> [3]</td></tr>
-<tr class="separator:a0d90555c2b4f78a2b0bfd5ecbcc23301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a49a78cbbf03e6f554f7f45972c17da"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#a5a49a78cbbf03e6f554f7f45972c17da">accelSummedSamples500Hz</a> [3]</td></tr>
 <tr class="separator:a5a49a78cbbf03e6f554f7f45972c17da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade31534035ac4fc1386d52ea7be9a269"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#ade31534035ac4fc1386d52ea7be9a269">accelTCBias</a> [3] = { 0.0f, 0.0f, 0.0f }</td></tr>
@@ -136,12 +132,14 @@ Variables</h2></td></tr>
 <tr class="separator:a3f0591e6aaa96e6766fc44658aec4647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff6fb488063482dd904e4fa9372c8bc3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#aff6fb488063482dd904e4fa9372c8bc3">whoami</a> [3]</td></tr>
 <tr class="separator:aff6fb488063482dd904e4fa9372c8bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf586d3e44c3e132efb79e0b305b936"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpu6000_8c.html#abbf586d3e44c3e132efb79e0b305b936">mpu6000Initialized</a> = false</td></tr>
+<tr class="separator:abbf586d3e44c3e132efb79e0b305b936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This file contains all the functions to initalize and read data from the MPU-6000. </p>
 <dl class="section author"><dt>Author</dt><dd>Jeremy Wolfe </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>06 MAR 2022 </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000013">Bug:</a></b></dt><dd></dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000010">Bug:</a></b></dt><dd></dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -164,7 +162,7 @@ Variables</h2></td></tr>
 <p>Computes IMU runtime data to find gyro bias. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00177">177</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00186">186</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -187,7 +185,7 @@ Variables</h2></td></tr>
 <p>Calculates the IMU temperature bias. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00220">220</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00229">229</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -210,7 +208,7 @@ Variables</h2></td></tr>
 <p>MPU-6000 initialization sequence. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if initialization was successful. False if unsuccessful. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00067">67</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00065">65</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -250,7 +248,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00049">49</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00045">45</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -270,22 +268,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa6157ca8f0701d2de179241f789d0be5" name="aa6157ca8f0701d2de179241f789d0be5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6157ca8f0701d2de179241f789d0be5">&#9670;&nbsp;</a></span>accelSum100Hz</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t accelSum100Hz[3] = { 0, 0, 0 }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00019">19</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
-
-</div>
-</div>
 <a id="ae49703792e28d6cbf6ee3ea7865d57d0" name="ae49703792e28d6cbf6ee3ea7865d57d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae49703792e28d6cbf6ee3ea7865d57d0">&#9670;&nbsp;</a></span>accelSum500Hz</h2>
 
@@ -298,23 +280,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00021">21</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
-
-</div>
-</div>
-<a id="a0d90555c2b4f78a2b0bfd5ecbcc23301" name="a0d90555c2b4f78a2b0bfd5ecbcc23301"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d90555c2b4f78a2b0bfd5ecbcc23301">&#9670;&nbsp;</a></span>accelSummedSamples100Hz</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32_t accelSummedSamples100Hz[3]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00023">23</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00019">19</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -330,7 +296,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00025">25</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00021">21</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -346,7 +312,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00027">27</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00023">23</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -362,7 +328,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00035">35</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00031">31</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -378,7 +344,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00037">37</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00033">33</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -394,7 +360,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00039">39</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00035">35</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -410,7 +376,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00041">41</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00037">37</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -426,7 +392,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00051">51</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00047">47</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+
+</div>
+</div>
+<a id="abbf586d3e44c3e132efb79e0b305b936" name="abbf586d3e44c3e132efb79e0b305b936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf586d3e44c3e132efb79e0b305b936">&#9670;&nbsp;</a></span>mpu6000Initialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mpu6000Initialized = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00057">57</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -442,7 +424,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00055">55</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00051">51</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -458,7 +440,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00031">31</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00027">27</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -474,7 +456,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00045">45</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00041">41</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -490,7 +472,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00029">29</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00025">25</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -522,7 +504,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00043">43</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00039">39</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -538,7 +520,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00057">57</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00053">53</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
@@ -554,7 +536,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00059">59</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mpu6000_8c_source.html#l00055">55</a> of file <a class="el" href="mpu6000_8c_source.html">mpu6000.c</a>.</p>
 
 </div>
 </div>
