@@ -23,17 +23,41 @@ modeTransition(void)
 	systemReady = false;
 	motor_initialized = false;
 
+
 	wormDrive();
 
-	motors3dOn();
+	if(mode == TRANS_FLIGHT)
+	{
+		color(BLUE, YES);
+		printf("\nTransitioning to FLIGHT MODE");
+		colorDefault();
+		motors3dOff();
+	}
+	else if(mode == TRANS_ROVER)
+	{
+		color(BLUE, YES);
+		printf("\nTransitioning to ROVER MODE");
+		colorDefault();
+		motors3dOn();
+	}
 
+	printf("\nWaiting for arms...\n");
 	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
-	if(mode == TRANS_FLIGHT)
-		mode = FLIGHT;
-	else if(mode == TRANS_ROVER)
-		mode = ROVER;
+	color(GREEN, YES);
+	printf("\nArms have reached limits\n");
+	colorDefault();
 
+	if(mode == TRANS_FLIGHT)
+	{
+		mode = FLIGHT;
+		printf("Transition to FLIGHT mode complete\n");
+	}
+	else if(mode == TRANS_ROVER)
+	{
+		mode = ROVER;
+		printf("Transition to ROVER mode complete\n");
+	}
 	arm1Hit = false;
 	arm2Hit = false;
 

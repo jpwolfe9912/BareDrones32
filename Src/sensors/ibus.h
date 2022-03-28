@@ -30,7 +30,6 @@ extern uint8_t ibusCRC[CRC_SIZE];
 extern uint16_t ibusChannels[RC_CHANNELS];
 
 extern bool rcActive;
-extern bool failsafe;
 
 /* Global Enums */
 enum {

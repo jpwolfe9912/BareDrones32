@@ -71,10 +71,10 @@ uint16_t
 dshot3dFormat(int16_t rxCmd)
 {
 	if(rxCmd < 0){
-		return (constrain16((47 - rxCmd), 48, 1047));
+		return (constrain16((47 - rxCmd), 48, 1047) + 1000);
 	}
 	else
-		return (constrain16((rxCmd + 1048), 1048, 2047));
+		return (constrain16((rxCmd + 1048), 1048, 2047) - 1000);
 
 }
 

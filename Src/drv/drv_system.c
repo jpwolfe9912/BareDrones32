@@ -265,10 +265,6 @@ systemInit(void)
 
 	dshotInit(DSHOT600);
 	motorInit();
-	motors3dOn();
-	//	motors3dOn(MOTOR4);
-	//	motors3dOn(MOTOR2);
-
 
 	spi1Init();
 

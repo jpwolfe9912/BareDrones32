@@ -87,10 +87,10 @@ updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameter
 void
 initPIDvalues(void)
 {
+#ifdef STLINK
 	uint8_t ID;
 	bool again = true;
 
-#ifdef STLINK
 	color(CYAN, YES);
 	printf("\nWould you like to change the PID states?\n");
 	colorDefault();

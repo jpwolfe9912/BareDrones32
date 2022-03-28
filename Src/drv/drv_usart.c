@@ -92,7 +92,6 @@ usart1Init(void)
 	DMA2_Stream2->CR 	&= ~DMA_SxCR_PSIZE;			// 8 bit size
 	DMA2_Stream2->CR 	|= DMA_SxCR_CIRC;			// circ mode en
 	DMA2_Stream2->CR 	|= DMA_SxCR_PL;			// medium priority
-	delay(500);
 }
 
 /** @brief Reads in data form usart1 with DMA.

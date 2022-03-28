@@ -36,11 +36,10 @@ pulseMotors(void)
 void
 mixTable(void)
 {
-	uint8_t i;
+	motors_e i;
 
 	if((mode == FLIGHT) &&
-	   (armed == true) &&
-	   (failsafe == false))
+	   (armed == true))
 	{
 		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
 		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
@@ -61,27 +60,33 @@ mixTable(void)
 
 			if ((rxCommands[THROTTLE]) < eepromConfig.minCheck)
 				motor_value[i] = eepromConfig.minThrottle - 1952;
-
 		}
 	}
 	else if((mode == ROVER) &&
-			(armed == true) &&
-			(failsafe == false))
+			(armed == true))
 	{
 
 		motor_temp[0] = PIDMIXROVER(  1.0f,  1.0f);	// front left
 		motor_temp[1] = PIDMIXROVER( -1.0f,  1.0f);	// front right
 
-		motor_value[0] = 0;
-		motor_value[1] = dshot3dFormat(motor_temp[1]);
-		motor_value[2] = 0;
-		motor_value[3] = dshot3dFormat(motor_temp[0]);
+		if((motor_temp[0] < 10) && (motor_temp[0] > -10))
+			motor_value[MOTOR4] = 0;
+		else
+			motor_value[MOTOR4] = dshot3dFormat(motor_temp[0]);
+
+		if((motor_temp[1] < 10) && (motor_temp[1] > -10))
+			motor_value[MOTOR2] = 0;
+		else
+			motor_value[MOTOR2] = dshot3dFormat(motor_temp[1]);
+
+		motor_value[MOTOR1] = 0;
+		motor_value[MOTOR3] = 0;
 	}
 	else
 	{
-		motor_value[0] = 0;
-		motor_value[1] = 0;
-		motor_value[2] = 0;
-		motor_value[3] = 0;
+		motor_value[MOTOR1] = 0;
+		motor_value[MOTOR2] = 0;
+		motor_value[MOTOR3] = 0;
+		motor_value[MOTOR4] = 0;
 	}
 }

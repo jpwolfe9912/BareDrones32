@@ -13,9 +13,6 @@
 static ibusStatus_e ibus_process_frame(void);
 static void ibus_update(uint8_t* pData);
 static bool ibus_frame_crc(uint8_t *pData);
-static void ibus_timeout(void);
-//static void usart_rx_check(uint32_t bytesLeft);
-//static void usart_process_data(const void *data, size_t len);
 
 /* Global Variables */
 uint8_t ibusPayload[PAYLOAD_SIZE];	// payload buffer
@@ -26,21 +23,13 @@ uint8_t state;
 uint8_t frameLength, devID;
 
 bool rcActive = false;
-bool failsafe = false;
 
 ibusStatus_e status;
 
 /* Static Variables */
-static uint8_t errorTimeOut = 0;
-static uint8_t failsafeTimeOut = 0;
-static uint8_t readyTimeOut = 0;
-
 static uint8_t framePos = 0;
 static uint8_t payloadPos = 0;
 static uint8_t crcPos = 0;
-
-static uint16_t prevCRC = 0;
-
 
 /** @brief Initializes ibus ring buffer and low level usart registers.
  *
@@ -64,7 +53,6 @@ ibusInit(void)
 		if(devID == 0x40){
 			ibus_initialized = true;
 			rcActive = true;
-			failsafe = false;
 			break;
 		}
 		delay(5);
@@ -115,14 +103,12 @@ ibus_process_frame(void)
 	switch(state){
 		case IBUS_STATE_LENGTH: {				// length byte
 			if(b == 0x20){
-				errorTimeOut = 0;
 
 				frameLength = b;
 				state++;
 			}
 			else
 			{
-				errorTimeOut++;
 				status = IBUS_ERROR;
 			}
 			break;
@@ -161,8 +147,6 @@ ibus_process_frame(void)
 			break;
 		}
 	}
-//	ibus_timeout();
-
 	if(status == IBUS_ERROR)
 	{
 		framePos = 0;
@@ -170,8 +154,6 @@ ibus_process_frame(void)
 	}
 	if(status == IBUS_READY)
 	{
-		readyTimeOut++;
-
 		framePos = 0;
 		state = 0;
 	}
@@ -217,46 +199,5 @@ ibus_frame_crc(uint8_t *pData)
 
 	checksum_ibus = pData[1] << 8 | pData[0]; // checksum value from ibus
 
-	if(prevCRC == checksum_ibus)
-		failsafeTimeOut++;
-	else
-		failsafeTimeOut = 0;
-
-	prevCRC = checksum_ibus;
-
 	return (checksum_ibus == checksum_cal);
-}
-
-/** @brief Counts up if an error is recorded and disarms the quad.
- *
- *  @return Void.
- */
-static void
-ibus_timeout(void)
-{
-	if((errorTimeOut > 100) ||
-	   (failsafeTimeOut > 100))
-	{
-		status = IBUS_ERROR;
-
-
-		errorTimeOut = 0;
-		failsafeTimeOut = 0;
-
-		rcActive = false;
-		failsafe = true;
-	}
-	else if(readyTimeOut > 100)
-	{
-		if(framePos > 30)
-			status = IBUS_READY;
-		else
-			status = IBUS_BUSY;
-
-		readyTimeOut = 0;
-
-		rcActive = true;
-		failsafe = false;
-	}
-
 }

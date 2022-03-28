@@ -102,8 +102,8 @@ main(void)
 
 
 
-//			if (armed == true)
-//			{
+			if (armed == true)
+			{
 				if ( eepromConfig.activeTelemetry == 1 )
 				{
 					// Roll Loop
@@ -170,7 +170,7 @@ main(void)
 							motor_value[3]);
 				}
 
-//			}
+			}
 
 
 			executionTime100Hz = micros() - currentTime;
