@@ -11,7 +11,9 @@ This file contains functions to initialize the ESC or change modes.
 \item 
 void \mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{motor\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em Sets motor\+\_\+value to 0 for all motors. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motors_8c_af0236ac9f1631bb2e0fae9975680339c}{motors3d\+On}} (\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}} motor)
+void \mbox{\hyperlink{motors_8c_a0d49a7f7d4f3ee90ac062228c07181ce}{motors3d\+On}} (void)
+\begin{DoxyCompactList}\small\item\em Changes motor mode to 3D. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8c_a9238ba3b6684798019bc8c64291f72f1}{motors3d\+Off}} (void)
 \begin{DoxyCompactList}\small\item\em Changes motor mode to 3D. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -19,6 +21,8 @@ void \mbox{\hyperlink{motors_8c_af0236ac9f1631bb2e0fae9975680339c}{motors3d\+On}
 uint16\+\_\+t \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\+\_\+value}} \mbox{[}4\mbox{]}
 \item 
 \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} \mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\+\_\+initialized}} = 0
+\item 
+\mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}{motors\+\_\+mode\+\_\+e}} \mbox{\hyperlink{motors_8c_ab481fde20557f669231b9bfa1ea911d5}{motors\+\_\+mode}} = \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66}{MOTORS\+\_\+\+MODE\+\_\+\+NORMAL}}
 \end{DoxyCompactItemize}
 
 
@@ -53,29 +57,41 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{motors_8c_source_l00023}{23}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+Definition at line \mbox{\hyperlink{motors_8c_source_l00026}{26}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 
-\mbox{\Hypertarget{motors_8c_af0236ac9f1631bb2e0fae9975680339c}\label{motors_8c_af0236ac9f1631bb2e0fae9975680339c}} 
-\index{motors.c@{motors.c}!motors3dOn@{motors3dOn}}
-\index{motors3dOn@{motors3dOn}!motors.c@{motors.c}}
-\doxysubsubsection{\texorpdfstring{motors3dOn()}{motors3dOn()}}
-{\footnotesize\ttfamily void motors3d\+On (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e}}}]{motor }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{motors_8c_a9238ba3b6684798019bc8c64291f72f1}\label{motors_8c_a9238ba3b6684798019bc8c64291f72f1}} 
+\index{motors.c@{motors.c}!motors3dOff@{motors3dOff}}
+\index{motors3dOff@{motors3dOff}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors3dOff()}{motors3dOff()}}
+{\footnotesize\ttfamily void motors3d\+Off (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
 Changes motor mode to 3D. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em motors\+\_\+e} & motor The motor to set to 3D \\
-\hline
-\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Void. 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{motors_8c_source_l00039}{39}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+Definition at line \mbox{\hyperlink{motors_8c_source_l00069}{69}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8c_a0d49a7f7d4f3ee90ac062228c07181ce}\label{motors_8c_a0d49a7f7d4f3ee90ac062228c07181ce}} 
+\index{motors.c@{motors.c}!motors3dOn@{motors3dOn}}
+\index{motors3dOn@{motors3dOn}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors3dOn()}{motors3dOn()}}
+{\footnotesize\ttfamily void motors3d\+On (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Changes motor mode to 3D. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00043}{43}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 
 
 
@@ -99,4 +115,14 @@ Definition at line \mbox{\hyperlink{motors_8c_source_l00016}{16}} of file \mbox{
 
 
 Definition at line \mbox{\hyperlink{motors_8c_source_l00014}{14}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8c_ab481fde20557f669231b9bfa1ea911d5}\label{motors_8c_ab481fde20557f669231b9bfa1ea911d5}} 
+\index{motors.c@{motors.c}!motors\_mode@{motors\_mode}}
+\index{motors\_mode@{motors\_mode}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors\_mode}{motors\_mode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}{motors\+\_\+mode\+\_\+e}} motors\+\_\+mode = \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66}{MOTORS\+\_\+\+MODE\+\_\+\+NORMAL}}}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00018}{18}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 

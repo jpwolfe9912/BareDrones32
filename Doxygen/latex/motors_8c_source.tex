@@ -11,24 +11,65 @@
 \DoxyCodeLine{\Hypertarget{motors_8c_source_l00015}00015 }
 \DoxyCodeLine{\Hypertarget{motors_8c_source_l00016}\mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{00016}} \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\_t}} \mbox{\hyperlink{motors_8c_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\_initialized}} = 0;}
 \DoxyCodeLine{\Hypertarget{motors_8c_source_l00017}00017 }
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00022}00022 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00023}\mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{00023}} \mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{motorInit}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00024}00024 \{}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00025}00025     printf(\textcolor{stringliteral}{"{}\(\backslash\)nInitializing Motors\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00026}00026 }
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00027}00027     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[0] = 0;}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00028}00028     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[1] = 0;}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00029}00029     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[2] = 0;}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00030}00030     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[3] = 0;}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00031}00031 \}}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00032}00032 }
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00038}00038 \textcolor{keywordtype}{void}}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00039}\mbox{\hyperlink{motors_8c_af0236ac9f1631bb2e0fae9975680339c}{00039}} \mbox{\hyperlink{motors_8c_af0236ac9f1631bb2e0fae9975680339c}{motors3dOn}}(\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\_e}} motor)}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00040}00040 \{}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00041}00041     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[motor] = \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}{DSHOT\_CMD\_3D\_MODE\_ON}};}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00042}00042     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(10);}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00043}00043     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[motor] = 0;}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00044}00044 \}}
-\DoxyCodeLine{\Hypertarget{motors_8c_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00018}\mbox{\hyperlink{motors_8c_ab481fde20557f669231b9bfa1ea911d5}{00018}} \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}{motors\_mode\_e}} \mbox{\hyperlink{motors_8c_ab481fde20557f669231b9bfa1ea911d5}{motors\_mode}} = \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66}{MOTORS\_MODE\_NORMAL}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00025}00025 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00026}\mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{00026}} \mbox{\hyperlink{motors_8c_aa29e2982047be0f7afbb10c8d6f3f5c3}{motorInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00027}00027 \{}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00028}00028     printf(\textcolor{stringliteral}{"{}\(\backslash\)nInitializing Motors\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00030}00030     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[0] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00031}00031     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[1] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00032}00032     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[2] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00033}00033     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[3] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00035}00035     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1000);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00036}00036 \}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00042}00042 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00043}\mbox{\hyperlink{motors_8c_a0d49a7f7d4f3ee90ac062228c07181ce}{00043}} \mbox{\hyperlink{motors_8c_a0d49a7f7d4f3ee90ac062228c07181ce}{motors3dOn}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00044}00044 \{}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00045}00045     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}{MOTOR1}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00046}00046     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00047}00047     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3}{MOTOR3}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00048}00048     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00050}00050     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1000);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00052}00052     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}{DSHOT\_CMD\_3D\_MODE\_ON}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00053}00053     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0cafda4112336ceb47ba969cdfcee8824dd}{DSHOT\_CMD\_3D\_MODE\_ON}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00054}00054     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(50);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00056}00056     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00057}00057     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00058}00058     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1500);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00060}00060     \mbox{\hyperlink{motors_8c_ab481fde20557f669231b9bfa1ea911d5}{motors\_mode}} = \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558}{MOTORS\_MODE\_3D}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00061}00061     printf(\textcolor{stringliteral}{"{}\(\backslash\)nChanged motors 2 and 4 to 3D mode\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00062}00062 \}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00068}00068 \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00069}\mbox{\hyperlink{motors_8c_a9238ba3b6684798019bc8c64291f72f1}{00069}} \mbox{\hyperlink{motors_8c_a9238ba3b6684798019bc8c64291f72f1}{motors3dOff}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00070}00070 \{}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00071}00071     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28}{MOTOR1}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00072}00072     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00073}00073     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea5cc186b7500e7c6596d569dc8a39e7e3}{MOTOR3}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00074}00074     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00076}00076     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1000);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00078}00078     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}{DSHOT\_CMD\_3D\_MODE\_OFF}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00079}00079     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = \mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0ca89e83df99796faee9633efe2998872e4}{DSHOT\_CMD\_3D\_MODE\_OFF}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00080}00080     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(50);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00082}00082     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9eae45e87aca199d3774bfb21480eb7d934}{MOTOR2}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00083}00083     \mbox{\hyperlink{motors_8c_a9e7bfc8712149ed5ab675edfc0773f21}{motor\_value}}[\mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f}{MOTOR4}}] = 0;}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00084}00084     \mbox{\hyperlink{drv__system_8c_a7f2dfce1046bdd2a2b753643726c2346}{delay}}(1500);}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00086}00086     \mbox{\hyperlink{motors_8c_ab481fde20557f669231b9bfa1ea911d5}{motors\_mode}} = \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66}{MOTORS\_MODE\_NORMAL}};}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00087}00087     printf(\textcolor{stringliteral}{"{}\(\backslash\)nChanged motors 2 and 4 to NORMAL mode\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00088}00088 \}}
+\DoxyCodeLine{\Hypertarget{motors_8c_source_l00089}00089 }
 
 \end{DoxyCode}

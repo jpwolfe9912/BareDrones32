@@ -142,62 +142,60 @@ $(function() {
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">void</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="drv__worm_8c.html#af49714c5dce3faf11f37587b54974d24">   88</a></span><a class="code hl_function" href="drv__worm_8c.html#af49714c5dce3faf11f37587b54974d24">wormDrive</a>(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    SysTick-&gt;CTRL   &amp;= ~SysTick_CTRL_ENABLE_Msk;    <span class="comment">// disable systick interrupts</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">float</span> speed = 0.5;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">float</span> speed = 0.5;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    EXTI-&gt;IMR       &amp;= ~(EXTI_IMR_IM13 |    <span class="comment">// turn off GPIO interrupts</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                         EXTI_IMR_IM14);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    TIM1-&gt;CCER      |= TIM_CCER_CC1E |      <span class="comment">// enables channel 1 as output</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                       TIM_CCER_CC2E;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="process__commands_8c.html#abdda914a8c6ac0445832f7dbf4f37286">mode</a> == <a class="code hl_enumvalue" href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8ff0f0e920a26f5210452e85eabc54d3">TRANS_FLIGHT</a>)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BR8;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        TIM1-&gt;CCR1 = (uint32_t)(5082 * speed) - 1;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BR9;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        TIM1-&gt;CCR2 = (uint32_t)(5082 * speed) - 1;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_variable" href="process__commands_8c.html#abdda914a8c6ac0445832f7dbf4f37286">mode</a> == <a class="code hl_enumvalue" href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8dc5461871ae730fcc0b532526747d60">TRANS_ROVER</a>)</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BS8;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        TIM1-&gt;CCR1 = (uint32_t)(5082 * speed) - 1;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BS9;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        TIM1-&gt;CCR2 = (uint32_t)(5082 * speed) - 1;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        TIM1-&gt;CCR1 = 0;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        TIM1-&gt;CCR2 = 0;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <a class="code hl_function" href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a>(100);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    EXTI-&gt;IMR       |= EXTI_IMR_IM13 |      <span class="comment">// wait for arm to be clear of limit switch</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                       EXTI_IMR_IM14;       <span class="comment">// and then turn interrupts back on</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">  127</a></span><a class="code hl_function" href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">EXTI15_10_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">if</span>(EXTI-&gt;PR &amp; EXTI_PR_PR13){</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        EXTI-&gt;PR |= EXTI_PR_PR13;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        TIM1-&gt;CCER &amp;= ~TIM_CCER_CC1E;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_variable" href="drv__worm_8c.html#ace909de44fd65d7cc09fe9d11178fb43">arm1Hit</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">if</span>(EXTI-&gt;PR &amp; EXTI_PR_PR14){</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        EXTI-&gt;PR |= EXTI_PR_PR14;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        TIM1-&gt;CCER &amp;= ~TIM_CCER_CC2E;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <a class="code hl_variable" href="drv__worm_8c.html#a96647bc245d39fa8c5c78abdf530cf19">arm2Hit</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    EXTI-&gt;IMR       &amp;= ~(EXTI_IMR_IM13 |    <span class="comment">// turn off GPIO interrupts</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                         EXTI_IMR_IM14);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    TIM1-&gt;CCER      |= TIM_CCER_CC1E |      <span class="comment">// enables channel 1 as output</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                       TIM_CCER_CC2E;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="process__commands_8c.html#abdda914a8c6ac0445832f7dbf4f37286">mode</a> == <a class="code hl_enumvalue" href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8ff0f0e920a26f5210452e85eabc54d3">TRANS_FLIGHT</a>)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BR8;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        TIM1-&gt;CCR1 = (uint32_t)(5082 * speed) - 1;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BR9;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        TIM1-&gt;CCR2 = (uint32_t)(5082 * speed) - 1;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_variable" href="process__commands_8c.html#abdda914a8c6ac0445832f7dbf4f37286">mode</a> == <a class="code hl_enumvalue" href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8dc5461871ae730fcc0b532526747d60">TRANS_ROVER</a>)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BS8;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        TIM1-&gt;CCR1 = (uint32_t)(5082 * speed) - 1;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        GPIOC-&gt;BSRR |= GPIO_BSRR_BS9;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        TIM1-&gt;CCR2 = (uint32_t)(5082 * speed) - 1;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        TIM1-&gt;CCR1 = 0;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        TIM1-&gt;CCR2 = 0;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_function" href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a>(100);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    EXTI-&gt;IMR       |= EXTI_IMR_IM13 |      <span class="comment">// wait for arm to be clear of limit switch</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                       EXTI_IMR_IM14;       <span class="comment">// and then turn interrupts back on</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keywordtype">void</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">  125</a></span><a class="code hl_function" href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">EXTI15_10_IRQHandler</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span>(EXTI-&gt;PR &amp; EXTI_PR_PR13){</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        EXTI-&gt;PR |= EXTI_PR_PR13;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        TIM1-&gt;CCER &amp;= ~TIM_CCER_CC1E;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_variable" href="drv__worm_8c.html#ace909de44fd65d7cc09fe9d11178fb43">arm1Hit</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">if</span>(EXTI-&gt;PR &amp; EXTI_PR_PR14){</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        EXTI-&gt;PR |= EXTI_PR_PR14;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        TIM1-&gt;CCER &amp;= ~TIM_CCER_CC2E;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_variable" href="drv__worm_8c.html#a96647bc245d39fa8c5c78abdf530cf19">arm2Hit</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
 <div class="ttc" id="a_autodrone32_8h_html_ada81cad6f64bf0042dba36096bf32710a8dc5461871ae730fcc0b532526747d60"><div class="ttname"><a href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8dc5461871ae730fcc0b532526747d60">TRANS_ROVER</a></div><div class="ttdeci">@ TRANS_ROVER</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00163">Autodrone32.h:163</a></div></div>
 <div class="ttc" id="a_autodrone32_8h_html_ada81cad6f64bf0042dba36096bf32710a8ff0f0e920a26f5210452e85eabc54d3"><div class="ttname"><a href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710a8ff0f0e920a26f5210452e85eabc54d3">TRANS_FLIGHT</a></div><div class="ttdeci">@ TRANS_FLIGHT</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00161">Autodrone32.h:161</a></div></div>
 <div class="ttc" id="aboard_8h_html"><div class="ttname"><a href="board_8h.html">board.h</a></div><div class="ttdoc">This file bundles all the header files. This allows us to just include &quot;board.h&quot; in each file and hav...</div></div>
-<div class="ttc" id="adrv__system_8c_html_a7f2dfce1046bdd2a2b753643726c2346"><div class="ttname"><a href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a></div><div class="ttdeci">void delay(uint32_t ms)</div><div class="ttdoc">Delay in milliseconds.</div><div class="ttdef"><b>Definition:</b> <a href="drv__system_8c_source.html#l00230">drv_system.c:230</a></div></div>
+<div class="ttc" id="adrv__system_8c_html_a7f2dfce1046bdd2a2b753643726c2346"><div class="ttname"><a href="drv__system_8c.html#a7f2dfce1046bdd2a2b753643726c2346">delay</a></div><div class="ttdeci">void delay(uint32_t ms)</div><div class="ttdoc">Delay in milliseconds.</div><div class="ttdef"><b>Definition:</b> <a href="drv__system_8c_source.html#l00231">drv_system.c:231</a></div></div>
 <div class="ttc" id="adrv__worm_8c_html_a52927cc2126ccc2c38edb697a9cc420f"><div class="ttname"><a href="drv__worm_8c.html#a52927cc2126ccc2c38edb697a9cc420f">wormInit</a></div><div class="ttdeci">void wormInit(void)</div><div class="ttdoc">Initializes the low level registers to set up timer 1 and GPIO interrupts.</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00022">drv_worm.c:22</a></div></div>
-<div class="ttc" id="adrv__worm_8c_html_a738473a5b43f6c92b80ce1d3d6f77ed9"><div class="ttname"><a href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">EXTI15_10_IRQHandler</a></div><div class="ttdeci">void EXTI15_10_IRQHandler(void)</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00127">drv_worm.c:127</a></div></div>
+<div class="ttc" id="adrv__worm_8c_html_a738473a5b43f6c92b80ce1d3d6f77ed9"><div class="ttname"><a href="drv__worm_8c.html#a738473a5b43f6c92b80ce1d3d6f77ed9">EXTI15_10_IRQHandler</a></div><div class="ttdeci">void EXTI15_10_IRQHandler(void)</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00125">drv_worm.c:125</a></div></div>
 <div class="ttc" id="adrv__worm_8c_html_a96647bc245d39fa8c5c78abdf530cf19"><div class="ttname"><a href="drv__worm_8c.html#a96647bc245d39fa8c5c78abdf530cf19">arm2Hit</a></div><div class="ttdeci">bool arm2Hit</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00015">drv_worm.c:15</a></div></div>
 <div class="ttc" id="adrv__worm_8c_html_ace909de44fd65d7cc09fe9d11178fb43"><div class="ttname"><a href="drv__worm_8c.html#ace909de44fd65d7cc09fe9d11178fb43">arm1Hit</a></div><div class="ttdeci">bool arm1Hit</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00014">drv_worm.c:14</a></div></div>
 <div class="ttc" id="adrv__worm_8c_html_af49714c5dce3faf11f37587b54974d24"><div class="ttname"><a href="drv__worm_8c.html#af49714c5dce3faf11f37587b54974d24">wormDrive</a></div><div class="ttdeci">void wormDrive(void)</div><div class="ttdoc">Sets the PWM going to the motor driver circuit.</div><div class="ttdef"><b>Definition:</b> <a href="drv__worm_8c_source.html#l00088">drv_worm.c:88</a></div></div>

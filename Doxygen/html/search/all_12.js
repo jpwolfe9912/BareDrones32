@@ -14,7 +14,7 @@ var searchData=
   ['serialwrite_11',['serialWrite',['../drv__serial_8h.html#aa43494de2ff609909ddd35979dcb4218',1,'drv_serial.h']]],
   ['servopwmrate_12',['servoPwmRate',['../structeeprom_config__t.html#a089b15108aad505d9fa2b5f8851a27dd',1,'eepromConfig_t']]],
   ['setpidstates_13',['setPIDstates',['../pid_8c.html#a02dc45a9a10c03f0dc29ef31c0da5368',1,'setPIDstates(uint8_t IDPid, float value):&#160;pid.c'],['../pid_8h.html#a02dc45a9a10c03f0dc29ef31c0da5368',1,'setPIDstates(uint8_t IDPid, float value):&#160;pid.c']]],
-  ['six_14',['SIX',['../drv__adc_8h.html#a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106',1,'drv_adc.h']]],
+  ['six_14',['SIX',['../battery_8h.html#a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106',1,'battery.h']]],
   ['size_15',['size',['../structlwrb.html#a3dbd97d4e970e78470c3936709ce19f9',1,'lwrb']]],
   ['slavespektrum_16',['slaveSpektrum',['../structeeprom_config__t.html#a544b4c2f1c3090cdf3829b730934eaec',1,'eepromConfig_t']]],
   ['speed_17',['speed',['../structgps__t.html#a220859a8b5da0232739a11cbe7f79fc5',1,'gps_t']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['cells_0',['cells',['../drv__adc_8c.html#acaa90e358397010f1098d4c1fbcf3566',1,'cells():&#160;drv_adc.c'],['../drv__adc_8h.html#acaa90e358397010f1098d4c1fbcf3566',1,'cells():&#160;drv_adc.c']]],
+  ['cells_0',['cells',['../battery_8c.html#acaa90e358397010f1098d4c1fbcf3566',1,'cells():&#160;battery.c'],['../battery_8h.html#acaa90e358397010f1098d4c1fbcf3566',1,'cells():&#160;battery.c']]],
   ['ch_1',['ch',['../drv__serial_8c.html#a0523c05685d59544dca911cb6a3db77d',1,'drv_serial.c']]],
   ['checkfirsttime_2',['checkFirstTime',['../config_8c.html#ad11ec57672a83816f90dd713cd28a65d',1,'checkFirstTime(bool eepromReset):&#160;config.c'],['../config_8h.html#ad11ec57672a83816f90dd713cd28a65d',1,'checkFirstTime(bool eepromReset):&#160;config.c']]],
   ['chn_3',['chn',['../structgps__t.html#a79b7d09479ab7077da7a479f749ccdf6',1,'gps_t']]],

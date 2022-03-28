@@ -4,7 +4,7 @@ var searchData=
   ['ratecmd_1',['rateCmd',['../compute__axis__commands_8h.html#ac6595ac6fa25e26be6455e68cc6cdea9',1,'rateCmd():&#160;compute_axis_commands.c'],['../compute__axis__commands_8c.html#ac6595ac6fa25e26be6455e68cc6cdea9',1,'rateCmd():&#160;compute_axis_commands.c']]],
   ['ratepid_2',['ratePID',['../compute__axis__commands_8h.html#ab77481ff9ad18ebb1f89ab1946ca7dae',1,'ratePID():&#160;compute_axis_commands.c'],['../compute__axis__commands_8c.html#ab77481ff9ad18ebb1f89ab1946ca7dae',1,'ratePID():&#160;compute_axis_commands.c']]],
   ['rawaccel_3',['rawAccel',['../mpu6000_8h.html#a5562437265f7f124fc527841ddcdd08e',1,'rawAccel():&#160;mpu6000.c'],['../mpu6000_8c.html#a5562437265f7f124fc527841ddcdd08e',1,'rawAccel():&#160;mpu6000.c']]],
-  ['rawbatt_4',['rawBatt',['../drv__adc_8c.html#aea34ad0f8419270a03c011b844976da8',1,'drv_adc.c']]],
+  ['rawadc_4',['rawADC',['../drv__adc_8h.html#a5af95b023f58b843986d1f74f3f71df8',1,'rawADC():&#160;drv_adc.c'],['../drv__adc_8c.html#a5af95b023f58b843986d1f74f3f71df8',1,'rawADC():&#160;drv_adc.c']]],
   ['rawdata_5',['rawData',['../mpu6000_8h.html#ad8cd7815e7e75c2dc0158e8c4e0fdd81',1,'rawData():&#160;mpu6000.c'],['../mpu6000_8c.html#ad8cd7815e7e75c2dc0158e8c4e0fdd81',1,'rawData():&#160;mpu6000.c']]],
   ['rawgyro_6',['rawGyro',['../mpu6000_8c.html#ab3c99192faa4bd4a16a806f69894d716',1,'rawGyro():&#160;mpu6000.c'],['../mpu6000_8h.html#ab3c99192faa4bd4a16a806f69894d716',1,'rawGyro():&#160;mpu6000.c']]],
   ['rawmpu6000temperature_7',['rawMPU6000Temperature',['../mpu6000_8c.html#a3f0591e6aaa96e6766fc44658aec4647',1,'rawMPU6000Temperature():&#160;mpu6000.c'],['../mpu6000_8h.html#a3f0591e6aaa96e6766fc44658aec4647',1,'rawMPU6000Temperature():&#160;mpu6000.c']]],

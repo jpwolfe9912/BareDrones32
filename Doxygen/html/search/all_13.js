@@ -1,7 +1,7 @@
 var searchData=
 [
   ['temp_0',['temp',['../drv__serial_8c.html#a3cc119cb1a4beab046568bd21fcac3e5',1,'drv_serial.c']]],
-  ['three_1',['THREE',['../drv__adc_8h.html#a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17',1,'drv_adc.h']]],
+  ['three_1',['THREE',['../battery_8h.html#a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17',1,'battery.h']]],
   ['throttle_2',['THROTTLE',['../_autodrone32_8h.html#a96e6d6c3e78916bb163b52f0ea38ba68',1,'Autodrone32.h']]],
   ['throttlecmd_3',['throttleCmd',['../mixer_8c.html#a819d556aa56c036590623a99955b0a7b',1,'throttleCmd():&#160;mixer.c'],['../mixer_8h.html#a819d556aa56c036590623a99955b0a7b',1,'throttleCmd():&#160;mixer.c']]],
   ['tick_5fint_5fpriority_4',['TICK_INT_PRIORITY',['../stm32f7xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e',1,'stm32f7xx_hal_conf.h']]],

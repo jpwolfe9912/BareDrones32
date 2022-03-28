@@ -111,10 +111,10 @@ $(function() {
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="utilities_8c.html#a017121a07e1620055423b251be444174">   71</a></span><a class="code hl_function" href="utilities_8c.html#a017121a07e1620055423b251be444174">dshot3dFormat</a>(int16_t rxCmd)</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span>(rxCmd &lt; 0){</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> (<a class="code hl_function" href="utilities_8c.html#ae404b748d442c3f634e367bcf74e4da3">constrain16</a>((47 - rxCmd), 48, 1047));</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> (<a class="code hl_function" href="utilities_8c.html#ae404b748d442c3f634e367bcf74e4da3">constrain16</a>((47 - rxCmd), 48, 1047) + 1000);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> (<a class="code hl_function" href="utilities_8c.html#ae404b748d442c3f634e367bcf74e4da3">constrain16</a>((rxCmd + 1048), 1048, 2047));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> (<a class="code hl_function" href="utilities_8c.html#ae404b748d442c3f634e367bcf74e4da3">constrain16</a>((rxCmd + 1048), 1048, 2047) - 1000);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>

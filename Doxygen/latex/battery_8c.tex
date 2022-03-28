@@ -1,0 +1,121 @@
+\hypertarget{battery_8c}{}\doxysection{/\+Users/jeremywolfe/\+Documents/\+STM32\+Cube\+IDE/\+Autodrone32/\+Src/battery.c File Reference}
+\label{battery_8c}\index{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/battery.c@{/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/battery.c}}
+
+
+This file initializes the battery monitor and provides functions to process the data.  
+
+
+{\ttfamily \#include \char`\"{}board.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{battery_8c_a5e2a9ae61a1cebe35fe0fa20b91c57c8}{batt\+Mon\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the battery monitor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery_8c_a597d861d523b1711af5e13d421ceac25}{batt\+Mon\+Read}} (void)
+\begin{DoxyCompactList}\small\item\em Starts the ADC conversion and processes the value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{battery_8c_a855408c36f973de1305b920c1e2d7125}{batt\+Voltage}}
+\item 
+\mbox{\hyperlink{battery_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \mbox{\hyperlink{battery_8c_acaa90e358397010f1098d4c1fbcf3566}{cells}}
+\item 
+bool \mbox{\hyperlink{battery_8c_ab7ebcda2eb57227df52a41b5f8c306b2}{batt\+Low}} = false
+\item 
+bool \mbox{\hyperlink{battery_8c_a04b408c49d3fb293aacb6f23bf88b3a1}{batt\+Empty}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file initializes the battery monitor and provides functions to process the data. 
+
+\begin{DoxyAuthor}{Author}
+Jeremy Wolfe 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+10 MAR 2022 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{battery_8c_a5e2a9ae61a1cebe35fe0fa20b91c57c8}\label{battery_8c_a5e2a9ae61a1cebe35fe0fa20b91c57c8}} 
+\index{battery.c@{battery.c}!battMonInit@{battMonInit}}
+\index{battMonInit@{battMonInit}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{battMonInit()}{battMonInit()}}
+{\footnotesize\ttfamily void batt\+Mon\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the battery monitor. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00026}{26}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+\mbox{\Hypertarget{battery_8c_a597d861d523b1711af5e13d421ceac25}\label{battery_8c_a597d861d523b1711af5e13d421ceac25}} 
+\index{battery.c@{battery.c}!battMonRead@{battMonRead}}
+\index{battMonRead@{battMonRead}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{battMonRead()}{battMonRead()}}
+{\footnotesize\ttfamily void batt\+Mon\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Starts the ADC conversion and processes the value. 
+
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00040}{40}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{battery_8c_a04b408c49d3fb293aacb6f23bf88b3a1}\label{battery_8c_a04b408c49d3fb293aacb6f23bf88b3a1}} 
+\index{battery.c@{battery.c}!battEmpty@{battEmpty}}
+\index{battEmpty@{battEmpty}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{battEmpty}{battEmpty}}
+{\footnotesize\ttfamily bool batt\+Empty = false}
+
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00015}{15}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+\mbox{\Hypertarget{battery_8c_ab7ebcda2eb57227df52a41b5f8c306b2}\label{battery_8c_ab7ebcda2eb57227df52a41b5f8c306b2}} 
+\index{battery.c@{battery.c}!battLow@{battLow}}
+\index{battLow@{battLow}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{battLow}{battLow}}
+{\footnotesize\ttfamily bool batt\+Low = false}
+
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00014}{14}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+\mbox{\Hypertarget{battery_8c_a855408c36f973de1305b920c1e2d7125}\label{battery_8c_a855408c36f973de1305b920c1e2d7125}} 
+\index{battery.c@{battery.c}!battVoltage@{battVoltage}}
+\index{battVoltage@{battVoltage}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{battVoltage}{battVoltage}}
+{\footnotesize\ttfamily float batt\+Voltage}
+
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00012}{12}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+
+\mbox{\Hypertarget{battery_8c_acaa90e358397010f1098d4c1fbcf3566}\label{battery_8c_acaa90e358397010f1098d4c1fbcf3566}} 
+\index{battery.c@{battery.c}!cells@{cells}}
+\index{cells@{cells}!battery.c@{battery.c}}
+\doxysubsubsection{\texorpdfstring{cells}{cells}}
+{\footnotesize\ttfamily \mbox{\hyperlink{battery_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} cells}
+
+
+
+Definition at line \mbox{\hyperlink{battery_8c_source_l00013}{13}} of file \mbox{\hyperlink{battery_8c_source}{battery.\+c}}.
+

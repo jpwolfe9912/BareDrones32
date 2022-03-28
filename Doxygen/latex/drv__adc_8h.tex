@@ -5,37 +5,17 @@
 This file initializes and enables the adc for reading the battery voltage.  
 
 
-\doxysubsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-enum \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \{ \newline
-\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}{NO\+\_\+\+BATT}}
-, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}{THREE}} = 3
-, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}{FOUR}}
-, \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}{FIVE}}
-, \newline
-\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}{SIX}}
- \}
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{drv__adc_8h_a7c16ba5c3fef890dc74bb9b9f9b14360}{adc1\+Ch8\+Init}} (void)
 \begin{DoxyCompactList}\small\item\em Initializes ADC1 for Channel 8. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}{bat\+Mon\+Read}} (void)
+void \mbox{\hyperlink{drv__adc_8h_a27db3660a4a85bd60564505cdad37fb0}{adc1\+Ch8\+Start}} (void)
 \begin{DoxyCompactList}\small\item\em Starts the ADC conversion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}{val}}
-\item 
-float \mbox{\hyperlink{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}{batt\+Voltage}}
-\item 
-\mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} \mbox{\hyperlink{drv__adc_8h_acaa90e358397010f1098d4c1fbcf3566}{cells}}
-\item 
-bool \mbox{\hyperlink{drv__adc_8h_ab7ebcda2eb57227df52a41b5f8c306b2}{batt\+Low}}
-\item 
-bool \mbox{\hyperlink{drv__adc_8h_a04b408c49d3fb293aacb6f23bf88b3a1}{batt\+Empty}}
+uint16\+\_\+t $\ast$ \mbox{\hyperlink{drv__adc_8h_a5af95b023f58b843986d1f74f3f71df8}{raw\+ADC}}
 \end{DoxyCompactItemize}
 
 
@@ -51,41 +31,6 @@ Jeremy Wolfe
 
 
 Definition in file \mbox{\hyperlink{drv__adc_8h_source}{drv\+\_\+adc.\+h}}.
-
-
-
-\doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}} 
-\index{drv\_adc.h@{drv\_adc.h}!battCells\_e@{battCells\_e}}
-\index{battCells\_e@{battCells\_e}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{battCells\_e}{battCells\_e}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}}}
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_BATT@{NO\_BATT}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!NO\_BATT@{NO\_BATT}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a5aae27054572160c56fe3ae2aea1745a}} 
-NO\+\_\+\+BATT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{THREE@{THREE}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!THREE@{THREE}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a1251fbf93888ad32fe0ae54d49bcef17}} 
-THREE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{FOUR@{FOUR}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!FOUR@{FOUR}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a23d7ef5341c6930d19b2ecbb997977cf}} 
-FOUR&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{FIVE@{FIVE}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!FIVE@{FIVE}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862a3a40d11d30db182ab8f9846aa9458bec}} 
-FIVE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SIX@{SIX}!drv\_adc.h@{drv\_adc.h}}\index{drv\_adc.h@{drv\_adc.h}!SIX@{SIX}}}\mbox{\Hypertarget{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}\label{drv__adc_8h_a065db3c6827b30adb091f74d479ed862aadffddd32c3e7497e32cd7e430c9c106}} 
-SIX&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line \mbox{\hyperlink{drv__adc_8h_source_l00013}{13}} of file \mbox{\hyperlink{drv__adc_8h_source}{drv\+\_\+adc.\+h}}.
 
 
 
@@ -105,13 +50,13 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00028}{28}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00020}{20}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
-\mbox{\Hypertarget{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}\label{drv__adc_8h_ab11d827c0d1ee89d0ea0e0bb7a5f32d9}} 
-\index{drv\_adc.h@{drv\_adc.h}!batMonRead@{batMonRead}}
-\index{batMonRead@{batMonRead}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{batMonRead()}{batMonRead()}}
-{\footnotesize\ttfamily void bat\+Mon\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{drv__adc_8h_a27db3660a4a85bd60564505cdad37fb0}\label{drv__adc_8h_a27db3660a4a85bd60564505cdad37fb0}} 
+\index{drv\_adc.h@{drv\_adc.h}!adc1Ch8Start@{adc1Ch8Start}}
+\index{adc1Ch8Start@{adc1Ch8Start}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{adc1Ch8Start()}{adc1Ch8Start()}}
+{\footnotesize\ttfamily void adc1\+Ch8\+Start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
 
@@ -122,54 +67,18 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00112}{112}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00101}{101}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{drv__adc_8h_a04b408c49d3fb293aacb6f23bf88b3a1}\label{drv__adc_8h_a04b408c49d3fb293aacb6f23bf88b3a1}} 
-\index{drv\_adc.h@{drv\_adc.h}!battEmpty@{battEmpty}}
-\index{battEmpty@{battEmpty}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{battEmpty}{battEmpty}}
-{\footnotesize\ttfamily bool batt\+Empty\hspace{0.3cm}{\ttfamily [extern]}}
+\mbox{\Hypertarget{drv__adc_8h_a5af95b023f58b843986d1f74f3f71df8}\label{drv__adc_8h_a5af95b023f58b843986d1f74f3f71df8}} 
+\index{drv\_adc.h@{drv\_adc.h}!rawADC@{rawADC}}
+\index{rawADC@{rawADC}!drv\_adc.h@{drv\_adc.h}}
+\doxysubsubsection{\texorpdfstring{rawADC}{rawADC}}
+{\footnotesize\ttfamily uint16\+\_\+t$\ast$ raw\+ADC\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00017}{17}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
-
-\mbox{\Hypertarget{drv__adc_8h_ab7ebcda2eb57227df52a41b5f8c306b2}\label{drv__adc_8h_ab7ebcda2eb57227df52a41b5f8c306b2}} 
-\index{drv\_adc.h@{drv\_adc.h}!battLow@{battLow}}
-\index{battLow@{battLow}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{battLow}{battLow}}
-{\footnotesize\ttfamily bool batt\+Low\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00016}{16}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
-
-\mbox{\Hypertarget{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}\label{drv__adc_8h_a855408c36f973de1305b920c1e2d7125}} 
-\index{drv\_adc.h@{drv\_adc.h}!battVoltage@{battVoltage}}
-\index{battVoltage@{battVoltage}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{battVoltage}{battVoltage}}
-{\footnotesize\ttfamily float batt\+Voltage\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00014}{14}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
-
-\mbox{\Hypertarget{drv__adc_8h_acaa90e358397010f1098d4c1fbcf3566}\label{drv__adc_8h_acaa90e358397010f1098d4c1fbcf3566}} 
-\index{drv\_adc.h@{drv\_adc.h}!cells@{cells}}
-\index{cells@{cells}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{cells}{cells}}
-{\footnotesize\ttfamily \mbox{\hyperlink{drv__adc_8h_a065db3c6827b30adb091f74d479ed862}{batt\+Cells\+\_\+e}} cells\hspace{0.3cm}{\ttfamily [extern]}}
-
-
-
-Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00015}{15}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
-
-\mbox{\Hypertarget{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}\label{drv__adc_8h_adad4597b410d69ce98a90ecf81465ce8}} 
-\index{drv\_adc.h@{drv\_adc.h}!val@{val}}
-\index{val@{val}!drv\_adc.h@{drv\_adc.h}}
-\doxysubsubsection{\texorpdfstring{val}{val}}
-{\footnotesize\ttfamily uint16\+\_\+t$\ast$ val\hspace{0.3cm}{\ttfamily [extern]}}
+Definition at line \mbox{\hyperlink{drv__adc_8c_source_l00013}{13}} of file \mbox{\hyperlink{drv__adc_8c_source}{drv\+\_\+adc.\+c}}.
 
