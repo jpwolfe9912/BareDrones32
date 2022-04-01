@@ -10,6 +10,9 @@
 #ifndef __MOTORS_H__
 #define __MOTORS_H__
 
+/* Defines */
+#define MOTOR_COUNT			4
+
 /* Global Enums */
 typedef enum
 {
@@ -26,7 +29,7 @@ typedef enum
 }motors_mode_e;
 
 /* Global Variables */
-extern uint16_t motor_value[4];
+extern uint16_t motor_value[MOTOR_COUNT];
 
 extern semaphore_t motor_initialized;
 

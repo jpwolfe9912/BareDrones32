@@ -166,10 +166,6 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.KpMag = 5.0f;    // proportional gain governs rate of convergence to magnetometer
 		eepromConfig.KiMag = 0.0f;    // integral gain governs rate of convergence of gyroscope biases
 
-		///////////////////////////////
-
-		eepromConfig.compFilterA =  2.0f;
-		eepromConfig.compFilterB =  1.0f;
 
 		///////////////////////////////
 
@@ -186,76 +182,9 @@ checkFirstTime(bool eepromReset)
 
 		eepromConfig.attitudeScaling         = 60.0  / 180000.0 * PI;  // Stick to att scaling for 60 degrees
 
-		eepromConfig.nDotEdotScaling         = 0.009f;                 // Stick to nDot/eDot scaling (9 mps)/(1000 RX PWM Steps) = 0.009
-
-		eepromConfig.hDotScaling             = 0.003f;                 // Stick to hDot scaling (3 mps)/(1000 RX PWM Steps) = 0.003
-
 		///////////////////////////////
 
-		eepromConfig.ppmChannels   = 9;
-		eepromConfig.slaveSpektrum = false;
-
-//		parseRcChannels("TAER12345678");
-
-		eepromConfig.escPwmRate   = 450;
-		eepromConfig.servoPwmRate = 50;
-
 		eepromConfig.yawDirection       = 1.0f;		// TODO check this value
-
-		eepromConfig.triYawServoPwmRate             = 50;
-		eepromConfig.triYawServoMin                 = 2000.0f;
-		eepromConfig.triYawServoMid                 = 3000.0f;
-		eepromConfig.triYawServoMax                 = 4000.0f;
-		eepromConfig.triCopterYawCmd500HzLowPassTau = 0.05f;
-
-		// Free Mix Defaults to Quad X
-		eepromConfig.freeMixMotors        = 3;
-
-		eepromConfig.freeMix[0][ROLL ]    =  1.0f;
-		eepromConfig.freeMix[0][PITCH]    = -1.0f;
-		eepromConfig.freeMix[0][YAW  ]    = -1.0f;
-		eepromConfig.freeMix[0][THROTTLE] =  1.0f;
-
-		eepromConfig.freeMix[1][ROLL ]    = -1.0f;
-		eepromConfig.freeMix[1][PITCH]    = -1.0f;
-		eepromConfig.freeMix[1][YAW  ]    =  1.0f;
-		eepromConfig.freeMix[1][THROTTLE] =  1.0f;
-
-		eepromConfig.freeMix[2][ROLL ]    = -1.0f;
-		eepromConfig.freeMix[2][PITCH]    =  1.0f;
-		eepromConfig.freeMix[2][YAW  ]    = -1.0f;
-		eepromConfig.freeMix[2][THROTTLE] =  1.0f;
-
-		eepromConfig.freeMix[3][ROLL ]    =  1.0f;
-		eepromConfig.freeMix[3][PITCH]    =  1.0f;
-		eepromConfig.freeMix[3][YAW  ]    =  1.0f;
-		eepromConfig.freeMix[3][THROTTLE] =  1.0f;
-
-		eepromConfig.freeMix[4][ROLL ]    =  0.0f;
-		eepromConfig.freeMix[4][PITCH]    =  0.0f;
-		eepromConfig.freeMix[4][YAW  ]    =  0.0f;
-		eepromConfig.freeMix[4][THROTTLE] =  0.0f;
-
-		eepromConfig.freeMix[5][ROLL ]    =  0.0f;
-		eepromConfig.freeMix[5][PITCH]    =  0.0f;
-		eepromConfig.freeMix[5][YAW  ]    =  0.0f;
-		eepromConfig.freeMix[5][THROTTLE] =  0.0f;
-
-		eepromConfig.freeMix[6][ROLL ]    =  0.0f;
-		eepromConfig.freeMix[6][PITCH]    =  0.0f;
-		eepromConfig.freeMix[6][YAW  ]    =  0.0f;
-		eepromConfig.freeMix[6][THROTTLE] =  0.0f;
-
-		eepromConfig.freeMix[7][ROLL ]    =  0.0f;
-		eepromConfig.freeMix[7][PITCH]    =  0.0f;
-		eepromConfig.freeMix[7][YAW  ]    =  0.0f;
-		eepromConfig.freeMix[7][THROTTLE] =  0.0f;
-
-		eepromConfig.rollAttAltCompensationGain   =  1.0f;
-		eepromConfig.rollAttAltCompensationLimit  =  0.0f * D2R;
-
-		eepromConfig.pitchAttAltCompensationGain  =  1.0f;
-		eepromConfig.pitchAttAltCompensationLimit =  0.0f * D2R;
 
 		eepromConfig.midCommand   = 3000.0f;
 		eepromConfig.minCheck     = (float)(MINCOMMAND + 100);
@@ -349,71 +278,7 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		// The default agl pin and scale factor are
-		// for the MB1200 ultrasonic ranger.  The
-		// MB1200 is connected to the RNG input (ADC1)
-		// on the AQ32 V2 hardware and is supplied
-		// with 3.3 volts.  If supplied with 5 volts,
-		// the analog output of the MB1200 can exceed
-		// 3.3 volts by 0.1 volts.  It is not known if
-		// this will damage the analog input or not.
-
-		eepromConfig.aglPin                 = 1;
-		eepromConfig.aglScale               = 3.125f;  // mV to meters, 3.2 mV = 1 cm
-		eepromConfig.aglBias                = 0.0f;
-
-		// Current monitoring defaults to off.
-		// The default scale factor of 27.322404
-		// is for the 90 amp AttoPilot sensor. It
-		// is a nominal value and slight adjustment
-		// may be required.
-
-		eepromConfig.currentMonitoring      = false;
-		eepromConfig.currentMonitorPin      = 6;
-		eepromConfig.currentMonitorScale    = 27.322404f;  // For 90 amp AttoPilot Sensor
-		eepromConfig.currentMonitorBias     =  0.0f;
-
-		eepromConfig.rssiPPM                = false;
-		eepromConfig.rssiPin		    	= 5;
-		eepromConfig.rssiMax			    = 3450;
-		eepromConfig.rssiMin		    	= 10;
-		eepromConfig.rssiWarning		    = 25;
-
-		// The default voltage monitor pin and scale factor
-		// are for the AQ32 onboard resistor divider.  To use
-		// an external voltage monitor, the ADC pin and scale
-		// factor must be changed.  The onboard resistor
-		// divider requires a 7.666667 scale factor, the 90
-		// amp AttoPilot sensor requires a 15.701052 scale
-		// factor.  These are nominal values, and slight
-		// adjustment may be required.
-
-		eepromConfig.voltageMonitorPin      = 7;
-		eepromConfig.voltageMonitorScale    = 7.666667f;
-		eepromConfig.voltageMonitorBias     = 0.0f;
-
-		eepromConfig.batteryCells           = 3;
-
-		eepromConfig.batteryLow             = 3.30f;
-		eepromConfig.batteryVeryLow         = 3.20f;
-		eepromConfig.batteryMaxLow          = 3.10f;
-
-		///////////////////////////////
-
-		eepromConfig.armCount               =  50;
-		eepromConfig.disarmCount            =  0;
-
-		///////////////////////////////
-
 		eepromConfig.activeTelemetry          = 5;
-		eepromConfig.mavlinkEnabled           = false;
-
-		eepromConfig.verticalVelocityHoldOnly = true;
-
-		eepromConfig.externalHMC5883          = 0;
-		eepromConfig.externalMS5611           = false;
-
-		///////////////////////////////
 
 //		writeEEPROM();
 	}

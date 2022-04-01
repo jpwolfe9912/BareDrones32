@@ -29,6 +29,9 @@
 #define DSHOT_MAX_THROTTLE     	2047
 #define DSHOT_RANGE 			(DSHOT_MAX_THROTTLE - DSHOT_MIN_THROTTLE)
 
+#define DSHOT_ARM_COUNT			1500
+#define DSHOT_SETTINGS_COUNT	10
+
 /* Global Enums */
 typedef enum
 {
@@ -67,8 +70,12 @@ typedef enum {
     DSHOT_CMD_MAX = 47
 } dshotCommands_e;
 
+/* Static Variables */
+extern volatile uint16_t dshot_command_count;
+
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
 void dshotWrite(uint16_t *motor_value);
+void dshotWait(uint16_t wait_counts);
 
 #endif /* __DRV_DSHOT_H__ */

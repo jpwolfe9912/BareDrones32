@@ -10,7 +10,7 @@
 #define __AUTODRONE32_H__
 
 #ifndef PI
-    #define PI  3.14159265358979f
+#define PI  3.14159265358979f
 #endif
 
 #define TWO_PI (2.0f * PI)
@@ -53,23 +53,23 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 typedef union {
-    int16_t value;
-    uint8_t bytes[2];
+	int16_t value;
+	uint8_t bytes[2];
 } int16andUint8_t;
 
 typedef union {
-    int32_t value;
-    uint8_t bytes[4];
+	int32_t value;
+	uint8_t bytes[4];
 } int32andUint8_t;
 
 typedef union {
-    uint16_t value;
-     uint8_t bytes[2];
+	uint16_t value;
+	uint8_t bytes[2];
 } uint16andUint8_t;
 
 typedef union {
 	uint32_t value;
-	 uint8_t bytes[4];
+	uint8_t bytes[4];
 } uint32andUint8_t;
 
 ///////////////////////////////////////
@@ -82,21 +82,13 @@ typedef volatile uint8_t semaphore_t;
 
 typedef struct sensors_t
 {
-    float    accel500Hz[3];
-    float    accel100Hz[3];
-    float    attitude500Hz[3];
-    float    gyro500Hz[3];
+	float    accel500Hz[3];
+	float    accel100Hz[3];
+	float    attitude500Hz[3];
+	float    gyro500Hz[3];
 } sensors_t;
 
 extern sensors_t sensors;
-
-typedef struct heading_t
-{
-	float    mag;
-	float    tru;
-} heading_t;
-
-extern heading_t heading;
 
 typedef struct gps_t
 {
@@ -110,20 +102,20 @@ typedef struct gps_t
 	uint32_t speed;        // cm/s
 	uint32_t gSpeed;       // cm/s
 	int32_t  heading;      // deg 1e-5
-    uint8_t  numSats;
-    uint8_t  fix;
-    uint8_t  statusFlags;
-    uint32_t iTOW;         // mSec
-    uint16_t year;         // years
-    uint8_t  month;        // months
-    uint8_t  day;          // days
-    uint16_t hDop;
-    uint16_t vDop;
-    uint8_t  numCh;
-    uint8_t  chn[50];      // channel number
-    uint8_t  svid[50];     // satellite ID
-    uint8_t  cno[50];      // carrier to noise ratio (signal strength)
-    uint8_t  updated;
+	uint8_t  numSats;
+	uint8_t  fix;
+	uint8_t  statusFlags;
+	uint32_t iTOW;         // mSec
+	uint16_t year;         // years
+	uint8_t  month;        // months
+	uint8_t  day;          // days
+	uint16_t hDop;
+	uint16_t vDop;
+	uint8_t  numCh;
+	uint8_t  chn[50];      // channel number
+	uint8_t  svid[50];     // satellite ID
+	uint8_t  cno[50];      // carrier to noise ratio (signal strength)
+	uint8_t  updated;
 } gps_t;
 
 extern gps_t gps;
@@ -176,190 +168,104 @@ enum { DLPF_256HZ, DLPF_188HZ, DLPF_98HZ, DLPF_42HZ };
 
 typedef struct eepromConfig_t
 {
-    ///////////////////////////////////
+	///////////////////////////////////
 
-    uint8_t version;
+	uint8_t version;
 
-    float accelBiasMPU[3];          // Bias for MPU60x0 Accel
-    float accelScaleFactorMPU[3];   // Scale factor for MPU60x0 Accel
+	float accelBiasMPU[3];          // Bias for MPU60x0 Accel
+	float accelScaleFactorMPU[3];   // Scale factor for MPU60x0 Accel
 
-    float accelBiasMXR[3];          // Bias for MXR9150 Accel
-    float accelScaleFactorMXR[3];   // Scale factor for MXR9150 Accel
+	float accelTCBiasSlope[3];
+	float accelTCBiasIntercept[3];
 
-    float accelTCBiasSlope[3];
-    float accelTCBiasIntercept[3];
+	float gyroTCBiasSlope[3];
+	float gyroTCBiasIntercept[3];
 
-    float gyroTCBiasSlope[3];
-    float gyroTCBiasIntercept[3];
+	float magBias[6];
 
-    float magBias[6];
+	float accelCutoff;
 
-    float accelCutoff;
+	float KpAcc;
 
-    float KpAcc;
+	float KiAcc;
 
-    float KiAcc;
+	float KpMag;
 
-    float KpMag;
+	float KiMag;
 
-    float KiMag;
+	uint8_t dlpfSetting;
 
-    float compFilterA;
+	uint8_t sensorOrientation;
 
-    float compFilterB;
+	///////////////////////////////////
 
-    uint8_t dlpfSetting;
+	float rollAndPitchRateScaling;
+	float yawRateScaling;
 
-    uint8_t sensorOrientation;
+	float attitudeScaling;
 
-    ///////////////////////////////////
+	///////////////////////////////////
 
-    float rollAndPitchRateScaling;
-    float yawRateScaling;
+	float midCommand;
+	float minCheck;
+	float maxCheck;
+	float minThrottle;
+	float maxThrottle;
 
-    float attitudeScaling;
-
-    float nDotEdotScaling;
-
-    float hDotScaling;
-
-    ///////////////////////////////////
-
-    uint8_t receiverType;
-    uint8_t ppmChannels;
-    uint8_t slaveSpektrum;
-
-    uint8_t rcMap[12];
-
-    uint16_t escPwmRate;
-    uint16_t servoPwmRate;
-
-    float midCommand;
-    float minCheck;
-    float maxCheck;
-    float minThrottle;
-    float maxThrottle;
-
-    ///////////////////////////////////
-
-    uint8_t mixerConfiguration;
-    float yawDirection;
-
-    uint16_t triYawServoPwmRate;
-    float    triYawServoMin;
-    float    triYawServoMid;
-    float    triYawServoMax;
-    float    triCopterYawCmd500HzLowPassTau;
-
-    uint8_t  freeMixMotors;
-
-    float    freeMix[8][4];
-
-    ///////////////////////////////////
-
-    float    rollAttAltCompensationGain;
-    float    rollAttAltCompensationLimit;
-
-    float    pitchAttAltCompensationGain;
-    float    pitchAttAltCompensationLimit;
-
-    ///////////////////////////////////
+	///////////////////////////////////
 
 	PIDdata_t PID[NUMBER_OF_PIDS];
 
-    ///////////////////////////////////
+	///////////////////////////////////
 
-    uint8_t osdEnabled;              // 0 = Disabled, 1 = Enabled
-    uint8_t defaultVideoStandard;    // 0 = NTSC, 1 = PAL
-    uint8_t metricUnits;             // 1 = metric
+	uint8_t osdEnabled;              // 0 = Disabled, 1 = Enabled
+	uint8_t defaultVideoStandard;    // 0 = NTSC, 1 = PAL
+	uint8_t metricUnits;             // 1 = metric
 
-    uint8_t osdDisplayAlt;           // 1 = Display OSD Altitude
-    uint8_t osdDisplayAltRow;
-    uint8_t osdDisplayAltCol;
-    uint8_t osdDisplayAltHoldState;  // 1 = display altitude hold state, 0 = don't display
+	uint8_t osdDisplayAlt;           // 1 = Display OSD Altitude
+	uint8_t osdDisplayAltRow;
+	uint8_t osdDisplayAltCol;
+	uint8_t osdDisplayAltHoldState;  // 1 = display altitude hold state, 0 = don't display
 
-    uint8_t osdDisplayAH;            // 1 = Display OSD Artificial Horizon
-    uint8_t osdDisplayAtt;           // 1 = Display OSD Attitude
+	uint8_t osdDisplayAH;            // 1 = Display OSD Artificial Horizon
+	uint8_t osdDisplayAtt;           // 1 = Display OSD Attitude
 
-    uint8_t osdDisplayHdg;           // 1 = Display OSD Heading
-    uint8_t osdDisplayHdgRow;
-    uint8_t osdDisplayHdgCol;
+	uint8_t osdDisplayHdg;           // 1 = Display OSD Heading
+	uint8_t osdDisplayHdgRow;
+	uint8_t osdDisplayHdgCol;
 
-    uint8_t osdDisplayHdgBar;	     // 1 = Display OSD Heading Bar (more visual)
-    uint8_t osdDisplayHdgBarRow;
-    uint8_t osdDisplayHdgBarCol;
+	uint8_t osdDisplayHdgBar;	     // 1 = Display OSD Heading Bar (more visual)
+	uint8_t osdDisplayHdgBarRow;
+	uint8_t osdDisplayHdgBarCol;
 
-    uint8_t osdDisplayVoltage;	     // 1 = Display OSD Voltage
-    uint8_t osdDisplayVoltageRow;
-    uint8_t osdDisplayVoltageCol;
+	uint8_t osdDisplayVoltage;	     // 1 = Display OSD Voltage
+	uint8_t osdDisplayVoltageRow;
+	uint8_t osdDisplayVoltageCol;
 
-    uint8_t osdDisplayCurrent;	     // 1 = Display OSD instantaneous current and used current
-    uint8_t osdDisplayCurrentRow;
-    uint8_t osdDisplayCurrentCol;
+	uint8_t osdDisplayCurrent;	     // 1 = Display OSD instantaneous current and used current
+	uint8_t osdDisplayCurrentRow;
+	uint8_t osdDisplayCurrentCol;
 
-    uint8_t osdDisplayThrot;	     // 1 = Display OSD throttle - for now, just rx input, maybe some day show rx input and processed throttle (alt,gps,etc)
-    uint8_t osdDisplayThrotRow;
-    uint8_t osdDisplayThrotCol;
+	uint8_t osdDisplayThrot;	     // 1 = Display OSD throttle - for now, just rx input, maybe some day show rx input and processed throttle (alt,gps,etc)
+	uint8_t osdDisplayThrotRow;
+	uint8_t osdDisplayThrotCol;
 
-   	uint8_t osdDisplayRSSI;          // 1 = Display OSD RSSI
-   	uint8_t osdDisplayRSSIRow;
-   	uint8_t osdDisplayRSSICol;
+	uint8_t osdDisplayRSSI;          // 1 = Display OSD RSSI
+	uint8_t osdDisplayRSSIRow;
+	uint8_t osdDisplayRSSICol;
 
-    uint8_t osdDisplayTimer;
-    uint8_t osdDisplayTimerRow;
-    uint8_t osdDisplayTimerCol;
+	uint8_t osdDisplayTimer;
+	uint8_t osdDisplayTimerRow;
+	uint8_t osdDisplayTimerCol;
 
-    ///////////////////////////////////
+	///////////////////////////////////
 
-    uint8_t  aglPin;
-    float    aglScale;
-    float    aglBias;
+	uint16_t activeTelemetry;
 
-	uint8_t  currentMonitoring;
-	uint8_t  currentMonitorPin;
-    float    currentMonitorScale;
-	float    currentMonitorBias;
+	///////////////////////////////////
 
-	uint8_t  rssiPPM;
-	uint8_t  rssiPin;
-	uint16_t rssiMax;
-	uint16_t rssiMin;
-	uint8_t  rssiWarning;
+	float yawDirection;
 
-	uint8_t  voltageMonitorPin;
-    float    voltageMonitorScale;
-    float    voltageMonitorBias;
-
-	uint8_t  batteryCells;
-
-	float    batteryLow;
-    float    batteryVeryLow;
-    float    batteryMaxLow;
-
-    ///////////////////////////////////
-
-    uint8_t armCount;
-    uint8_t disarmCount;
-
-    ///////////////////////////////////
-
-    uint16_t activeTelemetry;
-
-    uint8_t  mavlinkEnabled;
-
-    ///////////////////////////////////
-
-    uint8_t verticalVelocityHoldOnly;
-
-    ///////////////////////////////////
-
-    uint8_t externalHMC5883;
-    uint8_t externalMS5611;
-
-    ///////////////////////////////////
-
-    uint8_t  CRCFlags;
-    uint32_t CRCAtEnd[1];
 
 } eepromConfig_t;
 

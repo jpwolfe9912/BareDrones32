@@ -38,6 +38,12 @@ main(void)
 		{
 			frame_1000Hz = false;
 
+			currentTime = micros();
+			deltaTime1000Hz = currentTime = previous1000HzTime;
+			previous1000HzTime = currentTime;
+
+			executionTime1000Hz = micros() - currentTime;
+
 		}
 
 		if (frame_500Hz)

@@ -11,9 +11,9 @@
 #include "board.h"
 
 /* Global Variables */
-uint16_t motor_value[4];
+uint16_t motor_value[MOTOR_COUNT];
 
-semaphore_t motor_initialized = 0;
+semaphore_t motor_initialized = false;
 
 motors_mode_e motors_mode = MOTORS_MODE_NORMAL;
 
@@ -27,12 +27,12 @@ motorInit(void)
 {
 	printf("\nInitializing Motors\n");
 
-	motor_value[0] = 0;
-	motor_value[1] = 0;
-	motor_value[2] = 0;
-	motor_value[3] = 0;
+	motor_value[0] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[3] = DSHOT_CMD_MOTOR_STOP;
 
-	delay(1000);
+	dshotWait(1000);
 }
 
 /** @brief Changes motor mode to 3D.
@@ -42,20 +42,23 @@ motorInit(void)
 void
 motors3dOn(void)
 {
-	motor_value[MOTOR1] = 0;
-	motor_value[MOTOR2] = 0;
-	motor_value[MOTOR3] = 0;
-	motor_value[MOTOR4] = 0;
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
 
-	delay(1000);
+	motor_initialized = true;
+	delay(10);
+	motor_initialized = false;
 
 	motor_value[MOTOR2] = DSHOT_CMD_3D_MODE_ON;
 	motor_value[MOTOR4] = DSHOT_CMD_3D_MODE_ON;
-	delay(50);
+	dshotWait(DSHOT_SETTINGS_COUNT);
 
-	motor_value[MOTOR2] = 0;
-	motor_value[MOTOR4] = 0;
-	delay(1500);
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
 
 	motors_mode = MOTORS_MODE_3D;
 	printf("\nChanged motors 2 and 4 to 3D mode\n");
@@ -68,20 +71,25 @@ motors3dOn(void)
 void
 motors3dOff(void)
 {
-	motor_value[MOTOR1] = 0;
-	motor_value[MOTOR2] = 0;
-	motor_value[MOTOR3] = 0;
-	motor_value[MOTOR4] = 0;
+	dshot_command_count = 0;
 
-	delay(1000);
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
+
+	motor_initialized = true;
+	delay(10);
+	motor_initialized = false;
 
 	motor_value[MOTOR2] = DSHOT_CMD_3D_MODE_OFF;
 	motor_value[MOTOR4] = DSHOT_CMD_3D_MODE_OFF;
-	delay(50);
+	dshotWait(DSHOT_SETTINGS_COUNT);
 
-	motor_value[MOTOR2] = 0;
-	motor_value[MOTOR4] = 0;
-	delay(1500);
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
 
 	motors_mode = MOTORS_MODE_NORMAL;
 	printf("\nChanged motors 2 and 4 to NORMAL mode\n");

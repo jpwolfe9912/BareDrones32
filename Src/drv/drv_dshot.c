@@ -8,10 +8,13 @@
 
 #include "board.h"
 
+/* Static Variables */
 static uint32_t motor1_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor2_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor3_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 static uint32_t motor4_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
+
+volatile uint16_t dshot_command_count = 0;
 
 /* Static Function Prototypes */
 static uint32_t dshot_choose_type(dshot_type_e dshot_type);
@@ -258,6 +261,20 @@ dshotWrite(uint16_t *motor_value)
 	dshot_prepare_dmabuffer_all(motor_value);
 	dshot_enable_dma_request();
 	dshot_dma_start();
+
+	dshot_command_count++;
+}
+
+/** @brief Waits for a certain amount of dshot commands.
+ *
+ *  @param wait_counts Number of commands to wait for.
+ *  @return Void.
+ */
+void
+dshotWait(uint16_t wait_counts)
+{
+	dshot_command_count = 0;
+	while(dshot_command_count < wait_counts);
 }
 
 /* Static Functions */
@@ -350,6 +367,7 @@ dshot_prepare_packet(uint16_t value)
 	}
 
 	csum &= 0xf;
+
 	packet = (packet << 4) | csum;
 
 	return packet;
