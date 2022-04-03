@@ -187,9 +187,9 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.yawDirection       = 1.0f;		// TODO check this value
 
 		eepromConfig.midCommand   = 3000.0f;
-		eepromConfig.minCheck     = (float)(MINCOMMAND + 100);
-		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 100);
-		eepromConfig.minThrottle  = (float)(MINCOMMAND + 100);
+		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
+		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 200);
+		eepromConfig.minThrottle  = (float)(MINCOMMAND + 200);
 		eepromConfig.maxThrottle  = (float)(MAXCOMMAND);
 
 		///////////////////////////////

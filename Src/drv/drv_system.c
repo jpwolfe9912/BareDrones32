@@ -101,23 +101,7 @@ SysTick_Handler(void)
 		///////////////////////////////
 
 		if ((frameCounter % COUNT_100HZ) == 0)
-		{
 			frame_100Hz = true;
-
-
-			//			if (!newTemperatureReading)
-			//			{
-			//				readTemperatureRequestPressure();
-			//				newTemperatureReading = true;
-			//			}
-			//			else
-			//			{
-			//				readPressureRequestTemperature();
-			//				newPressureReading = true;
-			//			}
-			//
-			//			sdCardCountDown();
-		}
 
 		///////////////////////////////
 

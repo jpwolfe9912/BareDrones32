@@ -3,7 +3,6 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
 #include "board.h"

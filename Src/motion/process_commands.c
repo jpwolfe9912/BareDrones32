@@ -19,7 +19,7 @@ semaphore_t armed = false;
 uint8_t armingTimer    = 0;
 uint8_t disarmingTimer = 0;
 
-int16_t rxCommands[8];
+float rxCommands[8];
 
 /** @brief Processes receiver commands.
  *
@@ -83,10 +83,7 @@ processCommands(void)
 		if ( (rxCommands[YAW  ] < (eepromConfig.minCheck - MIDCOMMAND)) &&		//mincheck = 2200
 				(rxCommands[ROLL ] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
 				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
-		{
-			computeMPU6000RTData();
-//			pulseMotors(3);
-		}
+			mpu6000Calibration();
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/
@@ -97,6 +94,7 @@ processCommands(void)
 		zeroPIDstates();
 		armed = true;
 	}
+
 
 
 	///////////////////////////////////

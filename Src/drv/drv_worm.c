@@ -87,7 +87,7 @@ wormInit(void)
 void
 wormDrive(void)
 {
-	float speed = 0.5;
+	float speed = 0.8;
 
 	EXTI->IMR		&= ~(EXTI_IMR_IM13 |	// turn off GPIO interrupts
 					  	 EXTI_IMR_IM14);
@@ -99,7 +99,7 @@ wormDrive(void)
 		GPIOC->BSRR	|= GPIO_BSRR_BR8;
 		TIM1->CCR1 = (uint32_t)(5082 * speed) - 1;
 
-		GPIOC->BSRR	|= GPIO_BSRR_BR9;
+		GPIOC->BSRR	|= GPIO_BSRR_BS9;
 		TIM1->CCR2 = (uint32_t)(5082 * speed) - 1;
 	}
 	else if(mode == TRANS_ROVER)
@@ -107,7 +107,7 @@ wormDrive(void)
 		GPIOC->BSRR	|= GPIO_BSRR_BS8;
 		TIM1->CCR1 = (uint32_t)(5082 * speed) - 1;
 
-		GPIOC->BSRR	|= GPIO_BSRR_BS9;
+		GPIOC->BSRR	|= GPIO_BSRR_BR9;
 		TIM1->CCR2 = (uint32_t)(5082 * speed) - 1;
 	}
 	else
@@ -116,7 +116,7 @@ wormDrive(void)
 		TIM1->CCR2 = 0;
 	}
 
-	delay(100);
+	delay(1000);
 	EXTI->IMR		|= EXTI_IMR_IM13 |		// wait for arm to be clear of limit switch
 					   EXTI_IMR_IM14;		// and then turn interrupts back on
 }

@@ -10,6 +10,7 @@
 #define __MAIN_H__
 
 /* Defines */
-//z#define STLINK
+//#define STLINK
+//#define SANDBOX
 
 #endif /* __MAIN_H__ */

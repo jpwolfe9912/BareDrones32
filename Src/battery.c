@@ -53,6 +53,7 @@ batt_cells(void)
 {
 	float summedVoltage = 0;
 	float avgVoltage = 0;
+	delay(100);
 	for(uint8_t i = 0; i < 10; i++)
 	{
 		battMonRead();

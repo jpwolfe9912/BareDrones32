@@ -5,7 +5,6 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		03 MAR 2022
- *  @bug
  */
 
 #ifndef __SENSOR_FUSION_H__

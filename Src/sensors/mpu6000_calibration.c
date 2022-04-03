@@ -76,8 +76,8 @@ mpu6000Calibration(void)
     // Stabilization
     ///////////////////////////////////
 
-    printf("\nWaiting for 10 seconds for MPU6000 temp to rise...\n");
-    delay(3000);    // Number of mSec in 10 minutes
+    printf("\nWaiting for 1 second for MPU6000 temp to rise...\n");
+    delay(1000);    // Number of mSec in 10 minutes
 
     ///////////////////////////////////
     // Get samples at temperature2

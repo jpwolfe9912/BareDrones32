@@ -36,7 +36,7 @@ pulseMotors(void)
 void
 mixTable(void)
 {
-	motors_e i;
+	uint8_t i;
 
 	if((mode == FLIGHT) &&
 	   (armed == true))
@@ -50,16 +50,16 @@ mixTable(void)
 		float minDeltaThrottle;
 		float deltaThrottle;
 
-		maxDeltaThrottle = (uint16_t)MAXCOMMAND - rxCommands[THROTTLE];
-		minDeltaThrottle = rxCommands[THROTTLE] - (uint16_t)eepromConfig.minThrottle;
+		maxDeltaThrottle = MAXCOMMAND - rxCommands[THROTTLE];
+		minDeltaThrottle = rxCommands[THROTTLE] - eepromConfig.minThrottle;
 		deltaThrottle    = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
 
 		for (i = 0; i < numberMotor; i++)
 		{
-			motor_value[i] = constrain16(motor_temp[i], rxCommands[THROTTLE] - deltaThrottle, rxCommands[THROTTLE] + deltaThrottle) - 1953;
+			motor_temp[i] = constrain(motor_temp[i], rxCommands[THROTTLE] - deltaThrottle, rxCommands[THROTTLE] + deltaThrottle);
 
-			if ((rxCommands[THROTTLE]) < eepromConfig.minCheck)
-				motor_value[i] = eepromConfig.minThrottle - 1952;
+			motor_temp[i] = ((motor_temp[i] * THROTTLE_DEADBAND_SLOPE) + THROTTLE_DEADBAND) / 2 + 47;
+			motor_value[i] = constrain16(motor_temp[i], 1237, 2047);
 		}
 	}
 	else if((mode == ROVER) &&

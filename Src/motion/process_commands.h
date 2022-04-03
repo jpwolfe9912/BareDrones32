@@ -26,7 +26,7 @@ extern semaphore_t armed;
 extern uint8_t     armingTimer;
 extern uint8_t     disarmingTimer;
 
-extern int16_t rxCommands[8];
+extern float rxCommands[8];
 
 void processCommands(void);
 

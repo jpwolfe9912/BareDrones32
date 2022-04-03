@@ -9,14 +9,10 @@
 /* Includes */
 #include "board.h"
 
-/*
- * PA8 - Worm 1 PWM
- * PA9 - Worm 2 PWM
- * PC8 - Worm 1 Dir
- * PC9 - Worm 2 Dir
+/** @brief This runs all the functions necessary to convert between modes.
  *
- * */
-
+ *  @return Void.
+ */
 void
 modeTransition(void)
 {
@@ -26,23 +22,24 @@ modeTransition(void)
 
 	wormDrive();
 
-	if(mode == TRANS_FLIGHT)
-	{
-		color(BLUE, YES);
-		printf("\nTransitioning to FLIGHT MODE");
-		colorDefault();
-		motors3dOff();
-	}
-	else if(mode == TRANS_ROVER)
-	{
-		color(BLUE, YES);
-		printf("\nTransitioning to ROVER MODE");
-		colorDefault();
-		motors3dOn();
-	}
+//	if(mode == TRANS_FLIGHT)
+//	{
+//		color(BLUE, YES);
+//		printf("\nTransitioning to FLIGHT MODE");
+//		colorDefault();
+//		motorsChangeMode(DSHOT_CMD_3D_MODE_OFF, MOTORS_24);
+//
+//	}
+//	else if(mode == TRANS_ROVER)
+//	{
+//		color(BLUE, YES);
+//		printf("\nTransitioning to ROVER MODE");
+//		colorDefault();
+//		motorsChangeMode(DSHOT_CMD_3D_MODE_ON, MOTORS_24);
+//	}
 
 	printf("\nWaiting for arms...\n");
-	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
+//	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
 	color(GREEN, YES);
 	printf("\nArms have reached limits\n");

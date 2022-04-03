@@ -13,6 +13,9 @@
 #define PIDMIXFLIGHT(X,Y,Z,T) 	(ratePID[ROLL] * (X) + ratePID[PITCH] * (Y) + eepromConfig.yawDirection * ratePID[YAW] * (Z) + throttleCmd * (T))
 #define PIDMIXROVER(X,T) 		(steerCmd * (X) + speedCmd * (T))
 
+#define THROTTLE_DEADBAND		400
+#define THROTTLE_DEADBAND_SLOPE	((4000 - THROTTLE_DEADBAND)/4000.0f)
+
 /* Global Variables */
 extern uint8_t numberMotor;
 extern uint16_t throttleCmd;

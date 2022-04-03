@@ -6,12 +6,12 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		23 FEB 2022
- *  @bug
  */
 
 #ifndef __BOARD_H__
 #define __BOARD_H__
 
+/* C or System */
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -26,14 +26,15 @@
 #include "stm32f7xx_it.h"
 #include "arm_math.h"
 
+/* General */
 #include "pid.h"
-
 #include "Autodrone32.h"
 #include "main.h"
 #include "config.h"
 #include "utilities.h"
 #include "battery.h"
 
+/* Drivers */
 #include "drv_led.h"
 #include "drv_color.h"
 #include "drv_system.h"
@@ -44,11 +45,11 @@
 #include "drv_adc.h"
 #include "drv_dma.h"
 #include "drv_tim.h"
-
 #include "drv_lwrb.h"
 #include "drv_worm.h"
 #include "drv_dshot.h"
 
+/* Motion */
 #include "process_commands.h"
 #include "compute_axis_commands.h"
 #include "mixer.h"
@@ -56,6 +57,7 @@
 #include "rotations.h"
 #include "transition.h"
 
+/* Sensors */
 #include "ibus.h"
 #include "mpu6000.h"
 #include "madgwick.h"

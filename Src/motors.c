@@ -27,12 +27,12 @@ motorInit(void)
 {
 	printf("\nInitializing Motors\n");
 
-	motor_value[0] = DSHOT_CMD_MOTOR_STOP;
-	motor_value[1] = DSHOT_CMD_MOTOR_STOP;
-	motor_value[2] = DSHOT_CMD_MOTOR_STOP;
-	motor_value[3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
 
-	dshotWait(1000);
+	dshotWait(DSHOT_ARM_COUNT);
 }
 
 /** @brief Changes motor mode to 3D.
@@ -93,5 +93,75 @@ motors3dOff(void)
 
 	motors_mode = MOTORS_MODE_NORMAL;
 	printf("\nChanged motors 2 and 4 to NORMAL mode\n");
+}
+
+void
+motorsSettingsSave(void)
+{
+	dshot_command_count = 0;
+
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
+
+	motor_initialized = true;
+	delay(10);
+	motor_initialized = false;
+
+	motor_value[MOTOR2] = DSHOT_CMD_SAVE_SETTINGS;
+	motor_value[MOTOR4] = DSHOT_CMD_SAVE_SETTINGS;
+	dshotWait(DSHOT_SETTINGS_COUNT);
+
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
+
+	printf("\nSettings Saved\n");
+}
+
+void
+motorsChangeMode(dshotCommands_e command, motors_grouped_e motors)
+{
+	dshot_command_count = 0;
+
+	/* Send 0 command 1500 times */
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
+
+	/* Send nothing for 10ms */
+	motor_initialized = true;
+	delay(10);
+	motor_initialized = false;
+
+	/* Send command 10 times */
+	motor_value[MOTOR1] = ((motors & 0x01) >> 0) * command;
+	motor_value[MOTOR2] = ((motors & 0x02) >> 1) * command;
+	motor_value[MOTOR3] = ((motors & 0x04) >> 2) * command;
+	motor_value[MOTOR4] = ((motors & 0x08) >> 3) * command;
+	dshotWait(DSHOT_SETTINGS_COUNT);
+
+	/* Send 0 command 1500 times */
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	dshotWait(DSHOT_ARM_COUNT);
+
+	/* Change modes */
+	if(command == DSHOT_CMD_3D_MODE_ON)
+	{
+		motors_mode = MOTORS_MODE_3D;
+		printf("\nChanged motors 3D mode");
+	}
+	else if(command == DSHOT_CMD_3D_MODE_OFF)
+	{
+		motors_mode = MOTORS_MODE_NORMAL;
+		printf("\nChanged motors NORMAL mode");
+	}
 }
 

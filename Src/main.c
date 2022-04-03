@@ -9,6 +9,7 @@
 /* Includes */
 #include "board.h"
 
+#ifndef SANDBOX
 /* Global Variables */
 __attribute__((__section__(".eeprom"), used)) const int8_t eepromArray[16384];
 
@@ -270,6 +271,10 @@ main(void)
 		}
 	}
 }
+
+#else
+
+#endif
 
 /**
  * @brief  This function is executed in case of error occurrence.

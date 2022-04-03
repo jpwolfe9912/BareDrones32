@@ -4,7 +4,6 @@
  *
  *  @author 	Jeremy Wolfe
  *  @date 		06 MAR 2022
- *  @bug
  */
 
 /* Includes */

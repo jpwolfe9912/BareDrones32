@@ -17,21 +17,24 @@
 void
 rcc216MHzInit(void)
 {
-	RCC->APB2ENR 	|= RCC_APB2ENR_SYSCFGEN;
-	FLASH->ACR		|= FLASH_ACR_LATENCY_7WS;		// set flash latency to 7 wait states
-	while(!(FLASH->ACR & FLASH_ACR_LATENCY_7WS)){}	// wait for enabled
-
 	RCC->APB1ENR	|= RCC_APB1ENR_PWREN;
 	PWR->CR1		|= PWR_CR1_VOS;			// turn on voltage scaling
 	PWR->CR1 		|= PWR_CR1_ODEN;		// enable overdrive
 
-	RCC->CR 		|= RCC_CR_HSION;		// turn on HSI
-	while(!(RCC->CR & RCC_CR_HSIRDY)){}		// wait until HSI ready
+	RCC->APB2ENR 	|= RCC_APB2ENR_SYSCFGEN;
+	FLASH->ACR		|= FLASH_ACR_LATENCY_7WS;		// set flash latency to 7 wait states
+	while(!(FLASH->ACR & FLASH_ACR_LATENCY_7WS)){}	// wait for enabled
+
+
+	RCC->CR 		|= RCC_CR_HSEON;		// turn on HSI
+	while(!(RCC->CR & RCC_CR_HSERDY)){}		// wait until HSI ready
 
 	/*		PLL Division Configuration	*/
 	/*		16 / 8 = 2 * 216 = 432 / 2 = 216	*/
+	RCC->CR			&= ~RCC_CR_PLLON;
+	RCC->PLLCFGR	|= RCC_PLLCFGR_PLLSRC_HSE;
 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLM;
-	RCC->PLLCFGR	|= 8U;					// PLLM /8 div
+	RCC->PLLCFGR	|= 4U;					// PLLM /8 div
 	RCC->PLLCFGR	|= (216U << 6U);		// PLLN *216 multi
 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLP;	// PLLP /2 div
 	RCC->CR			|= RCC_CR_PLLON;			// turn on PLL

@@ -16,6 +16,8 @@ static uint32_t motor4_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
 
 volatile uint16_t dshot_command_count = 0;
 
+bool dshot_telemetry = false;
+
 /* Static Function Prototypes */
 static uint32_t dshot_choose_type(dshot_type_e dshot_type);
 static void dshot_prepare_dmabuffer_all(uint16_t *motor_value);
@@ -274,7 +276,16 @@ void
 dshotWait(uint16_t wait_counts)
 {
 	dshot_command_count = 0;
+
+	if(wait_counts == DSHOT_ARM_COUNT)
+	{
+		SysTick->LOAD  = (uint32_t)((SystemCoreClock / 10000) - 1UL);
+		wait_counts *= 10;
+	}
+
 	while(dshot_command_count < wait_counts);
+
+	SysTick->LOAD  = (uint32_t)((SystemCoreClock / 1000) - 1UL);
 }
 
 /* Static Functions */
@@ -352,7 +363,6 @@ static uint16_t
 dshot_prepare_packet(uint16_t value)
 {
 	uint16_t packet;
-	bool dshot_telemetry = false;
 
 	packet = (value << 1) | (dshot_telemetry ? 1 : 0);
 

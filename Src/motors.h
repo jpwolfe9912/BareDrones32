@@ -28,6 +28,26 @@ typedef enum
 	MOTORS_MODE_3D
 }motors_mode_e;
 
+typedef enum
+{
+	MOTORS_NONE,
+	MOTORS_1,
+	MOTORS_2,
+	MOTORS_12,
+	MOTORS_3,
+	MOTORS_13,
+	MOTORS_23,
+	MOTORS_123,
+	MOTORS_4,
+	MOTORS_14,
+	MOTORS_24,
+	MOTORS_124,
+	MOTORS_34,
+	MOTORS_134,
+	MOTORS_234,
+	MOTORS_1234
+}motors_grouped_e;
+
 /* Global Variables */
 extern uint16_t motor_value[MOTOR_COUNT];
 
@@ -39,5 +59,7 @@ extern motors_mode_e motors_mode;
 void motorInit(void);
 void motors3dOn(void);
 void motors3dOff(void);
+void motorsSettingsSave(void);
+void motorsChangeMode(dshotCommands_e command, motors_grouped_e motors);
 
 #endif /* __MOTORS_H__ */

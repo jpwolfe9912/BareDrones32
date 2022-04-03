@@ -72,6 +72,7 @@ typedef enum {
 
 /* Static Variables */
 extern volatile uint16_t dshot_command_count;
+extern bool dshot_telemetry;
 
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
