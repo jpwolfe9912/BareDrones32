@@ -39,7 +39,7 @@ modeTransition(void)
 //	}
 
 	printf("\nWaiting for arms...\n");
-//	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
+	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
 	color(GREEN, YES);
 	printf("\nArms have reached limits\n");
