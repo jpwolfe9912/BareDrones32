@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('functions_vars.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -68,28 +89,18 @@ $(function() {
 <li>accel100Hz&#160;:&#160;<a class="el" href="structsensors__t.html#ae972d409944d3c6c758215730efae58a">sensors_t</a></li>
 <li>accel500Hz&#160;:&#160;<a class="el" href="structsensors__t.html#a300c0da2a8ccecb8d188fa5d988b9244">sensors_t</a></li>
 <li>accelBiasMPU&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a94c97906cdb928950cc6c595f1269082">eepromConfig_t</a></li>
-<li>accelBiasMXR&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ab99ced47a5f7412dc1cc9fdf1d776459">eepromConfig_t</a></li>
 <li>accelCutoff&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aa9fa535710329dfd1290daf1fe1e10a5">eepromConfig_t</a></li>
 <li>accelScaleFactorMPU&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aff16de83c534d12d68254a62fc0bf054">eepromConfig_t</a></li>
-<li>accelScaleFactorMXR&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a339cc867657e895b32b0f53c4790f822">eepromConfig_t</a></li>
 <li>accelTCBiasIntercept&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a8f8c62c59a3820372cc5de91b37a303c">eepromConfig_t</a></li>
 <li>accelTCBiasSlope&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a563352aa54e517870299c1c76d37f0d5">eepromConfig_t</a></li>
 <li>activeTelemetry&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a5ce88c7c959b0ad00e87d025bed1e97b">eepromConfig_t</a></li>
-<li>aglBias&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a5f471164b8fca3ad70fdad6e96bc4a45">eepromConfig_t</a></li>
-<li>aglPin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a550386df9b2a702ab64a92042681fa35">eepromConfig_t</a></li>
-<li>aglScale&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a895af807a0e66ed5176aeefc3809f106">eepromConfig_t</a></li>
 <li>altitude&#160;:&#160;<a class="el" href="structhome_data__t.html#a0e13a4b4ae0cefdac2a413284239caa6">homeData_t</a></li>
-<li>armCount&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a8331c3665459f6d7309504ccce4e45f4">eepromConfig_t</a></li>
 <li>attitude500Hz&#160;:&#160;<a class="el" href="structsensors__t.html#a648770241f13383e5c763d3d137e017e">sensors_t</a></li>
 <li>attitudeScaling&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a9a08871f138cc5097ddd31faf2d37d7a">eepromConfig_t</a></li>
 </ul>
 
 
 <h3><a id="index_b" name="index_b"></a>- b -</h3><ul>
-<li>batteryCells&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a5702cf3cd8d811e55f5f8e77563d5298">eepromConfig_t</a></li>
-<li>batteryLow&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a2a7fba4fce4b21c406cdb8e1bc05733c">eepromConfig_t</a></li>
-<li>batteryMaxLow&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a100caeaea2d8090a9ab2bd3f000b9ba6">eepromConfig_t</a></li>
-<li>batteryVeryLow&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a193a4b94d8960f8d3ae77e11da638f18">eepromConfig_t</a></li>
 <li>buff&#160;:&#160;<a class="el" href="structlwrb.html#a8b212742c92a124f2eb4a244acc19f7c">lwrb</a></li>
 <li>bytes&#160;:&#160;<a class="el" href="unionint16and_uint8__t.html#a46e4c05d20a047ec169f60d3167e912e">int16andUint8_t</a>, <a class="el" href="unionint32and_uint8__t.html#aac9cc4cbc93c66d4b3e0e9e037695d5a">int32andUint8_t</a>, <a class="el" href="unionuint16and_uint8__t.html#a46e4c05d20a047ec169f60d3167e912e">uint16andUint8_t</a>, <a class="el" href="unionuint32and_uint8__t.html#aac9cc4cbc93c66d4b3e0e9e037695d5a">uint32andUint8_t</a></li>
 </ul>
@@ -98,14 +109,6 @@ $(function() {
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
 <li>chn&#160;:&#160;<a class="el" href="structgps__t.html#a79b7d09479ab7077da7a479f749ccdf6">gps_t</a></li>
 <li>cno&#160;:&#160;<a class="el" href="structgps__t.html#ade4f03788e25a49123afe9601c5bc3d6">gps_t</a></li>
-<li>compFilterA&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ad6025b3ec5530410c58ab138965961a5">eepromConfig_t</a></li>
-<li>compFilterB&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ac8bb4c274bee951c5cdfb771f8c14abe">eepromConfig_t</a></li>
-<li>CRCAtEnd&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ae6c812e9d37bbd28f9194f814db00b0b">eepromConfig_t</a></li>
-<li>CRCFlags&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aabb51ce50bd85faf7e6af7a8cd0de5e0">eepromConfig_t</a></li>
-<li>currentMonitorBias&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a3f4477b4c24ad368013feb6b74b87042">eepromConfig_t</a></li>
-<li>currentMonitoring&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a03507b4bb30963c78234c72c6b431cba">eepromConfig_t</a></li>
-<li>currentMonitorPin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a829074bc21efef40d22126c1ee1b7c06">eepromConfig_t</a></li>
-<li>currentMonitorScale&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a9a7aa7ad8c111bd5c09f2451a5f70566">eepromConfig_t</a></li>
 </ul>
 
 
@@ -113,24 +116,18 @@ $(function() {
 <li>D&#160;:&#160;<a class="el" href="struct_p_i_ddata.html#aa6702f5ca985a5b97e1534be9d374bba">PIDdata</a></li>
 <li>day&#160;:&#160;<a class="el" href="structgps__t.html#a72369a1087b2aeffe374bb054cb97c12">gps_t</a></li>
 <li>defaultVideoStandard&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aec30572e84be9c06729d2ac8f712e23b">eepromConfig_t</a></li>
-<li>disarmCount&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a4eb36c5679c8fb9f8b9cb2721880ef07">eepromConfig_t</a></li>
 <li>dlpfSetting&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a1fae9709b532d02f3687af617a79722c">eepromConfig_t</a></li>
 </ul>
 
 
 <h3><a id="index_e" name="index_e"></a>- e -</h3><ul>
-<li>escPwmRate&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a75c74aaea4749b0ad3f51b48c5a90e52">eepromConfig_t</a></li>
 <li>evt_fn&#160;:&#160;<a class="el" href="structlwrb.html#a69e5b9e248a1314f146b0988ca8d07f9">lwrb</a></li>
-<li>externalHMC5883&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a176f298874ff1895808eadb8810b56eb">eepromConfig_t</a></li>
-<li>externalMS5611&#160;:&#160;<a class="el" href="structeeprom_config__t.html#adde71bba6215e89d3243bac9f41fb8d3">eepromConfig_t</a></li>
 </ul>
 
 
 <h3><a id="index_f" name="index_f"></a>- f -</h3><ul>
 <li>filterState&#160;:&#160;<a class="el" href="struct_p_i_ddata.html#afdab2a23e42182aa03b7f8d9de4a861c">PIDdata</a></li>
 <li>fix&#160;:&#160;<a class="el" href="structgps__t.html#ab28bedaa845748de3c712f8ee3353c22">gps_t</a></li>
-<li>freeMix&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a920729598a9cd9376b5a7e39a3e5346c">eepromConfig_t</a></li>
-<li>freeMixMotors&#160;:&#160;<a class="el" href="structeeprom_config__t.html#abaa110c10c2871111faa2726006474f6">eepromConfig_t</a></li>
 </ul>
 
 
@@ -144,7 +141,6 @@ $(function() {
 
 <h3><a id="index_h" name="index_h"></a>- h -</h3><ul>
 <li>hDop&#160;:&#160;<a class="el" href="structgps__t.html#afc3ac40d8592082dbec200b28005c227">gps_t</a></li>
-<li>hDotScaling&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ac3563109dc3117ed71c4a392eaa10973">eepromConfig_t</a></li>
 <li>heading&#160;:&#160;<a class="el" href="structgps__t.html#a56d97146368cdc685b340cc5875fd5ff">gps_t</a></li>
 <li>height&#160;:&#160;<a class="el" href="structgps__t.html#a5d8006e753a3e76ff637a4e092bbed71">gps_t</a></li>
 <li>hMSL&#160;:&#160;<a class="el" href="structgps__t.html#a0cfda942caf1148caed99307d7548db6">gps_t</a></li>
@@ -174,25 +170,21 @@ $(function() {
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
-<li>mag&#160;:&#160;<a class="el" href="structheading__t.html#a6e374ac55d96352014b0fc2b4cad4f1e">heading_t</a></li>
 <li>magBias&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ad1ec37921b361d7ce63fe1b660541333">eepromConfig_t</a></li>
 <li>magHeading&#160;:&#160;<a class="el" href="structhome_data__t.html#a462c6c4caa2aff6c8fbf6d0b73a53e99">homeData_t</a></li>
 <li>magic1&#160;:&#160;<a class="el" href="structlwrb.html#ad246696b3b05235470632e2bfe32652d">lwrb</a></li>
 <li>magic2&#160;:&#160;<a class="el" href="structlwrb.html#a50aa6272172e676a02ab951cd465aa3d">lwrb</a></li>
-<li>mavlinkEnabled&#160;:&#160;<a class="el" href="structeeprom_config__t.html#acd517b469df973fae6a48f55c2de96dc">eepromConfig_t</a></li>
 <li>maxCheck&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a1128de0037d8dd93b3824b375c463bd3">eepromConfig_t</a></li>
 <li>maxThrottle&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a84baef155eccd803b22fae00a4acf452">eepromConfig_t</a></li>
 <li>metricUnits&#160;:&#160;<a class="el" href="structeeprom_config__t.html#af830b0ff70b39dbe770a8671bf29f84f">eepromConfig_t</a></li>
 <li>midCommand&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ac06a95e1662c379031acb4653f855d5e">eepromConfig_t</a></li>
 <li>minCheck&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a6daa80d9fe2438fcc4b755817f9502a6">eepromConfig_t</a></li>
 <li>minThrottle&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a15003441b8f0bb4c12c4f417e76e27a9">eepromConfig_t</a></li>
-<li>mixerConfiguration&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ac394d57d5bc5f46de1e4dc99b642ea20">eepromConfig_t</a></li>
 <li>month&#160;:&#160;<a class="el" href="structgps__t.html#a3e00faf7fbf9805e9ec4d2edd6339050">gps_t</a></li>
 </ul>
 
 
 <h3><a id="index_n" name="index_n"></a>- n -</h3><ul>
-<li>nDotEdotScaling&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aa4bf190e59618a4a7dc786074cccd295">eepromConfig_t</a></li>
 <li>numCh&#160;:&#160;<a class="el" href="structgps__t.html#a099b5913cb597abb9786cad2e0affb59">gps_t</a></li>
 <li>numSats&#160;:&#160;<a class="el" href="structgps__t.html#a930c169f06fc077f0f285e497af7c1b1">gps_t</a></li>
 </ul>
@@ -233,46 +225,22 @@ $(function() {
 <h3><a id="index_p" name="index_p"></a>- p -</h3><ul>
 <li>P&#160;:&#160;<a class="el" href="struct_p_i_ddata.html#aca74a684c7823144d7962beb8397621e">PIDdata</a></li>
 <li>PID&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ad725b40cda69d752a3ab6af73be69665">eepromConfig_t</a></li>
-<li>pitchAttAltCompensationGain&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a432d27ae69e55f867f1b3be9440e7e48">eepromConfig_t</a></li>
-<li>pitchAttAltCompensationLimit&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a931de289b660ea002685035876ed351c">eepromConfig_t</a></li>
-<li>ppmChannels&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ae75b2d063d93b41f2a1c95638e2233c1">eepromConfig_t</a></li>
 <li>prevResetState&#160;:&#160;<a class="el" href="struct_p_i_ddata.html#a20b0b760015183d681bbfde52d94459e">PIDdata</a></li>
 </ul>
 
 
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>r&#160;:&#160;<a class="el" href="structlwrb.html#ae734d6baa0ef4d2adea0a6daacfe2209">lwrb</a></li>
-<li>rcMap&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a2445da32b4a5fb7838bf4309a1ed43cd">eepromConfig_t</a></li>
-<li>receiverType&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a83782e33444b53bcb092cc7c41395563">eepromConfig_t</a></li>
 <li>rollAndPitchRateScaling&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a754f6a27273fade7b911ff2c2e21210e">eepromConfig_t</a></li>
-<li>rollAttAltCompensationGain&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ae166cdc0df2f558af82eadc822d90995">eepromConfig_t</a></li>
-<li>rollAttAltCompensationLimit&#160;:&#160;<a class="el" href="structeeprom_config__t.html#affcefb923cb2a79ef288cb9b8deff074">eepromConfig_t</a></li>
-<li>rssiMax&#160;:&#160;<a class="el" href="structeeprom_config__t.html#afd77bc496c43402cece12d9d6e9e721d">eepromConfig_t</a></li>
-<li>rssiMin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ad75b3708bdc4dc702a14ee55f9ead807">eepromConfig_t</a></li>
-<li>rssiPin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aa50381f78f9ace88d16da010da856da3">eepromConfig_t</a></li>
-<li>rssiPPM&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a4a57f37608efe5f7b7761e212112be9c">eepromConfig_t</a></li>
-<li>rssiWarning&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a0bbdbeff99a3e90f789640d7050a2ab0">eepromConfig_t</a></li>
 </ul>
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>sensorOrientation&#160;:&#160;<a class="el" href="structeeprom_config__t.html#aace15d3b6ae9cf2b845a8583349c2138">eepromConfig_t</a></li>
-<li>servoPwmRate&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a089b15108aad505d9fa2b5f8851a27dd">eepromConfig_t</a></li>
 <li>size&#160;:&#160;<a class="el" href="structlwrb.html#a3dbd97d4e970e78470c3936709ce19f9">lwrb</a></li>
-<li>slaveSpektrum&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a544b4c2f1c3090cdf3829b730934eaec">eepromConfig_t</a></li>
 <li>speed&#160;:&#160;<a class="el" href="structgps__t.html#a220859a8b5da0232739a11cbe7f79fc5">gps_t</a></li>
 <li>statusFlags&#160;:&#160;<a class="el" href="structgps__t.html#aa07fc35358b8795854cc112869138e1c">gps_t</a></li>
 <li>svid&#160;:&#160;<a class="el" href="structgps__t.html#a6ace849b8fcaa85ab44cc1f2eaa1eef3">gps_t</a></li>
-</ul>
-
-
-<h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
-<li>triCopterYawCmd500HzLowPassTau&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a4e583adf854f5f02e3ca636e65d8d17c">eepromConfig_t</a></li>
-<li>triYawServoMax&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a0d89008b90d8937d7018ce14e49abad6">eepromConfig_t</a></li>
-<li>triYawServoMid&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ad67cf80970a95f6256baaff6b93a7bf3">eepromConfig_t</a></li>
-<li>triYawServoMin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ab79e002f1edb7fd0e5ed306a8b45d069">eepromConfig_t</a></li>
-<li>triYawServoPwmRate&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a2592bc216f09bd7f2df046fcd00659ec">eepromConfig_t</a></li>
-<li>tru&#160;:&#160;<a class="el" href="structheading__t.html#ac6ff3063f65334a8dfe14c18639beefe">heading_t</a></li>
 </ul>
 
 
@@ -288,10 +256,6 @@ $(function() {
 <li>velE&#160;:&#160;<a class="el" href="structgps__t.html#a49e3bcbbb98f50a1209b65ddfdbc876c">gps_t</a></li>
 <li>velN&#160;:&#160;<a class="el" href="structgps__t.html#ad44388792a90a24fb4660e2b19033e17">gps_t</a></li>
 <li>version&#160;:&#160;<a class="el" href="structeeprom_config__t.html#ab22abc2906422da61885ac6c8e6a1a59">eepromConfig_t</a></li>
-<li>verticalVelocityHoldOnly&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a2a966858773d9801f7ed82c71430ffc5">eepromConfig_t</a></li>
-<li>voltageMonitorBias&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a927d41649d656b0c4ea3d2a6ea0313e8">eepromConfig_t</a></li>
-<li>voltageMonitorPin&#160;:&#160;<a class="el" href="structeeprom_config__t.html#a996556976c4a426925eae54cf54f5124">eepromConfig_t</a></li>
-<li>voltageMonitorScale&#160;:&#160;<a class="el" href="structeeprom_config__t.html#abdd9e24950cac61d7bf7704a65e5f5c3">eepromConfig_t</a></li>
 </ul>
 
 
@@ -306,9 +270,12 @@ $(function() {
 <li>year&#160;:&#160;<a class="el" href="structgps__t.html#a57ca98d8f6d4baf0fe41c583c7dcb0d5">gps_t</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

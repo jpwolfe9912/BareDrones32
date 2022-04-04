@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('globals_m.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -90,17 +111,37 @@ $(function() {
 <li>MOTOR_BIT_0&#160;:&#160;<a class="el" href="drv__dshot_8h.html#a05a634fcc0fc375b0a22b0e5ac1a0073">drv_dshot.h</a></li>
 <li>MOTOR_BIT_1&#160;:&#160;<a class="el" href="drv__dshot_8h.html#aafb219d04b1104a693f8cf120229fc7d">drv_dshot.h</a></li>
 <li>MOTOR_BITLENGTH&#160;:&#160;<a class="el" href="drv__dshot_8h.html#ae85650a4e6ed11d1a8a87c074153d938">drv_dshot.h</a></li>
+<li>MOTOR_COUNT&#160;:&#160;<a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">motors.h</a></li>
 <li>motor_initialized&#160;:&#160;<a class="el" href="motors_8c.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motors.c</a>, <a class="el" href="motors_8h.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motors.h</a></li>
 <li>motor_temp&#160;:&#160;<a class="el" href="mixer_8c.html#ae9e762cff09b8093e89b0d0282e02107">mixer.c</a>, <a class="el" href="mixer_8h.html#ae9e762cff09b8093e89b0d0282e02107">mixer.h</a></li>
-<li>motor_value&#160;:&#160;<a class="el" href="motors_8c.html#a9e7bfc8712149ed5ab675edfc0773f21">motors.c</a>, <a class="el" href="motors_8h.html#a9e7bfc8712149ed5ab675edfc0773f21">motors.h</a></li>
+<li>motor_value&#160;:&#160;<a class="el" href="motors_8c.html#ac96647f4976d16e8a084441dcfd5dcf8">motors.c</a>, <a class="el" href="motors_8h.html#ac96647f4976d16e8a084441dcfd5dcf8">motors.h</a></li>
 <li>motorInit()&#160;:&#160;<a class="el" href="motors_8c.html#aa29e2982047be0f7afbb10c8d6f3f5c3">motors.c</a>, <a class="el" href="motors_8h.html#aa29e2982047be0f7afbb10c8d6f3f5c3">motors.h</a></li>
 <li>motors3dOff()&#160;:&#160;<a class="el" href="motors_8c.html#a9238ba3b6684798019bc8c64291f72f1">motors.c</a>, <a class="el" href="motors_8h.html#a9238ba3b6684798019bc8c64291f72f1">motors.h</a></li>
 <li>motors3dOn()&#160;:&#160;<a class="el" href="motors_8c.html#a0d49a7f7d4f3ee90ac062228c07181ce">motors.c</a>, <a class="el" href="motors_8h.html#a0d49a7f7d4f3ee90ac062228c07181ce">motors.h</a></li>
+<li>MOTORS_1&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684">motors.h</a></li>
+<li>MOTORS_12&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c">motors.h</a></li>
+<li>MOTORS_123&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de">motors.h</a></li>
+<li>MOTORS_1234&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e">motors.h</a></li>
+<li>MOTORS_124&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1">motors.h</a></li>
+<li>MOTORS_13&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee">motors.h</a></li>
+<li>MOTORS_134&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962">motors.h</a></li>
+<li>MOTORS_14&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f">motors.h</a></li>
+<li>MOTORS_2&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b">motors.h</a></li>
+<li>MOTORS_23&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9">motors.h</a></li>
+<li>MOTORS_234&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7">motors.h</a></li>
+<li>MOTORS_24&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005">motors.h</a></li>
+<li>MOTORS_3&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7">motors.h</a></li>
+<li>MOTORS_34&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6">motors.h</a></li>
+<li>MOTORS_4&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6">motors.h</a></li>
 <li>motors_e&#160;:&#160;<a class="el" href="motors_8h.html#a52d59931063c311b3db496e3dd723b9e">motors.h</a></li>
+<li>motors_grouped_e&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors.h</a></li>
 <li>motors_mode&#160;:&#160;<a class="el" href="motors_8c.html#ab481fde20557f669231b9bfa1ea911d5">motors.c</a>, <a class="el" href="motors_8h.html#ab481fde20557f669231b9bfa1ea911d5">motors.h</a></li>
 <li>MOTORS_MODE_3D&#160;:&#160;<a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558">motors.h</a></li>
 <li>motors_mode_e&#160;:&#160;<a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01">motors.h</a></li>
 <li>MOTORS_MODE_NORMAL&#160;:&#160;<a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66">motors.h</a></li>
+<li>MOTORS_NONE&#160;:&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345">motors.h</a></li>
+<li>motorsChangeMode()&#160;:&#160;<a class="el" href="motors_8c.html#a206313c3415b312b6ffe43c1c552a853">motors.c</a>, <a class="el" href="motors_8h.html#a206313c3415b312b6ffe43c1c552a853">motors.h</a></li>
+<li>motorsSettingsSave()&#160;:&#160;<a class="el" href="motors_8c.html#a18343f2bb120a8efa91ca65b6ef950a5">motors.c</a>, <a class="el" href="motors_8h.html#a18343f2bb120a8efa91ca65b6ef950a5">motors.h</a></li>
 <li>MPU6000_ACCEL_CONFIG&#160;:&#160;<a class="el" href="mpu6000_8h.html#a99e9c705dabcac566fe29cfa46e46a23">mpu6000.h</a></li>
 <li>MPU6000_ACCEL_XOUT_H&#160;:&#160;<a class="el" href="mpu6000_8h.html#a613c43b8fcb05599010f718ac64e3e59">mpu6000.h</a></li>
 <li>MPU6000_ACCEL_XOUT_L&#160;:&#160;<a class="el" href="mpu6000_8h.html#a8ad17c5eee467da85e55f8fbd0817f14">mpu6000.h</a></li>
@@ -143,9 +184,12 @@ $(function() {
 <li>mpuOrientationMatrix&#160;:&#160;<a class="el" href="orientation_8c.html#a3dc49f4b46f57265f699543f15cb4299">orientation.c</a>, <a class="el" href="orientation_8h.html#a3dc49f4b46f57265f699543f15cb4299">orientation.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

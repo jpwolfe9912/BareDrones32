@@ -11,6 +11,10 @@ This file takes the output of the PID controller and assigns values to the motor
 \#define \mbox{\hyperlink{mixer_8h_a01f41f3ca3e06ad102b8c2beaf0f3df9}{PIDMIXFLIGHT}}(X,  Y,  Z,  T)~(\mbox{\hyperlink{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}{rate\+PID}}\mbox{[}\mbox{\hyperlink{_autodrone32_8h_af902416f65138704a180dbae2dc9d8f2}{ROLL}}\mbox{]} $\ast$ (X) + \mbox{\hyperlink{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}{rate\+PID}}\mbox{[}\mbox{\hyperlink{_autodrone32_8h_acd633835a520a62245ec6cfeb6d00e97}{PITCH}}\mbox{]} $\ast$ (Y) + eeprom\+Config.\+yaw\+Direction $\ast$ \mbox{\hyperlink{compute__axis__commands_8h_ab77481ff9ad18ebb1f89ab1946ca7dae}{rate\+PID}}\mbox{[}\mbox{\hyperlink{_autodrone32_8h_ac71b1e54b98dc1031873048bc61d0438}{YAW}}\mbox{]} $\ast$ (Z) + \mbox{\hyperlink{mixer_8h_a819d556aa56c036590623a99955b0a7b}{throttle\+Cmd}} $\ast$ (T))
 \item 
 \#define \mbox{\hyperlink{mixer_8h_a614580853a315063dde796faa3697c52}{PIDMIXROVER}}(X,  T)~(\mbox{\hyperlink{mixer_8h_a2cd3cf1f8b87bb342e3cbe4faaee86be}{steer\+Cmd}} $\ast$ (X) + \mbox{\hyperlink{mixer_8h_aec1157580d2f27f5049e0093c2b1a84e}{speed\+Cmd}} $\ast$ (T))
+\item 
+\#define \mbox{\hyperlink{mixer_8h_ab05129e61621ca4133531558e59b2190}{THROTTLE\+\_\+\+DEADBAND}}~400
+\item 
+\#define \mbox{\hyperlink{mixer_8h_a99f5c7f8e5a3b995a995ab44f2c6f5e3}{THROTTLE\+\_\+\+DEADBAND\+\_\+\+SLOPE}}~((4000 -\/ \mbox{\hyperlink{mixer_8h_ab05129e61621ca4133531558e59b2190}{THROTTLE\+\_\+\+DEADBAND}})/4000.\+0f)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -69,6 +73,26 @@ Definition at line \mbox{\hyperlink{mixer_8h_source_l00013}{13}} of file \mbox{\
 
 
 Definition at line \mbox{\hyperlink{mixer_8h_source_l00014}{14}} of file \mbox{\hyperlink{mixer_8h_source}{mixer.\+h}}.
+
+\mbox{\Hypertarget{mixer_8h_ab05129e61621ca4133531558e59b2190}\label{mixer_8h_ab05129e61621ca4133531558e59b2190}} 
+\index{mixer.h@{mixer.h}!THROTTLE\_DEADBAND@{THROTTLE\_DEADBAND}}
+\index{THROTTLE\_DEADBAND@{THROTTLE\_DEADBAND}!mixer.h@{mixer.h}}
+\doxysubsubsection{\texorpdfstring{THROTTLE\_DEADBAND}{THROTTLE\_DEADBAND}}
+{\footnotesize\ttfamily \#define THROTTLE\+\_\+\+DEADBAND~400}
+
+
+
+Definition at line \mbox{\hyperlink{mixer_8h_source_l00016}{16}} of file \mbox{\hyperlink{mixer_8h_source}{mixer.\+h}}.
+
+\mbox{\Hypertarget{mixer_8h_a99f5c7f8e5a3b995a995ab44f2c6f5e3}\label{mixer_8h_a99f5c7f8e5a3b995a995ab44f2c6f5e3}} 
+\index{mixer.h@{mixer.h}!THROTTLE\_DEADBAND\_SLOPE@{THROTTLE\_DEADBAND\_SLOPE}}
+\index{THROTTLE\_DEADBAND\_SLOPE@{THROTTLE\_DEADBAND\_SLOPE}!mixer.h@{mixer.h}}
+\doxysubsubsection{\texorpdfstring{THROTTLE\_DEADBAND\_SLOPE}{THROTTLE\_DEADBAND\_SLOPE}}
+{\footnotesize\ttfamily \#define THROTTLE\+\_\+\+DEADBAND\+\_\+\+SLOPE~((4000 -\/ \mbox{\hyperlink{mixer_8h_ab05129e61621ca4133531558e59b2190}{THROTTLE\+\_\+\+DEADBAND}})/4000.\+0f)}
+
+
+
+Definition at line \mbox{\hyperlink{mixer_8h_source_l00017}{17}} of file \mbox{\hyperlink{mixer_8h_source}{mixer.\+h}}.
 
 
 
@@ -138,7 +162,7 @@ Definition at line \mbox{\hyperlink{mixer_8c_source_l00013}{13}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{mixer_8h_source_l00019}{19}} of file \mbox{\hyperlink{mixer_8h_source}{mixer.\+h}}.
+Definition at line \mbox{\hyperlink{mixer_8h_source_l00022}{22}} of file \mbox{\hyperlink{mixer_8h_source}{mixer.\+h}}.
 
 \mbox{\Hypertarget{mixer_8h_a2cd3cf1f8b87bb342e3cbe4faaee86be}\label{mixer_8h_a2cd3cf1f8b87bb342e3cbe4faaee86be}} 
 \index{mixer.h@{mixer.h}!steerCmd@{steerCmd}}

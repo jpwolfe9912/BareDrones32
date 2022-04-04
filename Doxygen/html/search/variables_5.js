@@ -11,7 +11,5 @@ var searchData=
   ['frame_5f50hz_8',['frame_50Hz',['../drv__system_8c.html#ac8f4528d73bfd0f549103f4214c9559e',1,'frame_50Hz():&#160;drv_system.c'],['../drv__system_8h.html#ac8f4528d73bfd0f549103f4214c9559e',1,'frame_50Hz():&#160;drv_system.c']]],
   ['frame_5f5hz_9',['frame_5Hz',['../drv__system_8c.html#a10bad01cb92dd51bc784ac6ccd4a4e59',1,'frame_5Hz():&#160;drv_system.c'],['../drv__system_8h.html#a10bad01cb92dd51bc784ac6ccd4a4e59',1,'frame_5Hz():&#160;drv_system.c']]],
   ['framecounter_10',['frameCounter',['../drv__system_8c.html#aa68bfa29ccf5a3621ed0876ef290a3e2',1,'frameCounter():&#160;drv_system.c'],['../drv__system_8h.html#aa68bfa29ccf5a3621ed0876ef290a3e2',1,'frameCounter():&#160;drv_system.c']]],
-  ['framelength_11',['frameLength',['../ibus_8c.html#a5060d9399d0f25c7695ab7a78146839b',1,'ibus.c']]],
-  ['freemix_12',['freeMix',['../structeeprom_config__t.html#a920729598a9cd9376b5a7e39a3e5346c',1,'eepromConfig_t']]],
-  ['freemixmotors_13',['freeMixMotors',['../structeeprom_config__t.html#abaa110c10c2871111faa2726006474f6',1,'eepromConfig_t']]]
+  ['framelength_11',['frameLength',['../ibus_8c.html#a5060d9399d0f25c7695ab7a78146839b',1,'ibus.c']]]
 ];

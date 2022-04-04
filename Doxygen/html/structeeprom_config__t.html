@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('structeeprom_config__t.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,7 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
@@ -78,10 +99,6 @@ Data Fields</h2></td></tr>
 <tr class="separator:a94c97906cdb928950cc6c595f1269082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff16de83c534d12d68254a62fc0bf054"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aff16de83c534d12d68254a62fc0bf054">accelScaleFactorMPU</a> [3]</td></tr>
 <tr class="separator:aff16de83c534d12d68254a62fc0bf054"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab99ced47a5f7412dc1cc9fdf1d776459"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ab99ced47a5f7412dc1cc9fdf1d776459">accelBiasMXR</a> [3]</td></tr>
-<tr class="separator:ab99ced47a5f7412dc1cc9fdf1d776459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a339cc867657e895b32b0f53c4790f822"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a339cc867657e895b32b0f53c4790f822">accelScaleFactorMXR</a> [3]</td></tr>
-<tr class="separator:a339cc867657e895b32b0f53c4790f822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a563352aa54e517870299c1c76d37f0d5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a563352aa54e517870299c1c76d37f0d5">accelTCBiasSlope</a> [3]</td></tr>
 <tr class="separator:a563352aa54e517870299c1c76d37f0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f8c62c59a3820372cc5de91b37a303c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a8f8c62c59a3820372cc5de91b37a303c">accelTCBiasIntercept</a> [3]</td></tr>
@@ -102,10 +119,6 @@ Data Fields</h2></td></tr>
 <tr class="separator:af0aeeec051f5673729528eada34eb444"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7e39490a8935e07919aae25f575dd45"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aa7e39490a8935e07919aae25f575dd45">KiMag</a></td></tr>
 <tr class="separator:aa7e39490a8935e07919aae25f575dd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6025b3ec5530410c58ab138965961a5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad6025b3ec5530410c58ab138965961a5">compFilterA</a></td></tr>
-<tr class="separator:ad6025b3ec5530410c58ab138965961a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8bb4c274bee951c5cdfb771f8c14abe"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ac8bb4c274bee951c5cdfb771f8c14abe">compFilterB</a></td></tr>
-<tr class="separator:ac8bb4c274bee951c5cdfb771f8c14abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fae9709b532d02f3687af617a79722c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a1fae9709b532d02f3687af617a79722c">dlpfSetting</a></td></tr>
 <tr class="separator:a1fae9709b532d02f3687af617a79722c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aace15d3b6ae9cf2b845a8583349c2138"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aace15d3b6ae9cf2b845a8583349c2138">sensorOrientation</a></td></tr>
@@ -116,22 +129,6 @@ Data Fields</h2></td></tr>
 <tr class="separator:a8f90af8f77a607661ad812a44bf427a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a08871f138cc5097ddd31faf2d37d7a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a9a08871f138cc5097ddd31faf2d37d7a">attitudeScaling</a></td></tr>
 <tr class="separator:a9a08871f138cc5097ddd31faf2d37d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4bf190e59618a4a7dc786074cccd295"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aa4bf190e59618a4a7dc786074cccd295">nDotEdotScaling</a></td></tr>
-<tr class="separator:aa4bf190e59618a4a7dc786074cccd295"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3563109dc3117ed71c4a392eaa10973"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ac3563109dc3117ed71c4a392eaa10973">hDotScaling</a></td></tr>
-<tr class="separator:ac3563109dc3117ed71c4a392eaa10973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83782e33444b53bcb092cc7c41395563"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a83782e33444b53bcb092cc7c41395563">receiverType</a></td></tr>
-<tr class="separator:a83782e33444b53bcb092cc7c41395563"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae75b2d063d93b41f2a1c95638e2233c1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ae75b2d063d93b41f2a1c95638e2233c1">ppmChannels</a></td></tr>
-<tr class="separator:ae75b2d063d93b41f2a1c95638e2233c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a544b4c2f1c3090cdf3829b730934eaec"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a544b4c2f1c3090cdf3829b730934eaec">slaveSpektrum</a></td></tr>
-<tr class="separator:a544b4c2f1c3090cdf3829b730934eaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2445da32b4a5fb7838bf4309a1ed43cd"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a2445da32b4a5fb7838bf4309a1ed43cd">rcMap</a> [12]</td></tr>
-<tr class="separator:a2445da32b4a5fb7838bf4309a1ed43cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c74aaea4749b0ad3f51b48c5a90e52"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a75c74aaea4749b0ad3f51b48c5a90e52">escPwmRate</a></td></tr>
-<tr class="separator:a75c74aaea4749b0ad3f51b48c5a90e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a089b15108aad505d9fa2b5f8851a27dd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a089b15108aad505d9fa2b5f8851a27dd">servoPwmRate</a></td></tr>
-<tr class="separator:a089b15108aad505d9fa2b5f8851a27dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac06a95e1662c379031acb4653f855d5e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ac06a95e1662c379031acb4653f855d5e">midCommand</a></td></tr>
 <tr class="separator:ac06a95e1662c379031acb4653f855d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6daa80d9fe2438fcc4b755817f9502a6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a6daa80d9fe2438fcc4b755817f9502a6">minCheck</a></td></tr>
@@ -142,32 +139,6 @@ Data Fields</h2></td></tr>
 <tr class="separator:a15003441b8f0bb4c12c4f417e76e27a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84baef155eccd803b22fae00a4acf452"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a84baef155eccd803b22fae00a4acf452">maxThrottle</a></td></tr>
 <tr class="separator:a84baef155eccd803b22fae00a4acf452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac394d57d5bc5f46de1e4dc99b642ea20"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ac394d57d5bc5f46de1e4dc99b642ea20">mixerConfiguration</a></td></tr>
-<tr class="separator:ac394d57d5bc5f46de1e4dc99b642ea20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4eb242b3da231f4c1a26530e51a0104"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad4eb242b3da231f4c1a26530e51a0104">yawDirection</a></td></tr>
-<tr class="separator:ad4eb242b3da231f4c1a26530e51a0104"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2592bc216f09bd7f2df046fcd00659ec"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a2592bc216f09bd7f2df046fcd00659ec">triYawServoPwmRate</a></td></tr>
-<tr class="separator:a2592bc216f09bd7f2df046fcd00659ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab79e002f1edb7fd0e5ed306a8b45d069"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ab79e002f1edb7fd0e5ed306a8b45d069">triYawServoMin</a></td></tr>
-<tr class="separator:ab79e002f1edb7fd0e5ed306a8b45d069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67cf80970a95f6256baaff6b93a7bf3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad67cf80970a95f6256baaff6b93a7bf3">triYawServoMid</a></td></tr>
-<tr class="separator:ad67cf80970a95f6256baaff6b93a7bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d89008b90d8937d7018ce14e49abad6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a0d89008b90d8937d7018ce14e49abad6">triYawServoMax</a></td></tr>
-<tr class="separator:a0d89008b90d8937d7018ce14e49abad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e583adf854f5f02e3ca636e65d8d17c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a4e583adf854f5f02e3ca636e65d8d17c">triCopterYawCmd500HzLowPassTau</a></td></tr>
-<tr class="separator:a4e583adf854f5f02e3ca636e65d8d17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa110c10c2871111faa2726006474f6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#abaa110c10c2871111faa2726006474f6">freeMixMotors</a></td></tr>
-<tr class="separator:abaa110c10c2871111faa2726006474f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a920729598a9cd9376b5a7e39a3e5346c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a920729598a9cd9376b5a7e39a3e5346c">freeMix</a> [8][4]</td></tr>
-<tr class="separator:a920729598a9cd9376b5a7e39a3e5346c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae166cdc0df2f558af82eadc822d90995"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ae166cdc0df2f558af82eadc822d90995">rollAttAltCompensationGain</a></td></tr>
-<tr class="separator:ae166cdc0df2f558af82eadc822d90995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affcefb923cb2a79ef288cb9b8deff074"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#affcefb923cb2a79ef288cb9b8deff074">rollAttAltCompensationLimit</a></td></tr>
-<tr class="separator:affcefb923cb2a79ef288cb9b8deff074"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a432d27ae69e55f867f1b3be9440e7e48"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a432d27ae69e55f867f1b3be9440e7e48">pitchAttAltCompensationGain</a></td></tr>
-<tr class="separator:a432d27ae69e55f867f1b3be9440e7e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a931de289b660ea002685035876ed351c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a931de289b660ea002685035876ed351c">pitchAttAltCompensationLimit</a></td></tr>
-<tr class="separator:a931de289b660ea002685035876ed351c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad725b40cda69d752a3ab6af73be69665"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pid_8h.html#aeb4c23d9965370b1ede6fb6554701558">PIDdata_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad725b40cda69d752a3ab6af73be69665">PID</a> [<a class="el" href="_autodrone32_8h.html#adb5f5593a7f0b6da2433469fa680424c">NUMBER_OF_PIDS</a>]</td></tr>
 <tr class="separator:ad725b40cda69d752a3ab6af73be69665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825037e36da093b402ac68facb565c0e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a825037e36da093b402ac68facb565c0e">osdEnabled</a></td></tr>
@@ -230,66 +201,14 @@ Data Fields</h2></td></tr>
 <tr class="separator:a700a62bb5885d977e673699cef1f1d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2deb058f866e8fef91518ede3275bc2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ac2deb058f866e8fef91518ede3275bc2">osdDisplayTimerCol</a></td></tr>
 <tr class="separator:ac2deb058f866e8fef91518ede3275bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a550386df9b2a702ab64a92042681fa35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a550386df9b2a702ab64a92042681fa35">aglPin</a></td></tr>
-<tr class="separator:a550386df9b2a702ab64a92042681fa35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895af807a0e66ed5176aeefc3809f106"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a895af807a0e66ed5176aeefc3809f106">aglScale</a></td></tr>
-<tr class="separator:a895af807a0e66ed5176aeefc3809f106"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f471164b8fca3ad70fdad6e96bc4a45"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a5f471164b8fca3ad70fdad6e96bc4a45">aglBias</a></td></tr>
-<tr class="separator:a5f471164b8fca3ad70fdad6e96bc4a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03507b4bb30963c78234c72c6b431cba"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a03507b4bb30963c78234c72c6b431cba">currentMonitoring</a></td></tr>
-<tr class="separator:a03507b4bb30963c78234c72c6b431cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a829074bc21efef40d22126c1ee1b7c06"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a829074bc21efef40d22126c1ee1b7c06">currentMonitorPin</a></td></tr>
-<tr class="separator:a829074bc21efef40d22126c1ee1b7c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a7aa7ad8c111bd5c09f2451a5f70566"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a9a7aa7ad8c111bd5c09f2451a5f70566">currentMonitorScale</a></td></tr>
-<tr class="separator:a9a7aa7ad8c111bd5c09f2451a5f70566"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f4477b4c24ad368013feb6b74b87042"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a3f4477b4c24ad368013feb6b74b87042">currentMonitorBias</a></td></tr>
-<tr class="separator:a3f4477b4c24ad368013feb6b74b87042"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a57f37608efe5f7b7761e212112be9c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a4a57f37608efe5f7b7761e212112be9c">rssiPPM</a></td></tr>
-<tr class="separator:a4a57f37608efe5f7b7761e212112be9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa50381f78f9ace88d16da010da856da3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aa50381f78f9ace88d16da010da856da3">rssiPin</a></td></tr>
-<tr class="separator:aa50381f78f9ace88d16da010da856da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd77bc496c43402cece12d9d6e9e721d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#afd77bc496c43402cece12d9d6e9e721d">rssiMax</a></td></tr>
-<tr class="separator:afd77bc496c43402cece12d9d6e9e721d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad75b3708bdc4dc702a14ee55f9ead807"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad75b3708bdc4dc702a14ee55f9ead807">rssiMin</a></td></tr>
-<tr class="separator:ad75b3708bdc4dc702a14ee55f9ead807"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bbdbeff99a3e90f789640d7050a2ab0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a0bbdbeff99a3e90f789640d7050a2ab0">rssiWarning</a></td></tr>
-<tr class="separator:a0bbdbeff99a3e90f789640d7050a2ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996556976c4a426925eae54cf54f5124"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a996556976c4a426925eae54cf54f5124">voltageMonitorPin</a></td></tr>
-<tr class="separator:a996556976c4a426925eae54cf54f5124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd9e24950cac61d7bf7704a65e5f5c3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#abdd9e24950cac61d7bf7704a65e5f5c3">voltageMonitorScale</a></td></tr>
-<tr class="separator:abdd9e24950cac61d7bf7704a65e5f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a927d41649d656b0c4ea3d2a6ea0313e8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a927d41649d656b0c4ea3d2a6ea0313e8">voltageMonitorBias</a></td></tr>
-<tr class="separator:a927d41649d656b0c4ea3d2a6ea0313e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5702cf3cd8d811e55f5f8e77563d5298"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a5702cf3cd8d811e55f5f8e77563d5298">batteryCells</a></td></tr>
-<tr class="separator:a5702cf3cd8d811e55f5f8e77563d5298"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a7fba4fce4b21c406cdb8e1bc05733c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a2a7fba4fce4b21c406cdb8e1bc05733c">batteryLow</a></td></tr>
-<tr class="separator:a2a7fba4fce4b21c406cdb8e1bc05733c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a193a4b94d8960f8d3ae77e11da638f18"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a193a4b94d8960f8d3ae77e11da638f18">batteryVeryLow</a></td></tr>
-<tr class="separator:a193a4b94d8960f8d3ae77e11da638f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100caeaea2d8090a9ab2bd3f000b9ba6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a100caeaea2d8090a9ab2bd3f000b9ba6">batteryMaxLow</a></td></tr>
-<tr class="separator:a100caeaea2d8090a9ab2bd3f000b9ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8331c3665459f6d7309504ccce4e45f4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a8331c3665459f6d7309504ccce4e45f4">armCount</a></td></tr>
-<tr class="separator:a8331c3665459f6d7309504ccce4e45f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eb36c5679c8fb9f8b9cb2721880ef07"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a4eb36c5679c8fb9f8b9cb2721880ef07">disarmCount</a></td></tr>
-<tr class="separator:a4eb36c5679c8fb9f8b9cb2721880ef07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ce88c7c959b0ad00e87d025bed1e97b"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a5ce88c7c959b0ad00e87d025bed1e97b">activeTelemetry</a></td></tr>
 <tr class="separator:a5ce88c7c959b0ad00e87d025bed1e97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd517b469df973fae6a48f55c2de96dc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#acd517b469df973fae6a48f55c2de96dc">mavlinkEnabled</a></td></tr>
-<tr class="separator:acd517b469df973fae6a48f55c2de96dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a966858773d9801f7ed82c71430ffc5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a2a966858773d9801f7ed82c71430ffc5">verticalVelocityHoldOnly</a></td></tr>
-<tr class="separator:a2a966858773d9801f7ed82c71430ffc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a176f298874ff1895808eadb8810b56eb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#a176f298874ff1895808eadb8810b56eb">externalHMC5883</a></td></tr>
-<tr class="separator:a176f298874ff1895808eadb8810b56eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adde71bba6215e89d3243bac9f41fb8d3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#adde71bba6215e89d3243bac9f41fb8d3">externalMS5611</a></td></tr>
-<tr class="separator:adde71bba6215e89d3243bac9f41fb8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb51ce50bd85faf7e6af7a8cd0de5e0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#aabb51ce50bd85faf7e6af7a8cd0de5e0">CRCFlags</a></td></tr>
-<tr class="separator:aabb51ce50bd85faf7e6af7a8cd0de5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6c812e9d37bbd28f9194f814db00b0b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ae6c812e9d37bbd28f9194f814db00b0b">CRCAtEnd</a> [1]</td></tr>
-<tr class="separator:ae6c812e9d37bbd28f9194f814db00b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4eb242b3da231f4c1a26530e51a0104"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeeprom_config__t.html#ad4eb242b3da231f4c1a26530e51a0104">yawDirection</a></td></tr>
+<tr class="separator:ad4eb242b3da231f4c1a26530e51a0104"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00177">177</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00169">169</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a94c97906cdb928950cc6c595f1269082" name="a94c97906cdb928950cc6c595f1269082"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94c97906cdb928950cc6c595f1269082">&#9670;&nbsp;</a></span>accelBiasMPU</h2>
@@ -303,23 +222,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00183">183</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ab99ced47a5f7412dc1cc9fdf1d776459" name="ab99ced47a5f7412dc1cc9fdf1d776459"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab99ced47a5f7412dc1cc9fdf1d776459">&#9670;&nbsp;</a></span>accelBiasMXR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float accelBiasMXR[3]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00186">186</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00175">175</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -335,7 +238,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00197">197</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00186">186</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -351,23 +254,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00184">184</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a339cc867657e895b32b0f53c4790f822" name="a339cc867657e895b32b0f53c4790f822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a339cc867657e895b32b0f53c4790f822">&#9670;&nbsp;</a></span>accelScaleFactorMXR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float accelScaleFactorMXR[3]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00187">187</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00176">176</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -383,7 +270,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00190">190</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00179">179</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -399,7 +286,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00189">189</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00178">178</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -415,71 +302,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00346">346</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a5f471164b8fca3ad70fdad6e96bc4a45" name="a5f471164b8fca3ad70fdad6e96bc4a45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f471164b8fca3ad70fdad6e96bc4a45">&#9670;&nbsp;</a></span>aglBias</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float aglBias</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00316">316</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a550386df9b2a702ab64a92042681fa35" name="a550386df9b2a702ab64a92042681fa35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a550386df9b2a702ab64a92042681fa35">&#9670;&nbsp;</a></span>aglPin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t aglPin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00314">314</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a895af807a0e66ed5176aeefc3809f106" name="a895af807a0e66ed5176aeefc3809f106"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895af807a0e66ed5176aeefc3809f106">&#9670;&nbsp;</a></span>aglScale</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float aglScale</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00315">315</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a8331c3665459f6d7309504ccce4e45f4" name="a8331c3665459f6d7309504ccce4e45f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8331c3665459f6d7309504ccce4e45f4">&#9670;&nbsp;</a></span>armCount</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t armCount</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00341">341</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00263">263</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -495,199 +318,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00220">220</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a5702cf3cd8d811e55f5f8e77563d5298" name="a5702cf3cd8d811e55f5f8e77563d5298"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5702cf3cd8d811e55f5f8e77563d5298">&#9670;&nbsp;</a></span>batteryCells</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t batteryCells</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00333">333</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a2a7fba4fce4b21c406cdb8e1bc05733c" name="a2a7fba4fce4b21c406cdb8e1bc05733c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a7fba4fce4b21c406cdb8e1bc05733c">&#9670;&nbsp;</a></span>batteryLow</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float batteryLow</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00335">335</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a100caeaea2d8090a9ab2bd3f000b9ba6" name="a100caeaea2d8090a9ab2bd3f000b9ba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a100caeaea2d8090a9ab2bd3f000b9ba6">&#9670;&nbsp;</a></span>batteryMaxLow</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float batteryMaxLow</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00337">337</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a193a4b94d8960f8d3ae77e11da638f18" name="a193a4b94d8960f8d3ae77e11da638f18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a193a4b94d8960f8d3ae77e11da638f18">&#9670;&nbsp;</a></span>batteryVeryLow</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float batteryVeryLow</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00336">336</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ad6025b3ec5530410c58ab138965961a5" name="ad6025b3ec5530410c58ab138965961a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6025b3ec5530410c58ab138965961a5">&#9670;&nbsp;</a></span>compFilterA</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float compFilterA</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00207">207</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ac8bb4c274bee951c5cdfb771f8c14abe" name="ac8bb4c274bee951c5cdfb771f8c14abe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8bb4c274bee951c5cdfb771f8c14abe">&#9670;&nbsp;</a></span>compFilterB</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float compFilterB</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00209">209</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ae6c812e9d37bbd28f9194f814db00b0b" name="ae6c812e9d37bbd28f9194f814db00b0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6c812e9d37bbd28f9194f814db00b0b">&#9670;&nbsp;</a></span>CRCAtEnd</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t CRCAtEnd[1]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00362">362</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="aabb51ce50bd85faf7e6af7a8cd0de5e0" name="aabb51ce50bd85faf7e6af7a8cd0de5e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb51ce50bd85faf7e6af7a8cd0de5e0">&#9670;&nbsp;</a></span>CRCFlags</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t CRCFlags</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00361">361</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a3f4477b4c24ad368013feb6b74b87042" name="a3f4477b4c24ad368013feb6b74b87042"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f4477b4c24ad368013feb6b74b87042">&#9670;&nbsp;</a></span>currentMonitorBias</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float currentMonitorBias</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00321">321</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a03507b4bb30963c78234c72c6b431cba" name="a03507b4bb30963c78234c72c6b431cba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03507b4bb30963c78234c72c6b431cba">&#9670;&nbsp;</a></span>currentMonitoring</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t currentMonitoring</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00318">318</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a829074bc21efef40d22126c1ee1b7c06" name="a829074bc21efef40d22126c1ee1b7c06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a829074bc21efef40d22126c1ee1b7c06">&#9670;&nbsp;</a></span>currentMonitorPin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t currentMonitorPin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00319">319</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a9a7aa7ad8c111bd5c09f2451a5f70566" name="a9a7aa7ad8c111bd5c09f2451a5f70566"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a7aa7ad8c111bd5c09f2451a5f70566">&#9670;&nbsp;</a></span>currentMonitorScale</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float currentMonitorScale</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00320">320</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00205">205</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -703,23 +334,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00273">273</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a4eb36c5679c8fb9f8b9cb2721880ef07" name="a4eb36c5679c8fb9f8b9cb2721880ef07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eb36c5679c8fb9f8b9cb2721880ef07">&#9670;&nbsp;</a></span>disarmCount</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t disarmCount</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00342">342</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00222">222</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -735,87 +350,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00211">211</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a75c74aaea4749b0ad3f51b48c5a90e52" name="a75c74aaea4749b0ad3f51b48c5a90e52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75c74aaea4749b0ad3f51b48c5a90e52">&#9670;&nbsp;</a></span>escPwmRate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t escPwmRate</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00234">234</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a176f298874ff1895808eadb8810b56eb" name="a176f298874ff1895808eadb8810b56eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a176f298874ff1895808eadb8810b56eb">&#9670;&nbsp;</a></span>externalHMC5883</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t externalHMC5883</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00356">356</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="adde71bba6215e89d3243bac9f41fb8d3" name="adde71bba6215e89d3243bac9f41fb8d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adde71bba6215e89d3243bac9f41fb8d3">&#9670;&nbsp;</a></span>externalMS5611</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t externalMS5611</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00357">357</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a920729598a9cd9376b5a7e39a3e5346c" name="a920729598a9cd9376b5a7e39a3e5346c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a920729598a9cd9376b5a7e39a3e5346c">&#9670;&nbsp;</a></span>freeMix</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float freeMix[8][4]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00256">256</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="abaa110c10c2871111faa2726006474f6" name="abaa110c10c2871111faa2726006474f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaa110c10c2871111faa2726006474f6">&#9670;&nbsp;</a></span>freeMixMotors</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t freeMixMotors</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00254">254</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00196">196</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -831,7 +366,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00193">193</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00182">182</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -847,23 +382,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00192">192</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ac3563109dc3117ed71c4a392eaa10973" name="ac3563109dc3117ed71c4a392eaa10973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3563109dc3117ed71c4a392eaa10973">&#9670;&nbsp;</a></span>hDotScaling</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float hDotScaling</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00224">224</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00181">181</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -879,7 +398,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00201">201</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00190">190</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -895,7 +414,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00205">205</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00194">194</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -911,7 +430,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00199">199</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00188">188</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -927,7 +446,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00203">203</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00192">192</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -943,23 +462,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00195">195</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="acd517b469df973fae6a48f55c2de96dc" name="acd517b469df973fae6a48f55c2de96dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd517b469df973fae6a48f55c2de96dc">&#9670;&nbsp;</a></span>mavlinkEnabled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t mavlinkEnabled</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00348">348</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00184">184</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -975,7 +478,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00239">239</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00211">211</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -991,7 +494,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00241">241</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00213">213</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1007,7 +510,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00274">274</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00223">223</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1023,7 +526,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00237">237</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00209">209</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +542,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00238">238</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00210">210</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1055,39 +558,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00240">240</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ac394d57d5bc5f46de1e4dc99b642ea20" name="ac394d57d5bc5f46de1e4dc99b642ea20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac394d57d5bc5f46de1e4dc99b642ea20">&#9670;&nbsp;</a></span>mixerConfiguration</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t mixerConfiguration</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00245">245</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="aa4bf190e59618a4a7dc786074cccd295" name="aa4bf190e59618a4a7dc786074cccd295"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4bf190e59618a4a7dc786074cccd295">&#9670;&nbsp;</a></span>nDotEdotScaling</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float nDotEdotScaling</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00222">222</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00212">212</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1103,7 +574,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00281">281</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00230">230</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1119,7 +590,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00276">276</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00225">225</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1135,7 +606,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00278">278</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00227">227</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1151,7 +622,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00279">279</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00228">228</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1167,7 +638,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00277">277</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00226">226</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1183,7 +654,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00282">282</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00231">231</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1199,7 +670,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00296">296</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00245">245</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1215,7 +686,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00298">298</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00247">247</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1231,7 +702,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00297">297</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00246">246</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1247,7 +718,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00284">284</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00233">233</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1263,7 +734,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00288">288</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00237">237</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1279,7 +750,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00290">290</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00239">239</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1295,7 +766,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00289">289</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00238">238</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1311,7 +782,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00286">286</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00235">235</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1327,7 +798,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00285">285</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00234">234</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1343,7 +814,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00304">304</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00253">253</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1359,7 +830,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00306">306</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00255">255</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1375,7 +846,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00305">305</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00254">254</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1391,7 +862,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00300">300</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00249">249</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1407,7 +878,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00302">302</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00251">251</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1423,7 +894,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00301">301</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00250">250</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1439,7 +910,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00308">308</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00257">257</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1455,7 +926,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00310">310</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00259">259</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1471,7 +942,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00309">309</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00258">258</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1487,7 +958,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00292">292</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00241">241</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1503,7 +974,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00294">294</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00243">243</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1519,7 +990,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00293">293</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00242">242</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1535,7 +1006,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00272">272</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00221">221</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1551,87 +1022,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00268">268</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a432d27ae69e55f867f1b3be9440e7e48" name="a432d27ae69e55f867f1b3be9440e7e48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a432d27ae69e55f867f1b3be9440e7e48">&#9670;&nbsp;</a></span>pitchAttAltCompensationGain</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float pitchAttAltCompensationGain</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00263">263</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a931de289b660ea002685035876ed351c" name="a931de289b660ea002685035876ed351c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a931de289b660ea002685035876ed351c">&#9670;&nbsp;</a></span>pitchAttAltCompensationLimit</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float pitchAttAltCompensationLimit</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00264">264</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ae75b2d063d93b41f2a1c95638e2233c1" name="ae75b2d063d93b41f2a1c95638e2233c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae75b2d063d93b41f2a1c95638e2233c1">&#9670;&nbsp;</a></span>ppmChannels</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t ppmChannels</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00229">229</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a2445da32b4a5fb7838bf4309a1ed43cd" name="a2445da32b4a5fb7838bf4309a1ed43cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2445da32b4a5fb7838bf4309a1ed43cd">&#9670;&nbsp;</a></span>rcMap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t rcMap[12]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00232">232</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a83782e33444b53bcb092cc7c41395563" name="a83782e33444b53bcb092cc7c41395563"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83782e33444b53bcb092cc7c41395563">&#9670;&nbsp;</a></span>receiverType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t receiverType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00228">228</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00217">217</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1647,119 +1038,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00217">217</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ae166cdc0df2f558af82eadc822d90995" name="ae166cdc0df2f558af82eadc822d90995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae166cdc0df2f558af82eadc822d90995">&#9670;&nbsp;</a></span>rollAttAltCompensationGain</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float rollAttAltCompensationGain</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00260">260</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="affcefb923cb2a79ef288cb9b8deff074" name="affcefb923cb2a79ef288cb9b8deff074"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affcefb923cb2a79ef288cb9b8deff074">&#9670;&nbsp;</a></span>rollAttAltCompensationLimit</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float rollAttAltCompensationLimit</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00261">261</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="afd77bc496c43402cece12d9d6e9e721d" name="afd77bc496c43402cece12d9d6e9e721d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd77bc496c43402cece12d9d6e9e721d">&#9670;&nbsp;</a></span>rssiMax</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t rssiMax</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00325">325</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ad75b3708bdc4dc702a14ee55f9ead807" name="ad75b3708bdc4dc702a14ee55f9ead807"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad75b3708bdc4dc702a14ee55f9ead807">&#9670;&nbsp;</a></span>rssiMin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t rssiMin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00326">326</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="aa50381f78f9ace88d16da010da856da3" name="aa50381f78f9ace88d16da010da856da3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa50381f78f9ace88d16da010da856da3">&#9670;&nbsp;</a></span>rssiPin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t rssiPin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00324">324</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a4a57f37608efe5f7b7761e212112be9c" name="a4a57f37608efe5f7b7761e212112be9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a57f37608efe5f7b7761e212112be9c">&#9670;&nbsp;</a></span>rssiPPM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t rssiPPM</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00323">323</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a0bbdbeff99a3e90f789640d7050a2ab0" name="a0bbdbeff99a3e90f789640d7050a2ab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bbdbeff99a3e90f789640d7050a2ab0">&#9670;&nbsp;</a></span>rssiWarning</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t rssiWarning</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00327">327</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00202">202</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1775,119 +1054,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00213">213</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a089b15108aad505d9fa2b5f8851a27dd" name="a089b15108aad505d9fa2b5f8851a27dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a089b15108aad505d9fa2b5f8851a27dd">&#9670;&nbsp;</a></span>servoPwmRate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t servoPwmRate</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00235">235</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a544b4c2f1c3090cdf3829b730934eaec" name="a544b4c2f1c3090cdf3829b730934eaec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a544b4c2f1c3090cdf3829b730934eaec">&#9670;&nbsp;</a></span>slaveSpektrum</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t slaveSpektrum</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00230">230</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a4e583adf854f5f02e3ca636e65d8d17c" name="a4e583adf854f5f02e3ca636e65d8d17c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e583adf854f5f02e3ca636e65d8d17c">&#9670;&nbsp;</a></span>triCopterYawCmd500HzLowPassTau</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float triCopterYawCmd500HzLowPassTau</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00252">252</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a0d89008b90d8937d7018ce14e49abad6" name="a0d89008b90d8937d7018ce14e49abad6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d89008b90d8937d7018ce14e49abad6">&#9670;&nbsp;</a></span>triYawServoMax</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float triYawServoMax</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00251">251</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ad67cf80970a95f6256baaff6b93a7bf3" name="ad67cf80970a95f6256baaff6b93a7bf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad67cf80970a95f6256baaff6b93a7bf3">&#9670;&nbsp;</a></span>triYawServoMid</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float triYawServoMid</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00250">250</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="ab79e002f1edb7fd0e5ed306a8b45d069" name="ab79e002f1edb7fd0e5ed306a8b45d069"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab79e002f1edb7fd0e5ed306a8b45d069">&#9670;&nbsp;</a></span>triYawServoMin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float triYawServoMin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00249">249</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a2592bc216f09bd7f2df046fcd00659ec" name="a2592bc216f09bd7f2df046fcd00659ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2592bc216f09bd7f2df046fcd00659ec">&#9670;&nbsp;</a></span>triYawServoPwmRate</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t triYawServoPwmRate</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00248">248</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00198">198</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1903,71 +1070,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00181">181</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a2a966858773d9801f7ed82c71430ffc5" name="a2a966858773d9801f7ed82c71430ffc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a966858773d9801f7ed82c71430ffc5">&#9670;&nbsp;</a></span>verticalVelocityHoldOnly</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t verticalVelocityHoldOnly</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00352">352</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a927d41649d656b0c4ea3d2a6ea0313e8" name="a927d41649d656b0c4ea3d2a6ea0313e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a927d41649d656b0c4ea3d2a6ea0313e8">&#9670;&nbsp;</a></span>voltageMonitorBias</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float voltageMonitorBias</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00331">331</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="a996556976c4a426925eae54cf54f5124" name="a996556976c4a426925eae54cf54f5124"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a996556976c4a426925eae54cf54f5124">&#9670;&nbsp;</a></span>voltageMonitorPin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t voltageMonitorPin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00329">329</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
-
-</div>
-</div>
-<a id="abdd9e24950cac61d7bf7704a65e5f5c3" name="abdd9e24950cac61d7bf7704a65e5f5c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdd9e24950cac61d7bf7704a65e5f5c3">&#9670;&nbsp;</a></span>voltageMonitorScale</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float voltageMonitorScale</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00330">330</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00173">173</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1983,7 +1086,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00246">246</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00267">267</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -1999,7 +1102,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00218">218</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_autodrone32_8h_source.html#l00203">203</a> of file <a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a>.</p>
 
 </div>
 </div>
@@ -2007,9 +1110,13 @@ Data Fields</h2></td></tr>
 <li>/Users/jeremywolfe/Documents/STM32CubeIDE/Autodrone32/Src/<a class="el" href="_autodrone32_8h_source.html">Autodrone32.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structeeprom_config__t.html">eepromConfig_t</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

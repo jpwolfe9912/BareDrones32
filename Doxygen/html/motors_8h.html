@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('motors_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,13 +82,9 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -79,6 +97,11 @@ $(function() {
 
 <p><a href="motors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aab90df598eba3aa4b1a839b692079929"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">MOTOR_COUNT</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:aab90df598eba3aa4b1a839b692079929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a52d59931063c311b3db496e3dd723b9e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a52d59931063c311b3db496e3dd723b9e">motors_e</a> { <a class="el" href="motors_8h.html#a52d59931063c311b3db496e3dd723b9ea492d91d9c76773912f54454e732c6a28">MOTOR1</a>
@@ -91,6 +114,29 @@ Enumerations</h2></td></tr>
 , <a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558">MOTORS_MODE_3D</a>
  }</td></tr>
 <tr class="separator:a1af94b4ea9c6b49096bcd6a7b26c4f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2badb8e8b9c552183fea6d14465a131"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a> { <br />
+&#160;&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345">MOTORS_NONE</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684">MOTORS_1</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b">MOTORS_2</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c">MOTORS_12</a>
+, <br />
+&#160;&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7">MOTORS_3</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee">MOTORS_13</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9">MOTORS_23</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de">MOTORS_123</a>
+, <br />
+&#160;&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6">MOTORS_4</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f">MOTORS_14</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005">MOTORS_24</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1">MOTORS_124</a>
+, <br />
+&#160;&#160;<a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6">MOTORS_34</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962">MOTORS_134</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7">MOTORS_234</a>
+, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e">MOTORS_1234</a>
+<br />
+ }</td></tr>
+<tr class="separator:aa2badb8e8b9c552183fea6d14465a131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -103,11 +149,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a9238ba3b6684798019bc8c64291f72f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a9238ba3b6684798019bc8c64291f72f1">motors3dOff</a> (void)</td></tr>
 <tr class="memdesc:a9238ba3b6684798019bc8c64291f72f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes motor mode to 3D.  <a href="motors_8h.html#a9238ba3b6684798019bc8c64291f72f1">More...</a><br /></td></tr>
 <tr class="separator:a9238ba3b6684798019bc8c64291f72f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18343f2bb120a8efa91ca65b6ef950a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a18343f2bb120a8efa91ca65b6ef950a5">motorsSettingsSave</a> (void)</td></tr>
+<tr class="separator:a18343f2bb120a8efa91ca65b6ef950a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206313c3415b312b6ffe43c1c552a853"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a206313c3415b312b6ffe43c1c552a853">motorsChangeMode</a> (<a class="el" href="drv__dshot_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a> command, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a> motors)</td></tr>
+<tr class="separator:a206313c3415b312b6ffe43c1c552a853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a9e7bfc8712149ed5ab675edfc0773f21"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a9e7bfc8712149ed5ab675edfc0773f21">motor_value</a> [4]</td></tr>
-<tr class="separator:a9e7bfc8712149ed5ab675edfc0773f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac96647f4976d16e8a084441dcfd5dcf8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#ac96647f4976d16e8a084441dcfd5dcf8">motor_value</a> [<a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">MOTOR_COUNT</a>]</td></tr>
+<tr class="separator:ac96647f4976d16e8a084441dcfd5dcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motor_initialized</a></td></tr>
 <tr class="separator:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab481fde20557f669231b9bfa1ea911d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01">motors_mode_e</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8h.html#ab481fde20557f669231b9bfa1ea911d5">motors_mode</a></td></tr>
@@ -119,7 +169,24 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>03 MAR 2022 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aab90df598eba3aa4b1a839b692079929" name="aab90df598eba3aa4b1a839b692079929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab90df598eba3aa4b1a839b692079929">&#9670;&nbsp;</a></span>MOTOR_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR_COUNT&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00014">14</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a52d59931063c311b3db496e3dd723b9e" name="a52d59931063c311b3db496e3dd723b9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52d59931063c311b3db496e3dd723b9e">&#9670;&nbsp;</a></span>motors_e</h2>
 
@@ -138,7 +205,41 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f" name="a52d59931063c311b3db496e3dd723b9ea2d2925398a9b00e63e7c37a1c710e02f"></a>MOTOR4&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00014">14</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00017">17</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+
+</div>
+</div>
+<a id="aa2badb8e8b9c552183fea6d14465a131" name="aa2badb8e8b9c552183fea6d14465a131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2badb8e8b9c552183fea6d14465a131">&#9670;&nbsp;</a></span>motors_grouped_e</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345" name="aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345"></a>MOTORS_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684" name="aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684"></a>MOTORS_1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b" name="aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b"></a>MOTORS_2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c" name="aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c"></a>MOTORS_12&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7" name="aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7"></a>MOTORS_3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee" name="aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee"></a>MOTORS_13&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9" name="aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9"></a>MOTORS_23&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de" name="aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de"></a>MOTORS_123&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6" name="aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6"></a>MOTORS_4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f" name="aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f"></a>MOTORS_14&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005" name="aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005"></a>MOTORS_24&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1" name="aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1"></a>MOTORS_124&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6" name="aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6"></a>MOTORS_34&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962" name="aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962"></a>MOTORS_134&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7" name="aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7"></a>MOTORS_234&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e" name="aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e"></a>MOTORS_1234&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00031">31</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
 
 </div>
 </div>
@@ -158,7 +259,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558" name="a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558"></a>MOTORS_MODE_3D&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00022">22</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8h_source.html#l00025">25</a> of file <a class="el" href="motors_8h_source.html">motors.h</a>.</p>
 
 </div>
 </div>
@@ -205,7 +306,7 @@ Variables</h2></td></tr>
 <p>Changes motor mode to 3D. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00069">69</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00072">72</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -229,6 +330,56 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00043">43</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+
+</div>
+</div>
+<a id="a206313c3415b312b6ffe43c1c552a853" name="a206313c3415b312b6ffe43c1c552a853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a206313c3415b312b6ffe43c1c552a853">&#9670;&nbsp;</a></span>motorsChangeMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motorsChangeMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="drv__dshot_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a>&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a>&#160;</td>
+          <td class="paramname"><em>motors</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00125">125</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+
+</div>
+</div>
+<a id="a18343f2bb120a8efa91ca65b6ef950a5" name="a18343f2bb120a8efa91ca65b6ef950a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18343f2bb120a8efa91ca65b6ef950a5">&#9670;&nbsp;</a></span>motorsSettingsSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motorsSettingsSave </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00099">99</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -257,8 +408,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9e7bfc8712149ed5ab675edfc0773f21" name="a9e7bfc8712149ed5ab675edfc0773f21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e7bfc8712149ed5ab675edfc0773f21">&#9670;&nbsp;</a></span>motor_value</h2>
+<a id="ac96647f4976d16e8a084441dcfd5dcf8" name="ac96647f4976d16e8a084441dcfd5dcf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac96647f4976d16e8a084441dcfd5dcf8">&#9670;&nbsp;</a></span>motor_value</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +418,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t motor_value[4]</td>
+          <td class="memname">uint16_t motor_value[<a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">MOTOR_COUNT</a>]</td>
         </tr>
       </table>
   </td>
@@ -306,9 +457,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="motors_8h.html">motors.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

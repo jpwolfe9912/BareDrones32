@@ -12,9 +12,10 @@ var searchData=
   ['deltatime50hz_9',['deltaTime50Hz',['../drv__system_8c.html#ac1a754416f6a406396c2b90f213596fa',1,'deltaTime50Hz():&#160;drv_system.c'],['../drv__system_8h.html#ac1a754416f6a406396c2b90f213596fa',1,'deltaTime50Hz():&#160;drv_system.c']]],
   ['deltatime5hz_10',['deltaTime5Hz',['../drv__system_8c.html#a5fdc99d0e02d51a59ae258803e0a4e39',1,'deltaTime5Hz():&#160;drv_system.c'],['../drv__system_8h.html#a5fdc99d0e02d51a59ae258803e0a4e39',1,'deltaTime5Hz():&#160;drv_system.c']]],
   ['devid_11',['devID',['../ibus_8c.html#abea449a895aa94f257f9208d671d4557',1,'ibus.c']]],
-  ['disarmcount_12',['disarmCount',['../structeeprom_config__t.html#a4eb36c5679c8fb9f8b9cb2721880ef07',1,'eepromConfig_t']]],
-  ['disarmingtimer_13',['disarmingTimer',['../process__commands_8c.html#abaaaab74a851da13a44ccd63988196cc',1,'disarmingTimer():&#160;process_commands.c'],['../process__commands_8h.html#abaaaab74a851da13a44ccd63988196cc',1,'disarmingTimer():&#160;process_commands.c']]],
-  ['dlpfsetting_14',['dlpfSetting',['../structeeprom_config__t.html#a1fae9709b532d02f3687af617a79722c',1,'eepromConfig_t']]],
-  ['dt100hz_15',['dt100Hz',['../drv__system_8h.html#aae9b062cb8a38789284d845851789d8e',1,'drv_system.h']]],
-  ['dt500hz_16',['dt500Hz',['../drv__system_8c.html#a5b935d43abfd4e3887e74108a02ae05c',1,'dt500Hz():&#160;drv_system.c'],['../drv__system_8h.html#a5b935d43abfd4e3887e74108a02ae05c',1,'dt500Hz():&#160;drv_system.c']]]
+  ['disarmingtimer_12',['disarmingTimer',['../process__commands_8c.html#abaaaab74a851da13a44ccd63988196cc',1,'disarmingTimer():&#160;process_commands.c'],['../process__commands_8h.html#abaaaab74a851da13a44ccd63988196cc',1,'disarmingTimer():&#160;process_commands.c']]],
+  ['dlpfsetting_13',['dlpfSetting',['../structeeprom_config__t.html#a1fae9709b532d02f3687af617a79722c',1,'eepromConfig_t']]],
+  ['dshot_5fcommand_5fcount_14',['dshot_command_count',['../drv__dshot_8c.html#af60fa63c00aaae81cf2c9e70fac050f8',1,'dshot_command_count():&#160;drv_dshot.c'],['../drv__dshot_8h.html#af60fa63c00aaae81cf2c9e70fac050f8',1,'dshot_command_count():&#160;drv_dshot.c']]],
+  ['dshot_5ftelemetry_15',['dshot_telemetry',['../drv__dshot_8c.html#a3952e07b870f58f83b263fcdf442558d',1,'dshot_telemetry():&#160;drv_dshot.c'],['../drv__dshot_8h.html#a3952e07b870f58f83b263fcdf442558d',1,'dshot_telemetry():&#160;drv_dshot.c']]],
+  ['dt100hz_16',['dt100Hz',['../drv__system_8h.html#aae9b062cb8a38789284d845851789d8e',1,'drv_system.h']]],
+  ['dt500hz_17',['dt500Hz',['../drv__system_8c.html#a5b935d43abfd4e3887e74108a02ae05c',1,'dt500Hz():&#160;drv_system.c'],['../drv__system_8h.html#a5b935d43abfd4e3887e74108a02ae05c',1,'dt500Hz():&#160;drv_system.c']]]
 ];

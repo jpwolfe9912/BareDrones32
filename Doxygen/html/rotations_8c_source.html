@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('rotations_8c_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="dir_e8bc06084b34115148cadd83e13467d4.html">motion</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">rotations.c</div></div>
 </div><!--header-->
@@ -114,24 +131,28 @@ $(function() {
 <div class="ttc" id="a_autodrone32_8h_html_af902416f65138704a180dbae2dc9d8f2"><div class="ttname"><a href="_autodrone32_8h.html#af902416f65138704a180dbae2dc9d8f2">ROLL</a></div><div class="ttdeci">#define ROLL</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00030">Autodrone32.h:30</a></div></div>
 <div class="ttc" id="a_autodrone32_8h_html_aff84eb8d433e63ee955ed2bd48d6df77"><div class="ttname"><a href="_autodrone32_8h.html#aff84eb8d433e63ee955ed2bd48d6df77">ZAXIS</a></div><div class="ttdeci">#define ZAXIS</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00045">Autodrone32.h:45</a></div></div>
 <div class="ttc" id="aboard_8h_html"><div class="ttname"><a href="board_8h.html">board.h</a></div><div class="ttdoc">This file bundles all the header files. This allows us to just include &quot;board.h&quot; in each file and hav...</div></div>
-<div class="ttc" id="ampu6000_8c_html_a09f05343283ca43390d2bd303416ac02"><div class="ttname"><a href="mpu6000_8c.html#a09f05343283ca43390d2bd303416ac02">computeMPU6000TCBias</a></div><div class="ttdeci">void computeMPU6000TCBias(void)</div><div class="ttdoc">Calculates the IMU temperature bias.</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00229">mpu6000.c:229</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_a10474e229ecbd68ab6c06e35efca291c"><div class="ttname"><a href="mpu6000_8c.html#a10474e229ecbd68ab6c06e35efca291c">gyroSummedSamples500Hz</a></div><div class="ttdeci">int32_t gyroSummedSamples500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00035">mpu6000.c:35</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_a2f086a0eec38508f4d11b532552e51f9"><div class="ttname"><a href="mpu6000_8c.html#a2f086a0eec38508f4d11b532552e51f9">gyroRTBias</a></div><div class="ttdeci">float gyroRTBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00031">mpu6000.c:31</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_a5a49a78cbbf03e6f554f7f45972c17da"><div class="ttname"><a href="mpu6000_8c.html#a5a49a78cbbf03e6f554f7f45972c17da">accelSummedSamples500Hz</a></div><div class="ttdeci">int32_t accelSummedSamples500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00021">mpu6000.c:21</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_a8f989a8cbfaa7527db003cb247c21390"><div class="ttname"><a href="mpu6000_8c.html#a8f989a8cbfaa7527db003cb247c21390">gyroTCBias</a></div><div class="ttdeci">float gyroTCBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00037">mpu6000.c:37</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_ac06ab38f500b93844fb26bd1fa3a6f5c"><div class="ttname"><a href="mpu6000_8c.html#ac06ab38f500b93844fb26bd1fa3a6f5c">nonRotatedGyroData</a></div><div class="ttdeci">float nonRotatedGyroData[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00041">mpu6000.c:41</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_ade31534035ac4fc1386d52ea7be9a269"><div class="ttname"><a href="mpu6000_8c.html#ade31534035ac4fc1386d52ea7be9a269">accelTCBias</a></div><div class="ttdeci">float accelTCBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00023">mpu6000.c:23</a></div></div>
-<div class="ttc" id="ampu6000_8c_html_af3c6ca67b3fd82aae7d738d2dac4c79d"><div class="ttname"><a href="mpu6000_8c.html#af3c6ca67b3fd82aae7d738d2dac4c79d">nonRotatedAccelData</a></div><div class="ttdeci">float nonRotatedAccelData[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00027">mpu6000.c:27</a></div></div>
-<div class="ttc" id="ampu6000_8h_html_a585dc9036243cba230705899afcf4348"><div class="ttname"><a href="mpu6000_8h.html#a585dc9036243cba230705899afcf4348">ACCEL_SCALE_FACTOR</a></div><div class="ttdeci">#define ACCEL_SCALE_FACTOR</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8h_source.html#l00088">mpu6000.h:88</a></div></div>
-<div class="ttc" id="ampu6000_8h_html_a9a726f5df52d7d55a122b9949686036d"><div class="ttname"><a href="mpu6000_8h.html#a9a726f5df52d7d55a122b9949686036d">GYRO_SCALE_FACTOR</a></div><div class="ttdeci">#define GYRO_SCALE_FACTOR</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8h_source.html#l00087">mpu6000.h:87</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_a09f05343283ca43390d2bd303416ac02"><div class="ttname"><a href="mpu6000_8c.html#a09f05343283ca43390d2bd303416ac02">computeMPU6000TCBias</a></div><div class="ttdeci">void computeMPU6000TCBias(void)</div><div class="ttdoc">Calculates the IMU temperature bias.</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00228">mpu6000.c:228</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_a10474e229ecbd68ab6c06e35efca291c"><div class="ttname"><a href="mpu6000_8c.html#a10474e229ecbd68ab6c06e35efca291c">gyroSummedSamples500Hz</a></div><div class="ttdeci">int32_t gyroSummedSamples500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00034">mpu6000.c:34</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_a2f086a0eec38508f4d11b532552e51f9"><div class="ttname"><a href="mpu6000_8c.html#a2f086a0eec38508f4d11b532552e51f9">gyroRTBias</a></div><div class="ttdeci">float gyroRTBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00030">mpu6000.c:30</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_a5a49a78cbbf03e6f554f7f45972c17da"><div class="ttname"><a href="mpu6000_8c.html#a5a49a78cbbf03e6f554f7f45972c17da">accelSummedSamples500Hz</a></div><div class="ttdeci">int32_t accelSummedSamples500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00020">mpu6000.c:20</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_a8f989a8cbfaa7527db003cb247c21390"><div class="ttname"><a href="mpu6000_8c.html#a8f989a8cbfaa7527db003cb247c21390">gyroTCBias</a></div><div class="ttdeci">float gyroTCBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00036">mpu6000.c:36</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_ac06ab38f500b93844fb26bd1fa3a6f5c"><div class="ttname"><a href="mpu6000_8c.html#ac06ab38f500b93844fb26bd1fa3a6f5c">nonRotatedGyroData</a></div><div class="ttdeci">float nonRotatedGyroData[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00040">mpu6000.c:40</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_ade31534035ac4fc1386d52ea7be9a269"><div class="ttname"><a href="mpu6000_8c.html#ade31534035ac4fc1386d52ea7be9a269">accelTCBias</a></div><div class="ttdeci">float accelTCBias[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00022">mpu6000.c:22</a></div></div>
+<div class="ttc" id="ampu6000_8c_html_af3c6ca67b3fd82aae7d738d2dac4c79d"><div class="ttname"><a href="mpu6000_8c.html#af3c6ca67b3fd82aae7d738d2dac4c79d">nonRotatedAccelData</a></div><div class="ttdeci">float nonRotatedAccelData[3]</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8c_source.html#l00026">mpu6000.c:26</a></div></div>
+<div class="ttc" id="ampu6000_8h_html_a585dc9036243cba230705899afcf4348"><div class="ttname"><a href="mpu6000_8h.html#a585dc9036243cba230705899afcf4348">ACCEL_SCALE_FACTOR</a></div><div class="ttdeci">#define ACCEL_SCALE_FACTOR</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8h_source.html#l00087">mpu6000.h:87</a></div></div>
+<div class="ttc" id="ampu6000_8h_html_a9a726f5df52d7d55a122b9949686036d"><div class="ttname"><a href="mpu6000_8h.html#a9a726f5df52d7d55a122b9949686036d">GYRO_SCALE_FACTOR</a></div><div class="ttdeci">#define GYRO_SCALE_FACTOR</div><div class="ttdef"><b>Definition:</b> <a href="mpu6000_8h_source.html#l00086">mpu6000.h:86</a></div></div>
 <div class="ttc" id="aorientation_8c_html_a3dc49f4b46f57265f699543f15cb4299"><div class="ttname"><a href="orientation_8c.html#a3dc49f4b46f57265f699543f15cb4299">mpuOrientationMatrix</a></div><div class="ttdeci">float mpuOrientationMatrix[9]</div><div class="ttdef"><b>Definition:</b> <a href="orientation_8c_source.html#l00013">orientation.c:13</a></div></div>
 <div class="ttc" id="arotations_8c_html_a4adc96eb39842aa957a90bfd4ad2dfe9"><div class="ttname"><a href="rotations_8c.html#a4adc96eb39842aa957a90bfd4ad2dfe9">computeRotations500Hz</a></div><div class="ttdeci">void computeRotations500Hz(void)</div><div class="ttdoc">Computes the body frame for 500Hz loop.</div><div class="ttdef"><b>Definition:</b> <a href="rotations_8c_source.html#l00017">rotations.c:17</a></div></div>
 <div class="ttc" id="astructsensors__t_html_a096936016bc19288738dbf774d57d563"><div class="ttname"><a href="structsensors__t.html#a096936016bc19288738dbf774d57d563">sensors_t::gyro500Hz</a></div><div class="ttdeci">float gyro500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00088">Autodrone32.h:88</a></div></div>
 <div class="ttc" id="astructsensors__t_html_a300c0da2a8ccecb8d188fa5d988b9244"><div class="ttname"><a href="structsensors__t.html#a300c0da2a8ccecb8d188fa5d988b9244">sensors_t::accel500Hz</a></div><div class="ttdeci">float accel500Hz[3]</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00085">Autodrone32.h:85</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="dir_e8bc06084b34115148cadd83e13467d4.html">motion</a></li><li class="navelem"><a class="el" href="rotations_8c.html">rotations.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

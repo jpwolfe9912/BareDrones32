@@ -11,8 +11,10 @@ This files enables the gpio, timer, and dma peripherals to send dshot commands w
 \item 
 void \mbox{\hyperlink{drv__dshot_8c_a62a368c6713202c7b690eccdede30231}{dshot\+Init}} (\mbox{\hyperlink{drv__dshot_8h_a7c00869f21339871c1e9e19880bbc2af}{dshot\+\_\+type\+\_\+e}} dshot\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Initializes the low level registers to set up the timer with PWM DMA. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshot\+Write}} (uint16\+\_\+t $\ast$\mbox{\hyperlink{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}{motor\+\_\+value}})
+void \mbox{\hyperlink{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}{dshot\+Write}} (uint16\+\_\+t $\ast$\mbox{\hyperlink{motors_8h_ac96647f4976d16e8a084441dcfd5dcf8}{motor\+\_\+value}})
 \begin{DoxyCompactList}\small\item\em Writes to the DMA buffer and starts the DMA stream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{drv__dshot_8c_a704bde1af40fd4ded6b073e7a25b6509}{dshot\+Wait}} (uint16\+\_\+t wait\+\_\+counts)
+\begin{DoxyCompactList}\small\item\em Waits for a certain amount of dshot commands. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{drv__dshot_8c_ac94fc5e78628ab5037170f7626ded1da}{DMA1\+\_\+\+Stream2\+\_\+\+IRQHandler}} (void)
 \begin{DoxyCompactList}\small\item\em This function handles DMA1 stream2 global interrupt. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{drv__dshot_8c_a30841f7aec070752b7b989ea8a271039}{DMA1\+\_\+\+Stream4\+\_\+\+IRQHandler}} (void)
@@ -21,6 +23,13 @@ void \mbox{\hyperlink{drv__dshot_8c_a1b70a4441662b1d6548e803499da414f}{DMA1\+\_\
 \begin{DoxyCompactList}\small\item\em This function handles DMA1 stream0 global interrupt. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{drv__dshot_8c_a51d485393cf37043623c8bd0abae12a1}{DMA1\+\_\+\+Stream3\+\_\+\+IRQHandler}} (void)
 \begin{DoxyCompactList}\small\item\em This function handles DMA1 stream3 global interrupt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{drv__dshot_8c_af60fa63c00aaae81cf2c9e70fac050f8}{dshot\+\_\+command\+\_\+count}} = 0
+\item 
+bool \mbox{\hyperlink{drv__dshot_8c_a3952e07b870f58f83b263fcdf442558d}{dshot\+\_\+telemetry}} = false
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -51,7 +60,7 @@ This function handles DMA1 stream0 global interrupt.
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00423}{423}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00451}{451}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8c_ac94fc5e78628ab5037170f7626ded1da}\label{drv__dshot_8c_ac94fc5e78628ab5037170f7626ded1da}} 
 \index{drv\_dshot.c@{drv\_dshot.c}!DMA1\_Stream2\_IRQHandler@{DMA1\_Stream2\_IRQHandler}}
@@ -65,7 +74,7 @@ This function handles DMA1 stream2 global interrupt.
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00393}{393}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00421}{421}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8c_a51d485393cf37043623c8bd0abae12a1}\label{drv__dshot_8c_a51d485393cf37043623c8bd0abae12a1}} 
 \index{drv\_dshot.c@{drv\_dshot.c}!DMA1\_Stream3\_IRQHandler@{DMA1\_Stream3\_IRQHandler}}
@@ -79,7 +88,7 @@ This function handles DMA1 stream3 global interrupt.
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00438}{438}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00466}{466}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8c_a30841f7aec070752b7b989ea8a271039}\label{drv__dshot_8c_a30841f7aec070752b7b989ea8a271039}} 
 \index{drv\_dshot.c@{drv\_dshot.c}!DMA1\_Stream4\_IRQHandler@{DMA1\_Stream4\_IRQHandler}}
@@ -93,7 +102,7 @@ This function handles DMA1 stream4 global interrupt.
 
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00408}{408}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00436}{436}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8c_a62a368c6713202c7b690eccdede30231}\label{drv__dshot_8c_a62a368c6713202c7b690eccdede30231}} 
 \index{drv\_dshot.c@{drv\_dshot.c}!dshotInit@{dshotInit}}
@@ -115,7 +124,29 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00034}{34}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00039}{39}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+
+\mbox{\Hypertarget{drv__dshot_8c_a704bde1af40fd4ded6b073e7a25b6509}\label{drv__dshot_8c_a704bde1af40fd4ded6b073e7a25b6509}} 
+\index{drv\_dshot.c@{drv\_dshot.c}!dshotWait@{dshotWait}}
+\index{dshotWait@{dshotWait}!drv\_dshot.c@{drv\_dshot.c}}
+\doxysubsubsection{\texorpdfstring{dshotWait()}{dshotWait()}}
+{\footnotesize\ttfamily void dshot\+Wait (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{wait\+\_\+counts }\end{DoxyParamCaption})}
+
+
+
+Waits for a certain amount of dshot commands. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wait\+\_\+counts} & Number of commands to wait for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00276}{276}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 
 \mbox{\Hypertarget{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}\label{drv__dshot_8c_ac2615e2db7d58bc52e98491e0132b606}} 
 \index{drv\_dshot.c@{drv\_dshot.c}!dshotWrite@{dshotWrite}}
@@ -137,5 +168,28 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00256}{256}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00261}{261}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{drv__dshot_8c_af60fa63c00aaae81cf2c9e70fac050f8}\label{drv__dshot_8c_af60fa63c00aaae81cf2c9e70fac050f8}} 
+\index{drv\_dshot.c@{drv\_dshot.c}!dshot\_command\_count@{dshot\_command\_count}}
+\index{dshot\_command\_count@{dshot\_command\_count}!drv\_dshot.c@{drv\_dshot.c}}
+\doxysubsubsection{\texorpdfstring{dshot\_command\_count}{dshot\_command\_count}}
+{\footnotesize\ttfamily volatile uint16\+\_\+t dshot\+\_\+command\+\_\+count = 0}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00017}{17}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
+
+\mbox{\Hypertarget{drv__dshot_8c_a3952e07b870f58f83b263fcdf442558d}\label{drv__dshot_8c_a3952e07b870f58f83b263fcdf442558d}} 
+\index{drv\_dshot.c@{drv\_dshot.c}!dshot\_telemetry@{dshot\_telemetry}}
+\index{dshot\_telemetry@{dshot\_telemetry}!drv\_dshot.c@{drv\_dshot.c}}
+\doxysubsubsection{\texorpdfstring{dshot\_telemetry}{dshot\_telemetry}}
+{\footnotesize\ttfamily bool dshot\+\_\+telemetry = false}
+
+
+
+Definition at line \mbox{\hyperlink{drv__dshot_8c_source_l00019}{19}} of file \mbox{\hyperlink{drv__dshot_8c_source}{drv\+\_\+dshot.\+c}}.
 

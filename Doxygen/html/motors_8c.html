@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('motors_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a> &#124;
@@ -90,12 +107,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a9238ba3b6684798019bc8c64291f72f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a9238ba3b6684798019bc8c64291f72f1">motors3dOff</a> (void)</td></tr>
 <tr class="memdesc:a9238ba3b6684798019bc8c64291f72f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes motor mode to 3D.  <a href="motors_8c.html#a9238ba3b6684798019bc8c64291f72f1">More...</a><br /></td></tr>
 <tr class="separator:a9238ba3b6684798019bc8c64291f72f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18343f2bb120a8efa91ca65b6ef950a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a18343f2bb120a8efa91ca65b6ef950a5">motorsSettingsSave</a> (void)</td></tr>
+<tr class="separator:a18343f2bb120a8efa91ca65b6ef950a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206313c3415b312b6ffe43c1c552a853"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a206313c3415b312b6ffe43c1c552a853">motorsChangeMode</a> (<a class="el" href="drv__dshot_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a> command, <a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a> motors)</td></tr>
+<tr class="separator:a206313c3415b312b6ffe43c1c552a853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a9e7bfc8712149ed5ab675edfc0773f21"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a9e7bfc8712149ed5ab675edfc0773f21">motor_value</a> [4]</td></tr>
-<tr class="separator:a9e7bfc8712149ed5ab675edfc0773f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motor_initialized</a> = 0</td></tr>
+<tr class="memitem:ac96647f4976d16e8a084441dcfd5dcf8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#ac96647f4976d16e8a084441dcfd5dcf8">motor_value</a> [<a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">MOTOR_COUNT</a>]</td></tr>
+<tr class="separator:ac96647f4976d16e8a084441dcfd5dcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#a7b0aa4cd41f19f0945cc0f63d768bb7e">motor_initialized</a> = false</td></tr>
 <tr class="separator:a7b0aa4cd41f19f0945cc0f63d768bb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab481fde20557f669231b9bfa1ea911d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01">motors_mode_e</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motors_8c.html#ab481fde20557f669231b9bfa1ea911d5">motors_mode</a> = <a class="el" href="motors_8h.html#a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66">MOTORS_MODE_NORMAL</a></td></tr>
 <tr class="separator:ab481fde20557f669231b9bfa1ea911d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,7 +170,7 @@ Variables</h2></td></tr>
 <p>Changes motor mode to 3D. </p>
 <dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00069">69</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00072">72</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
 
 </div>
 </div>
@@ -176,6 +197,56 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a206313c3415b312b6ffe43c1c552a853" name="a206313c3415b312b6ffe43c1c552a853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a206313c3415b312b6ffe43c1c552a853">&#9670;&nbsp;</a></span>motorsChangeMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motorsChangeMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="drv__dshot_8h.html#aaa1523141a62366e704d681c82094c0c">dshotCommands_e</a>&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="motors_8h.html#aa2badb8e8b9c552183fea6d14465a131">motors_grouped_e</a>&#160;</td>
+          <td class="paramname"><em>motors</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00125">125</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+
+</div>
+</div>
+<a id="a18343f2bb120a8efa91ca65b6ef950a5" name="a18343f2bb120a8efa91ca65b6ef950a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18343f2bb120a8efa91ca65b6ef950a5">&#9670;&nbsp;</a></span>motorsSettingsSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motorsSettingsSave </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="motors_8c_source.html#l00099">99</a> of file <a class="el" href="motors_8c_source.html">motors.c</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a7b0aa4cd41f19f0945cc0f63d768bb7e" name="a7b0aa4cd41f19f0945cc0f63d768bb7e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b0aa4cd41f19f0945cc0f63d768bb7e">&#9670;&nbsp;</a></span>motor_initialized</h2>
@@ -184,7 +255,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a> motor_initialized = 0</td>
+          <td class="memname"><a class="el" href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a> motor_initialized = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -193,14 +264,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9e7bfc8712149ed5ab675edfc0773f21" name="a9e7bfc8712149ed5ab675edfc0773f21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e7bfc8712149ed5ab675edfc0773f21">&#9670;&nbsp;</a></span>motor_value</h2>
+<a id="ac96647f4976d16e8a084441dcfd5dcf8" name="ac96647f4976d16e8a084441dcfd5dcf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac96647f4976d16e8a084441dcfd5dcf8">&#9670;&nbsp;</a></span>motor_value</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t motor_value[4]</td>
+          <td class="memname">uint16_t motor_value[<a class="el" href="motors_8h.html#aab90df598eba3aa4b1a839b692079929">MOTOR_COUNT</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,9 +297,13 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="motors_8c.html">motors.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

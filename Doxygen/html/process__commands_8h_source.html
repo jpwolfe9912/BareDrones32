@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -23,6 +27,7 @@
   <td id="projectalign">
    <div id="projectname">Autodrone32
    </div>
+   <div id="projectbrief">This project is a vehicle that has the ability to both fly and drive.</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('process__commands_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="dir_e8bc06084b34115148cadd83e13467d4.html">motion</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">process_commands.h</div></div>
 </div><!--header-->
@@ -89,26 +106,30 @@ $(function() {
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="process__commands_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">extern</span> uint8_t     <a class="code hl_variable" href="process__commands_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">extern</span> int16_t <a class="code hl_variable" href="process__commands_8h.html#ab51ddf40215639ed956046378ceb51d9">rxCommands</a>[8];</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">extern</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="process__commands_8h.html#a1e10050fd5b2a267659f25847d7beb59">rxCommands</a>[8];</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="process__commands_8h.html#a39a28317532c5c1468f7351836bc1288">processCommands</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif </span><span class="comment">/* __FLIGHT_COMMAND_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="a_autodrone32_8h_html_a3d5a901a753342ccfc67d9706af13165"><div class="ttname"><a href="_autodrone32_8h.html#a3d5a901a753342ccfc67d9706af13165">semaphore_t</a></div><div class="ttdeci">volatile uint8_t semaphore_t</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00077">Autodrone32.h:77</a></div></div>
-<div class="ttc" id="a_autodrone32_8h_html_ada81cad6f64bf0042dba36096bf32710"><div class="ttname"><a href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710">modes_e</a></div><div class="ttdeci">modes_e</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00159">Autodrone32.h:160</a></div></div>
+<div class="ttc" id="a_autodrone32_8h_html_ada81cad6f64bf0042dba36096bf32710"><div class="ttname"><a href="_autodrone32_8h.html#ada81cad6f64bf0042dba36096bf32710">modes_e</a></div><div class="ttdeci">modes_e</div><div class="ttdef"><b>Definition:</b> <a href="_autodrone32_8h_source.html#l00151">Autodrone32.h:152</a></div></div>
+<div class="ttc" id="aprocess__commands_8h_html_a1e10050fd5b2a267659f25847d7beb59"><div class="ttname"><a href="process__commands_8h.html#a1e10050fd5b2a267659f25847d7beb59">rxCommands</a></div><div class="ttdeci">float rxCommands[8]</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00022">process_commands.c:22</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_a39a28317532c5c1468f7351836bc1288"><div class="ttname"><a href="process__commands_8h.html#a39a28317532c5c1468f7351836bc1288">processCommands</a></div><div class="ttdeci">void processCommands(void)</div><div class="ttdoc">Processes receiver commands.</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00029">process_commands.c:29</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_a8a1c07a2b10dfb3f7633b8db1d1dac4a"><div class="ttname"><a href="process__commands_8h.html#a8a1c07a2b10dfb3f7633b8db1d1dac4a">armed</a></div><div class="ttdeci">semaphore_t armed</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00018">process_commands.c:18</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_aa17cd4729b354f25c53300d973288213"><div class="ttname"><a href="process__commands_8h.html#aa17cd4729b354f25c53300d973288213">armingTimer</a></div><div class="ttdeci">uint8_t armingTimer</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00019">process_commands.c:19</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_aa7ec4b36be7336ea09ed4944e3029c78"><div class="ttname"><a href="process__commands_8h.html#aa7ec4b36be7336ea09ed4944e3029c78">commandInDetent</a></div><div class="ttdeci">uint8_t commandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00014">process_commands.c:14</a></div></div>
-<div class="ttc" id="aprocess__commands_8h_html_ab51ddf40215639ed956046378ceb51d9"><div class="ttname"><a href="process__commands_8h.html#ab51ddf40215639ed956046378ceb51d9">rxCommands</a></div><div class="ttdeci">int16_t rxCommands[8]</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00022">process_commands.c:22</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_abaaaab74a851da13a44ccd63988196cc"><div class="ttname"><a href="process__commands_8h.html#abaaaab74a851da13a44ccd63988196cc">disarmingTimer</a></div><div class="ttdeci">uint8_t disarmingTimer</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00020">process_commands.c:20</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_abdda914a8c6ac0445832f7dbf4f37286"><div class="ttname"><a href="process__commands_8h.html#abdda914a8c6ac0445832f7dbf4f37286">mode</a></div><div class="ttdeci">modes_e mode</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00017">process_commands.c:17</a></div></div>
 <div class="ttc" id="aprocess__commands_8h_html_ae767c84bb0f764c266954094c2869142"><div class="ttname"><a href="process__commands_8h.html#ae767c84bb0f764c266954094c2869142">rxCommand</a></div><div class="ttdeci">float rxCommand[12]</div></div>
 <div class="ttc" id="aprocess__commands_8h_html_afba620164d81adc771510752f70e7cc8"><div class="ttname"><a href="process__commands_8h.html#afba620164d81adc771510752f70e7cc8">previousCommandInDetent</a></div><div class="ttdeci">uint8_t previousCommandInDetent[3]</div><div class="ttdef"><b>Definition:</b> <a href="process__commands_8c_source.html#l00015">process_commands.c:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_bc84256498dc5614be2bf6f96d0ea448.html">STM32CubeIDE</a></li><li class="navelem"><a class="el" href="dir_a8fd125e01f5b2d571885f1c97f97c54.html">Autodrone32</a></li><li class="navelem"><a class="el" href="dir_212d1fa3f62a36ac3742badce8b0173c.html">Src</a></li><li class="navelem"><a class="el" href="dir_e8bc06084b34115148cadd83e13467d4.html">motion</a></li><li class="navelem"><a class="el" href="process__commands_8h.html">process_commands.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
+  </ul>
+</div>
 </body>
 </html>

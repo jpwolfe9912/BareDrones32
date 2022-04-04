@@ -7,9 +7,5 @@ var searchData=
   ['veld_4',['velD',['../structgps__t.html#a7f6cccd3ad0a515faa0901fc7844f747',1,'gps_t']]],
   ['vele_5',['velE',['../structgps__t.html#a49e3bcbbb98f50a1209b65ddfdbc876c',1,'gps_t']]],
   ['veln_6',['velN',['../structgps__t.html#ad44388792a90a24fb4660e2b19033e17',1,'gps_t']]],
-  ['version_7',['version',['../structeeprom_config__t.html#ab22abc2906422da61885ac6c8e6a1a59',1,'eepromConfig_t']]],
-  ['verticalvelocityholdonly_8',['verticalVelocityHoldOnly',['../structeeprom_config__t.html#a2a966858773d9801f7ed82c71430ffc5',1,'eepromConfig_t']]],
-  ['voltagemonitorbias_9',['voltageMonitorBias',['../structeeprom_config__t.html#a927d41649d656b0c4ea3d2a6ea0313e8',1,'eepromConfig_t']]],
-  ['voltagemonitorpin_10',['voltageMonitorPin',['../structeeprom_config__t.html#a996556976c4a426925eae54cf54f5124',1,'eepromConfig_t']]],
-  ['voltagemonitorscale_11',['voltageMonitorScale',['../structeeprom_config__t.html#abdd9e24950cac61d7bf7704a65e5f5c3',1,'eepromConfig_t']]]
+  ['version_7',['version',['../structeeprom_config__t.html#ab22abc2906422da61885ac6c8e6a1a59',1,'eepromConfig_t']]]
 ];

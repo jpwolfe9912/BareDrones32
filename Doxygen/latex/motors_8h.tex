@@ -5,6 +5,11 @@
 This file contains functions to initialize the ESC or change modes.  
 
 
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{motors_8h_aab90df598eba3aa4b1a839b692079929}{MOTOR\+\_\+\+COUNT}}~4
+\end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,6 +22,28 @@ enum \mbox{\hyperlink{motors_8h_a52d59931063c311b3db496e3dd723b9e}{motors\+\_\+e
 enum \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}{motors\+\_\+mode\+\_\+e}} \{ \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ab1e943ab430ce73cb04a72ae20474a66}{MOTORS\+\_\+\+MODE\+\_\+\+NORMAL}}
 , \mbox{\hyperlink{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01ae46dea6440f30c26fade8b7535ecc558}{MOTORS\+\_\+\+MODE\+\_\+3D}}
  \}
+\item 
+enum \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131}{motors\+\_\+grouped\+\_\+e}} \{ \newline
+\mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345}{MOTORS\+\_\+\+NONE}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684}{MOTORS\+\_\+1}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b}{MOTORS\+\_\+2}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c}{MOTORS\+\_\+12}}
+, \newline
+\mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7}{MOTORS\+\_\+3}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee}{MOTORS\+\_\+13}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9}{MOTORS\+\_\+23}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de}{MOTORS\+\_\+123}}
+, \newline
+\mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6}{MOTORS\+\_\+4}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f}{MOTORS\+\_\+14}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005}{MOTORS\+\_\+24}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1}{MOTORS\+\_\+124}}
+, \newline
+\mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6}{MOTORS\+\_\+34}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962}{MOTORS\+\_\+134}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7}{MOTORS\+\_\+234}}
+, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e}{MOTORS\+\_\+1234}}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -26,11 +53,15 @@ void \mbox{\hyperlink{motors_8h_aa29e2982047be0f7afbb10c8d6f3f5c3}{motor\+Init}}
 void \mbox{\hyperlink{motors_8h_a0d49a7f7d4f3ee90ac062228c07181ce}{motors3d\+On}} (void)
 \begin{DoxyCompactList}\small\item\em Changes motor mode to 3D. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motors_8h_a9238ba3b6684798019bc8c64291f72f1}{motors3d\+Off}} (void)
-\begin{DoxyCompactList}\small\item\em Changes motor mode to 3D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Changes motor mode to 3D. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8h_a18343f2bb120a8efa91ca65b6ef950a5}{motors\+Settings\+Save}} (void)
+\item 
+void \mbox{\hyperlink{motors_8h_a206313c3415b312b6ffe43c1c552a853}{motors\+Change\+Mode}} (\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}} command, \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131}{motors\+\_\+grouped\+\_\+e}} motors)
+\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}{motor\+\_\+value}} \mbox{[}4\mbox{]}
+uint16\+\_\+t \mbox{\hyperlink{motors_8h_ac96647f4976d16e8a084441dcfd5dcf8}{motor\+\_\+value}} \mbox{[}\mbox{\hyperlink{motors_8h_aab90df598eba3aa4b1a839b692079929}{MOTOR\+\_\+\+COUNT}}\mbox{]}
 \item 
 \mbox{\hyperlink{_autodrone32_8h_a3d5a901a753342ccfc67d9706af13165}{semaphore\+\_\+t}} \mbox{\hyperlink{motors_8h_a7b0aa4cd41f19f0945cc0f63d768bb7e}{motor\+\_\+initialized}}
 \item 
@@ -50,6 +81,19 @@ Jeremy Wolfe
 
 
 Definition in file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{motors_8h_aab90df598eba3aa4b1a839b692079929}\label{motors_8h_aab90df598eba3aa4b1a839b692079929}} 
+\index{motors.h@{motors.h}!MOTOR\_COUNT@{MOTOR\_COUNT}}
+\index{MOTOR\_COUNT@{MOTOR\_COUNT}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_COUNT}{MOTOR\_COUNT}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+COUNT~4}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8h_source_l00014}{14}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
 
 
 
@@ -80,7 +124,83 @@ MOTOR4&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{motors_8h_source_l00014}{14}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+Definition at line \mbox{\hyperlink{motors_8h_source_l00017}{17}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+
+\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131}} 
+\index{motors.h@{motors.h}!motors\_grouped\_e@{motors\_grouped\_e}}
+\index{motors\_grouped\_e@{motors\_grouped\_e}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motors\_grouped\_e}{motors\_grouped\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131}{motors\+\_\+grouped\+\_\+e}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_NONE@{MOTORS\_NONE}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_NONE@{MOTORS\_NONE}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4825d3fcdf582839452aa9a8923a0345}} 
+MOTORS\+\_\+\+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_1@{MOTORS\_1}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_1@{MOTORS\_1}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a481f0147742fffc1d212158ad411d684}} 
+MOTORS\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_2@{MOTORS\_2}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_2@{MOTORS\_2}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a848d71202ba08c9aa20fd900fc27306b}} 
+MOTORS\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_12@{MOTORS\_12}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_12@{MOTORS\_12}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79b52323f73a45708218e431a4b10d4c}} 
+MOTORS\+\_\+12&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_3@{MOTORS\_3}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_3@{MOTORS\_3}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a78c1e8778a0bb5b30efab878f9bb26d7}} 
+MOTORS\+\_\+3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_13@{MOTORS\_13}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_13@{MOTORS\_13}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a79e8b650aa9cd82284b7a0bfd69ab3ee}} 
+MOTORS\+\_\+13&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_23@{MOTORS\_23}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_23@{MOTORS\_23}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a3214a3e059c4d0874089ed79477e68a9}} 
+MOTORS\+\_\+23&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_123@{MOTORS\_123}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_123@{MOTORS\_123}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a2036675da897a591aadd8d6ad6b1c7de}} 
+MOTORS\+\_\+123&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_4@{MOTORS\_4}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_4@{MOTORS\_4}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131ac2c9bd491f7a8d8d0ebe980e2f0f52b6}} 
+MOTORS\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_14@{MOTORS\_14}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_14@{MOTORS\_14}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a22969ab6b7c699585c72032ee1ddb44f}} 
+MOTORS\+\_\+14&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_24@{MOTORS\_24}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_24@{MOTORS\_24}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a62b346a69a395a87a2922fdc8094c005}} 
+MOTORS\+\_\+24&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_124@{MOTORS\_124}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_124@{MOTORS\_124}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a84b083e761d132ea33ad3c40061671d1}} 
+MOTORS\+\_\+124&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_34@{MOTORS\_34}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_34@{MOTORS\_34}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a7fd93b6e035f8ef80dcb4e0ed5e8d9d6}} 
+MOTORS\+\_\+34&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_134@{MOTORS\_134}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_134@{MOTORS\_134}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131add445b7099cc425ca1b59c46c9324962}} 
+MOTORS\+\_\+134&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_234@{MOTORS\_234}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_234@{MOTORS\_234}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a0a7a69dda1309ecb945744e22efb3bd7}} 
+MOTORS\+\_\+234&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTORS\_1234@{MOTORS\_1234}!motors.h@{motors.h}}\index{motors.h@{motors.h}!MOTORS\_1234@{MOTORS\_1234}}}\mbox{\Hypertarget{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e}\label{motors_8h_aa2badb8e8b9c552183fea6d14465a131a4fc6d3b6ce950615b624657dc3efa30e}} 
+MOTORS\+\_\+1234&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{motors_8h_source_l00031}{31}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
 
 \mbox{\Hypertarget{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}\label{motors_8h_a1af94b4ea9c6b49096bcd6a7b26c4f01}} 
 \index{motors.h@{motors.h}!motors\_mode\_e@{motors\_mode\_e}}
@@ -100,7 +220,7 @@ MOTORS\+\_\+\+MODE\+\_\+3D&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{motors_8h_source_l00022}{22}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
+Definition at line \mbox{\hyperlink{motors_8h_source_l00025}{25}} of file \mbox{\hyperlink{motors_8h_source}{motors.\+h}}.
 
 
 
@@ -137,7 +257,7 @@ Void.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{motors_8c_source_l00069}{69}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+Definition at line \mbox{\hyperlink{motors_8c_source_l00072}{72}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 
 \mbox{\Hypertarget{motors_8h_a0d49a7f7d4f3ee90ac062228c07181ce}\label{motors_8h_a0d49a7f7d4f3ee90ac062228c07181ce}} 
 \index{motors.h@{motors.h}!motors3dOn@{motors3dOn}}
@@ -156,6 +276,26 @@ Void.
 
 Definition at line \mbox{\hyperlink{motors_8c_source_l00043}{43}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 
+\mbox{\Hypertarget{motors_8h_a206313c3415b312b6ffe43c1c552a853}\label{motors_8h_a206313c3415b312b6ffe43c1c552a853}} 
+\index{motors.h@{motors.h}!motorsChangeMode@{motorsChangeMode}}
+\index{motorsChangeMode@{motorsChangeMode}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motorsChangeMode()}{motorsChangeMode()}}
+{\footnotesize\ttfamily void motors\+Change\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{drv__dshot_8h_aaa1523141a62366e704d681c82094c0c}{dshot\+Commands\+\_\+e}}}]{command,  }\item[{\mbox{\hyperlink{motors_8h_aa2badb8e8b9c552183fea6d14465a131}{motors\+\_\+grouped\+\_\+e}}}]{motors }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00125}{125}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
+\mbox{\Hypertarget{motors_8h_a18343f2bb120a8efa91ca65b6ef950a5}\label{motors_8h_a18343f2bb120a8efa91ca65b6ef950a5}} 
+\index{motors.h@{motors.h}!motorsSettingsSave@{motorsSettingsSave}}
+\index{motorsSettingsSave@{motorsSettingsSave}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motorsSettingsSave()}{motorsSettingsSave()}}
+{\footnotesize\ttfamily void motors\+Settings\+Save (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{motors_8c_source_l00099}{99}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
+
 
 
 \doxysubsection{Variable Documentation}
@@ -169,11 +309,11 @@ Definition at line \mbox{\hyperlink{motors_8c_source_l00043}{43}} of file \mbox{
 
 Definition at line \mbox{\hyperlink{motors_8c_source_l00016}{16}} of file \mbox{\hyperlink{motors_8c_source}{motors.\+c}}.
 
-\mbox{\Hypertarget{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}\label{motors_8h_a9e7bfc8712149ed5ab675edfc0773f21}} 
+\mbox{\Hypertarget{motors_8h_ac96647f4976d16e8a084441dcfd5dcf8}\label{motors_8h_ac96647f4976d16e8a084441dcfd5dcf8}} 
 \index{motors.h@{motors.h}!motor\_value@{motor\_value}}
 \index{motor\_value@{motor\_value}!motors.h@{motors.h}}
 \doxysubsubsection{\texorpdfstring{motor\_value}{motor\_value}}
-{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+value\mbox{[}4\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+{\footnotesize\ttfamily uint16\+\_\+t motor\+\_\+value\mbox{[}\mbox{\hyperlink{motors_8h_aab90df598eba3aa4b1a839b692079929}{MOTOR\+\_\+\+COUNT}}\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
