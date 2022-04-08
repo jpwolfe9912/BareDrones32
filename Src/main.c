@@ -110,71 +110,7 @@ main(void)
 
 			if (armed == true)
 			{
-				if ( eepromConfig.activeTelemetry == 1 )
-				{
-					// Roll Loop
-					printf("1,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
-							battVoltage,
-							mode,
-							rateCmd[ROLL],
-							sensors.gyro500Hz[ROLL],
-							ratePID[ROLL],
-							attCmd[ROLL],
-							sensors.attitude500Hz[ROLL],
-							attPID[ROLL]);
-				}
-
-				if ( eepromConfig.activeTelemetry == 2 )
-				{
-					// Pitch Loop
-					printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
-							battVoltage,
-							mode,
-							rateCmd[PITCH],
-							sensors.gyro500Hz[PITCH],
-							ratePID[PITCH],
-							attCmd[PITCH],
-							sensors.attitude500Hz[PITCH],
-							attPID[PITCH]);
-				}
-
-				if ( eepromConfig.activeTelemetry == 3 )
-				{
-					// Yaw Loop
-					printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f\n",
-							battVoltage,
-							mode,
-							rateCmd[YAW],
-							sensors.gyro500Hz[YAW],
-							ratePID[YAW]);
-				}
-
-				if ( eepromConfig.activeTelemetry == 4 )
-				{
-					// Sensors
-					printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n",
-							battVoltage,
-							sensors.accel500Hz[XAXIS],
-							sensors.accel500Hz[YAXIS],
-							sensors.accel500Hz[ZAXIS],
-							sensors.gyro500Hz[ROLL],
-							sensors.gyro500Hz[PITCH],
-							sensors.gyro500Hz[YAW],
-							sensors.attitude500Hz[ROLL],
-							sensors.attitude500Hz[PITCH],
-							sensors.attitude500Hz[YAW]);
-
-				}
-
-				if ( eepromConfig.activeTelemetry == 5 )
-				{
-					printf("4,%9.4f,%u,%u,%u,%u,\n",
-							battVoltage,
-							motor_value[0],
-							motor_value[1],
-							motor_value[2],
-							motor_value[3]);
-				}
+				printLog(1);
 
 			}
 

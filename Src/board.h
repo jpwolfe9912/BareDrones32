@@ -33,6 +33,7 @@
 #include "config.h"
 #include "utilities.h"
 #include "battery.h"
+#include "logging.h"
 
 /* Drivers */
 #include "drv_led.h"
