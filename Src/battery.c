@@ -25,6 +25,7 @@ static void batt_warning(void);
 void
 battMonInit(void)
 {
+	delay(500);
 	cells = batt_cells();
 	if(cells != 0)
 		printf("\n%d cells detected\n", cells);
