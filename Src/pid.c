@@ -97,6 +97,8 @@ initPIDvalues(void)
 	delay(1);
 	while(again){
 		if(serialWaitFor('y')){
+			eepromChanged = true;
+
 			printf("\nWhich PID would you like to change?\n");
 			printf("Roll Rate PID : 0\n");
 			printf("Pitch Rate PID: 1\n");
@@ -128,7 +130,9 @@ initPIDvalues(void)
 					&eepromConfig.PID[ID].integratorState,
 					&eepromConfig.PID[ID].filterState);
 
+			color(GREEN, YES);
 			printf("\nNew States:\n");
+			colorDefault();
 			printf("\nP(%1.2f): \nI(%1.2f): \nD(%1.2f): \nLimit(%1.2f): \nFilter State(%1.2f): \nIntegrator State(%1.2f): \n",
 					eepromConfig.PID[ID].P,
 					eepromConfig.PID[ID].I,
