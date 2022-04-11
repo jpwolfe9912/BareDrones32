@@ -31,6 +31,8 @@ static uint8_t framePos = 0;
 static uint8_t payloadPos = 0;
 static uint8_t crcPos = 0;
 
+static uint8_t init_error = 0;
+
 /** @brief Initializes ibus ring buffer and low level usart registers.
  *
  *	@return bool True if initialization was successful.
@@ -61,6 +63,12 @@ ibusInit(void)
 	if(!ibus_initialized){
 		color(RED, YES);
 		printf("\niBus Initialization Failed. Try again?\n");
+		if(init_error++ > 10)
+		{
+			printf("\nToo many failed attempts\n");
+			color(WHITE, NO);
+			return true;
+		}
 		color(WHITE, NO);
 		return false;
 #ifdef STLINK
@@ -74,6 +82,7 @@ ibusInit(void)
 		color(GREEN, YES);
 		printf("\niBus receiver recognized\n");
 		color(WHITE, NO);
+		ibusProcess();
 		return true;
 	}
 	return true;
@@ -101,51 +110,51 @@ ibus_process_frame(void)
 
 	status = IBUS_BUSY;
 	switch(state){
-		case IBUS_STATE_LENGTH: {				// length byte
-			if(b == 0x20){
+	case IBUS_STATE_LENGTH: {				// length byte
+		if(b == 0x20){
 
-				frameLength = b;
-				state++;
-			}
-			else
+			frameLength = b;
+			state++;
+		}
+		else
+		{
+			status = IBUS_ERROR;
+		}
+		break;
+	}
+	case IBUS_STATE_TYPE: {					// type byte
+		if(b == 0x40){
+			devID = b;
+			state++;
+		}
+		else
+			status = IBUS_ERROR;
+		break;
+	}
+	case IBUS_STATE_PAYLOAD: {				// payload bytes
+		ibusPayload[payloadPos++] = b;
+		if(payloadPos == PAYLOAD_SIZE)
+		{
+			ibus_update(ibusPayload);
+			state++;
+			payloadPos = 0;
+		}
+		break;
+	}
+	case IBUS_STATE_CRC: {					// crc bytes
+		ibusCRC[crcPos++] = b;
+		if(crcPos == CRC_SIZE){
+			if(ibus_frame_crc(ibusCRC))
 			{
+				status = IBUS_READY;
+			}
+			else{
 				status = IBUS_ERROR;
 			}
-			break;
+			crcPos = 0;
 		}
-		case IBUS_STATE_TYPE: {					// type byte
-			if(b == 0x40){
-				devID = b;
-				state++;
-			}
-			else
-				status = IBUS_ERROR;
-			break;
-		}
-		case IBUS_STATE_PAYLOAD: {				// payload bytes
-			ibusPayload[payloadPos++] = b;
-			if(payloadPos == PAYLOAD_SIZE)
-			{
-				ibus_update(ibusPayload);
-				state++;
-				payloadPos = 0;
-			}
-			break;
-		}
-		case IBUS_STATE_CRC: {					// crc bytes
-			ibusCRC[crcPos++] = b;
-			if(crcPos == CRC_SIZE){
-				if(ibus_frame_crc(ibusCRC))
-				{
-					status = IBUS_READY;
-				}
-				else{
-					status = IBUS_ERROR;
-				}
-				crcPos = 0;
-			}
-			break;
-		}
+		break;
+	}
 	}
 	if(status == IBUS_ERROR)
 	{
