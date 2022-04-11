@@ -135,6 +135,8 @@ mpu6000Calibration(void)
 
     printf("\nMPU6000 Calibration Complete.\n");
 
+    writeEEPROM();
+
     mpu6000Calibrating = false;
 }
 
