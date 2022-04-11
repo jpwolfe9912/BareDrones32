@@ -70,6 +70,10 @@ main(void)
 			sensors.attitude500Hz[PITCH] = getPitchRadians();
 			sensors.attitude500Hz[YAW  ] = getYawRadians();
 
+			sensors.attDeg500Hz[ROLL ] 	= sensors.attitude500Hz[ROLL ] * 57.29578f;
+			sensors.attDeg500Hz[PITCH] 	= sensors.attitude500Hz[PITCH] * 57.29578f;
+			sensors.attDeg500Hz[YAW  ] 	= sensors.attitude500Hz[YAW  ] * 57.29578f;
+
 			processCommands();
 			computeAxisCommands(dt500Hz);
 			mixTable();
@@ -110,7 +114,7 @@ main(void)
 
 			if (armed == true)
 			{
-				printLog(1);
+				printLog(ROLL);
 
 			}
 
