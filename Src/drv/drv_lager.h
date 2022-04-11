@@ -7,10 +7,10 @@
  *  @date 		07 APR 2022
  */
 
-#ifndef SRC_DRV_DRV_LAGER_H_
-#define SRC_DRV_DRV_LAGER_H_
+#ifndef __DRV_LAGER_H__
+#define __DRV_LAGER_H__
 
 void lagerInit(void);
 void lagerWriteLog(uint8_t *pLog);
 
-#endif /* SRC_DRV_DRV_LAGER_H_ */
+#endif /* __DRV_LAGER_H__ */
