@@ -49,6 +49,7 @@
 #include "drv_lwrb.h"
 #include "drv_worm.h"
 #include "drv_dshot.h"
+#include "drv_lager.h"
 
 /* Motion */
 #include "process_commands.h"
