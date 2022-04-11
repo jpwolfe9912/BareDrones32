@@ -59,7 +59,7 @@ batt_cells(void)
 	{
 		battMonRead();
 		summedVoltage += battVoltage;
-		delay(1);
+		delay(10);
 	}
 	avgVoltage = summedVoltage / 10.0f;
 
