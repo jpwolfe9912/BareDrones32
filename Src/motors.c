@@ -165,3 +165,24 @@ motorsChangeMode(dshotCommands_e command, motors_grouped_e motors)
 	}
 }
 
+void
+motorsBeep(motors_beeps_e beep)
+{
+	motor_value[MOTOR1] = beep;
+	motor_value[MOTOR2] = beep;
+	motor_value[MOTOR3] = beep;
+	motor_value[MOTOR4] = beep;
+	dshotWait(10);
+
+	systemReady = false;
+	motor_initialized = true;
+	delay(300);
+	systemReady = true;
+	motor_initialized = false;
+
+	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
+	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+}
+

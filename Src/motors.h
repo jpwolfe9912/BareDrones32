@@ -48,6 +48,15 @@ typedef enum
 	MOTORS_1234
 }motors_grouped_e;
 
+typedef enum
+{
+	BEEP1 = 1,
+	BEEP2,
+	BEEP3,
+	BEEP4,
+	BEEP5
+}motors_beeps_e;
+
 /* Global Variables */
 extern uint16_t motor_value[MOTOR_COUNT];
 
@@ -61,5 +70,6 @@ void motors3dOn(void);
 void motors3dOff(void);
 void motorsSettingsSave(void);
 void motorsChangeMode(dshotCommands_e command, motors_grouped_e motors);
+void motorsBeep(motors_beeps_e beep);
 
 #endif /* __MOTORS_H__ */
