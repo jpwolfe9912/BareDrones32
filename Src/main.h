@@ -12,5 +12,6 @@
 /* Defines */
 //#define STLINK
 //#define SANDBOX
+#define OPENLAGER
 
 #endif /* __MAIN_H__ */
