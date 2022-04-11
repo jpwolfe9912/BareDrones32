@@ -138,7 +138,7 @@ USART3_IRQHandler(void){
 
 #ifdef USE_AUTODRONE
 
-/** @brief Initializes the low level uart registers in order to use printf
+/** @brief Initializes the low level uart registers in order to use printf.
  *
  *  @return Void.
  */
@@ -173,7 +173,7 @@ serialInit(void)
  *  @return Void.
  */
 void
-serialWrite(int ch)
+serialWrite(uint8_t ch)
 {
 	while (!(UART5->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
 	UART5->TDR = ch;						// transfers the value of the data register into ch

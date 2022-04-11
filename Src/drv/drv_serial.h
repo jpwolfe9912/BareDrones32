@@ -16,7 +16,7 @@
 
 /* Function Prototypes */
 void serialInit(void);
-void serialWrite(int ch);
+void serialWrite(uint8_t ch);
 void serialRead8(uint8_t *num);
 void serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter);
 bool serialWaitFor(char wait);
