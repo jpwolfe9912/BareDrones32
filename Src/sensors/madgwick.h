@@ -11,8 +11,8 @@
 #define __SENSOR_FUSION_H__
 
 /* Defines */
-#define sampleFreqDef   1000.0f          // sample frequency in Hz
-#define betaDef         10.0f            // 2 * proportional gain
+#define sampleFreqDef   500.0f          // sample frequency in Hz
+#define betaDef         5.0f            // 2 * proportional gain
 
 /* Function Prototypes */
 void madgwickInit(void);
