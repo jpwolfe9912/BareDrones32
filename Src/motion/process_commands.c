@@ -83,7 +83,10 @@ processCommands(void)
 		if ( (rxCommands[YAW  ] < (eepromConfig.minCheck - MIDCOMMAND)) &&		//mincheck = 2200
 				(rxCommands[ROLL ] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
 				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
+		{
+			delay(100);
 			mpu6000Calibration();
+		}
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/
