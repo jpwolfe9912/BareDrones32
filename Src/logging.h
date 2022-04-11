@@ -9,6 +9,17 @@
 #ifndef __LOGGING_H__
 #define __LOGGING_H__
 
-void printLog(uint16_t logType);
+/* Enumerations */
+typedef enum
+{
+	ROLL_LOG,
+	PITCH_LOG,
+	YAW_LOG,
+	MOTORS_LOG,
+	SENSORS_LOG
+}logs_t;
+
+/* Functions */
+void printLog(uint8_t logType);
 
 #endif /* __LOGGING_H__ */

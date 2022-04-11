@@ -8,14 +8,47 @@
 
 #include "board.h"
 
-/** @brief Prints logging data based on which type of data you want.
+uint8_t *pLog;
+
+/** @brief Prints logging data to OpenLager based on which type of data you want.
  *
  *	@param logType The type of data you want.
  *  @return Void.
  */
 void
-printLog(uint16_t logType)
+printLog(logs_t logType)
 {
+#ifdef OPENLAGER
+	float log[10];
+	pLog = (uint8_t*)&log;
+
+	log[0] = logType;
+
+	if(logType < 3)
+	{
+		log[1] = battVoltage;
+		log[2] = mode;
+		log[3] = rateCmd[logType];
+		log[4] = sensors.gyro500Hz[logType];
+		log[5] = ratePID[logType];
+		log[6] = attCmd[logType];
+		log[7] = sensors.attitude500Hz[logType];
+		log[8] = attPID[logType];
+	}
+
+
+	if (logType == 3)
+	{
+		log[1] = battVoltage;
+		log[2] = mode;
+		log[3] = motor_value[MOTOR1];
+		log[4] = motor_value[MOTOR2];
+		log[5] = motor_value[MOTOR3];
+		log[6] = motor_value[MOTOR4];
+	}
+	lagerWriteLog(pLog);
+
+#else
 	if (logType == 1)
 	{
 		// Roll Loop
@@ -81,4 +114,5 @@ printLog(uint16_t logType)
 				motor_value[2],
 				motor_value[3]);
 	}
+#endif
 }
