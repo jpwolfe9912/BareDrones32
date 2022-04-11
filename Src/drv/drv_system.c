@@ -235,7 +235,8 @@ systemInit(void)
 
 	ledInit();
 
-	checkFirstTime(true);
+	checkFirstTime(false);
+	readEEPROM();
 	/*		LOW LEVEL INITIALIZATION	*/
 	serialInit();
 
@@ -270,6 +271,9 @@ systemInit(void)
 
 	initPID();
 	initPIDvalues();
+
+	if(eepromChanged)
+		writeEEPROM();
 
 	motor_initialized = 1;
 
