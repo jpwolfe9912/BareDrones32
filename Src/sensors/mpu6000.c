@@ -116,6 +116,9 @@ mpu6000Init(void)
 	spiWriteOneByte(MPU6000_ACCEL_CONFIG, BITS_FS_16G);;
 	delayMicroseconds(100);
 
+	spiWriteOneByte(MPU6000_CONFIG, 0x00);
+	delayMicroseconds(100);
+
 	spiWriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
 	delayMicroseconds(100);
 
@@ -124,18 +127,6 @@ mpu6000Init(void)
 	SPI1->CR1 	|= SPI_BR_PRESCALER_16;		// sensor BR < 20MHz
 
 	delay(100);
-
-#ifdef STLINK
-	printf("\nDo you want to calibrate the MPU6000? \'y\' or \'n\'\n");
-	if(serialWaitFor('y')){
-		mpu6000Calibration();
-	}
-
-	printf("\nDo you want to calibrate the accelerometer? \'y\' or \'n\'\n");
-	if(serialWaitFor('y')){
-		accelCalibrationMPU();
-	}
-#endif
 
 	computeMPU6000RTData();
 	return mpu6000Initialized;

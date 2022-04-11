@@ -129,8 +129,6 @@ extern float   mpu6000Temperature;
 
 extern int16andUint8_t rawMPU6000Temperature;
 
-extern bool mpu6000Initialized;
-
 /* Function Prototypes */
 bool mpu6000Init(void);
 void readMPU6000(void);
