@@ -13,88 +13,73 @@
 /* Global Variabels */
 const char rcChannelLetters[] = "AERT12345678";
 
+semaphore_t eepromChanged = false;
+
 /* Static Variables */
 static uint8_t checkNewEEPROMConf = 29;
 
-/** @brief CRC for the EEPROM
- *
- *  @return uint32_t CRC value.
- */
-//uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd)
-//{
-//    return crc32B((uint32_t*)e, includeCRCAtEnd ? (uint32_t*)(e + 1) : e->CRCAtEnd);
-//}
-//
-/////////////////////////////////////////////////////////////////////////////////
-//
-//enum { eepromConfigNUMWORD =  sizeof(eepromConfig_t)/sizeof(uint32_t) };
-//
-//void readEEPROM(void)
-//{
-//    eepromConfig_t *dst = &eepromConfig;
-//
-//    *dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR ;
-//
-//    if ( crcCheckVal != crc32bEEPROM(dst, true) )
-//    {
-//        evrPush(EVR_FlashCRCFail,0);
-//        dst->CRCFlags |= CRC_HistoryBad;
-//    }
-//    else if ( dst->CRCFlags & CRC_HistoryBad )
-//      evrPush(EVR_ConfigBadHistory,0);
-//
-//    accConfidenceDecay = 1.0f / sqrt(eepromConfig.accelCutoff);
-//
-//    eepromConfig.yawDirection = constrain(eepromConfig.yawDirection, -1.0f, 1.0f);
-//}
-//
-/////////////////////////////////////////////////////////////////////////////////
-//
-//int writeEEPROM(void)
-//{
-//    FLASH_Status status;
-//    int32_t i;
-//
-//    eepromConfig_t *src = &eepromConfig;
-//    uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
-//
-//    // there's no reason to write these values to EEPROM, they'll just be noise
-//    zeroPIDstates();
-//
-//    if ( src->CRCFlags & CRC_HistoryBad )
-//        evrPush(EVR_ConfigBadHistory,0);
-//
-//    src->CRCAtEnd[0] = crc32B( (uint32_t*)&src[0], src->CRCAtEnd);
-//
-//    FLASH_Unlock();
-//
-//    FLASH_ClearFlag(FLASH_FLAG_EOP    | FLASH_FLAG_OPERR  | FLASH_FLAG_WRPERR |
-//                    FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
-//
-//    status = FLASH_EraseSector(FLASH_Sector_1, VoltageRange_3);
-//
-//    ///////////////////////////////////
-//
-//    i = -1;
-//
-//    while ( FLASH_COMPLETE == status && i++ < eepromConfigNUMWORD )
-//        status = FLASH_ProgramWord((uint32_t)&dst[i], ((uint32_t*)src)[i]);
-//
-//    if ( FLASH_COMPLETE != status )
-//        evrPush( -1 == i ? EVR_FlashEraseFail : EVR_FlashProgramFail, status);
-//
-//    ///////////////////////////////////
-//
-//    FLASH_Lock();
-//
-//    readEEPROM();
-//
-//    return status;
-//}
+void readEEPROM(void)
+ {
+ 	eepromConfig_t *dst = &eepromConfig;
+
+ 	*dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR;
+ }
+
+ ///////////////////////////////////////////////////////////////////////////////
+
+HAL_StatusTypeDef
+writeEEPROM(void)
+{
+	color(BLUE, YES);
+	printf("\nWriting to EEPROM...\n");
+
+ 	int32_t i;
+
+ 	HAL_StatusTypeDef status;
+
+ 	FLASH_EraseInitTypeDef erase;
+
+ 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
+ 	erase.NbSectors = 1;
+ 	erase.Sector = FLASH_SECTOR_6;
+ 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+ 	uint32_t err = 0;
+
+ 	eepromConfig_t *src = &eepromConfig;
+ 	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
+
+ 	// there's no reason to write these values to EEPROM, they'll just be noise
+
+ 	HAL_FLASH_Unlock();
+
+ 	status = HAL_FLASHEx_Erase(&erase, &err);
+
+ 	///////////////////////////////////
+
+ 	i = -1;
+
+ 	while (i++ < eepromConfigNUMWORD )
+ 		status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, (uint32_t)&dst[i], ((uint32_t*)src)[i]);
+
+ 	///////////////////////////////////
+
+ 	HAL_FLASH_Lock();
+
+ 	readEEPROM();
+
+ 	if(status == HAL_OK)
+ 		color(GREEN, YES);
+ 	else
+ 		color(RED, YES);
+
+ 	printf("\nEEPROM write complete. Return status of %X\n", status);
+ 	colorDefault();
+ 	return status;
+ }
 
 /** @brief Sets all the default config values
  *
- *	@param bool eepromReset Whether or not you want to write config values to EEPROM
+ *	@param bool eepromReset Whether or not you want to write config values to EEPROM.
  *  @return Void.
  */
 void
@@ -144,16 +129,6 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.gyroTCBiasIntercept[ROLL ] = 0.0f;
 		eepromConfig.gyroTCBiasIntercept[PITCH] = 0.0f;
 		eepromConfig.gyroTCBiasIntercept[YAW  ] = 0.0f;
-
-		///////////////////////////////
-
-		eepromConfig.magBias[XAXIS] = 0.0f;      // Internal Mag Bias
-		eepromConfig.magBias[YAXIS] = 0.0f;      // Internal Mag Bias
-		eepromConfig.magBias[ZAXIS] = 0.0f;      // Internal Mag Bias
-
-		eepromConfig.magBias[XAXIS + 3] = 0.0f;  // External Mag Bias
-		eepromConfig.magBias[YAXIS + 3] = 0.0f;  // External Mag Bias
-		eepromConfig.magBias[ZAXIS + 3] = 0.0f;  // External Mag Bias
 
 		///////////////////////////////
 
@@ -236,51 +211,9 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.osdEnabled             =  true;
-//		eepromConfig.defaultVideoStandard   =  PAL;
-		eepromConfig.metricUnits            =  true;
-
-		eepromConfig.osdDisplayAlt          =  true;
-		eepromConfig.osdDisplayAltRow       =  15;
-		eepromConfig.osdDisplayAltCol       =  1;
-		eepromConfig.osdDisplayAltHoldState =  false;
-
-		eepromConfig.osdDisplayAH           =  false; // DO NOT SET BOTH TO TRUE
-		eepromConfig.osdDisplayAtt          =  true;
-
-		eepromConfig.osdDisplayHdg          =  false;
-		eepromConfig.osdDisplayHdgRow       =  1;
-		eepromConfig.osdDisplayHdgCol       =  13;
-
-		eepromConfig.osdDisplayHdgBar		=  true;
-		eepromConfig.osdDisplayHdgBarRow	=  14;
-		eepromConfig.osdDisplayHdgBarCol	=  10;
-
-		eepromConfig.osdDisplayVoltage		=  true;
-		eepromConfig.osdDisplayVoltageRow	=  1;
-		eepromConfig.osdDisplayVoltageCol	=  1;
-
-		eepromConfig.osdDisplayCurrent		=  true;
-		eepromConfig.osdDisplayCurrentRow	=  1;
-		eepromConfig.osdDisplayCurrentCol	=  8;
-
-		eepromConfig.osdDisplayThrot		=  true;
-		eepromConfig.osdDisplayThrotRow		=  15;
-		eepromConfig.osdDisplayThrotCol		=  25;
-
-		eepromConfig.osdDisplayTimer		=  true;
-		eepromConfig.osdDisplayTimerRow		=  0;
-		eepromConfig.osdDisplayTimerCol		=  23;
-
-		eepromConfig.osdDisplayRSSI			=  true;
-		eepromConfig.osdDisplayRSSIRow		=  1;
-		eepromConfig.osdDisplayRSSICol		=  24;
-
-		///////////////////////////////
-
 		eepromConfig.activeTelemetry          = 5;
 
-//		writeEEPROM();
+		writeEEPROM();
 	}
 }
 

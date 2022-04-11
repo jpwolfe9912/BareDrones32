@@ -13,16 +13,21 @@
 #define __CONFIG_H__
 
 /* Defines */
-#define FLASH_WRITE_EEPROM_ADDR  0x08004000  // FLASH_Sector_1
+#define FLASH_WRITE_EEPROM_ADDR  0x08040000  // FLASH_Sector_6
+
+/* Enumerations */
+enum { eepromConfigNUMWORD =  sizeof(eepromConfig_t)/sizeof(uint32_t) };
 
 /* Global Variables */
 extern const char rcChannelLetters[12];
+
+extern semaphore_t eepromChanged;
 
 /* Function Prototypes */
 void parseRcChannels(const char *input);
 uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd);
 void readEEPROM(void);
-int writeEEPROM(void);
+HAL_StatusTypeDef writeEEPROM(void);
 void checkFirstTime(bool eepromReset);
 
 ///////////////////////////////////////////////////////////////////////////////
