@@ -47,12 +47,14 @@ lagerInit(void)
  *  @return Void.
  */
 void
-lagerWriteLog(uint8_t *pLog)
+lagerWriteLog(char *pLog)
 {
-	for(uint8_t i = 0; i < sizeof(pLog); i++)
+	uint8_t i = 0;
+	do
 	{
 		lagerWriteByte(pLog[i]);
 	}
+	while(pLog[i++] != '\r');
 }
 
 /** @brief Uses polling to write data to the transmit buffer.

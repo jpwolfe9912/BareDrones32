@@ -8,7 +8,8 @@
 
 #include "board.h"
 
-uint8_t *pLog;
+//uint8_t pLog[LOG_SIZE * 4U];
+uint8_t log_count = 0;
 
 /** @brief Prints logging data to OpenLager based on which type of data you want.
  *
@@ -19,21 +20,20 @@ void
 printLog(logs_t logType)
 {
 #ifdef OPENLAGER
-	float log[10];
-	pLog = (uint8_t*)&log;
-
-	log[0] = logType;
+	char log[LOG_SIZE];
 
 	if(logType < 3)
 	{
-		log[1] = battVoltage;
-		log[2] = mode;
-		log[3] = rateCmd[logType];
-		log[4] = sensors.gyro500Hz[logType];
-		log[5] = ratePID[logType];
-		log[6] = attCmd[logType];
-		log[7] = sensors.attitude500Hz[logType];
-		log[8] = attPID[logType];
+		sprintf(log, "%d %f %d %f %f %f %f %f %f \r",
+				logType,
+				battVoltage,
+				mode,
+				rateCmd[logType],
+				sensors.gyro500Hz[logType],
+				ratePID[logType],
+				attCmd[logType],
+				sensors.attitude500Hz[logType],
+				attPID[logType]);
 	}
 
 
@@ -46,7 +46,8 @@ printLog(logs_t logType)
 		log[5] = motor_value[MOTOR3];
 		log[6] = motor_value[MOTOR4];
 	}
-	lagerWriteLog(pLog);
+//	lagerWriteLog((uint8_t*)log);
+	lagerWriteLog(log);
 
 #else
 	if (logType == 1)

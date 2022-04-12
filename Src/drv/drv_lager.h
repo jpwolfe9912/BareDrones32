@@ -10,7 +10,10 @@
 #ifndef __DRV_LAGER_H__
 #define __DRV_LAGER_H__
 
+/* Defines */
+#define LOG_BYTES		LOG_SIZE * 4U
+
 void lagerInit(void);
-void lagerWriteLog(uint8_t *pLog);
+void lagerWriteLog(char *pLog);
 
 #endif /* __DRV_LAGER_H__ */

@@ -19,6 +19,9 @@ typedef enum
 	SENSORS_LOG
 }logs_t;
 
+/* Defines */
+#define LOG_SIZE		(12 * 9)
+
 /* Functions */
 void printLog(uint8_t logType);
 
