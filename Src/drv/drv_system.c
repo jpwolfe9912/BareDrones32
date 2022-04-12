@@ -235,8 +235,6 @@ systemInit(void)
 
 	ledInit();
 
-	checkFirstTime(false);
-	readEEPROM();
 	/*		LOW LEVEL INITIALIZATION	*/
 	serialInit();
 
@@ -245,6 +243,9 @@ systemInit(void)
 	printf("----------------------------------\n");
 	printf("----------------------------------\n");
 	colorDefault();
+
+	checkFirstTime(false);
+	readEEPROM();
 
 	adc1Ch8Init();
 
@@ -258,6 +259,8 @@ systemInit(void)
 	tim9Init();
 
 	wormInit();
+
+	lagerInit();
 
 	/*		SENSOR INITIALIZATION		*/
 	battMonInit();
