@@ -39,13 +39,12 @@ computeAxisCommands(float dt)
 		attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
 		rateCmd[PITCH] = attPID[PITCH];
 
-
 		///////////////////////////////////
 
 		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
 
-		error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];		// TODO check if this should be "+"
+		error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];
 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
 
 		error = rateCmd[YAW] + sensors.gyro500Hz[YAW];

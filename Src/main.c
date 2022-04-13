@@ -183,25 +183,25 @@ main(void)
 			deltaTime1Hz    = currentTime - previous1HzTime;
 			previous1HzTime = currentTime;
 
-			if(armed)
+			if(armed)				// 1 - Armed
 				led1ON();
 			else
 				led1OFF();
-			if(systemReady)
+			if(systemReady)			// 2 - System Initialized
 				led2ON();
 			else
 				led2OFF();
-			if(rcActive)
+			if(rcActive)			// 3 - Receiver Connected
 				led3ON();
 			else
 				led3OFF();
-			if(battLow)
+			if(battLow)				// 4 - Battery Low
 				led4TOGGLE();
 			else
 				led4OFF();
-			if(mode == FLIGHT)
+			if(mode == FLIGHT)		// 5(toggle) - Flight Mode
 				led5TOGGLE();
-			else if(mode == ROVER)
+			else if(mode == ROVER)	// 5(on) - Rover Mode
 				led5ON();
 			else
 				led5OFF();

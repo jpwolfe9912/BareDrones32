@@ -1,0 +1,28 @@
+var structeeprom_config__t =
+[
+    [ "accelBiasMPU", "structeeprom_config__t.html#a94c97906cdb928950cc6c595f1269082", null ],
+    [ "accelCutoff", "structeeprom_config__t.html#aa9fa535710329dfd1290daf1fe1e10a5", null ],
+    [ "accelScaleFactorMPU", "structeeprom_config__t.html#aff16de83c534d12d68254a62fc0bf054", null ],
+    [ "accelTCBiasIntercept", "structeeprom_config__t.html#a8f8c62c59a3820372cc5de91b37a303c", null ],
+    [ "accelTCBiasSlope", "structeeprom_config__t.html#a563352aa54e517870299c1c76d37f0d5", null ],
+    [ "activeTelemetry", "structeeprom_config__t.html#a5ce88c7c959b0ad00e87d025bed1e97b", null ],
+    [ "attitudeScaling", "structeeprom_config__t.html#a9a08871f138cc5097ddd31faf2d37d7a", null ],
+    [ "dlpfSetting", "structeeprom_config__t.html#a1fae9709b532d02f3687af617a79722c", null ],
+    [ "gyroTCBiasIntercept", "structeeprom_config__t.html#a56308d2df2c36af6d5b3c7082b35dd3e", null ],
+    [ "gyroTCBiasSlope", "structeeprom_config__t.html#a1b59d9164a5cdf76b78c835b2e60a968", null ],
+    [ "KiAcc", "structeeprom_config__t.html#abe80821ba89ad70fa5a8eccfbae1b198", null ],
+    [ "KiMag", "structeeprom_config__t.html#aa7e39490a8935e07919aae25f575dd45", null ],
+    [ "KpAcc", "structeeprom_config__t.html#a107691d51b5af2832d82994cba98c3b7", null ],
+    [ "KpMag", "structeeprom_config__t.html#af0aeeec051f5673729528eada34eb444", null ],
+    [ "maxCheck", "structeeprom_config__t.html#a1128de0037d8dd93b3824b375c463bd3", null ],
+    [ "maxThrottle", "structeeprom_config__t.html#a84baef155eccd803b22fae00a4acf452", null ],
+    [ "midCommand", "structeeprom_config__t.html#ac06a95e1662c379031acb4653f855d5e", null ],
+    [ "minCheck", "structeeprom_config__t.html#a6daa80d9fe2438fcc4b755817f9502a6", null ],
+    [ "minThrottle", "structeeprom_config__t.html#a15003441b8f0bb4c12c4f417e76e27a9", null ],
+    [ "PID", "structeeprom_config__t.html#ad725b40cda69d752a3ab6af73be69665", null ],
+    [ "rollAndPitchRateScaling", "structeeprom_config__t.html#a754f6a27273fade7b911ff2c2e21210e", null ],
+    [ "sensorOrientation", "structeeprom_config__t.html#aace15d3b6ae9cf2b845a8583349c2138", null ],
+    [ "version", "structeeprom_config__t.html#ab22abc2906422da61885ac6c8e6a1a59", null ],
+    [ "yawDirection", "structeeprom_config__t.html#ad4eb242b3da231f4c1a26530e51a0104", null ],
+    [ "yawRateScaling", "structeeprom_config__t.html#a8f90af8f77a607661ad812a44bf427a4", null ]
+];

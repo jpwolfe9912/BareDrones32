@@ -14,7 +14,7 @@
 uint8_t  commandInDetent[3]         = { true, true, true };
 uint8_t  previousCommandInDetent[3] = { true, true, true };
 
-modes_e mode = FLIGHT;
+modes_e mode = TRANS_FLIGHT;
 semaphore_t armed = false;
 uint8_t armingTimer    = 0;
 uint8_t disarmingTimer = 0;

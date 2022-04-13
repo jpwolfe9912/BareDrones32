@@ -39,14 +39,16 @@ printLog(logs_t logType)
 
 	if (logType == 3)
 	{
-		log[1] = battVoltage;
-		log[2] = mode;
-		log[3] = motor_value[MOTOR1];
-		log[4] = motor_value[MOTOR2];
-		log[5] = motor_value[MOTOR3];
-		log[6] = motor_value[MOTOR4];
+		sprintf(log, "%d %f %d %u %u %u %u \r",
+				logType,
+				battVoltage,
+				mode,
+				motor_value[MOTOR1],
+				motor_value[MOTOR2],
+				motor_value[MOTOR3],
+				motor_value[MOTOR4]);
+
 	}
-//	lagerWriteLog((uint8_t*)log);
 	lagerWriteLog(log);
 
 #else
