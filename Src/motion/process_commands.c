@@ -87,6 +87,14 @@ processCommands(void)
 			delay(100);
 			mpu6000Calibration();
 		}
+
+		if((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
+				(rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+				(rxCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)))
+		{
+			delay(100);
+			initPIDvalues();
+		}
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/

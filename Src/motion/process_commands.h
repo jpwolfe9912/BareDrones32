@@ -15,8 +15,6 @@
 #define DEADBAND_SLOPE (1000.0f/(1000-DEADBAND))
 
 /* Global Variables */
-extern float rxCommand[12];
-
 extern uint8_t commandInDetent[3];
 extern uint8_t previousCommandInDetent[3];
 
