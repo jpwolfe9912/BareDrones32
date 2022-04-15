@@ -87,7 +87,6 @@ updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameter
 void
 initPIDvalues(void)
 {
-#ifdef STLINK
 	uint8_t ID;
 	bool again = true;
 
@@ -115,31 +114,25 @@ initPIDvalues(void)
 			printf("Current States:\n");
 			delay(1);
 			colorDefault();
-			printf("\nP(%1.2f): \nI(%1.2f): \nD(%1.2f): \nLimit(%1.2f): \nFilter State(%1.2f): \nIntegrator State(%1.2f): \n",
+			printf("P: (%1.2f)\nI: (%1.2f)\nD: (%1.2f)\nLimit: (%1.2f)\n",
 					eepromConfig.PID[ID].P,
 					eepromConfig.PID[ID].I,
 					eepromConfig.PID[ID].D,
-					eepromConfig.PID[ID].Limit,
-					eepromConfig.PID[ID].integratorState,
-					eepromConfig.PID[ID].filterState);
+					eepromConfig.PID[ID].Limit);
 
 			serialReadPID(&eepromConfig.PID[ID].P,
 					&eepromConfig.PID[ID].I,
-					&eepromConfig.PID[ID].D,
-					&eepromConfig.PID[ID].Limit,
-					&eepromConfig.PID[ID].integratorState,
-					&eepromConfig.PID[ID].filterState);
+					&eepromConfig.PID[ID].D);
+			eepromConfig.PID[ID].Limit			= 1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[ID].P;
 
 			color(GREEN, YES);
 			printf("\nNew States:\n");
 			colorDefault();
-			printf("\nP(%1.2f): \nI(%1.2f): \nD(%1.2f): \nLimit(%1.2f): \nFilter State(%1.2f): \nIntegrator State(%1.2f): \n",
+			printf("P: (%1.2f)\nI: (%1.2f)\nD: (%1.2f)\nLimit: (%1.2f)\n",
 					eepromConfig.PID[ID].P,
 					eepromConfig.PID[ID].I,
 					eepromConfig.PID[ID].D,
-					eepromConfig.PID[ID].Limit,
-					eepromConfig.PID[ID].integratorState,
-					eepromConfig.PID[ID].filterState);
+					eepromConfig.PID[ID].Limit);
 
 			printf("\nWould you like to configure another state?\n");
 			delay(1);
@@ -153,7 +146,9 @@ initPIDvalues(void)
 		else
 			again = false;
 	}
-#endif
+	color(GREEN, YES);
+	printf("\nFinished Configuring PIDs\n");
+	colorDefault();
 }
 
 /** @brief Set the state of the PIDs.

@@ -201,7 +201,7 @@ serialRead8(uint8_t *num)
  *  @return Void.
  */
 void
-serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter)
+serialReadPID(float *P, float *I, float *D)
 {
 	serialIndex = 0;
 	memset(serialBuf, '\0', sizeof(serialBuf));
@@ -210,7 +210,7 @@ serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, flo
 	UART5->CR1 |= USART_CR1_RXNEIE;
 	while(!endOfString);
 
-	sscanf((char*)serialBuf, "%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
+	sscanf((char*)serialBuf, "%f, %f, %f", P, I, D);
 
 	UART5->CR1 &= ~USART_CR1_RXNEIE;
 	memset(serialBuf, '\0', sizeof(serialBuf));

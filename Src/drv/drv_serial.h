@@ -18,7 +18,7 @@
 void serialInit(void);
 void serialWrite(uint8_t ch);
 void serialRead8(uint8_t *num);
-void serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter);
+void serialReadPID(float *P, float *I, float *D);
 bool serialWaitFor(char wait);
 
 #endif /* __DRV_SERIAL_H__ */
