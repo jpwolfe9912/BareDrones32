@@ -255,12 +255,13 @@ systemInit(void)
 	spi1Init();
 
 	usart1Init();
+	usart6Init();
 
 	tim9Init();
 
 	wormInit();
 
-	lagerInit();
+//	lagerInit();
 
 	/*		SENSOR INITIALIZATION		*/
 	battMonInit();
@@ -273,12 +274,14 @@ systemInit(void)
 	while(!ibusInit());
 
 	initPID();
-	initPIDvalues();
+//	initPIDvalues();
 
 	if(eepromChanged)
 		writeEEPROM();
 
-	motor_initialized = 1;
+	motor_initialized = true;
+
+	modeTransition();
 
 }
 
