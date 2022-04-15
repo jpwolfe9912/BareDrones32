@@ -8,8 +8,11 @@
 
 #include "board.h"
 
-//uint8_t pLog[LOG_SIZE * 4U];
 uint8_t log_count = 0;
+char *logData = (char*)0x20011000 ;
+
+/* Static Functions */
+static void writeLog(char *pLog);
 
 /** @brief Prints logging data to OpenLager based on which type of data you want.
  *
@@ -20,11 +23,10 @@ void
 printLog(logs_t logType)
 {
 #ifdef OPENLAGER
-	char log[LOG_SIZE];
 
 	if(logType < 3)
 	{
-		sprintf(log, "%d %f %d %f %f %f %f %f %f \r",
+		sprintf(logData, "%d %f %d %f %f %f %f %f %f\r",
 				logType,
 				battVoltage,
 				mode,
@@ -39,7 +41,7 @@ printLog(logs_t logType)
 
 	if (logType == 3)
 	{
-		sprintf(log, "%d %f %d %u %u %u %u \r",
+		sprintf(logData, "%d %f %d %u %u %u %u \r",
 				logType,
 				battVoltage,
 				mode,
@@ -49,49 +51,24 @@ printLog(logs_t logType)
 				motor_value[MOTOR4]);
 
 	}
-	lagerWriteLog(log);
+	writeLog(logData);
 
 #else
-	if (logType == 1)
+	if (logType < 3)
 	{
 		// Roll Loop
 		printf("1,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
 				battVoltage,
 				mode,
-				rateCmd[ROLL],
-				sensors.gyro500Hz[ROLL],
-				ratePID[ROLL],
-				attCmd[ROLL],
-				sensors.attitude500Hz[ROLL],
-				attPID[ROLL]);
-	}
-
-	if (logType == 2)
-	{
-		// Pitch Loop
-		printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
-				battVoltage,
-				mode,
-				rateCmd[PITCH],
-				sensors.gyro500Hz[PITCH],
-				ratePID[PITCH],
-				attCmd[PITCH],
-				sensors.attitude500Hz[PITCH],
-				attPID[PITCH]);
+				rateCmd[logType],
+				sensors.gyro500Hz[logType],
+				ratePID[logType],
+				attCmd[logType],
+				sensors.attitude500Hz[logType],
+				attPID[logType]);
 	}
 
 	if (logType == 3)
-	{
-		// Yaw Loop
-		printf("2,%9.4f,%1d,%9.4f,%9.4f,%9.4f\n",
-				battVoltage,
-				mode,
-				rateCmd[YAW],
-				sensors.gyro500Hz[YAW],
-				ratePID[YAW]);
-	}
-
-	if (logType == 4)
 	{
 		// Sensors
 		printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n",
@@ -108,7 +85,7 @@ printLog(logs_t logType)
 
 	}
 
-	if (logType == 5)
+	if (logType == 4)
 	{
 		printf("4,%9.4f,%u,%u,%u,%u,\n",
 				battVoltage,
@@ -118,4 +95,16 @@ printLog(logs_t logType)
 				motor_value[3]);
 	}
 #endif
+}
+
+/** @brief Loops through the log.
+ *
+ *  @param ch The character to send.
+ *  @return Void.
+ */
+static void
+writeLog(char *pLog)
+{
+	uint8_t lagerSize = strlen(pLog);
+	usart6Write(pLog, lagerSize);
 }

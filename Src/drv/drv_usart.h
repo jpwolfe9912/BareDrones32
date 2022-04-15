@@ -14,15 +14,15 @@
 #include "drv_lwrb.h"
 
 /* Defines */
-#define RXBUF_SIZE 					32
+#define RX1BUF_SIZE 				32
+
+/* Global Variables */
+extern uint8_t rx1Buf[RX1BUF_SIZE];
 
 /* Prototypes */
 void usart1Init(void);
 void usart1Read(uint8_t *pData, uint8_t size);
-
-/*		Global Variables	*/
-extern uint8_t rxBuf[RXBUF_SIZE];
-extern lwrb_t rxRingBuf;
-extern uint8_t rxRingBufData[RXBUF_SIZE];
+void usart6Init(void);
+void usart6Write(char *pData, uint8_t size);
 
 #endif /* __USART_H__ */
