@@ -45,7 +45,7 @@ ibusInit(void)
 
 	printf("\nInitializing iBus Receiver\n");
 
-	usart1Read(rxBuf, RXBUF_SIZE);
+	usart1Read(rx1Buf, RX1BUF_SIZE);
 
 
 	status = IBUS_ERROR;
@@ -106,7 +106,7 @@ ibusProcess(void)
 static ibusStatus_e
 ibus_process_frame(void)
 {
-	uint8_t b = rxBuf[framePos++];
+	uint8_t b = rx1Buf[framePos++];
 
 	status = IBUS_BUSY;
 	switch(state){
@@ -203,7 +203,7 @@ ibus_frame_crc(uint8_t *pData)
 
 	for(uint8_t i = 0; i < 30; i++)
 	{
-		checksum_cal -= rxBuf[i];
+		checksum_cal -= rx1Buf[i];
 	}
 
 	checksum_ibus = pData[1] << 8 | pData[0]; // checksum value from ibus
