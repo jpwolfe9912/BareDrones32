@@ -184,25 +184,22 @@ usart6Init(void)
 void
 usart6Write(char *pData, uint8_t size)
 {
-	if(!(USART6->ISR & USART_ISR_BUSY)){		// wait for UART to be ready
-		DMA2_Stream6->CR	&= ~DMA_SxCR_EN;	// disable DMA
-		while(DMA2_Stream6->CR & DMA_SxCR_EN);
-		DMA2_Stream6->M0AR	= (uint32_t)pData;
-		DMA2_Stream6->CR	|= (0x5 << 25U);	// set DMA channel
-		DMA2_Stream6->NDTR	= size;				// set transfer size
+	DMA2_Stream6->CR	&= ~DMA_SxCR_EN;	// disable DMA
+	while(DMA2_Stream6->CR & DMA_SxCR_EN);
+	DMA2_Stream6->M0AR	= (uint32_t)pData;
+	DMA2_Stream6->CR	|= (0x5 << 25U);	// set DMA channel
+	DMA2_Stream6->NDTR	= size;				// set transfer size
 
-		DMA2->HIFCR			|= (0x3F << 16U);	// clear flags
+	DMA2->HIFCR			|= (0x3F << 16U);	// clear flags
 
-		DMA2_Stream6->CR 	|= DMA_SxCR_TCIE;	// set transfer complete interrupts
+	DMA2_Stream6->CR 	|= DMA_SxCR_TCIE;	// set transfer complete interrupts
 
-		DMA2_Stream6->CR	|= DMA_SxCR_EN;		// enable DMA
+	DMA2_Stream6->CR	|= DMA_SxCR_EN;		// enable DMA
 
-		USART6->CR3			|= USART_CR3_DMAT;	// enable DMA for UART
+	USART6->CR3			|= USART_CR3_DMAT;	// enable DMA for UART
 
-//		USART6->CR1			|= USART_CR1_TCIE;
-		USART6->ICR			|= USART_ICR_TCCF;
-		USART6->CR1			|= USART_CR1_UE;	// enable usart
-	}
+	USART6->ICR			|= USART_ICR_TCCF;
+	USART6->CR1			|= USART_CR1_UE;	// enable usart
 }
 
 /* Interrupt Handlers */
@@ -216,8 +213,6 @@ USART6_IRQHandler(void) {
 	/* Check for IDLE line interrupt */
 	if ((USART6->ISR & USART_ISR_TC) && (USART6->CR1 & USART_CR1_TCIE)) {
 		USART6->ICR		|= USART_ICR_TCCF;	/* Clear IDLE line flag */
-
-		USART6->CR1			&= ~USART_CR1_TCIE;
 	}
 }
 
@@ -242,13 +237,6 @@ DMA2_Stream6_IRQHandler(void) {
 	/* Check half-transfer complete interrupt */
 	if(DMA2->HISR & DMA_HISR_TCIF6){
 		DMA2->HIFCR		|= DMA_HIFCR_CTCIF6;	/* Clear half-transfer complete flag */
-
-		DMA2_Stream6->CR	&= ~DMA_SxCR_EN;	// disable DMA
-
-		USART6->CR3			&= ~USART_CR3_DMAT;	// disable USART DMA
-
-		USART6->CR1			&= ~USART_CR1_TCIE;
-		USART6->CR1			&= ~USART_CR1_UE;	// disable USART
 	}
 }
 

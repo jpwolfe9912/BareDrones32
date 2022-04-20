@@ -10,9 +10,6 @@
 #ifndef __USART_H__
 #define __USART_H__
 
-/* Includes */
-#include "drv_lwrb.h"
-
 /* Defines */
 #define RX1BUF_SIZE 				32
 
