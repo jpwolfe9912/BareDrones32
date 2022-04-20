@@ -70,19 +70,19 @@ mpu6000Init(void)
 
 	SPI1_DISABLE;
 
-	spiWriteOneByte(0x00, 0x00);
+	spi1WriteOneByte(0x00, 0x00);
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_PWR_MGMT_1, BIT_H_RESET);	// reset device configuration
+	spi1WriteOneByte(MPU6000_PWR_MGMT_1, BIT_H_RESET);	// reset device configuration
 	delay(150);		// 100ms delay after reset
 
-	spiWriteOneByte(MPU6000_SIGNAL_PATH_RESET, 0x07);
+	spi1WriteOneByte(MPU6000_SIGNAL_PATH_RESET, 0x07);
 	delay(150);
 
-	spiWriteOneByte(MPU6000_PWR_MGMT_1, MPU_CLK_SEL_PLLGYROZ);
+	spi1WriteOneByte(MPU6000_PWR_MGMT_1, MPU_CLK_SEL_PLLGYROZ);
 	delayMicroseconds(100);
 
-	spiReadOneByte(MPU6000_WHOAMI, whoami);
+	spi1ReadOneByte(MPU6000_WHOAMI, whoami);
 	delayMicroseconds(100);
 	if(whoami[2] != 0x68){
 		color(RED, YES);
@@ -101,25 +101,25 @@ mpu6000Init(void)
 	}
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_USER_CTRL, BIT_I2C_IF_DIS);	// disable I2C interface
+	spi1WriteOneByte(MPU6000_USER_CTRL, BIT_I2C_IF_DIS);	// disable I2C interface
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_PWR_MGMT_2, 0x00);
+	spi1WriteOneByte(MPU6000_PWR_MGMT_2, 0x00);
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_SMPLRT_DIV, 0x00);
+	spi1WriteOneByte(MPU6000_SMPLRT_DIV, 0x00);
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_GYRO_CONFIG, BITS_FS_2000DPS);
+	spi1WriteOneByte(MPU6000_GYRO_CONFIG, BITS_FS_2000DPS);
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_ACCEL_CONFIG, BITS_FS_16G);;
+	spi1WriteOneByte(MPU6000_ACCEL_CONFIG, BITS_FS_16G);;
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_CONFIG, 0x00);
+	spi1WriteOneByte(MPU6000_CONFIG, 0x00);
 	delayMicroseconds(100);
 
-	spiWriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
+	spi1WriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
 	delayMicroseconds(100);
 
 	///////////////////////////////////
@@ -139,7 +139,7 @@ mpu6000Init(void)
 void
 readMPU6000(void)
 {
-	spiReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 16);
+	spi1ReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 16);
 
     rawAccel[XAXIS].bytes[1]		= 	rawData[2];
     rawAccel[XAXIS].bytes[0]		= 	rawData[3];
