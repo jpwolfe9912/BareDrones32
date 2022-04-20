@@ -20,7 +20,7 @@ typedef enum
 }logs_t;
 
 /* Defines */
-#define LOG_SIZE		(12 * 9)
+#define LOG_SIZE		64
 
 /* Functions */
 void printLog(uint8_t logType);

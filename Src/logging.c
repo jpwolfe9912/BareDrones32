@@ -23,10 +23,11 @@ void
 printLog(logs_t logType)
 {
 #ifdef OPENLAGER
+	memset(logData, '\0', LOG_SIZE);
 
 	if(logType < 3)
 	{
-		sprintf(logData, "%d %f %d %f %f %f %f %f %f\r",
+		sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
 				logType,
 				battVoltage,
 				mode,
