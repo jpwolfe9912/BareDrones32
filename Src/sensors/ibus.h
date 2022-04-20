@@ -10,9 +10,6 @@
 #ifndef __IBUS_H__
 #define __IBUS_H__
 
-/* Includes */
-#include "drv_lwrb.h"
-
 /* Defines */
 #define IBUS_FRAME_SIZE_MAX			32
 #define PAYLOAD_SIZE				(IBUS_FRAME_SIZE_MAX - 4U)
