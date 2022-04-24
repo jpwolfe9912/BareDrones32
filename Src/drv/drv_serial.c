@@ -50,7 +50,7 @@ serialInit(void){
  *  @return Void.
  */
 void
-serialWrite(int ch){
+serialWrite(uint8_t ch){
 	while (!(USART3->ISR & USART_ISR_TXE)){}	// waits for TX buffer to become empty
 	USART3->TDR = ch;								// transfers the value of the data register into ch
 }
@@ -68,25 +68,6 @@ serialRead8(uint8_t *num)
 
 	*num = (uint8_t)temp;
 	USART3->CR1 &= ~USART_CR1_RXNEIE;
-}
-
-/** @brief Uses interrupts to read a string of PID values.
- *
- *  @param * Pointer to the location you want to store the received number
- *  @return Void.
- */
-void
-serialReadPID(float *P, float *I, float *D, float *limit, float *integrator, float *filter)
-{
-	endOfString = false;
-	charRec = false;
-	USART3->CR1 |= USART_CR1_RXNEIE;
-	while(!endOfString);
-
-	sscanf(serialBuf, "%f, %f, %f, %f, %f, %f", P, I, D, limit, integrator, filter);
-
-	USART3->CR1 &= ~USART_CR1_RXNEIE;
-	memset(serialBuf, '\0', sizeof(serialBuf));
 }
 
 /** @brief Waits for a character.
@@ -118,17 +99,20 @@ serialWaitFor(char wait)
  * @brief This function handles UART3 global interrupt.
  */
 void
-USART3_IRQHandler(void){
-	if((USART3->ISR & USART_ISR_RXNE) && (USART3->CR1 & USART_CR1_RXNEIE)){
+USART3_IRQHandler(void)
+{
+	if((USART3->ISR & USART_ISR_RXNE) &&(USART3->CR1 & USART_CR1_RXNEIE)){
 		temp = USART3->RDR;
+		USART3->TDR = temp;
 		if(temp == '\r'){
 			endOfString = true;
-			i = 0;
+			serialIndex = 0;
 		}
 		else{
-			serialBuf[i] = temp;
-			i++;
+			serialBuf[serialIndex] = temp;
+			serialIndex++;
 		}
+
 	}
 	if(USART3->ISR & USART_ISR_ORE)
 		USART3->ICR |= USART_ICR_ORECF;
