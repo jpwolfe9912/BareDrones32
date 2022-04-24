@@ -28,7 +28,7 @@
 
 /* General */
 #include "pid.h"
-#include "Autodrone32.h"
+#include "autodrone32.h"
 #include "main.h"
 #include "config.h"
 #include "utilities.h"
