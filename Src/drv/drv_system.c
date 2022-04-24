@@ -238,8 +238,10 @@ systemInit(void)
 	/*		LOW LEVEL INITIALIZATION	*/
 	serialInit();
 
-	color(CYAN, YES);
-	printf("\nBEGINNING AUTODRONE INITIALIZATION\n");
+	drawAutodrone();
+
+	color(GREEN, YES	);
+	printf("\nBEGINNING INITIALIZATION\n");
 	printf("----------------------------------\n");
 	printf("----------------------------------\n");
 	colorDefault();
