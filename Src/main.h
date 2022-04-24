@@ -13,5 +13,7 @@
 //#define STLINK
 //#define SANDBOX
 #define OPENLAGER
+//#define BAD_PID
+#define USE_AUTODRONE
 
 #endif /* __MAIN_H__ */
