@@ -55,46 +55,33 @@ printLog(logs_t logType)
 	writeLog(logData);
 
 #else
-	if (logType < 3)
-	{
-		// Roll Loop
-		printf("1,%9.4f,%1d,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f,%9.4f\n",
-				battVoltage,
-				mode,
-				rateCmd[logType],
-				sensors.gyro500Hz[logType],
-				ratePID[logType],
-				attCmd[logType],
-				sensors.attitude500Hz[logType],
-				attPID[logType]);
-	}
+	if(logType < 3)
+		{
+			printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
+					logType,
+					battVoltage,
+					mode,
+					rateCmd[logType],
+					sensors.gyro500Hz[logType],
+					ratePID[logType],
+					attCmd[logType],
+					sensors.attitude500Hz[logType],
+					attPID[logType]);
+		}
 
-	if (logType == 3)
-	{
-		// Sensors
-		printf("3,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,%8.4f,\n",
-				battVoltage,
-				sensors.accel500Hz[XAXIS],
-				sensors.accel500Hz[YAXIS],
-				sensors.accel500Hz[ZAXIS],
-				sensors.gyro500Hz[ROLL],
-				sensors.gyro500Hz[PITCH],
-				sensors.gyro500Hz[YAW],
-				sensors.attitude500Hz[ROLL],
-				sensors.attitude500Hz[PITCH],
-				sensors.attitude500Hz[YAW]);
 
-	}
+		if (logType == 3)
+		{
+			printf("%d %f %d %u %u %u %u \r",
+					logType,
+					battVoltage,
+					mode,
+					motor_value[MOTOR1],
+					motor_value[MOTOR2],
+					motor_value[MOTOR3],
+					motor_value[MOTOR4]);
 
-	if (logType == 4)
-	{
-		printf("4,%9.4f,%u,%u,%u,%u,\n",
-				battVoltage,
-				motor_value[0],
-				motor_value[1],
-				motor_value[2],
-				motor_value[3]);
-	}
+		}
 #endif
 }
 
