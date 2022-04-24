@@ -27,6 +27,7 @@ computeAxisCommands(float dt)
 
 	if (mode == FLIGHT)
 	{
+#ifndef BAD_PID
 		attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
 		attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
 		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
@@ -53,6 +54,29 @@ computeAxisCommands(float dt)
 		///////////////////////////////////
 
 		throttleCmd = rxCommands[THROTTLE];
+#else
+		attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
+		attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
+		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
+
+		attPID[ROLL ] = updatePID(&attPIDdata, sensors.attitude500Hz[ROLL], attCmd[ROLL ]);
+		rateCmd[ROLL ] = attPID[ROLL ];
+
+		attPID[PITCH] = updatePID(&attPIDdata, sensors.attitude500Hz[PITCH], attCmd[PITCH]);
+		rateCmd[PITCH] = attPID[PITCH];
+
+		///////////////////////////////////
+
+		ratePID[ROLL ] = updatePID(&ratePIDdata, sensors.gyro500Hz[ROLL ], rateCmd[ROLL ]);
+
+		ratePID[PITCH] = updatePID(&ratePIDdata, sensors.gyro500Hz[PITCH], rateCmd[PITCH]);
+
+		ratePID[YAW  ] = updatePID(&ratePIDdata, sensors.gyro500Hz[YAW  ], rateCmd[YAW  ]);
+
+		///////////////////////////////////
+
+		throttleCmd = rxCommands[THROTTLE];
+#endif
 	}
 	else if(mode == ROVER)
 	{
