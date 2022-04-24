@@ -155,7 +155,7 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.rollAndPitchRateScaling = 100.0 / 180000.0 * PI;  // Stick to rate scaling for 100 DPS
 		eepromConfig.yawRateScaling          = 100.0 / 180000.0 * PI;  // Stick to rate scaling for 100 DPS
 
-		eepromConfig.attitudeScaling         = 60.0  / 180000.0 * PI;  // Stick to att scaling for 60 degrees
+		eepromConfig.attitudeScaling         = 30.0  / 180000.0 * PI;  // Stick to att scaling for 30 degrees
 
 		///////////////////////////////
 
