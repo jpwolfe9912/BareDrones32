@@ -27,20 +27,28 @@ computeAxisCommands(float dt)
 
 	if (mode == FLIGHT)
 	{
-#ifndef BAD_PID
-		attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
-		attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
+		if(flightMode == ANGLE)
+		{
+			attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
+			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+
+			attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
+			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+		}
+
+		if(flightMode == RATE)
+		{
+			rateCmd[ROLL ] = RATECURVE(rxCommands[ROLL ]);
+			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+		}
+		else
+		{
+			rateCmd[ROLL ] = attPID[ROLL ];
+			rateCmd[PITCH] = attPID[PITCH];
+		}
 		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
-
-		error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
-		attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
-		rateCmd[ROLL ] = attPID[ROLL ];
-
-		error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
-		attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
-		rateCmd[PITCH] = attPID[PITCH];
-
-		///////////////////////////////////
 
 		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
@@ -54,29 +62,6 @@ computeAxisCommands(float dt)
 		///////////////////////////////////
 
 		throttleCmd = rxCommands[THROTTLE];
-#else
-		attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
-		attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
-		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
-
-		attPID[ROLL ] = updatePID(&attPIDdata, sensors.attitude500Hz[ROLL], attCmd[ROLL ]);
-		rateCmd[ROLL ] = attPID[ROLL ];
-
-		attPID[PITCH] = updatePID(&attPIDdata, sensors.attitude500Hz[PITCH], attCmd[PITCH]);
-		rateCmd[PITCH] = attPID[PITCH];
-
-		///////////////////////////////////
-
-		ratePID[ROLL ] = updatePID(&ratePIDdata, sensors.gyro500Hz[ROLL ], rateCmd[ROLL ]);
-
-		ratePID[PITCH] = updatePID(&ratePIDdata, sensors.gyro500Hz[PITCH], rateCmd[PITCH]);
-
-		ratePID[YAW  ] = updatePID(&ratePIDdata, sensors.gyro500Hz[YAW  ], rateCmd[YAW  ]);
-
-		///////////////////////////////////
-
-		throttleCmd = rxCommands[THROTTLE];
-#endif
 	}
 	else if(mode == ROVER)
 	{
@@ -87,4 +72,4 @@ computeAxisCommands(float dt)
 
 }
 
-///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////

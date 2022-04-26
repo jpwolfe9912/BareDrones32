@@ -9,6 +9,9 @@
 #ifndef __COMPUTE_AXIS_COMMANDS_H__
 #define __COMPUTE_AXIS_COMMANDS_H__
 
+/* Defines */
+#define RATECURVE(x)	(((eepromConfig.rateCoeffAlpha * CUBE(x)) + (eepromConfig.rateCoeffBravo * x)) * PI / 180.0);
+
 /* Global Variables */
 extern float   attCmd[3];
 extern float   attPID[3];
