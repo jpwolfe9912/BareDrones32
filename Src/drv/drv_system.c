@@ -263,8 +263,6 @@ systemInit(void)
 
 	wormInit();
 
-//	lagerInit();
-
 	/*		SENSOR INITIALIZATION		*/
 	battMonInit();
 
@@ -276,7 +274,6 @@ systemInit(void)
 	while(!ibusInit());
 
 	initPID();
-//	initPIDvalues();
 
 	if(eepromChanged)
 		writeEEPROM();
