@@ -153,7 +153,6 @@ initPIDvalues(void)
 			printf("Yaw Rate PID  : 2\n");
 			printf("Roll Att PID  : 3\n");
 			printf("Pitch Att PID : 4\n");
-			printf("Yaw Att PID   : 5\n");
 			serialRead8(&ID);
 
 			color(YELLOW, YES);
@@ -172,7 +171,12 @@ initPIDvalues(void)
 			serialReadPID(&eepromConfig.PID[ID].P,
 					&eepromConfig.PID[ID].I,
 					&eepromConfig.PID[ID].D);
-			eepromConfig.PID[ID].Limit			= 1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[ID].P;
+			if(ID < 2)
+				eepromConfig.PID[ID].Limit	= 1000.0f * eepromConfig.PID[ID].P * PI / 180.0;
+			else if(ID == 2)
+				eepromConfig.PID[ID].Limit	= 1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[ID].P;
+			else
+				eepromConfig.PID[ID].Limit	= 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[ID].P;
 
 			color(GREEN, YES);
 			printf("\nNew States:\n");
