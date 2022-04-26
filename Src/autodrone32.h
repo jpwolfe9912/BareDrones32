@@ -25,6 +25,8 @@
 
 #define SQR(x)  ((x) * (x))
 
+#define CUBE(x)	((x) * (x) * (x))
+
 ///////////////////////////////////////////////////////////////////////////////
 
 #define ROLL     0
@@ -117,6 +119,12 @@ typedef enum
 	ROVER
 }modes_e;
 
+typedef enum
+{
+	RATE,
+	ANGLE
+}flightModes_e;
+
 ///////////////////////////////////////////////////////////////////////////////
 // MPU6000 DLPF Configurations
 ///////////////////////////////////////////////////////////////////////////////
@@ -148,17 +156,14 @@ typedef struct eepromConfig_t
 
 	float KiAcc;
 
-	float KpMag;
-
-	float KiMag;
-
 	uint8_t dlpfSetting;
 
 	uint8_t sensorOrientation;
 
 	///////////////////////////////////
 
-	float rollAndPitchRateScaling;
+	double rateCoeffAlpha;
+	float rateCoeffBravo;
 	float yawRateScaling;
 
 	float attitudeScaling;
