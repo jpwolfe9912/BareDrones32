@@ -11,11 +11,6 @@
 
 /* Global Variables */
 uint8_t pidReset = true;
-#ifdef BAD_PID
-fastPID attPIDdata;
-fastPID ratePIDdata;
-#endif
-
 
 /** @brief Initializes the PID states.
  *
@@ -32,22 +27,8 @@ initPID(void)
 		eepromConfig.PID[index].filterState     = 0.0f;
 		eepromConfig.PID[index].prevResetState  = false;
 	}
-#ifdef BAD_PID
-	attPIDdata.Kp = 2.0;
-	attPIDdata.Ki = 0.0;
-	attPIDdata.Kd = 0.0;
-	attPIDdata.integral_limit = 10000.0;
-	attPIDdata.output_limit = 50000.0;
-
-	ratePIDdata.Kp = 100.0;
-	ratePIDdata.Ki = 0.0;
-	ratePIDdata.Kd = 50.0;
-	ratePIDdata.integral_limit = 10000.0;
-	ratePIDdata.output_limit = 50000.0;
-#endif
 }
 
-#ifndef BAD_PID
 /** @brief Updates the PID states.
  *
  *  @param error Commanded changed minus measured change.
@@ -98,36 +79,6 @@ updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameter
 
     return pidLimited;
 }
-
-#else
-float
-updatePID(struct fastPID *pidnow, float actual, float target)
-{
-
-	pidnow->error = standardRadianFormat(actual - target);
-	pidnow->integral = pidnow->integral + pidnow->error*pidnow->Ki + pidnow->last_error*pidnow->Ki;
-	if(pidnow->integral > pidnow->integral_limit){
-		pidnow->integral = pidnow->integral_limit;
-	}
-	if(pidnow->integral < -pidnow->integral_limit){
-		pidnow->integral = -pidnow->integral_limit;
-	}
-
-	pidnow->derivative = pidnow->Kd * (pidnow->error - pidnow->last_error);
-	pidnow->last_error = pidnow->error;
-
-	pidnow->pid_output = pidnow->error*pidnow->Kp + pidnow->integral + pidnow->derivative;
-
-
-	if (pidnow->pid_output>pidnow->output_limit){
-		pidnow->pid_output = pidnow->output_limit;
-	}if(pidnow->pid_output <-pidnow->output_limit){
-		pidnow->pid_output = -pidnow->output_limit;
-	}
-	return pidnow->pid_output;
-
-}
-#endif
 
 /** @brief Allows the user to change the PID values.
  *
