@@ -19,13 +19,13 @@ semaphore_t eepromChanged = false;
 static uint8_t checkNewEEPROMConf = 29;
 
 void readEEPROM(void)
- {
- 	eepromConfig_t *dst = &eepromConfig;
+{
+	eepromConfig_t *dst = &eepromConfig;
 
- 	*dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR;
- }
+	*dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR;
+}
 
- ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 HAL_StatusTypeDef
 writeEEPROM(void)
@@ -33,49 +33,49 @@ writeEEPROM(void)
 	color(BLUE, YES);
 	printf("\nWriting to EEPROM...\n");
 
- 	int32_t i;
+	int32_t i;
 
- 	HAL_StatusTypeDef status;
+	HAL_StatusTypeDef status;
 
- 	FLASH_EraseInitTypeDef erase;
+	FLASH_EraseInitTypeDef erase;
 
- 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
- 	erase.NbSectors = 1;
- 	erase.Sector = FLASH_SECTOR_6;
- 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
- 	uint32_t err = 0;
+	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
+	erase.NbSectors = 1;
+	erase.Sector = FLASH_SECTOR_6;
+	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+	uint32_t err = 0;
 
- 	eepromConfig_t *src = &eepromConfig;
- 	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
+	eepromConfig_t *src = &eepromConfig;
+	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
 
- 	// there's no reason to write these values to EEPROM, they'll just be noise
+	// there's no reason to write these values to EEPROM, they'll just be noise
 
- 	HAL_FLASH_Unlock();
+	HAL_FLASH_Unlock();
 
- 	status = HAL_FLASHEx_Erase(&erase, &err);
+	status = HAL_FLASHEx_Erase(&erase, &err);
 
- 	///////////////////////////////////
+	///////////////////////////////////
 
- 	i = -1;
+	i = -1;
 
- 	while (i++ < eepromConfigNUMWORD )
- 		status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, (uint32_t)&dst[i], ((uint32_t*)src)[i]);
+	while (i++ < eepromConfigNUMWORD )
+		status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, (uint32_t)&dst[i], ((uint32_t*)src)[i]);
 
- 	///////////////////////////////////
+	///////////////////////////////////
 
- 	HAL_FLASH_Lock();
+	HAL_FLASH_Lock();
 
- 	readEEPROM();
+	readEEPROM();
 
- 	if(status == HAL_OK)
- 		color(GREEN, YES);
- 	else
- 		color(RED, YES);
+	if(status == HAL_OK)
+		color(GREEN, YES);
+	else
+		color(RED, YES);
 
- 	printf("\nEEPROM write complete. Return status of %X\n", status);
- 	colorDefault();
- 	return status;
- }
+	printf("\nEEPROM write complete. Return status of %X\n", status);
+	colorDefault();
+	return status;
+}
 
 /** @brief Sets all the default config values
  *
@@ -138,9 +138,6 @@ checkFirstTime(bool eepromReset)
 
 		eepromConfig.KpAcc = 1.0f;    // proportional gain governs rate of convergence to accelerometer
 		eepromConfig.KiAcc = 0.0f;    // integral gain governs rate of convergence of gyroscope biases
-		eepromConfig.KpMag = 5.0f;    // proportional gain governs rate of convergence to magnetometer
-		eepromConfig.KiMag = 0.0f;    // integral gain governs rate of convergence of gyroscope biases
-
 
 		///////////////////////////////
 
@@ -152,8 +149,9 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////////
 
-		eepromConfig.rollAndPitchRateScaling = 100.0 / 180000.0 * PI;  // Stick to rate scaling for 100 DPS
-		eepromConfig.yawRateScaling          = 100.0 / 180000.0 * PI;  // Stick to rate scaling for 100 DPS
+		eepromConfig.rateCoeffAlpha 		= 8.5e-7;  // Stick to rate scaling for 100 DPS
+		eepromConfig.rateCoeffBravo			= 0.15;
+		eepromConfig.yawRateScaling			= 500.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
 
 		eepromConfig.attitudeScaling         = 30.0  / 180000.0 * PI;  // Stick to att scaling for 30 degrees
 
@@ -172,7 +170,7 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.PID[ROLL_RATE_PID].P                =  250.0f;
 		eepromConfig.PID[ROLL_RATE_PID].I                =  100.0f;
 		eepromConfig.PID[ROLL_RATE_PID].D                =    0.0f;
-		eepromConfig.PID[ROLL_RATE_PID].Limit            = 1000.0f * eepromConfig.rollAndPitchRateScaling * eepromConfig.PID[ROLL_RATE_PID].P ;
+		eepromConfig.PID[ROLL_RATE_PID].Limit            = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * PI / 180.0;
 		eepromConfig.PID[ROLL_RATE_PID].integratorState  =    0.0f;
 		eepromConfig.PID[ROLL_RATE_PID].filterState      =    0.0f;
 		eepromConfig.PID[ROLL_RATE_PID].prevResetState   =   false;
@@ -180,7 +178,7 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.PID[PITCH_RATE_PID].P               =  250.0f;
 		eepromConfig.PID[PITCH_RATE_PID].I               =  100.0f;
 		eepromConfig.PID[PITCH_RATE_PID].D               =    0.0f;
-		eepromConfig.PID[PITCH_RATE_PID].Limit           = 1000.0f * eepromConfig.rollAndPitchRateScaling * eepromConfig.PID[PITCH_RATE_PID].P;
+		eepromConfig.PID[PITCH_RATE_PID].Limit           = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P * PI / 180.0;
 		eepromConfig.PID[PITCH_RATE_PID].integratorState =    0.0f;
 		eepromConfig.PID[PITCH_RATE_PID].filterState     =    0.0f;
 		eepromConfig.PID[PITCH_RATE_PID].prevResetState  =   false;
