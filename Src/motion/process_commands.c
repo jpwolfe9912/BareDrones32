@@ -15,6 +15,7 @@ uint8_t  commandInDetent[3]         = { true, true, true };
 uint8_t  previousCommandInDetent[3] = { true, true, true };
 
 modes_e mode = TRANS_FLIGHT;
+flightModes_e flightMode = ANGLE;
 semaphore_t armed = false;
 uint8_t armingTimer    = 0;
 uint8_t disarmingTimer = 0;
@@ -95,6 +96,13 @@ processCommands(void)
 			delay(100);
 			initPIDvalues();
 		}
+		if((rxCommands[YAW] > (eepromConfig.minCheck - MIDCOMMAND)) &&
+				(rxCommands[ROLL ] < (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
+		{
+			delay(100);
+			computeMPU6000RTData();
+		}
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/
@@ -106,7 +114,11 @@ processCommands(void)
 		armed = true;
 	}
 
-
+	/* Check for Flight Mode Change */
+	if(rxCommands[AUX3] > MIDCOMMAND)
+		flightMode = RATE;
+	else
+		flightMode = ANGLE;
 
 	///////////////////////////////////
 
