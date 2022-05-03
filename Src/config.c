@@ -41,7 +41,7 @@ writeEEPROM(void)
 
 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
 	erase.NbSectors = 1;
-	erase.Sector = FLASH_SECTOR_6;
+	erase.Sector = FLASH_SECTOR_7;
 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
 	uint32_t err = 0;
 
