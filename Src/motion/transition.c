@@ -22,22 +22,6 @@ modeTransition(void)
 
 	wormDrive();
 
-//	if(mode == TRANS_FLIGHT)
-//	{
-//		color(BLUE, YES);
-//		printf("\nTransitioning to FLIGHT MODE");
-//		colorDefault();
-//		motorsChangeMode(DSHOT_CMD_3D_MODE_OFF, MOTORS_24);
-//
-//	}
-//	else if(mode == TRANS_ROVER)
-//	{
-//		color(BLUE, YES);
-//		printf("\nTransitioning to ROVER MODE");
-//		colorDefault();
-//		motorsChangeMode(DSHOT_CMD_3D_MODE_ON, MOTORS_24);
-//	}
-
 	printf("\nWaiting for arms...\n");
 	while(!(arm1Hit & arm2Hit));	// wait for both arms to hit
 
