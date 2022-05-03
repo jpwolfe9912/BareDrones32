@@ -11,7 +11,7 @@
 
 #ifndef SANDBOX
 /* Global Variables */
-__attribute__((__section__(".eeprom"), used)) const int8_t eepromArray[16384];
+const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
 
 eepromConfig_t	eepromConfig;
 
@@ -217,33 +217,52 @@ int main(void)
 {
 	rcc216MHzInit();
 
+
+	cycleCounterInit();
+
 	/*		LOW LEVEL INITIALIZATION	*/
 	serialInit();
 
 	color(RED, YES);
 	printf("\n    __       _     _     _______      _____     ");
+	delay(100);
 	printf("_______     _______       _____      __    _     _______  ");
+	delay(100);
 	color(PURPLE, YES);
 	printf("\n   /  \\     | |   | |   |_______|    /  _  \\    ");
+	delay(100);
 	printf("|  __  \\    |   _  \\     /  _  \\    |  \\  | |   |   ____| ");
+	delay(100);
 	color(BLUE, YES);
 	printf("\n  /    \\    | |   | |      | |      /  / \\  \\   ");
+	delay(100);
 	printf("|  | \\  |   |  | \\  |   /  / \\  \\   |   \\ | |   |  |      ");
+	delay(100);
 	color(CYAN, YES);
 	printf("\n /  /\\  \\   | |   | |      | |      |  | |  |   ");
+	delay(100);
 	printf("|  | |  |   |  |_/  /   |  | |  |   |    \\| |   |  |____  ");
+	delay(100);
 	color(CYAN, YES);
 	printf("\n/  /__\\  \\  | |   | |      | |      |  | |  |   ");
+	delay(100);
 	printf("|  | |  |   |      /    |  | |  |   | |\\    |   |   ____| ");
+	delay(100);
 	color(BLUE, YES);
 	printf("\n|   __   |  | |   | |      | |      |  | |  |   ");
+	delay(100);
 	printf("|  | |  |   |  |\\  \\    |  | |  |   | | \\   |   |  |      ");
+	delay(100);
 	color(PURPLE, YES);
 	printf("\n|  |  |  |  \\ \\___/ /      | |      \\  \\_/  /   ");
+	delay(100);
 	printf("|  |_/  /   |  | \\  \\   \\  \\_/  /   | |  \\  |   |  |____  ");
+	delay(100);
 	color(RED, YES);
 	printf("\n|__|  |__|   \\_____/       | |       \\_____/    ");
+	delay(100);
 	printf("|______/    |__| |__|    \\_____/    |_|   \\_|   |_______| ");
+	delay(100);
 	colorDefault();
 
 	color(GREEN, YES	);
