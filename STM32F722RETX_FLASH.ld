@@ -45,8 +45,9 @@ _Min_Stack_Size = 0x400 ; /* required amount of stack */
 /* Memories definition */
 MEMORY
 {
-  RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 256K
-  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 512K
+  RAM		(xrw)	: ORIGIN = 0x20000000,	LENGTH = 256K
+  FLASH		(rx)	: ORIGIN = 0x08000000,	LENGTH = 384K
+  EEPROM	(rx)	: ORIGIN = 0x08060000,	LENGTH = 128K
 }
 
 /* Sections */
@@ -76,7 +77,14 @@ SECTIONS
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
   } >FLASH
-
+  
+  .eeprom 0x08060000 :
+  {
+    . = ALIGN(4);
+        KEEP(*(.eeprom))
+    . = ALIGN(4);
+  } > EEPROM
+  
   /* Constant data into "FLASH" Rom type memory */
   .rodata :
   {
