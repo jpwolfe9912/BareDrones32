@@ -116,7 +116,7 @@ mpu6000Init(void)
 	spi1WriteOneByte(MPU6000_ACCEL_CONFIG, BITS_FS_16G);;
 	delayMicroseconds(100);
 
-	spi1WriteOneByte(MPU6000_CONFIG, 0x00);
+	spi1WriteOneByte(MPU6000_CONFIG, 0x03);
 	delayMicroseconds(100);
 
 	spi1WriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
@@ -182,6 +182,8 @@ computeMPU6000RTData(void)
     float gyroSum[3]     = { 0.0f, 0.0f, 0.0f };
 
     mpu6000Calibrating = true;
+
+    printf("\nComputing Gyro Runtime Data...\n");
 
     for (samples = 0; samples < 5000; samples++)
     {
