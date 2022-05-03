@@ -1,4 +1,4 @@
-/** @file 		Autodrone32.h
+/** @file 		autodrone32.h
  *  @brief
  *  	This file contains many of the global variables and settings for the drone.
  *
