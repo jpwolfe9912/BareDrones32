@@ -169,15 +169,6 @@ millis(void)
 	return sysTickUptime;
 }
 
-//void checkResetType()
-//{
-//    uint32_t rst = RCC->CSR;
-//
-//    evrPush(( rst & (RCC_CSR_PORRSTF | RCC_CSR_PADRSTF | RCC_CSR_SFTRSTF) ) ? EVR_NormalReset : EVR_AbnormalReset , rst >> 24 );
-//
-//    RCC_ClearFlag();
-//}
-
 /** @brief Delay in microseconds.
  *
  *  @return Void.
@@ -231,6 +222,7 @@ systemInit(void)
 	SysTick_Config(SystemCoreClock / 1000);
 
 	dmaInit();
+
 	cycleCounterInit();
 
 	ledInit();
