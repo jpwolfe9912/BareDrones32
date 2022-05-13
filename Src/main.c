@@ -21,6 +21,8 @@ sensors_t		sensors;
 
 uint16_t		timerValue;
 
+/* Test Code */
+
 int
 main(void)
 {
