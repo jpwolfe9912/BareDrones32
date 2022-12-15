@@ -19,7 +19,7 @@ uint8_t execUpCount = 0;
 
 sensors_t sensors;
 
-uint16_t timerValue;
+uint16_t		timerValue;
 
 int main(void)
 {
