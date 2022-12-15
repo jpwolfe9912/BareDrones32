@@ -22,11 +22,11 @@
 #include <stdarg.h>
 #include <errno.h>
 #include "stm32f7xx.h"
-#include "stm32f7xx_hal.h"
 #include "stm32f7xx_it.h"
 #include "arm_math.h"
 
 /* General */
+#include "scheduler.h"
 #include "pid.h"
 #include "autodrone32.h"
 #include "main.h"
@@ -40,12 +40,12 @@
 #include "drv_color.h"
 #include "drv_system.h"
 #include "drv_rcc.h"
+#include "drv_flash.h"
 #include "drv_usart.h"
 #include "drv_serial.h"
 #include "drv_adc.h"
 #include "drv_dma.h"
 #include "drv_spi1.h"
-#include "drv_spi2.h"
 #include "drv_tim.h"
 #include "drv_worm.h"
 #include "drv_dshot.h"
@@ -59,8 +59,8 @@
 #include "transition.h"
 
 /* Sensors */
-#include "ibus.h"
 #include "mpu6000.h"
+#include "ibus.h"
 #include "madgwick.h"
 #include "orientation.h"
 #include "mpu6000_calibration.h"

@@ -1,0 +1,1295 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"madgwick.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.invSqrt,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-sp-d16
+  25              	invSqrt:
+  26              	.LVL0:
+  27              	.LFB189:
+  28              		.file 1 "Src/sensors/madgwick.c"
+   1:Src/sensors/madgwick.c **** /** @file 		madgwick.c
+   2:Src/sensors/madgwick.c ****  *  @brief
+   3:Src/sensors/madgwick.c ****  *  	This file gives the function to create our RPY values.
+   4:Src/sensors/madgwick.c ****  *	Source for this function exists at:
+   5:Src/sensors/madgwick.c ****  *		https://github.com/arduino-libraries/MadgwickAHRS
+   6:Src/sensors/madgwick.c ****  *
+   7:Src/sensors/madgwick.c ****  *  @author 	Jeremy Wolfe
+   8:Src/sensors/madgwick.c ****  *  @date 		03 MAR 2022
+   9:Src/sensors/madgwick.c ****  */
+  10:Src/sensors/madgwick.c **** 
+  11:Src/sensors/madgwick.c **** /* Defines */
+  12:Src/sensors/madgwick.c **** #include "board.h"
+  13:Src/sensors/madgwick.c **** 
+  14:Src/sensors/madgwick.c **** /* Global Variables */
+  15:Src/sensors/madgwick.c **** float beta;				// algorithm gain
+  16:Src/sensors/madgwick.c **** float q0;
+  17:Src/sensors/madgwick.c **** float q1;
+  18:Src/sensors/madgwick.c **** float q2;
+  19:Src/sensors/madgwick.c **** float q3;	// quaternion of sensor frame relative to auxiliary frame
+  20:Src/sensors/madgwick.c **** float invSampleFreq;
+  21:Src/sensors/madgwick.c **** float roll;
+  22:Src/sensors/madgwick.c **** float pitch;
+  23:Src/sensors/madgwick.c **** float yaw;
+  24:Src/sensors/madgwick.c **** char anglesComputed;
+  25:Src/sensors/madgwick.c **** 
+  26:Src/sensors/madgwick.c **** /* Static Function Prototypes */
+  27:Src/sensors/madgwick.c **** static float invSqrt(float x);
+  28:Src/sensors/madgwick.c **** 
+  29:Src/sensors/madgwick.c **** /** @brief Initializes quaternion and other variables.
+  30:Src/sensors/madgwick.c ****  *
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 2
+
+
+  31:Src/sensors/madgwick.c ****  * 	@return Void.
+  32:Src/sensors/madgwick.c ****  */
+  33:Src/sensors/madgwick.c **** void
+  34:Src/sensors/madgwick.c **** madgwickInit(void)
+  35:Src/sensors/madgwick.c **** {
+  36:Src/sensors/madgwick.c **** 	printf("\nInitializing Madwick Sensor Fusion\n");
+  37:Src/sensors/madgwick.c **** 
+  38:Src/sensors/madgwick.c **** 	beta = betaDef;
+  39:Src/sensors/madgwick.c **** 	q0 = 1.0f;
+  40:Src/sensors/madgwick.c **** 	q1 = 0.0f;
+  41:Src/sensors/madgwick.c **** 	q2 = 0.0f;
+  42:Src/sensors/madgwick.c **** 	q3 = 0.0f;
+  43:Src/sensors/madgwick.c **** 	invSampleFreq = 1.0f / sampleFreqDef;
+  44:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+  45:Src/sensors/madgwick.c **** }
+  46:Src/sensors/madgwick.c **** 
+  47:Src/sensors/madgwick.c **** /** @brief Creates quaternion from gyro and accel values.
+  48:Src/sensors/madgwick.c ****  *
+  49:Src/sensors/madgwick.c ****  *  @param float gx Gyro roll data in deg/s.
+  50:Src/sensors/madgwick.c ****  *  @param float gy Gyro pitch data in deg/s.
+  51:Src/sensors/madgwick.c ****  *  @param float gz Gyro yaw data in deg/s.
+  52:Src/sensors/madgwick.c ****  *  @param float ax Accel x-axis data in m/s^2.
+  53:Src/sensors/madgwick.c ****  *  @param float ay Accel y-axis data in m/s^2.
+  54:Src/sensors/madgwick.c ****  *  @param float az Accel z-axis data in m/s^2.
+  55:Src/sensors/madgwick.c ****  *
+  56:Src/sensors/madgwick.c ****  *  @return Void.
+  57:Src/sensors/madgwick.c ****  */
+  58:Src/sensors/madgwick.c **** void
+  59:Src/sensors/madgwick.c **** updateIMU(float gx, float gy, float gz, float ax, float ay, float az)
+  60:Src/sensors/madgwick.c **** {
+  61:Src/sensors/madgwick.c **** 	float recipNorm;
+  62:Src/sensors/madgwick.c **** 	float s0, s1, s2, s3;
+  63:Src/sensors/madgwick.c **** 	float qDot1, qDot2, qDot3, qDot4;
+  64:Src/sensors/madgwick.c **** 	float _2q0, _2q1, _2q2, _2q3, _4q0, _4q1, _4q2 ,_8q1, _8q2, q0q0, q1q1, q2q2, q3q3;
+  65:Src/sensors/madgwick.c **** 
+  66:Src/sensors/madgwick.c **** 	// Rate of change of quaternion from gyroscope
+  67:Src/sensors/madgwick.c **** 	qDot1 = 0.5f * (-q1 * gx - q2 * gy - q3 * gz);
+  68:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+  69:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+  70:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+  71:Src/sensors/madgwick.c **** 
+  72:Src/sensors/madgwick.c **** 	// Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisa
+  73:Src/sensors/madgwick.c **** 	if(!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f))) {
+  74:Src/sensors/madgwick.c **** 
+  75:Src/sensors/madgwick.c **** 		// Normalise accelerometer measurement
+  76:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(ax * ax + ay * ay + az * az);
+  77:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+  78:Src/sensors/madgwick.c **** 		ay *= recipNorm;
+  79:Src/sensors/madgwick.c **** 		az *= recipNorm;
+  80:Src/sensors/madgwick.c **** 
+  81:Src/sensors/madgwick.c **** 		// Auxiliary variables to avoid repeated arithmetic
+  82:Src/sensors/madgwick.c **** 		_2q0 = 2.0f * q0;
+  83:Src/sensors/madgwick.c **** 		_2q1 = 2.0f * q1;
+  84:Src/sensors/madgwick.c **** 		_2q2 = 2.0f * q2;
+  85:Src/sensors/madgwick.c **** 		_2q3 = 2.0f * q3;
+  86:Src/sensors/madgwick.c **** 		_4q0 = 4.0f * q0;
+  87:Src/sensors/madgwick.c **** 		_4q1 = 4.0f * q1;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 3
+
+
+  88:Src/sensors/madgwick.c **** 		_4q2 = 4.0f * q2;
+  89:Src/sensors/madgwick.c **** 		_8q1 = 8.0f * q1;
+  90:Src/sensors/madgwick.c **** 		_8q2 = 8.0f * q2;
+  91:Src/sensors/madgwick.c **** 		q0q0 = q0 * q0;
+  92:Src/sensors/madgwick.c **** 		q1q1 = q1 * q1;
+  93:Src/sensors/madgwick.c **** 		q2q2 = q2 * q2;
+  94:Src/sensors/madgwick.c **** 		q3q3 = q3 * q3;
+  95:Src/sensors/madgwick.c **** 
+  96:Src/sensors/madgwick.c **** 		// Gradient decent algorithm corrective step
+  97:Src/sensors/madgwick.c **** 		s0 = _4q0 * q2q2 + _2q2 * ax + _4q0 * q1q1 - _2q1 * ay;
+  98:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+  99:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 100:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 101:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 102:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 103:Src/sensors/madgwick.c **** 		s1 *= recipNorm;
+ 104:Src/sensors/madgwick.c **** 		s2 *= recipNorm;
+ 105:Src/sensors/madgwick.c **** 		s3 *= recipNorm;
+ 106:Src/sensors/madgwick.c **** 
+ 107:Src/sensors/madgwick.c **** 		// Apply feedback step
+ 108:Src/sensors/madgwick.c **** 		qDot1 -= beta * s0;
+ 109:Src/sensors/madgwick.c **** 		qDot2 -= beta * s1;
+ 110:Src/sensors/madgwick.c **** 		qDot3 -= beta * s2;
+ 111:Src/sensors/madgwick.c **** 		qDot4 -= beta * s3;
+ 112:Src/sensors/madgwick.c **** 	}
+ 113:Src/sensors/madgwick.c **** 
+ 114:Src/sensors/madgwick.c **** 	// Integrate rate of change of quaternion to yield quaternion
+ 115:Src/sensors/madgwick.c **** 	q0 += qDot1 * invSampleFreq;
+ 116:Src/sensors/madgwick.c **** 	q1 += qDot2 * invSampleFreq;
+ 117:Src/sensors/madgwick.c **** 	q2 += qDot3 * invSampleFreq;
+ 118:Src/sensors/madgwick.c **** 	q3 += qDot4 * invSampleFreq;
+ 119:Src/sensors/madgwick.c **** 
+ 120:Src/sensors/madgwick.c **** 	// Normalise quaternion
+ 121:Src/sensors/madgwick.c **** 	recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+ 122:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 123:Src/sensors/madgwick.c **** 	q1 *= recipNorm;
+ 124:Src/sensors/madgwick.c **** 	q2 *= recipNorm;
+ 125:Src/sensors/madgwick.c **** 	q3 *= recipNorm;
+ 126:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+ 127:Src/sensors/madgwick.c **** }
+ 128:Src/sensors/madgwick.c **** 
+ 129:Src/sensors/madgwick.c **** /** @brief Fast inverse square-root.
+ 130:Src/sensors/madgwick.c ****  *
+ 131:Src/sensors/madgwick.c ****  * 		See: http://en.wikipedia.org/wiki/Fast_inverse_square_root
+ 132:Src/sensors/madgwick.c ****  *
+ 133:Src/sensors/madgwick.c ****  *	@param float x Input value.
+ 134:Src/sensors/madgwick.c ****  * 	@return float Inverse square-root.
+ 135:Src/sensors/madgwick.c ****  */
+ 136:Src/sensors/madgwick.c **** float
+ 137:Src/sensors/madgwick.c **** invSqrt(float x)
+ 138:Src/sensors/madgwick.c **** {
+  29              		.loc 1 138 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 139:Src/sensors/madgwick.c **** 	float halfx = 0.5f * x;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 4
+
+
+  34              		.loc 1 139 2 view .LVU1
+  35              		.loc 1 139 8 is_stmt 0 view .LVU2
+  36 0000 B6EE007A 		vmov.f32	s14, #5.0e-1
+  37 0004 20EE077A 		vmul.f32	s14, s0, s14
+  38              	.LVL1:
+ 140:Src/sensors/madgwick.c **** 	float y = x;
+  39              		.loc 1 140 2 is_stmt 1 view .LVU3
+ 141:Src/sensors/madgwick.c **** 	long i = *(long*)&y;
+  40              		.loc 1 141 2 view .LVU4
+  41              		.loc 1 141 11 is_stmt 0 view .LVU5
+  42 0008 10EE102A 		vmov	r2, s0	@ int
+  43              	.LVL2:
+ 142:Src/sensors/madgwick.c **** 	i = 0x5f3759df - (i>>1);
+  44              		.loc 1 142 2 is_stmt 1 view .LVU6
+ 143:Src/sensors/madgwick.c **** 	y = *(float*)&i;
+  45              		.loc 1 143 2 view .LVU7
+  46              		.loc 1 143 6 is_stmt 0 view .LVU8
+  47 000c 0B4B     		ldr	r3, .L2
+  48 000e A3EB6203 		sub	r3, r3, r2, asr #1
+  49              	.LVL3:
+  50              		.loc 1 143 6 view .LVU9
+  51 0012 07EE903A 		vmov	s15, r3	@ int
+  52              	.LVL4:
+ 144:Src/sensors/madgwick.c **** 	y = y * (1.5f - (halfx * y * y));
+  53              		.loc 1 144 2 is_stmt 1 view .LVU10
+  54              		.loc 1 144 25 is_stmt 0 view .LVU11
+  55 0016 27EE870A 		vmul.f32	s0, s15, s14
+  56              	.LVL5:
+  57              		.loc 1 144 29 view .LVU12
+  58 001a 27EE800A 		vmul.f32	s0, s15, s0
+  59              		.loc 1 144 16 view .LVU13
+  60 001e F7EE086A 		vmov.f32	s13, #1.5e+0
+  61 0022 36EEC00A 		vsub.f32	s0, s13, s0
+  62              		.loc 1 144 8 view .LVU14
+  63 0026 67EE807A 		vmul.f32	s15, s15, s0
+  64              	.LVL6:
+ 145:Src/sensors/madgwick.c **** 	y = y * (1.5f - (halfx * y * y));
+  65              		.loc 1 145 2 is_stmt 1 view .LVU15
+  66              		.loc 1 145 25 is_stmt 0 view .LVU16
+  67 002a 27EE877A 		vmul.f32	s14, s15, s14
+  68              	.LVL7:
+  69              		.loc 1 145 29 view .LVU17
+  70 002e 27EE877A 		vmul.f32	s14, s15, s14
+  71              		.loc 1 145 16 view .LVU18
+  72 0032 36EEC70A 		vsub.f32	s0, s13, s14
+  73              	.LVL8:
+ 146:Src/sensors/madgwick.c **** 	return y;
+  74              		.loc 1 146 2 is_stmt 1 view .LVU19
+ 147:Src/sensors/madgwick.c **** }
+  75              		.loc 1 147 1 is_stmt 0 view .LVU20
+  76 0036 27EE800A 		vmul.f32	s0, s15, s0
+  77 003a 7047     		bx	lr
+  78              	.L3:
+  79              		.align	2
+  80              	.L2:
+  81 003c DF59375F 		.word	1597463007
+  82              		.cfi_endproc
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 5
+
+
+  83              	.LFE189:
+  85              		.section	.rodata.madgwickInit.str1.4,"aMS",%progbits,1
+  86              		.align	2
+  87              	.LC0:
+  88 0000 0A496E69 		.ascii	"\012Initializing Madwick Sensor Fusion\000"
+  88      7469616C 
+  88      697A696E 
+  88      67204D61 
+  88      64776963 
+  89              		.section	.text.madgwickInit,"ax",%progbits
+  90              		.align	1
+  91              		.global	madgwickInit
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv5-sp-d16
+  97              	madgwickInit:
+  98              	.LFB187:
+  35:Src/sensors/madgwick.c **** 	printf("\nInitializing Madwick Sensor Fusion\n");
+  99              		.loc 1 35 1 is_stmt 1 view -0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103 0000 08B5     		push	{r3, lr}
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 3, -8
+ 106              		.cfi_offset 14, -4
+  36:Src/sensors/madgwick.c **** 
+ 107              		.loc 1 36 2 view .LVU22
+ 108 0002 0C48     		ldr	r0, .L6
+ 109 0004 FFF7FEFF 		bl	puts
+ 110              	.LVL9:
+  38:Src/sensors/madgwick.c **** 	q0 = 1.0f;
+ 111              		.loc 1 38 2 view .LVU23
+  38:Src/sensors/madgwick.c **** 	q0 = 1.0f;
+ 112              		.loc 1 38 7 is_stmt 0 view .LVU24
+ 113 0008 0B4B     		ldr	r3, .L6+4
+ 114 000a 0C4A     		ldr	r2, .L6+8
+ 115 000c 1A60     		str	r2, [r3]	@ float
+  39:Src/sensors/madgwick.c **** 	q1 = 0.0f;
+ 116              		.loc 1 39 2 is_stmt 1 view .LVU25
+  39:Src/sensors/madgwick.c **** 	q1 = 0.0f;
+ 117              		.loc 1 39 5 is_stmt 0 view .LVU26
+ 118 000e 0C4B     		ldr	r3, .L6+12
+ 119 0010 4FF07E52 		mov	r2, #1065353216
+ 120 0014 1A60     		str	r2, [r3]	@ float
+  40:Src/sensors/madgwick.c **** 	q2 = 0.0f;
+ 121              		.loc 1 40 2 is_stmt 1 view .LVU27
+  40:Src/sensors/madgwick.c **** 	q2 = 0.0f;
+ 122              		.loc 1 40 5 is_stmt 0 view .LVU28
+ 123 0016 0023     		movs	r3, #0
+ 124 0018 0A4A     		ldr	r2, .L6+16
+ 125 001a 1360     		str	r3, [r2]	@ float
+  41:Src/sensors/madgwick.c **** 	q3 = 0.0f;
+ 126              		.loc 1 41 2 is_stmt 1 view .LVU29
+  41:Src/sensors/madgwick.c **** 	q3 = 0.0f;
+ 127              		.loc 1 41 5 is_stmt 0 view .LVU30
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 6
+
+
+ 128 001c 0A4A     		ldr	r2, .L6+20
+ 129 001e 1360     		str	r3, [r2]	@ float
+  42:Src/sensors/madgwick.c **** 	invSampleFreq = 1.0f / sampleFreqDef;
+ 130              		.loc 1 42 2 is_stmt 1 view .LVU31
+  42:Src/sensors/madgwick.c **** 	invSampleFreq = 1.0f / sampleFreqDef;
+ 131              		.loc 1 42 5 is_stmt 0 view .LVU32
+ 132 0020 0A4A     		ldr	r2, .L6+24
+ 133 0022 1360     		str	r3, [r2]	@ float
+  43:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+ 134              		.loc 1 43 2 is_stmt 1 view .LVU33
+  43:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+ 135              		.loc 1 43 16 is_stmt 0 view .LVU34
+ 136 0024 0A4B     		ldr	r3, .L6+28
+ 137 0026 0B4A     		ldr	r2, .L6+32
+ 138 0028 1A60     		str	r2, [r3]	@ float
+  44:Src/sensors/madgwick.c **** }
+ 139              		.loc 1 44 2 is_stmt 1 view .LVU35
+  44:Src/sensors/madgwick.c **** }
+ 140              		.loc 1 44 17 is_stmt 0 view .LVU36
+ 141 002a 0B4B     		ldr	r3, .L6+36
+ 142 002c 0022     		movs	r2, #0
+ 143 002e 1A70     		strb	r2, [r3]
+  45:Src/sensors/madgwick.c **** 
+ 144              		.loc 1 45 1 view .LVU37
+ 145 0030 08BD     		pop	{r3, pc}
+ 146              	.L7:
+ 147 0032 00BF     		.align	2
+ 148              	.L6:
+ 149 0034 00000000 		.word	.LC0
+ 150 0038 00000000 		.word	.LANCHOR0
+ 151 003c 0000A040 		.word	1084227584
+ 152 0040 00000000 		.word	.LANCHOR1
+ 153 0044 00000000 		.word	.LANCHOR2
+ 154 0048 00000000 		.word	.LANCHOR3
+ 155 004c 00000000 		.word	.LANCHOR4
+ 156 0050 00000000 		.word	.LANCHOR5
+ 157 0054 6F12033B 		.word	990057071
+ 158 0058 00000000 		.word	.LANCHOR6
+ 159              		.cfi_endproc
+ 160              	.LFE187:
+ 162              		.section	.text.updateIMU,"ax",%progbits
+ 163              		.align	1
+ 164              		.global	updateIMU
+ 165              		.syntax unified
+ 166              		.thumb
+ 167              		.thumb_func
+ 168              		.fpu fpv5-sp-d16
+ 170              	updateIMU:
+ 171              	.LVL10:
+ 172              	.LFB188:
+  60:Src/sensors/madgwick.c **** 	float recipNorm;
+ 173              		.loc 1 60 1 is_stmt 1 view -0
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+  60:Src/sensors/madgwick.c **** 	float recipNorm;
+ 177              		.loc 1 60 1 is_stmt 0 view .LVU39
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 7
+
+
+ 178 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 179              		.cfi_def_cfa_offset 24
+ 180              		.cfi_offset 3, -24
+ 181              		.cfi_offset 4, -20
+ 182              		.cfi_offset 5, -16
+ 183              		.cfi_offset 6, -12
+ 184              		.cfi_offset 7, -8
+ 185              		.cfi_offset 14, -4
+ 186 0002 2DED0E8B 		vpush.64	{d8, d9, d10, d11, d12, d13, d14}
+ 187              		.cfi_def_cfa_offset 80
+ 188              		.cfi_offset 80, -80
+ 189              		.cfi_offset 81, -76
+ 190              		.cfi_offset 82, -72
+ 191              		.cfi_offset 83, -68
+ 192              		.cfi_offset 84, -64
+ 193              		.cfi_offset 85, -60
+ 194              		.cfi_offset 86, -56
+ 195              		.cfi_offset 87, -52
+ 196              		.cfi_offset 88, -48
+ 197              		.cfi_offset 89, -44
+ 198              		.cfi_offset 90, -40
+ 199              		.cfi_offset 91, -36
+ 200              		.cfi_offset 92, -32
+ 201              		.cfi_offset 93, -28
+ 202 0006 F0EE61DA 		vmov.f32	s27, s3
+ 203 000a F0EE428A 		vmov.f32	s17, s4
+ 204 000e F0EE62BA 		vmov.f32	s23, s5
+  61:Src/sensors/madgwick.c **** 	float s0, s1, s2, s3;
+ 205              		.loc 1 61 2 is_stmt 1 view .LVU40
+  62:Src/sensors/madgwick.c **** 	float qDot1, qDot2, qDot3, qDot4;
+ 206              		.loc 1 62 2 view .LVU41
+  63:Src/sensors/madgwick.c **** 	float _2q0, _2q1, _2q2, _2q3, _4q0, _4q1, _4q2 ,_8q1, _8q2, q0q0, q1q1, q2q2, q3q3;
+ 207              		.loc 1 63 2 view .LVU42
+  64:Src/sensors/madgwick.c **** 
+ 208              		.loc 1 64 2 view .LVU43
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 209              		.loc 1 67 2 view .LVU44
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 210              		.loc 1 67 18 is_stmt 0 view .LVU45
+ 211 0012 A64B     		ldr	r3, .L12
+ 212 0014 D3ED00CA 		vldr.32	s25, [r3]
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 213              		.loc 1 67 22 view .LVU46
+ 214 0018 2CEEC0AA 		vnmul.f32	s20, s25, s0
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 215              		.loc 1 67 32 view .LVU47
+ 216 001c A44B     		ldr	r3, .L12+4
+ 217 001e 93ED00CA 		vldr.32	s24, [r3]
+ 218 0022 6CEE207A 		vmul.f32	s15, s24, s1
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 219              		.loc 1 67 27 view .LVU48
+ 220 0026 3AEE67AA 		vsub.f32	s20, s20, s15
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 221              		.loc 1 67 42 view .LVU49
+ 222 002a A24B     		ldr	r3, .L12+8
+ 223 002c D3ED00AA 		vldr.32	s21, [r3]
+ 224 0030 6AEE817A 		vmul.f32	s15, s21, s2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 8
+
+
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 225              		.loc 1 67 37 view .LVU50
+ 226 0034 3AEE67AA 		vsub.f32	s20, s20, s15
+  67:Src/sensors/madgwick.c **** 	qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
+ 227              		.loc 1 67 8 view .LVU51
+ 228 0038 B6EE008A 		vmov.f32	s16, #5.0e-1
+ 229 003c 2AEE08AA 		vmul.f32	s20, s20, s16
+ 230              	.LVL11:
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 231              		.loc 1 68 2 is_stmt 1 view .LVU52
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 232              		.loc 1 68 21 is_stmt 0 view .LVU53
+ 233 0040 9D4B     		ldr	r3, .L12+12
+ 234 0042 93ED00DA 		vldr.32	s26, [r3]
+ 235 0046 6DEE009A 		vmul.f32	s19, s26, s0
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 236              		.loc 1 68 31 view .LVU54
+ 237 004a 6CEE017A 		vmul.f32	s15, s24, s2
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 238              		.loc 1 68 26 view .LVU55
+ 239 004e 79EEA79A 		vadd.f32	s19, s19, s15
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 240              		.loc 1 68 41 view .LVU56
+ 241 0052 6AEEA07A 		vmul.f32	s15, s21, s1
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 242              		.loc 1 68 36 view .LVU57
+ 243 0056 79EEE79A 		vsub.f32	s19, s19, s15
+  68:Src/sensors/madgwick.c **** 	qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
+ 244              		.loc 1 68 8 view .LVU58
+ 245 005a 69EE889A 		vmul.f32	s19, s19, s16
+ 246              	.LVL12:
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 247              		.loc 1 69 2 is_stmt 1 view .LVU59
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 248              		.loc 1 69 21 is_stmt 0 view .LVU60
+ 249 005e 2DEE209A 		vmul.f32	s18, s26, s1
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 250              		.loc 1 69 31 view .LVU61
+ 251 0062 6CEE817A 		vmul.f32	s15, s25, s2
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 252              		.loc 1 69 26 view .LVU62
+ 253 0066 39EE679A 		vsub.f32	s18, s18, s15
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 254              		.loc 1 69 41 view .LVU63
+ 255 006a 6AEE807A 		vmul.f32	s15, s21, s0
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 256              		.loc 1 69 36 view .LVU64
+ 257 006e 39EE279A 		vadd.f32	s18, s18, s15
+  69:Src/sensors/madgwick.c **** 	qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
+ 258              		.loc 1 69 8 view .LVU65
+ 259 0072 29EE089A 		vmul.f32	s18, s18, s16
+ 260              	.LVL13:
+  70:Src/sensors/madgwick.c **** 
+ 261              		.loc 1 70 2 is_stmt 1 view .LVU66
+  70:Src/sensors/madgwick.c **** 
+ 262              		.loc 1 70 21 is_stmt 0 view .LVU67
+ 263 0076 2DEE011A 		vmul.f32	s2, s26, s2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 9
+
+
+ 264              	.LVL14:
+  70:Src/sensors/madgwick.c **** 
+ 265              		.loc 1 70 31 view .LVU68
+ 266 007a 2CEEA0BA 		vmul.f32	s22, s25, s1
+  70:Src/sensors/madgwick.c **** 
+ 267              		.loc 1 70 26 view .LVU69
+ 268 007e 31EE0BBA 		vadd.f32	s22, s2, s22
+  70:Src/sensors/madgwick.c **** 
+ 269              		.loc 1 70 41 view .LVU70
+ 270 0082 2CEE000A 		vmul.f32	s0, s24, s0
+ 271              	.LVL15:
+  70:Src/sensors/madgwick.c **** 
+ 272              		.loc 1 70 36 view .LVU71
+ 273 0086 3BEE40BA 		vsub.f32	s22, s22, s0
+  70:Src/sensors/madgwick.c **** 
+ 274              		.loc 1 70 8 view .LVU72
+ 275 008a 2BEE08BA 		vmul.f32	s22, s22, s16
+ 276              	.LVL16:
+  73:Src/sensors/madgwick.c **** 
+ 277              		.loc 1 73 2 is_stmt 1 view .LVU73
+  73:Src/sensors/madgwick.c **** 
+ 278              		.loc 1 73 11 is_stmt 0 view .LVU74
+ 279 008e F5EE401A 		vcmp.f32	s3, #0
+ 280 0092 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 281 0096 14BF     		ite	ne
+ 282 0098 0123     		movne	r3, #1
+ 283 009a 0023     		moveq	r3, #0
+  73:Src/sensors/madgwick.c **** 
+ 284              		.loc 1 73 27 view .LVU75
+ 285 009c B5EE402A 		vcmp.f32	s4, #0
+ 286 00a0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  73:Src/sensors/madgwick.c **** 
+ 287              		.loc 1 73 20 view .LVU76
+ 288 00a4 18BF     		it	ne
+ 289 00a6 43F00103 		orrne	r3, r3, #1
+  73:Src/sensors/madgwick.c **** 
+ 290              		.loc 1 73 4 view .LVU77
+ 291 00aa 2BB9     		cbnz	r3, .L9
+  73:Src/sensors/madgwick.c **** 
+ 292              		.loc 1 73 5 discriminator 1 view .LVU78
+ 293 00ac F5EE402A 		vcmp.f32	s5, #0
+ 294 00b0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 295 00b4 00F0B580 		beq	.L10
+ 296              	.L9:
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 297              		.loc 1 76 3 is_stmt 1 view .LVU79
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 298              		.loc 1 76 26 is_stmt 0 view .LVU80
+ 299 00b8 6DEEAD7A 		vmul.f32	s15, s27, s27
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 300              		.loc 1 76 36 view .LVU81
+ 301 00bc 28EEA80A 		vmul.f32	s0, s17, s17
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 302              		.loc 1 76 31 view .LVU82
+ 303 00c0 77EE807A 		vadd.f32	s15, s15, s0
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 304              		.loc 1 76 46 view .LVU83
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 10
+
+
+ 305 00c4 2BEEAB0A 		vmul.f32	s0, s23, s23
+  76:Src/sensors/madgwick.c **** 		ax *= recipNorm;
+ 306              		.loc 1 76 15 view .LVU84
+ 307 00c8 37EE800A 		vadd.f32	s0, s15, s0
+ 308 00cc FFF7FEFF 		bl	invSqrt
+ 309              	.LVL17:
+  77:Src/sensors/madgwick.c **** 		ay *= recipNorm;
+ 310              		.loc 1 77 3 is_stmt 1 view .LVU85
+  77:Src/sensors/madgwick.c **** 		ay *= recipNorm;
+ 311              		.loc 1 77 6 is_stmt 0 view .LVU86
+ 312 00d0 6DEE801A 		vmul.f32	s3, s27, s0
+ 313              	.LVL18:
+  78:Src/sensors/madgwick.c **** 		az *= recipNorm;
+ 314              		.loc 1 78 3 is_stmt 1 view .LVU87
+  78:Src/sensors/madgwick.c **** 		az *= recipNorm;
+ 315              		.loc 1 78 6 is_stmt 0 view .LVU88
+ 316 00d4 28EE802A 		vmul.f32	s4, s17, s0
+ 317              	.LVL19:
+  79:Src/sensors/madgwick.c **** 
+ 318              		.loc 1 79 3 is_stmt 1 view .LVU89
+  79:Src/sensors/madgwick.c **** 
+ 319              		.loc 1 79 6 is_stmt 0 view .LVU90
+ 320 00d8 6BEE802A 		vmul.f32	s5, s23, s0
+ 321              	.LVL20:
+  82:Src/sensors/madgwick.c **** 		_2q1 = 2.0f * q1;
+ 322              		.loc 1 82 3 is_stmt 1 view .LVU91
+  82:Src/sensors/madgwick.c **** 		_2q1 = 2.0f * q1;
+ 323              		.loc 1 82 8 is_stmt 0 view .LVU92
+ 324 00dc 3DEE0D3A 		vadd.f32	s6, s26, s26
+  83:Src/sensors/madgwick.c **** 		_2q2 = 2.0f * q2;
+ 325              		.loc 1 83 3 is_stmt 1 view .LVU93
+  83:Src/sensors/madgwick.c **** 		_2q2 = 2.0f * q2;
+ 326              		.loc 1 83 8 is_stmt 0 view .LVU94
+ 327 00e0 3CEEAC5A 		vadd.f32	s10, s25, s25
+  84:Src/sensors/madgwick.c **** 		_2q3 = 2.0f * q3;
+ 328              		.loc 1 84 3 is_stmt 1 view .LVU95
+  84:Src/sensors/madgwick.c **** 		_2q3 = 2.0f * q3;
+ 329              		.loc 1 84 8 is_stmt 0 view .LVU96
+ 330 00e4 7CEE0C5A 		vadd.f32	s11, s24, s24
+  85:Src/sensors/madgwick.c **** 		_4q0 = 4.0f * q0;
+ 331              		.loc 1 85 3 is_stmt 1 view .LVU97
+  85:Src/sensors/madgwick.c **** 		_4q0 = 4.0f * q0;
+ 332              		.loc 1 85 8 is_stmt 0 view .LVU98
+ 333 00e8 3AEEAA4A 		vadd.f32	s8, s21, s21
+  86:Src/sensors/madgwick.c **** 		_4q1 = 4.0f * q1;
+ 334              		.loc 1 86 3 is_stmt 1 view .LVU99
+  86:Src/sensors/madgwick.c **** 		_4q1 = 4.0f * q1;
+ 335              		.loc 1 86 8 is_stmt 0 view .LVU100
+ 336 00ec B1EE006A 		vmov.f32	s12, #4.0e+0
+ 337 00f0 2DEE060A 		vmul.f32	s0, s26, s12
+ 338              	.LVL21:
+  87:Src/sensors/madgwick.c **** 		_4q2 = 4.0f * q2;
+ 339              		.loc 1 87 3 is_stmt 1 view .LVU101
+  87:Src/sensors/madgwick.c **** 		_4q2 = 4.0f * q2;
+ 340              		.loc 1 87 8 is_stmt 0 view .LVU102
+ 341 00f4 2CEE861A 		vmul.f32	s2, s25, s12
+ 342              	.LVL22:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 11
+
+
+  88:Src/sensors/madgwick.c **** 		_8q1 = 8.0f * q1;
+ 343              		.loc 1 88 3 is_stmt 1 view .LVU103
+  88:Src/sensors/madgwick.c **** 		_8q1 = 8.0f * q1;
+ 344              		.loc 1 88 8 is_stmt 0 view .LVU104
+ 345 00f8 6CEE064A 		vmul.f32	s9, s24, s12
+ 346              	.LVL23:
+  89:Src/sensors/madgwick.c **** 		_8q2 = 8.0f * q2;
+ 347              		.loc 1 89 3 is_stmt 1 view .LVU105
+  89:Src/sensors/madgwick.c **** 		_8q2 = 8.0f * q2;
+ 348              		.loc 1 89 8 is_stmt 0 view .LVU106
+ 349 00fc B2EE008A 		vmov.f32	s16, #8.0e+0
+ 350 0100 6CEE880A 		vmul.f32	s1, s25, s16
+ 351              	.LVL24:
+  90:Src/sensors/madgwick.c **** 		q0q0 = q0 * q0;
+ 352              		.loc 1 90 3 is_stmt 1 view .LVU107
+  90:Src/sensors/madgwick.c **** 		q0q0 = q0 * q0;
+ 353              		.loc 1 90 8 is_stmt 0 view .LVU108
+ 354 0104 2CEE088A 		vmul.f32	s16, s24, s16
+ 355              	.LVL25:
+  91:Src/sensors/madgwick.c **** 		q1q1 = q1 * q1;
+ 356              		.loc 1 91 3 is_stmt 1 view .LVU109
+  91:Src/sensors/madgwick.c **** 		q1q1 = q1 * q1;
+ 357              		.loc 1 91 8 is_stmt 0 view .LVU110
+ 358 0108 2DEE0DEA 		vmul.f32	s28, s26, s26
+ 359              	.LVL26:
+  92:Src/sensors/madgwick.c **** 		q2q2 = q2 * q2;
+ 360              		.loc 1 92 3 is_stmt 1 view .LVU111
+  92:Src/sensors/madgwick.c **** 		q2q2 = q2 * q2;
+ 361              		.loc 1 92 8 is_stmt 0 view .LVU112
+ 362 010c 6CEEAC7A 		vmul.f32	s15, s25, s25
+ 363              	.LVL27:
+  93:Src/sensors/madgwick.c **** 		q3q3 = q3 * q3;
+ 364              		.loc 1 93 3 is_stmt 1 view .LVU113
+  93:Src/sensors/madgwick.c **** 		q3q3 = q3 * q3;
+ 365              		.loc 1 93 8 is_stmt 0 view .LVU114
+ 366 0110 6CEE0C6A 		vmul.f32	s13, s24, s24
+ 367              	.LVL28:
+  94:Src/sensors/madgwick.c **** 
+ 368              		.loc 1 94 3 is_stmt 1 view .LVU115
+  94:Src/sensors/madgwick.c **** 
+ 369              		.loc 1 94 8 is_stmt 0 view .LVU116
+ 370 0114 6AEEAA3A 		vmul.f32	s7, s21, s21
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 371              		.loc 1 97 3 is_stmt 1 view .LVU117
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 372              		.loc 1 97 13 is_stmt 0 view .LVU118
+ 373 0118 60EE26DA 		vmul.f32	s27, s0, s13
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 374              		.loc 1 97 27 view .LVU119
+ 375 011c 21EEA57A 		vmul.f32	s14, s3, s11
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 376              		.loc 1 97 20 view .LVU120
+ 377 0120 7DEE87DA 		vadd.f32	s27, s27, s14
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 378              		.loc 1 97 39 view .LVU121
+ 379 0124 20EE270A 		vmul.f32	s0, s0, s15
+ 380              	.LVL29:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 12
+
+
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 381              		.loc 1 97 32 view .LVU122
+ 382 0128 7DEE80DA 		vadd.f32	s27, s27, s0
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 383              		.loc 1 97 53 view .LVU123
+ 384 012c 22EE057A 		vmul.f32	s14, s4, s10
+  97:Src/sensors/madgwick.c **** 		s1 = _4q1 * q3q3 - _2q3 * ax + 4.0f * q0q0 * q1 - _2q0 * ay - _4q1 + _8q1 * q1q1 + _8q1 * q2q2 + 
+ 385              		.loc 1 97 6 view .LVU124
+ 386 0130 7DEEC7DA 		vsub.f32	s27, s27, s14
+ 387              	.LVL30:
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 388              		.loc 1 98 3 is_stmt 1 view .LVU125
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 389              		.loc 1 98 13 is_stmt 0 view .LVU126
+ 390 0134 61EE23BA 		vmul.f32	s23, s2, s7
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 391              		.loc 1 98 27 view .LVU127
+ 392 0138 21EE847A 		vmul.f32	s14, s3, s8
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 393              		.loc 1 98 20 view .LVU128
+ 394 013c 7BEEC7BA 		vsub.f32	s23, s23, s14
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 395              		.loc 1 98 39 view .LVU129
+ 396 0140 2EEE067A 		vmul.f32	s14, s28, s12
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 397              		.loc 1 98 46 view .LVU130
+ 398 0144 2CEE870A 		vmul.f32	s0, s25, s14
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 399              		.loc 1 98 32 view .LVU131
+ 400 0148 7BEE80BA 		vadd.f32	s23, s23, s0
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 401              		.loc 1 98 58 view .LVU132
+ 402 014c 22EE030A 		vmul.f32	s0, s4, s6
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 403              		.loc 1 98 51 view .LVU133
+ 404 0150 7BEEC0BA 		vsub.f32	s23, s23, s0
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 405              		.loc 1 98 63 view .LVU134
+ 406 0154 7BEEC1BA 		vsub.f32	s23, s23, s2
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 407              		.loc 1 98 77 view .LVU135
+ 408 0158 20EEA70A 		vmul.f32	s0, s1, s15
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 409              		.loc 1 98 70 view .LVU136
+ 410 015c 7BEE80BA 		vadd.f32	s23, s23, s0
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 411              		.loc 1 98 91 view .LVU137
+ 412 0160 60EEA60A 		vmul.f32	s1, s1, s13
+ 413              	.LVL31:
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 414              		.loc 1 98 84 view .LVU138
+ 415 0164 7BEEA0BA 		vadd.f32	s23, s23, s1
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ 416              		.loc 1 98 105 view .LVU139
+ 417 0168 22EE811A 		vmul.f32	s2, s5, s2
+ 418              	.LVL32:
+  98:Src/sensors/madgwick.c **** 		s2 = 4.0f * q0q0 * q2 + _2q0 * ax + _4q2 * q3q3 - _2q3 * ay - _4q2 + _8q2 * q1q1 + _8q2 * q2q2 + 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 13
+
+
+ 419              		.loc 1 98 6 view .LVU140
+ 420 016c 7BEE81BA 		vadd.f32	s23, s23, s2
+ 421              	.LVL33:
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 422              		.loc 1 99 3 is_stmt 1 view .LVU141
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 423              		.loc 1 99 20 is_stmt 0 view .LVU142
+ 424 0170 2CEE077A 		vmul.f32	s14, s24, s14
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 425              		.loc 1 99 32 view .LVU143
+ 426 0174 21EE833A 		vmul.f32	s6, s3, s6
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 427              		.loc 1 99 25 view .LVU144
+ 428 0178 37EE037A 		vadd.f32	s14, s14, s6
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 429              		.loc 1 99 44 view .LVU145
+ 430 017c 64EEA33A 		vmul.f32	s7, s9, s7
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 431              		.loc 1 99 37 view .LVU146
+ 432 0180 37EE237A 		vadd.f32	s14, s14, s7
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 433              		.loc 1 99 58 view .LVU147
+ 434 0184 22EE044A 		vmul.f32	s8, s4, s8
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 435              		.loc 1 99 51 view .LVU148
+ 436 0188 37EE447A 		vsub.f32	s14, s14, s8
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 437              		.loc 1 99 63 view .LVU149
+ 438 018c 37EE647A 		vsub.f32	s14, s14, s9
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 439              		.loc 1 99 77 view .LVU150
+ 440 0190 28EE274A 		vmul.f32	s8, s16, s15
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 441              		.loc 1 99 70 view .LVU151
+ 442 0194 37EE047A 		vadd.f32	s14, s14, s8
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 443              		.loc 1 99 91 view .LVU152
+ 444 0198 28EE268A 		vmul.f32	s16, s16, s13
+ 445              	.LVL34:
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 446              		.loc 1 99 84 view .LVU153
+ 447 019c 37EE087A 		vadd.f32	s14, s14, s16
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 448              		.loc 1 99 105 view .LVU154
+ 449 01a0 22EEA48A 		vmul.f32	s16, s5, s9
+  99:Src/sensors/madgwick.c **** 		s3 = 4.0f * q1q1 * q3 - _2q1 * ax + 4.0f * q2q2 * q3 - _2q2 * ay;
+ 450              		.loc 1 99 6 view .LVU155
+ 451 01a4 37EE088A 		vadd.f32	s16, s14, s16
+ 452              	.LVL35:
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 453              		.loc 1 100 3 is_stmt 1 view .LVU156
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 454              		.loc 1 100 13 is_stmt 0 view .LVU157
+ 455 01a8 67EE868A 		vmul.f32	s17, s15, s12
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 456              		.loc 1 100 20 view .LVU158
+ 457 01ac 6AEEA88A 		vmul.f32	s17, s21, s17
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 14
+
+
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 458              		.loc 1 100 32 view .LVU159
+ 459 01b0 61EE851A 		vmul.f32	s3, s3, s10
+ 460              	.LVL36:
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 461              		.loc 1 100 25 view .LVU160
+ 462 01b4 78EEE18A 		vsub.f32	s17, s17, s3
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 463              		.loc 1 100 44 view .LVU161
+ 464 01b8 66EE866A 		vmul.f32	s13, s13, s12
+ 465              	.LVL37:
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 466              		.loc 1 100 51 view .LVU162
+ 467 01bc 6AEEA66A 		vmul.f32	s13, s21, s13
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 468              		.loc 1 100 37 view .LVU163
+ 469 01c0 78EEA68A 		vadd.f32	s17, s17, s13
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 470              		.loc 1 100 63 view .LVU164
+ 471 01c4 22EE252A 		vmul.f32	s4, s4, s11
+ 472              	.LVL38:
+ 100:Src/sensors/madgwick.c **** 		recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
+ 473              		.loc 1 100 6 view .LVU165
+ 474 01c8 78EEC28A 		vsub.f32	s17, s17, s4
+ 475              	.LVL39:
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 476              		.loc 1 101 3 is_stmt 1 view .LVU166
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 477              		.loc 1 101 26 is_stmt 0 view .LVU167
+ 478 01cc 6DEEAD7A 		vmul.f32	s15, s27, s27
+ 479              	.LVL40:
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 480              		.loc 1 101 36 view .LVU168
+ 481 01d0 2BEEAB0A 		vmul.f32	s0, s23, s23
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 482              		.loc 1 101 31 view .LVU169
+ 483 01d4 77EE807A 		vadd.f32	s15, s15, s0
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 484              		.loc 1 101 46 view .LVU170
+ 485 01d8 28EE080A 		vmul.f32	s0, s16, s16
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 486              		.loc 1 101 41 view .LVU171
+ 487 01dc 77EE807A 		vadd.f32	s15, s15, s0
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 488              		.loc 1 101 56 view .LVU172
+ 489 01e0 28EEA80A 		vmul.f32	s0, s17, s17
+ 101:Src/sensors/madgwick.c **** 		s0 *= recipNorm;
+ 490              		.loc 1 101 15 view .LVU173
+ 491 01e4 37EE800A 		vadd.f32	s0, s15, s0
+ 492 01e8 FFF7FEFF 		bl	invSqrt
+ 493              	.LVL41:
+ 102:Src/sensors/madgwick.c **** 		s1 *= recipNorm;
+ 494              		.loc 1 102 3 is_stmt 1 view .LVU174
+ 102:Src/sensors/madgwick.c **** 		s1 *= recipNorm;
+ 495              		.loc 1 102 6 is_stmt 0 view .LVU175
+ 496 01ec 6DEE80DA 		vmul.f32	s27, s27, s0
+ 497              	.LVL42:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 15
+
+
+ 103:Src/sensors/madgwick.c **** 		s2 *= recipNorm;
+ 498              		.loc 1 103 3 is_stmt 1 view .LVU176
+ 103:Src/sensors/madgwick.c **** 		s2 *= recipNorm;
+ 499              		.loc 1 103 6 is_stmt 0 view .LVU177
+ 500 01f0 6BEE80BA 		vmul.f32	s23, s23, s0
+ 501              	.LVL43:
+ 104:Src/sensors/madgwick.c **** 		s3 *= recipNorm;
+ 502              		.loc 1 104 3 is_stmt 1 view .LVU178
+ 104:Src/sensors/madgwick.c **** 		s3 *= recipNorm;
+ 503              		.loc 1 104 6 is_stmt 0 view .LVU179
+ 504 01f4 28EE008A 		vmul.f32	s16, s16, s0
+ 505              	.LVL44:
+ 105:Src/sensors/madgwick.c **** 
+ 506              		.loc 1 105 3 is_stmt 1 view .LVU180
+ 105:Src/sensors/madgwick.c **** 
+ 507              		.loc 1 105 6 is_stmt 0 view .LVU181
+ 508 01f8 28EE800A 		vmul.f32	s0, s17, s0
+ 509              	.LVL45:
+ 108:Src/sensors/madgwick.c **** 		qDot2 -= beta * s1;
+ 510              		.loc 1 108 3 is_stmt 1 view .LVU182
+ 108:Src/sensors/madgwick.c **** 		qDot2 -= beta * s1;
+ 511              		.loc 1 108 17 is_stmt 0 view .LVU183
+ 512 01fc 2F4B     		ldr	r3, .L12+16
+ 513 01fe D3ED007A 		vldr.32	s15, [r3]
+ 514 0202 67EEADDA 		vmul.f32	s27, s15, s27
+ 515              	.LVL46:
+ 108:Src/sensors/madgwick.c **** 		qDot2 -= beta * s1;
+ 516              		.loc 1 108 9 view .LVU184
+ 517 0206 3AEE6DAA 		vsub.f32	s20, s20, s27
+ 518              	.LVL47:
+ 109:Src/sensors/madgwick.c **** 		qDot3 -= beta * s2;
+ 519              		.loc 1 109 3 is_stmt 1 view .LVU185
+ 109:Src/sensors/madgwick.c **** 		qDot3 -= beta * s2;
+ 520              		.loc 1 109 17 is_stmt 0 view .LVU186
+ 521 020a 67EEABBA 		vmul.f32	s23, s15, s23
+ 522              	.LVL48:
+ 109:Src/sensors/madgwick.c **** 		qDot3 -= beta * s2;
+ 523              		.loc 1 109 9 view .LVU187
+ 524 020e 79EEEB9A 		vsub.f32	s19, s19, s23
+ 525              	.LVL49:
+ 110:Src/sensors/madgwick.c **** 		qDot4 -= beta * s3;
+ 526              		.loc 1 110 3 is_stmt 1 view .LVU188
+ 110:Src/sensors/madgwick.c **** 		qDot4 -= beta * s3;
+ 527              		.loc 1 110 17 is_stmt 0 view .LVU189
+ 528 0212 27EE888A 		vmul.f32	s16, s15, s16
+ 529              	.LVL50:
+ 110:Src/sensors/madgwick.c **** 		qDot4 -= beta * s3;
+ 530              		.loc 1 110 9 view .LVU190
+ 531 0216 39EE489A 		vsub.f32	s18, s18, s16
+ 532              	.LVL51:
+ 111:Src/sensors/madgwick.c **** 	}
+ 533              		.loc 1 111 3 is_stmt 1 view .LVU191
+ 111:Src/sensors/madgwick.c **** 	}
+ 534              		.loc 1 111 17 is_stmt 0 view .LVU192
+ 535 021a 67EE807A 		vmul.f32	s15, s15, s0
+ 111:Src/sensors/madgwick.c **** 	}
+ 536              		.loc 1 111 9 view .LVU193
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 16
+
+
+ 537 021e 3BEE67BA 		vsub.f32	s22, s22, s15
+ 538              	.LVL52:
+ 539              	.L10:
+ 115:Src/sensors/madgwick.c **** 	q1 += qDot2 * invSampleFreq;
+ 540              		.loc 1 115 2 is_stmt 1 view .LVU194
+ 115:Src/sensors/madgwick.c **** 	q1 += qDot2 * invSampleFreq;
+ 541              		.loc 1 115 14 is_stmt 0 view .LVU195
+ 542 0222 274B     		ldr	r3, .L12+20
+ 543 0224 93ED008A 		vldr.32	s16, [r3]
+ 544 0228 28EE0AAA 		vmul.f32	s20, s16, s20
+ 545              	.LVL53:
+ 115:Src/sensors/madgwick.c **** 	q1 += qDot2 * invSampleFreq;
+ 546              		.loc 1 115 5 view .LVU196
+ 547 022c 3DEE0ADA 		vadd.f32	s26, s26, s20
+ 548 0230 214F     		ldr	r7, .L12+12
+ 549 0232 87ED00DA 		vstr.32	s26, [r7]
+ 116:Src/sensors/madgwick.c **** 	q2 += qDot3 * invSampleFreq;
+ 550              		.loc 1 116 2 is_stmt 1 view .LVU197
+ 116:Src/sensors/madgwick.c **** 	q2 += qDot3 * invSampleFreq;
+ 551              		.loc 1 116 14 is_stmt 0 view .LVU198
+ 552 0236 68EE299A 		vmul.f32	s19, s16, s19
+ 553              	.LVL54:
+ 116:Src/sensors/madgwick.c **** 	q2 += qDot3 * invSampleFreq;
+ 554              		.loc 1 116 5 view .LVU199
+ 555 023a 7CEEA9CA 		vadd.f32	s25, s25, s19
+ 556 023e 1B4E     		ldr	r6, .L12
+ 557 0240 C6ED00CA 		vstr.32	s25, [r6]
+ 117:Src/sensors/madgwick.c **** 	q3 += qDot4 * invSampleFreq;
+ 558              		.loc 1 117 2 is_stmt 1 view .LVU200
+ 117:Src/sensors/madgwick.c **** 	q3 += qDot4 * invSampleFreq;
+ 559              		.loc 1 117 14 is_stmt 0 view .LVU201
+ 560 0244 28EE099A 		vmul.f32	s18, s16, s18
+ 561              	.LVL55:
+ 117:Src/sensors/madgwick.c **** 	q3 += qDot4 * invSampleFreq;
+ 562              		.loc 1 117 5 view .LVU202
+ 563 0248 3CEE09CA 		vadd.f32	s24, s24, s18
+ 564 024c 184D     		ldr	r5, .L12+4
+ 565 024e 85ED00CA 		vstr.32	s24, [r5]
+ 118:Src/sensors/madgwick.c **** 
+ 566              		.loc 1 118 2 is_stmt 1 view .LVU203
+ 118:Src/sensors/madgwick.c **** 
+ 567              		.loc 1 118 14 is_stmt 0 view .LVU204
+ 568 0252 28EE0B8A 		vmul.f32	s16, s16, s22
+ 118:Src/sensors/madgwick.c **** 
+ 569              		.loc 1 118 5 view .LVU205
+ 570 0256 3AEE888A 		vadd.f32	s16, s21, s16
+ 571 025a 164C     		ldr	r4, .L12+8
+ 572 025c 84ED008A 		vstr.32	s16, [r4]
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 573              		.loc 1 121 2 is_stmt 1 view .LVU206
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 574              		.loc 1 121 25 is_stmt 0 view .LVU207
+ 575 0260 6DEE0D7A 		vmul.f32	s15, s26, s26
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 576              		.loc 1 121 35 view .LVU208
+ 577 0264 2CEEAC0A 		vmul.f32	s0, s25, s25
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 17
+
+
+ 578              		.loc 1 121 30 view .LVU209
+ 579 0268 77EE807A 		vadd.f32	s15, s15, s0
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 580              		.loc 1 121 45 view .LVU210
+ 581 026c 2CEE0C0A 		vmul.f32	s0, s24, s24
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 582              		.loc 1 121 40 view .LVU211
+ 583 0270 77EE807A 		vadd.f32	s15, s15, s0
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 584              		.loc 1 121 55 view .LVU212
+ 585 0274 28EE080A 		vmul.f32	s0, s16, s16
+ 121:Src/sensors/madgwick.c **** 	q0 *= recipNorm;
+ 586              		.loc 1 121 14 view .LVU213
+ 587 0278 37EE800A 		vadd.f32	s0, s15, s0
+ 588 027c FFF7FEFF 		bl	invSqrt
+ 589              	.LVL56:
+ 122:Src/sensors/madgwick.c **** 	q1 *= recipNorm;
+ 590              		.loc 1 122 2 is_stmt 1 view .LVU214
+ 122:Src/sensors/madgwick.c **** 	q1 *= recipNorm;
+ 591              		.loc 1 122 5 is_stmt 0 view .LVU215
+ 592 0280 2DEE00DA 		vmul.f32	s26, s26, s0
+ 593 0284 87ED00DA 		vstr.32	s26, [r7]
+ 123:Src/sensors/madgwick.c **** 	q2 *= recipNorm;
+ 594              		.loc 1 123 2 is_stmt 1 view .LVU216
+ 123:Src/sensors/madgwick.c **** 	q2 *= recipNorm;
+ 595              		.loc 1 123 5 is_stmt 0 view .LVU217
+ 596 0288 6CEE80CA 		vmul.f32	s25, s25, s0
+ 597 028c C6ED00CA 		vstr.32	s25, [r6]
+ 124:Src/sensors/madgwick.c **** 	q3 *= recipNorm;
+ 598              		.loc 1 124 2 is_stmt 1 view .LVU218
+ 124:Src/sensors/madgwick.c **** 	q3 *= recipNorm;
+ 599              		.loc 1 124 5 is_stmt 0 view .LVU219
+ 600 0290 2CEE00CA 		vmul.f32	s24, s24, s0
+ 601 0294 85ED00CA 		vstr.32	s24, [r5]
+ 125:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+ 602              		.loc 1 125 2 is_stmt 1 view .LVU220
+ 125:Src/sensors/madgwick.c **** 	anglesComputed = 0;
+ 603              		.loc 1 125 5 is_stmt 0 view .LVU221
+ 604 0298 28EE008A 		vmul.f32	s16, s16, s0
+ 605 029c 84ED008A 		vstr.32	s16, [r4]
+ 126:Src/sensors/madgwick.c **** }
+ 606              		.loc 1 126 2 is_stmt 1 view .LVU222
+ 126:Src/sensors/madgwick.c **** }
+ 607              		.loc 1 126 17 is_stmt 0 view .LVU223
+ 608 02a0 084B     		ldr	r3, .L12+24
+ 609 02a2 0022     		movs	r2, #0
+ 610 02a4 1A70     		strb	r2, [r3]
+ 127:Src/sensors/madgwick.c **** 
+ 611              		.loc 1 127 1 view .LVU224
+ 612 02a6 BDEC0E8B 		vldm	sp!, {d8-d14}
+ 613              		.cfi_restore 92
+ 614              		.cfi_restore 93
+ 615              		.cfi_restore 90
+ 616              		.cfi_restore 91
+ 617              		.cfi_restore 88
+ 618              		.cfi_restore 89
+ 619              		.cfi_restore 86
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 18
+
+
+ 620              		.cfi_restore 87
+ 621              		.cfi_restore 84
+ 622              		.cfi_restore 85
+ 623              		.cfi_restore 82
+ 624              		.cfi_restore 83
+ 625              		.cfi_restore 80
+ 626              		.cfi_restore 81
+ 627              		.cfi_def_cfa_offset 24
+ 628              	.LVL57:
+ 127:Src/sensors/madgwick.c **** 
+ 629              		.loc 1 127 1 view .LVU225
+ 630 02aa F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 631              	.L13:
+ 632              		.align	2
+ 633              	.L12:
+ 634 02ac 00000000 		.word	.LANCHOR2
+ 635 02b0 00000000 		.word	.LANCHOR3
+ 636 02b4 00000000 		.word	.LANCHOR4
+ 637 02b8 00000000 		.word	.LANCHOR1
+ 638 02bc 00000000 		.word	.LANCHOR0
+ 639 02c0 00000000 		.word	.LANCHOR5
+ 640 02c4 00000000 		.word	.LANCHOR6
+ 641              		.cfi_endproc
+ 642              	.LFE188:
+ 644              		.section	.text.computeAngles,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	computeAngles
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 650              		.fpu fpv5-sp-d16
+ 652              	computeAngles:
+ 653              	.LFB190:
+ 148:Src/sensors/madgwick.c **** 
+ 149:Src/sensors/madgwick.c **** /** @brief Computes angles from quaternion
+ 150:Src/sensors/madgwick.c ****  *
+ 151:Src/sensors/madgwick.c ****  * 	@return Void.
+ 152:Src/sensors/madgwick.c ****  */
+ 153:Src/sensors/madgwick.c **** void
+ 154:Src/sensors/madgwick.c **** computeAngles(void)
+ 155:Src/sensors/madgwick.c **** {
+ 654              		.loc 1 155 1 is_stmt 1 view -0
+ 655              		.cfi_startproc
+ 656              		@ args = 0, pretend = 0, frame = 0
+ 657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 658 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 659              		.cfi_def_cfa_offset 24
+ 660              		.cfi_offset 3, -24
+ 661              		.cfi_offset 4, -20
+ 662              		.cfi_offset 5, -16
+ 663              		.cfi_offset 6, -12
+ 664              		.cfi_offset 7, -8
+ 665              		.cfi_offset 14, -4
+ 666 0002 2DED028B 		vpush.64	{d8}
+ 667              		.cfi_def_cfa_offset 32
+ 668              		.cfi_offset 80, -32
+ 669              		.cfi_offset 81, -28
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 19
+
+
+ 156:Src/sensors/madgwick.c **** 	roll = atan2f(q0*q1 + q2*q3, 0.5f - q1*q1 - q2*q2);
+ 670              		.loc 1 156 2 view .LVU227
+ 671              		.loc 1 156 18 is_stmt 0 view .LVU228
+ 672 0006 2C4E     		ldr	r6, .L16
+ 673 0008 D6ED000A 		vldr.32	s1, [r6]
+ 674 000c 2B4C     		ldr	r4, .L16+4
+ 675 000e 94ED000A 		vldr.32	s0, [r4]
+ 676 0012 20EE800A 		vmul.f32	s0, s1, s0
+ 677              		.loc 1 156 26 view .LVU229
+ 678 0016 2A4F     		ldr	r7, .L16+8
+ 679 0018 D7ED007A 		vldr.32	s15, [r7]
+ 680 001c 294D     		ldr	r5, .L16+12
+ 681 001e 95ED007A 		vldr.32	s14, [r5]
+ 682 0022 27EE877A 		vmul.f32	s14, s15, s14
+ 683              		.loc 1 156 40 view .LVU230
+ 684 0026 60EEA00A 		vmul.f32	s1, s1, s1
+ 685              		.loc 1 156 36 view .LVU231
+ 686 002a B6EE008A 		vmov.f32	s16, #5.0e-1
+ 687 002e 78EE600A 		vsub.f32	s1, s16, s1
+ 688              		.loc 1 156 48 view .LVU232
+ 689 0032 67EEA77A 		vmul.f32	s15, s15, s15
+ 690              		.loc 1 156 9 view .LVU233
+ 691 0036 70EEE70A 		vsub.f32	s1, s1, s15
+ 692 003a 30EE070A 		vadd.f32	s0, s0, s14
+ 693 003e FFF7FEFF 		bl	atan2f
+ 694              	.LVL58:
+ 695              		.loc 1 156 7 view .LVU234
+ 696 0042 214B     		ldr	r3, .L16+16
+ 697 0044 83ED000A 		vstr.32	s0, [r3]
+ 157:Src/sensors/madgwick.c **** 	pitch = asinf(-2.0f * (q1*q3 - q0*q2));
+ 698              		.loc 1 157 2 is_stmt 1 view .LVU235
+ 699              		.loc 1 157 27 is_stmt 0 view .LVU236
+ 700 0048 D6ED007A 		vldr.32	s15, [r6]
+ 701 004c 95ED000A 		vldr.32	s0, [r5]
+ 702 0050 67EE807A 		vmul.f32	s15, s15, s0
+ 703              		.loc 1 157 35 view .LVU237
+ 704 0054 94ED000A 		vldr.32	s0, [r4]
+ 705 0058 97ED007A 		vldr.32	s14, [r7]
+ 706 005c 20EE070A 		vmul.f32	s0, s0, s14
+ 707              		.loc 1 157 31 view .LVU238
+ 708 0060 77EEC07A 		vsub.f32	s15, s15, s0
+ 709              		.loc 1 157 10 view .LVU239
+ 710 0064 B8EE000A 		vmov.f32	s0, #-2.0e+0
+ 711 0068 27EE800A 		vmul.f32	s0, s15, s0
+ 712 006c FFF7FEFF 		bl	asinf
+ 713              	.LVL59:
+ 714              		.loc 1 157 8 view .LVU240
+ 715 0070 164B     		ldr	r3, .L16+20
+ 716 0072 83ED000A 		vstr.32	s0, [r3]
+ 158:Src/sensors/madgwick.c **** 	yaw = atan2f(q1*q2 + q0*q3, 0.5f - q2*q2 - q3*q3);
+ 717              		.loc 1 158 2 is_stmt 1 view .LVU241
+ 718              		.loc 1 158 17 is_stmt 0 view .LVU242
+ 719 0076 D7ED000A 		vldr.32	s1, [r7]
+ 720 007a 96ED000A 		vldr.32	s0, [r6]
+ 721 007e 20EE800A 		vmul.f32	s0, s1, s0
+ 722              		.loc 1 158 25 view .LVU243
+ 723 0082 D5ED007A 		vldr.32	s15, [r5]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 20
+
+
+ 724 0086 94ED007A 		vldr.32	s14, [r4]
+ 725 008a 27EE877A 		vmul.f32	s14, s15, s14
+ 726              		.loc 1 158 39 view .LVU244
+ 727 008e 60EEA00A 		vmul.f32	s1, s1, s1
+ 728              		.loc 1 158 35 view .LVU245
+ 729 0092 78EE600A 		vsub.f32	s1, s16, s1
+ 730              		.loc 1 158 47 view .LVU246
+ 731 0096 67EEA77A 		vmul.f32	s15, s15, s15
+ 732              		.loc 1 158 8 view .LVU247
+ 733 009a 70EEE70A 		vsub.f32	s1, s1, s15
+ 734 009e 30EE070A 		vadd.f32	s0, s0, s14
+ 735 00a2 FFF7FEFF 		bl	atan2f
+ 736              	.LVL60:
+ 737              		.loc 1 158 6 view .LVU248
+ 738 00a6 0A4B     		ldr	r3, .L16+24
+ 739 00a8 83ED000A 		vstr.32	s0, [r3]
+ 159:Src/sensors/madgwick.c **** 	anglesComputed = 1;
+ 740              		.loc 1 159 2 is_stmt 1 view .LVU249
+ 741              		.loc 1 159 17 is_stmt 0 view .LVU250
+ 742 00ac 094B     		ldr	r3, .L16+28
+ 743 00ae 0122     		movs	r2, #1
+ 744 00b0 1A70     		strb	r2, [r3]
+ 160:Src/sensors/madgwick.c **** }
+ 745              		.loc 1 160 1 view .LVU251
+ 746 00b2 BDEC028B 		vldm	sp!, {d8}
+ 747              		.cfi_restore 80
+ 748              		.cfi_restore 81
+ 749              		.cfi_def_cfa_offset 24
+ 750 00b6 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 751              	.L17:
+ 752              		.align	2
+ 753              	.L16:
+ 754 00b8 00000000 		.word	.LANCHOR2
+ 755 00bc 00000000 		.word	.LANCHOR1
+ 756 00c0 00000000 		.word	.LANCHOR3
+ 757 00c4 00000000 		.word	.LANCHOR4
+ 758 00c8 00000000 		.word	.LANCHOR7
+ 759 00cc 00000000 		.word	.LANCHOR8
+ 760 00d0 00000000 		.word	.LANCHOR9
+ 761 00d4 00000000 		.word	.LANCHOR6
+ 762              		.cfi_endproc
+ 763              	.LFE190:
+ 765              		.global	anglesComputed
+ 766              		.global	yaw
+ 767              		.global	pitch
+ 768              		.global	roll
+ 769              		.global	invSampleFreq
+ 770              		.global	q3
+ 771              		.global	q2
+ 772              		.global	q1
+ 773              		.global	q0
+ 774              		.global	beta
+ 775              		.section	.bss.anglesComputed,"aw",%nobits
+ 776              		.set	.LANCHOR6,. + 0
+ 779              	anglesComputed:
+ 780 0000 00       		.space	1
+ 781              		.section	.bss.beta,"aw",%nobits
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 21
+
+
+ 782              		.align	2
+ 783              		.set	.LANCHOR0,. + 0
+ 786              	beta:
+ 787 0000 00000000 		.space	4
+ 788              		.section	.bss.invSampleFreq,"aw",%nobits
+ 789              		.align	2
+ 790              		.set	.LANCHOR5,. + 0
+ 793              	invSampleFreq:
+ 794 0000 00000000 		.space	4
+ 795              		.section	.bss.pitch,"aw",%nobits
+ 796              		.align	2
+ 797              		.set	.LANCHOR8,. + 0
+ 800              	pitch:
+ 801 0000 00000000 		.space	4
+ 802              		.section	.bss.q0,"aw",%nobits
+ 803              		.align	2
+ 804              		.set	.LANCHOR1,. + 0
+ 807              	q0:
+ 808 0000 00000000 		.space	4
+ 809              		.section	.bss.q1,"aw",%nobits
+ 810              		.align	2
+ 811              		.set	.LANCHOR2,. + 0
+ 814              	q1:
+ 815 0000 00000000 		.space	4
+ 816              		.section	.bss.q2,"aw",%nobits
+ 817              		.align	2
+ 818              		.set	.LANCHOR3,. + 0
+ 821              	q2:
+ 822 0000 00000000 		.space	4
+ 823              		.section	.bss.q3,"aw",%nobits
+ 824              		.align	2
+ 825              		.set	.LANCHOR4,. + 0
+ 828              	q3:
+ 829 0000 00000000 		.space	4
+ 830              		.section	.bss.roll,"aw",%nobits
+ 831              		.align	2
+ 832              		.set	.LANCHOR7,. + 0
+ 835              	roll:
+ 836 0000 00000000 		.space	4
+ 837              		.section	.bss.yaw,"aw",%nobits
+ 838              		.align	2
+ 839              		.set	.LANCHOR9,. + 0
+ 842              	yaw:
+ 843 0000 00000000 		.space	4
+ 844              		.text
+ 845              	.Letext0:
+ 846              		.file 2 "Src/sensors/madgwick.h"
+ 847              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/math.h"
+ 848              		.file 4 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 madgwick.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:18     .text.invSqrt:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:25     .text.invSqrt:0000000000000000 invSqrt
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:81     .text.invSqrt:000000000000003c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:86     .rodata.madgwickInit.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:90     .text.madgwickInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:97     .text.madgwickInit:0000000000000000 madgwickInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:149    .text.madgwickInit:0000000000000034 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:163    .text.updateIMU:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:170    .text.updateIMU:0000000000000000 updateIMU
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:634    .text.updateIMU:00000000000002ac $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:645    .text.computeAngles:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:652    .text.computeAngles:0000000000000000 computeAngles
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:754    .text.computeAngles:00000000000000b8 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:779    .bss.anglesComputed:0000000000000000 anglesComputed
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:842    .bss.yaw:0000000000000000 yaw
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:800    .bss.pitch:0000000000000000 pitch
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:835    .bss.roll:0000000000000000 roll
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:793    .bss.invSampleFreq:0000000000000000 invSampleFreq
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:828    .bss.q3:0000000000000000 q3
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:821    .bss.q2:0000000000000000 q2
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:814    .bss.q1:0000000000000000 q1
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:807    .bss.q0:0000000000000000 q0
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:786    .bss.beta:0000000000000000 beta
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:780    .bss.anglesComputed:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:782    .bss.beta:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:789    .bss.invSampleFreq:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:796    .bss.pitch:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:803    .bss.q0:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:810    .bss.q1:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:817    .bss.q2:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:824    .bss.q3:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:831    .bss.roll:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf0EH2g.s:838    .bss.yaw:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+puts
+atan2f
+asinf

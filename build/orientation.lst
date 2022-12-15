@@ -1,0 +1,362 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"orientation.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.orientSensors,"ax",%progbits
+  18              		.align	1
+  19              		.global	orientSensors
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	orientSensors:
+  27              	.LFB187:
+  28              		.file 1 "Src/sensors/orientation.c"
+   1:Src/sensors/orientation.c **** /** @file 		orientation.c
+   2:Src/sensors/orientation.c ****  *  @brief
+   3:Src/sensors/orientation.c ****  *  	This file contains a function to orient the board.
+   4:Src/sensors/orientation.c ****  *
+   5:Src/sensors/orientation.c ****  *  @author 	Jeremy Wolfe
+   6:Src/sensors/orientation.c ****  *  @date 		06 MAR 2022
+   7:Src/sensors/orientation.c ****  */
+   8:Src/sensors/orientation.c **** 
+   9:Src/sensors/orientation.c **** /* Includes */
+  10:Src/sensors/orientation.c **** #include "board.h"
+  11:Src/sensors/orientation.c **** 
+  12:Src/sensors/orientation.c **** /* Global Variables */
+  13:Src/sensors/orientation.c **** float mpuOrientationMatrix[9];
+  14:Src/sensors/orientation.c **** 
+  15:Src/sensors/orientation.c **** /** @brief Orients the board.
+  16:Src/sensors/orientation.c ****  *
+  17:Src/sensors/orientation.c ****  *  @return Void.
+  18:Src/sensors/orientation.c ****  */
+  19:Src/sensors/orientation.c **** void
+  20:Src/sensors/orientation.c **** orientSensors(void)
+  21:Src/sensors/orientation.c **** {
+  29              		.loc 1 21 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  22:Src/sensors/orientation.c ****     switch (eepromConfig.sensorOrientation)
+  34              		.loc 1 22 5 view .LVU1
+  35              		.loc 1 22 25 is_stmt 0 view .LVU2
+  36 0000 284B     		ldr	r3, .L9
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 2
+
+
+  37 0002 93F85930 		ldrb	r3, [r3, #89]	@ zero_extendqisi2
+  38              		.loc 1 22 5 view .LVU3
+  39 0006 013B     		subs	r3, r3, #1
+  40 0008 032B     		cmp	r3, #3
+  41 000a 3CD8     		bhi	.L2
+  42 000c DFE803F0 		tbb	[pc, r3]
+  43              	.L4:
+  44 0010 02       		.byte	(.L7-.L4)/2
+  45 0011 10       		.byte	(.L6-.L4)/2
+  46 0012 1F       		.byte	(.L5-.L4)/2
+  47 0013 2E       		.byte	(.L3-.L4)/2
+  48              		.p2align 1
+  49              	.L7:
+  23:Src/sensors/orientation.c ****     {
+  24:Src/sensors/orientation.c ****         case 1: // Normal, no rotation
+  25:Src/sensors/orientation.c ****             mpuOrientationMatrix[0] =  1.0f;
+  50              		.loc 1 25 13 is_stmt 1 view .LVU4
+  51              		.loc 1 25 37 is_stmt 0 view .LVU5
+  52 0014 244B     		ldr	r3, .L9+4
+  53 0016 4FF07E51 		mov	r1, #1065353216
+  54 001a 1960     		str	r1, [r3]	@ float
+  26:Src/sensors/orientation.c ****             mpuOrientationMatrix[1] =  0.0f;
+  55              		.loc 1 26 13 is_stmt 1 view .LVU6
+  56              		.loc 1 26 37 is_stmt 0 view .LVU7
+  57 001c 0022     		movs	r2, #0
+  58 001e 5A60     		str	r2, [r3, #4]	@ float
+  27:Src/sensors/orientation.c ****             mpuOrientationMatrix[2] =  0.0f;
+  59              		.loc 1 27 13 is_stmt 1 view .LVU8
+  60              		.loc 1 27 37 is_stmt 0 view .LVU9
+  61 0020 9A60     		str	r2, [r3, #8]	@ float
+  28:Src/sensors/orientation.c ****             mpuOrientationMatrix[3] =  0.0f;
+  62              		.loc 1 28 13 is_stmt 1 view .LVU10
+  63              		.loc 1 28 37 is_stmt 0 view .LVU11
+  64 0022 DA60     		str	r2, [r3, #12]	@ float
+  29:Src/sensors/orientation.c ****             mpuOrientationMatrix[4] =  1.0f;
+  65              		.loc 1 29 13 is_stmt 1 view .LVU12
+  66              		.loc 1 29 37 is_stmt 0 view .LVU13
+  67 0024 1961     		str	r1, [r3, #16]	@ float
+  30:Src/sensors/orientation.c ****             mpuOrientationMatrix[5] =  0.0f;
+  68              		.loc 1 30 13 is_stmt 1 view .LVU14
+  69              		.loc 1 30 37 is_stmt 0 view .LVU15
+  70 0026 5A61     		str	r2, [r3, #20]	@ float
+  31:Src/sensors/orientation.c ****             mpuOrientationMatrix[6] =  0.0f;
+  71              		.loc 1 31 13 is_stmt 1 view .LVU16
+  72              		.loc 1 31 37 is_stmt 0 view .LVU17
+  73 0028 9A61     		str	r2, [r3, #24]	@ float
+  32:Src/sensors/orientation.c ****             mpuOrientationMatrix[7] =  0.0f;
+  74              		.loc 1 32 13 is_stmt 1 view .LVU18
+  75              		.loc 1 32 37 is_stmt 0 view .LVU19
+  76 002a DA61     		str	r2, [r3, #28]	@ float
+  33:Src/sensors/orientation.c ****             mpuOrientationMatrix[8] =  1.0f;
+  77              		.loc 1 33 13 is_stmt 1 view .LVU20
+  78              		.loc 1 33 37 is_stmt 0 view .LVU21
+  79 002c 1962     		str	r1, [r3, #32]	@ float
+  34:Src/sensors/orientation.c **** 
+  35:Src/sensors/orientation.c ****             break;
+  80              		.loc 1 35 13 is_stmt 1 view .LVU22
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 3
+
+
+  81 002e 7047     		bx	lr
+  82              	.L6:
+  36:Src/sensors/orientation.c **** 
+  37:Src/sensors/orientation.c ****         case 2: // 90 degree rotation
+  38:Src/sensors/orientation.c ****             mpuOrientationMatrix[0] =  0.0f;
+  83              		.loc 1 38 13 view .LVU23
+  84              		.loc 1 38 37 is_stmt 0 view .LVU24
+  85 0030 1D4B     		ldr	r3, .L9+4
+  86 0032 0022     		movs	r2, #0
+  87 0034 1A60     		str	r2, [r3]	@ float
+  39:Src/sensors/orientation.c ****             mpuOrientationMatrix[1] =  1.0f;
+  88              		.loc 1 39 13 is_stmt 1 view .LVU25
+  89              		.loc 1 39 37 is_stmt 0 view .LVU26
+  90 0036 4FF07E51 		mov	r1, #1065353216
+  91 003a 5960     		str	r1, [r3, #4]	@ float
+  40:Src/sensors/orientation.c ****             mpuOrientationMatrix[2] =  0.0f;
+  92              		.loc 1 40 13 is_stmt 1 view .LVU27
+  93              		.loc 1 40 37 is_stmt 0 view .LVU28
+  94 003c 9A60     		str	r2, [r3, #8]	@ float
+  41:Src/sensors/orientation.c ****             mpuOrientationMatrix[3] =  1.0f;
+  95              		.loc 1 41 13 is_stmt 1 view .LVU29
+  96              		.loc 1 41 37 is_stmt 0 view .LVU30
+  97 003e D960     		str	r1, [r3, #12]	@ float
+  42:Src/sensors/orientation.c ****             mpuOrientationMatrix[4] =  0.0f;
+  98              		.loc 1 42 13 is_stmt 1 view .LVU31
+  99              		.loc 1 42 37 is_stmt 0 view .LVU32
+ 100 0040 1A61     		str	r2, [r3, #16]	@ float
+  43:Src/sensors/orientation.c ****             mpuOrientationMatrix[5] =  0.0f;
+ 101              		.loc 1 43 13 is_stmt 1 view .LVU33
+ 102              		.loc 1 43 37 is_stmt 0 view .LVU34
+ 103 0042 5A61     		str	r2, [r3, #20]	@ float
+  44:Src/sensors/orientation.c ****             mpuOrientationMatrix[6] =  0.0f;
+ 104              		.loc 1 44 13 is_stmt 1 view .LVU35
+ 105              		.loc 1 44 37 is_stmt 0 view .LVU36
+ 106 0044 9A61     		str	r2, [r3, #24]	@ float
+  45:Src/sensors/orientation.c ****             mpuOrientationMatrix[7] =  0.0f;
+ 107              		.loc 1 45 13 is_stmt 1 view .LVU37
+ 108              		.loc 1 45 37 is_stmt 0 view .LVU38
+ 109 0046 DA61     		str	r2, [r3, #28]	@ float
+  46:Src/sensors/orientation.c ****             mpuOrientationMatrix[8] = -1.0f;
+ 110              		.loc 1 46 13 is_stmt 1 view .LVU39
+ 111              		.loc 1 46 37 is_stmt 0 view .LVU40
+ 112 0048 184A     		ldr	r2, .L9+8
+ 113 004a 1A62     		str	r2, [r3, #32]	@ float
+  47:Src/sensors/orientation.c **** 
+  48:Src/sensors/orientation.c ****             break;
+ 114              		.loc 1 48 13 is_stmt 1 view .LVU41
+ 115 004c 7047     		bx	lr
+ 116              	.L5:
+  49:Src/sensors/orientation.c **** 
+  50:Src/sensors/orientation.c ****         case 3: // 180 degree rotation
+  51:Src/sensors/orientation.c ****             mpuOrientationMatrix[0] = -1.0f;
+ 117              		.loc 1 51 13 view .LVU42
+ 118              		.loc 1 51 37 is_stmt 0 view .LVU43
+ 119 004e 164B     		ldr	r3, .L9+4
+ 120 0050 1649     		ldr	r1, .L9+8
+ 121 0052 1960     		str	r1, [r3]	@ float
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 4
+
+
+  52:Src/sensors/orientation.c ****             mpuOrientationMatrix[1] =  0.0f;
+ 122              		.loc 1 52 13 is_stmt 1 view .LVU44
+ 123              		.loc 1 52 37 is_stmt 0 view .LVU45
+ 124 0054 0022     		movs	r2, #0
+ 125 0056 5A60     		str	r2, [r3, #4]	@ float
+  53:Src/sensors/orientation.c ****             mpuOrientationMatrix[2] =  0.0f;
+ 126              		.loc 1 53 13 is_stmt 1 view .LVU46
+ 127              		.loc 1 53 37 is_stmt 0 view .LVU47
+ 128 0058 9A60     		str	r2, [r3, #8]	@ float
+  54:Src/sensors/orientation.c ****             mpuOrientationMatrix[3] =  0.0f;
+ 129              		.loc 1 54 13 is_stmt 1 view .LVU48
+ 130              		.loc 1 54 37 is_stmt 0 view .LVU49
+ 131 005a DA60     		str	r2, [r3, #12]	@ float
+  55:Src/sensors/orientation.c ****             mpuOrientationMatrix[4] =  1.0f;
+ 132              		.loc 1 55 13 is_stmt 1 view .LVU50
+ 133              		.loc 1 55 37 is_stmt 0 view .LVU51
+ 134 005c 4FF07E50 		mov	r0, #1065353216
+ 135 0060 1861     		str	r0, [r3, #16]	@ float
+  56:Src/sensors/orientation.c ****             mpuOrientationMatrix[5] =  0.0f;
+ 136              		.loc 1 56 13 is_stmt 1 view .LVU52
+ 137              		.loc 1 56 37 is_stmt 0 view .LVU53
+ 138 0062 5A61     		str	r2, [r3, #20]	@ float
+  57:Src/sensors/orientation.c ****             mpuOrientationMatrix[6] =  0.0f;
+ 139              		.loc 1 57 13 is_stmt 1 view .LVU54
+ 140              		.loc 1 57 37 is_stmt 0 view .LVU55
+ 141 0064 9A61     		str	r2, [r3, #24]	@ float
+  58:Src/sensors/orientation.c ****             mpuOrientationMatrix[7] =  0.0f;
+ 142              		.loc 1 58 13 is_stmt 1 view .LVU56
+ 143              		.loc 1 58 37 is_stmt 0 view .LVU57
+ 144 0066 DA61     		str	r2, [r3, #28]	@ float
+  59:Src/sensors/orientation.c ****             mpuOrientationMatrix[8] = -1.0f;
+ 145              		.loc 1 59 13 is_stmt 1 view .LVU58
+ 146              		.loc 1 59 37 is_stmt 0 view .LVU59
+ 147 0068 1962     		str	r1, [r3, #32]	@ float
+  60:Src/sensors/orientation.c **** 
+  61:Src/sensors/orientation.c ****             break;
+ 148              		.loc 1 61 13 is_stmt 1 view .LVU60
+ 149 006a 7047     		bx	lr
+ 150              	.L3:
+  62:Src/sensors/orientation.c **** 
+  63:Src/sensors/orientation.c ****         case 4: // -90 degree rotation
+  64:Src/sensors/orientation.c ****             mpuOrientationMatrix[0] =  0.0f;
+ 151              		.loc 1 64 13 view .LVU61
+ 152              		.loc 1 64 37 is_stmt 0 view .LVU62
+ 153 006c 0E4B     		ldr	r3, .L9+4
+ 154 006e 0022     		movs	r2, #0
+ 155 0070 1A60     		str	r2, [r3]	@ float
+  65:Src/sensors/orientation.c ****             mpuOrientationMatrix[1] = -1.0f;
+ 156              		.loc 1 65 13 is_stmt 1 view .LVU63
+ 157              		.loc 1 65 37 is_stmt 0 view .LVU64
+ 158 0072 0E49     		ldr	r1, .L9+8
+ 159 0074 5960     		str	r1, [r3, #4]	@ float
+  66:Src/sensors/orientation.c ****             mpuOrientationMatrix[2] =  0.0f;
+ 160              		.loc 1 66 13 is_stmt 1 view .LVU65
+ 161              		.loc 1 66 37 is_stmt 0 view .LVU66
+ 162 0076 9A60     		str	r2, [r3, #8]	@ float
+  67:Src/sensors/orientation.c ****             mpuOrientationMatrix[3] = -1.0f;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 5
+
+
+ 163              		.loc 1 67 13 is_stmt 1 view .LVU67
+ 164              		.loc 1 67 37 is_stmt 0 view .LVU68
+ 165 0078 D960     		str	r1, [r3, #12]	@ float
+  68:Src/sensors/orientation.c ****             mpuOrientationMatrix[4] =  0.0f;
+ 166              		.loc 1 68 13 is_stmt 1 view .LVU69
+ 167              		.loc 1 68 37 is_stmt 0 view .LVU70
+ 168 007a 1A61     		str	r2, [r3, #16]	@ float
+  69:Src/sensors/orientation.c ****             mpuOrientationMatrix[5] =  0.0f;
+ 169              		.loc 1 69 13 is_stmt 1 view .LVU71
+ 170              		.loc 1 69 37 is_stmt 0 view .LVU72
+ 171 007c 5A61     		str	r2, [r3, #20]	@ float
+  70:Src/sensors/orientation.c ****             mpuOrientationMatrix[6] =  0.0f;
+ 172              		.loc 1 70 13 is_stmt 1 view .LVU73
+ 173              		.loc 1 70 37 is_stmt 0 view .LVU74
+ 174 007e 9A61     		str	r2, [r3, #24]	@ float
+  71:Src/sensors/orientation.c ****             mpuOrientationMatrix[7] =  0.0f;
+ 175              		.loc 1 71 13 is_stmt 1 view .LVU75
+ 176              		.loc 1 71 37 is_stmt 0 view .LVU76
+ 177 0080 DA61     		str	r2, [r3, #28]	@ float
+  72:Src/sensors/orientation.c ****             mpuOrientationMatrix[8] = -1.0f;
+ 178              		.loc 1 72 13 is_stmt 1 view .LVU77
+ 179              		.loc 1 72 37 is_stmt 0 view .LVU78
+ 180 0082 1962     		str	r1, [r3, #32]	@ float
+  73:Src/sensors/orientation.c **** 
+  74:Src/sensors/orientation.c ****             break;
+ 181              		.loc 1 74 13 is_stmt 1 view .LVU79
+ 182 0084 7047     		bx	lr
+ 183              	.L2:
+  75:Src/sensors/orientation.c **** 
+  76:Src/sensors/orientation.c ****         default: // Normal, no rotation
+  77:Src/sensors/orientation.c ****             mpuOrientationMatrix[0] =  1.0f;
+ 184              		.loc 1 77 13 view .LVU80
+ 185              		.loc 1 77 37 is_stmt 0 view .LVU81
+ 186 0086 084B     		ldr	r3, .L9+4
+ 187 0088 4FF07E51 		mov	r1, #1065353216
+ 188 008c 1960     		str	r1, [r3]	@ float
+  78:Src/sensors/orientation.c ****             mpuOrientationMatrix[1] =  0.0f;
+ 189              		.loc 1 78 13 is_stmt 1 view .LVU82
+ 190              		.loc 1 78 37 is_stmt 0 view .LVU83
+ 191 008e 0022     		movs	r2, #0
+ 192 0090 5A60     		str	r2, [r3, #4]	@ float
+  79:Src/sensors/orientation.c ****             mpuOrientationMatrix[2] =  0.0f;
+ 193              		.loc 1 79 13 is_stmt 1 view .LVU84
+ 194              		.loc 1 79 37 is_stmt 0 view .LVU85
+ 195 0092 9A60     		str	r2, [r3, #8]	@ float
+  80:Src/sensors/orientation.c ****             mpuOrientationMatrix[3] =  0.0f;
+ 196              		.loc 1 80 13 is_stmt 1 view .LVU86
+ 197              		.loc 1 80 37 is_stmt 0 view .LVU87
+ 198 0094 DA60     		str	r2, [r3, #12]	@ float
+  81:Src/sensors/orientation.c ****             mpuOrientationMatrix[4] =  1.0f;
+ 199              		.loc 1 81 13 is_stmt 1 view .LVU88
+ 200              		.loc 1 81 37 is_stmt 0 view .LVU89
+ 201 0096 1961     		str	r1, [r3, #16]	@ float
+  82:Src/sensors/orientation.c ****             mpuOrientationMatrix[5] =  0.0f;
+ 202              		.loc 1 82 13 is_stmt 1 view .LVU90
+ 203              		.loc 1 82 37 is_stmt 0 view .LVU91
+ 204 0098 5A61     		str	r2, [r3, #20]	@ float
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 6
+
+
+  83:Src/sensors/orientation.c ****             mpuOrientationMatrix[6] =  0.0f;
+ 205              		.loc 1 83 13 is_stmt 1 view .LVU92
+ 206              		.loc 1 83 37 is_stmt 0 view .LVU93
+ 207 009a 9A61     		str	r2, [r3, #24]	@ float
+  84:Src/sensors/orientation.c ****             mpuOrientationMatrix[7] =  0.0f;
+ 208              		.loc 1 84 13 is_stmt 1 view .LVU94
+ 209              		.loc 1 84 37 is_stmt 0 view .LVU95
+ 210 009c DA61     		str	r2, [r3, #28]	@ float
+  85:Src/sensors/orientation.c ****             mpuOrientationMatrix[8] =  1.0f;
+ 211              		.loc 1 85 13 is_stmt 1 view .LVU96
+ 212              		.loc 1 85 37 is_stmt 0 view .LVU97
+ 213 009e 1962     		str	r1, [r3, #32]	@ float
+  86:Src/sensors/orientation.c **** 
+  87:Src/sensors/orientation.c ****             break;
+ 214              		.loc 1 87 13 is_stmt 1 view .LVU98
+  88:Src/sensors/orientation.c ****     }
+  89:Src/sensors/orientation.c **** }
+ 215              		.loc 1 89 1 is_stmt 0 view .LVU99
+ 216 00a0 7047     		bx	lr
+ 217              	.L10:
+ 218 00a2 00BF     		.align	2
+ 219              	.L9:
+ 220 00a4 00000000 		.word	eepromConfig
+ 221 00a8 00000000 		.word	.LANCHOR0
+ 222 00ac 000080BF 		.word	-1082130432
+ 223              		.cfi_endproc
+ 224              	.LFE187:
+ 226              		.global	mpuOrientationMatrix
+ 227              		.section	.bss.mpuOrientationMatrix,"aw",%nobits
+ 228              		.align	2
+ 229              		.set	.LANCHOR0,. + 0
+ 232              	mpuOrientationMatrix:
+ 233 0000 00000000 		.space	36
+ 233      00000000 
+ 233      00000000 
+ 233      00000000 
+ 233      00000000 
+ 234              		.text
+ 235              	.Letext0:
+ 236              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 237              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 238              		.file 4 "Src/pid.h"
+ 239              		.file 5 "Src/autodrone32.h"
+ 240              		.file 6 "Src/sensors/orientation.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 orientation.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:18     .text.orientSensors:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:26     .text.orientSensors:0000000000000000 orientSensors
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:44     .text.orientSensors:0000000000000010 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:48     .text.orientSensors:0000000000000014 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:220    .text.orientSensors:00000000000000a4 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:232    .bss.mpuOrientationMatrix:0000000000000000 mpuOrientationMatrix
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc928w2Z.s:228    .bss.mpuOrientationMatrix:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+eepromConfig

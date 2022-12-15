@@ -10,10 +10,11 @@
 #define __MAIN_H__
 
 /* Defines */
-//#define STLINK
-//#define SANDBOX
-#define OPENLAGER
+#define STLINK
+// #define SANDBOX
+// #define OPENLAGER
 #define USE_AUTODRONE
-//#define USE_NUCLEO
+// #define USE_NUCLEO
+#define USE_EEPROM
 
 #endif /* __MAIN_H__ */

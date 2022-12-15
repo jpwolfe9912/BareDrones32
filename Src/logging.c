@@ -57,16 +57,17 @@ printLog(logs_t logType)
 #else
 	if(logType < 3)
 		{
-			printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
-					logType,
-					battVoltage,
-					mode,
-					rateCmd[logType],
-					sensors.gyro500Hz[logType],
-					ratePID[logType],
-					attCmd[logType],
-					sensors.attitude500Hz[logType],
-					attPID[logType]);
+			// printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
+			// 		logType,
+			// 		battVoltage,
+			// 		mode,
+			// 		rateCmd[logType],
+			// 		sensors.gyro500Hz[logType],
+			// 		ratePID[logType],
+			// 		attCmd[logType],
+			// 		sensors.attitude500Hz[logType],
+			// 		attPID[logType]);
+            printf("%f\n", sensors.attDeg500Hz[logType]);
 		}
 
 

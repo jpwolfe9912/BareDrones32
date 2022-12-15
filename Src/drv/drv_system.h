@@ -56,7 +56,7 @@ void systemInit(void);
 void SystemClock_Config(void);
 
 void delayMicroseconds(uint32_t us);
-void delay(uint32_t ms);
+void delay(int32_t ms);
 
 uint32_t micros(void);
 uint32_t millis(void);

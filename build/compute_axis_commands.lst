@@ -1,0 +1,632 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"compute_axis_commands.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_f2d
+  18              		.global	__aeabi_dmul
+  19              		.global	__aeabi_dadd
+  20              		.global	__aeabi_ddiv
+  21              		.global	__aeabi_d2f
+  22              		.section	.text.computeAxisCommands,"ax",%progbits
+  23              		.align	1
+  24              		.global	computeAxisCommands
+  25              		.arch armv7e-m
+  26              		.syntax unified
+  27              		.thumb
+  28              		.thumb_func
+  29              		.fpu fpv5-sp-d16
+  31              	computeAxisCommands:
+  32              	.LVL0:
+  33              	.LFB187:
+  34              		.file 1 "Src/motion/compute_axis_commands.c"
+   1:Src/motion/compute_axis_commands.c **** /** @file 		compute_axis_commands.c
+   2:Src/motion/compute_axis_commands.c ****  *  @brief
+   3:Src/motion/compute_axis_commands.c ****  *  	This file creates the inputs to the PID controller and sends values to the mixer.
+   4:Src/motion/compute_axis_commands.c ****  *
+   5:Src/motion/compute_axis_commands.c ****  *  @author 	Jeremy Wolfe
+   6:Src/motion/compute_axis_commands.c ****  *  @date 		07 MAR 2022
+   7:Src/motion/compute_axis_commands.c ****  */
+   8:Src/motion/compute_axis_commands.c **** 
+   9:Src/motion/compute_axis_commands.c **** /* Includes */
+  10:Src/motion/compute_axis_commands.c **** #include "board.h"
+  11:Src/motion/compute_axis_commands.c **** 
+  12:Src/motion/compute_axis_commands.c **** /* Global Variables */
+  13:Src/motion/compute_axis_commands.c **** float   attCmd[3];
+  14:Src/motion/compute_axis_commands.c **** float   attPID[3];
+  15:Src/motion/compute_axis_commands.c **** float   ratePID[3];
+  16:Src/motion/compute_axis_commands.c **** float   rateCmd[3];
+  17:Src/motion/compute_axis_commands.c **** 
+  18:Src/motion/compute_axis_commands.c **** /** @brief Computes the commands that get sent to the mixer.
+  19:Src/motion/compute_axis_commands.c ****  *
+  20:Src/motion/compute_axis_commands.c ****  *  @param dt The PID loop period in sec.
+  21:Src/motion/compute_axis_commands.c ****  *  @return Void.
+  22:Src/motion/compute_axis_commands.c ****  */
+  23:Src/motion/compute_axis_commands.c **** void
+  24:Src/motion/compute_axis_commands.c **** computeAxisCommands(float dt)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 2
+
+
+  25:Src/motion/compute_axis_commands.c **** {
+  35              		.loc 1 25 1 view -0
+  36              		.cfi_startproc
+  37              		@ args = 0, pretend = 0, frame = 0
+  38              		@ frame_needed = 0, uses_anonymous_args = 0
+  39              		.loc 1 25 1 is_stmt 0 view .LVU1
+  40 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  41              		.cfi_def_cfa_offset 32
+  42              		.cfi_offset 3, -32
+  43              		.cfi_offset 4, -28
+  44              		.cfi_offset 5, -24
+  45              		.cfi_offset 6, -20
+  46              		.cfi_offset 7, -16
+  47              		.cfi_offset 8, -12
+  48              		.cfi_offset 9, -8
+  49              		.cfi_offset 14, -4
+  50 0004 2DED048B 		vpush.64	{d8, d9}
+  51              		.cfi_def_cfa_offset 48
+  52              		.cfi_offset 80, -48
+  53              		.cfi_offset 81, -44
+  54              		.cfi_offset 82, -40
+  55              		.cfi_offset 83, -36
+  26:Src/motion/compute_axis_commands.c **** 	float error;
+  56              		.loc 1 26 2 is_stmt 1 view .LVU2
+  27:Src/motion/compute_axis_commands.c **** 
+  28:Src/motion/compute_axis_commands.c **** 	if (mode == FLIGHT)
+  57              		.loc 1 28 2 view .LVU3
+  58              		.loc 1 28 11 is_stmt 0 view .LVU4
+  59 0008 854B     		ldr	r3, .L11+8
+  60 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  61              		.loc 1 28 5 view .LVU5
+  62 000c 012B     		cmp	r3, #1
+  63 000e 06D0     		beq	.L8
+  29:Src/motion/compute_axis_commands.c **** 	{
+  30:Src/motion/compute_axis_commands.c **** 		if(flightMode == ANGLE)
+  31:Src/motion/compute_axis_commands.c **** 		{
+  32:Src/motion/compute_axis_commands.c **** 			attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
+  33:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+  34:Src/motion/compute_axis_commands.c **** 			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+  35:Src/motion/compute_axis_commands.c **** 
+  36:Src/motion/compute_axis_commands.c **** 			attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
+  37:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+  38:Src/motion/compute_axis_commands.c **** 			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+  39:Src/motion/compute_axis_commands.c **** 		}
+  40:Src/motion/compute_axis_commands.c **** 
+  41:Src/motion/compute_axis_commands.c **** 		if(flightMode == RATE)
+  42:Src/motion/compute_axis_commands.c **** 		{
+  43:Src/motion/compute_axis_commands.c **** 			rateCmd[ROLL ] = RATECURVE(rxCommands[ROLL ]);
+  44:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+  45:Src/motion/compute_axis_commands.c **** 		}
+  46:Src/motion/compute_axis_commands.c **** 		else
+  47:Src/motion/compute_axis_commands.c **** 		{
+  48:Src/motion/compute_axis_commands.c **** 			rateCmd[ROLL ] = attPID[ROLL ];
+  49:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = attPID[PITCH];
+  50:Src/motion/compute_axis_commands.c **** 		}
+  51:Src/motion/compute_axis_commands.c **** 		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
+  52:Src/motion/compute_axis_commands.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 3
+
+
+  53:Src/motion/compute_axis_commands.c **** 		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
+  54:Src/motion/compute_axis_commands.c **** 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
+  55:Src/motion/compute_axis_commands.c **** 
+  56:Src/motion/compute_axis_commands.c **** 		error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];
+  57:Src/motion/compute_axis_commands.c **** 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+  58:Src/motion/compute_axis_commands.c **** 
+  59:Src/motion/compute_axis_commands.c **** 		error = rateCmd[YAW] + sensors.gyro500Hz[YAW];
+  60:Src/motion/compute_axis_commands.c **** 		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
+  61:Src/motion/compute_axis_commands.c **** 
+  62:Src/motion/compute_axis_commands.c **** 		///////////////////////////////////
+  63:Src/motion/compute_axis_commands.c **** 
+  64:Src/motion/compute_axis_commands.c **** 		throttleCmd = rxCommands[THROTTLE];
+  65:Src/motion/compute_axis_commands.c **** 	}
+  66:Src/motion/compute_axis_commands.c **** 	else if(mode == ROVER)
+  64              		.loc 1 66 7 is_stmt 1 view .LVU6
+  65              		.loc 1 66 9 is_stmt 0 view .LVU7
+  66 0010 032B     		cmp	r3, #3
+  67 0012 00F0EF80 		beq	.L9
+  68              	.LVL1:
+  69              	.L1:
+  67:Src/motion/compute_axis_commands.c **** 	{
+  68:Src/motion/compute_axis_commands.c **** 		speedCmd = rxCommands[PITCH];
+  69:Src/motion/compute_axis_commands.c **** 		steerCmd = rxCommands[ROLL];
+  70:Src/motion/compute_axis_commands.c **** 	}
+  71:Src/motion/compute_axis_commands.c **** 
+  72:Src/motion/compute_axis_commands.c **** 
+  73:Src/motion/compute_axis_commands.c **** }
+  70              		.loc 1 73 1 view .LVU8
+  71 0016 BDEC048B 		vldm	sp!, {d8-d9}
+  72              		.cfi_remember_state
+  73              		.cfi_restore 82
+  74              		.cfi_restore 83
+  75              		.cfi_restore 80
+  76              		.cfi_restore 81
+  77              		.cfi_def_cfa_offset 32
+  78 001a BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+  79              	.LVL2:
+  80              	.L8:
+  81              		.cfi_restore_state
+  82              		.loc 1 73 1 view .LVU9
+  83 001e B0EE408A 		vmov.f32	s16, s0
+  30:Src/motion/compute_axis_commands.c **** 		{
+  84              		.loc 1 30 3 is_stmt 1 view .LVU10
+  30:Src/motion/compute_axis_commands.c **** 		{
+  85              		.loc 1 30 17 is_stmt 0 view .LVU11
+  86 0022 804B     		ldr	r3, .L11+12
+  87 0024 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  30:Src/motion/compute_axis_commands.c **** 		{
+  88              		.loc 1 30 5 view .LVU12
+  89 0026 012B     		cmp	r3, #1
+  90 0028 00F0A680 		beq	.L10
+  91              	.LVL3:
+  92              	.L3:
+  41:Src/motion/compute_axis_commands.c **** 		{
+  93              		.loc 1 41 3 is_stmt 1 view .LVU13
+  41:Src/motion/compute_axis_commands.c **** 		{
+  94              		.loc 1 41 17 is_stmt 0 view .LVU14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 4
+
+
+  95 002c 7D4B     		ldr	r3, .L11+12
+  96 002e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  41:Src/motion/compute_axis_commands.c **** 		{
+  97              		.loc 1 41 5 view .LVU15
+  98 0030 002B     		cmp	r3, #0
+  99 0032 40F0D880 		bne	.L4
+  43:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+ 100              		.loc 1 43 4 is_stmt 1 view .LVU16
+  43:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+ 101              		.loc 1 43 21 is_stmt 0 view .LVU17
+ 102 0036 7C4E     		ldr	r6, .L11+16
+ 103 0038 D6E91889 		ldrd	r8, [r6, #96]
+ 104 003c 7B4F     		ldr	r7, .L11+20
+ 105 003e D7ED008A 		vldr.32	s17, [r7]
+ 106 0042 68EEA87A 		vmul.f32	s15, s17, s17
+ 107 0046 68EEA77A 		vmul.f32	s15, s17, s15
+ 108 004a 17EE900A 		vmov	r0, s15
+ 109 004e FFF7FEFF 		bl	__aeabi_f2d
+ 110              	.LVL4:
+ 111 0052 0246     		mov	r2, r0
+ 112 0054 0B46     		mov	r3, r1
+ 113 0056 4046     		mov	r0, r8
+ 114 0058 4946     		mov	r1, r9
+ 115 005a FFF7FEFF 		bl	__aeabi_dmul
+ 116              	.LVL5:
+ 117 005e 0446     		mov	r4, r0
+ 118 0060 0D46     		mov	r5, r1
+ 119 0062 96ED1A9A 		vldr.32	s18, [r6, #104]
+ 120 0066 68EE897A 		vmul.f32	s15, s17, s18
+ 121 006a 17EE900A 		vmov	r0, s15
+ 122 006e FFF7FEFF 		bl	__aeabi_f2d
+ 123              	.LVL6:
+ 124 0072 0246     		mov	r2, r0
+ 125 0074 0B46     		mov	r3, r1
+ 126 0076 2046     		mov	r0, r4
+ 127 0078 2946     		mov	r1, r5
+ 128 007a FFF7FEFF 		bl	__aeabi_dadd
+ 129              	.LVL7:
+ 130 007e 66A3     		adr	r3, .L11
+ 131 0080 D3E90023 		ldrd	r2, [r3]
+ 132 0084 FFF7FEFF 		bl	__aeabi_dmul
+ 133              	.LVL8:
+ 134 0088 0022     		movs	r2, #0
+ 135 008a 694B     		ldr	r3, .L11+24
+ 136 008c FFF7FEFF 		bl	__aeabi_ddiv
+ 137              	.LVL9:
+ 138 0090 FFF7FEFF 		bl	__aeabi_d2f
+ 139              	.LVL10:
+  43:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+ 140              		.loc 1 43 19 view .LVU18
+ 141 0094 674E     		ldr	r6, .L11+28
+ 142 0096 3060     		str	r0, [r6]	@ float
+  43:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+ 143              		.loc 1 43 49 is_stmt 1 view .LVU19
+  44:Src/motion/compute_axis_commands.c **** 		}
+ 144              		.loc 1 44 4 view .LVU20
+  44:Src/motion/compute_axis_commands.c **** 		}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 5
+
+
+ 145              		.loc 1 44 21 is_stmt 0 view .LVU21
+ 146 0098 D7ED018A 		vldr.32	s17, [r7, #4]
+ 147 009c 68EEA87A 		vmul.f32	s15, s17, s17
+ 148 00a0 68EEA77A 		vmul.f32	s15, s17, s15
+ 149 00a4 17EE900A 		vmov	r0, s15
+ 150 00a8 FFF7FEFF 		bl	__aeabi_f2d
+ 151              	.LVL11:
+ 152 00ac 0246     		mov	r2, r0
+ 153 00ae 0B46     		mov	r3, r1
+ 154 00b0 4046     		mov	r0, r8
+ 155 00b2 4946     		mov	r1, r9
+ 156 00b4 FFF7FEFF 		bl	__aeabi_dmul
+ 157              	.LVL12:
+ 158 00b8 0446     		mov	r4, r0
+ 159 00ba 0D46     		mov	r5, r1
+ 160 00bc 69EE287A 		vmul.f32	s15, s18, s17
+ 161 00c0 17EE900A 		vmov	r0, s15
+ 162 00c4 FFF7FEFF 		bl	__aeabi_f2d
+ 163              	.LVL13:
+ 164 00c8 0246     		mov	r2, r0
+ 165 00ca 0B46     		mov	r3, r1
+ 166 00cc 2046     		mov	r0, r4
+ 167 00ce 2946     		mov	r1, r5
+ 168 00d0 FFF7FEFF 		bl	__aeabi_dadd
+ 169              	.LVL14:
+ 170 00d4 50A3     		adr	r3, .L11
+ 171 00d6 D3E90023 		ldrd	r2, [r3]
+ 172 00da FFF7FEFF 		bl	__aeabi_dmul
+ 173              	.LVL15:
+ 174 00de 0022     		movs	r2, #0
+ 175 00e0 534B     		ldr	r3, .L11+24
+ 176 00e2 FFF7FEFF 		bl	__aeabi_ddiv
+ 177              	.LVL16:
+ 178 00e6 FFF7FEFF 		bl	__aeabi_d2f
+ 179              	.LVL17:
+  44:Src/motion/compute_axis_commands.c **** 		}
+ 180              		.loc 1 44 19 view .LVU22
+ 181 00ea 7060     		str	r0, [r6, #4]	@ float
+  44:Src/motion/compute_axis_commands.c **** 		}
+ 182              		.loc 1 44 49 is_stmt 1 view .LVU23
+ 183              	.L5:
+  51:Src/motion/compute_axis_commands.c **** 
+ 184              		.loc 1 51 3 view .LVU24
+  51:Src/motion/compute_axis_commands.c **** 
+ 185              		.loc 1 51 29 is_stmt 0 view .LVU25
+ 186 00ec DFF83C91 		ldr	r9, .L11+20
+ 187 00f0 D9ED027A 		vldr.32	s15, [r9, #8]
+  51:Src/motion/compute_axis_commands.c **** 
+ 188              		.loc 1 51 51 view .LVU26
+ 189 00f4 4C4C     		ldr	r4, .L11+16
+ 190 00f6 94ED1B7A 		vldr.32	s14, [r4, #108]
+  51:Src/motion/compute_axis_commands.c **** 
+ 191              		.loc 1 51 37 view .LVU27
+ 192 00fa 67EE877A 		vmul.f32	s15, s15, s14
+  51:Src/motion/compute_axis_commands.c **** 
+ 193              		.loc 1 51 17 view .LVU28
+ 194 00fe 4D4D     		ldr	r5, .L11+28
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 6
+
+
+ 195 0100 C5ED027A 		vstr.32	s15, [r5, #8]
+  53:Src/motion/compute_axis_commands.c **** 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
+ 196              		.loc 1 53 3 is_stmt 1 view .LVU29
+  53:Src/motion/compute_axis_commands.c **** 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
+ 197              		.loc 1 53 18 is_stmt 0 view .LVU30
+ 198 0104 95ED000A 		vldr.32	s0, [r5]
+  53:Src/motion/compute_axis_commands.c **** 		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
+ 199              		.loc 1 53 44 view .LVU31
+ 200 0108 DFF83881 		ldr	r8, .L11+44
+ 201 010c D8ED097A 		vldr.32	s15, [r8, #36]
+ 202              	.LVL18:
+  54:Src/motion/compute_axis_commands.c **** 
+ 203              		.loc 1 54 3 is_stmt 1 view .LVU32
+  54:Src/motion/compute_axis_commands.c **** 
+ 204              		.loc 1 54 19 is_stmt 0 view .LVU33
+ 205 0110 494F     		ldr	r7, .L11+32
+ 206 0112 04F18801 		add	r1, r4, #136
+ 207 0116 3878     		ldrb	r0, [r7]	@ zero_extendqisi2
+ 208 0118 F0EE480A 		vmov.f32	s1, s16
+ 209 011c 30EE670A 		vsub.f32	s0, s0, s15
+ 210              	.LVL19:
+  54:Src/motion/compute_axis_commands.c **** 
+ 211              		.loc 1 54 19 view .LVU34
+ 212 0120 FFF7FEFF 		bl	updatePID
+ 213              	.LVL20:
+  54:Src/motion/compute_axis_commands.c **** 
+ 214              		.loc 1 54 17 view .LVU35
+ 215 0124 454E     		ldr	r6, .L11+36
+ 216 0126 86ED000A 		vstr.32	s0, [r6]
+  56:Src/motion/compute_axis_commands.c **** 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+ 217              		.loc 1 56 3 is_stmt 1 view .LVU36
+  56:Src/motion/compute_axis_commands.c **** 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+ 218              		.loc 1 56 18 is_stmt 0 view .LVU37
+ 219 012a 95ED010A 		vldr.32	s0, [r5, #4]
+  56:Src/motion/compute_axis_commands.c **** 		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+ 220              		.loc 1 56 45 view .LVU38
+ 221 012e D8ED0A7A 		vldr.32	s15, [r8, #40]
+ 222              	.LVL21:
+  57:Src/motion/compute_axis_commands.c **** 
+ 223              		.loc 1 57 3 is_stmt 1 view .LVU39
+  57:Src/motion/compute_axis_commands.c **** 
+ 224              		.loc 1 57 20 is_stmt 0 view .LVU40
+ 225 0132 04F1A401 		add	r1, r4, #164
+ 226 0136 3878     		ldrb	r0, [r7]	@ zero_extendqisi2
+ 227 0138 F0EE480A 		vmov.f32	s1, s16
+ 228 013c 30EE670A 		vsub.f32	s0, s0, s15
+ 229              	.LVL22:
+  57:Src/motion/compute_axis_commands.c **** 
+ 230              		.loc 1 57 20 view .LVU41
+ 231 0140 FFF7FEFF 		bl	updatePID
+ 232              	.LVL23:
+  57:Src/motion/compute_axis_commands.c **** 
+ 233              		.loc 1 57 18 view .LVU42
+ 234 0144 86ED010A 		vstr.32	s0, [r6, #4]
+  59:Src/motion/compute_axis_commands.c **** 		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
+ 235              		.loc 1 59 3 is_stmt 1 view .LVU43
+  59:Src/motion/compute_axis_commands.c **** 		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 7
+
+
+ 236              		.loc 1 59 18 is_stmt 0 view .LVU44
+ 237 0148 95ED020A 		vldr.32	s0, [r5, #8]
+  59:Src/motion/compute_axis_commands.c **** 		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
+ 238              		.loc 1 59 43 view .LVU45
+ 239 014c D8ED0B7A 		vldr.32	s15, [r8, #44]
+ 240              	.LVL24:
+  60:Src/motion/compute_axis_commands.c **** 
+ 241              		.loc 1 60 3 is_stmt 1 view .LVU46
+  60:Src/motion/compute_axis_commands.c **** 
+ 242              		.loc 1 60 18 is_stmt 0 view .LVU47
+ 243 0150 04F1C001 		add	r1, r4, #192
+ 244 0154 3878     		ldrb	r0, [r7]	@ zero_extendqisi2
+ 245 0156 F0EE480A 		vmov.f32	s1, s16
+ 246 015a 30EE270A 		vadd.f32	s0, s0, s15
+ 247              	.LVL25:
+  60:Src/motion/compute_axis_commands.c **** 
+ 248              		.loc 1 60 18 view .LVU48
+ 249 015e FFF7FEFF 		bl	updatePID
+ 250              	.LVL26:
+  60:Src/motion/compute_axis_commands.c **** 
+ 251              		.loc 1 60 16 view .LVU49
+ 252 0162 86ED020A 		vstr.32	s0, [r6, #8]
+  64:Src/motion/compute_axis_commands.c **** 	}
+ 253              		.loc 1 64 3 is_stmt 1 view .LVU50
+  64:Src/motion/compute_axis_commands.c **** 	}
+ 254              		.loc 1 64 27 is_stmt 0 view .LVU51
+ 255 0166 D9ED037A 		vldr.32	s15, [r9, #12]
+  64:Src/motion/compute_axis_commands.c **** 	}
+ 256              		.loc 1 64 15 view .LVU52
+ 257 016a FCEEE77A 		vcvt.u32.f32	s15, s15
+ 258 016e 344B     		ldr	r3, .L11+40
+ 259 0170 17EE902A 		vmov	r2, s15	@ int
+ 260 0174 1A80     		strh	r2, [r3]	@ movhi
+ 261 0176 4EE7     		b	.L1
+ 262              	.LVL27:
+ 263              	.L10:
+  32:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+ 264              		.loc 1 32 4 is_stmt 1 view .LVU53
+  32:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+ 265              		.loc 1 32 30 is_stmt 0 view .LVU54
+ 266 0178 DFF8B090 		ldr	r9, .L11+20
+ 267 017c D9ED007A 		vldr.32	s15, [r9]
+  32:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+ 268              		.loc 1 32 52 view .LVU55
+ 269 0180 294C     		ldr	r4, .L11+16
+ 270 0182 94ED1C0A 		vldr.32	s0, [r4, #112]
+ 271              	.LVL28:
+  32:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+ 272              		.loc 1 32 38 view .LVU56
+ 273 0186 67EE807A 		vmul.f32	s15, s15, s0
+  32:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+ 274              		.loc 1 32 18 view .LVU57
+ 275 018a DFF8C880 		ldr	r8, .L11+60
+ 276 018e C8ED007A 		vstr.32	s15, [r8]
+  33:Src/motion/compute_axis_commands.c **** 			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+ 277              		.loc 1 33 4 is_stmt 1 view .LVU58
+  33:Src/motion/compute_axis_commands.c **** 			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 8
+
+
+ 278              		.loc 1 33 69 is_stmt 0 view .LVU59
+ 279 0192 2C4F     		ldr	r7, .L11+44
+ 280 0194 97ED060A 		vldr.32	s0, [r7, #24]
+  33:Src/motion/compute_axis_commands.c **** 			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+ 281              		.loc 1 33 12 view .LVU60
+ 282 0198 37EEC00A 		vsub.f32	s0, s15, s0
+ 283 019c FFF7FEFF 		bl	standardRadianFormat
+ 284              	.LVL29:
+  34:Src/motion/compute_axis_commands.c **** 
+ 285              		.loc 1 34 4 is_stmt 1 view .LVU61
+  34:Src/motion/compute_axis_commands.c **** 
+ 286              		.loc 1 34 21 is_stmt 0 view .LVU62
+ 287 01a0 254E     		ldr	r6, .L11+32
+ 288 01a2 04F1DC01 		add	r1, r4, #220
+ 289 01a6 3078     		ldrb	r0, [r6]	@ zero_extendqisi2
+ 290 01a8 F0EE480A 		vmov.f32	s1, s16
+ 291 01ac FFF7FEFF 		bl	updatePID
+ 292              	.LVL30:
+  34:Src/motion/compute_axis_commands.c **** 
+ 293              		.loc 1 34 19 view .LVU63
+ 294 01b0 254D     		ldr	r5, .L11+48
+ 295 01b2 85ED000A 		vstr.32	s0, [r5]
+  36:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+ 296              		.loc 1 36 4 is_stmt 1 view .LVU64
+  36:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+ 297              		.loc 1 36 30 is_stmt 0 view .LVU65
+ 298 01b6 D9ED017A 		vldr.32	s15, [r9, #4]
+  36:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+ 299              		.loc 1 36 52 view .LVU66
+ 300 01ba 94ED1C0A 		vldr.32	s0, [r4, #112]
+  36:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+ 301              		.loc 1 36 38 view .LVU67
+ 302 01be 67EE807A 		vmul.f32	s15, s15, s0
+  36:Src/motion/compute_axis_commands.c **** 			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+ 303              		.loc 1 36 18 view .LVU68
+ 304 01c2 C8ED017A 		vstr.32	s15, [r8, #4]
+  37:Src/motion/compute_axis_commands.c **** 			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+ 305              		.loc 1 37 4 is_stmt 1 view .LVU69
+  37:Src/motion/compute_axis_commands.c **** 			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+ 306              		.loc 1 37 70 is_stmt 0 view .LVU70
+ 307 01c6 97ED070A 		vldr.32	s0, [r7, #28]
+  37:Src/motion/compute_axis_commands.c **** 			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+ 308              		.loc 1 37 12 view .LVU71
+ 309 01ca 37EEC00A 		vsub.f32	s0, s15, s0
+ 310 01ce FFF7FEFF 		bl	standardRadianFormat
+ 311              	.LVL31:
+  38:Src/motion/compute_axis_commands.c **** 		}
+ 312              		.loc 1 38 4 is_stmt 1 view .LVU72
+  38:Src/motion/compute_axis_commands.c **** 		}
+ 313              		.loc 1 38 20 is_stmt 0 view .LVU73
+ 314 01d2 04F1F801 		add	r1, r4, #248
+ 315 01d6 3078     		ldrb	r0, [r6]	@ zero_extendqisi2
+ 316 01d8 F0EE480A 		vmov.f32	s1, s16
+ 317 01dc FFF7FEFF 		bl	updatePID
+ 318              	.LVL32:
+  38:Src/motion/compute_axis_commands.c **** 		}
+ 319              		.loc 1 38 18 view .LVU74
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 9
+
+
+ 320 01e0 85ED010A 		vstr.32	s0, [r5, #4]
+ 321 01e4 22E7     		b	.L3
+ 322              	.L4:
+  48:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = attPID[PITCH];
+ 323              		.loc 1 48 4 is_stmt 1 view .LVU75
+  48:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = attPID[PITCH];
+ 324              		.loc 1 48 27 is_stmt 0 view .LVU76
+ 325 01e6 184A     		ldr	r2, .L11+48
+ 326 01e8 1168     		ldr	r1, [r2]	@ float
+  48:Src/motion/compute_axis_commands.c **** 			rateCmd[PITCH] = attPID[PITCH];
+ 327              		.loc 1 48 19 view .LVU77
+ 328 01ea 124B     		ldr	r3, .L11+28
+ 329 01ec 1960     		str	r1, [r3]	@ float
+  49:Src/motion/compute_axis_commands.c **** 		}
+ 330              		.loc 1 49 4 is_stmt 1 view .LVU78
+  49:Src/motion/compute_axis_commands.c **** 		}
+ 331              		.loc 1 49 27 is_stmt 0 view .LVU79
+ 332 01ee 5268     		ldr	r2, [r2, #4]	@ float
+  49:Src/motion/compute_axis_commands.c **** 		}
+ 333              		.loc 1 49 19 view .LVU80
+ 334 01f0 5A60     		str	r2, [r3, #4]	@ float
+ 335 01f2 7BE7     		b	.L5
+ 336              	.LVL33:
+ 337              	.L9:
+  68:Src/motion/compute_axis_commands.c **** 		steerCmd = rxCommands[ROLL];
+ 338              		.loc 1 68 3 is_stmt 1 view .LVU81
+  68:Src/motion/compute_axis_commands.c **** 		steerCmd = rxCommands[ROLL];
+ 339              		.loc 1 68 24 is_stmt 0 view .LVU82
+ 340 01f4 0D4B     		ldr	r3, .L11+20
+ 341 01f6 D3ED017A 		vldr.32	s15, [r3, #4]
+  68:Src/motion/compute_axis_commands.c **** 		steerCmd = rxCommands[ROLL];
+ 342              		.loc 1 68 12 view .LVU83
+ 343 01fa FDEEE77A 		vcvt.s32.f32	s15, s15
+ 344 01fe 134A     		ldr	r2, .L11+52
+ 345 0200 17EE901A 		vmov	r1, s15	@ int
+ 346 0204 1180     		strh	r1, [r2]	@ movhi
+  69:Src/motion/compute_axis_commands.c **** 	}
+ 347              		.loc 1 69 3 is_stmt 1 view .LVU84
+  69:Src/motion/compute_axis_commands.c **** 	}
+ 348              		.loc 1 69 24 is_stmt 0 view .LVU85
+ 349 0206 D3ED007A 		vldr.32	s15, [r3]
+  69:Src/motion/compute_axis_commands.c **** 	}
+ 350              		.loc 1 69 12 view .LVU86
+ 351 020a FDEEE77A 		vcvt.s32.f32	s15, s15
+ 352 020e 104B     		ldr	r3, .L11+56
+ 353 0210 17EE902A 		vmov	r2, s15	@ int
+ 354 0214 1A80     		strh	r2, [r3]	@ movhi
+ 355              		.loc 1 73 1 view .LVU87
+ 356 0216 FEE6     		b	.L1
+ 357              	.L12:
+ 358              		.align	3
+ 359              	.L11:
+ 360 0218 00000060 		.word	1610612736
+ 361 021c FB210940 		.word	1074340347
+ 362 0220 00000000 		.word	mode
+ 363 0224 00000000 		.word	flightMode
+ 364 0228 00000000 		.word	eepromConfig
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 10
+
+
+ 365 022c 00000000 		.word	rxCommands
+ 366 0230 00806640 		.word	1080459264
+ 367 0234 00000000 		.word	.LANCHOR2
+ 368 0238 00000000 		.word	pidReset
+ 369 023c 00000000 		.word	.LANCHOR3
+ 370 0240 00000000 		.word	throttleCmd
+ 371 0244 00000000 		.word	sensors
+ 372 0248 00000000 		.word	.LANCHOR1
+ 373 024c 00000000 		.word	speedCmd
+ 374 0250 00000000 		.word	steerCmd
+ 375 0254 00000000 		.word	.LANCHOR0
+ 376              		.cfi_endproc
+ 377              	.LFE187:
+ 379              		.global	rateCmd
+ 380              		.global	ratePID
+ 381              		.global	attPID
+ 382              		.global	attCmd
+ 383              		.section	.bss.attCmd,"aw",%nobits
+ 384              		.align	2
+ 385              		.set	.LANCHOR0,. + 0
+ 388              	attCmd:
+ 389 0000 00000000 		.space	12
+ 389      00000000 
+ 389      00000000 
+ 390              		.section	.bss.attPID,"aw",%nobits
+ 391              		.align	2
+ 392              		.set	.LANCHOR1,. + 0
+ 395              	attPID:
+ 396 0000 00000000 		.space	12
+ 396      00000000 
+ 396      00000000 
+ 397              		.section	.bss.rateCmd,"aw",%nobits
+ 398              		.align	2
+ 399              		.set	.LANCHOR2,. + 0
+ 402              	rateCmd:
+ 403 0000 00000000 		.space	12
+ 403      00000000 
+ 403      00000000 
+ 404              		.section	.bss.ratePID,"aw",%nobits
+ 405              		.align	2
+ 406              		.set	.LANCHOR3,. + 0
+ 409              	ratePID:
+ 410 0000 00000000 		.space	12
+ 410      00000000 
+ 410      00000000 
+ 411              		.text
+ 412              	.Letext0:
+ 413              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 414              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 415              		.file 4 "Src/pid.h"
+ 416              		.file 5 "Src/autodrone32.h"
+ 417              		.file 6 "Src/motion/process_commands.h"
+ 418              		.file 7 "Src/motion/compute_axis_commands.h"
+ 419              		.file 8 "Src/motion/mixer.h"
+ 420              		.file 9 "Src/utilities.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 compute_axis_commands.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:23     .text.computeAxisCommands:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:31     .text.computeAxisCommands:0000000000000000 computeAxisCommands
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:360    .text.computeAxisCommands:0000000000000218 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:402    .bss.rateCmd:0000000000000000 rateCmd
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:409    .bss.ratePID:0000000000000000 ratePID
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:395    .bss.attPID:0000000000000000 attPID
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:388    .bss.attCmd:0000000000000000 attCmd
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:384    .bss.attCmd:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:391    .bss.attPID:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:398    .bss.rateCmd:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccMPBaSG.s:405    .bss.ratePID:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_dmul
+__aeabi_dadd
+__aeabi_ddiv
+__aeabi_d2f
+updatePID
+standardRadianFormat
+mode
+flightMode
+eepromConfig
+rxCommands
+pidReset
+throttleCmd
+sensors
+speedCmd
+steerCmd

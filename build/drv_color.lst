@@ -1,0 +1,588 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"drv_color.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.color.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 1B5B2564 		.ascii	"\033[%d;3%dm\000"
+  20      3B332564 
+  20      6D00
+  21              		.section	.text.color,"ax",%progbits
+  22              		.align	1
+  23              		.global	color
+  24              		.arch armv7e-m
+  25              		.syntax unified
+  26              		.thumb
+  27              		.thumb_func
+  28              		.fpu fpv5-sp-d16
+  30              	color:
+  31              	.LVL0:
+  32              	.LFB187:
+  33              		.file 1 "Src/drv/drv_color.c"
+   1:Src/drv/drv_color.c **** /** @file 		drv_color.c
+   2:Src/drv/drv_color.c ****  *  @brief
+   3:Src/drv/drv_color.c ****  *  	This file is used to change the output color to the terminal
+   4:Src/drv/drv_color.c ****  *
+   5:Src/drv/drv_color.c ****  *  @author 	Jeremy Wolfe
+   6:Src/drv/drv_color.c ****  *  @date 		03 MAR 22
+   7:Src/drv/drv_color.c ****  */
+   8:Src/drv/drv_color.c **** 
+   9:Src/drv/drv_color.c **** /* Includes */
+  10:Src/drv/drv_color.c **** #include "board.h"
+  11:Src/drv/drv_color.c **** 
+  12:Src/drv/drv_color.c **** /** @brief Changes color of print text
+  13:Src/drv/drv_color.c ****  *
+  14:Src/drv/drv_color.c ****  *  @param uint8_t color The color you want to change to.
+  15:Src/drv/drv_color.c ****  *  @param uint8_t bf If you want bf or not.
+  16:Src/drv/drv_color.c ****  *  @return Void.
+  17:Src/drv/drv_color.c ****  */
+  18:Src/drv/drv_color.c **** void
+  19:Src/drv/drv_color.c **** color(color_e color, bf_e bf)
+  20:Src/drv/drv_color.c **** {
+  34              		.loc 1 20 1 view -0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 2
+
+
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38              		.loc 1 20 1 is_stmt 0 view .LVU1
+  39 0000 08B5     		push	{r3, lr}
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 3, -8
+  42              		.cfi_offset 14, -4
+  43 0002 0246     		mov	r2, r0
+  21:Src/drv/drv_color.c **** 	printf("\033[%d;3%dm", bf, color);
+  44              		.loc 1 21 2 is_stmt 1 view .LVU2
+  45 0004 0148     		ldr	r0, .L3
+  46              	.LVL1:
+  47              		.loc 1 21 2 is_stmt 0 view .LVU3
+  48 0006 FFF7FEFF 		bl	printf
+  49              	.LVL2:
+  22:Src/drv/drv_color.c **** }
+  50              		.loc 1 22 1 view .LVU4
+  51 000a 08BD     		pop	{r3, pc}
+  52              	.L4:
+  53              		.align	2
+  54              	.L3:
+  55 000c 00000000 		.word	.LC0
+  56              		.cfi_endproc
+  57              	.LFE187:
+  59              		.section	.rodata.colorDefault.str1.4,"aMS",%progbits,1
+  60              		.align	2
+  61              	.LC1:
+  62 0000 1B5B303B 		.ascii	"\033[0;37m\000"
+  62      33376D00 
+  63              		.section	.text.colorDefault,"ax",%progbits
+  64              		.align	1
+  65              		.global	colorDefault
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  69              		.fpu fpv5-sp-d16
+  71              	colorDefault:
+  72              	.LFB188:
+  23:Src/drv/drv_color.c **** 
+  24:Src/drv/drv_color.c **** /** @brief Changes color of print to white with no bf
+  25:Src/drv/drv_color.c ****  *
+  26:Src/drv/drv_color.c ****  *  @return Void.
+  27:Src/drv/drv_color.c ****  */
+  28:Src/drv/drv_color.c **** void
+  29:Src/drv/drv_color.c **** colorDefault(void)
+  30:Src/drv/drv_color.c **** {
+  73              		.loc 1 30 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 08B5     		push	{r3, lr}
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 3, -8
+  80              		.cfi_offset 14, -4
+  31:Src/drv/drv_color.c **** 	printf("\033[0;37m");
+  81              		.loc 1 31 2 view .LVU6
+  82 0002 0248     		ldr	r0, .L7
+  83 0004 FFF7FEFF 		bl	printf
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 3
+
+
+  84              	.LVL3:
+  32:Src/drv/drv_color.c **** }
+  85              		.loc 1 32 1 is_stmt 0 view .LVU7
+  86 0008 08BD     		pop	{r3, pc}
+  87              	.L8:
+  88 000a 00BF     		.align	2
+  89              	.L7:
+  90 000c 00000000 		.word	.LC1
+  91              		.cfi_endproc
+  92              	.LFE188:
+  94              		.section	.rodata.drawAutodrone.str1.4,"aMS",%progbits,1
+  95              		.align	2
+  96              	.LC2:
+  97 0000 0A202020 		.ascii	"\012    __       _     _     _______      _____    "
+  97      205F5F20 
+  97      20202020 
+  97      20205F20 
+  97      20202020 
+  98 0030 2000     		.ascii	" \000"
+  99 0032 0000     		.align	2
+ 100              	.LC3:
+ 101 0034 5F5F5F5F 		.ascii	"_______     _______       _____      __    _     __"
+ 101      5F5F5F20 
+ 101      20202020 
+ 101      5F5F5F5F 
+ 101      5F5F5F20 
+ 102 0067 5F5F5F5F 		.ascii	"_____  \000"
+ 102      5F202000 
+ 103 006f 00       		.align	2
+ 104              	.LC4:
+ 105 0070 0A202020 		.ascii	"\012   /  \\     | |   | |   |_______|    /  _  \\ "
+ 105      2F20205C 
+ 105      20202020 
+ 105      207C207C 
+ 105      2020207C 
+ 106 009e 20202000 		.ascii	"   \000"
+ 107 00a2 0000     		.align	2
+ 108              	.LC5:
+ 109 00a4 7C20205F 		.ascii	"|  __  \\    |   _  \\     /  _  \\    |  \\  | |  "
+ 109      5F20205C 
+ 109      20202020 
+ 109      7C202020 
+ 109      5F20205C 
+ 110 00d3 207C2020 		.ascii	" |   ____| \000"
+ 110      205F5F5F 
+ 110      5F7C2000 
+ 111 00df 00       		.align	2
+ 112              	.LC6:
+ 113 00e0 0A20202F 		.ascii	"\012  /    \\    | |   | |      | |      /  / \\  \\"
+ 113      20202020 
+ 113      5C202020 
+ 113      207C207C 
+ 113      2020207C 
+ 114 010e 20202000 		.ascii	"   \000"
+ 115 0112 0000     		.align	2
+ 116              	.LC7:
+ 117 0114 7C20207C 		.ascii	"|  | \\  |   |  | \\  |   /  / \\  \\   |   \\ | | "
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 4
+
+
+ 117      205C2020 
+ 117      7C202020 
+ 117      7C20207C 
+ 117      205C2020 
+ 118 0142 20207C20 		.ascii	"  |  |      \000"
+ 118      207C2020 
+ 118      20202020 
+ 118      00
+ 119 014f 00       		.align	2
+ 120              	.LC8:
+ 121 0150 0A202F20 		.ascii	"\012 /  /\\  \\   | |   | |      | |      |  | |  |"
+ 121      202F5C20 
+ 121      205C2020 
+ 121      207C207C 
+ 121      2020207C 
+ 122 017e 20202000 		.ascii	"   \000"
+ 123 0182 0000     		.align	2
+ 124              	.LC9:
+ 125 0184 7C20207C 		.ascii	"|  | |  |   |  |_/  /   |  | |  |   |    \\| |   | "
+ 125      207C2020 
+ 125      7C202020 
+ 125      7C20207C 
+ 125      5F2F2020 
+ 126 01b6 207C5F5F 		.ascii	" |____  \000"
+ 126      5F5F2020 
+ 126      00
+ 127 01bf 00       		.align	2
+ 128              	.LC10:
+ 129 01c0 0A2F2020 		.ascii	"\012/  /__\\  \\  | |   | |      | |      |  | |  |"
+ 129      2F5F5F5C 
+ 129      20205C20 
+ 129      207C207C 
+ 129      2020207C 
+ 130 01ee 20202000 		.ascii	"   \000"
+ 131 01f2 0000     		.align	2
+ 132              	.LC11:
+ 133 01f4 7C20207C 		.ascii	"|  | |  |   |      /    |  | |  |   | |\\    |   | "
+ 133      207C2020 
+ 133      7C202020 
+ 133      7C202020 
+ 133      2020202F 
+ 134 0226 20205F5F 		.ascii	"  ____| \000"
+ 134      5F5F7C20 
+ 134      00
+ 135 022f 00       		.align	2
+ 136              	.LC12:
+ 137 0230 0A7C2020 		.ascii	"\012|   __   |  | |   | |      | |      |  | |  |  "
+ 137      205F5F20 
+ 137      20207C20 
+ 137      207C207C 
+ 137      2020207C 
+ 138 0260 2000     		.ascii	" \000"
+ 139 0262 0000     		.align	2
+ 140              	.LC13:
+ 141 0264 7C20207C 		.ascii	"|  | |  |   |  |\\  \\    |  | |  |   | | \\   |   "
+ 141      207C2020 
+ 141      7C202020 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 5
+
+
+ 141      7C20207C 
+ 141      5C20205C 
+ 142 0294 7C20207C 		.ascii	"|  |      \000"
+ 142      20202020 
+ 142      202000
+ 143 029f 00       		.align	2
+ 144              	.LC14:
+ 145 02a0 0A7C2020 		.ascii	"\012|  |  |  |  \\ \\___/ /      | |      \\  \\_/ "
+ 145      7C20207C 
+ 145      20207C20 
+ 145      205C205C 
+ 145      5F5F5F2F 
+ 146 02cc 202F2020 		.ascii	" /   \000"
+ 146      2000
+ 147 02d2 0000     		.align	2
+ 148              	.LC15:
+ 149 02d4 7C20207C 		.ascii	"|  |_/  /   |  | \\  \\   \\  \\_/  /   | |  \\  | "
+ 149      5F2F2020 
+ 149      2F202020 
+ 149      7C20207C 
+ 149      205C2020 
+ 150 0302 20207C20 		.ascii	"  |  |____  \000"
+ 150      207C5F5F 
+ 150      5F5F2020 
+ 150      00
+ 151 030f 00       		.align	2
+ 152              	.LC16:
+ 153 0310 0A7C5F5F 		.ascii	"\012|__|  |__|   \\_____/       |_|       \\_____/ "
+ 153      7C20207C 
+ 153      5F5F7C20 
+ 153      20205C5F 
+ 153      5F5F5F5F 
+ 154 033e 20202000 		.ascii	"   \000"
+ 155 0342 0000     		.align	2
+ 156              	.LC17:
+ 157 0344 7C5F5F5F 		.ascii	"|______/    |__| |__|    \\_____/    |_|   \\_|   |"
+ 157      5F5F5F2F 
+ 157      20202020 
+ 157      7C5F5F7C 
+ 157      207C5F5F 
+ 158 0375 5F5F5F5F 		.ascii	"_______| \000"
+ 158      5F5F5F7C 
+ 158      2000
+ 159              		.section	.text.drawAutodrone,"ax",%progbits
+ 160              		.align	1
+ 161              		.global	drawAutodrone
+ 162              		.syntax unified
+ 163              		.thumb
+ 164              		.thumb_func
+ 165              		.fpu fpv5-sp-d16
+ 167              	drawAutodrone:
+ 168              	.LFB189:
+  33:Src/drv/drv_color.c **** 
+  34:Src/drv/drv_color.c **** /** @brief Draws "AUTODRONE" in different colors.
+  35:Src/drv/drv_color.c ****  *
+  36:Src/drv/drv_color.c ****  *  @return Void.
+  37:Src/drv/drv_color.c ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 6
+
+
+  38:Src/drv/drv_color.c **** void
+  39:Src/drv/drv_color.c **** drawAutodrone(void)
+  40:Src/drv/drv_color.c **** {
+ 169              		.loc 1 40 1 is_stmt 1 view -0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173 0000 08B5     		push	{r3, lr}
+ 174              		.cfi_def_cfa_offset 8
+ 175              		.cfi_offset 3, -8
+ 176              		.cfi_offset 14, -4
+  41:Src/drv/drv_color.c **** 	color(RED, YES);
+ 177              		.loc 1 41 2 view .LVU9
+ 178 0002 0121     		movs	r1, #1
+ 179 0004 0846     		mov	r0, r1
+ 180 0006 FFF7FEFF 		bl	color
+ 181              	.LVL4:
+  42:Src/drv/drv_color.c **** 		printf("\n    __       _     _     _______      _____     ");
+ 182              		.loc 1 42 3 view .LVU10
+ 183 000a 3F48     		ldr	r0, .L11
+ 184 000c FFF7FEFF 		bl	printf
+ 185              	.LVL5:
+  43:Src/drv/drv_color.c **** 		delay(100);
+ 186              		.loc 1 43 3 view .LVU11
+ 187 0010 6420     		movs	r0, #100
+ 188 0012 FFF7FEFF 		bl	delay
+ 189              	.LVL6:
+  44:Src/drv/drv_color.c **** 		printf("_______     _______       _____      __    _     _______  ");
+ 190              		.loc 1 44 3 view .LVU12
+ 191 0016 3D48     		ldr	r0, .L11+4
+ 192 0018 FFF7FEFF 		bl	printf
+ 193              	.LVL7:
+  45:Src/drv/drv_color.c **** 		delay(100);
+ 194              		.loc 1 45 3 view .LVU13
+ 195 001c 6420     		movs	r0, #100
+ 196 001e FFF7FEFF 		bl	delay
+ 197              	.LVL8:
+  46:Src/drv/drv_color.c **** 		color(PURPLE, YES);
+ 198              		.loc 1 46 3 view .LVU14
+ 199 0022 0121     		movs	r1, #1
+ 200 0024 0520     		movs	r0, #5
+ 201 0026 FFF7FEFF 		bl	color
+ 202              	.LVL9:
+  47:Src/drv/drv_color.c **** 		printf("\n   /  \\     | |   | |   |_______|    /  _  \\    ");
+ 203              		.loc 1 47 3 view .LVU15
+ 204 002a 3948     		ldr	r0, .L11+8
+ 205 002c FFF7FEFF 		bl	printf
+ 206              	.LVL10:
+  48:Src/drv/drv_color.c **** 		delay(100);
+ 207              		.loc 1 48 3 view .LVU16
+ 208 0030 6420     		movs	r0, #100
+ 209 0032 FFF7FEFF 		bl	delay
+ 210              	.LVL11:
+  49:Src/drv/drv_color.c **** 		printf("|  __  \\    |   _  \\     /  _  \\    |  \\  | |   |   ____| ");
+ 211              		.loc 1 49 3 view .LVU17
+ 212 0036 3748     		ldr	r0, .L11+12
+ 213 0038 FFF7FEFF 		bl	printf
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 7
+
+
+ 214              	.LVL12:
+  50:Src/drv/drv_color.c **** 		delay(100);
+ 215              		.loc 1 50 3 view .LVU18
+ 216 003c 6420     		movs	r0, #100
+ 217 003e FFF7FEFF 		bl	delay
+ 218              	.LVL13:
+  51:Src/drv/drv_color.c **** 		color(BLUE, YES);
+ 219              		.loc 1 51 3 view .LVU19
+ 220 0042 0121     		movs	r1, #1
+ 221 0044 0420     		movs	r0, #4
+ 222 0046 FFF7FEFF 		bl	color
+ 223              	.LVL14:
+  52:Src/drv/drv_color.c **** 		printf("\n  /    \\    | |   | |      | |      /  / \\  \\   ");
+ 224              		.loc 1 52 3 view .LVU20
+ 225 004a 3348     		ldr	r0, .L11+16
+ 226 004c FFF7FEFF 		bl	printf
+ 227              	.LVL15:
+  53:Src/drv/drv_color.c **** 		delay(100);
+ 228              		.loc 1 53 3 view .LVU21
+ 229 0050 6420     		movs	r0, #100
+ 230 0052 FFF7FEFF 		bl	delay
+ 231              	.LVL16:
+  54:Src/drv/drv_color.c **** 		printf("|  | \\  |   |  | \\  |   /  / \\  \\   |   \\ | |   |  |      ");
+ 232              		.loc 1 54 3 view .LVU22
+ 233 0056 3148     		ldr	r0, .L11+20
+ 234 0058 FFF7FEFF 		bl	printf
+ 235              	.LVL17:
+  55:Src/drv/drv_color.c **** 		delay(100);
+ 236              		.loc 1 55 3 view .LVU23
+ 237 005c 6420     		movs	r0, #100
+ 238 005e FFF7FEFF 		bl	delay
+ 239              	.LVL18:
+  56:Src/drv/drv_color.c **** 		color(CYAN, YES);
+ 240              		.loc 1 56 3 view .LVU24
+ 241 0062 0121     		movs	r1, #1
+ 242 0064 0620     		movs	r0, #6
+ 243 0066 FFF7FEFF 		bl	color
+ 244              	.LVL19:
+  57:Src/drv/drv_color.c **** 		printf("\n /  /\\  \\   | |   | |      | |      |  | |  |   ");
+ 245              		.loc 1 57 3 view .LVU25
+ 246 006a 2D48     		ldr	r0, .L11+24
+ 247 006c FFF7FEFF 		bl	printf
+ 248              	.LVL20:
+  58:Src/drv/drv_color.c **** 		delay(100);
+ 249              		.loc 1 58 3 view .LVU26
+ 250 0070 6420     		movs	r0, #100
+ 251 0072 FFF7FEFF 		bl	delay
+ 252              	.LVL21:
+  59:Src/drv/drv_color.c **** 		printf("|  | |  |   |  |_/  /   |  | |  |   |    \\| |   |  |____  ");
+ 253              		.loc 1 59 3 view .LVU27
+ 254 0076 2B48     		ldr	r0, .L11+28
+ 255 0078 FFF7FEFF 		bl	printf
+ 256              	.LVL22:
+  60:Src/drv/drv_color.c **** 		delay(100);
+ 257              		.loc 1 60 3 view .LVU28
+ 258 007c 6420     		movs	r0, #100
+ 259 007e FFF7FEFF 		bl	delay
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 8
+
+
+ 260              	.LVL23:
+  61:Src/drv/drv_color.c **** 		color(CYAN, YES);
+ 261              		.loc 1 61 3 view .LVU29
+ 262 0082 0121     		movs	r1, #1
+ 263 0084 0620     		movs	r0, #6
+ 264 0086 FFF7FEFF 		bl	color
+ 265              	.LVL24:
+  62:Src/drv/drv_color.c **** 		printf("\n/  /__\\  \\  | |   | |      | |      |  | |  |   ");
+ 266              		.loc 1 62 3 view .LVU30
+ 267 008a 2748     		ldr	r0, .L11+32
+ 268 008c FFF7FEFF 		bl	printf
+ 269              	.LVL25:
+  63:Src/drv/drv_color.c **** 		delay(100);
+ 270              		.loc 1 63 3 view .LVU31
+ 271 0090 6420     		movs	r0, #100
+ 272 0092 FFF7FEFF 		bl	delay
+ 273              	.LVL26:
+  64:Src/drv/drv_color.c **** 		printf("|  | |  |   |      /    |  | |  |   | |\\    |   |   ____| ");
+ 274              		.loc 1 64 3 view .LVU32
+ 275 0096 2548     		ldr	r0, .L11+36
+ 276 0098 FFF7FEFF 		bl	printf
+ 277              	.LVL27:
+  65:Src/drv/drv_color.c **** 		delay(100);
+ 278              		.loc 1 65 3 view .LVU33
+ 279 009c 6420     		movs	r0, #100
+ 280 009e FFF7FEFF 		bl	delay
+ 281              	.LVL28:
+  66:Src/drv/drv_color.c **** 		color(BLUE, YES);
+ 282              		.loc 1 66 3 view .LVU34
+ 283 00a2 0121     		movs	r1, #1
+ 284 00a4 0420     		movs	r0, #4
+ 285 00a6 FFF7FEFF 		bl	color
+ 286              	.LVL29:
+  67:Src/drv/drv_color.c **** 		printf("\n|   __   |  | |   | |      | |      |  | |  |   ");
+ 287              		.loc 1 67 3 view .LVU35
+ 288 00aa 2148     		ldr	r0, .L11+40
+ 289 00ac FFF7FEFF 		bl	printf
+ 290              	.LVL30:
+  68:Src/drv/drv_color.c **** 		delay(100);
+ 291              		.loc 1 68 3 view .LVU36
+ 292 00b0 6420     		movs	r0, #100
+ 293 00b2 FFF7FEFF 		bl	delay
+ 294              	.LVL31:
+  69:Src/drv/drv_color.c **** 		printf("|  | |  |   |  |\\  \\    |  | |  |   | | \\   |   |  |      ");
+ 295              		.loc 1 69 3 view .LVU37
+ 296 00b6 1F48     		ldr	r0, .L11+44
+ 297 00b8 FFF7FEFF 		bl	printf
+ 298              	.LVL32:
+  70:Src/drv/drv_color.c **** 		delay(100);
+ 299              		.loc 1 70 3 view .LVU38
+ 300 00bc 6420     		movs	r0, #100
+ 301 00be FFF7FEFF 		bl	delay
+ 302              	.LVL33:
+  71:Src/drv/drv_color.c **** 		color(PURPLE, YES);
+ 303              		.loc 1 71 3 view .LVU39
+ 304 00c2 0121     		movs	r1, #1
+ 305 00c4 0520     		movs	r0, #5
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 9
+
+
+ 306 00c6 FFF7FEFF 		bl	color
+ 307              	.LVL34:
+  72:Src/drv/drv_color.c **** 		printf("\n|  |  |  |  \\ \\___/ /      | |      \\  \\_/  /   ");
+ 308              		.loc 1 72 3 view .LVU40
+ 309 00ca 1B48     		ldr	r0, .L11+48
+ 310 00cc FFF7FEFF 		bl	printf
+ 311              	.LVL35:
+  73:Src/drv/drv_color.c **** 		delay(100);
+ 312              		.loc 1 73 3 view .LVU41
+ 313 00d0 6420     		movs	r0, #100
+ 314 00d2 FFF7FEFF 		bl	delay
+ 315              	.LVL36:
+  74:Src/drv/drv_color.c **** 		printf("|  |_/  /   |  | \\  \\   \\  \\_/  /   | |  \\  |   |  |____  ");
+ 316              		.loc 1 74 3 view .LVU42
+ 317 00d6 1948     		ldr	r0, .L11+52
+ 318 00d8 FFF7FEFF 		bl	printf
+ 319              	.LVL37:
+  75:Src/drv/drv_color.c **** 		delay(100);
+ 320              		.loc 1 75 3 view .LVU43
+ 321 00dc 6420     		movs	r0, #100
+ 322 00de FFF7FEFF 		bl	delay
+ 323              	.LVL38:
+  76:Src/drv/drv_color.c **** 		color(RED, YES);
+ 324              		.loc 1 76 3 view .LVU44
+ 325 00e2 0121     		movs	r1, #1
+ 326 00e4 0846     		mov	r0, r1
+ 327 00e6 FFF7FEFF 		bl	color
+ 328              	.LVL39:
+  77:Src/drv/drv_color.c **** 		printf("\n|__|  |__|   \\_____/       |_|       \\_____/    ");
+ 329              		.loc 1 77 3 view .LVU45
+ 330 00ea 1548     		ldr	r0, .L11+56
+ 331 00ec FFF7FEFF 		bl	printf
+ 332              	.LVL40:
+  78:Src/drv/drv_color.c **** 		delay(100);
+ 333              		.loc 1 78 3 view .LVU46
+ 334 00f0 6420     		movs	r0, #100
+ 335 00f2 FFF7FEFF 		bl	delay
+ 336              	.LVL41:
+  79:Src/drv/drv_color.c **** 		printf("|______/    |__| |__|    \\_____/    |_|   \\_|   |_______| ");
+ 337              		.loc 1 79 3 view .LVU47
+ 338 00f6 1348     		ldr	r0, .L11+60
+ 339 00f8 FFF7FEFF 		bl	printf
+ 340              	.LVL42:
+  80:Src/drv/drv_color.c **** 		delay(100);
+ 341              		.loc 1 80 3 view .LVU48
+ 342 00fc 6420     		movs	r0, #100
+ 343 00fe FFF7FEFF 		bl	delay
+ 344              	.LVL43:
+  81:Src/drv/drv_color.c **** 		colorDefault();
+ 345              		.loc 1 81 3 view .LVU49
+ 346 0102 FFF7FEFF 		bl	colorDefault
+ 347              	.LVL44:
+  82:Src/drv/drv_color.c **** }
+ 348              		.loc 1 82 1 is_stmt 0 view .LVU50
+ 349 0106 08BD     		pop	{r3, pc}
+ 350              	.L12:
+ 351              		.align	2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 10
+
+
+ 352              	.L11:
+ 353 0108 00000000 		.word	.LC2
+ 354 010c 34000000 		.word	.LC3
+ 355 0110 70000000 		.word	.LC4
+ 356 0114 A4000000 		.word	.LC5
+ 357 0118 E0000000 		.word	.LC6
+ 358 011c 14010000 		.word	.LC7
+ 359 0120 50010000 		.word	.LC8
+ 360 0124 84010000 		.word	.LC9
+ 361 0128 C0010000 		.word	.LC10
+ 362 012c F4010000 		.word	.LC11
+ 363 0130 30020000 		.word	.LC12
+ 364 0134 64020000 		.word	.LC13
+ 365 0138 A0020000 		.word	.LC14
+ 366 013c D4020000 		.word	.LC15
+ 367 0140 10030000 		.word	.LC16
+ 368 0144 44030000 		.word	.LC17
+ 369              		.cfi_endproc
+ 370              	.LFE189:
+ 372              		.text
+ 373              	.Letext0:
+ 374              		.file 2 "Src/drv/drv_color.h"
+ 375              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ 376              		.file 4 "Src/drv/drv_system.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 drv_color.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:18     .rodata.color.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:22     .text.color:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:30     .text.color:0000000000000000 color
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:55     .text.color:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:60     .rodata.colorDefault.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:64     .text.colorDefault:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:71     .text.colorDefault:0000000000000000 colorDefault
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:90     .text.colorDefault:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:95     .rodata.drawAutodrone.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:160    .text.drawAutodrone:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:167    .text.drawAutodrone:0000000000000000 drawAutodrone
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccH2kyid.s:353    .text.drawAutodrone:0000000000000108 $d
+
+UNDEFINED SYMBOLS
+printf
+delay

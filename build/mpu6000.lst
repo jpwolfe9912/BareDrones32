@@ -1,0 +1,1559 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"mpu6000.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.readMPU6000,"ax",%progbits
+  18              		.align	1
+  19              		.global	readMPU6000
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	readMPU6000:
+  27              	.LFB188:
+  28              		.file 1 "Src/sensors/mpu6000.c"
+   1:Src/sensors/mpu6000.c **** /** @file 		mpu6000.c
+   2:Src/sensors/mpu6000.c ****  *  @brief
+   3:Src/sensors/mpu6000.c ****  *  	This file contains all the functions to initalize and read data from the MPU-6000.
+   4:Src/sensors/mpu6000.c ****  *
+   5:Src/sensors/mpu6000.c ****  *  @author 	Jeremy Wolfe
+   6:Src/sensors/mpu6000.c ****  *  @date 		06 MAR 2022
+   7:Src/sensors/mpu6000.c ****  */
+   8:Src/sensors/mpu6000.c **** 
+   9:Src/sensors/mpu6000.c **** /* Includes */
+  10:Src/sensors/mpu6000.c **** #include "board.h"
+  11:Src/sensors/mpu6000.c **** 
+  12:Src/sensors/mpu6000.c **** /* Global Variables */
+  13:Src/sensors/mpu6000.c **** float accelOneG = 9.8065;
+  14:Src/sensors/mpu6000.c **** 
+  15:Src/sensors/mpu6000.c **** uint8_t rawData[15];
+  16:Src/sensors/mpu6000.c **** 
+  17:Src/sensors/mpu6000.c **** // Accel
+  18:Src/sensors/mpu6000.c **** int32_t accelSum500Hz[3] = {0, 0, 0};
+  19:Src/sensors/mpu6000.c **** 
+  20:Src/sensors/mpu6000.c **** int32_t accelSummedSamples500Hz[3];
+  21:Src/sensors/mpu6000.c **** 
+  22:Src/sensors/mpu6000.c **** float accelTCBias[3] = {0.0f, 0.0f, 0.0f};
+  23:Src/sensors/mpu6000.c **** 
+  24:Src/sensors/mpu6000.c **** int16andUint8_t rawAccel[3];
+  25:Src/sensors/mpu6000.c **** 
+  26:Src/sensors/mpu6000.c **** float nonRotatedAccelData[3];
+  27:Src/sensors/mpu6000.c **** 
+  28:Src/sensors/mpu6000.c **** // Gyro
+  29:Src/sensors/mpu6000.c **** 
+  30:Src/sensors/mpu6000.c **** float gyroRTBias[3];
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 2
+
+
+  31:Src/sensors/mpu6000.c **** 
+  32:Src/sensors/mpu6000.c **** int32_t gyroSum500Hz[3] = {0, 0, 0};
+  33:Src/sensors/mpu6000.c **** 
+  34:Src/sensors/mpu6000.c **** int32_t gyroSummedSamples500Hz[3];
+  35:Src/sensors/mpu6000.c **** 
+  36:Src/sensors/mpu6000.c **** float gyroTCBias[3];
+  37:Src/sensors/mpu6000.c **** 
+  38:Src/sensors/mpu6000.c **** int16andUint8_t rawGyro[3];
+  39:Src/sensors/mpu6000.c **** 
+  40:Src/sensors/mpu6000.c **** float nonRotatedGyroData[3];
+  41:Src/sensors/mpu6000.c **** 
+  42:Src/sensors/mpu6000.c **** // Calibration
+  43:Src/sensors/mpu6000.c **** 
+  44:Src/sensors/mpu6000.c **** uint8_t accelCalibrating = false;
+  45:Src/sensors/mpu6000.c **** 
+  46:Src/sensors/mpu6000.c **** uint8_t mpu6000Calibrating = false;
+  47:Src/sensors/mpu6000.c **** 
+  48:Src/sensors/mpu6000.c **** // Temperature
+  49:Src/sensors/mpu6000.c **** 
+  50:Src/sensors/mpu6000.c **** float mpu6000Temperature;
+  51:Src/sensors/mpu6000.c **** 
+  52:Src/sensors/mpu6000.c **** int16andUint8_t rawMPU6000Temperature;
+  53:Src/sensors/mpu6000.c **** 
+  54:Src/sensors/mpu6000.c **** uint8_t whoami[2];
+  55:Src/sensors/mpu6000.c **** 
+  56:Src/sensors/mpu6000.c **** bool mpu6000Initialized = false;
+  57:Src/sensors/mpu6000.c **** 
+  58:Src/sensors/mpu6000.c **** uint8_t devIdReadAttempts = DEV_READ_ATTEMPTS;
+  59:Src/sensors/mpu6000.c **** 
+  60:Src/sensors/mpu6000.c **** /** @brief MPU-6000 initialization sequence
+  61:Src/sensors/mpu6000.c ****  *
+  62:Src/sensors/mpu6000.c ****  *  @return bool True if initialization was successful.
+  63:Src/sensors/mpu6000.c ****  *  			 False if unsuccessful.
+  64:Src/sensors/mpu6000.c ****  */
+  65:Src/sensors/mpu6000.c **** bool mpu6000Init(void)
+  66:Src/sensors/mpu6000.c **** {
+  67:Src/sensors/mpu6000.c ****     ///////////////////////////////////
+  68:Src/sensors/mpu6000.c ****     printf("\nInitializing MPU-6000\n");
+  69:Src/sensors/mpu6000.c **** 
+  70:Src/sensors/mpu6000.c ****     SPI1_DISABLE;
+  71:Src/sensors/mpu6000.c **** 
+  72:Src/sensors/mpu6000.c ****     spi1WriteOneByte(0x00, 0x00);
+  73:Src/sensors/mpu6000.c ****     delay(100);
+  74:Src/sensors/mpu6000.c **** 
+  75:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_PWR_MGMT_1, BIT_H_RESET); // reset device configuration
+  76:Src/sensors/mpu6000.c ****     delay(150);                                        // 100ms delay after reset
+  77:Src/sensors/mpu6000.c **** 
+  78:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_SIGNAL_PATH_RESET, 0x07);
+  79:Src/sensors/mpu6000.c ****     delay(150);
+  80:Src/sensors/mpu6000.c **** 
+  81:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_PWR_MGMT_1, MPU_CLK_SEL_PLLGYROZ);
+  82:Src/sensors/mpu6000.c ****     delay(10);
+  83:Src/sensors/mpu6000.c **** 
+  84:Src/sensors/mpu6000.c ****     /* Read Device ID */
+  85:Src/sensors/mpu6000.c ****     while (devIdReadAttempts--)
+  86:Src/sensors/mpu6000.c ****     {
+  87:Src/sensors/mpu6000.c ****         spi1ReadOneByte(MPU6000_WHOAMI, &whoami);
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 3
+
+
+  88:Src/sensors/mpu6000.c ****         delayMicroseconds(15);
+  89:Src/sensors/mpu6000.c ****         if (whoami[1] == 0x68)
+  90:Src/sensors/mpu6000.c ****         {
+  91:Src/sensors/mpu6000.c ****             color(GREEN, YES);
+  92:Src/sensors/mpu6000.c ****             printf("\nDevice ID recognized as 0x%X\n", whoami[1]);
+  93:Src/sensors/mpu6000.c ****             mpu6000Initialized = true;
+  94:Src/sensors/mpu6000.c ****             color(WHITE, NO);
+  95:Src/sensors/mpu6000.c ****             break;
+  96:Src/sensors/mpu6000.c ****         }
+  97:Src/sensors/mpu6000.c ****         else if ((whoami[1] != 0x68) && (devIdReadAttempts == 0))
+  98:Src/sensors/mpu6000.c ****         {
+  99:Src/sensors/mpu6000.c ****             color(RED, YES);
+ 100:Src/sensors/mpu6000.c ****             printf("\nFailed to read device ID. Would you like to retry?\n");
+ 101:Src/sensors/mpu6000.c ****             color(WHITE, NO);
+ 102:Src/sensors/mpu6000.c ****             if (serialWaitFor('y'))
+ 103:Src/sensors/mpu6000.c ****             {
+ 104:Src/sensors/mpu6000.c ****                 devIdReadAttempts = DEV_READ_ATTEMPTS;
+ 105:Src/sensors/mpu6000.c ****             }
+ 106:Src/sensors/mpu6000.c ****             else
+ 107:Src/sensors/mpu6000.c ****             {
+ 108:Src/sensors/mpu6000.c ****                 mpu6000Initialized = false;
+ 109:Src/sensors/mpu6000.c ****                 return mpu6000Initialized;
+ 110:Src/sensors/mpu6000.c ****             }
+ 111:Src/sensors/mpu6000.c ****         }
+ 112:Src/sensors/mpu6000.c ****     }
+ 113:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 114:Src/sensors/mpu6000.c **** 
+ 115:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_USER_CTRL, BIT_I2C_IF_DIS); // disable I2C interface
+ 116:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 117:Src/sensors/mpu6000.c **** 
+ 118:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_PWR_MGMT_2, 0x00);
+ 119:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 120:Src/sensors/mpu6000.c **** 
+ 121:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_SMPLRT_DIV, 0x00);
+ 122:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 123:Src/sensors/mpu6000.c **** 
+ 124:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_GYRO_CONFIG, BITS_FS_2000DPS);
+ 125:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 126:Src/sensors/mpu6000.c **** 
+ 127:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_ACCEL_CONFIG, BITS_FS_16G);
+ 128:Src/sensors/mpu6000.c **** 
+ 129:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 130:Src/sensors/mpu6000.c **** 
+ 131:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_CONFIG, 0x03);
+ 132:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 133:Src/sensors/mpu6000.c **** 
+ 134:Src/sensors/mpu6000.c ****     spi1WriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
+ 135:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 136:Src/sensors/mpu6000.c **** 
+ 137:Src/sensors/mpu6000.c ****     ///////////////////////////////////
+ 138:Src/sensors/mpu6000.c ****     SPI1->CR1 &= ~SPI_CR1_BR;
+ 139:Src/sensors/mpu6000.c ****     SPI1->CR1 |= SPI_BR_PRESCALER_8; // sensor BR < 20MHz
+ 140:Src/sensors/mpu6000.c **** 
+ 141:Src/sensors/mpu6000.c ****     delay(100);
+ 142:Src/sensors/mpu6000.c **** 
+ 143:Src/sensors/mpu6000.c ****     computeMPU6000RTData();
+ 144:Src/sensors/mpu6000.c ****     return mpu6000Initialized;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 4
+
+
+ 145:Src/sensors/mpu6000.c **** }
+ 146:Src/sensors/mpu6000.c **** 
+ 147:Src/sensors/mpu6000.c **** /** @brief Reads MPU-6000 raw data and packs accel, gyro, temp data into variables
+ 148:Src/sensors/mpu6000.c ****  *
+ 149:Src/sensors/mpu6000.c ****  *  @return Void.
+ 150:Src/sensors/mpu6000.c ****  */
+ 151:Src/sensors/mpu6000.c **** void readMPU6000(void)
+ 152:Src/sensors/mpu6000.c **** {
+  29              		.loc 1 152 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 10B5     		push	{r4, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+ 153:Src/sensors/mpu6000.c ****     spi1ReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 15);
+  37              		.loc 1 153 5 view .LVU1
+  38 0002 234C     		ldr	r4, .L3
+  39 0004 0F22     		movs	r2, #15
+  40 0006 2146     		mov	r1, r4
+  41 0008 3B20     		movs	r0, #59
+  42 000a FFF7FEFF 		bl	spi1ReadBytes
+  43              	.LVL0:
+ 154:Src/sensors/mpu6000.c **** 
+ 155:Src/sensors/mpu6000.c ****     rawAccel[XAXIS].bytes[1] = rawData[1];
+  44              		.loc 1 155 5 view .LVU2
+  45              		.loc 1 155 39 is_stmt 0 view .LVU3
+  46 000e 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+  47              		.loc 1 155 30 view .LVU4
+  48 0010 204A     		ldr	r2, .L3+4
+  49 0012 5370     		strb	r3, [r2, #1]
+ 156:Src/sensors/mpu6000.c ****     rawAccel[XAXIS].bytes[0] = rawData[2];
+  50              		.loc 1 156 5 is_stmt 1 view .LVU5
+  51              		.loc 1 156 39 is_stmt 0 view .LVU6
+  52 0014 A378     		ldrb	r3, [r4, #2]	@ zero_extendqisi2
+  53              		.loc 1 156 30 view .LVU7
+  54 0016 1370     		strb	r3, [r2]
+ 157:Src/sensors/mpu6000.c ****     rawAccel[YAXIS].bytes[1] = rawData[3];
+  55              		.loc 1 157 5 is_stmt 1 view .LVU8
+  56              		.loc 1 157 39 is_stmt 0 view .LVU9
+  57 0018 E378     		ldrb	r3, [r4, #3]	@ zero_extendqisi2
+  58              		.loc 1 157 30 view .LVU10
+  59 001a D370     		strb	r3, [r2, #3]
+ 158:Src/sensors/mpu6000.c ****     rawAccel[YAXIS].bytes[0] = rawData[4];
+  60              		.loc 1 158 5 is_stmt 1 view .LVU11
+  61              		.loc 1 158 39 is_stmt 0 view .LVU12
+  62 001c 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+  63              		.loc 1 158 30 view .LVU13
+  64 001e 9370     		strb	r3, [r2, #2]
+ 159:Src/sensors/mpu6000.c ****     rawAccel[ZAXIS].bytes[1] = rawData[5];
+  65              		.loc 1 159 5 is_stmt 1 view .LVU14
+  66              		.loc 1 159 39 is_stmt 0 view .LVU15
+  67 0020 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+  68              		.loc 1 159 30 view .LVU16
+  69 0022 5371     		strb	r3, [r2, #5]
+ 160:Src/sensors/mpu6000.c ****     rawAccel[ZAXIS].bytes[0] = rawData[6];
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 5
+
+
+  70              		.loc 1 160 5 is_stmt 1 view .LVU17
+  71              		.loc 1 160 39 is_stmt 0 view .LVU18
+  72 0024 A379     		ldrb	r3, [r4, #6]	@ zero_extendqisi2
+  73              		.loc 1 160 30 view .LVU19
+  74 0026 1371     		strb	r3, [r2, #4]
+ 161:Src/sensors/mpu6000.c **** 
+ 162:Src/sensors/mpu6000.c ****     rawMPU6000Temperature.bytes[1] = rawData[7];
+  75              		.loc 1 162 5 is_stmt 1 view .LVU20
+  76              		.loc 1 162 45 is_stmt 0 view .LVU21
+  77 0028 E179     		ldrb	r1, [r4, #7]	@ zero_extendqisi2
+  78              		.loc 1 162 36 view .LVU22
+  79 002a 1B4B     		ldr	r3, .L3+8
+  80 002c 5970     		strb	r1, [r3, #1]
+ 163:Src/sensors/mpu6000.c ****     rawMPU6000Temperature.bytes[0] = rawData[8];
+  81              		.loc 1 163 5 is_stmt 1 view .LVU23
+  82              		.loc 1 163 45 is_stmt 0 view .LVU24
+  83 002e 217A     		ldrb	r1, [r4, #8]	@ zero_extendqisi2
+  84              		.loc 1 163 36 view .LVU25
+  85 0030 1970     		strb	r1, [r3]
+ 164:Src/sensors/mpu6000.c **** 
+ 165:Src/sensors/mpu6000.c ****     rawGyro[ROLL].bytes[1] = rawData[9];
+  86              		.loc 1 165 5 is_stmt 1 view .LVU26
+  87              		.loc 1 165 37 is_stmt 0 view .LVU27
+  88 0032 617A     		ldrb	r1, [r4, #9]	@ zero_extendqisi2
+  89              		.loc 1 165 28 view .LVU28
+  90 0034 194B     		ldr	r3, .L3+12
+  91 0036 5970     		strb	r1, [r3, #1]
+ 166:Src/sensors/mpu6000.c ****     rawGyro[ROLL].bytes[0] = rawData[10];
+  92              		.loc 1 166 5 is_stmt 1 view .LVU29
+  93              		.loc 1 166 37 is_stmt 0 view .LVU30
+  94 0038 A17A     		ldrb	r1, [r4, #10]	@ zero_extendqisi2
+  95              		.loc 1 166 28 view .LVU31
+  96 003a 1970     		strb	r1, [r3]
+ 167:Src/sensors/mpu6000.c ****     rawGyro[PITCH].bytes[1] = rawData[11];
+  97              		.loc 1 167 5 is_stmt 1 view .LVU32
+  98              		.loc 1 167 38 is_stmt 0 view .LVU33
+  99 003c E17A     		ldrb	r1, [r4, #11]	@ zero_extendqisi2
+ 100              		.loc 1 167 29 view .LVU34
+ 101 003e D970     		strb	r1, [r3, #3]
+ 168:Src/sensors/mpu6000.c ****     rawGyro[PITCH].bytes[0] = rawData[12];
+ 102              		.loc 1 168 5 is_stmt 1 view .LVU35
+ 103              		.loc 1 168 38 is_stmt 0 view .LVU36
+ 104 0040 217B     		ldrb	r1, [r4, #12]	@ zero_extendqisi2
+ 105              		.loc 1 168 29 view .LVU37
+ 106 0042 9970     		strb	r1, [r3, #2]
+ 169:Src/sensors/mpu6000.c ****     rawGyro[YAW].bytes[1] = rawData[13];
+ 107              		.loc 1 169 5 is_stmt 1 view .LVU38
+ 108              		.loc 1 169 36 is_stmt 0 view .LVU39
+ 109 0044 617B     		ldrb	r1, [r4, #13]	@ zero_extendqisi2
+ 110              		.loc 1 169 27 view .LVU40
+ 111 0046 5971     		strb	r1, [r3, #5]
+ 170:Src/sensors/mpu6000.c ****     rawGyro[YAW].bytes[0] = rawData[14];
+ 112              		.loc 1 170 5 is_stmt 1 view .LVU41
+ 113              		.loc 1 170 36 is_stmt 0 view .LVU42
+ 114 0048 A17B     		ldrb	r1, [r4, #14]	@ zero_extendqisi2
+ 115              		.loc 1 170 27 view .LVU43
+ 116 004a 1971     		strb	r1, [r3, #4]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 6
+
+
+ 171:Src/sensors/mpu6000.c **** 
+ 172:Src/sensors/mpu6000.c ****     accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
+ 117              		.loc 1 172 5 is_stmt 1 view .LVU44
+ 118              		.loc 1 172 44 is_stmt 0 view .LVU45
+ 119 004c B2F90040 		ldrsh	r4, [r2]
+ 120              		.loc 1 172 26 view .LVU46
+ 121 0050 1349     		ldr	r1, .L3+16
+ 122 0052 0868     		ldr	r0, [r1]
+ 123 0054 2044     		add	r0, r0, r4
+ 124 0056 0860     		str	r0, [r1]
+ 173:Src/sensors/mpu6000.c ****     accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
+ 125              		.loc 1 173 5 is_stmt 1 view .LVU47
+ 126              		.loc 1 173 44 is_stmt 0 view .LVU48
+ 127 0058 B2F90240 		ldrsh	r4, [r2, #2]
+ 128              		.loc 1 173 26 view .LVU49
+ 129 005c 4868     		ldr	r0, [r1, #4]
+ 130 005e 2044     		add	r0, r0, r4
+ 131 0060 4860     		str	r0, [r1, #4]
+ 174:Src/sensors/mpu6000.c ****     accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
+ 132              		.loc 1 174 5 is_stmt 1 view .LVU50
+ 133              		.loc 1 174 44 is_stmt 0 view .LVU51
+ 134 0062 B2F90400 		ldrsh	r0, [r2, #4]
+ 135              		.loc 1 174 26 view .LVU52
+ 136 0066 8A68     		ldr	r2, [r1, #8]
+ 137 0068 0244     		add	r2, r2, r0
+ 138 006a 8A60     		str	r2, [r1, #8]
+ 175:Src/sensors/mpu6000.c **** 
+ 176:Src/sensors/mpu6000.c ****     gyroSum500Hz[ROLL] += rawGyro[ROLL].value;
+ 139              		.loc 1 176 5 is_stmt 1 view .LVU53
+ 140              		.loc 1 176 40 is_stmt 0 view .LVU54
+ 141 006c B3F90000 		ldrsh	r0, [r3]
+ 142              		.loc 1 176 24 view .LVU55
+ 143 0070 0C4A     		ldr	r2, .L3+20
+ 144 0072 1168     		ldr	r1, [r2]
+ 145 0074 0144     		add	r1, r1, r0
+ 146 0076 1160     		str	r1, [r2]
+ 177:Src/sensors/mpu6000.c ****     gyroSum500Hz[PITCH] += rawGyro[PITCH].value;
+ 147              		.loc 1 177 5 is_stmt 1 view .LVU56
+ 148              		.loc 1 177 42 is_stmt 0 view .LVU57
+ 149 0078 B3F90200 		ldrsh	r0, [r3, #2]
+ 150              		.loc 1 177 25 view .LVU58
+ 151 007c 5168     		ldr	r1, [r2, #4]
+ 152 007e 0144     		add	r1, r1, r0
+ 153 0080 5160     		str	r1, [r2, #4]
+ 178:Src/sensors/mpu6000.c ****     gyroSum500Hz[YAW] += rawGyro[YAW].value;
+ 154              		.loc 1 178 5 is_stmt 1 view .LVU59
+ 155              		.loc 1 178 38 is_stmt 0 view .LVU60
+ 156 0082 B3F90410 		ldrsh	r1, [r3, #4]
+ 157              		.loc 1 178 23 view .LVU61
+ 158 0086 9368     		ldr	r3, [r2, #8]
+ 159 0088 0B44     		add	r3, r3, r1
+ 160 008a 9360     		str	r3, [r2, #8]
+ 179:Src/sensors/mpu6000.c **** }
+ 161              		.loc 1 179 1 view .LVU62
+ 162 008c 10BD     		pop	{r4, pc}
+ 163              	.L4:
+ 164 008e 00BF     		.align	2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 7
+
+
+ 165              	.L3:
+ 166 0090 00000000 		.word	.LANCHOR0
+ 167 0094 00000000 		.word	.LANCHOR1
+ 168 0098 00000000 		.word	.LANCHOR2
+ 169 009c 00000000 		.word	.LANCHOR3
+ 170 00a0 00000000 		.word	.LANCHOR4
+ 171 00a4 00000000 		.word	.LANCHOR5
+ 172              		.cfi_endproc
+ 173              	.LFE188:
+ 175              		.section	.text.computeMPU6000TCBias,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	computeMPU6000TCBias
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.fpu fpv5-sp-d16
+ 183              	computeMPU6000TCBias:
+ 184              	.LFB190:
+ 180:Src/sensors/mpu6000.c **** 
+ 181:Src/sensors/mpu6000.c **** /** @brief Computes IMU runtime data to find gyro bias.
+ 182:Src/sensors/mpu6000.c ****  *
+ 183:Src/sensors/mpu6000.c ****  *  @return Void.
+ 184:Src/sensors/mpu6000.c ****  */
+ 185:Src/sensors/mpu6000.c **** void computeMPU6000RTData(void)
+ 186:Src/sensors/mpu6000.c **** {
+ 187:Src/sensors/mpu6000.c ****     uint8_t axis;
+ 188:Src/sensors/mpu6000.c ****     uint16_t samples;
+ 189:Src/sensors/mpu6000.c **** 
+ 190:Src/sensors/mpu6000.c ****     float accelSum[3] = {0.0f, 0.0f, 0.0f};
+ 191:Src/sensors/mpu6000.c ****     float gyroSum[3] = {0.0f, 0.0f, 0.0f};
+ 192:Src/sensors/mpu6000.c **** 
+ 193:Src/sensors/mpu6000.c ****     mpu6000Calibrating = true;
+ 194:Src/sensors/mpu6000.c **** 
+ 195:Src/sensors/mpu6000.c ****     printf("\nComputing Gyro Runtime Data...\n");
+ 196:Src/sensors/mpu6000.c **** 
+ 197:Src/sensors/mpu6000.c ****     for (samples = 0; samples < 5000; samples++)
+ 198:Src/sensors/mpu6000.c ****     {
+ 199:Src/sensors/mpu6000.c ****         readMPU6000();
+ 200:Src/sensors/mpu6000.c **** 
+ 201:Src/sensors/mpu6000.c ****         computeMPU6000TCBias();
+ 202:Src/sensors/mpu6000.c **** 
+ 203:Src/sensors/mpu6000.c ****         accelSum[XAXIS] += ((float)rawAccel[XAXIS].value - eepromConfig.accelBiasMPU[XAXIS] - accel
+ 204:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 205:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 206:Src/sensors/mpu6000.c **** 
+ 207:Src/sensors/mpu6000.c ****         gyroSum[ROLL] += (float)rawGyro[ROLL].value - gyroTCBias[ROLL];
+ 208:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 209:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 210:Src/sensors/mpu6000.c **** 
+ 211:Src/sensors/mpu6000.c ****         delayMicroseconds(100);
+ 212:Src/sensors/mpu6000.c ****     }
+ 213:Src/sensors/mpu6000.c **** 
+ 214:Src/sensors/mpu6000.c ****     for (axis = 0; axis < 3; axis++)
+ 215:Src/sensors/mpu6000.c ****     {
+ 216:Src/sensors/mpu6000.c ****         accelSum[axis] = accelSum[axis] / 5000.0f;
+ 217:Src/sensors/mpu6000.c ****         gyroRTBias[axis] = gyroSum[axis] / 5000.0f;
+ 218:Src/sensors/mpu6000.c ****     }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 8
+
+
+ 219:Src/sensors/mpu6000.c **** 
+ 220:Src/sensors/mpu6000.c ****     accelOneG = sqrt(SQR(accelSum[XAXIS]) + SQR(accelSum[YAXIS]) + SQR(accelSum[ZAXIS]));
+ 221:Src/sensors/mpu6000.c **** 
+ 222:Src/sensors/mpu6000.c ****     mpu6000Calibrating = false;
+ 223:Src/sensors/mpu6000.c **** }
+ 224:Src/sensors/mpu6000.c **** 
+ 225:Src/sensors/mpu6000.c **** /** @brief Calculates the IMU temperature bias.
+ 226:Src/sensors/mpu6000.c ****  *
+ 227:Src/sensors/mpu6000.c ****  *  @return Void.
+ 228:Src/sensors/mpu6000.c ****  */
+ 229:Src/sensors/mpu6000.c **** void computeMPU6000TCBias(void)
+ 230:Src/sensors/mpu6000.c **** {
+ 185              		.loc 1 230 1 is_stmt 1 view -0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189              		@ link register save eliminated.
+ 231:Src/sensors/mpu6000.c ****     mpu6000Temperature = (float)(rawMPU6000Temperature.value) / 340.0f + 35.0f;
+ 190              		.loc 1 231 5 view .LVU64
+ 191              		.loc 1 231 55 is_stmt 0 view .LVU65
+ 192 0000 284B     		ldr	r3, .L6
+ 193 0002 B3F90030 		ldrsh	r3, [r3]
+ 194 0006 07EE103A 		vmov	s14, r3	@ int
+ 195              		.loc 1 231 26 view .LVU66
+ 196 000a B8EEC77A 		vcvt.f32.s32	s14, s14
+ 197              		.loc 1 231 63 view .LVU67
+ 198 000e DFED266A 		vldr.32	s13, .L6+4
+ 199 0012 C7EE267A 		vdiv.f32	s15, s14, s13
+ 200              		.loc 1 231 72 view .LVU68
+ 201 0016 9FED257A 		vldr.32	s14, .L6+8
+ 202 001a 77EE877A 		vadd.f32	s15, s15, s14
+ 203              		.loc 1 231 24 view .LVU69
+ 204 001e 244B     		ldr	r3, .L6+12
+ 205 0020 C3ED007A 		vstr.32	s15, [r3]
+ 232:Src/sensors/mpu6000.c **** 
+ 233:Src/sensors/mpu6000.c ****     accelTCBias[XAXIS] = eepromConfig.accelTCBiasSlope[XAXIS] * mpu6000Temperature + eepromConfig.a
+ 206              		.loc 1 233 5 is_stmt 1 view .LVU70
+ 207              		.loc 1 233 55 is_stmt 0 view .LVU71
+ 208 0024 234B     		ldr	r3, .L6+16
+ 209 0026 93ED077A 		vldr.32	s14, [r3, #28]
+ 210              		.loc 1 233 63 view .LVU72
+ 211 002a 27EE877A 		vmul.f32	s14, s15, s14
+ 212              		.loc 1 233 119 view .LVU73
+ 213 002e D3ED0A6A 		vldr.32	s13, [r3, #40]
+ 214              		.loc 1 233 84 view .LVU74
+ 215 0032 37EE267A 		vadd.f32	s14, s14, s13
+ 216              		.loc 1 233 24 view .LVU75
+ 217 0036 204A     		ldr	r2, .L6+20
+ 218 0038 82ED007A 		vstr.32	s14, [r2]
+ 234:Src/sensors/mpu6000.c ****     accelTCBias[YAXIS] = eepromConfig.accelTCBiasSlope[YAXIS] * mpu6000Temperature + eepromConfig.a
+ 219              		.loc 1 234 5 is_stmt 1 view .LVU76
+ 220              		.loc 1 234 55 is_stmt 0 view .LVU77
+ 221 003c 93ED087A 		vldr.32	s14, [r3, #32]
+ 222              		.loc 1 234 63 view .LVU78
+ 223 0040 27EE877A 		vmul.f32	s14, s15, s14
+ 224              		.loc 1 234 119 view .LVU79
+ 225 0044 D3ED0B6A 		vldr.32	s13, [r3, #44]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 9
+
+
+ 226              		.loc 1 234 84 view .LVU80
+ 227 0048 37EE267A 		vadd.f32	s14, s14, s13
+ 228              		.loc 1 234 24 view .LVU81
+ 229 004c 82ED017A 		vstr.32	s14, [r2, #4]
+ 235:Src/sensors/mpu6000.c ****     accelTCBias[ZAXIS] = eepromConfig.accelTCBiasSlope[ZAXIS] * mpu6000Temperature + eepromConfig.a
+ 230              		.loc 1 235 5 is_stmt 1 view .LVU82
+ 231              		.loc 1 235 55 is_stmt 0 view .LVU83
+ 232 0050 93ED097A 		vldr.32	s14, [r3, #36]
+ 233              		.loc 1 235 63 view .LVU84
+ 234 0054 27EE877A 		vmul.f32	s14, s15, s14
+ 235              		.loc 1 235 119 view .LVU85
+ 236 0058 D3ED0C6A 		vldr.32	s13, [r3, #48]
+ 237              		.loc 1 235 84 view .LVU86
+ 238 005c 37EE267A 		vadd.f32	s14, s14, s13
+ 239              		.loc 1 235 24 view .LVU87
+ 240 0060 82ED027A 		vstr.32	s14, [r2, #8]
+ 236:Src/sensors/mpu6000.c **** 
+ 237:Src/sensors/mpu6000.c ****     gyroTCBias[ROLL] = eepromConfig.gyroTCBiasSlope[ROLL] * mpu6000Temperature + eepromConfig.gyroT
+ 241              		.loc 1 237 5 is_stmt 1 view .LVU88
+ 242              		.loc 1 237 52 is_stmt 0 view .LVU89
+ 243 0064 93ED0D7A 		vldr.32	s14, [r3, #52]
+ 244              		.loc 1 237 59 view .LVU90
+ 245 0068 27EE877A 		vmul.f32	s14, s15, s14
+ 246              		.loc 1 237 114 view .LVU91
+ 247 006c D3ED106A 		vldr.32	s13, [r3, #64]
+ 248              		.loc 1 237 80 view .LVU92
+ 249 0070 37EE267A 		vadd.f32	s14, s14, s13
+ 250              		.loc 1 237 22 view .LVU93
+ 251 0074 114A     		ldr	r2, .L6+24
+ 252 0076 82ED007A 		vstr.32	s14, [r2]
+ 238:Src/sensors/mpu6000.c ****     gyroTCBias[PITCH] = eepromConfig.gyroTCBiasSlope[PITCH] * mpu6000Temperature + eepromConfig.gyr
+ 253              		.loc 1 238 5 is_stmt 1 view .LVU94
+ 254              		.loc 1 238 53 is_stmt 0 view .LVU95
+ 255 007a 93ED0E7A 		vldr.32	s14, [r3, #56]
+ 256              		.loc 1 238 61 view .LVU96
+ 257 007e 27EE877A 		vmul.f32	s14, s15, s14
+ 258              		.loc 1 238 116 view .LVU97
+ 259 0082 D3ED116A 		vldr.32	s13, [r3, #68]
+ 260              		.loc 1 238 82 view .LVU98
+ 261 0086 37EE267A 		vadd.f32	s14, s14, s13
+ 262              		.loc 1 238 23 view .LVU99
+ 263 008a 82ED017A 		vstr.32	s14, [r2, #4]
+ 239:Src/sensors/mpu6000.c ****     gyroTCBias[YAW] = eepromConfig.gyroTCBiasSlope[YAW] * mpu6000Temperature + eepromConfig.gyroTCB
+ 264              		.loc 1 239 5 is_stmt 1 view .LVU100
+ 265              		.loc 1 239 51 is_stmt 0 view .LVU101
+ 266 008e 93ED0F7A 		vldr.32	s14, [r3, #60]
+ 267              		.loc 1 239 57 view .LVU102
+ 268 0092 67EE877A 		vmul.f32	s15, s15, s14
+ 269              		.loc 1 239 112 view .LVU103
+ 270 0096 93ED127A 		vldr.32	s14, [r3, #72]
+ 271              		.loc 1 239 78 view .LVU104
+ 272 009a 77EE877A 		vadd.f32	s15, s15, s14
+ 273              		.loc 1 239 21 view .LVU105
+ 274 009e C2ED027A 		vstr.32	s15, [r2, #8]
+ 240:Src/sensors/mpu6000.c **** }
+ 275              		.loc 1 240 1 view .LVU106
+ 276 00a2 7047     		bx	lr
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 10
+
+
+ 277              	.L7:
+ 278              		.align	2
+ 279              	.L6:
+ 280 00a4 00000000 		.word	.LANCHOR2
+ 281 00a8 0000AA43 		.word	1135214592
+ 282 00ac 00000C42 		.word	1108082688
+ 283 00b0 00000000 		.word	.LANCHOR6
+ 284 00b4 00000000 		.word	eepromConfig
+ 285 00b8 00000000 		.word	.LANCHOR7
+ 286 00bc 00000000 		.word	.LANCHOR8
+ 287              		.cfi_endproc
+ 288              	.LFE190:
+ 290              		.section	.rodata.computeMPU6000RTData.str1.4,"aMS",%progbits,1
+ 291              		.align	2
+ 292              	.LC0:
+ 293 0000 0A436F6D 		.ascii	"\012Computing Gyro Runtime Data...\000"
+ 293      70757469 
+ 293      6E672047 
+ 293      79726F20 
+ 293      52756E74 
+ 294              		.global	__aeabi_f2d
+ 295              		.global	__aeabi_d2f
+ 296              		.section	.text.computeMPU6000RTData,"ax",%progbits
+ 297              		.align	1
+ 298              		.global	computeMPU6000RTData
+ 299              		.syntax unified
+ 300              		.thumb
+ 301              		.thumb_func
+ 302              		.fpu fpv5-sp-d16
+ 304              	computeMPU6000RTData:
+ 305              	.LFB189:
+ 186:Src/sensors/mpu6000.c ****     uint8_t axis;
+ 306              		.loc 1 186 1 is_stmt 1 view -0
+ 307              		.cfi_startproc
+ 308              		@ args = 0, pretend = 0, frame = 24
+ 309              		@ frame_needed = 0, uses_anonymous_args = 0
+ 310 0000 10B5     		push	{r4, lr}
+ 311              		.cfi_def_cfa_offset 8
+ 312              		.cfi_offset 4, -8
+ 313              		.cfi_offset 14, -4
+ 314 0002 86B0     		sub	sp, sp, #24
+ 315              		.cfi_def_cfa_offset 32
+ 187:Src/sensors/mpu6000.c ****     uint16_t samples;
+ 316              		.loc 1 187 5 view .LVU108
+ 188:Src/sensors/mpu6000.c **** 
+ 317              		.loc 1 188 5 view .LVU109
+ 190:Src/sensors/mpu6000.c ****     float gyroSum[3] = {0.0f, 0.0f, 0.0f};
+ 318              		.loc 1 190 5 view .LVU110
+ 190:Src/sensors/mpu6000.c ****     float gyroSum[3] = {0.0f, 0.0f, 0.0f};
+ 319              		.loc 1 190 11 is_stmt 0 view .LVU111
+ 320 0004 0023     		movs	r3, #0
+ 321 0006 0393     		str	r3, [sp, #12]	@ float
+ 322 0008 0493     		str	r3, [sp, #16]	@ float
+ 323 000a 0593     		str	r3, [sp, #20]	@ float
+ 191:Src/sensors/mpu6000.c **** 
+ 324              		.loc 1 191 5 is_stmt 1 view .LVU112
+ 191:Src/sensors/mpu6000.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 11
+
+
+ 325              		.loc 1 191 11 is_stmt 0 view .LVU113
+ 326 000c 0093     		str	r3, [sp]	@ float
+ 327 000e 0193     		str	r3, [sp, #4]	@ float
+ 328 0010 0293     		str	r3, [sp, #8]	@ float
+ 193:Src/sensors/mpu6000.c **** 
+ 329              		.loc 1 193 5 is_stmt 1 view .LVU114
+ 193:Src/sensors/mpu6000.c **** 
+ 330              		.loc 1 193 24 is_stmt 0 view .LVU115
+ 331 0012 684B     		ldr	r3, .L14
+ 332 0014 0122     		movs	r2, #1
+ 333 0016 1A70     		strb	r2, [r3]
+ 195:Src/sensors/mpu6000.c **** 
+ 334              		.loc 1 195 5 is_stmt 1 view .LVU116
+ 335 0018 6748     		ldr	r0, .L14+4
+ 336 001a FFF7FEFF 		bl	puts
+ 337              	.LVL1:
+ 197:Src/sensors/mpu6000.c ****     {
+ 338              		.loc 1 197 5 view .LVU117
+ 197:Src/sensors/mpu6000.c ****     {
+ 339              		.loc 1 197 18 is_stmt 0 view .LVU118
+ 340 001e 0024     		movs	r4, #0
+ 197:Src/sensors/mpu6000.c ****     {
+ 341              		.loc 1 197 5 view .LVU119
+ 342 0020 85E0     		b	.L9
+ 343              	.LVL2:
+ 344              	.L10:
+ 199:Src/sensors/mpu6000.c **** 
+ 345              		.loc 1 199 9 is_stmt 1 discriminator 3 view .LVU120
+ 346 0022 FFF7FEFF 		bl	readMPU6000
+ 347              	.LVL3:
+ 201:Src/sensors/mpu6000.c **** 
+ 348              		.loc 1 201 9 discriminator 3 view .LVU121
+ 349 0026 FFF7FEFF 		bl	computeMPU6000TCBias
+ 350              	.LVL4:
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 351              		.loc 1 203 9 discriminator 3 view .LVU122
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 352              		.loc 1 203 51 is_stmt 0 discriminator 3 view .LVU123
+ 353 002a 6449     		ldr	r1, .L14+8
+ 354 002c B1F90030 		ldrsh	r3, [r1]
+ 355 0030 07EE903A 		vmov	s15, r3	@ int
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 356              		.loc 1 203 29 discriminator 3 view .LVU124
+ 357 0034 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 358              		.loc 1 203 85 discriminator 3 view .LVU125
+ 359 0038 614B     		ldr	r3, .L14+12
+ 360 003a 93ED017A 		vldr.32	s14, [r3, #4]
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 361              		.loc 1 203 58 discriminator 3 view .LVU126
+ 362 003e 77EEC77A 		vsub.f32	s15, s15, s14
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 363              		.loc 1 203 106 discriminator 3 view .LVU127
+ 364 0042 604A     		ldr	r2, .L14+16
+ 365 0044 92ED007A 		vldr.32	s14, [r2]
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 366              		.loc 1 203 93 discriminator 3 view .LVU128
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 12
+
+
+ 367 0048 77EEC77A 		vsub.f32	s15, s15, s14
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 368              		.loc 1 203 149 discriminator 3 view .LVU129
+ 369 004c 93ED047A 		vldr.32	s14, [r3, #16]
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 370              		.loc 1 203 115 discriminator 3 view .LVU130
+ 371 0050 67EE877A 		vmul.f32	s15, s15, s14
+ 203:Src/sensors/mpu6000.c ****         accelSum[YAXIS] += ((float)rawAccel[YAXIS].value - eepromConfig.accelBiasMPU[YAXIS] - accel
+ 372              		.loc 1 203 25 discriminator 3 view .LVU131
+ 373 0054 9DED037A 		vldr.32	s14, [sp, #12]
+ 374 0058 77EE277A 		vadd.f32	s15, s14, s15
+ 375 005c CDED037A 		vstr.32	s15, [sp, #12]
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 376              		.loc 1 204 9 is_stmt 1 discriminator 3 view .LVU132
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 377              		.loc 1 204 51 is_stmt 0 discriminator 3 view .LVU133
+ 378 0060 B1F90200 		ldrsh	r0, [r1, #2]
+ 379 0064 07EE900A 		vmov	s15, r0	@ int
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 380              		.loc 1 204 29 discriminator 3 view .LVU134
+ 381 0068 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 382              		.loc 1 204 85 discriminator 3 view .LVU135
+ 383 006c 93ED027A 		vldr.32	s14, [r3, #8]
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 384              		.loc 1 204 58 discriminator 3 view .LVU136
+ 385 0070 77EEC77A 		vsub.f32	s15, s15, s14
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 386              		.loc 1 204 106 discriminator 3 view .LVU137
+ 387 0074 92ED017A 		vldr.32	s14, [r2, #4]
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 388              		.loc 1 204 93 discriminator 3 view .LVU138
+ 389 0078 77EEC77A 		vsub.f32	s15, s15, s14
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 390              		.loc 1 204 149 discriminator 3 view .LVU139
+ 391 007c 93ED057A 		vldr.32	s14, [r3, #20]
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 392              		.loc 1 204 115 discriminator 3 view .LVU140
+ 393 0080 67EE877A 		vmul.f32	s15, s15, s14
+ 204:Src/sensors/mpu6000.c ****         accelSum[ZAXIS] += ((float)rawAccel[ZAXIS].value - eepromConfig.accelBiasMPU[ZAXIS] - accel
+ 394              		.loc 1 204 25 discriminator 3 view .LVU141
+ 395 0084 9DED047A 		vldr.32	s14, [sp, #16]
+ 396 0088 77EE277A 		vadd.f32	s15, s14, s15
+ 397 008c CDED047A 		vstr.32	s15, [sp, #16]
+ 205:Src/sensors/mpu6000.c **** 
+ 398              		.loc 1 205 9 is_stmt 1 discriminator 3 view .LVU142
+ 205:Src/sensors/mpu6000.c **** 
+ 399              		.loc 1 205 51 is_stmt 0 discriminator 3 view .LVU143
+ 400 0090 B1F90410 		ldrsh	r1, [r1, #4]
+ 401 0094 07EE901A 		vmov	s15, r1	@ int
+ 205:Src/sensors/mpu6000.c **** 
+ 402              		.loc 1 205 29 discriminator 3 view .LVU144
+ 403 0098 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 205:Src/sensors/mpu6000.c **** 
+ 404              		.loc 1 205 85 discriminator 3 view .LVU145
+ 405 009c 93ED037A 		vldr.32	s14, [r3, #12]
+ 205:Src/sensors/mpu6000.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 13
+
+
+ 406              		.loc 1 205 58 discriminator 3 view .LVU146
+ 407 00a0 77EEC77A 		vsub.f32	s15, s15, s14
+ 205:Src/sensors/mpu6000.c **** 
+ 408              		.loc 1 205 106 discriminator 3 view .LVU147
+ 409 00a4 92ED027A 		vldr.32	s14, [r2, #8]
+ 205:Src/sensors/mpu6000.c **** 
+ 410              		.loc 1 205 93 discriminator 3 view .LVU148
+ 411 00a8 77EEC77A 		vsub.f32	s15, s15, s14
+ 205:Src/sensors/mpu6000.c **** 
+ 412              		.loc 1 205 149 discriminator 3 view .LVU149
+ 413 00ac 93ED067A 		vldr.32	s14, [r3, #24]
+ 205:Src/sensors/mpu6000.c **** 
+ 414              		.loc 1 205 115 discriminator 3 view .LVU150
+ 415 00b0 67EE877A 		vmul.f32	s15, s15, s14
+ 205:Src/sensors/mpu6000.c **** 
+ 416              		.loc 1 205 25 discriminator 3 view .LVU151
+ 417 00b4 9DED057A 		vldr.32	s14, [sp, #20]
+ 418 00b8 77EE277A 		vadd.f32	s15, s14, s15
+ 419 00bc CDED057A 		vstr.32	s15, [sp, #20]
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 420              		.loc 1 207 9 is_stmt 1 discriminator 3 view .LVU152
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 421              		.loc 1 207 46 is_stmt 0 discriminator 3 view .LVU153
+ 422 00c0 414A     		ldr	r2, .L14+20
+ 423 00c2 B2F90030 		ldrsh	r3, [r2]
+ 424 00c6 07EE903A 		vmov	s15, r3	@ int
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 425              		.loc 1 207 26 discriminator 3 view .LVU154
+ 426 00ca F8EEE77A 		vcvt.f32.s32	s15, s15
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 427              		.loc 1 207 65 discriminator 3 view .LVU155
+ 428 00ce 3F4B     		ldr	r3, .L14+24
+ 429 00d0 93ED007A 		vldr.32	s14, [r3]
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 430              		.loc 1 207 53 discriminator 3 view .LVU156
+ 431 00d4 77EEC77A 		vsub.f32	s15, s15, s14
+ 207:Src/sensors/mpu6000.c ****         gyroSum[PITCH] += (float)rawGyro[PITCH].value - gyroTCBias[PITCH];
+ 432              		.loc 1 207 23 discriminator 3 view .LVU157
+ 433 00d8 9DED007A 		vldr.32	s14, [sp]
+ 434 00dc 77EE277A 		vadd.f32	s15, s14, s15
+ 435 00e0 CDED007A 		vstr.32	s15, [sp]
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 436              		.loc 1 208 9 is_stmt 1 discriminator 3 view .LVU158
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 437              		.loc 1 208 48 is_stmt 0 discriminator 3 view .LVU159
+ 438 00e4 B2F90210 		ldrsh	r1, [r2, #2]
+ 439 00e8 07EE901A 		vmov	s15, r1	@ int
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 440              		.loc 1 208 27 discriminator 3 view .LVU160
+ 441 00ec F8EEE77A 		vcvt.f32.s32	s15, s15
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 442              		.loc 1 208 67 discriminator 3 view .LVU161
+ 443 00f0 93ED017A 		vldr.32	s14, [r3, #4]
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ 444              		.loc 1 208 55 discriminator 3 view .LVU162
+ 445 00f4 77EEC77A 		vsub.f32	s15, s15, s14
+ 208:Src/sensors/mpu6000.c ****         gyroSum[YAW] += (float)rawGyro[YAW].value - gyroTCBias[YAW];
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 14
+
+
+ 446              		.loc 1 208 24 discriminator 3 view .LVU163
+ 447 00f8 9DED017A 		vldr.32	s14, [sp, #4]
+ 448 00fc 77EE277A 		vadd.f32	s15, s14, s15
+ 449 0100 CDED017A 		vstr.32	s15, [sp, #4]
+ 209:Src/sensors/mpu6000.c **** 
+ 450              		.loc 1 209 9 is_stmt 1 discriminator 3 view .LVU164
+ 209:Src/sensors/mpu6000.c **** 
+ 451              		.loc 1 209 44 is_stmt 0 discriminator 3 view .LVU165
+ 452 0104 B2F90420 		ldrsh	r2, [r2, #4]
+ 453 0108 07EE902A 		vmov	s15, r2	@ int
+ 209:Src/sensors/mpu6000.c **** 
+ 454              		.loc 1 209 25 discriminator 3 view .LVU166
+ 455 010c F8EEE77A 		vcvt.f32.s32	s15, s15
+ 209:Src/sensors/mpu6000.c **** 
+ 456              		.loc 1 209 63 discriminator 3 view .LVU167
+ 457 0110 93ED027A 		vldr.32	s14, [r3, #8]
+ 209:Src/sensors/mpu6000.c **** 
+ 458              		.loc 1 209 51 discriminator 3 view .LVU168
+ 459 0114 77EEC77A 		vsub.f32	s15, s15, s14
+ 209:Src/sensors/mpu6000.c **** 
+ 460              		.loc 1 209 22 discriminator 3 view .LVU169
+ 461 0118 9DED027A 		vldr.32	s14, [sp, #8]
+ 462 011c 77EE277A 		vadd.f32	s15, s14, s15
+ 463 0120 CDED027A 		vstr.32	s15, [sp, #8]
+ 211:Src/sensors/mpu6000.c ****     }
+ 464              		.loc 1 211 9 is_stmt 1 discriminator 3 view .LVU170
+ 465 0124 6420     		movs	r0, #100
+ 466 0126 FFF7FEFF 		bl	delayMicroseconds
+ 467              	.LVL5:
+ 197:Src/sensors/mpu6000.c ****     {
+ 468              		.loc 1 197 39 discriminator 3 view .LVU171
+ 197:Src/sensors/mpu6000.c ****     {
+ 469              		.loc 1 197 46 is_stmt 0 discriminator 3 view .LVU172
+ 470 012a 0134     		adds	r4, r4, #1
+ 471              	.LVL6:
+ 197:Src/sensors/mpu6000.c ****     {
+ 472              		.loc 1 197 46 discriminator 3 view .LVU173
+ 473 012c A4B2     		uxth	r4, r4
+ 474              	.LVL7:
+ 475              	.L9:
+ 197:Src/sensors/mpu6000.c ****     {
+ 476              		.loc 1 197 23 is_stmt 1 discriminator 1 view .LVU174
+ 197:Src/sensors/mpu6000.c ****     {
+ 477              		.loc 1 197 5 is_stmt 0 discriminator 1 view .LVU175
+ 478 012e 41F28733 		movw	r3, #4999
+ 479 0132 9C42     		cmp	r4, r3
+ 480 0134 7FF675AF 		bls	.L10
+ 214:Src/sensors/mpu6000.c ****     {
+ 481              		.loc 1 214 15 view .LVU176
+ 482 0138 0023     		movs	r3, #0
+ 483 013a 15E0     		b	.L11
+ 484              	.LVL8:
+ 485              	.L12:
+ 216:Src/sensors/mpu6000.c ****         gyroRTBias[axis] = gyroSum[axis] / 5000.0f;
+ 486              		.loc 1 216 9 is_stmt 1 discriminator 3 view .LVU177
+ 216:Src/sensors/mpu6000.c ****         gyroRTBias[axis] = gyroSum[axis] / 5000.0f;
+ 487              		.loc 1 216 34 is_stmt 0 discriminator 3 view .LVU178
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 15
+
+
+ 488 013c 06AA     		add	r2, sp, #24
+ 489 013e 02EB8302 		add	r2, r2, r3, lsl #2
+ 490 0142 52ED036A 		vldr.32	s13, [r2, #-12]
+ 216:Src/sensors/mpu6000.c ****         gyroRTBias[axis] = gyroSum[axis] / 5000.0f;
+ 491              		.loc 1 216 41 discriminator 3 view .LVU179
+ 492 0146 DFED227A 		vldr.32	s15, .L14+28
+ 493 014a 86EEA77A 		vdiv.f32	s14, s13, s15
+ 216:Src/sensors/mpu6000.c ****         gyroRTBias[axis] = gyroSum[axis] / 5000.0f;
+ 494              		.loc 1 216 24 discriminator 3 view .LVU180
+ 495 014e 02ED037A 		vstr.32	s14, [r2, #-12]
+ 217:Src/sensors/mpu6000.c ****     }
+ 496              		.loc 1 217 9 is_stmt 1 discriminator 3 view .LVU181
+ 217:Src/sensors/mpu6000.c ****     }
+ 497              		.loc 1 217 35 is_stmt 0 discriminator 3 view .LVU182
+ 498 0152 52ED066A 		vldr.32	s13, [r2, #-24]
+ 217:Src/sensors/mpu6000.c ****     }
+ 499              		.loc 1 217 42 discriminator 3 view .LVU183
+ 500 0156 86EEA77A 		vdiv.f32	s14, s13, s15
+ 217:Src/sensors/mpu6000.c ****     }
+ 501              		.loc 1 217 26 discriminator 3 view .LVU184
+ 502 015a 1E4A     		ldr	r2, .L14+32
+ 503 015c 02EB8302 		add	r2, r2, r3, lsl #2
+ 504 0160 82ED007A 		vstr.32	s14, [r2]
+ 214:Src/sensors/mpu6000.c ****     {
+ 505              		.loc 1 214 30 is_stmt 1 discriminator 3 view .LVU185
+ 214:Src/sensors/mpu6000.c ****     {
+ 506              		.loc 1 214 34 is_stmt 0 discriminator 3 view .LVU186
+ 507 0164 0133     		adds	r3, r3, #1
+ 508              	.LVL9:
+ 214:Src/sensors/mpu6000.c ****     {
+ 509              		.loc 1 214 34 discriminator 3 view .LVU187
+ 510 0166 DBB2     		uxtb	r3, r3
+ 511              	.LVL10:
+ 512              	.L11:
+ 214:Src/sensors/mpu6000.c ****     {
+ 513              		.loc 1 214 20 is_stmt 1 discriminator 1 view .LVU188
+ 214:Src/sensors/mpu6000.c ****     {
+ 514              		.loc 1 214 5 is_stmt 0 discriminator 1 view .LVU189
+ 515 0168 022B     		cmp	r3, #2
+ 516 016a E7D9     		bls	.L12
+ 220:Src/sensors/mpu6000.c **** 
+ 517              		.loc 1 220 5 is_stmt 1 view .LVU190
+ 220:Src/sensors/mpu6000.c **** 
+ 518              		.loc 1 220 22 is_stmt 0 view .LVU191
+ 519 016c DDED037A 		vldr.32	s15, [sp, #12]
+ 520 0170 67EEA77A 		vmul.f32	s15, s15, s15
+ 220:Src/sensors/mpu6000.c **** 
+ 521              		.loc 1 220 45 view .LVU192
+ 522 0174 9DED047A 		vldr.32	s14, [sp, #16]
+ 523 0178 27EE077A 		vmul.f32	s14, s14, s14
+ 220:Src/sensors/mpu6000.c **** 
+ 524              		.loc 1 220 43 view .LVU193
+ 525 017c 77EE877A 		vadd.f32	s15, s15, s14
+ 220:Src/sensors/mpu6000.c **** 
+ 526              		.loc 1 220 68 view .LVU194
+ 527 0180 9DED057A 		vldr.32	s14, [sp, #20]
+ 528 0184 27EE077A 		vmul.f32	s14, s14, s14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 16
+
+
+ 220:Src/sensors/mpu6000.c **** 
+ 529              		.loc 1 220 17 view .LVU195
+ 530 0188 77EE877A 		vadd.f32	s15, s15, s14
+ 531 018c 17EE900A 		vmov	r0, s15
+ 532 0190 FFF7FEFF 		bl	__aeabi_f2d
+ 533              	.LVL11:
+ 220:Src/sensors/mpu6000.c **** 
+ 534              		.loc 1 220 17 view .LVU196
+ 535 0194 41EC100B 		vmov	d0, r0, r1
+ 536 0198 FFF7FEFF 		bl	sqrt
+ 537              	.LVL12:
+ 538 019c 51EC100B 		vmov	r0, r1, d0
+ 539 01a0 FFF7FEFF 		bl	__aeabi_d2f
+ 540              	.LVL13:
+ 220:Src/sensors/mpu6000.c **** 
+ 541              		.loc 1 220 15 view .LVU197
+ 542 01a4 0C4B     		ldr	r3, .L14+36
+ 543 01a6 1860     		str	r0, [r3]	@ float
+ 222:Src/sensors/mpu6000.c **** }
+ 544              		.loc 1 222 5 is_stmt 1 view .LVU198
+ 222:Src/sensors/mpu6000.c **** }
+ 545              		.loc 1 222 24 is_stmt 0 view .LVU199
+ 546 01a8 024B     		ldr	r3, .L14
+ 547 01aa 0022     		movs	r2, #0
+ 548 01ac 1A70     		strb	r2, [r3]
+ 223:Src/sensors/mpu6000.c **** 
+ 549              		.loc 1 223 1 view .LVU200
+ 550 01ae 06B0     		add	sp, sp, #24
+ 551              		.cfi_def_cfa_offset 8
+ 552              		@ sp needed
+ 553 01b0 10BD     		pop	{r4, pc}
+ 554              	.LVL14:
+ 555              	.L15:
+ 223:Src/sensors/mpu6000.c **** 
+ 556              		.loc 1 223 1 view .LVU201
+ 557 01b2 00BF     		.align	2
+ 558              	.L14:
+ 559 01b4 00000000 		.word	.LANCHOR9
+ 560 01b8 00000000 		.word	.LC0
+ 561 01bc 00000000 		.word	.LANCHOR1
+ 562 01c0 00000000 		.word	eepromConfig
+ 563 01c4 00000000 		.word	.LANCHOR7
+ 564 01c8 00000000 		.word	.LANCHOR3
+ 565 01cc 00000000 		.word	.LANCHOR8
+ 566 01d0 00409C45 		.word	1167867904
+ 567 01d4 00000000 		.word	.LANCHOR10
+ 568 01d8 00000000 		.word	.LANCHOR11
+ 569              		.cfi_endproc
+ 570              	.LFE189:
+ 572              		.section	.rodata.mpu6000Init.str1.4,"aMS",%progbits,1
+ 573              		.align	2
+ 574              	.LC1:
+ 575 0000 0A496E69 		.ascii	"\012Initializing MPU-6000\000"
+ 575      7469616C 
+ 575      697A696E 
+ 575      67204D50 
+ 575      552D3630 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 17
+
+
+ 576 0017 00       		.align	2
+ 577              	.LC2:
+ 578 0018 0A446576 		.ascii	"\012Device ID recognized as 0x%X\012\000"
+ 578      69636520 
+ 578      49442072 
+ 578      65636F67 
+ 578      6E697A65 
+ 579 0037 00       		.align	2
+ 580              	.LC3:
+ 581 0038 0A466169 		.ascii	"\012Failed to read device ID. Would you like to ret"
+ 581      6C656420 
+ 581      746F2072 
+ 581      65616420 
+ 581      64657669 
+ 582 0068 72793F00 		.ascii	"ry?\000"
+ 583              		.section	.text.mpu6000Init,"ax",%progbits
+ 584              		.align	1
+ 585              		.global	mpu6000Init
+ 586              		.syntax unified
+ 587              		.thumb
+ 588              		.thumb_func
+ 589              		.fpu fpv5-sp-d16
+ 591              	mpu6000Init:
+ 592              	.LFB187:
+  66:Src/sensors/mpu6000.c ****     ///////////////////////////////////
+ 593              		.loc 1 66 1 is_stmt 1 view -0
+ 594              		.cfi_startproc
+ 595              		@ args = 0, pretend = 0, frame = 0
+ 596              		@ frame_needed = 0, uses_anonymous_args = 0
+ 597 0000 10B5     		push	{r4, lr}
+ 598              		.cfi_def_cfa_offset 8
+ 599              		.cfi_offset 4, -8
+ 600              		.cfi_offset 14, -4
+  68:Src/sensors/mpu6000.c **** 
+ 601              		.loc 1 68 5 view .LVU203
+ 602 0002 5448     		ldr	r0, .L26
+ 603 0004 FFF7FEFF 		bl	puts
+ 604              	.LVL15:
+  70:Src/sensors/mpu6000.c **** 
+ 605              		.loc 1 70 5 view .LVU204
+ 606 0008 534A     		ldr	r2, .L26+4
+ 607 000a 9369     		ldr	r3, [r2, #24]
+ 608 000c 43F01003 		orr	r3, r3, #16
+ 609 0010 9361     		str	r3, [r2, #24]
+  72:Src/sensors/mpu6000.c ****     delay(100);
+ 610              		.loc 1 72 5 view .LVU205
+ 611 0012 0021     		movs	r1, #0
+ 612 0014 0846     		mov	r0, r1
+ 613 0016 FFF7FEFF 		bl	spi1WriteOneByte
+ 614              	.LVL16:
+  73:Src/sensors/mpu6000.c **** 
+ 615              		.loc 1 73 5 view .LVU206
+ 616 001a 6420     		movs	r0, #100
+ 617 001c FFF7FEFF 		bl	delay
+ 618              	.LVL17:
+  75:Src/sensors/mpu6000.c ****     delay(150);                                        // 100ms delay after reset
+ 619              		.loc 1 75 5 view .LVU207
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 18
+
+
+ 620 0020 8021     		movs	r1, #128
+ 621 0022 6B20     		movs	r0, #107
+ 622 0024 FFF7FEFF 		bl	spi1WriteOneByte
+ 623              	.LVL18:
+  76:Src/sensors/mpu6000.c **** 
+ 624              		.loc 1 76 5 view .LVU208
+ 625 0028 9620     		movs	r0, #150
+ 626 002a FFF7FEFF 		bl	delay
+ 627              	.LVL19:
+  78:Src/sensors/mpu6000.c ****     delay(150);
+ 628              		.loc 1 78 5 view .LVU209
+ 629 002e 0721     		movs	r1, #7
+ 630 0030 6820     		movs	r0, #104
+ 631 0032 FFF7FEFF 		bl	spi1WriteOneByte
+ 632              	.LVL20:
+  79:Src/sensors/mpu6000.c **** 
+ 633              		.loc 1 79 5 view .LVU210
+ 634 0036 9620     		movs	r0, #150
+ 635 0038 FFF7FEFF 		bl	delay
+ 636              	.LVL21:
+  81:Src/sensors/mpu6000.c ****     delay(10);
+ 637              		.loc 1 81 5 view .LVU211
+ 638 003c 0321     		movs	r1, #3
+ 639 003e 6B20     		movs	r0, #107
+ 640 0040 FFF7FEFF 		bl	spi1WriteOneByte
+ 641              	.LVL22:
+  82:Src/sensors/mpu6000.c **** 
+ 642              		.loc 1 82 5 view .LVU212
+ 643 0044 0A20     		movs	r0, #10
+ 644 0046 FFF7FEFF 		bl	delay
+ 645              	.LVL23:
+  85:Src/sensors/mpu6000.c ****     {
+ 646              		.loc 1 85 5 view .LVU213
+ 647              	.L17:
+  85:Src/sensors/mpu6000.c ****     {
+ 648              		.loc 1 85 11 view .LVU214
+  85:Src/sensors/mpu6000.c ****     {
+ 649              		.loc 1 85 29 is_stmt 0 view .LVU215
+ 650 004a 444A     		ldr	r2, .L26+8
+ 651 004c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 652 004e 591E     		subs	r1, r3, #1
+ 653 0050 1170     		strb	r1, [r2]
+  85:Src/sensors/mpu6000.c ****     {
+ 654              		.loc 1 85 11 view .LVU216
+ 655 0052 002B     		cmp	r3, #0
+ 656 0054 34D0     		beq	.L19
+  87:Src/sensors/mpu6000.c ****         delayMicroseconds(15);
+ 657              		.loc 1 87 9 is_stmt 1 view .LVU217
+ 658 0056 424C     		ldr	r4, .L26+12
+ 659 0058 2146     		mov	r1, r4
+ 660 005a 7520     		movs	r0, #117
+ 661 005c FFF7FEFF 		bl	spi1ReadOneByte
+ 662              	.LVL24:
+  88:Src/sensors/mpu6000.c ****         if (whoami[1] == 0x68)
+ 663              		.loc 1 88 9 view .LVU218
+ 664 0060 0F20     		movs	r0, #15
+ 665 0062 FFF7FEFF 		bl	delayMicroseconds
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 19
+
+
+ 666              	.LVL25:
+  89:Src/sensors/mpu6000.c ****         {
+ 667              		.loc 1 89 9 view .LVU219
+  89:Src/sensors/mpu6000.c ****         {
+ 668              		.loc 1 89 19 is_stmt 0 view .LVU220
+ 669 0066 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+  89:Src/sensors/mpu6000.c ****         {
+ 670              		.loc 1 89 12 view .LVU221
+ 671 0068 682B     		cmp	r3, #104
+ 672 006a 1AD0     		beq	.L25
+  97:Src/sensors/mpu6000.c ****         {
+ 673              		.loc 1 97 14 is_stmt 1 view .LVU222
+  97:Src/sensors/mpu6000.c ****         {
+ 674              		.loc 1 97 17 is_stmt 0 view .LVU223
+ 675 006c 682B     		cmp	r3, #104
+ 676 006e ECD0     		beq	.L17
+  97:Src/sensors/mpu6000.c ****         {
+ 677              		.loc 1 97 60 discriminator 1 view .LVU224
+ 678 0070 3A4B     		ldr	r3, .L26+8
+ 679 0072 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  97:Src/sensors/mpu6000.c ****         {
+ 680              		.loc 1 97 38 discriminator 1 view .LVU225
+ 681 0074 002B     		cmp	r3, #0
+ 682 0076 E8D1     		bne	.L17
+  99:Src/sensors/mpu6000.c ****             printf("\nFailed to read device ID. Would you like to retry?\n");
+ 683              		.loc 1 99 13 is_stmt 1 view .LVU226
+ 684 0078 0121     		movs	r1, #1
+ 685 007a 0846     		mov	r0, r1
+ 686 007c FFF7FEFF 		bl	color
+ 687              	.LVL26:
+ 100:Src/sensors/mpu6000.c ****             color(WHITE, NO);
+ 688              		.loc 1 100 13 view .LVU227
+ 689 0080 3848     		ldr	r0, .L26+16
+ 690 0082 FFF7FEFF 		bl	puts
+ 691              	.LVL27:
+ 101:Src/sensors/mpu6000.c ****             if (serialWaitFor('y'))
+ 692              		.loc 1 101 13 view .LVU228
+ 693 0086 0021     		movs	r1, #0
+ 694 0088 0720     		movs	r0, #7
+ 695 008a FFF7FEFF 		bl	color
+ 696              	.LVL28:
+ 102:Src/sensors/mpu6000.c ****             {
+ 697              		.loc 1 102 13 view .LVU229
+ 102:Src/sensors/mpu6000.c ****             {
+ 698              		.loc 1 102 17 is_stmt 0 view .LVU230
+ 699 008e 7920     		movs	r0, #121
+ 700 0090 FFF7FEFF 		bl	serialWaitFor
+ 701              	.LVL29:
+ 102:Src/sensors/mpu6000.c ****             {
+ 702              		.loc 1 102 16 view .LVU231
+ 703 0094 0346     		mov	r3, r0
+ 704 0096 0028     		cmp	r0, #0
+ 705 0098 58D0     		beq	.L21
+ 104:Src/sensors/mpu6000.c ****             }
+ 706              		.loc 1 104 17 is_stmt 1 view .LVU232
+ 104:Src/sensors/mpu6000.c ****             }
+ 707              		.loc 1 104 35 is_stmt 0 view .LVU233
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 20
+
+
+ 708 009a 304B     		ldr	r3, .L26+8
+ 709 009c 0522     		movs	r2, #5
+ 710 009e 1A70     		strb	r2, [r3]
+ 711 00a0 D3E7     		b	.L17
+ 712              	.L25:
+  91:Src/sensors/mpu6000.c ****             printf("\nDevice ID recognized as 0x%X\n", whoami[1]);
+ 713              		.loc 1 91 13 is_stmt 1 view .LVU234
+ 714 00a2 0121     		movs	r1, #1
+ 715 00a4 0220     		movs	r0, #2
+ 716 00a6 FFF7FEFF 		bl	color
+ 717              	.LVL30:
+  92:Src/sensors/mpu6000.c ****             mpu6000Initialized = true;
+ 718              		.loc 1 92 13 view .LVU235
+ 719 00aa 6178     		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 720 00ac 2E48     		ldr	r0, .L26+20
+ 721 00ae FFF7FEFF 		bl	printf
+ 722              	.LVL31:
+  93:Src/sensors/mpu6000.c ****             color(WHITE, NO);
+ 723              		.loc 1 93 13 view .LVU236
+  93:Src/sensors/mpu6000.c ****             color(WHITE, NO);
+ 724              		.loc 1 93 32 is_stmt 0 view .LVU237
+ 725 00b2 2E4B     		ldr	r3, .L26+24
+ 726 00b4 0122     		movs	r2, #1
+ 727 00b6 1A70     		strb	r2, [r3]
+  94:Src/sensors/mpu6000.c ****             break;
+ 728              		.loc 1 94 13 is_stmt 1 view .LVU238
+ 729 00b8 0021     		movs	r1, #0
+ 730 00ba 0720     		movs	r0, #7
+ 731 00bc FFF7FEFF 		bl	color
+ 732              	.LVL32:
+  95:Src/sensors/mpu6000.c ****         }
+ 733              		.loc 1 95 13 view .LVU239
+ 734              	.L19:
+ 113:Src/sensors/mpu6000.c **** 
+ 735              		.loc 1 113 5 view .LVU240
+ 736 00c0 6420     		movs	r0, #100
+ 737 00c2 FFF7FEFF 		bl	delayMicroseconds
+ 738              	.LVL33:
+ 115:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 739              		.loc 1 115 5 view .LVU241
+ 740 00c6 1021     		movs	r1, #16
+ 741 00c8 6A20     		movs	r0, #106
+ 742 00ca FFF7FEFF 		bl	spi1WriteOneByte
+ 743              	.LVL34:
+ 116:Src/sensors/mpu6000.c **** 
+ 744              		.loc 1 116 5 view .LVU242
+ 745 00ce 6420     		movs	r0, #100
+ 746 00d0 FFF7FEFF 		bl	delayMicroseconds
+ 747              	.LVL35:
+ 118:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 748              		.loc 1 118 5 view .LVU243
+ 749 00d4 0021     		movs	r1, #0
+ 750 00d6 6C20     		movs	r0, #108
+ 751 00d8 FFF7FEFF 		bl	spi1WriteOneByte
+ 752              	.LVL36:
+ 119:Src/sensors/mpu6000.c **** 
+ 753              		.loc 1 119 5 view .LVU244
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 21
+
+
+ 754 00dc 6420     		movs	r0, #100
+ 755 00de FFF7FEFF 		bl	delayMicroseconds
+ 756              	.LVL37:
+ 121:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 757              		.loc 1 121 5 view .LVU245
+ 758 00e2 0021     		movs	r1, #0
+ 759 00e4 1920     		movs	r0, #25
+ 760 00e6 FFF7FEFF 		bl	spi1WriteOneByte
+ 761              	.LVL38:
+ 122:Src/sensors/mpu6000.c **** 
+ 762              		.loc 1 122 5 view .LVU246
+ 763 00ea 6420     		movs	r0, #100
+ 764 00ec FFF7FEFF 		bl	delayMicroseconds
+ 765              	.LVL39:
+ 124:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 766              		.loc 1 124 5 view .LVU247
+ 767 00f0 1821     		movs	r1, #24
+ 768 00f2 1B20     		movs	r0, #27
+ 769 00f4 FFF7FEFF 		bl	spi1WriteOneByte
+ 770              	.LVL40:
+ 125:Src/sensors/mpu6000.c **** 
+ 771              		.loc 1 125 5 view .LVU248
+ 772 00f8 6420     		movs	r0, #100
+ 773 00fa FFF7FEFF 		bl	delayMicroseconds
+ 774              	.LVL41:
+ 127:Src/sensors/mpu6000.c **** 
+ 775              		.loc 1 127 5 view .LVU249
+ 776 00fe 1821     		movs	r1, #24
+ 777 0100 1C20     		movs	r0, #28
+ 778 0102 FFF7FEFF 		bl	spi1WriteOneByte
+ 779              	.LVL42:
+ 129:Src/sensors/mpu6000.c **** 
+ 780              		.loc 1 129 5 view .LVU250
+ 781 0106 6420     		movs	r0, #100
+ 782 0108 FFF7FEFF 		bl	delayMicroseconds
+ 783              	.LVL43:
+ 131:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 784              		.loc 1 131 5 view .LVU251
+ 785 010c 0321     		movs	r1, #3
+ 786 010e 1A20     		movs	r0, #26
+ 787 0110 FFF7FEFF 		bl	spi1WriteOneByte
+ 788              	.LVL44:
+ 132:Src/sensors/mpu6000.c **** 
+ 789              		.loc 1 132 5 view .LVU252
+ 790 0114 6420     		movs	r0, #100
+ 791 0116 FFF7FEFF 		bl	delayMicroseconds
+ 792              	.LVL45:
+ 134:Src/sensors/mpu6000.c ****     delayMicroseconds(100);
+ 793              		.loc 1 134 5 view .LVU253
+ 794 011a 1021     		movs	r1, #16
+ 795 011c 3720     		movs	r0, #55
+ 796 011e FFF7FEFF 		bl	spi1WriteOneByte
+ 797              	.LVL46:
+ 135:Src/sensors/mpu6000.c **** 
+ 798              		.loc 1 135 5 view .LVU254
+ 799 0122 6420     		movs	r0, #100
+ 800 0124 FFF7FEFF 		bl	delayMicroseconds
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 22
+
+
+ 801              	.LVL47:
+ 138:Src/sensors/mpu6000.c ****     SPI1->CR1 |= SPI_BR_PRESCALER_8; // sensor BR < 20MHz
+ 802              		.loc 1 138 5 view .LVU255
+ 138:Src/sensors/mpu6000.c ****     SPI1->CR1 |= SPI_BR_PRESCALER_8; // sensor BR < 20MHz
+ 803              		.loc 1 138 15 is_stmt 0 view .LVU256
+ 804 0128 114B     		ldr	r3, .L26+28
+ 805 012a 1A68     		ldr	r2, [r3]
+ 806 012c 22F03802 		bic	r2, r2, #56
+ 807 0130 1A60     		str	r2, [r3]
+ 139:Src/sensors/mpu6000.c **** 
+ 808              		.loc 1 139 5 is_stmt 1 view .LVU257
+ 139:Src/sensors/mpu6000.c **** 
+ 809              		.loc 1 139 15 is_stmt 0 view .LVU258
+ 810 0132 1A68     		ldr	r2, [r3]
+ 811 0134 42F01002 		orr	r2, r2, #16
+ 812 0138 1A60     		str	r2, [r3]
+ 141:Src/sensors/mpu6000.c **** 
+ 813              		.loc 1 141 5 is_stmt 1 view .LVU259
+ 814 013a 6420     		movs	r0, #100
+ 815 013c FFF7FEFF 		bl	delay
+ 816              	.LVL48:
+ 143:Src/sensors/mpu6000.c ****     return mpu6000Initialized;
+ 817              		.loc 1 143 5 view .LVU260
+ 818 0140 FFF7FEFF 		bl	computeMPU6000RTData
+ 819              	.LVL49:
+ 144:Src/sensors/mpu6000.c **** }
+ 820              		.loc 1 144 5 view .LVU261
+ 144:Src/sensors/mpu6000.c **** }
+ 821              		.loc 1 144 12 is_stmt 0 view .LVU262
+ 822 0144 094B     		ldr	r3, .L26+24
+ 823 0146 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 824              	.L22:
+ 145:Src/sensors/mpu6000.c **** 
+ 825              		.loc 1 145 1 view .LVU263
+ 826 0148 1846     		mov	r0, r3
+ 827 014a 10BD     		pop	{r4, pc}
+ 828              	.L21:
+ 108:Src/sensors/mpu6000.c ****                 return mpu6000Initialized;
+ 829              		.loc 1 108 17 is_stmt 1 view .LVU264
+ 108:Src/sensors/mpu6000.c ****                 return mpu6000Initialized;
+ 830              		.loc 1 108 36 is_stmt 0 view .LVU265
+ 831 014c 074A     		ldr	r2, .L26+24
+ 832 014e 0021     		movs	r1, #0
+ 833 0150 1170     		strb	r1, [r2]
+ 109:Src/sensors/mpu6000.c ****             }
+ 834              		.loc 1 109 17 is_stmt 1 view .LVU266
+ 109:Src/sensors/mpu6000.c ****             }
+ 835              		.loc 1 109 24 is_stmt 0 view .LVU267
+ 836 0152 F9E7     		b	.L22
+ 837              	.L27:
+ 838              		.align	2
+ 839              	.L26:
+ 840 0154 00000000 		.word	.LC1
+ 841 0158 00000240 		.word	1073872896
+ 842 015c 00000000 		.word	.LANCHOR14
+ 843 0160 00000000 		.word	.LANCHOR12
+ 844 0164 38000000 		.word	.LC3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 23
+
+
+ 845 0168 18000000 		.word	.LC2
+ 846 016c 00000000 		.word	.LANCHOR13
+ 847 0170 00300140 		.word	1073819648
+ 848              		.cfi_endproc
+ 849              	.LFE187:
+ 851              		.global	devIdReadAttempts
+ 852              		.global	mpu6000Initialized
+ 853              		.global	whoami
+ 854              		.global	rawMPU6000Temperature
+ 855              		.global	mpu6000Temperature
+ 856              		.global	mpu6000Calibrating
+ 857              		.global	accelCalibrating
+ 858              		.global	nonRotatedGyroData
+ 859              		.global	rawGyro
+ 860              		.global	gyroTCBias
+ 861              		.global	gyroSummedSamples500Hz
+ 862              		.global	gyroSum500Hz
+ 863              		.global	gyroRTBias
+ 864              		.global	nonRotatedAccelData
+ 865              		.global	rawAccel
+ 866              		.global	accelTCBias
+ 867              		.global	accelSummedSamples500Hz
+ 868              		.global	accelSum500Hz
+ 869              		.global	rawData
+ 870              		.global	accelOneG
+ 871              		.section	.bss.accelCalibrating,"aw",%nobits
+ 874              	accelCalibrating:
+ 875 0000 00       		.space	1
+ 876              		.section	.bss.accelSum500Hz,"aw",%nobits
+ 877              		.align	2
+ 878              		.set	.LANCHOR4,. + 0
+ 881              	accelSum500Hz:
+ 882 0000 00000000 		.space	12
+ 882      00000000 
+ 882      00000000 
+ 883              		.section	.bss.accelSummedSamples500Hz,"aw",%nobits
+ 884              		.align	2
+ 887              	accelSummedSamples500Hz:
+ 888 0000 00000000 		.space	12
+ 888      00000000 
+ 888      00000000 
+ 889              		.section	.bss.accelTCBias,"aw",%nobits
+ 890              		.align	2
+ 891              		.set	.LANCHOR7,. + 0
+ 894              	accelTCBias:
+ 895 0000 00000000 		.space	12
+ 895      00000000 
+ 895      00000000 
+ 896              		.section	.bss.gyroRTBias,"aw",%nobits
+ 897              		.align	2
+ 898              		.set	.LANCHOR10,. + 0
+ 901              	gyroRTBias:
+ 902 0000 00000000 		.space	12
+ 902      00000000 
+ 902      00000000 
+ 903              		.section	.bss.gyroSum500Hz,"aw",%nobits
+ 904              		.align	2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 24
+
+
+ 905              		.set	.LANCHOR5,. + 0
+ 908              	gyroSum500Hz:
+ 909 0000 00000000 		.space	12
+ 909      00000000 
+ 909      00000000 
+ 910              		.section	.bss.gyroSummedSamples500Hz,"aw",%nobits
+ 911              		.align	2
+ 914              	gyroSummedSamples500Hz:
+ 915 0000 00000000 		.space	12
+ 915      00000000 
+ 915      00000000 
+ 916              		.section	.bss.gyroTCBias,"aw",%nobits
+ 917              		.align	2
+ 918              		.set	.LANCHOR8,. + 0
+ 921              	gyroTCBias:
+ 922 0000 00000000 		.space	12
+ 922      00000000 
+ 922      00000000 
+ 923              		.section	.bss.mpu6000Calibrating,"aw",%nobits
+ 924              		.set	.LANCHOR9,. + 0
+ 927              	mpu6000Calibrating:
+ 928 0000 00       		.space	1
+ 929              		.section	.bss.mpu6000Initialized,"aw",%nobits
+ 930              		.set	.LANCHOR13,. + 0
+ 933              	mpu6000Initialized:
+ 934 0000 00       		.space	1
+ 935              		.section	.bss.mpu6000Temperature,"aw",%nobits
+ 936              		.align	2
+ 937              		.set	.LANCHOR6,. + 0
+ 940              	mpu6000Temperature:
+ 941 0000 00000000 		.space	4
+ 942              		.section	.bss.nonRotatedAccelData,"aw",%nobits
+ 943              		.align	2
+ 946              	nonRotatedAccelData:
+ 947 0000 00000000 		.space	12
+ 947      00000000 
+ 947      00000000 
+ 948              		.section	.bss.nonRotatedGyroData,"aw",%nobits
+ 949              		.align	2
+ 952              	nonRotatedGyroData:
+ 953 0000 00000000 		.space	12
+ 953      00000000 
+ 953      00000000 
+ 954              		.section	.bss.rawAccel,"aw",%nobits
+ 955              		.align	2
+ 956              		.set	.LANCHOR1,. + 0
+ 959              	rawAccel:
+ 960 0000 00000000 		.space	6
+ 960      0000
+ 961              		.section	.bss.rawData,"aw",%nobits
+ 962              		.align	2
+ 963              		.set	.LANCHOR0,. + 0
+ 966              	rawData:
+ 967 0000 00000000 		.space	15
+ 967      00000000 
+ 967      00000000 
+ 967      000000
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 25
+
+
+ 968              		.section	.bss.rawGyro,"aw",%nobits
+ 969              		.align	2
+ 970              		.set	.LANCHOR3,. + 0
+ 973              	rawGyro:
+ 974 0000 00000000 		.space	6
+ 974      0000
+ 975              		.section	.bss.rawMPU6000Temperature,"aw",%nobits
+ 976              		.align	2
+ 977              		.set	.LANCHOR2,. + 0
+ 980              	rawMPU6000Temperature:
+ 981 0000 0000     		.space	2
+ 982              		.section	.bss.whoami,"aw",%nobits
+ 983              		.align	2
+ 984              		.set	.LANCHOR12,. + 0
+ 987              	whoami:
+ 988 0000 0000     		.space	2
+ 989              		.section	.data.accelOneG,"aw"
+ 990              		.align	2
+ 991              		.set	.LANCHOR11,. + 0
+ 994              	accelOneG:
+ 995 0000 6DE71C41 		.word	1092413293
+ 996              		.section	.data.devIdReadAttempts,"aw"
+ 997              		.set	.LANCHOR14,. + 0
+ 1000              	devIdReadAttempts:
+ 1001 0000 05       		.byte	5
+ 1002              		.text
+ 1003              	.Letext0:
+ 1004              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 1005              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 1006              		.file 4 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 1007              		.file 5 "Src/pid.h"
+ 1008              		.file 6 "Src/autodrone32.h"
+ 1009              		.file 7 "Src/drv/drv_color.h"
+ 1010              		.file 8 "Src/sensors/mpu6000.h"
+ 1011              		.file 9 "Src/drv/drv_system.h"
+ 1012              		.file 10 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/math.h"
+ 1013              		.file 11 "Src/drv/drv_spi1.h"
+ 1014              		.file 12 "Src/drv/drv_serial.h"
+ 1015              		.file 13 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ 1016              		.file 14 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mpu6000.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:18     .text.readMPU6000:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:26     .text.readMPU6000:0000000000000000 readMPU6000
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:166    .text.readMPU6000:0000000000000090 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:176    .text.computeMPU6000TCBias:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:183    .text.computeMPU6000TCBias:0000000000000000 computeMPU6000TCBias
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:280    .text.computeMPU6000TCBias:00000000000000a4 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:291    .rodata.computeMPU6000RTData.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:297    .text.computeMPU6000RTData:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:304    .text.computeMPU6000RTData:0000000000000000 computeMPU6000RTData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:559    .text.computeMPU6000RTData:00000000000001b4 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:573    .rodata.mpu6000Init.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:584    .text.mpu6000Init:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:591    .text.mpu6000Init:0000000000000000 mpu6000Init
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:840    .text.mpu6000Init:0000000000000154 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:1000   .data.devIdReadAttempts:0000000000000000 devIdReadAttempts
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:933    .bss.mpu6000Initialized:0000000000000000 mpu6000Initialized
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:987    .bss.whoami:0000000000000000 whoami
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:980    .bss.rawMPU6000Temperature:0000000000000000 rawMPU6000Temperature
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:940    .bss.mpu6000Temperature:0000000000000000 mpu6000Temperature
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:927    .bss.mpu6000Calibrating:0000000000000000 mpu6000Calibrating
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:874    .bss.accelCalibrating:0000000000000000 accelCalibrating
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:952    .bss.nonRotatedGyroData:0000000000000000 nonRotatedGyroData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:973    .bss.rawGyro:0000000000000000 rawGyro
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:921    .bss.gyroTCBias:0000000000000000 gyroTCBias
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:914    .bss.gyroSummedSamples500Hz:0000000000000000 gyroSummedSamples500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:908    .bss.gyroSum500Hz:0000000000000000 gyroSum500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:901    .bss.gyroRTBias:0000000000000000 gyroRTBias
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:946    .bss.nonRotatedAccelData:0000000000000000 nonRotatedAccelData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:959    .bss.rawAccel:0000000000000000 rawAccel
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:894    .bss.accelTCBias:0000000000000000 accelTCBias
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:887    .bss.accelSummedSamples500Hz:0000000000000000 accelSummedSamples500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:881    .bss.accelSum500Hz:0000000000000000 accelSum500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:966    .bss.rawData:0000000000000000 rawData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:994    .data.accelOneG:0000000000000000 accelOneG
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:875    .bss.accelCalibrating:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:877    .bss.accelSum500Hz:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:884    .bss.accelSummedSamples500Hz:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:890    .bss.accelTCBias:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:897    .bss.gyroRTBias:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:904    .bss.gyroSum500Hz:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:911    .bss.gyroSummedSamples500Hz:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:917    .bss.gyroTCBias:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:928    .bss.mpu6000Calibrating:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:934    .bss.mpu6000Initialized:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:936    .bss.mpu6000Temperature:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:943    .bss.nonRotatedAccelData:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:949    .bss.nonRotatedGyroData:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:955    .bss.rawAccel:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:962    .bss.rawData:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:969    .bss.rawGyro:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:976    .bss.rawMPU6000Temperature:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:983    .bss.whoami:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s:990    .data.accelOneG:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmE7Qv.s 			page 27
+
+
+spi1ReadBytes
+eepromConfig
+__aeabi_f2d
+__aeabi_d2f
+puts
+delayMicroseconds
+sqrt
+spi1WriteOneByte
+delay
+spi1ReadOneByte
+color
+serialWaitFor
+printf

@@ -27,7 +27,7 @@ extern semaphore_t eepromChanged;
 void parseRcChannels(const char *input);
 uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd);
 void readEEPROM(void);
-HAL_StatusTypeDef writeEEPROM(void);
+void writeEEPROM(void);
 void checkFirstTime(bool eepromReset);
 
 ///////////////////////////////////////////////////////////////////////////////

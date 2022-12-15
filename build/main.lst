@@ -1,0 +1,1544 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.main,"ax",%progbits
+  18              		.align	1
+  19              		.global	main
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	main:
+  27              	.LFB187:
+  28              		.file 1 "Src/main.c"
+   1:Src/main.c    **** /** @file 		main.c
+   2:Src/main.c    ****  *  @brief
+   3:Src/main.c    ****  *  	This file runs all the other functions and carries out the scheduling of tasks.
+   4:Src/main.c    ****  *
+   5:Src/main.c    ****  *  @author 	Jeremy Wolfe
+   6:Src/main.c    ****  *  @date 		23 FEB 2022
+   7:Src/main.c    ****  */
+   8:Src/main.c    **** 
+   9:Src/main.c    **** /* Includes */
+  10:Src/main.c    **** #include "board.h"
+  11:Src/main.c    **** 
+  12:Src/main.c    **** #ifndef SANDBOX
+  13:Src/main.c    **** /* Global Variables */
+  14:Src/main.c    **** const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
+  15:Src/main.c    **** 
+  16:Src/main.c    **** eepromConfig_t eepromConfig;
+  17:Src/main.c    **** 
+  18:Src/main.c    **** uint8_t execUpCount = 0;
+  19:Src/main.c    **** 
+  20:Src/main.c    **** sensors_t sensors;
+  21:Src/main.c    **** 
+  22:Src/main.c    **** uint16_t timerValue;
+  23:Src/main.c    **** 
+  24:Src/main.c    **** int main(void)
+  25:Src/main.c    **** {
+  29              		.loc 1 25 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 38B5     		push	{r3, r4, r5, lr}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 2
+
+
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 3, -16
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+  26:Src/main.c    ****     uint32_t currentTime;
+  39              		.loc 1 26 5 view .LVU1
+  27:Src/main.c    **** 
+  28:Src/main.c    ****     systemReady = false;
+  40              		.loc 1 28 5 view .LVU2
+  41              		.loc 1 28 17 is_stmt 0 view .LVU3
+  42 0002 A84C     		ldr	r4, .L42
+  43 0004 0023     		movs	r3, #0
+  44 0006 2370     		strb	r3, [r4]
+  29:Src/main.c    **** 
+  30:Src/main.c    ****     systemInit();
+  45              		.loc 1 30 5 is_stmt 1 view .LVU4
+  46 0008 FFF7FEFF 		bl	systemInit
+  47              	.LVL0:
+  31:Src/main.c    **** 
+  32:Src/main.c    ****     systemReady = true;
+  48              		.loc 1 32 5 view .LVU5
+  49              		.loc 1 32 17 is_stmt 0 view .LVU6
+  50 000c 0123     		movs	r3, #1
+  51 000e 2370     		strb	r3, [r4]
+  52 0010 E2E0     		b	.L15
+  53              	.L34:
+  33:Src/main.c    **** 
+  34:Src/main.c    ****     while (1)
+  35:Src/main.c    ****     {
+  36:Src/main.c    ****         if (frame_1000Hz)
+  37:Src/main.c    ****         {
+  38:Src/main.c    ****             frame_1000Hz = false;
+  54              		.loc 1 38 13 is_stmt 1 view .LVU7
+  55              		.loc 1 38 26 is_stmt 0 view .LVU8
+  56 0012 A54B     		ldr	r3, .L42+4
+  57 0014 0022     		movs	r2, #0
+  58 0016 1A70     		strb	r2, [r3]
+  39:Src/main.c    **** 
+  40:Src/main.c    ****             currentTime = micros();
+  59              		.loc 1 40 13 is_stmt 1 view .LVU9
+  60              		.loc 1 40 27 is_stmt 0 view .LVU10
+  61 0018 FFF7FEFF 		bl	micros
+  62              	.LVL1:
+  41:Src/main.c    ****             deltaTime1000Hz = currentTime = previous1000HzTime;
+  63              		.loc 1 41 13 is_stmt 1 view .LVU11
+  64              		.loc 1 41 43 is_stmt 0 view .LVU12
+  65 001c A34B     		ldr	r3, .L42+8
+  66 001e 1C68     		ldr	r4, [r3]
+  67              	.LVL2:
+  68              		.loc 1 41 29 view .LVU13
+  69 0020 A34B     		ldr	r3, .L42+12
+  70 0022 1C60     		str	r4, [r3]
+  42:Src/main.c    ****             previous1000HzTime = currentTime;
+  71              		.loc 1 42 13 is_stmt 1 view .LVU14
+  43:Src/main.c    **** 
+  44:Src/main.c    ****             executionTime1000Hz = micros() - currentTime;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 3
+
+
+  72              		.loc 1 44 13 view .LVU15
+  73              		.loc 1 44 35 is_stmt 0 view .LVU16
+  74 0024 FFF7FEFF 		bl	micros
+  75              	.LVL3:
+  76              		.loc 1 44 44 view .LVU17
+  77 0028 001B     		subs	r0, r0, r4
+  78              		.loc 1 44 33 view .LVU18
+  79 002a A24B     		ldr	r3, .L42+16
+  80 002c 1860     		str	r0, [r3]
+  81 002e D8E0     		b	.L2
+  82              	.LVL4:
+  83              	.L35:
+  45:Src/main.c    ****         }
+  46:Src/main.c    **** 
+  47:Src/main.c    ****         if (frame_500Hz)
+  48:Src/main.c    ****         {
+  49:Src/main.c    **** 
+  50:Src/main.c    ****             frame_500Hz = false;
+  84              		.loc 1 50 13 is_stmt 1 view .LVU19
+  85              		.loc 1 50 25 is_stmt 0 view .LVU20
+  86 0030 A14B     		ldr	r3, .L42+20
+  87 0032 0022     		movs	r2, #0
+  88 0034 1A70     		strb	r2, [r3]
+  51:Src/main.c    **** 
+  52:Src/main.c    ****             currentTime = micros();
+  89              		.loc 1 52 13 is_stmt 1 view .LVU21
+  90              		.loc 1 52 27 is_stmt 0 view .LVU22
+  91 0036 FFF7FEFF 		bl	micros
+  92              	.LVL5:
+  93 003a 0446     		mov	r4, r0
+  94              	.LVL6:
+  53:Src/main.c    ****             deltaTime500Hz = currentTime - previous500HzTime;
+  95              		.loc 1 53 13 is_stmt 1 view .LVU23
+  96              		.loc 1 53 42 is_stmt 0 view .LVU24
+  97 003c 9F4A     		ldr	r2, .L42+24
+  98 003e 1368     		ldr	r3, [r2]
+  99 0040 C31A     		subs	r3, r0, r3
+ 100              		.loc 1 53 28 view .LVU25
+ 101 0042 9F49     		ldr	r1, .L42+28
+ 102 0044 0B60     		str	r3, [r1]
+  54:Src/main.c    ****             previous500HzTime = currentTime;
+ 103              		.loc 1 54 13 is_stmt 1 view .LVU26
+ 104              		.loc 1 54 31 is_stmt 0 view .LVU27
+ 105 0046 1060     		str	r0, [r2]
+  55:Src/main.c    **** 
+  56:Src/main.c    ****             tim9Disable();
+ 106              		.loc 1 56 13 is_stmt 1 view .LVU28
+ 107 0048 FFF7FEFF 		bl	tim9Disable
+ 108              	.LVL7:
+  57:Src/main.c    ****             timerValue = tim9GetCnt();
+ 109              		.loc 1 57 13 view .LVU29
+ 110              		.loc 1 57 26 is_stmt 0 view .LVU30
+ 111 004c FFF7FEFF 		bl	tim9GetCnt
+ 112              	.LVL8:
+ 113              		.loc 1 57 24 view .LVU31
+ 114 0050 9C4D     		ldr	r5, .L42+32
+ 115 0052 2880     		strh	r0, [r5]	@ movhi
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 4
+
+
+  58:Src/main.c    ****             tim9ResetCnt();
+ 116              		.loc 1 58 13 is_stmt 1 view .LVU32
+ 117 0054 FFF7FEFF 		bl	tim9ResetCnt
+ 118              	.LVL9:
+  59:Src/main.c    ****             tim9Enable();
+ 119              		.loc 1 59 13 view .LVU33
+ 120 0058 FFF7FEFF 		bl	tim9Enable
+ 121              	.LVL10:
+  60:Src/main.c    **** 
+  61:Src/main.c    ****             dt500Hz = (float)timerValue * 0.0000005f; // For integrations in 500 Hz loop
+ 122              		.loc 1 61 13 view .LVU34
+ 123              		.loc 1 61 23 is_stmt 0 view .LVU35
+ 124 005c 2B88     		ldrh	r3, [r5]
+ 125 005e 07EE903A 		vmov	s15, r3	@ int
+ 126 0062 F8EE677A 		vcvt.f32.u32	s15, s15
+ 127              		.loc 1 61 41 view .LVU36
+ 128 0066 9FED987A 		vldr.32	s14, .L42+36
+ 129 006a 67EE877A 		vmul.f32	s15, s15, s14
+ 130              		.loc 1 61 21 view .LVU37
+ 131 006e 974B     		ldr	r3, .L42+40
+ 132 0070 C3ED007A 		vstr.32	s15, [r3]
+  62:Src/main.c    **** 
+  63:Src/main.c    ****             computeRotations500Hz();
+ 133              		.loc 1 63 13 is_stmt 1 view .LVU38
+ 134 0074 FFF7FEFF 		bl	computeRotations500Hz
+ 135              	.LVL11:
+  64:Src/main.c    **** 
+  65:Src/main.c    ****             updateIMU(sensors.gyro500Hz[ROLL], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
+ 136              		.loc 1 65 13 view .LVU39
+ 137 0078 954B     		ldr	r3, .L42+44
+ 138 007a D3ED022A 		vldr.32	s5, [r3, #8]
+ 139 007e 93ED012A 		vldr.32	s4, [r3, #4]
+ 140 0082 D3ED001A 		vldr.32	s3, [r3]
+ 141 0086 93ED0B1A 		vldr.32	s2, [r3, #44]
+ 142 008a D3ED0A0A 		vldr.32	s1, [r3, #40]
+ 143 008e 93ED090A 		vldr.32	s0, [r3, #36]
+ 144 0092 FFF7FEFF 		bl	updateIMU
+ 145              	.LVL12:
+  66:Src/main.c    ****                       sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXI
+  67:Src/main.c    ****             sensors.attitude500Hz[ROLL] = getRollRadians();
+ 146              		.loc 1 67 13 view .LVU40
+ 147              	.LBB10:
+ 148              	.LBI10:
+ 149              		.file 2 "Src/sensors/madgwick.h"
+   1:Src/sensors/madgwick.h **** /** @file 		madgwick.h
+   2:Src/sensors/madgwick.h ****  *  @brief
+   3:Src/sensors/madgwick.h ****  *  	This file gives the function to create our RPY values.
+   4:Src/sensors/madgwick.h ****  *
+   5:Src/sensors/madgwick.h ****  *
+   6:Src/sensors/madgwick.h ****  *  @author 	Jeremy Wolfe
+   7:Src/sensors/madgwick.h ****  *  @date 		03 MAR 2022
+   8:Src/sensors/madgwick.h ****  */
+   9:Src/sensors/madgwick.h **** 
+  10:Src/sensors/madgwick.h **** #ifndef __SENSOR_FUSION_H__
+  11:Src/sensors/madgwick.h **** #define __SENSOR_FUSION_H__
+  12:Src/sensors/madgwick.h **** 
+  13:Src/sensors/madgwick.h **** /* Defines */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 5
+
+
+  14:Src/sensors/madgwick.h **** #define sampleFreqDef   500.0f          // sample frequency in Hz
+  15:Src/sensors/madgwick.h **** #define betaDef         5.0f            // 2 * proportional gain
+  16:Src/sensors/madgwick.h **** 
+  17:Src/sensors/madgwick.h **** /* Function Prototypes */
+  18:Src/sensors/madgwick.h **** void madgwickInit(void);
+  19:Src/sensors/madgwick.h **** void updateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+  20:Src/sensors/madgwick.h **** void computeAngles(void);
+  21:Src/sensors/madgwick.h **** 
+  22:Src/sensors/madgwick.h **** /* Global Variables */
+  23:Src/sensors/madgwick.h **** extern float beta;				// algorithm gain
+  24:Src/sensors/madgwick.h **** extern float q0;
+  25:Src/sensors/madgwick.h **** extern float q1;
+  26:Src/sensors/madgwick.h **** extern float q2;
+  27:Src/sensors/madgwick.h **** extern float q3;	// quaternion of sensor frame relative to auxiliary frame
+  28:Src/sensors/madgwick.h **** extern float invSampleFreq;
+  29:Src/sensors/madgwick.h **** extern float roll;
+  30:Src/sensors/madgwick.h **** extern float pitch;
+  31:Src/sensors/madgwick.h **** extern float yaw;
+  32:Src/sensors/madgwick.h **** extern char anglesComputed;
+  33:Src/sensors/madgwick.h **** 
+  34:Src/sensors/madgwick.h **** /* Inline Functions */
+  35:Src/sensors/madgwick.h **** 
+  36:Src/sensors/madgwick.h **** /** @brief Computes roll angle in deg.
+  37:Src/sensors/madgwick.h ****  *
+  38:Src/sensors/madgwick.h ****  * 	@return float Roll.
+  39:Src/sensors/madgwick.h ****  */
+  40:Src/sensors/madgwick.h **** static inline float
+  41:Src/sensors/madgwick.h **** getRoll(void)
+  42:Src/sensors/madgwick.h **** {
+  43:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+  44:Src/sensors/madgwick.h **** 	return roll * 57.29578f;
+  45:Src/sensors/madgwick.h **** }
+  46:Src/sensors/madgwick.h **** 
+  47:Src/sensors/madgwick.h **** /** @brief Computes pitch angle in deg.
+  48:Src/sensors/madgwick.h ****  *
+  49:Src/sensors/madgwick.h ****  * 	@return float Pitch.
+  50:Src/sensors/madgwick.h ****  */
+  51:Src/sensors/madgwick.h **** static inline float
+  52:Src/sensors/madgwick.h **** getPitch(void)
+  53:Src/sensors/madgwick.h **** {
+  54:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+  55:Src/sensors/madgwick.h **** 	return pitch * 57.29578f;
+  56:Src/sensors/madgwick.h **** }
+  57:Src/sensors/madgwick.h **** 
+  58:Src/sensors/madgwick.h **** /** @brief Computes yaw angle in deg.
+  59:Src/sensors/madgwick.h ****  *
+  60:Src/sensors/madgwick.h ****  * 	@return float Yaw.
+  61:Src/sensors/madgwick.h ****  */
+  62:Src/sensors/madgwick.h **** static inline float
+  63:Src/sensors/madgwick.h **** getYaw(void)
+  64:Src/sensors/madgwick.h **** {
+  65:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+  66:Src/sensors/madgwick.h **** 	return yaw * 57.29578f;
+  67:Src/sensors/madgwick.h **** }
+  68:Src/sensors/madgwick.h **** 
+  69:Src/sensors/madgwick.h **** /** @brief Computes roll angle in rad.
+  70:Src/sensors/madgwick.h ****  *
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 6
+
+
+  71:Src/sensors/madgwick.h ****  * 	@return float Roll.
+  72:Src/sensors/madgwick.h ****  */
+  73:Src/sensors/madgwick.h **** static inline float
+  74:Src/sensors/madgwick.h **** getRollRadians(void)
+ 150              		.loc 2 74 1 view .LVU41
+ 151              	.LBB11:
+  75:Src/sensors/madgwick.h **** {
+  76:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+ 152              		.loc 2 76 2 view .LVU42
+ 153              		.loc 2 76 6 is_stmt 0 view .LVU43
+ 154 0096 8F4B     		ldr	r3, .L42+48
+ 155 0098 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 156              		.loc 2 76 5 view .LVU44
+ 157 009a 002B     		cmp	r3, #0
+ 158 009c 37D0     		beq	.L29
+ 159              	.L4:
+  77:Src/sensors/madgwick.h **** 	return roll;
+ 160              		.loc 2 77 2 is_stmt 1 view .LVU45
+ 161              		.loc 2 77 9 is_stmt 0 view .LVU46
+ 162 009e 8E4B     		ldr	r3, .L42+52
+ 163 00a0 1A68     		ldr	r2, [r3]	@ float
+ 164              	.LBE11:
+ 165              	.LBE10:
+ 166              		.loc 1 67 41 view .LVU47
+ 167 00a2 8B4B     		ldr	r3, .L42+44
+ 168 00a4 9A61     		str	r2, [r3, #24]	@ float
+  68:Src/main.c    ****             sensors.attitude500Hz[PITCH] = getPitchRadians();
+ 169              		.loc 1 68 13 is_stmt 1 view .LVU48
+ 170              	.LBB13:
+ 171              	.LBI13:
+  78:Src/sensors/madgwick.h **** }
+  79:Src/sensors/madgwick.h **** 
+  80:Src/sensors/madgwick.h **** /** @brief Computes pitch angle in rad.
+  81:Src/sensors/madgwick.h ****  *
+  82:Src/sensors/madgwick.h ****  * 	@return float Pitch.
+  83:Src/sensors/madgwick.h ****  */
+  84:Src/sensors/madgwick.h **** static inline float
+  85:Src/sensors/madgwick.h **** getPitchRadians(void)
+ 172              		.loc 2 85 1 view .LVU49
+ 173              	.LBB14:
+  86:Src/sensors/madgwick.h **** {
+  87:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+ 174              		.loc 2 87 2 view .LVU50
+ 175              		.loc 2 87 6 is_stmt 0 view .LVU51
+ 176 00a6 8B4B     		ldr	r3, .L42+48
+ 177 00a8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 178              		.loc 2 87 5 view .LVU52
+ 179 00aa 9BB3     		cbz	r3, .L30
+ 180              	.L5:
+  88:Src/sensors/madgwick.h **** 	return pitch;
+ 181              		.loc 2 88 2 is_stmt 1 view .LVU53
+ 182              		.loc 2 88 9 is_stmt 0 view .LVU54
+ 183 00ac 8B4B     		ldr	r3, .L42+56
+ 184 00ae 1A68     		ldr	r2, [r3]	@ float
+ 185              	.LBE14:
+ 186              	.LBE13:
+ 187              		.loc 1 68 42 view .LVU55
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 7
+
+
+ 188 00b0 874B     		ldr	r3, .L42+44
+ 189 00b2 DA61     		str	r2, [r3, #28]	@ float
+  69:Src/main.c    ****             sensors.attitude500Hz[YAW] = getYawRadians();
+ 190              		.loc 1 69 13 is_stmt 1 view .LVU56
+ 191              	.LBB16:
+ 192              	.LBI16:
+  89:Src/sensors/madgwick.h **** }
+  90:Src/sensors/madgwick.h **** 
+  91:Src/sensors/madgwick.h **** /** @brief Computes yaw angle in rad.
+  92:Src/sensors/madgwick.h ****  *
+  93:Src/sensors/madgwick.h ****  * 	@return float Yaw.
+  94:Src/sensors/madgwick.h ****  */
+  95:Src/sensors/madgwick.h **** static inline float
+  96:Src/sensors/madgwick.h **** getYawRadians(void)
+ 193              		.loc 2 96 1 view .LVU57
+ 194              	.LBB17:
+  97:Src/sensors/madgwick.h **** {
+  98:Src/sensors/madgwick.h **** 	if (!anglesComputed) computeAngles();
+ 195              		.loc 2 98 2 view .LVU58
+ 196              		.loc 2 98 6 is_stmt 0 view .LVU59
+ 197 00b4 874B     		ldr	r3, .L42+48
+ 198 00b6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 199              		.loc 2 98 5 view .LVU60
+ 200 00b8 7BB3     		cbz	r3, .L31
+ 201              	.L6:
+  99:Src/sensors/madgwick.h **** 	return yaw;
+ 202              		.loc 2 99 2 is_stmt 1 view .LVU61
+ 203              		.loc 2 99 9 is_stmt 0 view .LVU62
+ 204 00ba 894B     		ldr	r3, .L42+60
+ 205 00bc D3ED007A 		vldr.32	s15, [r3]
+ 206              	.LBE17:
+ 207              	.LBE16:
+ 208              		.loc 1 69 40 view .LVU63
+ 209 00c0 834B     		ldr	r3, .L42+44
+ 210 00c2 C3ED087A 		vstr.32	s15, [r3, #32]
+  70:Src/main.c    **** 
+  71:Src/main.c    ****             sensors.attDeg500Hz[ROLL] = sensors.attitude500Hz[ROLL] * 57.29578f;
+ 211              		.loc 1 71 13 is_stmt 1 view .LVU64
+ 212              		.loc 1 71 62 is_stmt 0 view .LVU65
+ 213 00c6 D3ED066A 		vldr.32	s13, [r3, #24]
+ 214              		.loc 1 71 69 view .LVU66
+ 215 00ca 9FED867A 		vldr.32	s14, .L42+64
+ 216 00ce 66EE876A 		vmul.f32	s13, s13, s14
+ 217              		.loc 1 71 39 view .LVU67
+ 218 00d2 C3ED0C6A 		vstr.32	s13, [r3, #48]
+  72:Src/main.c    ****             sensors.attDeg500Hz[PITCH] = sensors.attitude500Hz[PITCH] * 57.29578f;
+ 219              		.loc 1 72 13 is_stmt 1 view .LVU68
+ 220              		.loc 1 72 63 is_stmt 0 view .LVU69
+ 221 00d6 D3ED076A 		vldr.32	s13, [r3, #28]
+ 222              		.loc 1 72 71 view .LVU70
+ 223 00da 66EE876A 		vmul.f32	s13, s13, s14
+ 224              		.loc 1 72 40 view .LVU71
+ 225 00de C3ED0D6A 		vstr.32	s13, [r3, #52]
+  73:Src/main.c    ****             sensors.attDeg500Hz[YAW] = sensors.attitude500Hz[YAW] * 57.29578f;
+ 226              		.loc 1 73 13 is_stmt 1 view .LVU72
+ 227              		.loc 1 73 67 is_stmt 0 view .LVU73
+ 228 00e2 67EE877A 		vmul.f32	s15, s15, s14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 8
+
+
+ 229              		.loc 1 73 38 view .LVU74
+ 230 00e6 C3ED0E7A 		vstr.32	s15, [r3, #56]
+  74:Src/main.c    **** 
+  75:Src/main.c    ****             processCommands();
+ 231              		.loc 1 75 13 is_stmt 1 view .LVU75
+ 232 00ea FFF7FEFF 		bl	processCommands
+ 233              	.LVL13:
+  76:Src/main.c    ****             computeAxisCommands(dt500Hz);
+ 234              		.loc 1 76 13 view .LVU76
+ 235 00ee 774B     		ldr	r3, .L42+40
+ 236 00f0 93ED000A 		vldr.32	s0, [r3]
+ 237 00f4 FFF7FEFF 		bl	computeAxisCommands
+ 238              	.LVL14:
+  77:Src/main.c    ****             mixTable();
+ 239              		.loc 1 77 13 view .LVU77
+ 240 00f8 FFF7FEFF 		bl	mixTable
+ 241              	.LVL15:
+  78:Src/main.c    ****             dshotWrite(motor_value);
+ 242              		.loc 1 78 13 view .LVU78
+ 243 00fc 7A48     		ldr	r0, .L42+68
+ 244 00fe FFF7FEFF 		bl	dshotWrite
+ 245              	.LVL16:
+  79:Src/main.c    **** 
+  80:Src/main.c    ****             executionTime500Hz = micros() - currentTime;
+ 246              		.loc 1 80 13 view .LVU79
+ 247              		.loc 1 80 34 is_stmt 0 view .LVU80
+ 248 0102 FFF7FEFF 		bl	micros
+ 249              	.LVL17:
+ 250              		.loc 1 80 43 view .LVU81
+ 251 0106 041B     		subs	r4, r0, r4
+ 252              	.LVL18:
+ 253              		.loc 1 80 32 view .LVU82
+ 254 0108 784B     		ldr	r3, .L42+72
+ 255 010a 1C60     		str	r4, [r3]
+ 256 010c 6EE0     		b	.L3
+ 257              	.LVL19:
+ 258              	.L29:
+ 259              	.LBB19:
+ 260              	.LBB12:
+  76:Src/sensors/madgwick.h **** 	return roll;
+ 261              		.loc 2 76 23 is_stmt 1 view .LVU83
+ 262 010e FFF7FEFF 		bl	computeAngles
+ 263              	.LVL20:
+ 264 0112 C4E7     		b	.L4
+ 265              	.L30:
+ 266              	.LBE12:
+ 267              	.LBE19:
+ 268              	.LBB20:
+ 269              	.LBB15:
+  87:Src/sensors/madgwick.h **** 	return pitch;
+ 270              		.loc 2 87 23 view .LVU84
+ 271 0114 FFF7FEFF 		bl	computeAngles
+ 272              	.LVL21:
+ 273 0118 C8E7     		b	.L5
+ 274              	.L31:
+ 275              	.LBE15:
+ 276              	.LBE20:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 9
+
+
+ 277              	.LBB21:
+ 278              	.LBB18:
+  98:Src/sensors/madgwick.h **** 	return yaw;
+ 279              		.loc 2 98 23 view .LVU85
+ 280 011a FFF7FEFF 		bl	computeAngles
+ 281              	.LVL22:
+ 282 011e CCE7     		b	.L6
+ 283              	.LVL23:
+ 284              	.L36:
+  98:Src/sensors/madgwick.h **** 	return yaw;
+ 285              		.loc 2 98 23 is_stmt 0 view .LVU86
+ 286              	.LBE18:
+ 287              	.LBE21:
+  81:Src/main.c    ****         }
+  82:Src/main.c    **** 
+  83:Src/main.c    ****         ///////////////////////////////
+  84:Src/main.c    **** 
+  85:Src/main.c    ****         if (frame_200Hz)
+  86:Src/main.c    ****         {
+  87:Src/main.c    ****             frame_200Hz = false;
+ 288              		.loc 1 87 13 is_stmt 1 view .LVU87
+ 289              		.loc 1 87 25 is_stmt 0 view .LVU88
+ 290 0120 734B     		ldr	r3, .L42+76
+ 291 0122 0022     		movs	r2, #0
+ 292 0124 1A70     		strb	r2, [r3]
+  88:Src/main.c    **** 
+  89:Src/main.c    ****             currentTime = micros();
+ 293              		.loc 1 89 13 is_stmt 1 view .LVU89
+ 294              		.loc 1 89 27 is_stmt 0 view .LVU90
+ 295 0126 FFF7FEFF 		bl	micros
+ 296              	.LVL24:
+ 297 012a 0446     		mov	r4, r0
+ 298              	.LVL25:
+  90:Src/main.c    ****             deltaTime200Hz = currentTime - previous200HzTime;
+ 299              		.loc 1 90 13 is_stmt 1 view .LVU91
+ 300              		.loc 1 90 42 is_stmt 0 view .LVU92
+ 301 012c 714A     		ldr	r2, .L42+80
+ 302 012e 1368     		ldr	r3, [r2]
+ 303 0130 C31A     		subs	r3, r0, r3
+ 304              		.loc 1 90 28 view .LVU93
+ 305 0132 7149     		ldr	r1, .L42+84
+ 306 0134 0B60     		str	r3, [r1]
+  91:Src/main.c    ****             previous200HzTime = currentTime;
+ 307              		.loc 1 91 13 is_stmt 1 view .LVU94
+ 308              		.loc 1 91 31 is_stmt 0 view .LVU95
+ 309 0136 1060     		str	r0, [r2]
+  92:Src/main.c    **** 
+  93:Src/main.c    ****             ibusProcess();
+ 310              		.loc 1 93 13 is_stmt 1 view .LVU96
+ 311 0138 FFF7FEFF 		bl	ibusProcess
+ 312              	.LVL26:
+  94:Src/main.c    **** 
+  95:Src/main.c    ****             executionTime200Hz = micros() - currentTime;
+ 313              		.loc 1 95 13 view .LVU97
+ 314              		.loc 1 95 34 is_stmt 0 view .LVU98
+ 315 013c FFF7FEFF 		bl	micros
+ 316              	.LVL27:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 10
+
+
+ 317              		.loc 1 95 43 view .LVU99
+ 318 0140 041B     		subs	r4, r0, r4
+ 319              	.LVL28:
+ 320              		.loc 1 95 32 view .LVU100
+ 321 0142 6E4B     		ldr	r3, .L42+88
+ 322 0144 1C60     		str	r4, [r3]
+ 323 0146 55E0     		b	.L7
+ 324              	.L37:
+  96:Src/main.c    ****         }
+  97:Src/main.c    **** 
+  98:Src/main.c    ****         ///////////////////////////////
+  99:Src/main.c    **** 
+ 100:Src/main.c    ****         if (frame_100Hz)
+ 101:Src/main.c    ****         {
+ 102:Src/main.c    **** 
+ 103:Src/main.c    ****             frame_100Hz = false;
+ 325              		.loc 1 103 13 is_stmt 1 view .LVU101
+ 326              		.loc 1 103 25 is_stmt 0 view .LVU102
+ 327 0148 6D4B     		ldr	r3, .L42+92
+ 328 014a 0022     		movs	r2, #0
+ 329 014c 1A70     		strb	r2, [r3]
+ 104:Src/main.c    **** 
+ 105:Src/main.c    ****             currentTime = micros();
+ 330              		.loc 1 105 13 is_stmt 1 view .LVU103
+ 331              		.loc 1 105 27 is_stmt 0 view .LVU104
+ 332 014e FFF7FEFF 		bl	micros
+ 333              	.LVL29:
+ 334 0152 0446     		mov	r4, r0
+ 335              	.LVL30:
+ 106:Src/main.c    ****             deltaTime100Hz = currentTime - previous100HzTime;
+ 336              		.loc 1 106 13 is_stmt 1 view .LVU105
+ 337              		.loc 1 106 42 is_stmt 0 view .LVU106
+ 338 0154 6B4A     		ldr	r2, .L42+96
+ 339 0156 1368     		ldr	r3, [r2]
+ 340 0158 C31A     		subs	r3, r0, r3
+ 341              		.loc 1 106 28 view .LVU107
+ 342 015a 6B49     		ldr	r1, .L42+100
+ 343 015c 0B60     		str	r3, [r1]
+ 107:Src/main.c    ****             previous100HzTime = currentTime;
+ 344              		.loc 1 107 13 is_stmt 1 view .LVU108
+ 345              		.loc 1 107 31 is_stmt 0 view .LVU109
+ 346 015e 1060     		str	r0, [r2]
+ 108:Src/main.c    **** 
+ 109:Src/main.c    ****             if (armed == false)
+ 347              		.loc 1 109 13 is_stmt 1 view .LVU110
+ 348              		.loc 1 109 23 is_stmt 0 view .LVU111
+ 349 0160 6A4B     		ldr	r3, .L42+104
+ 350 0162 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 351              		.loc 1 109 16 view .LVU112
+ 352 0164 2BB1     		cbz	r3, .L32
+ 353              	.LVL31:
+ 354              	.L9:
+ 110:Src/main.c    ****             {
+ 111:Src/main.c    ****                 printLog(PITCH);
+ 112:Src/main.c    ****             }
+ 113:Src/main.c    **** 
+ 114:Src/main.c    ****             executionTime100Hz = micros() - currentTime;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 11
+
+
+ 355              		.loc 1 114 13 is_stmt 1 view .LVU113
+ 356              		.loc 1 114 34 is_stmt 0 view .LVU114
+ 357 0166 FFF7FEFF 		bl	micros
+ 358              	.LVL32:
+ 359              		.loc 1 114 43 view .LVU115
+ 360 016a 041B     		subs	r4, r0, r4
+ 361              	.LVL33:
+ 362              		.loc 1 114 32 view .LVU116
+ 363 016c 684B     		ldr	r3, .L42+108
+ 364 016e 1C60     		str	r4, [r3]
+ 365 0170 44E0     		b	.L8
+ 366              	.LVL34:
+ 367              	.L32:
+ 111:Src/main.c    ****             }
+ 368              		.loc 1 111 17 is_stmt 1 view .LVU117
+ 369 0172 0120     		movs	r0, #1
+ 370              	.LVL35:
+ 111:Src/main.c    ****             }
+ 371              		.loc 1 111 17 is_stmt 0 view .LVU118
+ 372 0174 FFF7FEFF 		bl	printLog
+ 373              	.LVL36:
+ 374 0178 F5E7     		b	.L9
+ 375              	.LVL37:
+ 376              	.L38:
+ 115:Src/main.c    ****         }
+ 116:Src/main.c    ****         if (frame_50Hz)
+ 117:Src/main.c    ****         {
+ 118:Src/main.c    **** 
+ 119:Src/main.c    ****             frame_50Hz = false;
+ 377              		.loc 1 119 13 is_stmt 1 view .LVU119
+ 378              		.loc 1 119 24 is_stmt 0 view .LVU120
+ 379 017a 664B     		ldr	r3, .L42+112
+ 380 017c 0022     		movs	r2, #0
+ 381 017e 1A70     		strb	r2, [r3]
+ 120:Src/main.c    **** 
+ 121:Src/main.c    ****             currentTime = micros();
+ 382              		.loc 1 121 13 is_stmt 1 view .LVU121
+ 383              		.loc 1 121 27 is_stmt 0 view .LVU122
+ 384 0180 FFF7FEFF 		bl	micros
+ 385              	.LVL38:
+ 386 0184 0446     		mov	r4, r0
+ 387              	.LVL39:
+ 122:Src/main.c    ****             deltaTime50Hz = currentTime - previous50HzTime;
+ 388              		.loc 1 122 13 is_stmt 1 view .LVU123
+ 389              		.loc 1 122 41 is_stmt 0 view .LVU124
+ 390 0186 644A     		ldr	r2, .L42+116
+ 391 0188 1368     		ldr	r3, [r2]
+ 392 018a C31A     		subs	r3, r0, r3
+ 393              		.loc 1 122 27 view .LVU125
+ 394 018c 6349     		ldr	r1, .L42+120
+ 395 018e 0B60     		str	r3, [r1]
+ 123:Src/main.c    ****             previous50HzTime = currentTime;
+ 396              		.loc 1 123 13 is_stmt 1 view .LVU126
+ 397              		.loc 1 123 30 is_stmt 0 view .LVU127
+ 398 0190 1060     		str	r0, [r2]
+ 124:Src/main.c    **** 
+ 125:Src/main.c    ****             executionTime50Hz = micros() - currentTime;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 12
+
+
+ 399              		.loc 1 125 13 is_stmt 1 view .LVU128
+ 400              		.loc 1 125 33 is_stmt 0 view .LVU129
+ 401 0192 FFF7FEFF 		bl	micros
+ 402              	.LVL40:
+ 403              		.loc 1 125 42 view .LVU130
+ 404 0196 041B     		subs	r4, r0, r4
+ 405              	.LVL41:
+ 406              		.loc 1 125 31 view .LVU131
+ 407 0198 614B     		ldr	r3, .L42+124
+ 408 019a 1C60     		str	r4, [r3]
+ 409 019c 32E0     		b	.L10
+ 410              	.L39:
+ 126:Src/main.c    ****         }
+ 127:Src/main.c    **** 
+ 128:Src/main.c    ****         ///////////////////////////////
+ 129:Src/main.c    **** 
+ 130:Src/main.c    ****         if (frame_10Hz)
+ 131:Src/main.c    ****         {
+ 132:Src/main.c    **** 
+ 133:Src/main.c    ****             frame_10Hz = false;
+ 411              		.loc 1 133 13 is_stmt 1 view .LVU132
+ 412              		.loc 1 133 24 is_stmt 0 view .LVU133
+ 413 019e 614B     		ldr	r3, .L42+128
+ 414 01a0 0022     		movs	r2, #0
+ 415 01a2 1A70     		strb	r2, [r3]
+ 134:Src/main.c    **** 
+ 135:Src/main.c    ****             currentTime = micros();
+ 416              		.loc 1 135 13 is_stmt 1 view .LVU134
+ 417              		.loc 1 135 27 is_stmt 0 view .LVU135
+ 418 01a4 FFF7FEFF 		bl	micros
+ 419              	.LVL42:
+ 420 01a8 0446     		mov	r4, r0
+ 421              	.LVL43:
+ 136:Src/main.c    ****             deltaTime10Hz = currentTime - previous10HzTime;
+ 422              		.loc 1 136 13 is_stmt 1 view .LVU136
+ 423              		.loc 1 136 41 is_stmt 0 view .LVU137
+ 424 01aa 5F4A     		ldr	r2, .L42+132
+ 425 01ac 1368     		ldr	r3, [r2]
+ 426 01ae C31A     		subs	r3, r0, r3
+ 427              		.loc 1 136 27 view .LVU138
+ 428 01b0 5E49     		ldr	r1, .L42+136
+ 429 01b2 0B60     		str	r3, [r1]
+ 137:Src/main.c    ****             previous10HzTime = currentTime;
+ 430              		.loc 1 137 13 is_stmt 1 view .LVU139
+ 431              		.loc 1 137 30 is_stmt 0 view .LVU140
+ 432 01b4 1060     		str	r0, [r2]
+ 138:Src/main.c    ****             executionTime10Hz = micros() - currentTime;
+ 433              		.loc 1 138 13 is_stmt 1 view .LVU141
+ 434              		.loc 1 138 33 is_stmt 0 view .LVU142
+ 435 01b6 FFF7FEFF 		bl	micros
+ 436              	.LVL44:
+ 437              		.loc 1 138 42 view .LVU143
+ 438 01ba 041B     		subs	r4, r0, r4
+ 439              	.LVL45:
+ 440              		.loc 1 138 31 view .LVU144
+ 441 01bc 5C4B     		ldr	r3, .L42+140
+ 442 01be 1C60     		str	r4, [r3]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 13
+
+
+ 443 01c0 24E0     		b	.L11
+ 444              	.LVL46:
+ 445              	.L13:
+ 139:Src/main.c    ****         }
+ 140:Src/main.c    **** 
+ 141:Src/main.c    ****         ///////////////////////////////
+ 142:Src/main.c    **** 
+ 143:Src/main.c    ****         if (frame_5Hz)
+ 144:Src/main.c    ****         {
+ 145:Src/main.c    ****             frame_5Hz = false;
+ 146:Src/main.c    **** 
+ 147:Src/main.c    ****             currentTime = micros();
+ 148:Src/main.c    ****             deltaTime5Hz = currentTime - previous5HzTime;
+ 149:Src/main.c    ****             previous5HzTime = currentTime;
+ 150:Src/main.c    **** 
+ 151:Src/main.c    ****             battMonRead();
+ 152:Src/main.c    ****             if (battEmpty)
+ 153:Src/main.c    ****                 led4TOGGLE();
+ 154:Src/main.c    ****             else
+ 155:Src/main.c    ****                 led4OFF();
+ 446              		.loc 1 155 17 is_stmt 1 view .LVU145
+ 447 01c2 FFF7FEFF 		bl	led4OFF
+ 448              	.LVL47:
+ 449              	.L14:
+ 156:Src/main.c    **** 
+ 157:Src/main.c    ****             executionTime5Hz = micros() - currentTime;
+ 450              		.loc 1 157 13 view .LVU146
+ 451              		.loc 1 157 32 is_stmt 0 view .LVU147
+ 452 01c6 FFF7FEFF 		bl	micros
+ 453              	.LVL48:
+ 454              		.loc 1 157 41 view .LVU148
+ 455 01ca 041B     		subs	r4, r0, r4
+ 456              	.LVL49:
+ 457              		.loc 1 157 30 view .LVU149
+ 458 01cc 594B     		ldr	r3, .L42+144
+ 459 01ce 1C60     		str	r4, [r3]
+ 460              	.L12:
+ 158:Src/main.c    ****         }
+ 159:Src/main.c    **** 
+ 160:Src/main.c    ****         ///////////////////////////////
+ 161:Src/main.c    **** 
+ 162:Src/main.c    ****         if (frame_1Hz)
+ 461              		.loc 1 162 9 is_stmt 1 view .LVU150
+ 462              		.loc 1 162 13 is_stmt 0 view .LVU151
+ 463 01d0 594B     		ldr	r3, .L42+148
+ 464 01d2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 465              		.loc 1 162 12 view .LVU152
+ 466 01d4 002B     		cmp	r3, #0
+ 467 01d6 32D1     		bne	.L33
+ 468              	.L15:
+  34:Src/main.c    ****     {
+ 469              		.loc 1 34 5 is_stmt 1 view .LVU153
+  36:Src/main.c    ****         {
+ 470              		.loc 1 36 9 view .LVU154
+  36:Src/main.c    ****         {
+ 471              		.loc 1 36 13 is_stmt 0 view .LVU155
+ 472 01d8 334B     		ldr	r3, .L42+4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 14
+
+
+ 473 01da 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  36:Src/main.c    ****         {
+ 474              		.loc 1 36 12 view .LVU156
+ 475 01dc 002B     		cmp	r3, #0
+ 476 01de 7FF418AF 		bne	.L34
+ 477              	.L2:
+  47:Src/main.c    ****         {
+ 478              		.loc 1 47 9 is_stmt 1 view .LVU157
+  47:Src/main.c    ****         {
+ 479              		.loc 1 47 13 is_stmt 0 view .LVU158
+ 480 01e2 354B     		ldr	r3, .L42+20
+ 481 01e4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  47:Src/main.c    ****         {
+ 482              		.loc 1 47 12 view .LVU159
+ 483 01e6 002B     		cmp	r3, #0
+ 484 01e8 7FF422AF 		bne	.L35
+ 485              	.L3:
+  85:Src/main.c    ****         {
+ 486              		.loc 1 85 9 is_stmt 1 view .LVU160
+  85:Src/main.c    ****         {
+ 487              		.loc 1 85 13 is_stmt 0 view .LVU161
+ 488 01ec 404B     		ldr	r3, .L42+76
+ 489 01ee 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  85:Src/main.c    ****         {
+ 490              		.loc 1 85 12 view .LVU162
+ 491 01f0 002B     		cmp	r3, #0
+ 492 01f2 95D1     		bne	.L36
+ 493              	.L7:
+ 100:Src/main.c    ****         {
+ 494              		.loc 1 100 9 is_stmt 1 view .LVU163
+ 100:Src/main.c    ****         {
+ 495              		.loc 1 100 13 is_stmt 0 view .LVU164
+ 496 01f4 424B     		ldr	r3, .L42+92
+ 497 01f6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 100:Src/main.c    ****         {
+ 498              		.loc 1 100 12 view .LVU165
+ 499 01f8 002B     		cmp	r3, #0
+ 500 01fa A5D1     		bne	.L37
+ 501              	.L8:
+ 116:Src/main.c    ****         {
+ 502              		.loc 1 116 9 is_stmt 1 view .LVU166
+ 116:Src/main.c    ****         {
+ 503              		.loc 1 116 13 is_stmt 0 view .LVU167
+ 504 01fc 454B     		ldr	r3, .L42+112
+ 505 01fe 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 116:Src/main.c    ****         {
+ 506              		.loc 1 116 12 view .LVU168
+ 507 0200 002B     		cmp	r3, #0
+ 508 0202 BAD1     		bne	.L38
+ 509              	.L10:
+ 130:Src/main.c    ****         {
+ 510              		.loc 1 130 9 is_stmt 1 view .LVU169
+ 130:Src/main.c    ****         {
+ 511              		.loc 1 130 13 is_stmt 0 view .LVU170
+ 512 0204 474B     		ldr	r3, .L42+128
+ 513 0206 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 130:Src/main.c    ****         {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 15
+
+
+ 514              		.loc 1 130 12 view .LVU171
+ 515 0208 002B     		cmp	r3, #0
+ 516 020a C8D1     		bne	.L39
+ 517              	.L11:
+ 143:Src/main.c    ****         {
+ 518              		.loc 1 143 9 is_stmt 1 view .LVU172
+ 143:Src/main.c    ****         {
+ 519              		.loc 1 143 13 is_stmt 0 view .LVU173
+ 520 020c 4B4B     		ldr	r3, .L42+152
+ 521 020e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 143:Src/main.c    ****         {
+ 522              		.loc 1 143 12 view .LVU174
+ 523 0210 002B     		cmp	r3, #0
+ 524 0212 DDD0     		beq	.L12
+ 145:Src/main.c    **** 
+ 525              		.loc 1 145 13 is_stmt 1 view .LVU175
+ 145:Src/main.c    **** 
+ 526              		.loc 1 145 23 is_stmt 0 view .LVU176
+ 527 0214 494B     		ldr	r3, .L42+152
+ 528 0216 0022     		movs	r2, #0
+ 529 0218 1A70     		strb	r2, [r3]
+ 147:Src/main.c    ****             deltaTime5Hz = currentTime - previous5HzTime;
+ 530              		.loc 1 147 13 is_stmt 1 view .LVU177
+ 147:Src/main.c    ****             deltaTime5Hz = currentTime - previous5HzTime;
+ 531              		.loc 1 147 27 is_stmt 0 view .LVU178
+ 532 021a FFF7FEFF 		bl	micros
+ 533              	.LVL50:
+ 534 021e 0446     		mov	r4, r0
+ 535              	.LVL51:
+ 148:Src/main.c    ****             previous5HzTime = currentTime;
+ 536              		.loc 1 148 13 is_stmt 1 view .LVU179
+ 148:Src/main.c    ****             previous5HzTime = currentTime;
+ 537              		.loc 1 148 40 is_stmt 0 view .LVU180
+ 538 0220 474A     		ldr	r2, .L42+156
+ 539 0222 1368     		ldr	r3, [r2]
+ 540 0224 C31A     		subs	r3, r0, r3
+ 148:Src/main.c    ****             previous5HzTime = currentTime;
+ 541              		.loc 1 148 26 view .LVU181
+ 542 0226 4749     		ldr	r1, .L42+160
+ 543 0228 0B60     		str	r3, [r1]
+ 149:Src/main.c    **** 
+ 544              		.loc 1 149 13 is_stmt 1 view .LVU182
+ 149:Src/main.c    **** 
+ 545              		.loc 1 149 29 is_stmt 0 view .LVU183
+ 546 022a 1060     		str	r0, [r2]
+ 151:Src/main.c    ****             if (battEmpty)
+ 547              		.loc 1 151 13 is_stmt 1 view .LVU184
+ 548 022c FFF7FEFF 		bl	battMonRead
+ 549              	.LVL52:
+ 152:Src/main.c    ****                 led4TOGGLE();
+ 550              		.loc 1 152 13 view .LVU185
+ 152:Src/main.c    ****                 led4TOGGLE();
+ 551              		.loc 1 152 17 is_stmt 0 view .LVU186
+ 552 0230 454B     		ldr	r3, .L42+164
+ 553 0232 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 152:Src/main.c    ****                 led4TOGGLE();
+ 554              		.loc 1 152 16 view .LVU187
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 16
+
+
+ 555 0234 002B     		cmp	r3, #0
+ 556 0236 C4D0     		beq	.L13
+ 153:Src/main.c    ****             else
+ 557              		.loc 1 153 17 is_stmt 1 view .LVU188
+ 558 0238 FFF7FEFF 		bl	led4TOGGLE
+ 559              	.LVL53:
+ 560 023c C3E7     		b	.L14
+ 561              	.LVL54:
+ 562              	.L33:
+ 163:Src/main.c    ****         {
+ 164:Src/main.c    ****             frame_1Hz = false;
+ 563              		.loc 1 164 13 view .LVU189
+ 564              		.loc 1 164 23 is_stmt 0 view .LVU190
+ 565 023e 3E4B     		ldr	r3, .L42+148
+ 566 0240 0022     		movs	r2, #0
+ 567 0242 1A70     		strb	r2, [r3]
+ 165:Src/main.c    **** 
+ 166:Src/main.c    ****             currentTime = micros();
+ 568              		.loc 1 166 13 is_stmt 1 view .LVU191
+ 569              		.loc 1 166 27 is_stmt 0 view .LVU192
+ 570 0244 FFF7FEFF 		bl	micros
+ 571              	.LVL55:
+ 572 0248 0446     		mov	r4, r0
+ 573              	.LVL56:
+ 167:Src/main.c    ****             deltaTime1Hz = currentTime - previous1HzTime;
+ 574              		.loc 1 167 13 is_stmt 1 view .LVU193
+ 575              		.loc 1 167 40 is_stmt 0 view .LVU194
+ 576 024a 404A     		ldr	r2, .L42+168
+ 577 024c 1368     		ldr	r3, [r2]
+ 578 024e C31A     		subs	r3, r0, r3
+ 579              		.loc 1 167 26 view .LVU195
+ 580 0250 3F49     		ldr	r1, .L42+172
+ 581 0252 0B60     		str	r3, [r1]
+ 168:Src/main.c    ****             previous1HzTime = currentTime;
+ 582              		.loc 1 168 13 is_stmt 1 view .LVU196
+ 583              		.loc 1 168 29 is_stmt 0 view .LVU197
+ 584 0254 1060     		str	r0, [r2]
+ 169:Src/main.c    **** 
+ 170:Src/main.c    ****             if (armed) // 1 - Armed
+ 585              		.loc 1 170 13 is_stmt 1 view .LVU198
+ 586              		.loc 1 170 17 is_stmt 0 view .LVU199
+ 587 0256 2D4B     		ldr	r3, .L42+104
+ 588 0258 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 589              		.loc 1 170 16 view .LVU200
+ 590 025a 002B     		cmp	r3, #0
+ 591 025c 00F08280 		beq	.L16
+ 171:Src/main.c    ****                 led1ON();
+ 592              		.loc 1 171 17 is_stmt 1 view .LVU201
+ 593 0260 FFF7FEFF 		bl	led1ON
+ 594              	.LVL57:
+ 595              	.L17:
+ 172:Src/main.c    ****             else
+ 173:Src/main.c    ****                 led1OFF();
+ 174:Src/main.c    ****             if (systemReady) // 2 - System Initialized
+ 596              		.loc 1 174 13 view .LVU202
+ 597              		.loc 1 174 17 is_stmt 0 view .LVU203
+ 598 0264 0F4B     		ldr	r3, .L42
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 17
+
+
+ 599 0266 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 600              		.loc 1 174 16 view .LVU204
+ 601 0268 002B     		cmp	r3, #0
+ 602 026a 7ED0     		beq	.L18
+ 175:Src/main.c    ****                 led2ON();
+ 603              		.loc 1 175 17 is_stmt 1 view .LVU205
+ 604 026c FFF7FEFF 		bl	led2ON
+ 605              	.LVL58:
+ 606              	.L19:
+ 176:Src/main.c    ****             else
+ 177:Src/main.c    ****                 led2OFF();
+ 178:Src/main.c    ****             if (rcActive) // 3 - Receiver Connected
+ 607              		.loc 1 178 13 view .LVU206
+ 608              		.loc 1 178 17 is_stmt 0 view .LVU207
+ 609 0270 384B     		ldr	r3, .L42+176
+ 610 0272 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 611              		.loc 1 178 16 view .LVU208
+ 612 0274 002B     		cmp	r3, #0
+ 613 0276 7BD0     		beq	.L20
+ 179:Src/main.c    ****                 led3ON();
+ 614              		.loc 1 179 17 is_stmt 1 view .LVU209
+ 615 0278 FFF7FEFF 		bl	led3ON
+ 616              	.LVL59:
+ 617              	.L21:
+ 180:Src/main.c    ****             else
+ 181:Src/main.c    ****                 led3OFF();
+ 182:Src/main.c    ****             if (battLow) // 4 - Battery Low
+ 618              		.loc 1 182 13 view .LVU210
+ 619              		.loc 1 182 17 is_stmt 0 view .LVU211
+ 620 027c 364B     		ldr	r3, .L42+180
+ 621 027e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 622              		.loc 1 182 16 view .LVU212
+ 623 0280 002B     		cmp	r3, #0
+ 624 0282 78D0     		beq	.L22
+ 183:Src/main.c    ****                 led4TOGGLE();
+ 625              		.loc 1 183 17 is_stmt 1 view .LVU213
+ 626 0284 FFF7FEFF 		bl	led4TOGGLE
+ 627              	.LVL60:
+ 628              	.L23:
+ 184:Src/main.c    ****             else
+ 185:Src/main.c    ****                 led4OFF();
+ 186:Src/main.c    ****             if (mode == FLIGHT) // 5(toggle) - Flight Mode
+ 629              		.loc 1 186 13 view .LVU214
+ 630              		.loc 1 186 22 is_stmt 0 view .LVU215
+ 631 0288 344B     		ldr	r3, .L42+184
+ 632 028a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 633              		.loc 1 186 16 view .LVU216
+ 634 028c 012B     		cmp	r3, #1
+ 635 028e 75D0     		beq	.L40
+ 187:Src/main.c    ****                 led5TOGGLE();
+ 188:Src/main.c    ****             else if (mode == ROVER) // 5(on) - Rover Mode
+ 636              		.loc 1 188 18 is_stmt 1 view .LVU217
+ 637              		.loc 1 188 21 is_stmt 0 view .LVU218
+ 638 0290 032B     		cmp	r3, #3
+ 639 0292 76D0     		beq	.L41
+ 189:Src/main.c    ****                 led5ON();
+ 190:Src/main.c    ****             else
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 18
+
+
+ 191:Src/main.c    ****                 led5OFF();
+ 640              		.loc 1 191 17 is_stmt 1 view .LVU219
+ 641 0294 FFF7FEFF 		bl	led5OFF
+ 642              	.LVL61:
+ 643              	.L25:
+ 192:Src/main.c    **** 
+ 193:Src/main.c    ****             executionTime1Hz = micros() - currentTime;
+ 644              		.loc 1 193 13 view .LVU220
+ 645              		.loc 1 193 32 is_stmt 0 view .LVU221
+ 646 0298 FFF7FEFF 		bl	micros
+ 647              	.LVL62:
+ 648              		.loc 1 193 41 view .LVU222
+ 649 029c 041B     		subs	r4, r0, r4
+ 650              	.LVL63:
+ 651              		.loc 1 193 30 view .LVU223
+ 652 029e 304B     		ldr	r3, .L42+188
+ 653 02a0 1C60     		str	r4, [r3]
+ 654 02a2 99E7     		b	.L15
+ 655              	.L43:
+ 656              		.align	2
+ 657              	.L42:
+ 658 02a4 00000000 		.word	systemReady
+ 659 02a8 00000000 		.word	frame_1000Hz
+ 660 02ac 00000000 		.word	previous1000HzTime
+ 661 02b0 00000000 		.word	deltaTime1000Hz
+ 662 02b4 00000000 		.word	executionTime1000Hz
+ 663 02b8 00000000 		.word	frame_500Hz
+ 664 02bc 00000000 		.word	previous500HzTime
+ 665 02c0 00000000 		.word	deltaTime500Hz
+ 666 02c4 00000000 		.word	.LANCHOR0
+ 667 02c8 BD370635 		.word	889599933
+ 668 02cc 00000000 		.word	dt500Hz
+ 669 02d0 00000000 		.word	.LANCHOR1
+ 670 02d4 00000000 		.word	anglesComputed
+ 671 02d8 00000000 		.word	roll
+ 672 02dc 00000000 		.word	pitch
+ 673 02e0 00000000 		.word	yaw
+ 674 02e4 E12E6542 		.word	1113927393
+ 675 02e8 00000000 		.word	motor_value
+ 676 02ec 00000000 		.word	executionTime500Hz
+ 677 02f0 00000000 		.word	frame_200Hz
+ 678 02f4 00000000 		.word	previous200HzTime
+ 679 02f8 00000000 		.word	deltaTime200Hz
+ 680 02fc 00000000 		.word	executionTime200Hz
+ 681 0300 00000000 		.word	frame_100Hz
+ 682 0304 00000000 		.word	previous100HzTime
+ 683 0308 00000000 		.word	deltaTime100Hz
+ 684 030c 00000000 		.word	armed
+ 685 0310 00000000 		.word	executionTime100Hz
+ 686 0314 00000000 		.word	frame_50Hz
+ 687 0318 00000000 		.word	previous50HzTime
+ 688 031c 00000000 		.word	deltaTime50Hz
+ 689 0320 00000000 		.word	executionTime50Hz
+ 690 0324 00000000 		.word	frame_10Hz
+ 691 0328 00000000 		.word	previous10HzTime
+ 692 032c 00000000 		.word	deltaTime10Hz
+ 693 0330 00000000 		.word	executionTime10Hz
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 19
+
+
+ 694 0334 00000000 		.word	executionTime5Hz
+ 695 0338 00000000 		.word	frame_1Hz
+ 696 033c 00000000 		.word	frame_5Hz
+ 697 0340 00000000 		.word	previous5HzTime
+ 698 0344 00000000 		.word	deltaTime5Hz
+ 699 0348 00000000 		.word	battEmpty
+ 700 034c 00000000 		.word	previous1HzTime
+ 701 0350 00000000 		.word	deltaTime1Hz
+ 702 0354 00000000 		.word	rcActive
+ 703 0358 00000000 		.word	battLow
+ 704 035c 00000000 		.word	mode
+ 705 0360 00000000 		.word	executionTime1Hz
+ 706              	.LVL64:
+ 707              	.L16:
+ 173:Src/main.c    ****             if (systemReady) // 2 - System Initialized
+ 708              		.loc 1 173 17 is_stmt 1 view .LVU224
+ 709 0364 FFF7FEFF 		bl	led1OFF
+ 710              	.LVL65:
+ 173:Src/main.c    ****             if (systemReady) // 2 - System Initialized
+ 711              		.loc 1 173 17 is_stmt 0 view .LVU225
+ 712 0368 7CE7     		b	.L17
+ 713              	.L18:
+ 177:Src/main.c    ****             if (rcActive) // 3 - Receiver Connected
+ 714              		.loc 1 177 17 is_stmt 1 view .LVU226
+ 715 036a FFF7FEFF 		bl	led2OFF
+ 716              	.LVL66:
+ 717 036e 7FE7     		b	.L19
+ 718              	.L20:
+ 181:Src/main.c    ****             if (battLow) // 4 - Battery Low
+ 719              		.loc 1 181 17 view .LVU227
+ 720 0370 FFF7FEFF 		bl	led3OFF
+ 721              	.LVL67:
+ 722 0374 82E7     		b	.L21
+ 723              	.L22:
+ 185:Src/main.c    ****             if (mode == FLIGHT) // 5(toggle) - Flight Mode
+ 724              		.loc 1 185 17 view .LVU228
+ 725 0376 FFF7FEFF 		bl	led4OFF
+ 726              	.LVL68:
+ 727 037a 85E7     		b	.L23
+ 728              	.L40:
+ 187:Src/main.c    ****             else if (mode == ROVER) // 5(on) - Rover Mode
+ 729              		.loc 1 187 17 view .LVU229
+ 730 037c FFF7FEFF 		bl	led5TOGGLE
+ 731              	.LVL69:
+ 732 0380 8AE7     		b	.L25
+ 733              	.L41:
+ 189:Src/main.c    ****             else
+ 734              		.loc 1 189 17 view .LVU230
+ 735 0382 FFF7FEFF 		bl	led5ON
+ 736              	.LVL70:
+ 737 0386 87E7     		b	.L25
+ 738              		.cfi_endproc
+ 739              	.LFE187:
+ 741              		.section	.text.Error_Handler,"ax",%progbits
+ 742              		.align	1
+ 743              		.global	Error_Handler
+ 744              		.syntax unified
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 20
+
+
+ 745              		.thumb
+ 746              		.thumb_func
+ 747              		.fpu fpv5-sp-d16
+ 749              	Error_Handler:
+ 750              	.LFB188:
+ 194:Src/main.c    ****         }
+ 195:Src/main.c    ****     }
+ 196:Src/main.c    **** }
+ 197:Src/main.c    **** 
+ 198:Src/main.c    **** #else
+ 199:Src/main.c    **** const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
+ 200:Src/main.c    **** 
+ 201:Src/main.c    **** eepromConfig_t eepromConfig;
+ 202:Src/main.c    **** 
+ 203:Src/main.c    **** uint8_t execUpCount = 0;
+ 204:Src/main.c    **** 
+ 205:Src/main.c    **** sensors_t sensors;
+ 206:Src/main.c    **** 
+ 207:Src/main.c    **** uint16_t timerValue;
+ 208:Src/main.c    **** 
+ 209:Src/main.c    **** int main(void)
+ 210:Src/main.c    **** {
+ 211:Src/main.c    ****     systemInit();
+ 212:Src/main.c    ****     systemReady= true;
+ 213:Src/main.c    **** 
+ 214:Src/main.c    ****     while (1)
+ 215:Src/main.c    ****     {
+ 216:Src/main.c    ****         if(frame_1000Hz)
+ 217:Src/main.c    ****             frame_1000Hz = false;
+ 218:Src/main.c    ****         if (frame_500Hz)
+ 219:Src/main.c    ****         {
+ 220:Src/main.c    ****             frame_500Hz = false;
+ 221:Src/main.c    **** 
+ 222:Src/main.c    ****             computeRotations500Hz();
+ 223:Src/main.c    **** 
+ 224:Src/main.c    ****             updateIMU(sensors.gyro500Hz[ROLL], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
+ 225:Src/main.c    ****                       sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXI
+ 226:Src/main.c    ****             sensors.attitude500Hz[ROLL] = getRollRadians();
+ 227:Src/main.c    ****             sensors.attitude500Hz[PITCH] = getPitchRadians();
+ 228:Src/main.c    ****             sensors.attitude500Hz[YAW] = getYawRadians();
+ 229:Src/main.c    **** 
+ 230:Src/main.c    ****             sensors.attDeg500Hz[ROLL] = sensors.attitude500Hz[ROLL] * 57.29578f;
+ 231:Src/main.c    ****             sensors.attDeg500Hz[PITCH] = sensors.attitude500Hz[PITCH] * 57.29578f;
+ 232:Src/main.c    ****             sensors.attDeg500Hz[YAW] = sensors.attitude500Hz[YAW] * 57.29578f;
+ 233:Src/main.c    **** 
+ 234:Src/main.c    ****             printf("%f\n", sensors.attDeg500Hz[ROLL]);
+ 235:Src/main.c    ****         }
+ 236:Src/main.c    ****     }
+ 237:Src/main.c    **** }
+ 238:Src/main.c    **** 
+ 239:Src/main.c    **** #endif
+ 240:Src/main.c    **** 
+ 241:Src/main.c    **** /**
+ 242:Src/main.c    ****  * @brief  This function is executed in case of error occurrence.
+ 243:Src/main.c    ****  * @retval None
+ 244:Src/main.c    ****  */
+ 245:Src/main.c    **** void Error_Handler(void)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 21
+
+
+ 246:Src/main.c    **** {
+ 751              		.loc 1 246 1 view -0
+ 752              		.cfi_startproc
+ 753              		@ Volatile: function does not return.
+ 754              		@ args = 0, pretend = 0, frame = 0
+ 755              		@ frame_needed = 0, uses_anonymous_args = 0
+ 756              		@ link register save eliminated.
+ 247:Src/main.c    ****     __disable_irq();
+ 757              		.loc 1 247 5 view .LVU232
+ 758              	.LBB22:
+ 759              	.LBI22:
+ 760              		.file 3 "Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include
+   1:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
+   4:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * @version  V5.0.4
+   5:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * @date     09. April 2018
+   6:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /*
+   8:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+   9:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  *
+  10:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * SPDX-License-Identifier: Apache-2.0
+  11:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  *
+  12:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  13:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
+  14:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
+  15:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  *
+  16:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
+  17:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  *
+  18:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
+  19:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  20:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  21:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
+  22:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
+  23:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+  24:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+  25:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  26:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  27:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+  28:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  29:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  30:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  31:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  32:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  33:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+  34:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /* Fallback for __has_builtin */
+  35:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef __has_builtin
+  36:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
+  37:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  38:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+  39:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
+  40:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
+  41:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
+  42:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  43:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
+  44:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
+  45:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 22
+
+
+  46:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
+  47:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
+  48:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  49:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
+  50:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
+  51:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif                                           
+  52:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
+  53:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
+  54:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  55:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
+  56:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
+  57:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  58:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __WEAK
+  59:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __WEAK                                 __attribute__((weak))
+  60:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  61:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED
+  62:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED                               __attribute__((packed, aligned(1)))
+  63:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  64:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_STRUCT
+  65:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_STRUCT                        struct __attribute__((packed, aligned(1)))
+  66:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  67:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __PACKED_UNION
+  68:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __PACKED_UNION                         union __attribute__((packed, aligned(1)))
+  69:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  70:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
+  71:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  72:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  73:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  74:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+  75:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  76:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+  77:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  78:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
+  79:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  80:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  81:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  82:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+  83:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  84:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
+  85:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  86:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+  87:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  88:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  89:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  90:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+  91:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+  92:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
+  93:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+  94:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+  95:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+  96:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+  97:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+  98:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+  99:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 100:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ 101:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ 102:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 23
+
+
+ 103:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ 104:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ 105:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
+ 106:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+ 107:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
+ 108:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ 109:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ 110:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
+ 111:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
+ 112:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ 113:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
+ 114:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
+ 115:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ 116:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ 117:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ 118:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+ 119:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 120:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+ 121:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   @{
+ 122:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ 123:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ 124:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
+ 125:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+ 126:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+ 127:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 128:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ 129:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ 130:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
+ 131:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+ 132:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
+ 133:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ 134:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ 135:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
+ 136:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+ 137:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+ 138:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 139:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ 140:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
+ 761              		.loc 3 140 27 view .LVU233
+ 762              	.LBB23:
+ 141:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
+ 142:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+ 763              		.loc 3 142 3 view .LVU234
+ 764              		.syntax unified
+ 765              	@ 142 "Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cm
+ 766 0000 72B6     		cpsid i
+ 767              	@ 0 "" 2
+ 768              		.thumb
+ 769              		.syntax unified
+ 770              	.L45:
+ 771              	.LBE23:
+ 772              	.LBE22:
+ 248:Src/main.c    ****     while (1)
+ 773              		.loc 1 248 5 discriminator 1 view .LVU235
+ 249:Src/main.c    ****     {
+ 250:Src/main.c    ****     }
+ 774              		.loc 1 250 5 discriminator 1 view .LVU236
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 24
+
+
+ 248:Src/main.c    ****     while (1)
+ 775              		.loc 1 248 11 discriminator 1 view .LVU237
+ 776 0002 FEE7     		b	.L45
+ 777              		.cfi_endproc
+ 778              	.LFE188:
+ 780              		.global	timerValue
+ 781              		.global	sensors
+ 782              		.global	execUpCount
+ 783              		.global	eepromConfig
+ 784              		.global	eepromArray
+ 785              		.section	.bss.eepromConfig,"aw",%nobits
+ 786              		.align	3
+ 789              	eepromConfig:
+ 790 0000 00000000 		.space	312
+ 790      00000000 
+ 790      00000000 
+ 790      00000000 
+ 790      00000000 
+ 791              		.section	.bss.execUpCount,"aw",%nobits
+ 794              	execUpCount:
+ 795 0000 00       		.space	1
+ 796              		.section	.bss.sensors,"aw",%nobits
+ 797              		.align	2
+ 798              		.set	.LANCHOR1,. + 0
+ 801              	sensors:
+ 802 0000 00000000 		.space	60
+ 802      00000000 
+ 802      00000000 
+ 802      00000000 
+ 802      00000000 
+ 803              		.section	.bss.timerValue,"aw",%nobits
+ 804              		.align	1
+ 805              		.set	.LANCHOR0,. + 0
+ 808              	timerValue:
+ 809 0000 0000     		.space	2
+ 810              		.section	.eeprom,"a"
+ 811              		.align	2
+ 814              	eepromArray:
+ 815 0000 00000000 		.space	131072
+ 815      00000000 
+ 815      00000000 
+ 815      00000000 
+ 815      00000000 
+ 816              		.text
+ 817              	.Letext0:
+ 818              		.file 4 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 819              		.file 5 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 820              		.file 6 "Src/pid.h"
+ 821              		.file 7 "Src/autodrone32.h"
+ 822              		.file 8 "Src/battery.h"
+ 823              		.file 9 "Src/drv/drv_system.h"
+ 824              		.file 10 "Src/motion/process_commands.h"
+ 825              		.file 11 "Src/motors.h"
+ 826              		.file 12 "Src/sensors/ibus.h"
+ 827              		.file 13 "Src/drv/drv_tim.h"
+ 828              		.file 14 "Src/motion/rotations.h"
+ 829              		.file 15 "Src/motion/compute_axis_commands.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 25
+
+
+ 830              		.file 16 "Src/motion/mixer.h"
+ 831              		.file 17 "Src/drv/drv_dshot.h"
+ 832              		.file 18 "Src/logging.h"
+ 833              		.file 19 "Src/drv/drv_led.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:18     .text.main:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:26     .text.main:0000000000000000 main
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:658    .text.main:00000000000002a4 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:709    .text.main:0000000000000364 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:742    .text.Error_Handler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:749    .text.Error_Handler:0000000000000000 Error_Handler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:808    .bss.timerValue:0000000000000000 timerValue
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:801    .bss.sensors:0000000000000000 sensors
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:794    .bss.execUpCount:0000000000000000 execUpCount
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:789    .bss.eepromConfig:0000000000000000 eepromConfig
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:814    .eeprom:0000000000000000 eepromArray
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:786    .bss.eepromConfig:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:795    .bss.execUpCount:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:797    .bss.sensors:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:804    .bss.timerValue:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s:811    .eeprom:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+systemInit
+micros
+tim9Disable
+tim9GetCnt
+tim9ResetCnt
+tim9Enable
+computeRotations500Hz
+updateIMU
+processCommands
+computeAxisCommands
+mixTable
+dshotWrite
+computeAngles
+ibusProcess
+printLog
+led4OFF
+battMonRead
+led4TOGGLE
+led1ON
+led2ON
+led3ON
+led5OFF
+systemReady
+frame_1000Hz
+previous1000HzTime
+deltaTime1000Hz
+executionTime1000Hz
+frame_500Hz
+previous500HzTime
+deltaTime500Hz
+dt500Hz
+anglesComputed
+roll
+pitch
+yaw
+motor_value
+executionTime500Hz
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccV7vuXF.s 			page 27
+
+
+frame_200Hz
+previous200HzTime
+deltaTime200Hz
+executionTime200Hz
+frame_100Hz
+previous100HzTime
+deltaTime100Hz
+armed
+executionTime100Hz
+frame_50Hz
+previous50HzTime
+deltaTime50Hz
+executionTime50Hz
+frame_10Hz
+previous10HzTime
+deltaTime10Hz
+executionTime10Hz
+executionTime5Hz
+frame_1Hz
+frame_5Hz
+previous5HzTime
+deltaTime5Hz
+battEmpty
+previous1HzTime
+deltaTime1Hz
+rcActive
+battLow
+mode
+executionTime1Hz
+led1OFF
+led2OFF
+led3OFF
+led5TOGGLE
+led5ON

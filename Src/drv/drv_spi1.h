@@ -17,6 +17,7 @@
 #define SPI1_ENABLE					GPIOA->BSRR |= GPIO_BSRR_BR4
 #define SPI1_DISABLE				GPIOA->BSRR |= GPIO_BSRR_BS4
 
+#define SPI_BR_PRESCALER_8			(0x2 << 3U)
 #define SPI_BR_PRESCALER_16			(0x3 << 3U)
 #define SPI_BR_PRESCALER_128		(0x6 << 3U)
 

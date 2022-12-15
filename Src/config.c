@@ -27,7 +27,7 @@ void readEEPROM(void)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-HAL_StatusTypeDef
+void
 writeEEPROM(void)
 {
 	color(BLUE, YES);
@@ -35,46 +35,42 @@ writeEEPROM(void)
 
 	int32_t i;
 
-	HAL_StatusTypeDef status;
-
 	FLASH_EraseInitTypeDef erase;
+    bool status = true;
 
 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
 	erase.NbSectors = 1;
 	erase.Sector = FLASH_SECTOR_7;
 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
-	uint32_t err = 0;
 
 	eepromConfig_t *src = &eepromConfig;
 	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
 
 	// there's no reason to write these values to EEPROM, they'll just be noise
 
-	HAL_FLASH_Unlock();
+	status = flashUnlock();
 
-	status = HAL_FLASHEx_Erase(&erase, &err);
-
+	status = flashErase(&erase);
 	///////////////////////////////////
 
 	i = -1;
 
 	while (i++ < eepromConfigNUMWORD )
-		status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, (uint32_t)&dst[i], ((uint32_t*)src)[i]);
+		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
 
 	///////////////////////////////////
 
-	HAL_FLASH_Lock();
+	flashLock();
 
 	readEEPROM();
 
-	if(status == HAL_OK)
+	if(status)
 		color(GREEN, YES);
 	else
 		color(RED, YES);
 
 	printf("\nEEPROM write complete. Return status of %X\n", status);
 	colorDefault();
-	return status;
 }
 
 /** @brief Sets all the default config values

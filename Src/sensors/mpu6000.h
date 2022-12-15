@@ -86,8 +86,10 @@
 #define GYRO_SCALE_FACTOR  			0.000532632f  // (4/131) * pi/180   (32.75 LSB = 1 DPS)
 #define ACCEL_SCALE_FACTOR 			0.004788403f  // (16/65536) * 9.8065  (8192 LSB = 1 G)
 
+#define DEV_READ_ATTEMPTS           5U
+
 /* Global Variables */
-extern uint8_t rawData[16];
+extern uint8_t rawData[15];
 
 extern float   accelOneG;
 

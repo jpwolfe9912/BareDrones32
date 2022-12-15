@@ -13,134 +13,146 @@
 /* Includes */
 #include "board.h"
 
+volatile bool transferComplete = false;
+
+static void transferCompleteCallback(void);
+
 /** @brief Initializes SPI1.
  *
  *  @return Void.
  */
-void
-spi1Init(void)
+void spi1Init(void)
 {
-	printf("\nInitializing SPI 1\n");
+    printf("\nInitializing SPI 1\n");
 
-	/* USER CODE BEGIN SPI1_Init 0 */
-	/////////////////GPIO INIT///////////////////
-	// enable clock for GPIOA
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-	// set mode, speed, type, pull, AF
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER4;
-	GPIOA->MODER 	|= GPIO_MODER_MODER4_0;			// output mode
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR4;
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT4;
-	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR4_0;
-	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL4;
+    /* USER CODE BEGIN SPI1_Init 0 */
+    /////////////////GPIO INIT///////////////////
+    // enable clock for GPIOA
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    // set mode, speed, type, pull, AF
+    /* CS Pin */
+    GPIOA->MODER &= ~GPIO_MODER_MODER4;
+    GPIOA->MODER |= GPIO_MODER_MODER4_1; // AF mode
+    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR4;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT4;
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR4_0; // no pull
+    GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL4;
+    GPIOA->AFR[0] |= (0x5 << (4U * 4U)); // AF 5
 
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER5;
-	GPIOA->MODER 	|= GPIO_MODER_MODER5_1;			// AF Mode
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR5;
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT5;
-	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR5_0;
-	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL5;
-	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 5U));// AF 5
+    /* SCK Pin */
+    GPIOA->MODER &= ~GPIO_MODER_MODER5;
+    GPIOA->MODER |= GPIO_MODER_MODER5_1; // AF Mode
+    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR5;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT5;
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR5_0; // no pull
+    GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL5;
+    GPIOA->AFR[0] |= (0x5 << (4U * 5U)); // AF 5
 
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER6;
-	GPIOA->MODER 	|= GPIO_MODER_MODER6_1;			// AF mode
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR6;
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT6;
-	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR6_0;
-	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL6;
-	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 6U));// AF 5
+    /* MISO Pin */
+    GPIOA->MODER &= ~GPIO_MODER_MODER6;
+    GPIOA->MODER |= GPIO_MODER_MODER6_1; // AF mode
+    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR6;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT6;
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR6_0; // no pull
+    GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL6;
+    GPIOA->AFR[0] |= (0x5 << (4U * 6U)); // AF 5
 
-	GPIOA->MODER 	&= ~GPIO_MODER_MODER7;
-	GPIOA->MODER 	|= GPIO_MODER_MODER7_1;			// AF mode
-	GPIOA->OSPEEDR	|= GPIO_OSPEEDR_OSPEEDR7;
-	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT7;
-	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR7_0;
-	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL7;
-	GPIOA->AFR[0] 	|= (GPIO_AF5_SPI1 << (4U * 7U));// AF 5
+    /* MOSI Pin */
+    GPIOA->MODER &= ~GPIO_MODER_MODER7;
+    GPIOA->MODER |= GPIO_MODER_MODER7_1; // AF mode
+    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR7;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT7;
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR7_0; // no pull
+    GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL7;
+    GPIOA->AFR[0] |= (0x5 << (4U * 7U)); // AF 5
 
-	/////////////////SPI INIT///////////////////
-	// enable clock for SPI1
-	RCC->APB2ENR 	|= RCC_APB2ENR_SPI1EN;
+    /////////////////SPI INIT///////////////////
+    // enable clock for SPI1
+    RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
 
-	SPI1->CR1		&= ~SPI_CR1_BIDIMODE;	// rx and tx
-	SPI1->CR1		|= SPI_CR1_MSTR;		// SPI master
-	SPI1->CR2		|= (0x7 << 8U);			// byte transfer size
-	SPI1->CR1		|= SPI_CR1_CPHA;		// high polarity
-	SPI1->CR1		|= SPI_CR1_CPOL;		// 2nd edge
-	SPI1->CR1		|= SPI_CR1_SSM;			// software slave management
-	SPI1->CR1		|= SPI_CR1_SSI;
-	SPI1->CR1		|= (0x6 << 3U);			// 128 divider
-	SPI1->CR1		&= ~SPI_CR1_LSBFIRST;	// MSB first
-	SPI1->CR1		&= ~SPI_CR1_CRCEN;		// disable CRC
-	SPI1->CR2		&= ~(SPI_CR2_RXDMAEN |
-						 SPI_CR2_TXDMAEN);
-	SPI1->CR1		|= SPI_CR1_SPE;			// enable SPI
+    SPI1->CR1 &= ~SPI_CR1_SPE;      // disable SPI
+    SPI1->CR1 &= ~SPI_CR1_BIDIMODE; // rx and tx
+    SPI1->CR1 |= SPI_CR1_MSTR;      // SPI master
+    SPI1->CR2 |= (0x7 << 8U);       // byte transfer size
+    SPI1->CR1 |= SPI_CR1_CPHA;      // high polarity
+    SPI1->CR1 |= SPI_CR1_CPOL;      // 2nd edge
+    SPI1->CR1 &= ~SPI_CR1_SSM;      // software slave management
+    SPI1->CR1 &= ~SPI_CR1_SSI;
+    SPI1->CR2 |= SPI_CR2_SSOE;
+    SPI1->CR1 |= SPI_BR_PRESCALER_128; // BR < 1MHz for init
+    SPI1->CR1 &= ~SPI_CR1_LSBFIRST;    // MSB first
+    SPI1->CR1 &= ~SPI_CR1_CRCEN;       // disable CRC
+    SPI1->CR2 |= (SPI_CR2_RXDMAEN |
+                  SPI_CR2_TXDMAEN);
+    SPI1->CR2 |= SPI_CR2_FRXTH;
 
-	/////////////////DMA INIT///////////////////
-	/*
-	 * SPI1_RX on DMA2_Stream0_CH3
-	 * SPI1_TX on DMA2_Stream3_CH3
-	 */
+    /////////////////DMA INIT///////////////////
+    /*
+     * SPI1_RX on DMA2_Stream0_CH3
+     * SPI1_TX on DMA2_Stream3_CH3
+     */
 
-	// disable DMA stream 1
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream0->CR & DMA_SxCR_EN){}
-	DMA2_Stream0->CR	= 0;
-	DMA2_Stream0->NDTR	= 0;
-	DMA2_Stream0->PAR	= 0;
-	DMA2_Stream0->M0AR	= 0;
-	DMA2_Stream0->M1AR	= 0;
-	DMA2_Stream0->FCR	= 0x00000021U;
-	DMA2_Stream0->CR	&= ~DMA_SxCR_CHSEL;
-	DMA2->LIFCR			|= 0x0000003FU;
-	// disable DMA stream 7
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream3->CR & DMA_SxCR_EN){}
-	DMA2_Stream3->CR	= 0;
-	DMA2_Stream3->NDTR	= 0;
-	DMA2_Stream3->PAR	= 0;
-	DMA2_Stream3->M0AR	= 0;
-	DMA2_Stream3->M1AR	= 0;
-	DMA2_Stream3->FCR	= 0x00000021U;
-	DMA2_Stream3->CR	&= ~DMA_SxCR_CHSEL;
-	DMA2->LIFCR			|= 0x0F400000U;
+    // disable DMA stream 1
+    DMA2_Stream0->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream0->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream0->CR = 0;
+    DMA2_Stream0->NDTR = 0;
+    DMA2_Stream0->PAR = 0;
+    DMA2_Stream0->M0AR = 0;
+    DMA2_Stream0->M1AR = 0;
+    DMA2_Stream0->FCR = 0x00000021U;
+    DMA2_Stream0->CR &= ~DMA_SxCR_CHSEL;
+    DMA2->LIFCR |= 0x0000003FU;
+    // disable DMA stream 7
+    DMA2_Stream3->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream3->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream3->CR = 0;
+    DMA2_Stream3->NDTR = 0;
+    DMA2_Stream3->PAR = 0;
+    DMA2_Stream3->M0AR = 0;
+    DMA2_Stream3->M1AR = 0;
+    DMA2_Stream3->FCR = 0x00000021U;
+    DMA2_Stream3->CR &= ~DMA_SxCR_CHSEL;
+    DMA2->LIFCR |= 0x0F400000U;
 
-	// RX DMA settings
-	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->M0AR 	= 0;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_DIR;			// per to mem
-	DMA2_Stream0->FCR	&= ~DMA_SxFCR_DMDIS;		// fifo dis
-	DMA2_Stream0->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_MBURST;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_PBURST;
-	DMA2_Stream0->PAR 	= (uint32_t)(&(SPI1->DR));
-	DMA2_Stream0->NDTR	= 0;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_PINC;
-	DMA2_Stream0->CR 	|= DMA_SxCR_MINC;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_MSIZE;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_PSIZE;
-	DMA2_Stream0->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream0->CR 	|= DMA_SxCR_PL;
-	// DMA transfer complete interrupt enable
-	DMA2_Stream0->CR 	|= DMA_SxCR_TCIE;
-	// TX DMA settings
-	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->M0AR 	= 0;
-	DMA2_Stream3->CR 	|= DMA_SxCR_DIR_0;			// mem to per
-	DMA2_Stream3->FCR	&= ~DMA_SxFCR_DMDIS;		// fifo dis
-	DMA2_Stream3->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_MBURST;
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_PBURST;
-	DMA2_Stream3->PAR 	= (uint32_t)(&(SPI1->DR));
-	DMA2_Stream3->NDTR	= 0;
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_PINC;
-	DMA2_Stream3->CR 	|= DMA_SxCR_MINC;
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_MSIZE;
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_PSIZE;
-	DMA2_Stream3->CR 	&= ~DMA_SxCR_CIRC;
-	DMA2_Stream3->CR 	|= DMA_SxCR_PL;
-	// DMA transfer complete interrupt enable
-	DMA2_Stream3->CR 	|= DMA_SxCR_TCIE;
+    // RX DMA settings
+    DMA2_Stream0->CR |= (0x3 << 25U);
+    DMA2_Stream0->M0AR = 0;
+    DMA2_Stream0->CR &= ~DMA_SxCR_DIR;     // per to mem
+    DMA2_Stream0->FCR &= ~DMA_SxFCR_DMDIS; // fifo dis
+    DMA2_Stream0->FCR &= ~DMA_SxFCR_FTH;   // 1/4 full
+    DMA2_Stream0->CR &= ~DMA_SxCR_MBURST;
+    DMA2_Stream0->CR &= ~DMA_SxCR_PBURST;
+    DMA2_Stream0->PAR = (uint32_t)(&(SPI1->DR));
+    DMA2_Stream0->NDTR = 0;
+    DMA2_Stream0->CR &= ~DMA_SxCR_PINC;
+    DMA2_Stream0->CR |= DMA_SxCR_MINC;
+    DMA2_Stream0->CR &= ~DMA_SxCR_MSIZE;
+    DMA2_Stream0->CR &= ~DMA_SxCR_PSIZE;
+    DMA2_Stream0->CR &= ~DMA_SxCR_CIRC;
+    DMA2_Stream0->CR |= DMA_SxCR_PL;
+    // DMA transfer complete interrupt enable
+    DMA2_Stream0->CR |= DMA_SxCR_TCIE;
+    // TX DMA settings
+    DMA2_Stream3->CR |= (0x3 << 25U);
+    DMA2_Stream3->M0AR = 0;
+    DMA2_Stream3->CR |= DMA_SxCR_DIR_0;    // mem to per
+    DMA2_Stream3->FCR &= ~DMA_SxFCR_DMDIS; // fifo dis
+    DMA2_Stream3->FCR &= ~DMA_SxFCR_FTH;   // 1/4 full
+    DMA2_Stream3->CR &= ~DMA_SxCR_MBURST;
+    DMA2_Stream3->CR &= ~DMA_SxCR_PBURST;
+    DMA2_Stream3->PAR = (uint32_t)(&(SPI1->DR));
+    DMA2_Stream3->NDTR = 0;
+    DMA2_Stream3->CR &= ~DMA_SxCR_PINC;
+    DMA2_Stream3->CR |= DMA_SxCR_MINC;
+    DMA2_Stream3->CR &= ~DMA_SxCR_MSIZE;
+    DMA2_Stream3->CR &= ~DMA_SxCR_PSIZE;
+    DMA2_Stream3->CR &= ~DMA_SxCR_CIRC;
+    DMA2_Stream3->CR |= DMA_SxCR_PL;
+    // DMA transfer complete interrupt enable
+    DMA2_Stream3->CR |= DMA_SxCR_TCIE;
 }
 
 /** @brief Reads multiple bytes of data in.
@@ -150,32 +162,30 @@ spi1Init(void)
  *  @param size The amount of bytes to be read.
  *  @return Void.
  */
-void
-spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
+void spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
 {
-	reg = reg | 0x80;			// read operation
+    reg = reg | 0x80; // read operation
 
-	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream0->CR & DMA_SxCR_EN);
-	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->NDTR	= size;
-	DMA2_Stream0->M0AR	= (uint32_t)pData;
+    DMA2_Stream0->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream0->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream0->CR |= (0x3 << 25U);
+    DMA2_Stream0->NDTR = size;
+    DMA2_Stream0->M0AR = (uint32_t)pData;
 
-	DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream3->CR & DMA_SxCR_EN);
-	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->NDTR	= size;
-	DMA2_Stream3->M0AR	= (uint32_t)&reg;
+    DMA2_Stream3->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream3->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream3->CR |= (0x3 << 25U);
+    DMA2_Stream3->NDTR = size;
+    DMA2_Stream3->M0AR = (uint32_t)&reg;
 
-	SPI1_ENABLE;
+    SPI1->CR1 |= SPI_CR1_SPE;
 
-	DMA2_Stream0->CR	|= DMA_SxCR_EN;
-	DMA2_Stream3->CR	|= DMA_SxCR_EN;
+    DMA2_Stream0->CR |= DMA_SxCR_EN;
+    DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-	SPI1->CR2			|= SPI_CR2_RXDMAEN;
-	SPI1->CR2			|= SPI_CR2_TXDMAEN;
-
-	SPI1->CR1			|= SPI_CR1_SPE;
+    transferCompleteCallback();
 }
 
 /** @brief Writes multiple bytes of data in.
@@ -185,36 +195,34 @@ spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
  *  @param size The amount of bytes to write.
  *  @return Void.
  */
-void
-spi1WriteBytes(uint8_t *pData, uint8_t size)
+void spi1WriteBytes(uint8_t *pData, uint8_t size)
 {
-	// RX Setup
-	volatile uint8_t dummy __attribute__((unused));
+    // RX Setup
+    static uint8_t dummy __attribute__((unused));
 
-	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream0->CR & DMA_SxCR_EN);
-	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->NDTR	= size;
-	DMA2_Stream0->M0AR	= (uint32_t)&dummy;
-	// TX Setup
-	// perhaps include a circular buffer
-	DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream3->CR & DMA_SxCR_EN);
-	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->NDTR	= size;
-	DMA2_Stream3->M0AR	= (uint32_t)pData;
+    DMA2_Stream0->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream0->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream0->CR |= (0x3 << 25U);
+    DMA2_Stream0->NDTR = size;
+    DMA2_Stream0->M0AR = (uint32_t)&dummy;
+    // TX Setup
+    // perhaps include a circular buffer
+    DMA2_Stream3->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream3->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream3->CR |= (0x3 << 25U);
+    DMA2_Stream3->NDTR = size;
+    DMA2_Stream3->M0AR = (uint32_t)pData;
 
-	DMA2_Stream3->CR	|= DMA_SxCR_TCIE;		// RX interrupts
+    DMA2_Stream3->CR |= DMA_SxCR_TCIE; // RX interrupts
 
-	SPI1_ENABLE;
+    SPI1->CR1 |= SPI_CR1_SPE;
 
-	DMA2_Stream0->CR	|= DMA_SxCR_EN;
-	DMA2_Stream3->CR	|= DMA_SxCR_EN;
+    DMA2_Stream0->CR |= DMA_SxCR_EN;
+    DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-	SPI1->CR2			|= SPI_CR2_RXDMAEN;
-	SPI1->CR2			|= SPI_CR2_TXDMAEN;
-
-	SPI1->CR1			|= SPI_CR1_SPE;
+    transferCompleteCallback();
 }
 
 /** @brief Reads one byte of data in.
@@ -223,32 +231,30 @@ spi1WriteBytes(uint8_t *pData, uint8_t size)
  *  @param *pData A pointer to location where you want to read data to.
  *  @return Void.
  */
-void
-spi1ReadOneByte(uint8_t reg, uint8_t *pData)
+void spi1ReadOneByte(uint8_t reg, uint8_t *pData)
 {
-	reg |= 0x80;		// read operation
+    reg |= 0x80; // read operation
 
-	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream0->CR & DMA_SxCR_EN);
-	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->NDTR	= 3;
-	DMA2_Stream0->M0AR	= (uint32_t)pData;
+    DMA2_Stream0->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream0->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream0->CR |= (0x3 << 25U);
+    DMA2_Stream0->NDTR = 2;
+    DMA2_Stream0->M0AR = (uint32_t)pData;
 
-	DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream3->CR & DMA_SxCR_EN);
-	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->NDTR	= 3;
-	DMA2_Stream3->M0AR	= (uint32_t)&reg;
+    DMA2_Stream3->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream3->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream3->CR |= (0x3 << 25U);
+    DMA2_Stream3->NDTR = 2;
+    DMA2_Stream3->M0AR = (uint32_t)&reg;
 
-	SPI1_ENABLE;
+    SPI1->CR1 |= SPI_CR1_SPE;
 
-	DMA2_Stream0->CR	|= DMA_SxCR_EN;
-	DMA2_Stream3->CR	|= DMA_SxCR_EN;
+    DMA2_Stream0->CR |= DMA_SxCR_EN;
+    DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-	SPI1->CR2			|= SPI_CR2_RXDMAEN;
-	SPI1->CR2			|= SPI_CR2_TXDMAEN;
-
-	SPI1->CR1			|= SPI_CR1_SPE;
+    transferCompleteCallback();
 }
 
 /** @brief Writes one byte of data.
@@ -257,36 +263,42 @@ spi1ReadOneByte(uint8_t reg, uint8_t *pData)
  *  @param data The data to write.
  *  @return Void.
  */
-void
-spi1WriteOneByte(uint8_t reg, uint8_t data)
+void spi1WriteOneByte(uint8_t reg, uint8_t data)
 {
-	// need to pass in array of values to be written
-	// RX Setup
-	volatile uint8_t dummy __attribute__((unused));
-	uint8_t temp[2] = {reg, data};
+    // need to pass in array of values to be written
+    // RX Setup
+    static uint8_t dummy __attribute__((unused));
+    uint8_t temp[2] = {reg, data};
 
-	DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream0->CR & DMA_SxCR_EN);
-	DMA2_Stream0->CR	|= (0x3 << 25U);
-	DMA2_Stream0->NDTR	= 2;
-	DMA2_Stream0->M0AR	= (uint32_t)&dummy;
-	// TX Setup
-	// perhaps include a circular buffer
-	DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-	while(DMA2_Stream3->CR & DMA_SxCR_EN);
-	DMA2_Stream3->CR	|= (0x3 << 25U);
-	DMA2_Stream3->NDTR	= 2;
-	DMA2_Stream3->M0AR	= (uint32_t)temp;
+    DMA2_Stream0->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream0->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream0->CR |= (0x3 << 25U);
+    DMA2_Stream0->NDTR = 2;
+    DMA2_Stream0->M0AR = (uint32_t)&dummy;
+    // TX Setup
+    // perhaps include a circular buffer
+    DMA2_Stream3->CR &= ~DMA_SxCR_EN;
+    while (DMA2_Stream3->CR & DMA_SxCR_EN)
+        ;
+    DMA2_Stream3->CR |= (0x3 << 25U);
+    DMA2_Stream3->NDTR = 2;
+    DMA2_Stream3->M0AR = (uint32_t)temp;
 
-	SPI1_ENABLE;
+    SPI1->CR1 |= SPI_CR1_SPE;
 
-	DMA2_Stream0->CR	|= DMA_SxCR_EN;
-	DMA2_Stream3->CR	|= DMA_SxCR_EN;
+    DMA2_Stream0->CR |= DMA_SxCR_EN;
+    DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-	SPI1->CR2			|= SPI_CR2_RXDMAEN;
-	SPI1->CR2			|= SPI_CR2_TXDMAEN;
+    transferCompleteCallback();
+}
 
-	SPI1->CR1			|= SPI_CR1_SPE;
+static void transferCompleteCallback(void)
+{
+    while (!transferComplete)
+        ;
+    SPI1->CR1 &= ~SPI_CR1_SPE;
+    transferComplete = false;
 }
 
 /* Interrupt Handlers */
@@ -294,32 +306,22 @@ spi1WriteOneByte(uint8_t reg, uint8_t data)
 /**
  * @brief This function handles DMA2 stream1 global interrupt.
  */
-void
-DMA2_Stream0_IRQHandler(void)
+void DMA2_Stream0_IRQHandler(void)
 {
-	if(DMA2->LISR & DMA_LISR_TCIF0){
-		DMA2->LIFCR		|= DMA_LIFCR_CTCIF0;
-
-		SPI1_DISABLE;
-
-		DMA2_Stream0->CR	&= ~DMA_SxCR_EN;
-		DMA2_Stream3->CR	&= ~DMA_SxCR_EN;
-
-		SPI1->CR2			&= ~SPI_CR2_RXDMAEN;
-		SPI1->CR2			&= ~SPI_CR2_TXDMAEN;
-
-		SPI1->CR1			&= ~SPI_CR1_SPE;
-
-	}
+    if (DMA2->LISR & DMA_LISR_TCIF0)
+    {
+        DMA2->LIFCR |= DMA_LIFCR_CTCIF0;
+        transferComplete = true;
+    }
 }
 
 /**
  * @brief This function handles DMA2 stream3 global interrupt.
  */
-void
-DMA2_Stream3_IRQHandler(void)
+void DMA2_Stream3_IRQHandler(void)
 {
-	if(DMA2->LISR & DMA_LISR_TCIF3){
-		DMA2->LIFCR		|= DMA_LIFCR_CTCIF3;
-	}
+    if (DMA2->LISR & DMA_LISR_TCIF3)
+    {
+        DMA2->LIFCR |= DMA_LIFCR_CTCIF3;
+    }
 }

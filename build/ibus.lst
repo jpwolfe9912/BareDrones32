@@ -1,0 +1,1131 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ibus.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ibus_update,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-sp-d16
+  25              	ibus_update:
+  26              	.LVL0:
+  27              	.LFB190:
+  28              		.file 1 "Src/sensors/ibus.c"
+   1:Src/sensors/ibus.c **** /** @file 		ibus.c
+   2:Src/sensors/ibus.c ****  *  @brief
+   3:Src/sensors/ibus.c ****  *  	This file initializes the ibus receiver protocol
+   4:Src/sensors/ibus.c ****  *
+   5:Src/sensors/ibus.c ****  *
+   6:Src/sensors/ibus.c ****  *  @author 	Jeremy Wolfe
+   7:Src/sensors/ibus.c ****  *  @date 		23 FEB 2022
+   8:Src/sensors/ibus.c ****  */
+   9:Src/sensors/ibus.c **** 
+  10:Src/sensors/ibus.c **** #include "board.h"
+  11:Src/sensors/ibus.c **** 
+  12:Src/sensors/ibus.c **** /* Static Function Prototypes */
+  13:Src/sensors/ibus.c **** static ibusStatus_e ibus_process_frame(void);
+  14:Src/sensors/ibus.c **** static void ibus_update(uint8_t* pData);
+  15:Src/sensors/ibus.c **** static bool ibus_frame_crc(uint8_t *pData);
+  16:Src/sensors/ibus.c **** 
+  17:Src/sensors/ibus.c **** /* Global Variables */
+  18:Src/sensors/ibus.c **** uint8_t ibusPayload[PAYLOAD_SIZE];	// payload buffer
+  19:Src/sensors/ibus.c **** uint8_t ibusCRC[CRC_SIZE];
+  20:Src/sensors/ibus.c **** uint16_t ibusChannels[RC_CHANNELS];
+  21:Src/sensors/ibus.c **** 
+  22:Src/sensors/ibus.c **** uint8_t state;
+  23:Src/sensors/ibus.c **** uint8_t frameLength, devID;
+  24:Src/sensors/ibus.c **** 
+  25:Src/sensors/ibus.c **** bool rcActive = false;
+  26:Src/sensors/ibus.c **** 
+  27:Src/sensors/ibus.c **** ibusStatus_e status;
+  28:Src/sensors/ibus.c **** 
+  29:Src/sensors/ibus.c **** /* Static Variables */
+  30:Src/sensors/ibus.c **** static uint8_t framePos = 0;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 2
+
+
+  31:Src/sensors/ibus.c **** static uint8_t payloadPos = 0;
+  32:Src/sensors/ibus.c **** static uint8_t crcPos = 0;
+  33:Src/sensors/ibus.c **** 
+  34:Src/sensors/ibus.c **** static uint8_t init_error = 0;
+  35:Src/sensors/ibus.c **** 
+  36:Src/sensors/ibus.c **** /** @brief Initializes ibus ring buffer and low level usart registers.
+  37:Src/sensors/ibus.c ****  *
+  38:Src/sensors/ibus.c ****  *	@return bool True if initialization was successful.
+  39:Src/sensors/ibus.c ****  *				 False if failed.
+  40:Src/sensors/ibus.c ****  */
+  41:Src/sensors/ibus.c **** bool
+  42:Src/sensors/ibus.c **** ibusInit(void)
+  43:Src/sensors/ibus.c **** {
+  44:Src/sensors/ibus.c **** 	bool ibus_initialized = false;
+  45:Src/sensors/ibus.c **** 
+  46:Src/sensors/ibus.c **** 	printf("\nInitializing iBus Receiver\n");
+  47:Src/sensors/ibus.c **** 
+  48:Src/sensors/ibus.c **** 	usart1Read(rx1Buf, RX1BUF_SIZE);
+  49:Src/sensors/ibus.c **** 
+  50:Src/sensors/ibus.c **** 
+  51:Src/sensors/ibus.c **** 	status = IBUS_ERROR;
+  52:Src/sensors/ibus.c **** 
+  53:Src/sensors/ibus.c **** 	for(uint8_t i = 0; i < 10; i++){
+  54:Src/sensors/ibus.c **** 		ibusProcess();
+  55:Src/sensors/ibus.c **** 		if(devID == 0x40){
+  56:Src/sensors/ibus.c **** 			ibus_initialized = true;
+  57:Src/sensors/ibus.c **** 			rcActive = true;
+  58:Src/sensors/ibus.c **** 			break;
+  59:Src/sensors/ibus.c **** 		}
+  60:Src/sensors/ibus.c **** 		delay(5);
+  61:Src/sensors/ibus.c **** 	}
+  62:Src/sensors/ibus.c **** 
+  63:Src/sensors/ibus.c **** 	if(!ibus_initialized){
+  64:Src/sensors/ibus.c **** 		color(RED, YES);
+  65:Src/sensors/ibus.c **** 		printf("\niBus Initialization Failed. Try again?\n");
+  66:Src/sensors/ibus.c **** 		if(init_error++ > 10)
+  67:Src/sensors/ibus.c **** 		{
+  68:Src/sensors/ibus.c **** 			printf("\nToo many failed attempts\n");
+  69:Src/sensors/ibus.c **** 			color(WHITE, NO);
+  70:Src/sensors/ibus.c **** 			return true;
+  71:Src/sensors/ibus.c **** 		}
+  72:Src/sensors/ibus.c **** 		color(WHITE, NO);
+  73:Src/sensors/ibus.c **** 		return false;
+  74:Src/sensors/ibus.c **** #ifdef STLINK
+  75:Src/sensors/ibus.c **** 		if(serialWaitFor('y'))
+  76:Src/sensors/ibus.c **** 			return false;
+  77:Src/sensors/ibus.c **** 		else
+  78:Src/sensors/ibus.c **** 			return true;
+  79:Src/sensors/ibus.c **** #endif
+  80:Src/sensors/ibus.c **** 	}
+  81:Src/sensors/ibus.c **** 	else{
+  82:Src/sensors/ibus.c **** 		color(GREEN, YES);
+  83:Src/sensors/ibus.c **** 		printf("\niBus receiver recognized\n");
+  84:Src/sensors/ibus.c **** 		color(WHITE, NO);
+  85:Src/sensors/ibus.c **** 		ibusProcess();
+  86:Src/sensors/ibus.c **** 		return true;
+  87:Src/sensors/ibus.c **** 	}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 3
+
+
+  88:Src/sensors/ibus.c **** 	return true;
+  89:Src/sensors/ibus.c **** }
+  90:Src/sensors/ibus.c **** 
+  91:Src/sensors/ibus.c **** /** @brief Waits for the parser to not be busy
+  92:Src/sensors/ibus.c ****  *
+  93:Src/sensors/ibus.c ****  *  @return Void.
+  94:Src/sensors/ibus.c ****  */
+  95:Src/sensors/ibus.c **** void
+  96:Src/sensors/ibus.c **** ibusProcess(void)
+  97:Src/sensors/ibus.c **** {
+  98:Src/sensors/ibus.c **** 	while(ibus_process_frame() == IBUS_BUSY);
+  99:Src/sensors/ibus.c **** }
+ 100:Src/sensors/ibus.c **** 
+ 101:Src/sensors/ibus.c **** /** @brief State machine that evaluates the raw data based on what section it is parsing through.
+ 102:Src/sensors/ibus.c ****  *
+ 103:Src/sensors/ibus.c ****  *  @return ibusStatus_e The status of the function.
+ 104:Src/sensors/ibus.c ****  *  	READY, BUSY, ERROR
+ 105:Src/sensors/ibus.c ****  */
+ 106:Src/sensors/ibus.c **** static ibusStatus_e
+ 107:Src/sensors/ibus.c **** ibus_process_frame(void)
+ 108:Src/sensors/ibus.c **** {
+ 109:Src/sensors/ibus.c **** 	uint8_t b = rx1Buf[framePos++];
+ 110:Src/sensors/ibus.c **** 
+ 111:Src/sensors/ibus.c **** 	status = IBUS_BUSY;
+ 112:Src/sensors/ibus.c **** 	switch(state){
+ 113:Src/sensors/ibus.c **** 	case IBUS_STATE_LENGTH: {				// length byte
+ 114:Src/sensors/ibus.c **** 		if(b == 0x20){
+ 115:Src/sensors/ibus.c **** 
+ 116:Src/sensors/ibus.c **** 			frameLength = b;
+ 117:Src/sensors/ibus.c **** 			state++;
+ 118:Src/sensors/ibus.c **** 		}
+ 119:Src/sensors/ibus.c **** 		else
+ 120:Src/sensors/ibus.c **** 		{
+ 121:Src/sensors/ibus.c **** 			status = IBUS_ERROR;
+ 122:Src/sensors/ibus.c **** 		}
+ 123:Src/sensors/ibus.c **** 		break;
+ 124:Src/sensors/ibus.c **** 	}
+ 125:Src/sensors/ibus.c **** 	case IBUS_STATE_TYPE: {					// type byte
+ 126:Src/sensors/ibus.c **** 		if(b == 0x40){
+ 127:Src/sensors/ibus.c **** 			devID = b;
+ 128:Src/sensors/ibus.c **** 			state++;
+ 129:Src/sensors/ibus.c **** 		}
+ 130:Src/sensors/ibus.c **** 		else
+ 131:Src/sensors/ibus.c **** 			status = IBUS_ERROR;
+ 132:Src/sensors/ibus.c **** 		break;
+ 133:Src/sensors/ibus.c **** 	}
+ 134:Src/sensors/ibus.c **** 	case IBUS_STATE_PAYLOAD: {				// payload bytes
+ 135:Src/sensors/ibus.c **** 		ibusPayload[payloadPos++] = b;
+ 136:Src/sensors/ibus.c **** 		if(payloadPos == PAYLOAD_SIZE)
+ 137:Src/sensors/ibus.c **** 		{
+ 138:Src/sensors/ibus.c **** 			ibus_update(ibusPayload);
+ 139:Src/sensors/ibus.c **** 			state++;
+ 140:Src/sensors/ibus.c **** 			payloadPos = 0;
+ 141:Src/sensors/ibus.c **** 		}
+ 142:Src/sensors/ibus.c **** 		break;
+ 143:Src/sensors/ibus.c **** 	}
+ 144:Src/sensors/ibus.c **** 	case IBUS_STATE_CRC: {					// crc bytes
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 4
+
+
+ 145:Src/sensors/ibus.c **** 		ibusCRC[crcPos++] = b;
+ 146:Src/sensors/ibus.c **** 		if(crcPos == CRC_SIZE){
+ 147:Src/sensors/ibus.c **** 			if(ibus_frame_crc(ibusCRC))
+ 148:Src/sensors/ibus.c **** 			{
+ 149:Src/sensors/ibus.c **** 				status = IBUS_READY;
+ 150:Src/sensors/ibus.c **** 			}
+ 151:Src/sensors/ibus.c **** 			else{
+ 152:Src/sensors/ibus.c **** 				status = IBUS_ERROR;
+ 153:Src/sensors/ibus.c **** 			}
+ 154:Src/sensors/ibus.c **** 			crcPos = 0;
+ 155:Src/sensors/ibus.c **** 		}
+ 156:Src/sensors/ibus.c **** 		break;
+ 157:Src/sensors/ibus.c **** 	}
+ 158:Src/sensors/ibus.c **** 	}
+ 159:Src/sensors/ibus.c **** 	if(status == IBUS_ERROR)
+ 160:Src/sensors/ibus.c **** 	{
+ 161:Src/sensors/ibus.c **** 		framePos = 0;
+ 162:Src/sensors/ibus.c **** 		state = 0;
+ 163:Src/sensors/ibus.c **** 	}
+ 164:Src/sensors/ibus.c **** 	if(status == IBUS_READY)
+ 165:Src/sensors/ibus.c **** 	{
+ 166:Src/sensors/ibus.c **** 		framePos = 0;
+ 167:Src/sensors/ibus.c **** 		state = 0;
+ 168:Src/sensors/ibus.c **** 	}
+ 169:Src/sensors/ibus.c **** 
+ 170:Src/sensors/ibus.c **** 	return status;
+ 171:Src/sensors/ibus.c **** }
+ 172:Src/sensors/ibus.c **** 
+ 173:Src/sensors/ibus.c **** /** @brief Packs the raw data stored in two bytes in an array.
+ 174:Src/sensors/ibus.c ****  * 	into one 16 bit integer.
+ 175:Src/sensors/ibus.c ****  *
+ 176:Src/sensors/ibus.c ****  *  @param *pData A pointer to the raw data array that we want.
+ 177:Src/sensors/ibus.c ****  *  to pack.
+ 178:Src/sensors/ibus.c ****  *  @return Void.
+ 179:Src/sensors/ibus.c ****  */
+ 180:Src/sensors/ibus.c **** static void
+ 181:Src/sensors/ibus.c **** ibus_update(uint8_t *pData)
+ 182:Src/sensors/ibus.c **** {
+  29              		.loc 1 182 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 183:Src/sensors/ibus.c **** 	for(uint8_t ch_index = 0, bf_index = 0; ch_index < RC_CHANNELS; ch_index++, bf_index += 2)
+  34              		.loc 1 183 2 view .LVU1
+  35              	.LBB2:
+  36              		.loc 1 183 6 view .LVU2
+  37              		.loc 1 183 28 is_stmt 0 view .LVU3
+  38 0000 0022     		movs	r2, #0
+  39              		.loc 1 183 14 view .LVU4
+  40 0002 1346     		mov	r3, r2
+  41              	.LVL1:
+  42              		.loc 1 183 42 is_stmt 1 view .LVU5
+  43              		.loc 1 183 2 is_stmt 0 view .LVU6
+  44 0004 0D2A     		cmp	r2, #13
+  45 0006 11D8     		bhi	.L7
+  46              	.LBE2:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 5
+
+
+ 182:Src/sensors/ibus.c **** 	for(uint8_t ch_index = 0, bf_index = 0; ch_index < RC_CHANNELS; ch_index++, bf_index += 2)
+  47              		.loc 1 182 1 view .LVU7
+  48 0008 10B4     		push	{r4}
+  49              		.cfi_def_cfa_offset 4
+  50              		.cfi_offset 4, -4
+  51              	.LVL2:
+  52              	.L3:
+  53              	.LBB3:
+ 184:Src/sensors/ibus.c **** 	{
+ 185:Src/sensors/ibus.c **** 		ibusChannels[ch_index] = pData[bf_index + 1] << 8 | pData[bf_index];
+  54              		.loc 1 185 3 is_stmt 1 discriminator 3 view .LVU8
+  55              		.loc 1 185 33 is_stmt 0 discriminator 3 view .LVU9
+  56 000a 8118     		adds	r1, r0, r2
+  57 000c 4C78     		ldrb	r4, [r1, #1]	@ zero_extendqisi2
+  58              		.loc 1 185 60 discriminator 3 view .LVU10
+  59 000e 815C     		ldrb	r1, [r0, r2]	@ zero_extendqisi2
+  60              		.loc 1 185 53 discriminator 3 view .LVU11
+  61 0010 41EA0421 		orr	r1, r1, r4, lsl #8
+  62              		.loc 1 185 26 discriminator 3 view .LVU12
+  63 0014 064C     		ldr	r4, .L8
+  64 0016 24F81310 		strh	r1, [r4, r3, lsl #1]	@ movhi
+ 183:Src/sensors/ibus.c **** 	{
+  65              		.loc 1 183 66 is_stmt 1 discriminator 3 view .LVU13
+ 183:Src/sensors/ibus.c **** 	{
+  66              		.loc 1 183 74 is_stmt 0 discriminator 3 view .LVU14
+  67 001a 0133     		adds	r3, r3, #1
+  68 001c DBB2     		uxtb	r3, r3
+  69              	.LVL3:
+ 183:Src/sensors/ibus.c **** 	{
+  70              		.loc 1 183 87 discriminator 3 view .LVU15
+  71 001e 0232     		adds	r2, r2, #2
+  72              	.LVL4:
+ 183:Src/sensors/ibus.c **** 	{
+  73              		.loc 1 183 87 discriminator 3 view .LVU16
+  74 0020 D2B2     		uxtb	r2, r2
+  75              	.LVL5:
+ 183:Src/sensors/ibus.c **** 	{
+  76              		.loc 1 183 42 is_stmt 1 discriminator 3 view .LVU17
+ 183:Src/sensors/ibus.c **** 	{
+  77              		.loc 1 183 2 is_stmt 0 discriminator 3 view .LVU18
+  78 0022 0D2B     		cmp	r3, #13
+  79 0024 F1D9     		bls	.L3
+  80              	.LBE3:
+ 186:Src/sensors/ibus.c **** 	}
+ 187:Src/sensors/ibus.c **** }
+  81              		.loc 1 187 1 view .LVU19
+  82 0026 5DF8044B 		ldr	r4, [sp], #4
+  83              		.cfi_restore 4
+  84              		.cfi_def_cfa_offset 0
+  85 002a 7047     		bx	lr
+  86              	.LVL6:
+  87              	.L7:
+  88              		.loc 1 187 1 view .LVU20
+  89 002c 7047     		bx	lr
+  90              	.L9:
+  91 002e 00BF     		.align	2
+  92              	.L8:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 6
+
+
+  93 0030 00000000 		.word	.LANCHOR0
+  94              		.cfi_endproc
+  95              	.LFE190:
+  97              		.section	.text.ibus_frame_crc,"ax",%progbits
+  98              		.align	1
+  99              		.syntax unified
+ 100              		.thumb
+ 101              		.thumb_func
+ 102              		.fpu fpv5-sp-d16
+ 104              	ibus_frame_crc:
+ 105              	.LVL7:
+ 106              	.LFB191:
+ 188:Src/sensors/ibus.c **** 
+ 189:Src/sensors/ibus.c **** /** @brief Checksum calculator for incoming data.
+ 190:Src/sensors/ibus.c ****  *
+ 191:Src/sensors/ibus.c ****  * 		This function calculates the checksum based on the incoming
+ 192:Src/sensors/ibus.c ****  * 		data. It then compares that value with the checksum value
+ 193:Src/sensors/ibus.c ****  * 		in the packet.
+ 194:Src/sensors/ibus.c ****  *
+ 195:Src/sensors/ibus.c ****  *  @return bool True if it matches.
+ 196:Src/sensors/ibus.c ****  *  			 False if it does not match.
+ 197:Src/sensors/ibus.c ****  */
+ 198:Src/sensors/ibus.c **** static bool
+ 199:Src/sensors/ibus.c **** ibus_frame_crc(uint8_t *pData)
+ 200:Src/sensors/ibus.c **** {
+ 107              		.loc 1 200 1 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112              		.loc 1 200 1 is_stmt 0 view .LVU22
+ 113 0000 8446     		mov	ip, r0
+ 201:Src/sensors/ibus.c **** 	uint16_t checksum_cal = 0xFFFF;
+ 114              		.loc 1 201 2 is_stmt 1 view .LVU23
+ 115              	.LVL8:
+ 202:Src/sensors/ibus.c **** 	uint16_t checksum_ibus;
+ 116              		.loc 1 202 2 view .LVU24
+ 203:Src/sensors/ibus.c **** 
+ 204:Src/sensors/ibus.c **** 	for(uint8_t i = 0; i < 30; i++)
+ 117              		.loc 1 204 2 view .LVU25
+ 118              	.LBB4:
+ 119              		.loc 1 204 6 view .LVU26
+ 120              		.loc 1 204 14 is_stmt 0 view .LVU27
+ 121 0002 0023     		movs	r3, #0
+ 122              	.LBE4:
+ 201:Src/sensors/ibus.c **** 	uint16_t checksum_ibus;
+ 123              		.loc 1 201 11 view .LVU28
+ 124 0004 4FF6FF72 		movw	r2, #65535
+ 125              	.LBB5:
+ 126              		.loc 1 204 2 view .LVU29
+ 127 0008 05E0     		b	.L11
+ 128              	.LVL9:
+ 129              	.L12:
+ 205:Src/sensors/ibus.c **** 	{
+ 206:Src/sensors/ibus.c **** 		checksum_cal -= rx1Buf[i];
+ 130              		.loc 1 206 3 is_stmt 1 discriminator 3 view .LVU30
+ 131              		.loc 1 206 25 is_stmt 0 discriminator 3 view .LVU31
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 7
+
+
+ 132 000a 0949     		ldr	r1, .L13
+ 133 000c C85C     		ldrb	r0, [r1, r3]	@ zero_extendqisi2
+ 134              		.loc 1 206 16 discriminator 3 view .LVU32
+ 135 000e 121A     		subs	r2, r2, r0
+ 136              	.LVL10:
+ 137              		.loc 1 206 16 discriminator 3 view .LVU33
+ 138 0010 92B2     		uxth	r2, r2
+ 139              	.LVL11:
+ 204:Src/sensors/ibus.c **** 	{
+ 140              		.loc 1 204 29 is_stmt 1 discriminator 3 view .LVU34
+ 204:Src/sensors/ibus.c **** 	{
+ 141              		.loc 1 204 30 is_stmt 0 discriminator 3 view .LVU35
+ 142 0012 0133     		adds	r3, r3, #1
+ 143              	.LVL12:
+ 204:Src/sensors/ibus.c **** 	{
+ 144              		.loc 1 204 30 discriminator 3 view .LVU36
+ 145 0014 DBB2     		uxtb	r3, r3
+ 146              	.LVL13:
+ 147              	.L11:
+ 204:Src/sensors/ibus.c **** 	{
+ 148              		.loc 1 204 21 is_stmt 1 discriminator 1 view .LVU37
+ 204:Src/sensors/ibus.c **** 	{
+ 149              		.loc 1 204 2 is_stmt 0 discriminator 1 view .LVU38
+ 150 0016 1D2B     		cmp	r3, #29
+ 151 0018 F7D9     		bls	.L12
+ 152              	.LBE5:
+ 207:Src/sensors/ibus.c **** 	}
+ 208:Src/sensors/ibus.c **** 
+ 209:Src/sensors/ibus.c **** 	checksum_ibus = pData[1] << 8 | pData[0]; // checksum value from ibus
+ 153              		.loc 1 209 2 is_stmt 1 view .LVU39
+ 154              		.loc 1 209 23 is_stmt 0 view .LVU40
+ 155 001a 9CF80130 		ldrb	r3, [ip, #1]	@ zero_extendqisi2
+ 156              	.LVL14:
+ 157              		.loc 1 209 39 view .LVU41
+ 158 001e 9CF80000 		ldrb	r0, [ip]	@ zero_extendqisi2
+ 159              		.loc 1 209 16 view .LVU42
+ 160 0022 40EA0320 		orr	r0, r0, r3, lsl #8
+ 161              	.LVL15:
+ 210:Src/sensors/ibus.c **** 
+ 211:Src/sensors/ibus.c **** 	return (checksum_ibus == checksum_cal);
+ 162              		.loc 1 211 2 is_stmt 1 view .LVU43
+ 212:Src/sensors/ibus.c **** }
+ 163              		.loc 1 212 1 is_stmt 0 view .LVU44
+ 164 0026 8242     		cmp	r2, r0
+ 165 0028 14BF     		ite	ne
+ 166 002a 0020     		movne	r0, #0
+ 167              	.LVL16:
+ 168              		.loc 1 212 1 view .LVU45
+ 169 002c 0120     		moveq	r0, #1
+ 170 002e 7047     		bx	lr
+ 171              	.L14:
+ 172              		.align	2
+ 173              	.L13:
+ 174 0030 00000000 		.word	rx1Buf
+ 175              		.cfi_endproc
+ 176              	.LFE191:
+ 178              		.section	.text.ibus_process_frame,"ax",%progbits
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 8
+
+
+ 179              		.align	1
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.fpu fpv5-sp-d16
+ 185              	ibus_process_frame:
+ 186              	.LFB189:
+ 108:Src/sensors/ibus.c **** 	uint8_t b = rx1Buf[framePos++];
+ 187              		.loc 1 108 1 is_stmt 1 view -0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191 0000 08B5     		push	{r3, lr}
+ 192              		.cfi_def_cfa_offset 8
+ 193              		.cfi_offset 3, -8
+ 194              		.cfi_offset 14, -4
+ 109:Src/sensors/ibus.c **** 
+ 195              		.loc 1 109 2 view .LVU47
+ 109:Src/sensors/ibus.c **** 
+ 196              		.loc 1 109 29 is_stmt 0 view .LVU48
+ 197 0002 324A     		ldr	r2, .L33
+ 198 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 199 0006 591C     		adds	r1, r3, #1
+ 200 0008 1170     		strb	r1, [r2]
+ 109:Src/sensors/ibus.c **** 
+ 201              		.loc 1 109 10 view .LVU49
+ 202 000a 314A     		ldr	r2, .L33+4
+ 203 000c D15C     		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 204              	.LVL17:
+ 111:Src/sensors/ibus.c **** 	switch(state){
+ 205              		.loc 1 111 2 is_stmt 1 view .LVU50
+ 111:Src/sensors/ibus.c **** 	switch(state){
+ 206              		.loc 1 111 9 is_stmt 0 view .LVU51
+ 207 000e 314B     		ldr	r3, .L33+8
+ 208 0010 0122     		movs	r2, #1
+ 209 0012 1A70     		strb	r2, [r3]
+ 112:Src/sensors/ibus.c **** 	case IBUS_STATE_LENGTH: {				// length byte
+ 210              		.loc 1 112 2 is_stmt 1 view .LVU52
+ 211 0014 304B     		ldr	r3, .L33+12
+ 212 0016 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 213 0018 032B     		cmp	r3, #3
+ 214 001a 24D8     		bhi	.L16
+ 215 001c DFE803F0 		tbb	[pc, r3]
+ 216              	.L18:
+ 217 0020 02       		.byte	(.L21-.L18)/2
+ 218 0021 0E       		.byte	(.L20-.L18)/2
+ 219 0022 1A       		.byte	(.L19-.L18)/2
+ 220 0023 38       		.byte	(.L17-.L18)/2
+ 221              		.p2align 1
+ 222              	.L21:
+ 114:Src/sensors/ibus.c **** 
+ 223              		.loc 1 114 3 view .LVU53
+ 114:Src/sensors/ibus.c **** 
+ 224              		.loc 1 114 5 is_stmt 0 view .LVU54
+ 225 0024 2029     		cmp	r1, #32
+ 226 0026 03D0     		beq	.L29
+ 121:Src/sensors/ibus.c **** 		}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 9
+
+
+ 227              		.loc 1 121 4 is_stmt 1 view .LVU55
+ 121:Src/sensors/ibus.c **** 		}
+ 228              		.loc 1 121 11 is_stmt 0 view .LVU56
+ 229 0028 2A4B     		ldr	r3, .L33+8
+ 230 002a 0222     		movs	r2, #2
+ 231 002c 1A70     		strb	r2, [r3]
+ 232 002e 1AE0     		b	.L16
+ 233              	.L29:
+ 116:Src/sensors/ibus.c **** 			state++;
+ 234              		.loc 1 116 4 is_stmt 1 view .LVU57
+ 116:Src/sensors/ibus.c **** 			state++;
+ 235              		.loc 1 116 16 is_stmt 0 view .LVU58
+ 236 0030 2A4A     		ldr	r2, .L33+16
+ 237 0032 1170     		strb	r1, [r2]
+ 117:Src/sensors/ibus.c **** 		}
+ 238              		.loc 1 117 4 is_stmt 1 view .LVU59
+ 117:Src/sensors/ibus.c **** 		}
+ 239              		.loc 1 117 9 is_stmt 0 view .LVU60
+ 240 0034 0133     		adds	r3, r3, #1
+ 241 0036 284A     		ldr	r2, .L33+12
+ 242 0038 1370     		strb	r3, [r2]
+ 243 003a 14E0     		b	.L16
+ 244              	.L20:
+ 126:Src/sensors/ibus.c **** 			devID = b;
+ 245              		.loc 1 126 3 is_stmt 1 view .LVU61
+ 126:Src/sensors/ibus.c **** 			devID = b;
+ 246              		.loc 1 126 5 is_stmt 0 view .LVU62
+ 247 003c 4029     		cmp	r1, #64
+ 248 003e 03D0     		beq	.L30
+ 131:Src/sensors/ibus.c **** 		break;
+ 249              		.loc 1 131 4 is_stmt 1 view .LVU63
+ 131:Src/sensors/ibus.c **** 		break;
+ 250              		.loc 1 131 11 is_stmt 0 view .LVU64
+ 251 0040 244B     		ldr	r3, .L33+8
+ 252 0042 0222     		movs	r2, #2
+ 253 0044 1A70     		strb	r2, [r3]
+ 254 0046 0EE0     		b	.L16
+ 255              	.L30:
+ 127:Src/sensors/ibus.c **** 			state++;
+ 256              		.loc 1 127 4 is_stmt 1 view .LVU65
+ 127:Src/sensors/ibus.c **** 			state++;
+ 257              		.loc 1 127 10 is_stmt 0 view .LVU66
+ 258 0048 254A     		ldr	r2, .L33+20
+ 259 004a 1170     		strb	r1, [r2]
+ 128:Src/sensors/ibus.c **** 		}
+ 260              		.loc 1 128 4 is_stmt 1 view .LVU67
+ 128:Src/sensors/ibus.c **** 		}
+ 261              		.loc 1 128 9 is_stmt 0 view .LVU68
+ 262 004c 0133     		adds	r3, r3, #1
+ 263 004e 224A     		ldr	r2, .L33+12
+ 264 0050 1370     		strb	r3, [r2]
+ 265 0052 08E0     		b	.L16
+ 266              	.L19:
+ 135:Src/sensors/ibus.c **** 		if(payloadPos == PAYLOAD_SIZE)
+ 267              		.loc 1 135 3 is_stmt 1 view .LVU69
+ 135:Src/sensors/ibus.c **** 		if(payloadPos == PAYLOAD_SIZE)
+ 268              		.loc 1 135 25 is_stmt 0 view .LVU70
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 10
+
+
+ 269 0054 2348     		ldr	r0, .L33+24
+ 270 0056 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 271 0058 531C     		adds	r3, r2, #1
+ 272 005a DBB2     		uxtb	r3, r3
+ 273 005c 0370     		strb	r3, [r0]
+ 135:Src/sensors/ibus.c **** 		if(payloadPos == PAYLOAD_SIZE)
+ 274              		.loc 1 135 29 view .LVU71
+ 275 005e 2248     		ldr	r0, .L33+28
+ 276 0060 8154     		strb	r1, [r0, r2]
+ 136:Src/sensors/ibus.c **** 		{
+ 277              		.loc 1 136 3 is_stmt 1 view .LVU72
+ 136:Src/sensors/ibus.c **** 		{
+ 278              		.loc 1 136 5 is_stmt 0 view .LVU73
+ 279 0062 1C2B     		cmp	r3, #28
+ 280 0064 0AD0     		beq	.L31
+ 281              	.LVL18:
+ 282              	.L16:
+ 159:Src/sensors/ibus.c **** 	{
+ 283              		.loc 1 159 2 is_stmt 1 view .LVU74
+ 159:Src/sensors/ibus.c **** 	{
+ 284              		.loc 1 159 12 is_stmt 0 view .LVU75
+ 285 0066 1B4B     		ldr	r3, .L33+8
+ 286 0068 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 159:Src/sensors/ibus.c **** 	{
+ 287              		.loc 1 159 4 view .LVU76
+ 288 006a 0228     		cmp	r0, #2
+ 289 006c 27D0     		beq	.L32
+ 290              	.L26:
+ 164:Src/sensors/ibus.c **** 	{
+ 291              		.loc 1 164 2 is_stmt 1 view .LVU77
+ 164:Src/sensors/ibus.c **** 	{
+ 292              		.loc 1 164 4 is_stmt 0 view .LVU78
+ 293 006e 20B9     		cbnz	r0, .L27
+ 166:Src/sensors/ibus.c **** 		state = 0;
+ 294              		.loc 1 166 3 is_stmt 1 view .LVU79
+ 166:Src/sensors/ibus.c **** 		state = 0;
+ 295              		.loc 1 166 12 is_stmt 0 view .LVU80
+ 296 0070 0023     		movs	r3, #0
+ 297 0072 164A     		ldr	r2, .L33
+ 298 0074 1370     		strb	r3, [r2]
+ 167:Src/sensors/ibus.c **** 	}
+ 299              		.loc 1 167 3 is_stmt 1 view .LVU81
+ 167:Src/sensors/ibus.c **** 	}
+ 300              		.loc 1 167 9 is_stmt 0 view .LVU82
+ 301 0076 184A     		ldr	r2, .L33+12
+ 302 0078 1370     		strb	r3, [r2]
+ 303              	.L27:
+ 170:Src/sensors/ibus.c **** }
+ 304              		.loc 1 170 2 is_stmt 1 view .LVU83
+ 171:Src/sensors/ibus.c **** 
+ 305              		.loc 1 171 1 is_stmt 0 view .LVU84
+ 306 007a 08BD     		pop	{r3, pc}
+ 307              	.LVL19:
+ 308              	.L31:
+ 138:Src/sensors/ibus.c **** 			state++;
+ 309              		.loc 1 138 4 is_stmt 1 view .LVU85
+ 310 007c FFF7FEFF 		bl	ibus_update
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 11
+
+
+ 311              	.LVL20:
+ 139:Src/sensors/ibus.c **** 			payloadPos = 0;
+ 312              		.loc 1 139 4 view .LVU86
+ 139:Src/sensors/ibus.c **** 			payloadPos = 0;
+ 313              		.loc 1 139 9 is_stmt 0 view .LVU87
+ 314 0080 154A     		ldr	r2, .L33+12
+ 315 0082 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 316 0084 0133     		adds	r3, r3, #1
+ 317 0086 1370     		strb	r3, [r2]
+ 140:Src/sensors/ibus.c **** 		}
+ 318              		.loc 1 140 4 is_stmt 1 view .LVU88
+ 140:Src/sensors/ibus.c **** 		}
+ 319              		.loc 1 140 15 is_stmt 0 view .LVU89
+ 320 0088 164B     		ldr	r3, .L33+24
+ 321 008a 0022     		movs	r2, #0
+ 322 008c 1A70     		strb	r2, [r3]
+ 323 008e EAE7     		b	.L16
+ 324              	.LVL21:
+ 325              	.L17:
+ 145:Src/sensors/ibus.c **** 		if(crcPos == CRC_SIZE){
+ 326              		.loc 1 145 3 is_stmt 1 view .LVU90
+ 145:Src/sensors/ibus.c **** 		if(crcPos == CRC_SIZE){
+ 327              		.loc 1 145 17 is_stmt 0 view .LVU91
+ 328 0090 1648     		ldr	r0, .L33+32
+ 329 0092 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 330 0094 531C     		adds	r3, r2, #1
+ 331 0096 DBB2     		uxtb	r3, r3
+ 332 0098 0370     		strb	r3, [r0]
+ 145:Src/sensors/ibus.c **** 		if(crcPos == CRC_SIZE){
+ 333              		.loc 1 145 21 view .LVU92
+ 334 009a 1548     		ldr	r0, .L33+36
+ 335 009c 8154     		strb	r1, [r0, r2]
+ 146:Src/sensors/ibus.c **** 			if(ibus_frame_crc(ibusCRC))
+ 336              		.loc 1 146 3 is_stmt 1 view .LVU93
+ 146:Src/sensors/ibus.c **** 			if(ibus_frame_crc(ibusCRC))
+ 337              		.loc 1 146 5 is_stmt 0 view .LVU94
+ 338 009e 022B     		cmp	r3, #2
+ 339 00a0 E1D1     		bne	.L16
+ 147:Src/sensors/ibus.c **** 			{
+ 340              		.loc 1 147 4 is_stmt 1 view .LVU95
+ 147:Src/sensors/ibus.c **** 			{
+ 341              		.loc 1 147 7 is_stmt 0 view .LVU96
+ 342 00a2 FFF7FEFF 		bl	ibus_frame_crc
+ 343              	.LVL22:
+ 147:Src/sensors/ibus.c **** 			{
+ 344              		.loc 1 147 6 view .LVU97
+ 345 00a6 30B1     		cbz	r0, .L24
+ 149:Src/sensors/ibus.c **** 			}
+ 346              		.loc 1 149 5 is_stmt 1 view .LVU98
+ 149:Src/sensors/ibus.c **** 			}
+ 347              		.loc 1 149 12 is_stmt 0 view .LVU99
+ 348 00a8 0A4B     		ldr	r3, .L33+8
+ 349 00aa 0022     		movs	r2, #0
+ 350 00ac 1A70     		strb	r2, [r3]
+ 351              	.L25:
+ 154:Src/sensors/ibus.c **** 		}
+ 352              		.loc 1 154 4 is_stmt 1 view .LVU100
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 12
+
+
+ 154:Src/sensors/ibus.c **** 		}
+ 353              		.loc 1 154 11 is_stmt 0 view .LVU101
+ 354 00ae 0F4B     		ldr	r3, .L33+32
+ 355 00b0 0022     		movs	r2, #0
+ 356 00b2 1A70     		strb	r2, [r3]
+ 357 00b4 D7E7     		b	.L16
+ 358              	.L24:
+ 152:Src/sensors/ibus.c **** 			}
+ 359              		.loc 1 152 5 is_stmt 1 view .LVU102
+ 152:Src/sensors/ibus.c **** 			}
+ 360              		.loc 1 152 12 is_stmt 0 view .LVU103
+ 361 00b6 074B     		ldr	r3, .L33+8
+ 362 00b8 0222     		movs	r2, #2
+ 363 00ba 1A70     		strb	r2, [r3]
+ 364 00bc F7E7     		b	.L25
+ 365              	.L32:
+ 161:Src/sensors/ibus.c **** 		state = 0;
+ 366              		.loc 1 161 3 is_stmt 1 view .LVU104
+ 161:Src/sensors/ibus.c **** 		state = 0;
+ 367              		.loc 1 161 12 is_stmt 0 view .LVU105
+ 368 00be 0023     		movs	r3, #0
+ 369 00c0 024A     		ldr	r2, .L33
+ 370 00c2 1370     		strb	r3, [r2]
+ 162:Src/sensors/ibus.c **** 	}
+ 371              		.loc 1 162 3 is_stmt 1 view .LVU106
+ 162:Src/sensors/ibus.c **** 	}
+ 372              		.loc 1 162 9 is_stmt 0 view .LVU107
+ 373 00c4 044A     		ldr	r2, .L33+12
+ 374 00c6 1370     		strb	r3, [r2]
+ 375 00c8 D1E7     		b	.L26
+ 376              	.L34:
+ 377 00ca 00BF     		.align	2
+ 378              	.L33:
+ 379 00cc 00000000 		.word	.LANCHOR1
+ 380 00d0 00000000 		.word	rx1Buf
+ 381 00d4 00000000 		.word	.LANCHOR2
+ 382 00d8 00000000 		.word	.LANCHOR3
+ 383 00dc 00000000 		.word	.LANCHOR4
+ 384 00e0 00000000 		.word	.LANCHOR5
+ 385 00e4 00000000 		.word	.LANCHOR6
+ 386 00e8 00000000 		.word	.LANCHOR7
+ 387 00ec 00000000 		.word	.LANCHOR8
+ 388 00f0 00000000 		.word	.LANCHOR9
+ 389              		.cfi_endproc
+ 390              	.LFE189:
+ 392              		.section	.text.ibusProcess,"ax",%progbits
+ 393              		.align	1
+ 394              		.global	ibusProcess
+ 395              		.syntax unified
+ 396              		.thumb
+ 397              		.thumb_func
+ 398              		.fpu fpv5-sp-d16
+ 400              	ibusProcess:
+ 401              	.LFB188:
+  97:Src/sensors/ibus.c **** 	while(ibus_process_frame() == IBUS_BUSY);
+ 402              		.loc 1 97 1 is_stmt 1 view -0
+ 403              		.cfi_startproc
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 13
+
+
+ 404              		@ args = 0, pretend = 0, frame = 0
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406 0000 08B5     		push	{r3, lr}
+ 407              		.cfi_def_cfa_offset 8
+ 408              		.cfi_offset 3, -8
+ 409              		.cfi_offset 14, -4
+ 410              	.L36:
+  98:Src/sensors/ibus.c **** }
+ 411              		.loc 1 98 42 discriminator 1 view .LVU109
+  98:Src/sensors/ibus.c **** }
+ 412              		.loc 1 98 7 discriminator 1 view .LVU110
+  98:Src/sensors/ibus.c **** }
+ 413              		.loc 1 98 8 is_stmt 0 discriminator 1 view .LVU111
+ 414 0002 FFF7FEFF 		bl	ibus_process_frame
+ 415              	.LVL23:
+  98:Src/sensors/ibus.c **** }
+ 416              		.loc 1 98 7 discriminator 1 view .LVU112
+ 417 0006 0128     		cmp	r0, #1
+ 418 0008 FBD0     		beq	.L36
+  99:Src/sensors/ibus.c **** 
+ 419              		.loc 1 99 1 view .LVU113
+ 420 000a 08BD     		pop	{r3, pc}
+ 421              		.cfi_endproc
+ 422              	.LFE188:
+ 424              		.section	.rodata.ibusInit.str1.4,"aMS",%progbits,1
+ 425              		.align	2
+ 426              	.LC0:
+ 427 0000 0A496E69 		.ascii	"\012Initializing iBus Receiver\000"
+ 427      7469616C 
+ 427      697A696E 
+ 427      67206942 
+ 427      75732052 
+ 428              		.align	2
+ 429              	.LC1:
+ 430 001c 0A694275 		.ascii	"\012iBus receiver recognized\000"
+ 430      73207265 
+ 430      63656976 
+ 430      65722072 
+ 430      65636F67 
+ 431 0036 0000     		.align	2
+ 432              	.LC2:
+ 433 0038 0A694275 		.ascii	"\012iBus Initialization Failed. Try again?\000"
+ 433      7320496E 
+ 433      69746961 
+ 433      6C697A61 
+ 433      74696F6E 
+ 434              		.align	2
+ 435              	.LC3:
+ 436 0060 0A546F6F 		.ascii	"\012Too many failed attempts\000"
+ 436      206D616E 
+ 436      79206661 
+ 436      696C6564 
+ 436      20617474 
+ 437              		.section	.text.ibusInit,"ax",%progbits
+ 438              		.align	1
+ 439              		.global	ibusInit
+ 440              		.syntax unified
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 14
+
+
+ 441              		.thumb
+ 442              		.thumb_func
+ 443              		.fpu fpv5-sp-d16
+ 445              	ibusInit:
+ 446              	.LFB187:
+  43:Src/sensors/ibus.c **** 	bool ibus_initialized = false;
+ 447              		.loc 1 43 1 is_stmt 1 view -0
+ 448              		.cfi_startproc
+ 449              		@ args = 0, pretend = 0, frame = 0
+ 450              		@ frame_needed = 0, uses_anonymous_args = 0
+ 451 0000 10B5     		push	{r4, lr}
+ 452              		.cfi_def_cfa_offset 8
+ 453              		.cfi_offset 4, -8
+ 454              		.cfi_offset 14, -4
+  44:Src/sensors/ibus.c **** 
+ 455              		.loc 1 44 2 view .LVU115
+ 456              	.LVL24:
+  46:Src/sensors/ibus.c **** 
+ 457              		.loc 1 46 2 view .LVU116
+ 458 0002 2348     		ldr	r0, .L47
+ 459 0004 FFF7FEFF 		bl	puts
+ 460              	.LVL25:
+  48:Src/sensors/ibus.c **** 
+ 461              		.loc 1 48 2 view .LVU117
+ 462 0008 2021     		movs	r1, #32
+ 463 000a 2248     		ldr	r0, .L47+4
+ 464 000c FFF7FEFF 		bl	usart1Read
+ 465              	.LVL26:
+  51:Src/sensors/ibus.c **** 
+ 466              		.loc 1 51 2 view .LVU118
+  51:Src/sensors/ibus.c **** 
+ 467              		.loc 1 51 9 is_stmt 0 view .LVU119
+ 468 0010 214B     		ldr	r3, .L47+8
+ 469 0012 0222     		movs	r2, #2
+ 470 0014 1A70     		strb	r2, [r3]
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 471              		.loc 1 53 2 is_stmt 1 view .LVU120
+ 472              	.LBB6:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 473              		.loc 1 53 6 view .LVU121
+ 474              	.LVL27:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 475              		.loc 1 53 14 is_stmt 0 view .LVU122
+ 476 0016 0024     		movs	r4, #0
+ 477              	.LVL28:
+ 478              	.L39:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 479              		.loc 1 53 21 is_stmt 1 discriminator 1 view .LVU123
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 480              		.loc 1 53 2 is_stmt 0 discriminator 1 view .LVU124
+ 481 0018 092C     		cmp	r4, #9
+ 482 001a 1DD8     		bhi	.L45
+  54:Src/sensors/ibus.c **** 		if(devID == 0x40){
+ 483              		.loc 1 54 3 is_stmt 1 view .LVU125
+ 484 001c FFF7FEFF 		bl	ibusProcess
+ 485              	.LVL29:
+  55:Src/sensors/ibus.c **** 			ibus_initialized = true;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 15
+
+
+ 486              		.loc 1 55 3 view .LVU126
+  55:Src/sensors/ibus.c **** 			ibus_initialized = true;
+ 487              		.loc 1 55 12 is_stmt 0 view .LVU127
+ 488 0020 1E4B     		ldr	r3, .L47+12
+ 489 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  55:Src/sensors/ibus.c **** 			ibus_initialized = true;
+ 490              		.loc 1 55 5 view .LVU128
+ 491 0024 402B     		cmp	r3, #64
+ 492 0026 05D0     		beq	.L46
+  60:Src/sensors/ibus.c **** 	}
+ 493              		.loc 1 60 3 is_stmt 1 discriminator 2 view .LVU129
+ 494 0028 0520     		movs	r0, #5
+ 495 002a FFF7FEFF 		bl	delay
+ 496              	.LVL30:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 497              		.loc 1 53 29 discriminator 2 view .LVU130
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 498              		.loc 1 53 30 is_stmt 0 discriminator 2 view .LVU131
+ 499 002e 0134     		adds	r4, r4, #1
+ 500              	.LVL31:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 501              		.loc 1 53 30 discriminator 2 view .LVU132
+ 502 0030 E4B2     		uxtb	r4, r4
+ 503              	.LVL32:
+  53:Src/sensors/ibus.c **** 		ibusProcess();
+ 504              		.loc 1 53 30 discriminator 2 view .LVU133
+ 505 0032 F1E7     		b	.L39
+ 506              	.L46:
+  56:Src/sensors/ibus.c **** 			rcActive = true;
+ 507              		.loc 1 56 4 is_stmt 1 view .LVU134
+ 508              	.LVL33:
+  57:Src/sensors/ibus.c **** 			break;
+ 509              		.loc 1 57 4 view .LVU135
+  57:Src/sensors/ibus.c **** 			break;
+ 510              		.loc 1 57 13 is_stmt 0 view .LVU136
+ 511 0034 0124     		movs	r4, #1
+ 512              	.LVL34:
+  57:Src/sensors/ibus.c **** 			break;
+ 513              		.loc 1 57 13 view .LVU137
+ 514 0036 1A4B     		ldr	r3, .L47+16
+ 515 0038 1C70     		strb	r4, [r3]
+  58:Src/sensors/ibus.c **** 		}
+ 516              		.loc 1 58 4 is_stmt 1 view .LVU138
+  58:Src/sensors/ibus.c **** 		}
+ 517              		.loc 1 58 4 is_stmt 0 view .LVU139
+ 518              	.LBE6:
+  63:Src/sensors/ibus.c **** 		color(RED, YES);
+ 519              		.loc 1 63 2 is_stmt 1 view .LVU140
+  82:Src/sensors/ibus.c **** 		printf("\niBus receiver recognized\n");
+ 520              		.loc 1 82 3 view .LVU141
+ 521 003a 2146     		mov	r1, r4
+ 522 003c 0220     		movs	r0, #2
+ 523 003e FFF7FEFF 		bl	color
+ 524              	.LVL35:
+  83:Src/sensors/ibus.c **** 		color(WHITE, NO);
+ 525              		.loc 1 83 3 view .LVU142
+ 526 0042 1848     		ldr	r0, .L47+20
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 16
+
+
+ 527 0044 FFF7FEFF 		bl	puts
+ 528              	.LVL36:
+  84:Src/sensors/ibus.c **** 		ibusProcess();
+ 529              		.loc 1 84 3 view .LVU143
+ 530 0048 0021     		movs	r1, #0
+ 531 004a 0720     		movs	r0, #7
+ 532 004c FFF7FEFF 		bl	color
+ 533              	.LVL37:
+  85:Src/sensors/ibus.c **** 		return true;
+ 534              		.loc 1 85 3 view .LVU144
+ 535 0050 FFF7FEFF 		bl	ibusProcess
+ 536              	.LVL38:
+  86:Src/sensors/ibus.c **** 	}
+ 537              		.loc 1 86 3 view .LVU145
+  86:Src/sensors/ibus.c **** 	}
+ 538              		.loc 1 86 10 is_stmt 0 view .LVU146
+ 539 0054 2046     		mov	r0, r4
+ 540              	.LVL39:
+ 541              	.L41:
+  89:Src/sensors/ibus.c **** 
+ 542              		.loc 1 89 1 view .LVU147
+ 543 0056 10BD     		pop	{r4, pc}
+ 544              	.LVL40:
+ 545              	.L45:
+  63:Src/sensors/ibus.c **** 		color(RED, YES);
+ 546              		.loc 1 63 2 is_stmt 1 view .LVU148
+  64:Src/sensors/ibus.c **** 		printf("\niBus Initialization Failed. Try again?\n");
+ 547              		.loc 1 64 3 view .LVU149
+ 548 0058 0121     		movs	r1, #1
+ 549 005a 0846     		mov	r0, r1
+ 550 005c FFF7FEFF 		bl	color
+ 551              	.LVL41:
+  65:Src/sensors/ibus.c **** 		if(init_error++ > 10)
+ 552              		.loc 1 65 3 view .LVU150
+ 553 0060 1148     		ldr	r0, .L47+24
+ 554 0062 FFF7FEFF 		bl	puts
+ 555              	.LVL42:
+  66:Src/sensors/ibus.c **** 		{
+ 556              		.loc 1 66 3 view .LVU151
+  66:Src/sensors/ibus.c **** 		{
+ 557              		.loc 1 66 16 is_stmt 0 view .LVU152
+ 558 0066 114A     		ldr	r2, .L47+28
+ 559 0068 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 560 006a 591C     		adds	r1, r3, #1
+ 561 006c 1170     		strb	r1, [r2]
+  66:Src/sensors/ibus.c **** 		{
+ 562              		.loc 1 66 5 view .LVU153
+ 563 006e 0A2B     		cmp	r3, #10
+ 564 0070 08D9     		bls	.L43
+  68:Src/sensors/ibus.c **** 			color(WHITE, NO);
+ 565              		.loc 1 68 4 is_stmt 1 view .LVU154
+ 566 0072 0F48     		ldr	r0, .L47+32
+ 567 0074 FFF7FEFF 		bl	puts
+ 568              	.LVL43:
+  69:Src/sensors/ibus.c **** 			return true;
+ 569              		.loc 1 69 4 view .LVU155
+ 570 0078 0021     		movs	r1, #0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 17
+
+
+ 571 007a 0720     		movs	r0, #7
+ 572 007c FFF7FEFF 		bl	color
+ 573              	.LVL44:
+  70:Src/sensors/ibus.c **** 		}
+ 574              		.loc 1 70 4 view .LVU156
+  70:Src/sensors/ibus.c **** 		}
+ 575              		.loc 1 70 11 is_stmt 0 view .LVU157
+ 576 0080 0120     		movs	r0, #1
+ 577 0082 E8E7     		b	.L41
+ 578              	.L43:
+  72:Src/sensors/ibus.c **** 		return false;
+ 579              		.loc 1 72 3 is_stmt 1 view .LVU158
+ 580 0084 0021     		movs	r1, #0
+ 581 0086 0720     		movs	r0, #7
+ 582 0088 FFF7FEFF 		bl	color
+ 583              	.LVL45:
+  73:Src/sensors/ibus.c **** #ifdef STLINK
+ 584              		.loc 1 73 3 view .LVU159
+  73:Src/sensors/ibus.c **** #ifdef STLINK
+ 585              		.loc 1 73 10 is_stmt 0 view .LVU160
+ 586 008c 0020     		movs	r0, #0
+ 587 008e E2E7     		b	.L41
+ 588              	.L48:
+ 589              		.align	2
+ 590              	.L47:
+ 591 0090 00000000 		.word	.LC0
+ 592 0094 00000000 		.word	rx1Buf
+ 593 0098 00000000 		.word	.LANCHOR2
+ 594 009c 00000000 		.word	.LANCHOR5
+ 595 00a0 00000000 		.word	.LANCHOR10
+ 596 00a4 1C000000 		.word	.LC1
+ 597 00a8 38000000 		.word	.LC2
+ 598 00ac 00000000 		.word	.LANCHOR11
+ 599 00b0 60000000 		.word	.LC3
+ 600              		.cfi_endproc
+ 601              	.LFE187:
+ 603              		.global	status
+ 604              		.global	rcActive
+ 605              		.global	devID
+ 606              		.global	frameLength
+ 607              		.global	state
+ 608              		.global	ibusChannels
+ 609              		.global	ibusCRC
+ 610              		.global	ibusPayload
+ 611              		.section	.bss.crcPos,"aw",%nobits
+ 612              		.set	.LANCHOR8,. + 0
+ 615              	crcPos:
+ 616 0000 00       		.space	1
+ 617              		.section	.bss.devID,"aw",%nobits
+ 618              		.set	.LANCHOR5,. + 0
+ 621              	devID:
+ 622 0000 00       		.space	1
+ 623              		.section	.bss.frameLength,"aw",%nobits
+ 624              		.set	.LANCHOR4,. + 0
+ 627              	frameLength:
+ 628 0000 00       		.space	1
+ 629              		.section	.bss.framePos,"aw",%nobits
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 18
+
+
+ 630              		.set	.LANCHOR1,. + 0
+ 633              	framePos:
+ 634 0000 00       		.space	1
+ 635              		.section	.bss.ibusCRC,"aw",%nobits
+ 636              		.align	2
+ 637              		.set	.LANCHOR9,. + 0
+ 640              	ibusCRC:
+ 641 0000 0000     		.space	2
+ 642              		.section	.bss.ibusChannels,"aw",%nobits
+ 643              		.align	2
+ 644              		.set	.LANCHOR0,. + 0
+ 647              	ibusChannels:
+ 648 0000 00000000 		.space	28
+ 648      00000000 
+ 648      00000000 
+ 648      00000000 
+ 648      00000000 
+ 649              		.section	.bss.ibusPayload,"aw",%nobits
+ 650              		.align	2
+ 651              		.set	.LANCHOR7,. + 0
+ 654              	ibusPayload:
+ 655 0000 00000000 		.space	28
+ 655      00000000 
+ 655      00000000 
+ 655      00000000 
+ 655      00000000 
+ 656              		.section	.bss.init_error,"aw",%nobits
+ 657              		.set	.LANCHOR11,. + 0
+ 660              	init_error:
+ 661 0000 00       		.space	1
+ 662              		.section	.bss.payloadPos,"aw",%nobits
+ 663              		.set	.LANCHOR6,. + 0
+ 666              	payloadPos:
+ 667 0000 00       		.space	1
+ 668              		.section	.bss.rcActive,"aw",%nobits
+ 669              		.set	.LANCHOR10,. + 0
+ 672              	rcActive:
+ 673 0000 00       		.space	1
+ 674              		.section	.bss.state,"aw",%nobits
+ 675              		.set	.LANCHOR3,. + 0
+ 678              	state:
+ 679 0000 00       		.space	1
+ 680              		.section	.bss.status,"aw",%nobits
+ 681              		.set	.LANCHOR2,. + 0
+ 684              	status:
+ 685 0000 00       		.space	1
+ 686              		.text
+ 687              	.Letext0:
+ 688              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 689              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 690              		.file 4 "Src/drv/drv_color.h"
+ 691              		.file 5 "Src/drv/drv_usart.h"
+ 692              		.file 6 "Src/sensors/ibus.h"
+ 693              		.file 7 "Src/drv/drv_system.h"
+ 694              		.file 8 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ibus.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:18     .text.ibus_update:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:25     .text.ibus_update:0000000000000000 ibus_update
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:93     .text.ibus_update:0000000000000030 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:98     .text.ibus_frame_crc:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:104    .text.ibus_frame_crc:0000000000000000 ibus_frame_crc
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:174    .text.ibus_frame_crc:0000000000000030 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:179    .text.ibus_process_frame:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:185    .text.ibus_process_frame:0000000000000000 ibus_process_frame
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:217    .text.ibus_process_frame:0000000000000020 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:221    .text.ibus_process_frame:0000000000000024 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:379    .text.ibus_process_frame:00000000000000cc $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:393    .text.ibusProcess:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:400    .text.ibusProcess:0000000000000000 ibusProcess
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:425    .rodata.ibusInit.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:438    .text.ibusInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:445    .text.ibusInit:0000000000000000 ibusInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:591    .text.ibusInit:0000000000000090 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:684    .bss.status:0000000000000000 status
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:672    .bss.rcActive:0000000000000000 rcActive
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:621    .bss.devID:0000000000000000 devID
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:627    .bss.frameLength:0000000000000000 frameLength
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:678    .bss.state:0000000000000000 state
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:647    .bss.ibusChannels:0000000000000000 ibusChannels
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:640    .bss.ibusCRC:0000000000000000 ibusCRC
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:654    .bss.ibusPayload:0000000000000000 ibusPayload
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:615    .bss.crcPos:0000000000000000 crcPos
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:616    .bss.crcPos:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:622    .bss.devID:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:628    .bss.frameLength:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:633    .bss.framePos:0000000000000000 framePos
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:634    .bss.framePos:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:636    .bss.ibusCRC:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:643    .bss.ibusChannels:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:650    .bss.ibusPayload:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:660    .bss.init_error:0000000000000000 init_error
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:661    .bss.init_error:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:666    .bss.payloadPos:0000000000000000 payloadPos
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:667    .bss.payloadPos:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:673    .bss.rcActive:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:679    .bss.state:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKjnKTa.s:685    .bss.status:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+rx1Buf
+puts
+usart1Read
+delay
+color

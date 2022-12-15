@@ -18,23 +18,23 @@ static volatile uint32_t sysTickCycleCounter = 0;
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-semaphore_t frame_1000Hz= false;
+semaphore_t frame_1000Hz = false;
 semaphore_t frame_500Hz = false;
 semaphore_t frame_200Hz = false;
 semaphore_t frame_100Hz = false;
-semaphore_t frame_50Hz  = false;
-semaphore_t frame_10Hz  = false;
-semaphore_t frame_5Hz   = false;
-semaphore_t frame_1Hz   = false;
+semaphore_t frame_50Hz = false;
+semaphore_t frame_10Hz = false;
+semaphore_t frame_5Hz = false;
+semaphore_t frame_1Hz = false;
 
 uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
-uint32_t deltaTime500Hz,  executionTime500Hz,  previous500HzTime;
-uint32_t deltaTime200Hz,  executionTime200Hz,  previous200HzTime;
-uint32_t deltaTime100Hz,  executionTime100Hz,  previous100HzTime;
-uint32_t deltaTime50Hz,   executionTime50Hz,   previous50HzTime;
-uint32_t deltaTime10Hz,   executionTime10Hz,   previous10HzTime;
-uint32_t deltaTime5Hz,    executionTime5Hz,    previous5HzTime;
-uint32_t deltaTime1Hz,    executionTime1Hz,    previous1HzTime;
+uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
+uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
+uint32_t deltaTime100Hz, executionTime100Hz, previous100HzTime;
+uint32_t deltaTime50Hz, executionTime50Hz, previous50HzTime;
+uint32_t deltaTime10Hz, executionTime10Hz, previous10HzTime;
+uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
+uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
 
 float dt500Hz;
 
@@ -48,90 +48,88 @@ static void cycleCounterInit(void);
 /**
  * @brief This function handles System tick timer.
  */
-void
-SysTick_Handler(void)
+void SysTick_Handler(void)
 {
-	uint8_t index;
-	uint32_t currentTime;
+    uint8_t index;
+    uint32_t currentTime;
 
-	sysTickCycleCounter = DWT->CYCCNT;
-	sysTickUptime++;
+    sysTickCycleCounter = DWT->CYCCNT;
+    sysTickUptime++;
 
-	//    watchDogsTick();
+    //    watchDogsTick();
 
-	if ((systemReady         == true)  &&
-			(accelCalibrating    == false) &&
-			(mpu6000Calibrating  == false))
-	{
+    if ((systemReady == true) &&
+        (accelCalibrating == false) &&
+        (mpu6000Calibrating == false))
+    {
 
-		frameCounter++;
-		if (frameCounter > FRAME_COUNT)
-			frameCounter = 1;
+        frameCounter++;
+        if (frameCounter > FRAME_COUNT)
+            frameCounter = 1;
 
-		///////////////////////////////
-		frame_1000Hz = true;
+        ///////////////////////////////
+        frame_1000Hz = true;
 
-		currentTime = micros();
-		deltaTime1000Hz = currentTime - previous1000HzTime;
-		previous1000HzTime = currentTime;
+        currentTime = micros();
+        deltaTime1000Hz = currentTime - previous1000HzTime;
+        previous1000HzTime = currentTime;
 
-		readMPU6000();
+        readMPU6000();
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_500HZ) == 0)
-		{
-			frame_500Hz = true;
+        if ((frameCounter % COUNT_500HZ) == 0)
+        {
+            frame_500Hz = true;
 
-			for (index = 0; index < 3; index++)
-			{
-				accelSummedSamples500Hz[index] = accelSum500Hz[index];
-				accelSum500Hz[index] = 0;
+            for (index = 0; index < 3; index++)
+            {
+                accelSummedSamples500Hz[index] = accelSum500Hz[index];
+                accelSum500Hz[index] = 0;
 
-				gyroSummedSamples500Hz[index] = gyroSum500Hz[index];
-				gyroSum500Hz[index] = 0;
-			}
-		}
+                gyroSummedSamples500Hz[index] = gyroSum500Hz[index];
+                gyroSum500Hz[index] = 0;
+            }
+        }
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_200HZ) == 0)
-			frame_200Hz = true;
+        if ((frameCounter % COUNT_200HZ) == 0)
+            frame_200Hz = true;
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_100HZ) == 0)
-			frame_100Hz = true;
+        if ((frameCounter % COUNT_100HZ) == 0)
+            frame_100Hz = true;
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_50HZ) == 0)
-			frame_50Hz = true;
+        if ((frameCounter % COUNT_50HZ) == 0)
+            frame_50Hz = true;
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_10HZ) == 0)
-			frame_10Hz = true;
+        if ((frameCounter % COUNT_10HZ) == 0)
+            frame_10Hz = true;
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_5HZ) == 0)
-			frame_5Hz = true;
+        if ((frameCounter % COUNT_5HZ) == 0)
+            frame_5Hz = true;
 
-		///////////////////////////////
+        ///////////////////////////////
 
-		if ((frameCounter % COUNT_1HZ) == 0)
-			frame_1Hz = true;
+        if ((frameCounter % COUNT_1HZ) == 0)
+            frame_1Hz = true;
 
-		///////////////////////////////////
+        ///////////////////////////////////
 
-		executionTime1000Hz = micros() - currentTime;
+        executionTime1000Hz = micros() - currentTime;
 
-		///////////////////////////////
-	}
-	else if(!motor_initialized)
-		dshotWrite(motor_value);
-
+        ///////////////////////////////
+    }
+    else if (!motor_initialized)
+        dshotWrite(motor_value);
 }
 
 /** @brief Gets system time in microseconds.
@@ -146,17 +144,16 @@ SysTick_Handler(void)
 uint32_t
 micros(void)
 {
-	register uint32_t oldCycle, cycle, timeMs;
+    register uint32_t oldCycle, cycle, timeMs;
 
-	do
-	{
-		timeMs = __LDREXW(&sysTickUptime);
-		cycle = DWT->CYCCNT;
-		oldCycle = sysTickCycleCounter;
-	}
-	while ( __STREXW( timeMs , &sysTickUptime ) );
+    do
+    {
+        timeMs = __LDREXW(&sysTickUptime);
+        cycle = DWT->CYCCNT;
+        oldCycle = sysTickCycleCounter;
+    } while (__STREXW(timeMs, &sysTickUptime));
 
-	return (timeMs * 1000) + (cycle - oldCycle) / usTicks;
+    return (timeMs * 1000) + (cycle - oldCycle) / usTicks;
 }
 
 /** @brief Gets system time in milliseconds.
@@ -166,7 +163,7 @@ micros(void)
 uint32_t
 millis(void)
 {
-	return sysTickUptime;
+    return sysTickUptime;
 }
 
 /** @brief Delay in microseconds.
@@ -175,105 +172,109 @@ millis(void)
  */
 void delayMicroseconds(uint32_t us)
 {
-	uint32_t elapsed = 0;
-	uint32_t lastCount = DWT->CYCCNT;
+    uint32_t elapsed = 0;
+    uint32_t lastCount = DWT->CYCCNT;
 
-	for (;;) {
-		register uint32_t current_count = DWT->CYCCNT;
-		uint32_t elapsed_us;
+    for (;;)
+    {
+        register uint32_t current_count = DWT->CYCCNT;
+        uint32_t elapsed_us;
 
-		// measure the time elapsed since the last time we checked
-		elapsed += current_count - lastCount;
-		lastCount = current_count;
+        // measure the time elapsed since the last time we checked
+        elapsed += current_count - lastCount;
+        lastCount = current_count;
 
-		// convert to microseconds
-		elapsed_us = elapsed / usTicks;
-		if (elapsed_us >= us)
-			break;
+        // convert to microseconds
+        elapsed_us = elapsed / usTicks;
+        if (elapsed_us >= us)
+            break;
 
-		// reduce the delay by the elapsed time
-		us -= elapsed_us;
+        // reduce the delay by the elapsed time
+        us -= elapsed_us;
 
-		// keep fractional microseconds for the next iteration
-		elapsed %= usTicks;
-	}
+        // keep fractional microseconds for the next iteration
+        elapsed %= usTicks;
+    }
 }
 
 /** @brief Delay in milliseconds.
  *
  *  @return Void.
  */
-void delay(uint32_t ms)
+void delay(int32_t ms)
 {
-	while (ms--)
-		delayMicroseconds(1000);
+    while (ms > 0)
+    {
+        delayMicroseconds(1000);
+        ms--;
+    }
 }
-
 
 /** @brief Initializes system.
  *
  *  @return Void.
  */
-void
-systemInit(void)
+void systemInit(void)
 {
-	rcc216MHzInit();
+    rcc216MHzInit();
 
-	SysTick_Config(SystemCoreClock / 1000);
+    SysTick_Config(SystemCoreClock / 1000);
 
-	dmaInit();
+    dmaInit();
 
-	cycleCounterInit();
+    cycleCounterInit();
 
-	ledInit();
+    ledInit();
 
-	/*		LOW LEVEL INITIALIZATION	*/
-	serialInit();
+    /*		LOW LEVEL INITIALIZATION	*/
+    serialInit();
 
-	drawAutodrone();
+    drawAutodrone();
 
-	color(GREEN, YES	);
-	printf("\nBEGINNING INITIALIZATION\n");
-	printf("----------------------------------\n");
-	printf("----------------------------------\n");
-	colorDefault();
+    color(GREEN, YES);
+    printf("\nBEGINNING INITIALIZATION\n");
+    printf("----------------------------------\n");
+    printf("----------------------------------\n");
+    colorDefault();
 
-	checkFirstTime(false);
-	readEEPROM();
+#ifndef USE_EEPROM
+    checkFirstTime(false);
+    readEEPROM();
+#endif
+    adc1Ch8Init();
 
-	adc1Ch8Init();
+    dshotInit(DSHOT600);
+    motorInit();
 
-	dshotInit(DSHOT600);
-	motorInit();
+    spi1Init();
 
-	spi1Init();
+    usart1Init();
+    usart6Init();
 
-	usart1Init();
-	usart6Init();
+    tim9Init();
 
-	tim9Init();
+    wormInit();
 
-	wormInit();
+    /*		SENSOR INITIALIZATION		*/
+    battMonInit();
 
-	/*		SENSOR INITIALIZATION		*/
-	battMonInit();
+    orientSensors();
 
-	orientSensors();
-	while(!mpu6000Init());
+    mpu6000Init();
 
-	madgwickInit();
+    madgwickInit();
 
-	while(!ibusInit());
+    while (!ibusInit())
+        ;
 
-	initPID();
+    initPID();
 
-	if(eepromChanged)
-		writeEEPROM();
+    if (eepromChanged)
+        writeEEPROM();
 
-	motor_initialized = true;
+    motor_initialized = true;
 
-	modeTransition();
-
+//    modeTransition();
 }
 
 /** @brief Initializes the cycle counter so we can use delay
@@ -284,10 +285,10 @@ systemInit(void)
 static void
 cycleCounterInit(void)
 {
-	usTicks = SystemCoreClock / 1000000;
+    usTicks = SystemCoreClock / 1000000;
 
-	// enable DWT access
-	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-	// enable the CPU cycle counter
-	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+    // enable DWT access
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    // enable the CPU cycle counter
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }

@@ -1,0 +1,2791 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"drv_dshot.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.dshot_choose_type,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-sp-d16
+  25              	dshot_choose_type:
+  26              	.LVL0:
+  27              	.LFB190:
+  28              		.file 1 "Src/drv/drv_dshot.c"
+   1:Src/drv/drv_dshot.c **** /** @file 		drv_dshot.c
+   2:Src/drv/drv_dshot.c ****  *  @brief
+   3:Src/drv/drv_dshot.c ****  *  	This files enables the gpio, timer, and dma peripherals to send dshot commands with pwm.
+   4:Src/drv/drv_dshot.c ****  *
+   5:Src/drv/drv_dshot.c ****  *  @author 	Jeremy Wolfe
+   6:Src/drv/drv_dshot.c ****  *  @date 		23 FEB 2022
+   7:Src/drv/drv_dshot.c ****  */
+   8:Src/drv/drv_dshot.c **** 
+   9:Src/drv/drv_dshot.c **** #include "board.h"
+  10:Src/drv/drv_dshot.c **** 
+  11:Src/drv/drv_dshot.c **** /* Static Variables */
+  12:Src/drv/drv_dshot.c **** static uint32_t motor1_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
+  13:Src/drv/drv_dshot.c **** static uint32_t motor2_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
+  14:Src/drv/drv_dshot.c **** static uint32_t motor3_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
+  15:Src/drv/drv_dshot.c **** static uint32_t motor4_dmabuffer[DSHOT_DMA_BUFFER_SIZE];
+  16:Src/drv/drv_dshot.c **** 
+  17:Src/drv/drv_dshot.c **** volatile uint16_t dshot_command_count = 0;
+  18:Src/drv/drv_dshot.c **** 
+  19:Src/drv/drv_dshot.c **** bool dshot_telemetry = false;
+  20:Src/drv/drv_dshot.c **** 
+  21:Src/drv/drv_dshot.c **** /* Static Function Prototypes */
+  22:Src/drv/drv_dshot.c **** static uint32_t dshot_choose_type(dshot_type_e dshot_type);
+  23:Src/drv/drv_dshot.c **** static void dshot_prepare_dmabuffer_all(uint16_t *motor_value);
+  24:Src/drv/drv_dshot.c **** static void dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value);
+  25:Src/drv/drv_dshot.c **** static uint16_t dshot_prepare_packet(uint16_t value);
+  26:Src/drv/drv_dshot.c **** static void dshot_dma_start(void);
+  27:Src/drv/drv_dshot.c **** static void dshot_enable_dma_request(void);
+  28:Src/drv/drv_dshot.c **** 
+  29:Src/drv/drv_dshot.c **** /* Functions */
+  30:Src/drv/drv_dshot.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 2
+
+
+  31:Src/drv/drv_dshot.c **** /** @brief Initializes the low level registers to set up
+  32:Src/drv/drv_dshot.c ****  *  the timer with PWM DMA.
+  33:Src/drv/drv_dshot.c ****  *
+  34:Src/drv/drv_dshot.c ****  *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
+  35:Src/drv/drv_dshot.c ****  *  DSHOT600 is preferred
+  36:Src/drv/drv_dshot.c ****  *  @return Void.
+  37:Src/drv/drv_dshot.c ****  */
+  38:Src/drv/drv_dshot.c **** void
+  39:Src/drv/drv_dshot.c **** dshotInit(dshot_type_e dshot_type)
+  40:Src/drv/drv_dshot.c **** {
+  41:Src/drv/drv_dshot.c **** 	printf("\nInitializing DSHOT\n");
+  42:Src/drv/drv_dshot.c **** 	/////////////////GPIO INIT///////////////////
+  43:Src/drv/drv_dshot.c **** 	// enable clock for GPIOA
+  44:Src/drv/drv_dshot.c **** 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+  45:Src/drv/drv_dshot.c **** 	// set mode, speed, type, pull, AF
+  46:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	&= ~GPIO_MODER_MODER0;
+  47:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER0_1;
+  48:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR0;
+  49:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT0;
+  50:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR0_1;
+  51:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL0;
+  52:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 0U));
+  53:Src/drv/drv_dshot.c **** 
+  54:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	&= ~GPIO_MODER_MODER1;
+  55:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER1_1;
+  56:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR1;
+  57:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT1;
+  58:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR1_1;
+  59:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL1;
+  60:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 1U));
+  61:Src/drv/drv_dshot.c **** 
+  62:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	&= ~GPIO_MODER_MODER2;
+  63:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER2_1;
+  64:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR2;
+  65:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT2;
+  66:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR2_1;
+  67:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL2;
+  68:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 2U));
+  69:Src/drv/drv_dshot.c **** 
+  70:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	&= ~GPIO_MODER_MODER3;
+  71:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER3_1;
+  72:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR3;
+  73:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT3;
+  74:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR3_1;
+  75:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL3;
+  76:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 3U));
+  77:Src/drv/drv_dshot.c **** 
+  78:Src/drv/drv_dshot.c **** 	/////////////////TIMER INIT///////////////////
+  79:Src/drv/drv_dshot.c **** 	uint16_t dshot_psc = (uint16_t)((float)TIMER_CLOCK / dshot_choose_type(dshot_type) + 0.01f) - 1;
+  80:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+  81:Src/drv/drv_dshot.c **** 	RCC->APB1ENR 	|= RCC_APB1ENR_TIM5EN;
+  82:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CEN;
+  83:Src/drv/drv_dshot.c **** 	// set PSC, AR, clock div, cnt, cnt mode
+  84:Src/drv/drv_dshot.c **** 	TIM5->PSC 		= dshot_psc;	//(uint16_t)((float) TIMER_CLOCK / 12000000) - 1;
+  85:Src/drv/drv_dshot.c **** 	TIM5->ARR		= MOTOR_BITLENGTH;
+  86:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CKD;
+  87:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_DIR;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 3
+
+
+  88:Src/drv/drv_dshot.c **** 	// set output compare mode
+  89:Src/drv/drv_dshot.c **** 	// channel 1
+  90:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC1E;
+  91:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC1M_1 |
+  92:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC1M_2;
+  93:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC1P;
+  94:Src/drv/drv_dshot.c **** 	TIM5->CCR1		= 0;
+  95:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC1E;
+  96:Src/drv/drv_dshot.c **** 	// channel 2
+  97:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC2E;
+  98:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2M_1 |
+  99:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC2M_2;
+ 100:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC2P;
+ 101:Src/drv/drv_dshot.c **** 	TIM5->CCR2		= 0;
+ 102:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC2E;
+ 103:Src/drv/drv_dshot.c **** 	// channel 3
+ 104:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC3E;
+ 105:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3M_1 |
+ 106:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC3M_2;
+ 107:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC3P;
+ 108:Src/drv/drv_dshot.c **** 	TIM5->CCR3		= 0;
+ 109:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC3E;
+ 110:Src/drv/drv_dshot.c **** 	// channel 4
+ 111:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC4E;
+ 112:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4M_1 |
+ 113:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC4M_2;
+ 114:Src/drv/drv_dshot.c **** 	TIM5->CCER		&= ~TIM_CCER_CC4P;
+ 115:Src/drv/drv_dshot.c **** 	TIM5->CCR4		= 0;
+ 116:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC4E;
+ 117:Src/drv/drv_dshot.c **** 	// enable preload
+ 118:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC1PE;
+ 119:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2PE;
+ 120:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3PE;
+ 121:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4PE;
+ 122:Src/drv/drv_dshot.c **** 	//
+ 123:Src/drv/drv_dshot.c **** 	TIM5->CR1		|= TIM_CR1_ARPE;
+ 124:Src/drv/drv_dshot.c **** 	// enable the counter
+ 125:Src/drv/drv_dshot.c **** 	TIM5->CR1		|= TIM_CR1_CEN;
+ 126:Src/drv/drv_dshot.c **** 
+ 127:Src/drv/drv_dshot.c **** 	/////////////////DMA INIT///////////////////
+ 128:Src/drv/drv_dshot.c **** 	/*
+ 129:Src/drv/drv_dshot.c **** 	 * TIM2_CH1 on Stream2_CH6
+ 130:Src/drv/drv_dshot.c **** 	 * TIM2_CH2 on Stream4_CH6
+ 131:Src/drv/drv_dshot.c **** 	 * TIM2_CH3 on Stream0_CH6
+ 132:Src/drv/drv_dshot.c **** 	 * TIM2_CH4 on Stream3_CH6
+ 133:Src/drv/drv_dshot.c **** 	 */
+ 134:Src/drv/drv_dshot.c **** 
+ 135:Src/drv/drv_dshot.c **** 	// disable DMA stream 5
+ 136:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
+ 137:Src/drv/drv_dshot.c **** 	while(DMA1_Stream2->CR & DMA_SxCR_EN){}
+ 138:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 139:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= 0;
+ 140:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR	= 0;
+ 141:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR	= 0;
+ 142:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M1AR	= 0;
+ 143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	= 0x00000021U;
+ 144:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 4
+
+
+ 145:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x003F0000U;
+ 146:Src/drv/drv_dshot.c **** 	// disable DMA stream 6
+ 147:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_EN;
+ 148:Src/drv/drv_dshot.c **** 	while(DMA1_Stream4->CR & DMA_SxCR_EN){}
+ 149:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 150:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= 0;
+ 151:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR	= 0;
+ 152:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR	= 0;
+ 153:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M1AR	= 0;
+ 154:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	= 0x00000021U;
+ 155:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	&= ~DMA_SxCR_CHSEL;
+ 156:Src/drv/drv_dshot.c **** 	DMA1->HIFCR			|= 0x0000003FU;
+ 157:Src/drv/drv_dshot.c **** 	// disable DMA stream 1
+ 158:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_EN;
+ 159:Src/drv/drv_dshot.c **** 	while(DMA1_Stream0->CR & DMA_SxCR_EN){}
+ 160:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 161:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= 0;
+ 162:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR	= 0;
+ 163:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR	= 0;
+ 164:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M1AR	= 0;
+ 165:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	= 0x00000021U;
+ 166:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	&= ~DMA_SxCR_CHSEL;
+ 167:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0000003FU;
+ 168:Src/drv/drv_dshot.c **** 	// disable DMA stream 7
+ 169:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_EN;
+ 170:Src/drv/drv_dshot.c **** 	while(DMA1_Stream3->CR & DMA_SxCR_EN){}
+ 171:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 172:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= 0;
+ 173:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR	= 0;
+ 174:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR	= 0;
+ 175:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M1AR	= 0;
+ 176:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	= 0x00000021U;
+ 177:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	&= ~DMA_SxCR_CHSEL;
+ 178:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0F400000U;
+ 179:Src/drv/drv_dshot.c **** 
+ 180:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 181:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	|= (0x6 << 25U);
+ 182:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR 	= (uint32_t)motor4_dmabuffer;
+ 183:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 184:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 185:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 186:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_MBURST;
+ 187:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PBURST;
+ 188:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR 	= (uint32_t)(&(TIM5->CCR1));
+ 189:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 190:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PINC;
+ 191:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MINC;
+ 192:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MSIZE_1;
+ 193:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PSIZE_1;
+ 194:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_CIRC;
+ 195:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PL_0;
+ 196:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 197:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_TCIE;
+ 198:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 199:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	|= (0x6 << 25U);
+ 200:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR 	= (uint32_t)motor3_dmabuffer;
+ 201:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 5
+
+
+ 202:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 203:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 204:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_MBURST;
+ 205:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PBURST;
+ 206:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR 	= (uint32_t)(&(TIM5->CCR2));
+ 207:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 208:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PINC;
+ 209:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MINC;
+ 210:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MSIZE_1;
+ 211:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PSIZE_1;
+ 212:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_CIRC;
+ 213:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PL;
+ 214:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 215:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_TCIE;
+ 216:Src/drv/drv_dshot.c **** 	// motor 2 DMA settings
+ 217:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	|= (0x6 << 25U);
+ 218:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR 	= (uint32_t)motor2_dmabuffer;
+ 219:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 220:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 221:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 222:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_MBURST;
+ 223:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PBURST;
+ 224:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR 	= (uint32_t)(&(TIM5->CCR3));
+ 225:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 226:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PINC;
+ 227:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MINC;
+ 228:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MSIZE_1;
+ 229:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PSIZE_1;
+ 230:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_CIRC;
+ 231:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PL_0;
+ 232:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 233:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_TCIE;
+ 234:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 235:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	|= (0x6 << 25U);
+ 236:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR 	= (uint32_t)motor1_dmabuffer;
+ 237:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 238:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 239:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 240:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_MBURST;
+ 241:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PBURST;
+ 242:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR 	= (uint32_t)(&(TIM5->CCR4));
+ 243:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 244:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PINC;
+ 245:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MINC;
+ 246:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MSIZE_1;
+ 247:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PSIZE_1;
+ 248:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_CIRC;
+ 249:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PL_0;
+ 250:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 251:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_TCIE;
+ 252:Src/drv/drv_dshot.c **** 
+ 253:Src/drv/drv_dshot.c **** }
+ 254:Src/drv/drv_dshot.c **** 
+ 255:Src/drv/drv_dshot.c **** /** @brief Writes to the DMA buffer and starts the DMA stream.
+ 256:Src/drv/drv_dshot.c ****  *
+ 257:Src/drv/drv_dshot.c ****  *  @param *motor_value A four length array with elements from 0 to 2047.
+ 258:Src/drv/drv_dshot.c ****  *  @return Void.
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 6
+
+
+ 259:Src/drv/drv_dshot.c ****  */
+ 260:Src/drv/drv_dshot.c **** void
+ 261:Src/drv/drv_dshot.c **** dshotWrite(uint16_t *motor_value)
+ 262:Src/drv/drv_dshot.c **** {
+ 263:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer_all(motor_value);
+ 264:Src/drv/drv_dshot.c **** 	dshot_enable_dma_request();
+ 265:Src/drv/drv_dshot.c **** 	dshot_dma_start();
+ 266:Src/drv/drv_dshot.c **** 
+ 267:Src/drv/drv_dshot.c **** 	dshot_command_count++;
+ 268:Src/drv/drv_dshot.c **** }
+ 269:Src/drv/drv_dshot.c **** 
+ 270:Src/drv/drv_dshot.c **** /** @brief Waits for a certain amount of dshot commands.
+ 271:Src/drv/drv_dshot.c ****  *
+ 272:Src/drv/drv_dshot.c ****  *  @param wait_counts Number of commands to wait for.
+ 273:Src/drv/drv_dshot.c ****  *  @return Void.
+ 274:Src/drv/drv_dshot.c ****  */
+ 275:Src/drv/drv_dshot.c **** void
+ 276:Src/drv/drv_dshot.c **** dshotWait(uint16_t wait_counts)
+ 277:Src/drv/drv_dshot.c **** {
+ 278:Src/drv/drv_dshot.c **** 	dshot_command_count = 0;
+ 279:Src/drv/drv_dshot.c **** 
+ 280:Src/drv/drv_dshot.c **** 	if(wait_counts == DSHOT_ARM_COUNT)
+ 281:Src/drv/drv_dshot.c **** 	{
+ 282:Src/drv/drv_dshot.c **** 		SysTick->LOAD  = (uint32_t)((SystemCoreClock / 10000) - 1UL);
+ 283:Src/drv/drv_dshot.c **** 		wait_counts *= 10;
+ 284:Src/drv/drv_dshot.c **** 	}
+ 285:Src/drv/drv_dshot.c **** 
+ 286:Src/drv/drv_dshot.c **** 	while(dshot_command_count < wait_counts);
+ 287:Src/drv/drv_dshot.c **** 
+ 288:Src/drv/drv_dshot.c **** 	SysTick->LOAD  = (uint32_t)((SystemCoreClock / 1000) - 1UL);
+ 289:Src/drv/drv_dshot.c **** }
+ 290:Src/drv/drv_dshot.c **** 
+ 291:Src/drv/drv_dshot.c **** /* Static Functions */
+ 292:Src/drv/drv_dshot.c **** 
+ 293:Src/drv/drv_dshot.c **** /** @brief Chooses the dshot speed.
+ 294:Src/drv/drv_dshot.c ****  *
+ 295:Src/drv/drv_dshot.c ****  *  @param dshot_type DSHOT150/300/600. Allows you to adjust the speed.
+ 296:Src/drv/drv_dshot.c ****  *  DSHOT600 is preferred
+ 297:Src/drv/drv_dshot.c ****  *  @return Void.
+ 298:Src/drv/drv_dshot.c ****  */
+ 299:Src/drv/drv_dshot.c **** static uint32_t
+ 300:Src/drv/drv_dshot.c **** dshot_choose_type(dshot_type_e dshot_type)
+ 301:Src/drv/drv_dshot.c **** {
+  29              		.loc 1 301 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 302:Src/drv/drv_dshot.c **** 	switch (dshot_type)
+  34              		.loc 1 302 2 view .LVU1
+  35 0000 0128     		cmp	r0, #1
+  36 0002 03D0     		beq	.L3
+  37 0004 0228     		cmp	r0, #2
+  38 0006 03D1     		bne	.L4
+  39 0008 0248     		ldr	r0, .L5
+  40              	.LVL1:
+  41              		.loc 1 302 2 is_stmt 0 view .LVU2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 7
+
+
+  42 000a 7047     		bx	lr
+  43              	.LVL2:
+  44              	.L3:
+ 303:Src/drv/drv_dshot.c **** 	{
+ 304:Src/drv/drv_dshot.c **** 	case(DSHOT600):
+ 305:Src/drv/drv_dshot.c **** 		return DSHOT600_HZ;
+ 306:Src/drv/drv_dshot.c **** 
+ 307:Src/drv/drv_dshot.c **** 	case(DSHOT300):
+ 308:Src/drv/drv_dshot.c **** 		return DSHOT300_HZ;
+  45              		.loc 1 308 10 view .LVU3
+  46 000c 0248     		ldr	r0, .L5+4
+  47              	.LVL3:
+  48              		.loc 1 308 10 view .LVU4
+  49 000e 7047     		bx	lr
+  50              	.LVL4:
+  51              	.L4:
+ 309:Src/drv/drv_dshot.c **** 
+ 310:Src/drv/drv_dshot.c **** 	default:
+ 311:Src/drv/drv_dshot.c **** 		return DSHOT150_HZ;
+  52              		.loc 1 311 10 view .LVU5
+  53 0010 0248     		ldr	r0, .L5+8
+  54              	.LVL5:
+ 312:Src/drv/drv_dshot.c **** 	}
+ 313:Src/drv/drv_dshot.c **** }
+  55              		.loc 1 313 1 view .LVU6
+  56 0012 7047     		bx	lr
+  57              	.L6:
+  58              		.align	2
+  59              	.L5:
+  60 0014 00F36F06 		.word	108000000
+  61 0018 80F93703 		.word	54000000
+  62 001c C0FC9B01 		.word	27000000
+  63              		.cfi_endproc
+  64              	.LFE190:
+  66              		.section	.text.dshot_prepare_packet,"ax",%progbits
+  67              		.align	1
+  68              		.syntax unified
+  69              		.thumb
+  70              		.thumb_func
+  71              		.fpu fpv5-sp-d16
+  73              	dshot_prepare_packet:
+  74              	.LVL6:
+  75              	.LFB193:
+ 314:Src/drv/drv_dshot.c **** 
+ 315:Src/drv/drv_dshot.c **** /** @brief Prepares all the DMA buffers.
+ 316:Src/drv/drv_dshot.c ****  *
+ 317:Src/drv/drv_dshot.c ****  *  @param *motor_value A four length array with elements from 0 to 2047.
+ 318:Src/drv/drv_dshot.c ****  *  @return Void.
+ 319:Src/drv/drv_dshot.c ****  */
+ 320:Src/drv/drv_dshot.c **** static void
+ 321:Src/drv/drv_dshot.c **** dshot_prepare_dmabuffer_all(uint16_t *motor_value)
+ 322:Src/drv/drv_dshot.c **** {
+ 323:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor1_dmabuffer, motor_value[0]);
+ 324:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor2_dmabuffer, motor_value[1]);
+ 325:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor3_dmabuffer, motor_value[2]);
+ 326:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
+ 327:Src/drv/drv_dshot.c **** }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 8
+
+
+ 328:Src/drv/drv_dshot.c **** 
+ 329:Src/drv/drv_dshot.c **** /** @brief Based on whethere there is a 1 or 0, this loads the
+ 330:Src/drv/drv_dshot.c ****  *  autoreload value into the buffer.
+ 331:Src/drv/drv_dshot.c ****  *
+ 332:Src/drv/drv_dshot.c ****  *  @param *motor_dmabuffer A pointer to the location in memory
+ 333:Src/drv/drv_dshot.c ****  *  that the buffer with the values is located.
+ 334:Src/drv/drv_dshot.c ****  *  @param value Numeric value to send from 0 to 2047.
+ 335:Src/drv/drv_dshot.c ****  *  @return Void.
+ 336:Src/drv/drv_dshot.c ****  */
+ 337:Src/drv/drv_dshot.c **** static void
+ 338:Src/drv/drv_dshot.c **** dshot_prepare_dmabuffer(uint32_t *motor_dmabuffer, uint16_t value)
+ 339:Src/drv/drv_dshot.c **** {
+ 340:Src/drv/drv_dshot.c **** 	uint16_t packet;
+ 341:Src/drv/drv_dshot.c **** 	packet = dshot_prepare_packet(value);
+ 342:Src/drv/drv_dshot.c **** 
+ 343:Src/drv/drv_dshot.c **** 	for(int i = 0; i < 16; i++)
+ 344:Src/drv/drv_dshot.c **** 	{
+ 345:Src/drv/drv_dshot.c **** 		motor_dmabuffer[i] = (packet & 0x8000) ? MOTOR_BIT_1 : MOTOR_BIT_0;
+ 346:Src/drv/drv_dshot.c **** 		packet <<= 1;
+ 347:Src/drv/drv_dshot.c **** 	}
+ 348:Src/drv/drv_dshot.c **** 
+ 349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[16] = 0;
+ 350:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
+ 351:Src/drv/drv_dshot.c **** 
+ 352:Src/drv/drv_dshot.c **** }
+ 353:Src/drv/drv_dshot.c **** 
+ 354:Src/drv/drv_dshot.c **** /** @brief Puts a 1 or 0 into each index in the buffer based on what
+ 355:Src/drv/drv_dshot.c ****  *  we want to send. Also calculates the checksum.
+ 356:Src/drv/drv_dshot.c ****  *
+ 357:Src/drv/drv_dshot.c ****  *  @param *motor_dmabuffer A pointer to the location in memory
+ 358:Src/drv/drv_dshot.c ****  *  that the buffer with the values is located.
+ 359:Src/drv/drv_dshot.c ****  *  @param value Numeric value to send from 0 to 2047.
+ 360:Src/drv/drv_dshot.c ****  *  @return Void.
+ 361:Src/drv/drv_dshot.c ****  */
+ 362:Src/drv/drv_dshot.c **** static uint16_t
+ 363:Src/drv/drv_dshot.c **** dshot_prepare_packet(uint16_t value)
+ 364:Src/drv/drv_dshot.c **** {
+  76              		.loc 1 364 1 is_stmt 1 view -0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+ 365:Src/drv/drv_dshot.c **** 	uint16_t packet;
+  81              		.loc 1 365 2 view .LVU8
+ 366:Src/drv/drv_dshot.c **** 
+ 367:Src/drv/drv_dshot.c **** 	packet = (value << 1) | (dshot_telemetry ? 1 : 0);
+  82              		.loc 1 367 2 view .LVU9
+  83              		.loc 1 367 47 is_stmt 0 view .LVU10
+  84 0000 094B     		ldr	r3, .L10
+  85 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  86              		.loc 1 367 24 view .LVU11
+  87 0004 43EA4000 		orr	r0, r3, r0, lsl #1
+  88              	.LVL7:
+  89              		.loc 1 367 9 view .LVU12
+  90 0008 80B2     		uxth	r0, r0
+  91              	.LVL8:
+ 368:Src/drv/drv_dshot.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 9
+
+
+ 369:Src/drv/drv_dshot.c **** 	// compute checksum
+ 370:Src/drv/drv_dshot.c **** 	unsigned csum = 0;
+  92              		.loc 1 370 2 is_stmt 1 view .LVU13
+ 371:Src/drv/drv_dshot.c **** 	unsigned csum_data = packet;
+  93              		.loc 1 371 2 view .LVU14
+  94              		.loc 1 371 11 is_stmt 0 view .LVU15
+  95 000a 0146     		mov	r1, r0
+  96              	.LVL9:
+ 372:Src/drv/drv_dshot.c **** 
+ 373:Src/drv/drv_dshot.c **** 	for(int i = 0; i < 3; i++)
+  97              		.loc 1 373 2 is_stmt 1 view .LVU16
+  98              	.LBB2:
+  99              		.loc 1 373 6 view .LVU17
+ 100              		.loc 1 373 10 is_stmt 0 view .LVU18
+ 101 000c 0023     		movs	r3, #0
+ 102              	.LBE2:
+ 370:Src/drv/drv_dshot.c **** 	unsigned csum_data = packet;
+ 103              		.loc 1 370 11 view .LVU19
+ 104 000e 1A46     		mov	r2, r3
+ 105              	.LBB3:
+ 106              		.loc 1 373 2 view .LVU20
+ 107 0010 02E0     		b	.L8
+ 108              	.LVL10:
+ 109              	.L9:
+ 374:Src/drv/drv_dshot.c **** 	{
+ 375:Src/drv/drv_dshot.c **** 		csum ^=  csum_data; // xor data by nibbles
+ 110              		.loc 1 375 3 is_stmt 1 discriminator 3 view .LVU21
+ 111              		.loc 1 375 8 is_stmt 0 discriminator 3 view .LVU22
+ 112 0012 4A40     		eors	r2, r2, r1
+ 113              	.LVL11:
+ 376:Src/drv/drv_dshot.c **** 		csum_data >>= 4;
+ 114              		.loc 1 376 3 is_stmt 1 discriminator 3 view .LVU23
+ 115              		.loc 1 376 13 is_stmt 0 discriminator 3 view .LVU24
+ 116 0014 0909     		lsrs	r1, r1, #4
+ 117              	.LVL12:
+ 373:Src/drv/drv_dshot.c **** 	{
+ 118              		.loc 1 373 24 is_stmt 1 discriminator 3 view .LVU25
+ 373:Src/drv/drv_dshot.c **** 	{
+ 119              		.loc 1 373 25 is_stmt 0 discriminator 3 view .LVU26
+ 120 0016 0133     		adds	r3, r3, #1
+ 121              	.LVL13:
+ 122              	.L8:
+ 373:Src/drv/drv_dshot.c **** 	{
+ 123              		.loc 1 373 17 is_stmt 1 discriminator 1 view .LVU27
+ 373:Src/drv/drv_dshot.c **** 	{
+ 124              		.loc 1 373 2 is_stmt 0 discriminator 1 view .LVU28
+ 125 0018 022B     		cmp	r3, #2
+ 126 001a FADD     		ble	.L9
+ 373:Src/drv/drv_dshot.c **** 	{
+ 127              		.loc 1 373 2 discriminator 1 view .LVU29
+ 128              	.LBE3:
+ 377:Src/drv/drv_dshot.c **** 	}
+ 378:Src/drv/drv_dshot.c **** 
+ 379:Src/drv/drv_dshot.c **** 	csum &= 0xf;
+ 129              		.loc 1 379 2 is_stmt 1 view .LVU30
+ 130              	.LVL14:
+ 380:Src/drv/drv_dshot.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 10
+
+
+ 381:Src/drv/drv_dshot.c **** 	packet = (packet << 4) | csum;
+ 131              		.loc 1 381 2 view .LVU31
+ 132              		.loc 1 381 19 is_stmt 0 view .LVU32
+ 133 001c 0001     		lsls	r0, r0, #4
+ 134              	.LVL15:
+ 135              		.loc 1 381 19 view .LVU33
+ 136 001e 80B2     		uxth	r0, r0
+ 137              		.loc 1 381 25 view .LVU34
+ 138 0020 02F00F02 		and	r2, r2, #15
+ 139              	.LVL16:
+ 382:Src/drv/drv_dshot.c **** 
+ 383:Src/drv/drv_dshot.c **** 	return packet;
+ 140              		.loc 1 383 2 is_stmt 1 view .LVU35
+ 384:Src/drv/drv_dshot.c **** }
+ 141              		.loc 1 384 1 is_stmt 0 view .LVU36
+ 142 0024 1043     		orrs	r0, r0, r2
+ 143              	.LVL17:
+ 144              		.loc 1 384 1 view .LVU37
+ 145 0026 7047     		bx	lr
+ 146              	.L11:
+ 147              		.align	2
+ 148              	.L10:
+ 149 0028 00000000 		.word	.LANCHOR0
+ 150              		.cfi_endproc
+ 151              	.LFE193:
+ 153              		.section	.text.dshot_prepare_dmabuffer,"ax",%progbits
+ 154              		.align	1
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.fpu fpv5-sp-d16
+ 160              	dshot_prepare_dmabuffer:
+ 161              	.LVL18:
+ 162              	.LFB192:
+ 339:Src/drv/drv_dshot.c **** 	uint16_t packet;
+ 163              		.loc 1 339 1 is_stmt 1 view -0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339:Src/drv/drv_dshot.c **** 	uint16_t packet;
+ 167              		.loc 1 339 1 is_stmt 0 view .LVU39
+ 168 0000 10B5     		push	{r4, lr}
+ 169              		.cfi_def_cfa_offset 8
+ 170              		.cfi_offset 4, -8
+ 171              		.cfi_offset 14, -4
+ 172 0002 0446     		mov	r4, r0
+ 340:Src/drv/drv_dshot.c **** 	packet = dshot_prepare_packet(value);
+ 173              		.loc 1 340 2 is_stmt 1 view .LVU40
+ 341:Src/drv/drv_dshot.c **** 
+ 174              		.loc 1 341 2 view .LVU41
+ 341:Src/drv/drv_dshot.c **** 
+ 175              		.loc 1 341 11 is_stmt 0 view .LVU42
+ 176 0004 0846     		mov	r0, r1
+ 177              	.LVL19:
+ 341:Src/drv/drv_dshot.c **** 
+ 178              		.loc 1 341 11 view .LVU43
+ 179 0006 FFF7FEFF 		bl	dshot_prepare_packet
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 11
+
+
+ 180              	.LVL20:
+ 343:Src/drv/drv_dshot.c **** 	{
+ 181              		.loc 1 343 2 is_stmt 1 view .LVU44
+ 182              	.LBB4:
+ 343:Src/drv/drv_dshot.c **** 	{
+ 183              		.loc 1 343 6 view .LVU45
+ 343:Src/drv/drv_dshot.c **** 	{
+ 184              		.loc 1 343 10 is_stmt 0 view .LVU46
+ 185 000a 0023     		movs	r3, #0
+ 343:Src/drv/drv_dshot.c **** 	{
+ 186              		.loc 1 343 2 view .LVU47
+ 187 000c 05E0     		b	.L13
+ 188              	.LVL21:
+ 189              	.L19:
+ 345:Src/drv/drv_dshot.c **** 		packet <<= 1;
+ 190              		.loc 1 345 56 view .LVU48
+ 191 000e 7822     		movs	r2, #120
+ 192              	.L14:
+ 345:Src/drv/drv_dshot.c **** 		packet <<= 1;
+ 193              		.loc 1 345 22 discriminator 4 view .LVU49
+ 194 0010 44F82320 		str	r2, [r4, r3, lsl #2]
+ 346:Src/drv/drv_dshot.c **** 	}
+ 195              		.loc 1 346 3 is_stmt 1 discriminator 4 view .LVU50
+ 346:Src/drv/drv_dshot.c **** 	}
+ 196              		.loc 1 346 10 is_stmt 0 discriminator 4 view .LVU51
+ 197 0014 4000     		lsls	r0, r0, #1
+ 198              	.LVL22:
+ 346:Src/drv/drv_dshot.c **** 	}
+ 199              		.loc 1 346 10 discriminator 4 view .LVU52
+ 200 0016 80B2     		uxth	r0, r0
+ 201              	.LVL23:
+ 343:Src/drv/drv_dshot.c **** 	{
+ 202              		.loc 1 343 25 is_stmt 1 discriminator 4 view .LVU53
+ 343:Src/drv/drv_dshot.c **** 	{
+ 203              		.loc 1 343 26 is_stmt 0 discriminator 4 view .LVU54
+ 204 0018 0133     		adds	r3, r3, #1
+ 205              	.LVL24:
+ 206              	.L13:
+ 343:Src/drv/drv_dshot.c **** 	{
+ 207              		.loc 1 343 17 is_stmt 1 discriminator 2 view .LVU55
+ 343:Src/drv/drv_dshot.c **** 	{
+ 208              		.loc 1 343 2 is_stmt 0 discriminator 2 view .LVU56
+ 209 001a 0F2B     		cmp	r3, #15
+ 210 001c 04DC     		bgt	.L18
+ 345:Src/drv/drv_dshot.c **** 		packet <<= 1;
+ 211              		.loc 1 345 3 is_stmt 1 view .LVU57
+ 345:Src/drv/drv_dshot.c **** 		packet <<= 1;
+ 212              		.loc 1 345 56 is_stmt 0 view .LVU58
+ 213 001e 10F4004F 		tst	r0, #32768
+ 214 0022 F4D1     		bne	.L19
+ 215 0024 3C22     		movs	r2, #60
+ 216 0026 F3E7     		b	.L14
+ 217              	.L18:
+ 218              	.LBE4:
+ 349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
+ 219              		.loc 1 349 2 is_stmt 1 view .LVU59
+ 349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 12
+
+
+ 220              		.loc 1 349 22 is_stmt 0 view .LVU60
+ 221 0028 0023     		movs	r3, #0
+ 222              	.LVL25:
+ 349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
+ 223              		.loc 1 349 22 view .LVU61
+ 224 002a 2364     		str	r3, [r4, #64]
+ 350:Src/drv/drv_dshot.c **** 
+ 225              		.loc 1 350 2 is_stmt 1 view .LVU62
+ 350:Src/drv/drv_dshot.c **** 
+ 226              		.loc 1 350 22 is_stmt 0 view .LVU63
+ 227 002c 6364     		str	r3, [r4, #68]
+ 352:Src/drv/drv_dshot.c **** 
+ 228              		.loc 1 352 1 view .LVU64
+ 229 002e 10BD     		pop	{r4, pc}
+ 352:Src/drv/drv_dshot.c **** 
+ 230              		.loc 1 352 1 view .LVU65
+ 231              		.cfi_endproc
+ 232              	.LFE192:
+ 234              		.section	.text.dshot_prepare_dmabuffer_all,"ax",%progbits
+ 235              		.align	1
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 239              		.fpu fpv5-sp-d16
+ 241              	dshot_prepare_dmabuffer_all:
+ 242              	.LVL26:
+ 243              	.LFB191:
+ 322:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor1_dmabuffer, motor_value[0]);
+ 244              		.loc 1 322 1 is_stmt 1 view -0
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 0
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor1_dmabuffer, motor_value[0]);
+ 248              		.loc 1 322 1 is_stmt 0 view .LVU67
+ 249 0000 10B5     		push	{r4, lr}
+ 250              		.cfi_def_cfa_offset 8
+ 251              		.cfi_offset 4, -8
+ 252              		.cfi_offset 14, -4
+ 253 0002 0446     		mov	r4, r0
+ 323:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor2_dmabuffer, motor_value[1]);
+ 254              		.loc 1 323 2 is_stmt 1 view .LVU68
+ 255 0004 0188     		ldrh	r1, [r0]
+ 256 0006 0848     		ldr	r0, .L22
+ 257              	.LVL27:
+ 323:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor2_dmabuffer, motor_value[1]);
+ 258              		.loc 1 323 2 is_stmt 0 view .LVU69
+ 259 0008 FFF7FEFF 		bl	dshot_prepare_dmabuffer
+ 260              	.LVL28:
+ 324:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor3_dmabuffer, motor_value[2]);
+ 261              		.loc 1 324 2 is_stmt 1 view .LVU70
+ 262 000c 6188     		ldrh	r1, [r4, #2]
+ 263 000e 0748     		ldr	r0, .L22+4
+ 264 0010 FFF7FEFF 		bl	dshot_prepare_dmabuffer
+ 265              	.LVL29:
+ 325:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
+ 266              		.loc 1 325 2 view .LVU71
+ 267 0014 A188     		ldrh	r1, [r4, #4]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 13
+
+
+ 268 0016 0648     		ldr	r0, .L22+8
+ 269 0018 FFF7FEFF 		bl	dshot_prepare_dmabuffer
+ 270              	.LVL30:
+ 326:Src/drv/drv_dshot.c **** }
+ 271              		.loc 1 326 2 view .LVU72
+ 272 001c E188     		ldrh	r1, [r4, #6]
+ 273 001e 0548     		ldr	r0, .L22+12
+ 274 0020 FFF7FEFF 		bl	dshot_prepare_dmabuffer
+ 275              	.LVL31:
+ 327:Src/drv/drv_dshot.c **** 
+ 276              		.loc 1 327 1 is_stmt 0 view .LVU73
+ 277 0024 10BD     		pop	{r4, pc}
+ 278              	.LVL32:
+ 279              	.L23:
+ 327:Src/drv/drv_dshot.c **** 
+ 280              		.loc 1 327 1 view .LVU74
+ 281 0026 00BF     		.align	2
+ 282              	.L22:
+ 283 0028 00000000 		.word	.LANCHOR1
+ 284 002c 00000000 		.word	.LANCHOR2
+ 285 0030 00000000 		.word	.LANCHOR3
+ 286 0034 00000000 		.word	.LANCHOR4
+ 287              		.cfi_endproc
+ 288              	.LFE191:
+ 290              		.section	.text.dshot_dma_start,"ax",%progbits
+ 291              		.align	1
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 295              		.fpu fpv5-sp-d16
+ 297              	dshot_dma_start:
+ 298              	.LFB194:
+ 385:Src/drv/drv_dshot.c **** 
+ 386:Src/drv/drv_dshot.c **** /** @brief Starts dma for each timer.
+ 387:Src/drv/drv_dshot.c ****  *
+ 388:Src/drv/drv_dshot.c ****  *  @return Void.
+ 389:Src/drv/drv_dshot.c ****  */
+ 390:Src/drv/drv_dshot.c **** static void
+ 391:Src/drv/drv_dshot.c **** dshot_dma_start(void)
+ 392:Src/drv/drv_dshot.c **** {
+ 299              		.loc 1 392 1 is_stmt 1 view -0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		@ link register save eliminated.
+ 393:Src/drv/drv_dshot.c **** 	TIM5->CNT			= 0;
+ 304              		.loc 1 393 2 view .LVU76
+ 305              		.loc 1 393 14 is_stmt 0 view .LVU77
+ 306 0000 094B     		ldr	r3, .L25
+ 307 0002 0022     		movs	r2, #0
+ 308 0004 5A62     		str	r2, [r3, #36]
+ 394:Src/drv/drv_dshot.c **** 
+ 395:Src/drv/drv_dshot.c **** 	TIM5->DIER			|= TIM_DIER_CC1DE;
+ 309              		.loc 1 395 2 is_stmt 1 view .LVU78
+ 310              		.loc 1 395 15 is_stmt 0 view .LVU79
+ 311 0006 DA68     		ldr	r2, [r3, #12]
+ 312 0008 42F40072 		orr	r2, r2, #512
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 14
+
+
+ 313 000c DA60     		str	r2, [r3, #12]
+ 396:Src/drv/drv_dshot.c **** 	TIM5->DIER			|= TIM_DIER_CC2DE;
+ 314              		.loc 1 396 2 is_stmt 1 view .LVU80
+ 315              		.loc 1 396 15 is_stmt 0 view .LVU81
+ 316 000e DA68     		ldr	r2, [r3, #12]
+ 317 0010 42F48062 		orr	r2, r2, #1024
+ 318 0014 DA60     		str	r2, [r3, #12]
+ 397:Src/drv/drv_dshot.c **** 	TIM5->DIER			|= TIM_DIER_CC3DE;
+ 319              		.loc 1 397 2 is_stmt 1 view .LVU82
+ 320              		.loc 1 397 15 is_stmt 0 view .LVU83
+ 321 0016 DA68     		ldr	r2, [r3, #12]
+ 322 0018 42F40062 		orr	r2, r2, #2048
+ 323 001c DA60     		str	r2, [r3, #12]
+ 398:Src/drv/drv_dshot.c **** 	TIM5->DIER			|= TIM_DIER_CC4DE;
+ 324              		.loc 1 398 2 is_stmt 1 view .LVU84
+ 325              		.loc 1 398 15 is_stmt 0 view .LVU85
+ 326 001e DA68     		ldr	r2, [r3, #12]
+ 327 0020 42F48052 		orr	r2, r2, #4096
+ 328 0024 DA60     		str	r2, [r3, #12]
+ 399:Src/drv/drv_dshot.c **** }
+ 329              		.loc 1 399 1 view .LVU86
+ 330 0026 7047     		bx	lr
+ 331              	.L26:
+ 332              		.align	2
+ 333              	.L25:
+ 334 0028 000C0040 		.word	1073744896
+ 335              		.cfi_endproc
+ 336              	.LFE194:
+ 338              		.section	.text.dshot_enable_dma_request,"ax",%progbits
+ 339              		.align	1
+ 340              		.syntax unified
+ 341              		.thumb
+ 342              		.thumb_func
+ 343              		.fpu fpv5-sp-d16
+ 345              	dshot_enable_dma_request:
+ 346              	.LFB195:
+ 400:Src/drv/drv_dshot.c **** 
+ 401:Src/drv/drv_dshot.c **** /** @brief Enables each dma stream.
+ 402:Src/drv/drv_dshot.c ****  *
+ 403:Src/drv/drv_dshot.c ****  *  @return Void.
+ 404:Src/drv/drv_dshot.c ****  */
+ 405:Src/drv/drv_dshot.c **** static void
+ 406:Src/drv/drv_dshot.c **** dshot_enable_dma_request(void)
+ 407:Src/drv/drv_dshot.c **** {
+ 347              		.loc 1 407 1 is_stmt 1 view -0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351              		@ link register save eliminated.
+ 408:Src/drv/drv_dshot.c **** 
+ 409:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_EN;
+ 352              		.loc 1 409 2 view .LVU88
+ 353              		.loc 1 409 20 is_stmt 0 view .LVU89
+ 354 0000 084B     		ldr	r3, .L28
+ 355 0002 1A6C     		ldr	r2, [r3, #64]
+ 356 0004 42F00102 		orr	r2, r2, #1
+ 357 0008 1A64     		str	r2, [r3, #64]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 15
+
+
+ 410:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_EN;
+ 358              		.loc 1 410 2 is_stmt 1 view .LVU90
+ 359              		.loc 1 410 20 is_stmt 0 view .LVU91
+ 360 000a 1A6F     		ldr	r2, [r3, #112]
+ 361 000c 42F00102 		orr	r2, r2, #1
+ 362 0010 1A67     		str	r2, [r3, #112]
+ 411:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_EN;
+ 363              		.loc 1 411 2 is_stmt 1 view .LVU92
+ 364              		.loc 1 411 20 is_stmt 0 view .LVU93
+ 365 0012 1A69     		ldr	r2, [r3, #16]
+ 366 0014 42F00102 		orr	r2, r2, #1
+ 367 0018 1A61     		str	r2, [r3, #16]
+ 412:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_EN;
+ 368              		.loc 1 412 2 is_stmt 1 view .LVU94
+ 369              		.loc 1 412 20 is_stmt 0 view .LVU95
+ 370 001a 9A6D     		ldr	r2, [r3, #88]
+ 371 001c 42F00102 		orr	r2, r2, #1
+ 372 0020 9A65     		str	r2, [r3, #88]
+ 413:Src/drv/drv_dshot.c **** }
+ 373              		.loc 1 413 1 view .LVU96
+ 374 0022 7047     		bx	lr
+ 375              	.L29:
+ 376              		.align	2
+ 377              	.L28:
+ 378 0024 00600240 		.word	1073897472
+ 379              		.cfi_endproc
+ 380              	.LFE195:
+ 382              		.section	.rodata.dshotInit.str1.4,"aMS",%progbits,1
+ 383              		.align	2
+ 384              	.LC0:
+ 385 0000 0A496E69 		.ascii	"\012Initializing DSHOT\000"
+ 385      7469616C 
+ 385      697A696E 
+ 385      67204453 
+ 385      484F5400 
+ 386              		.section	.text.dshotInit,"ax",%progbits
+ 387              		.align	1
+ 388              		.global	dshotInit
+ 389              		.syntax unified
+ 390              		.thumb
+ 391              		.thumb_func
+ 392              		.fpu fpv5-sp-d16
+ 394              	dshotInit:
+ 395              	.LVL33:
+ 396              	.LFB187:
+  40:Src/drv/drv_dshot.c **** 	printf("\nInitializing DSHOT\n");
+ 397              		.loc 1 40 1 is_stmt 1 view -0
+ 398              		.cfi_startproc
+ 399              		@ args = 0, pretend = 0, frame = 0
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+  40:Src/drv/drv_dshot.c **** 	printf("\nInitializing DSHOT\n");
+ 401              		.loc 1 40 1 is_stmt 0 view .LVU98
+ 402 0000 38B5     		push	{r3, r4, r5, lr}
+ 403              		.cfi_def_cfa_offset 16
+ 404              		.cfi_offset 3, -16
+ 405              		.cfi_offset 4, -12
+ 406              		.cfi_offset 5, -8
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 16
+
+
+ 407              		.cfi_offset 14, -4
+ 408 0002 0546     		mov	r5, r0
+  41:Src/drv/drv_dshot.c **** 	/////////////////GPIO INIT///////////////////
+ 409              		.loc 1 41 2 is_stmt 1 view .LVU99
+ 410 0004 A848     		ldr	r0, .L36
+ 411              	.LVL34:
+  41:Src/drv/drv_dshot.c **** 	/////////////////GPIO INIT///////////////////
+ 412              		.loc 1 41 2 is_stmt 0 view .LVU100
+ 413 0006 FFF7FEFF 		bl	puts
+ 414              	.LVL35:
+  44:Src/drv/drv_dshot.c **** 	// set mode, speed, type, pull, AF
+ 415              		.loc 1 44 2 is_stmt 1 view .LVU101
+  44:Src/drv/drv_dshot.c **** 	// set mode, speed, type, pull, AF
+ 416              		.loc 1 44 15 is_stmt 0 view .LVU102
+ 417 000a A84C     		ldr	r4, .L36+4
+ 418 000c 236B     		ldr	r3, [r4, #48]
+ 419 000e 43F00103 		orr	r3, r3, #1
+ 420 0012 2363     		str	r3, [r4, #48]
+  46:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER0_1;
+ 421              		.loc 1 46 2 is_stmt 1 view .LVU103
+  46:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER0_1;
+ 422              		.loc 1 46 16 is_stmt 0 view .LVU104
+ 423 0014 A64B     		ldr	r3, .L36+8
+ 424 0016 1A68     		ldr	r2, [r3]
+ 425 0018 22F00302 		bic	r2, r2, #3
+ 426 001c 1A60     		str	r2, [r3]
+  47:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR0;
+ 427              		.loc 1 47 2 is_stmt 1 view .LVU105
+  47:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR0;
+ 428              		.loc 1 47 16 is_stmt 0 view .LVU106
+ 429 001e 1A68     		ldr	r2, [r3]
+ 430 0020 42F00202 		orr	r2, r2, #2
+ 431 0024 1A60     		str	r2, [r3]
+  48:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT0;
+ 432              		.loc 1 48 2 is_stmt 1 view .LVU107
+  48:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT0;
+ 433              		.loc 1 48 17 is_stmt 0 view .LVU108
+ 434 0026 9A68     		ldr	r2, [r3, #8]
+ 435 0028 22F00302 		bic	r2, r2, #3
+ 436 002c 9A60     		str	r2, [r3, #8]
+  49:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR0_1;
+ 437              		.loc 1 49 2 is_stmt 1 view .LVU109
+  49:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR0_1;
+ 438              		.loc 1 49 16 is_stmt 0 view .LVU110
+ 439 002e 5A68     		ldr	r2, [r3, #4]
+ 440 0030 22F00102 		bic	r2, r2, #1
+ 441 0034 5A60     		str	r2, [r3, #4]
+  50:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL0;
+ 442              		.loc 1 50 2 is_stmt 1 view .LVU111
+  50:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL0;
+ 443              		.loc 1 50 15 is_stmt 0 view .LVU112
+ 444 0036 DA68     		ldr	r2, [r3, #12]
+ 445 0038 42F00202 		orr	r2, r2, #2
+ 446 003c DA60     		str	r2, [r3, #12]
+  51:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 0U));
+ 447              		.loc 1 51 2 is_stmt 1 view .LVU113
+  51:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 0U));
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 17
+
+
+ 448              		.loc 1 51 16 is_stmt 0 view .LVU114
+ 449 003e 1A6A     		ldr	r2, [r3, #32]
+ 450 0040 22F00F02 		bic	r2, r2, #15
+ 451 0044 1A62     		str	r2, [r3, #32]
+  52:Src/drv/drv_dshot.c **** 
+ 452              		.loc 1 52 2 is_stmt 1 view .LVU115
+  52:Src/drv/drv_dshot.c **** 
+ 453              		.loc 1 52 17 is_stmt 0 view .LVU116
+ 454 0046 1A6A     		ldr	r2, [r3, #32]
+ 455 0048 42F00202 		orr	r2, r2, #2
+ 456 004c 1A62     		str	r2, [r3, #32]
+  54:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER1_1;
+ 457              		.loc 1 54 2 is_stmt 1 view .LVU117
+  54:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER1_1;
+ 458              		.loc 1 54 16 is_stmt 0 view .LVU118
+ 459 004e 1A68     		ldr	r2, [r3]
+ 460 0050 22F00C02 		bic	r2, r2, #12
+ 461 0054 1A60     		str	r2, [r3]
+  55:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR1;
+ 462              		.loc 1 55 2 is_stmt 1 view .LVU119
+  55:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR1;
+ 463              		.loc 1 55 16 is_stmt 0 view .LVU120
+ 464 0056 1A68     		ldr	r2, [r3]
+ 465 0058 42F00802 		orr	r2, r2, #8
+ 466 005c 1A60     		str	r2, [r3]
+  56:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT1;
+ 467              		.loc 1 56 2 is_stmt 1 view .LVU121
+  56:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT1;
+ 468              		.loc 1 56 17 is_stmt 0 view .LVU122
+ 469 005e 9A68     		ldr	r2, [r3, #8]
+ 470 0060 22F00C02 		bic	r2, r2, #12
+ 471 0064 9A60     		str	r2, [r3, #8]
+  57:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR1_1;
+ 472              		.loc 1 57 2 is_stmt 1 view .LVU123
+  57:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR1_1;
+ 473              		.loc 1 57 16 is_stmt 0 view .LVU124
+ 474 0066 5A68     		ldr	r2, [r3, #4]
+ 475 0068 22F00202 		bic	r2, r2, #2
+ 476 006c 5A60     		str	r2, [r3, #4]
+  58:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL1;
+ 477              		.loc 1 58 2 is_stmt 1 view .LVU125
+  58:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL1;
+ 478              		.loc 1 58 15 is_stmt 0 view .LVU126
+ 479 006e DA68     		ldr	r2, [r3, #12]
+ 480 0070 42F00802 		orr	r2, r2, #8
+ 481 0074 DA60     		str	r2, [r3, #12]
+  59:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 1U));
+ 482              		.loc 1 59 2 is_stmt 1 view .LVU127
+  59:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 1U));
+ 483              		.loc 1 59 16 is_stmt 0 view .LVU128
+ 484 0076 1A6A     		ldr	r2, [r3, #32]
+ 485 0078 22F0F002 		bic	r2, r2, #240
+ 486 007c 1A62     		str	r2, [r3, #32]
+  60:Src/drv/drv_dshot.c **** 
+ 487              		.loc 1 60 2 is_stmt 1 view .LVU129
+  60:Src/drv/drv_dshot.c **** 
+ 488              		.loc 1 60 17 is_stmt 0 view .LVU130
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 18
+
+
+ 489 007e 1A6A     		ldr	r2, [r3, #32]
+ 490 0080 42F02002 		orr	r2, r2, #32
+ 491 0084 1A62     		str	r2, [r3, #32]
+  62:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER2_1;
+ 492              		.loc 1 62 2 is_stmt 1 view .LVU131
+  62:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER2_1;
+ 493              		.loc 1 62 16 is_stmt 0 view .LVU132
+ 494 0086 1A68     		ldr	r2, [r3]
+ 495 0088 22F03002 		bic	r2, r2, #48
+ 496 008c 1A60     		str	r2, [r3]
+  63:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR2;
+ 497              		.loc 1 63 2 is_stmt 1 view .LVU133
+  63:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR2;
+ 498              		.loc 1 63 16 is_stmt 0 view .LVU134
+ 499 008e 1A68     		ldr	r2, [r3]
+ 500 0090 42F02002 		orr	r2, r2, #32
+ 501 0094 1A60     		str	r2, [r3]
+  64:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT2;
+ 502              		.loc 1 64 2 is_stmt 1 view .LVU135
+  64:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT2;
+ 503              		.loc 1 64 17 is_stmt 0 view .LVU136
+ 504 0096 9A68     		ldr	r2, [r3, #8]
+ 505 0098 22F03002 		bic	r2, r2, #48
+ 506 009c 9A60     		str	r2, [r3, #8]
+  65:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR2_1;
+ 507              		.loc 1 65 2 is_stmt 1 view .LVU137
+  65:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR2_1;
+ 508              		.loc 1 65 16 is_stmt 0 view .LVU138
+ 509 009e 5A68     		ldr	r2, [r3, #4]
+ 510 00a0 22F00402 		bic	r2, r2, #4
+ 511 00a4 5A60     		str	r2, [r3, #4]
+  66:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL2;
+ 512              		.loc 1 66 2 is_stmt 1 view .LVU139
+  66:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL2;
+ 513              		.loc 1 66 15 is_stmt 0 view .LVU140
+ 514 00a6 DA68     		ldr	r2, [r3, #12]
+ 515 00a8 42F02002 		orr	r2, r2, #32
+ 516 00ac DA60     		str	r2, [r3, #12]
+  67:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 2U));
+ 517              		.loc 1 67 2 is_stmt 1 view .LVU141
+  67:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 2U));
+ 518              		.loc 1 67 16 is_stmt 0 view .LVU142
+ 519 00ae 1A6A     		ldr	r2, [r3, #32]
+ 520 00b0 22F47062 		bic	r2, r2, #3840
+ 521 00b4 1A62     		str	r2, [r3, #32]
+  68:Src/drv/drv_dshot.c **** 
+ 522              		.loc 1 68 2 is_stmt 1 view .LVU143
+  68:Src/drv/drv_dshot.c **** 
+ 523              		.loc 1 68 17 is_stmt 0 view .LVU144
+ 524 00b6 1A6A     		ldr	r2, [r3, #32]
+ 525 00b8 42F40072 		orr	r2, r2, #512
+ 526 00bc 1A62     		str	r2, [r3, #32]
+  70:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER3_1;
+ 527              		.loc 1 70 2 is_stmt 1 view .LVU145
+  70:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER3_1;
+ 528              		.loc 1 70 16 is_stmt 0 view .LVU146
+ 529 00be 1A68     		ldr	r2, [r3]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 19
+
+
+ 530 00c0 22F0C002 		bic	r2, r2, #192
+ 531 00c4 1A60     		str	r2, [r3]
+  71:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR3;
+ 532              		.loc 1 71 2 is_stmt 1 view .LVU147
+  71:Src/drv/drv_dshot.c **** 	GPIOA->OSPEEDR	&= ~GPIO_OSPEEDR_OSPEEDR3;
+ 533              		.loc 1 71 16 is_stmt 0 view .LVU148
+ 534 00c6 1A68     		ldr	r2, [r3]
+ 535 00c8 42F08002 		orr	r2, r2, #128
+ 536 00cc 1A60     		str	r2, [r3]
+  72:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT3;
+ 537              		.loc 1 72 2 is_stmt 1 view .LVU149
+  72:Src/drv/drv_dshot.c **** 	GPIOA->OTYPER	&= ~GPIO_OTYPER_OT3;
+ 538              		.loc 1 72 17 is_stmt 0 view .LVU150
+ 539 00ce 9A68     		ldr	r2, [r3, #8]
+ 540 00d0 22F0C002 		bic	r2, r2, #192
+ 541 00d4 9A60     		str	r2, [r3, #8]
+  73:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR3_1;
+ 542              		.loc 1 73 2 is_stmt 1 view .LVU151
+  73:Src/drv/drv_dshot.c **** 	GPIOA->PUPDR	|= GPIO_PUPDR_PUPDR3_1;
+ 543              		.loc 1 73 16 is_stmt 0 view .LVU152
+ 544 00d6 5A68     		ldr	r2, [r3, #4]
+ 545 00d8 22F00802 		bic	r2, r2, #8
+ 546 00dc 5A60     		str	r2, [r3, #4]
+  74:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL3;
+ 547              		.loc 1 74 2 is_stmt 1 view .LVU153
+  74:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0]	&= ~GPIO_AFRL_AFRL3;
+ 548              		.loc 1 74 15 is_stmt 0 view .LVU154
+ 549 00de DA68     		ldr	r2, [r3, #12]
+ 550 00e0 42F08002 		orr	r2, r2, #128
+ 551 00e4 DA60     		str	r2, [r3, #12]
+  75:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 3U));
+ 552              		.loc 1 75 2 is_stmt 1 view .LVU155
+  75:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 3U));
+ 553              		.loc 1 75 16 is_stmt 0 view .LVU156
+ 554 00e6 1A6A     		ldr	r2, [r3, #32]
+ 555 00e8 22F47042 		bic	r2, r2, #61440
+ 556 00ec 1A62     		str	r2, [r3, #32]
+  76:Src/drv/drv_dshot.c **** 
+ 557              		.loc 1 76 2 is_stmt 1 view .LVU157
+  76:Src/drv/drv_dshot.c **** 
+ 558              		.loc 1 76 17 is_stmt 0 view .LVU158
+ 559 00ee 1A6A     		ldr	r2, [r3, #32]
+ 560 00f0 42F40052 		orr	r2, r2, #8192
+ 561 00f4 1A62     		str	r2, [r3, #32]
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 562              		.loc 1 79 2 is_stmt 1 view .LVU159
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 563              		.loc 1 79 55 is_stmt 0 view .LVU160
+ 564 00f6 2846     		mov	r0, r5
+ 565 00f8 FFF7FEFF 		bl	dshot_choose_type
+ 566              	.LVL36:
+ 567 00fc 07EE100A 		vmov	s14, r0	@ int
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 568              		.loc 1 79 53 view .LVU161
+ 569 0100 B8EE477A 		vcvt.f32.u32	s14, s14
+ 570 0104 DFED6B6A 		vldr.32	s13, .L36+12
+ 571 0108 C6EE877A 		vdiv.f32	s15, s13, s14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 20
+
+
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 572              		.loc 1 79 85 view .LVU162
+ 573 010c 9FED6A7A 		vldr.32	s14, .L36+16
+ 574 0110 77EE877A 		vadd.f32	s15, s15, s14
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 575              		.loc 1 79 23 view .LVU163
+ 576 0114 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 577 0118 17EE903A 		vmov	r3, s15	@ int
+ 578 011c 9AB2     		uxth	r2, r3
+  79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
+ 579              		.loc 1 79 11 view .LVU164
+ 580 011e 013A     		subs	r2, r2, #1
+ 581 0120 92B2     		uxth	r2, r2
+ 582              	.LVL37:
+  81:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CEN;
+ 583              		.loc 1 81 2 is_stmt 1 view .LVU165
+  81:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CEN;
+ 584              		.loc 1 81 16 is_stmt 0 view .LVU166
+ 585 0122 236C     		ldr	r3, [r4, #64]
+ 586 0124 43F00803 		orr	r3, r3, #8
+ 587 0128 2364     		str	r3, [r4, #64]
+  82:Src/drv/drv_dshot.c **** 	// set PSC, AR, clock div, cnt, cnt mode
+ 588              		.loc 1 82 2 is_stmt 1 view .LVU167
+  82:Src/drv/drv_dshot.c **** 	// set PSC, AR, clock div, cnt, cnt mode
+ 589              		.loc 1 82 13 is_stmt 0 view .LVU168
+ 590 012a 644B     		ldr	r3, .L36+20
+ 591 012c 1968     		ldr	r1, [r3]
+ 592 012e 21F00101 		bic	r1, r1, #1
+ 593 0132 1960     		str	r1, [r3]
+  84:Src/drv/drv_dshot.c **** 	TIM5->ARR		= MOTOR_BITLENGTH;
+ 594              		.loc 1 84 2 is_stmt 1 view .LVU169
+  84:Src/drv/drv_dshot.c **** 	TIM5->ARR		= MOTOR_BITLENGTH;
+ 595              		.loc 1 84 14 is_stmt 0 view .LVU170
+ 596 0134 9A62     		str	r2, [r3, #40]
+  85:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CKD;
+ 597              		.loc 1 85 2 is_stmt 1 view .LVU171
+  85:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CKD;
+ 598              		.loc 1 85 13 is_stmt 0 view .LVU172
+ 599 0136 B422     		movs	r2, #180
+ 600              	.LVL38:
+  85:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CKD;
+ 601              		.loc 1 85 13 view .LVU173
+ 602 0138 DA62     		str	r2, [r3, #44]
+ 603              	.LVL39:
+  86:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_DIR;
+ 604              		.loc 1 86 2 is_stmt 1 view .LVU174
+  86:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_DIR;
+ 605              		.loc 1 86 13 is_stmt 0 view .LVU175
+ 606 013a 1A68     		ldr	r2, [r3]
+ 607 013c 22F44072 		bic	r2, r2, #768
+ 608 0140 1A60     		str	r2, [r3]
+  87:Src/drv/drv_dshot.c **** 	// set output compare mode
+ 609              		.loc 1 87 2 is_stmt 1 view .LVU176
+  87:Src/drv/drv_dshot.c **** 	// set output compare mode
+ 610              		.loc 1 87 13 is_stmt 0 view .LVU177
+ 611 0142 1A68     		ldr	r2, [r3]
+ 612 0144 22F01002 		bic	r2, r2, #16
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 21
+
+
+ 613 0148 1A60     		str	r2, [r3]
+  90:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC1M_1 |
+ 614              		.loc 1 90 2 is_stmt 1 view .LVU178
+  90:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC1M_1 |
+ 615              		.loc 1 90 14 is_stmt 0 view .LVU179
+ 616 014a 1A6A     		ldr	r2, [r3, #32]
+ 617 014c 22F00102 		bic	r2, r2, #1
+ 618 0150 1A62     		str	r2, [r3, #32]
+  91:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC1M_2;
+ 619              		.loc 1 91 2 is_stmt 1 view .LVU180
+  91:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC1M_2;
+ 620              		.loc 1 91 15 is_stmt 0 view .LVU181
+ 621 0152 9A69     		ldr	r2, [r3, #24]
+ 622 0154 42F06002 		orr	r2, r2, #96
+ 623 0158 9A61     		str	r2, [r3, #24]
+  93:Src/drv/drv_dshot.c **** 	TIM5->CCR1		= 0;
+ 624              		.loc 1 93 2 is_stmt 1 view .LVU182
+  93:Src/drv/drv_dshot.c **** 	TIM5->CCR1		= 0;
+ 625              		.loc 1 93 14 is_stmt 0 view .LVU183
+ 626 015a 1A6A     		ldr	r2, [r3, #32]
+ 627 015c 22F00202 		bic	r2, r2, #2
+ 628 0160 1A62     		str	r2, [r3, #32]
+  94:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC1E;
+ 629              		.loc 1 94 2 is_stmt 1 view .LVU184
+  94:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC1E;
+ 630              		.loc 1 94 14 is_stmt 0 view .LVU185
+ 631 0162 0022     		movs	r2, #0
+ 632 0164 5A63     		str	r2, [r3, #52]
+  95:Src/drv/drv_dshot.c **** 	// channel 2
+ 633              		.loc 1 95 2 is_stmt 1 view .LVU186
+  95:Src/drv/drv_dshot.c **** 	// channel 2
+ 634              		.loc 1 95 14 is_stmt 0 view .LVU187
+ 635 0166 196A     		ldr	r1, [r3, #32]
+ 636 0168 41F00101 		orr	r1, r1, #1
+ 637 016c 1962     		str	r1, [r3, #32]
+  97:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2M_1 |
+ 638              		.loc 1 97 2 is_stmt 1 view .LVU188
+  97:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2M_1 |
+ 639              		.loc 1 97 14 is_stmt 0 view .LVU189
+ 640 016e 196A     		ldr	r1, [r3, #32]
+ 641 0170 21F01001 		bic	r1, r1, #16
+ 642 0174 1962     		str	r1, [r3, #32]
+  98:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC2M_2;
+ 643              		.loc 1 98 2 is_stmt 1 view .LVU190
+  98:Src/drv/drv_dshot.c **** 			TIM_CCMR1_OC2M_2;
+ 644              		.loc 1 98 15 is_stmt 0 view .LVU191
+ 645 0176 9969     		ldr	r1, [r3, #24]
+ 646 0178 41F4C041 		orr	r1, r1, #24576
+ 647 017c 9961     		str	r1, [r3, #24]
+ 100:Src/drv/drv_dshot.c **** 	TIM5->CCR2		= 0;
+ 648              		.loc 1 100 2 is_stmt 1 view .LVU192
+ 100:Src/drv/drv_dshot.c **** 	TIM5->CCR2		= 0;
+ 649              		.loc 1 100 14 is_stmt 0 view .LVU193
+ 650 017e 196A     		ldr	r1, [r3, #32]
+ 651 0180 21F02001 		bic	r1, r1, #32
+ 652 0184 1962     		str	r1, [r3, #32]
+ 101:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC2E;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 22
+
+
+ 653              		.loc 1 101 2 is_stmt 1 view .LVU194
+ 101:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC2E;
+ 654              		.loc 1 101 14 is_stmt 0 view .LVU195
+ 655 0186 9A63     		str	r2, [r3, #56]
+ 102:Src/drv/drv_dshot.c **** 	// channel 3
+ 656              		.loc 1 102 2 is_stmt 1 view .LVU196
+ 102:Src/drv/drv_dshot.c **** 	// channel 3
+ 657              		.loc 1 102 14 is_stmt 0 view .LVU197
+ 658 0188 196A     		ldr	r1, [r3, #32]
+ 659 018a 41F01001 		orr	r1, r1, #16
+ 660 018e 1962     		str	r1, [r3, #32]
+ 104:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3M_1 |
+ 661              		.loc 1 104 2 is_stmt 1 view .LVU198
+ 104:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3M_1 |
+ 662              		.loc 1 104 14 is_stmt 0 view .LVU199
+ 663 0190 196A     		ldr	r1, [r3, #32]
+ 664 0192 21F48071 		bic	r1, r1, #256
+ 665 0196 1962     		str	r1, [r3, #32]
+ 105:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC3M_2;
+ 666              		.loc 1 105 2 is_stmt 1 view .LVU200
+ 105:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC3M_2;
+ 667              		.loc 1 105 15 is_stmt 0 view .LVU201
+ 668 0198 D969     		ldr	r1, [r3, #28]
+ 669 019a 41F06001 		orr	r1, r1, #96
+ 670 019e D961     		str	r1, [r3, #28]
+ 107:Src/drv/drv_dshot.c **** 	TIM5->CCR3		= 0;
+ 671              		.loc 1 107 2 is_stmt 1 view .LVU202
+ 107:Src/drv/drv_dshot.c **** 	TIM5->CCR3		= 0;
+ 672              		.loc 1 107 14 is_stmt 0 view .LVU203
+ 673 01a0 196A     		ldr	r1, [r3, #32]
+ 674 01a2 21F40071 		bic	r1, r1, #512
+ 675 01a6 1962     		str	r1, [r3, #32]
+ 108:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC3E;
+ 676              		.loc 1 108 2 is_stmt 1 view .LVU204
+ 108:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC3E;
+ 677              		.loc 1 108 14 is_stmt 0 view .LVU205
+ 678 01a8 DA63     		str	r2, [r3, #60]
+ 109:Src/drv/drv_dshot.c **** 	// channel 4
+ 679              		.loc 1 109 2 is_stmt 1 view .LVU206
+ 109:Src/drv/drv_dshot.c **** 	// channel 4
+ 680              		.loc 1 109 14 is_stmt 0 view .LVU207
+ 681 01aa 196A     		ldr	r1, [r3, #32]
+ 682 01ac 41F48071 		orr	r1, r1, #256
+ 683 01b0 1962     		str	r1, [r3, #32]
+ 111:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4M_1 |
+ 684              		.loc 1 111 2 is_stmt 1 view .LVU208
+ 111:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4M_1 |
+ 685              		.loc 1 111 14 is_stmt 0 view .LVU209
+ 686 01b2 196A     		ldr	r1, [r3, #32]
+ 687 01b4 21F48051 		bic	r1, r1, #4096
+ 688 01b8 1962     		str	r1, [r3, #32]
+ 112:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC4M_2;
+ 689              		.loc 1 112 2 is_stmt 1 view .LVU210
+ 112:Src/drv/drv_dshot.c **** 			TIM_CCMR2_OC4M_2;
+ 690              		.loc 1 112 15 is_stmt 0 view .LVU211
+ 691 01ba D969     		ldr	r1, [r3, #28]
+ 692 01bc 41F4C041 		orr	r1, r1, #24576
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 23
+
+
+ 693 01c0 D961     		str	r1, [r3, #28]
+ 114:Src/drv/drv_dshot.c **** 	TIM5->CCR4		= 0;
+ 694              		.loc 1 114 2 is_stmt 1 view .LVU212
+ 114:Src/drv/drv_dshot.c **** 	TIM5->CCR4		= 0;
+ 695              		.loc 1 114 14 is_stmt 0 view .LVU213
+ 696 01c2 196A     		ldr	r1, [r3, #32]
+ 697 01c4 21F40051 		bic	r1, r1, #8192
+ 698 01c8 1962     		str	r1, [r3, #32]
+ 115:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC4E;
+ 699              		.loc 1 115 2 is_stmt 1 view .LVU214
+ 115:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC4E;
+ 700              		.loc 1 115 14 is_stmt 0 view .LVU215
+ 701 01ca 1A64     		str	r2, [r3, #64]
+ 116:Src/drv/drv_dshot.c **** 	// enable preload
+ 702              		.loc 1 116 2 is_stmt 1 view .LVU216
+ 116:Src/drv/drv_dshot.c **** 	// enable preload
+ 703              		.loc 1 116 14 is_stmt 0 view .LVU217
+ 704 01cc 1A6A     		ldr	r2, [r3, #32]
+ 705 01ce 42F48052 		orr	r2, r2, #4096
+ 706 01d2 1A62     		str	r2, [r3, #32]
+ 118:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2PE;
+ 707              		.loc 1 118 2 is_stmt 1 view .LVU218
+ 118:Src/drv/drv_dshot.c **** 	TIM5->CCMR1		|= TIM_CCMR1_OC2PE;
+ 708              		.loc 1 118 15 is_stmt 0 view .LVU219
+ 709 01d4 9A69     		ldr	r2, [r3, #24]
+ 710 01d6 42F00802 		orr	r2, r2, #8
+ 711 01da 9A61     		str	r2, [r3, #24]
+ 119:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3PE;
+ 712              		.loc 1 119 2 is_stmt 1 view .LVU220
+ 119:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC3PE;
+ 713              		.loc 1 119 15 is_stmt 0 view .LVU221
+ 714 01dc 9A69     		ldr	r2, [r3, #24]
+ 715 01de 42F40062 		orr	r2, r2, #2048
+ 716 01e2 9A61     		str	r2, [r3, #24]
+ 120:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4PE;
+ 717              		.loc 1 120 2 is_stmt 1 view .LVU222
+ 120:Src/drv/drv_dshot.c **** 	TIM5->CCMR2		|= TIM_CCMR2_OC4PE;
+ 718              		.loc 1 120 15 is_stmt 0 view .LVU223
+ 719 01e4 DA69     		ldr	r2, [r3, #28]
+ 720 01e6 42F00802 		orr	r2, r2, #8
+ 721 01ea DA61     		str	r2, [r3, #28]
+ 121:Src/drv/drv_dshot.c **** 	//
+ 722              		.loc 1 121 2 is_stmt 1 view .LVU224
+ 121:Src/drv/drv_dshot.c **** 	//
+ 723              		.loc 1 121 15 is_stmt 0 view .LVU225
+ 724 01ec DA69     		ldr	r2, [r3, #28]
+ 725 01ee 42F40062 		orr	r2, r2, #2048
+ 726 01f2 DA61     		str	r2, [r3, #28]
+ 123:Src/drv/drv_dshot.c **** 	// enable the counter
+ 727              		.loc 1 123 2 is_stmt 1 view .LVU226
+ 123:Src/drv/drv_dshot.c **** 	// enable the counter
+ 728              		.loc 1 123 13 is_stmt 0 view .LVU227
+ 729 01f4 1A68     		ldr	r2, [r3]
+ 730 01f6 42F08002 		orr	r2, r2, #128
+ 731 01fa 1A60     		str	r2, [r3]
+ 125:Src/drv/drv_dshot.c **** 
+ 732              		.loc 1 125 2 is_stmt 1 view .LVU228
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 24
+
+
+ 125:Src/drv/drv_dshot.c **** 
+ 733              		.loc 1 125 13 is_stmt 0 view .LVU229
+ 734 01fc 1A68     		ldr	r2, [r3]
+ 735 01fe 42F00102 		orr	r2, r2, #1
+ 736 0202 1A60     		str	r2, [r3]
+ 136:Src/drv/drv_dshot.c **** 	while(DMA1_Stream2->CR & DMA_SxCR_EN){}
+ 737              		.loc 1 136 2 is_stmt 1 view .LVU230
+ 136:Src/drv/drv_dshot.c **** 	while(DMA1_Stream2->CR & DMA_SxCR_EN){}
+ 738              		.loc 1 136 20 is_stmt 0 view .LVU231
+ 739 0204 2E4A     		ldr	r2, .L36+24
+ 740 0206 136C     		ldr	r3, [r2, #64]
+ 741 0208 23F00103 		bic	r3, r3, #1
+ 742 020c 1364     		str	r3, [r2, #64]
+ 137:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 743              		.loc 1 137 2 is_stmt 1 view .LVU232
+ 744              	.L31:
+ 137:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 745              		.loc 1 137 40 discriminator 1 view .LVU233
+ 137:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 746              		.loc 1 137 7 discriminator 1 view .LVU234
+ 137:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 747              		.loc 1 137 20 is_stmt 0 discriminator 1 view .LVU235
+ 748 020e 2C4B     		ldr	r3, .L36+24
+ 749 0210 1B6C     		ldr	r3, [r3, #64]
+ 137:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	= 0;
+ 750              		.loc 1 137 7 discriminator 1 view .LVU236
+ 751 0212 13F0010F 		tst	r3, #1
+ 752 0216 FAD1     		bne	.L31
+ 138:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= 0;
+ 753              		.loc 1 138 2 is_stmt 1 view .LVU237
+ 138:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= 0;
+ 754              		.loc 1 138 19 is_stmt 0 view .LVU238
+ 755 0218 294B     		ldr	r3, .L36+24
+ 756 021a 0022     		movs	r2, #0
+ 757 021c 1A64     		str	r2, [r3, #64]
+ 139:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR	= 0;
+ 758              		.loc 1 139 2 is_stmt 1 view .LVU239
+ 139:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR	= 0;
+ 759              		.loc 1 139 21 is_stmt 0 view .LVU240
+ 760 021e 5A64     		str	r2, [r3, #68]
+ 140:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR	= 0;
+ 761              		.loc 1 140 2 is_stmt 1 view .LVU241
+ 140:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR	= 0;
+ 762              		.loc 1 140 20 is_stmt 0 view .LVU242
+ 763 0220 9A64     		str	r2, [r3, #72]
+ 141:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M1AR	= 0;
+ 764              		.loc 1 141 2 is_stmt 1 view .LVU243
+ 141:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M1AR	= 0;
+ 765              		.loc 1 141 21 is_stmt 0 view .LVU244
+ 766 0222 DA64     		str	r2, [r3, #76]
+ 142:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	= 0x00000021U;
+ 767              		.loc 1 142 2 is_stmt 1 view .LVU245
+ 142:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	= 0x00000021U;
+ 768              		.loc 1 142 21 is_stmt 0 view .LVU246
+ 769 0224 1A65     		str	r2, [r3, #80]
+ 143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
+ 770              		.loc 1 143 2 is_stmt 1 view .LVU247
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 25
+
+
+ 143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
+ 771              		.loc 1 143 20 is_stmt 0 view .LVU248
+ 772 0226 2122     		movs	r2, #33
+ 773 0228 5A65     		str	r2, [r3, #84]
+ 144:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x003F0000U;
+ 774              		.loc 1 144 2 is_stmt 1 view .LVU249
+ 144:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x003F0000U;
+ 775              		.loc 1 144 19 is_stmt 0 view .LVU250
+ 776 022a 1A6C     		ldr	r2, [r3, #64]
+ 777 022c 22F0F052 		bic	r2, r2, #503316480
+ 778 0230 1A64     		str	r2, [r3, #64]
+ 145:Src/drv/drv_dshot.c **** 	// disable DMA stream 6
+ 779              		.loc 1 145 2 is_stmt 1 view .LVU251
+ 145:Src/drv/drv_dshot.c **** 	// disable DMA stream 6
+ 780              		.loc 1 145 16 is_stmt 0 view .LVU252
+ 781 0232 9A68     		ldr	r2, [r3, #8]
+ 782 0234 42F47C12 		orr	r2, r2, #4128768
+ 783 0238 9A60     		str	r2, [r3, #8]
+ 147:Src/drv/drv_dshot.c **** 	while(DMA1_Stream4->CR & DMA_SxCR_EN){}
+ 784              		.loc 1 147 2 is_stmt 1 view .LVU253
+ 147:Src/drv/drv_dshot.c **** 	while(DMA1_Stream4->CR & DMA_SxCR_EN){}
+ 785              		.loc 1 147 20 is_stmt 0 view .LVU254
+ 786 023a 1A6F     		ldr	r2, [r3, #112]
+ 787 023c 22F00102 		bic	r2, r2, #1
+ 788 0240 1A67     		str	r2, [r3, #112]
+ 148:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 789              		.loc 1 148 2 is_stmt 1 view .LVU255
+ 790              	.L32:
+ 148:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 791              		.loc 1 148 40 discriminator 1 view .LVU256
+ 148:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 792              		.loc 1 148 7 discriminator 1 view .LVU257
+ 148:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 793              		.loc 1 148 20 is_stmt 0 discriminator 1 view .LVU258
+ 794 0242 1F4B     		ldr	r3, .L36+24
+ 795 0244 1B6F     		ldr	r3, [r3, #112]
+ 148:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	= 0;
+ 796              		.loc 1 148 7 discriminator 1 view .LVU259
+ 797 0246 13F0010F 		tst	r3, #1
+ 798 024a FAD1     		bne	.L32
+ 149:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= 0;
+ 799              		.loc 1 149 2 is_stmt 1 view .LVU260
+ 149:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= 0;
+ 800              		.loc 1 149 19 is_stmt 0 view .LVU261
+ 801 024c 1C4B     		ldr	r3, .L36+24
+ 802 024e 0022     		movs	r2, #0
+ 803 0250 1A67     		str	r2, [r3, #112]
+ 150:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR	= 0;
+ 804              		.loc 1 150 2 is_stmt 1 view .LVU262
+ 150:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR	= 0;
+ 805              		.loc 1 150 21 is_stmt 0 view .LVU263
+ 806 0252 5A67     		str	r2, [r3, #116]
+ 151:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR	= 0;
+ 807              		.loc 1 151 2 is_stmt 1 view .LVU264
+ 151:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR	= 0;
+ 808              		.loc 1 151 20 is_stmt 0 view .LVU265
+ 809 0254 9A67     		str	r2, [r3, #120]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 26
+
+
+ 152:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M1AR	= 0;
+ 810              		.loc 1 152 2 is_stmt 1 view .LVU266
+ 152:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M1AR	= 0;
+ 811              		.loc 1 152 21 is_stmt 0 view .LVU267
+ 812 0256 DA67     		str	r2, [r3, #124]
+ 153:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	= 0x00000021U;
+ 813              		.loc 1 153 2 is_stmt 1 view .LVU268
+ 153:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	= 0x00000021U;
+ 814              		.loc 1 153 21 is_stmt 0 view .LVU269
+ 815 0258 C3F88020 		str	r2, [r3, #128]
+ 154:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	&= ~DMA_SxCR_CHSEL;
+ 816              		.loc 1 154 2 is_stmt 1 view .LVU270
+ 154:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	&= ~DMA_SxCR_CHSEL;
+ 817              		.loc 1 154 20 is_stmt 0 view .LVU271
+ 818 025c 2122     		movs	r2, #33
+ 819 025e C3F88420 		str	r2, [r3, #132]
+ 155:Src/drv/drv_dshot.c **** 	DMA1->HIFCR			|= 0x0000003FU;
+ 820              		.loc 1 155 2 is_stmt 1 view .LVU272
+ 155:Src/drv/drv_dshot.c **** 	DMA1->HIFCR			|= 0x0000003FU;
+ 821              		.loc 1 155 19 is_stmt 0 view .LVU273
+ 822 0262 1A6F     		ldr	r2, [r3, #112]
+ 823 0264 22F0F052 		bic	r2, r2, #503316480
+ 824 0268 1A67     		str	r2, [r3, #112]
+ 156:Src/drv/drv_dshot.c **** 	// disable DMA stream 1
+ 825              		.loc 1 156 2 is_stmt 1 view .LVU274
+ 156:Src/drv/drv_dshot.c **** 	// disable DMA stream 1
+ 826              		.loc 1 156 16 is_stmt 0 view .LVU275
+ 827 026a DA68     		ldr	r2, [r3, #12]
+ 828 026c 42F03F02 		orr	r2, r2, #63
+ 829 0270 DA60     		str	r2, [r3, #12]
+ 158:Src/drv/drv_dshot.c **** 	while(DMA1_Stream0->CR & DMA_SxCR_EN){}
+ 830              		.loc 1 158 2 is_stmt 1 view .LVU276
+ 158:Src/drv/drv_dshot.c **** 	while(DMA1_Stream0->CR & DMA_SxCR_EN){}
+ 831              		.loc 1 158 20 is_stmt 0 view .LVU277
+ 832 0272 1A69     		ldr	r2, [r3, #16]
+ 833 0274 22F00102 		bic	r2, r2, #1
+ 834 0278 1A61     		str	r2, [r3, #16]
+ 159:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 835              		.loc 1 159 2 is_stmt 1 view .LVU278
+ 836              	.L33:
+ 159:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 837              		.loc 1 159 40 discriminator 1 view .LVU279
+ 159:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 838              		.loc 1 159 7 discriminator 1 view .LVU280
+ 159:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 839              		.loc 1 159 20 is_stmt 0 discriminator 1 view .LVU281
+ 840 027a 114B     		ldr	r3, .L36+24
+ 841 027c 1B69     		ldr	r3, [r3, #16]
+ 159:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	= 0;
+ 842              		.loc 1 159 7 discriminator 1 view .LVU282
+ 843 027e 13F0010F 		tst	r3, #1
+ 844 0282 FAD1     		bne	.L33
+ 160:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= 0;
+ 845              		.loc 1 160 2 is_stmt 1 view .LVU283
+ 160:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= 0;
+ 846              		.loc 1 160 19 is_stmt 0 view .LVU284
+ 847 0284 0E4B     		ldr	r3, .L36+24
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 27
+
+
+ 848 0286 0022     		movs	r2, #0
+ 849 0288 1A61     		str	r2, [r3, #16]
+ 161:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR	= 0;
+ 850              		.loc 1 161 2 is_stmt 1 view .LVU285
+ 161:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR	= 0;
+ 851              		.loc 1 161 21 is_stmt 0 view .LVU286
+ 852 028a 5A61     		str	r2, [r3, #20]
+ 162:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR	= 0;
+ 853              		.loc 1 162 2 is_stmt 1 view .LVU287
+ 162:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR	= 0;
+ 854              		.loc 1 162 20 is_stmt 0 view .LVU288
+ 855 028c 9A61     		str	r2, [r3, #24]
+ 163:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M1AR	= 0;
+ 856              		.loc 1 163 2 is_stmt 1 view .LVU289
+ 163:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M1AR	= 0;
+ 857              		.loc 1 163 21 is_stmt 0 view .LVU290
+ 858 028e DA61     		str	r2, [r3, #28]
+ 164:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	= 0x00000021U;
+ 859              		.loc 1 164 2 is_stmt 1 view .LVU291
+ 164:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	= 0x00000021U;
+ 860              		.loc 1 164 21 is_stmt 0 view .LVU292
+ 861 0290 1A62     		str	r2, [r3, #32]
+ 165:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	&= ~DMA_SxCR_CHSEL;
+ 862              		.loc 1 165 2 is_stmt 1 view .LVU293
+ 165:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR	&= ~DMA_SxCR_CHSEL;
+ 863              		.loc 1 165 20 is_stmt 0 view .LVU294
+ 864 0292 2122     		movs	r2, #33
+ 865 0294 5A62     		str	r2, [r3, #36]
+ 166:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0000003FU;
+ 866              		.loc 1 166 2 is_stmt 1 view .LVU295
+ 166:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0000003FU;
+ 867              		.loc 1 166 19 is_stmt 0 view .LVU296
+ 868 0296 1A69     		ldr	r2, [r3, #16]
+ 869 0298 22F0F052 		bic	r2, r2, #503316480
+ 870 029c 1A61     		str	r2, [r3, #16]
+ 167:Src/drv/drv_dshot.c **** 	// disable DMA stream 7
+ 871              		.loc 1 167 2 is_stmt 1 view .LVU297
+ 167:Src/drv/drv_dshot.c **** 	// disable DMA stream 7
+ 872              		.loc 1 167 16 is_stmt 0 view .LVU298
+ 873 029e 9A68     		ldr	r2, [r3, #8]
+ 874 02a0 42F03F02 		orr	r2, r2, #63
+ 875 02a4 0EE0     		b	.L37
+ 876              	.L38:
+ 877 02a6 00BF     		.align	2
+ 878              	.L36:
+ 879 02a8 00000000 		.word	.LC0
+ 880 02ac 00380240 		.word	1073887232
+ 881 02b0 00000240 		.word	1073872896
+ 882 02b4 60FECD4C 		.word	1288568416
+ 883 02b8 0AD7233C 		.word	1008981770
+ 884 02bc 000C0040 		.word	1073744896
+ 885 02c0 00600240 		.word	1073897472
+ 886              	.L37:
+ 887 02c4 9A60     		str	r2, [r3, #8]
+ 169:Src/drv/drv_dshot.c **** 	while(DMA1_Stream3->CR & DMA_SxCR_EN){}
+ 888              		.loc 1 169 2 is_stmt 1 view .LVU299
+ 169:Src/drv/drv_dshot.c **** 	while(DMA1_Stream3->CR & DMA_SxCR_EN){}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 28
+
+
+ 889              		.loc 1 169 20 is_stmt 0 view .LVU300
+ 890 02c6 9A6D     		ldr	r2, [r3, #88]
+ 891 02c8 22F00102 		bic	r2, r2, #1
+ 892 02cc 9A65     		str	r2, [r3, #88]
+ 170:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 893              		.loc 1 170 2 is_stmt 1 view .LVU301
+ 894              	.L34:
+ 170:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 895              		.loc 1 170 40 discriminator 1 view .LVU302
+ 170:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 896              		.loc 1 170 7 discriminator 1 view .LVU303
+ 170:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 897              		.loc 1 170 20 is_stmt 0 discriminator 1 view .LVU304
+ 898 02ce 804B     		ldr	r3, .L39
+ 899 02d0 9B6D     		ldr	r3, [r3, #88]
+ 170:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	= 0;
+ 900              		.loc 1 170 7 discriminator 1 view .LVU305
+ 901 02d2 13F0010F 		tst	r3, #1
+ 902 02d6 FAD1     		bne	.L34
+ 171:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= 0;
+ 903              		.loc 1 171 2 is_stmt 1 view .LVU306
+ 171:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= 0;
+ 904              		.loc 1 171 19 is_stmt 0 view .LVU307
+ 905 02d8 7D4B     		ldr	r3, .L39
+ 906 02da 0022     		movs	r2, #0
+ 907 02dc 9A65     		str	r2, [r3, #88]
+ 172:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR	= 0;
+ 908              		.loc 1 172 2 is_stmt 1 view .LVU308
+ 172:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR	= 0;
+ 909              		.loc 1 172 21 is_stmt 0 view .LVU309
+ 910 02de DA65     		str	r2, [r3, #92]
+ 173:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR	= 0;
+ 911              		.loc 1 173 2 is_stmt 1 view .LVU310
+ 173:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR	= 0;
+ 912              		.loc 1 173 20 is_stmt 0 view .LVU311
+ 913 02e0 1A66     		str	r2, [r3, #96]
+ 174:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M1AR	= 0;
+ 914              		.loc 1 174 2 is_stmt 1 view .LVU312
+ 174:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M1AR	= 0;
+ 915              		.loc 1 174 21 is_stmt 0 view .LVU313
+ 916 02e2 5A66     		str	r2, [r3, #100]
+ 175:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	= 0x00000021U;
+ 917              		.loc 1 175 2 is_stmt 1 view .LVU314
+ 175:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	= 0x00000021U;
+ 918              		.loc 1 175 21 is_stmt 0 view .LVU315
+ 919 02e4 9A66     		str	r2, [r3, #104]
+ 176:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	&= ~DMA_SxCR_CHSEL;
+ 920              		.loc 1 176 2 is_stmt 1 view .LVU316
+ 176:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR	&= ~DMA_SxCR_CHSEL;
+ 921              		.loc 1 176 20 is_stmt 0 view .LVU317
+ 922 02e6 2122     		movs	r2, #33
+ 923 02e8 DA66     		str	r2, [r3, #108]
+ 177:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0F400000U;
+ 924              		.loc 1 177 2 is_stmt 1 view .LVU318
+ 177:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0F400000U;
+ 925              		.loc 1 177 19 is_stmt 0 view .LVU319
+ 926 02ea 9A6D     		ldr	r2, [r3, #88]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 29
+
+
+ 927 02ec 22F0F052 		bic	r2, r2, #503316480
+ 928 02f0 9A65     		str	r2, [r3, #88]
+ 178:Src/drv/drv_dshot.c **** 
+ 929              		.loc 1 178 2 is_stmt 1 view .LVU320
+ 178:Src/drv/drv_dshot.c **** 
+ 930              		.loc 1 178 16 is_stmt 0 view .LVU321
+ 931 02f2 9A68     		ldr	r2, [r3, #8]
+ 932 02f4 42F07462 		orr	r2, r2, #255852544
+ 933 02f8 9A60     		str	r2, [r3, #8]
+ 181:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR 	= (uint32_t)motor4_dmabuffer;
+ 934              		.loc 1 181 2 is_stmt 1 view .LVU322
+ 181:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M0AR 	= (uint32_t)motor4_dmabuffer;
+ 935              		.loc 1 181 19 is_stmt 0 view .LVU323
+ 936 02fa 1A6C     		ldr	r2, [r3, #64]
+ 937 02fc 42F04062 		orr	r2, r2, #201326592
+ 938 0300 1A64     		str	r2, [r3, #64]
+ 182:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 939              		.loc 1 182 2 is_stmt 1 view .LVU324
+ 182:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 940              		.loc 1 182 24 is_stmt 0 view .LVU325
+ 941 0302 744A     		ldr	r2, .L39+4
+ 182:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 942              		.loc 1 182 22 view .LVU326
+ 943 0304 DA64     		str	r2, [r3, #76]
+ 183:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 944              		.loc 1 183 2 is_stmt 1 view .LVU327
+ 183:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 945              		.loc 1 183 20 is_stmt 0 view .LVU328
+ 946 0306 1A6C     		ldr	r2, [r3, #64]
+ 947 0308 42F04002 		orr	r2, r2, #64
+ 948 030c 1A64     		str	r2, [r3, #64]
+ 184:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 949              		.loc 1 184 2 is_stmt 1 view .LVU329
+ 184:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 950              		.loc 1 184 20 is_stmt 0 view .LVU330
+ 951 030e 5A6D     		ldr	r2, [r3, #84]
+ 952 0310 42F00402 		orr	r2, r2, #4
+ 953 0314 5A65     		str	r2, [r3, #84]
+ 185:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_MBURST;
+ 954              		.loc 1 185 2 is_stmt 1 view .LVU331
+ 185:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_MBURST;
+ 955              		.loc 1 185 20 is_stmt 0 view .LVU332
+ 956 0316 5A6D     		ldr	r2, [r3, #84]
+ 957 0318 22F00302 		bic	r2, r2, #3
+ 958 031c 5A65     		str	r2, [r3, #84]
+ 186:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PBURST;
+ 959              		.loc 1 186 2 is_stmt 1 view .LVU333
+ 186:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PBURST;
+ 960              		.loc 1 186 20 is_stmt 0 view .LVU334
+ 961 031e 1A6C     		ldr	r2, [r3, #64]
+ 962 0320 22F0C072 		bic	r2, r2, #25165824
+ 963 0324 1A64     		str	r2, [r3, #64]
+ 187:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR 	= (uint32_t)(&(TIM5->CCR1));
+ 964              		.loc 1 187 2 is_stmt 1 view .LVU335
+ 187:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR 	= (uint32_t)(&(TIM5->CCR1));
+ 965              		.loc 1 187 20 is_stmt 0 view .LVU336
+ 966 0326 1A6C     		ldr	r2, [r3, #64]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 30
+
+
+ 967 0328 22F4C002 		bic	r2, r2, #6291456
+ 968 032c 1A64     		str	r2, [r3, #64]
+ 188:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 969              		.loc 1 188 2 is_stmt 1 view .LVU337
+ 188:Src/drv/drv_dshot.c **** 	DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 970              		.loc 1 188 21 is_stmt 0 view .LVU338
+ 971 032e 6A4A     		ldr	r2, .L39+8
+ 972 0330 9A64     		str	r2, [r3, #72]
+ 189:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PINC;
+ 973              		.loc 1 189 2 is_stmt 1 view .LVU339
+ 189:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_PINC;
+ 974              		.loc 1 189 21 is_stmt 0 view .LVU340
+ 975 0332 1222     		movs	r2, #18
+ 976 0334 5A64     		str	r2, [r3, #68]
+ 190:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MINC;
+ 977              		.loc 1 190 2 is_stmt 1 view .LVU341
+ 190:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MINC;
+ 978              		.loc 1 190 20 is_stmt 0 view .LVU342
+ 979 0336 196C     		ldr	r1, [r3, #64]
+ 980 0338 21F40071 		bic	r1, r1, #512
+ 981 033c 1964     		str	r1, [r3, #64]
+ 191:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MSIZE_1;
+ 982              		.loc 1 191 2 is_stmt 1 view .LVU343
+ 191:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_MSIZE_1;
+ 983              		.loc 1 191 20 is_stmt 0 view .LVU344
+ 984 033e 196C     		ldr	r1, [r3, #64]
+ 985 0340 41F48061 		orr	r1, r1, #1024
+ 986 0344 1964     		str	r1, [r3, #64]
+ 192:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PSIZE_1;
+ 987              		.loc 1 192 2 is_stmt 1 view .LVU345
+ 192:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PSIZE_1;
+ 988              		.loc 1 192 20 is_stmt 0 view .LVU346
+ 989 0346 196C     		ldr	r1, [r3, #64]
+ 990 0348 41F48041 		orr	r1, r1, #16384
+ 991 034c 1964     		str	r1, [r3, #64]
+ 193:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_CIRC;
+ 992              		.loc 1 193 2 is_stmt 1 view .LVU347
+ 193:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	&= ~DMA_SxCR_CIRC;
+ 993              		.loc 1 193 20 is_stmt 0 view .LVU348
+ 994 034e 196C     		ldr	r1, [r3, #64]
+ 995 0350 41F48051 		orr	r1, r1, #4096
+ 996 0354 1964     		str	r1, [r3, #64]
+ 194:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PL_0;
+ 997              		.loc 1 194 2 is_stmt 1 view .LVU349
+ 194:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR 	|= DMA_SxCR_PL_0;
+ 998              		.loc 1 194 20 is_stmt 0 view .LVU350
+ 999 0356 196C     		ldr	r1, [r3, #64]
+ 1000 0358 21F48071 		bic	r1, r1, #256
+ 1001 035c 1964     		str	r1, [r3, #64]
+ 195:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1002              		.loc 1 195 2 is_stmt 1 view .LVU351
+ 195:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1003              		.loc 1 195 20 is_stmt 0 view .LVU352
+ 1004 035e 196C     		ldr	r1, [r3, #64]
+ 1005 0360 41F48031 		orr	r1, r1, #65536
+ 1006 0364 1964     		str	r1, [r3, #64]
+ 197:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 31
+
+
+ 1007              		.loc 1 197 2 is_stmt 1 view .LVU353
+ 197:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 1008              		.loc 1 197 20 is_stmt 0 view .LVU354
+ 1009 0366 196C     		ldr	r1, [r3, #64]
+ 1010 0368 41F01001 		orr	r1, r1, #16
+ 1011 036c 1964     		str	r1, [r3, #64]
+ 199:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR 	= (uint32_t)motor3_dmabuffer;
+ 1012              		.loc 1 199 2 is_stmt 1 view .LVU355
+ 199:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR 	= (uint32_t)motor3_dmabuffer;
+ 1013              		.loc 1 199 19 is_stmt 0 view .LVU356
+ 1014 036e 196F     		ldr	r1, [r3, #112]
+ 1015 0370 41F04061 		orr	r1, r1, #201326592
+ 1016 0374 1967     		str	r1, [r3, #112]
+ 200:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1017              		.loc 1 200 2 is_stmt 1 view .LVU357
+ 200:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1018              		.loc 1 200 24 is_stmt 0 view .LVU358
+ 1019 0376 5949     		ldr	r1, .L39+12
+ 200:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1020              		.loc 1 200 22 view .LVU359
+ 1021 0378 D967     		str	r1, [r3, #124]
+ 201:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1022              		.loc 1 201 2 is_stmt 1 view .LVU360
+ 201:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1023              		.loc 1 201 20 is_stmt 0 view .LVU361
+ 1024 037a 196F     		ldr	r1, [r3, #112]
+ 1025 037c 41F04001 		orr	r1, r1, #64
+ 1026 0380 1967     		str	r1, [r3, #112]
+ 202:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1027              		.loc 1 202 2 is_stmt 1 view .LVU362
+ 202:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1028              		.loc 1 202 20 is_stmt 0 view .LVU363
+ 1029 0382 D3F88410 		ldr	r1, [r3, #132]
+ 1030 0386 41F00401 		orr	r1, r1, #4
+ 1031 038a C3F88410 		str	r1, [r3, #132]
+ 203:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_MBURST;
+ 1032              		.loc 1 203 2 is_stmt 1 view .LVU364
+ 203:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_MBURST;
+ 1033              		.loc 1 203 20 is_stmt 0 view .LVU365
+ 1034 038e D3F88410 		ldr	r1, [r3, #132]
+ 1035 0392 21F00301 		bic	r1, r1, #3
+ 1036 0396 C3F88410 		str	r1, [r3, #132]
+ 204:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PBURST;
+ 1037              		.loc 1 204 2 is_stmt 1 view .LVU366
+ 204:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PBURST;
+ 1038              		.loc 1 204 20 is_stmt 0 view .LVU367
+ 1039 039a 196F     		ldr	r1, [r3, #112]
+ 1040 039c 21F0C071 		bic	r1, r1, #25165824
+ 1041 03a0 1967     		str	r1, [r3, #112]
+ 205:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR 	= (uint32_t)(&(TIM5->CCR2));
+ 1042              		.loc 1 205 2 is_stmt 1 view .LVU368
+ 205:Src/drv/drv_dshot.c **** 	DMA1_Stream4->PAR 	= (uint32_t)(&(TIM5->CCR2));
+ 1043              		.loc 1 205 20 is_stmt 0 view .LVU369
+ 1044 03a2 196F     		ldr	r1, [r3, #112]
+ 1045 03a4 21F4C001 		bic	r1, r1, #6291456
+ 1046 03a8 1967     		str	r1, [r3, #112]
+ 206:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 32
+
+
+ 1047              		.loc 1 206 2 is_stmt 1 view .LVU370
+ 206:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1048              		.loc 1 206 21 is_stmt 0 view .LVU371
+ 1049 03aa 4D49     		ldr	r1, .L39+16
+ 1050 03ac 9967     		str	r1, [r3, #120]
+ 207:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PINC;
+ 1051              		.loc 1 207 2 is_stmt 1 view .LVU372
+ 207:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_PINC;
+ 1052              		.loc 1 207 21 is_stmt 0 view .LVU373
+ 1053 03ae 5A67     		str	r2, [r3, #116]
+ 208:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MINC;
+ 1054              		.loc 1 208 2 is_stmt 1 view .LVU374
+ 208:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MINC;
+ 1055              		.loc 1 208 20 is_stmt 0 view .LVU375
+ 1056 03b0 196F     		ldr	r1, [r3, #112]
+ 1057 03b2 21F40071 		bic	r1, r1, #512
+ 1058 03b6 1967     		str	r1, [r3, #112]
+ 209:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MSIZE_1;
+ 1059              		.loc 1 209 2 is_stmt 1 view .LVU376
+ 209:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_MSIZE_1;
+ 1060              		.loc 1 209 20 is_stmt 0 view .LVU377
+ 1061 03b8 196F     		ldr	r1, [r3, #112]
+ 1062 03ba 41F48061 		orr	r1, r1, #1024
+ 1063 03be 1967     		str	r1, [r3, #112]
+ 210:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PSIZE_1;
+ 1064              		.loc 1 210 2 is_stmt 1 view .LVU378
+ 210:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PSIZE_1;
+ 1065              		.loc 1 210 20 is_stmt 0 view .LVU379
+ 1066 03c0 196F     		ldr	r1, [r3, #112]
+ 1067 03c2 41F48041 		orr	r1, r1, #16384
+ 1068 03c6 1967     		str	r1, [r3, #112]
+ 211:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_CIRC;
+ 1069              		.loc 1 211 2 is_stmt 1 view .LVU380
+ 211:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	&= ~DMA_SxCR_CIRC;
+ 1070              		.loc 1 211 20 is_stmt 0 view .LVU381
+ 1071 03c8 196F     		ldr	r1, [r3, #112]
+ 1072 03ca 41F48051 		orr	r1, r1, #4096
+ 1073 03ce 1967     		str	r1, [r3, #112]
+ 212:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PL;
+ 1074              		.loc 1 212 2 is_stmt 1 view .LVU382
+ 212:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_PL;
+ 1075              		.loc 1 212 20 is_stmt 0 view .LVU383
+ 1076 03d0 196F     		ldr	r1, [r3, #112]
+ 1077 03d2 21F48071 		bic	r1, r1, #256
+ 1078 03d6 1967     		str	r1, [r3, #112]
+ 213:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1079              		.loc 1 213 2 is_stmt 1 view .LVU384
+ 213:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1080              		.loc 1 213 20 is_stmt 0 view .LVU385
+ 1081 03d8 196F     		ldr	r1, [r3, #112]
+ 1082 03da 41F44031 		orr	r1, r1, #196608
+ 1083 03de 1967     		str	r1, [r3, #112]
+ 215:Src/drv/drv_dshot.c **** 	// motor 2 DMA settings
+ 1084              		.loc 1 215 2 is_stmt 1 view .LVU386
+ 215:Src/drv/drv_dshot.c **** 	// motor 2 DMA settings
+ 1085              		.loc 1 215 20 is_stmt 0 view .LVU387
+ 1086 03e0 196F     		ldr	r1, [r3, #112]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 33
+
+
+ 1087 03e2 41F01001 		orr	r1, r1, #16
+ 1088 03e6 1967     		str	r1, [r3, #112]
+ 217:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR 	= (uint32_t)motor2_dmabuffer;
+ 1089              		.loc 1 217 2 is_stmt 1 view .LVU388
+ 217:Src/drv/drv_dshot.c **** 	DMA1_Stream0->M0AR 	= (uint32_t)motor2_dmabuffer;
+ 1090              		.loc 1 217 19 is_stmt 0 view .LVU389
+ 1091 03e8 1969     		ldr	r1, [r3, #16]
+ 1092 03ea 41F04061 		orr	r1, r1, #201326592
+ 1093 03ee 1961     		str	r1, [r3, #16]
+ 218:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1094              		.loc 1 218 2 is_stmt 1 view .LVU390
+ 218:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1095              		.loc 1 218 24 is_stmt 0 view .LVU391
+ 1096 03f0 3C49     		ldr	r1, .L39+20
+ 218:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1097              		.loc 1 218 22 view .LVU392
+ 1098 03f2 D961     		str	r1, [r3, #28]
+ 219:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1099              		.loc 1 219 2 is_stmt 1 view .LVU393
+ 219:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1100              		.loc 1 219 20 is_stmt 0 view .LVU394
+ 1101 03f4 1969     		ldr	r1, [r3, #16]
+ 1102 03f6 41F04001 		orr	r1, r1, #64
+ 1103 03fa 1961     		str	r1, [r3, #16]
+ 220:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1104              		.loc 1 220 2 is_stmt 1 view .LVU395
+ 220:Src/drv/drv_dshot.c **** 	DMA1_Stream0->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1105              		.loc 1 220 20 is_stmt 0 view .LVU396
+ 1106 03fc 596A     		ldr	r1, [r3, #36]
+ 1107 03fe 41F00401 		orr	r1, r1, #4
+ 1108 0402 5962     		str	r1, [r3, #36]
+ 221:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_MBURST;
+ 1109              		.loc 1 221 2 is_stmt 1 view .LVU397
+ 221:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_MBURST;
+ 1110              		.loc 1 221 20 is_stmt 0 view .LVU398
+ 1111 0404 596A     		ldr	r1, [r3, #36]
+ 1112 0406 21F00301 		bic	r1, r1, #3
+ 1113 040a 5962     		str	r1, [r3, #36]
+ 222:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PBURST;
+ 1114              		.loc 1 222 2 is_stmt 1 view .LVU399
+ 222:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PBURST;
+ 1115              		.loc 1 222 20 is_stmt 0 view .LVU400
+ 1116 040c 1969     		ldr	r1, [r3, #16]
+ 1117 040e 21F0C071 		bic	r1, r1, #25165824
+ 1118 0412 1961     		str	r1, [r3, #16]
+ 223:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR 	= (uint32_t)(&(TIM5->CCR3));
+ 1119              		.loc 1 223 2 is_stmt 1 view .LVU401
+ 223:Src/drv/drv_dshot.c **** 	DMA1_Stream0->PAR 	= (uint32_t)(&(TIM5->CCR3));
+ 1120              		.loc 1 223 20 is_stmt 0 view .LVU402
+ 1121 0414 1969     		ldr	r1, [r3, #16]
+ 1122 0416 21F4C001 		bic	r1, r1, #6291456
+ 1123 041a 1961     		str	r1, [r3, #16]
+ 224:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1124              		.loc 1 224 2 is_stmt 1 view .LVU403
+ 224:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1125              		.loc 1 224 21 is_stmt 0 view .LVU404
+ 1126 041c 3249     		ldr	r1, .L39+24
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 34
+
+
+ 1127 041e 9961     		str	r1, [r3, #24]
+ 225:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PINC;
+ 1128              		.loc 1 225 2 is_stmt 1 view .LVU405
+ 225:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_PINC;
+ 1129              		.loc 1 225 21 is_stmt 0 view .LVU406
+ 1130 0420 5A61     		str	r2, [r3, #20]
+ 226:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MINC;
+ 1131              		.loc 1 226 2 is_stmt 1 view .LVU407
+ 226:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MINC;
+ 1132              		.loc 1 226 20 is_stmt 0 view .LVU408
+ 1133 0422 1969     		ldr	r1, [r3, #16]
+ 1134 0424 21F40071 		bic	r1, r1, #512
+ 1135 0428 1961     		str	r1, [r3, #16]
+ 227:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MSIZE_1;
+ 1136              		.loc 1 227 2 is_stmt 1 view .LVU409
+ 227:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_MSIZE_1;
+ 1137              		.loc 1 227 20 is_stmt 0 view .LVU410
+ 1138 042a 1969     		ldr	r1, [r3, #16]
+ 1139 042c 41F48061 		orr	r1, r1, #1024
+ 1140 0430 1961     		str	r1, [r3, #16]
+ 228:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PSIZE_1;
+ 1141              		.loc 1 228 2 is_stmt 1 view .LVU411
+ 228:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PSIZE_1;
+ 1142              		.loc 1 228 20 is_stmt 0 view .LVU412
+ 1143 0432 1969     		ldr	r1, [r3, #16]
+ 1144 0434 41F48041 		orr	r1, r1, #16384
+ 1145 0438 1961     		str	r1, [r3, #16]
+ 229:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_CIRC;
+ 1146              		.loc 1 229 2 is_stmt 1 view .LVU413
+ 229:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	&= ~DMA_SxCR_CIRC;
+ 1147              		.loc 1 229 20 is_stmt 0 view .LVU414
+ 1148 043a 1969     		ldr	r1, [r3, #16]
+ 1149 043c 41F48051 		orr	r1, r1, #4096
+ 1150 0440 1961     		str	r1, [r3, #16]
+ 230:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PL_0;
+ 1151              		.loc 1 230 2 is_stmt 1 view .LVU415
+ 230:Src/drv/drv_dshot.c **** 	DMA1_Stream0->CR 	|= DMA_SxCR_PL_0;
+ 1152              		.loc 1 230 20 is_stmt 0 view .LVU416
+ 1153 0442 1969     		ldr	r1, [r3, #16]
+ 1154 0444 21F48071 		bic	r1, r1, #256
+ 1155 0448 1961     		str	r1, [r3, #16]
+ 231:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1156              		.loc 1 231 2 is_stmt 1 view .LVU417
+ 231:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1157              		.loc 1 231 20 is_stmt 0 view .LVU418
+ 1158 044a 1969     		ldr	r1, [r3, #16]
+ 1159 044c 41F48031 		orr	r1, r1, #65536
+ 1160 0450 1961     		str	r1, [r3, #16]
+ 233:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 1161              		.loc 1 233 2 is_stmt 1 view .LVU419
+ 233:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
+ 1162              		.loc 1 233 20 is_stmt 0 view .LVU420
+ 1163 0452 1969     		ldr	r1, [r3, #16]
+ 1164 0454 41F01001 		orr	r1, r1, #16
+ 1165 0458 1961     		str	r1, [r3, #16]
+ 235:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR 	= (uint32_t)motor1_dmabuffer;
+ 1166              		.loc 1 235 2 is_stmt 1 view .LVU421
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 35
+
+
+ 235:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR 	= (uint32_t)motor1_dmabuffer;
+ 1167              		.loc 1 235 19 is_stmt 0 view .LVU422
+ 1168 045a 996D     		ldr	r1, [r3, #88]
+ 1169 045c 41F04061 		orr	r1, r1, #201326592
+ 1170 0460 9965     		str	r1, [r3, #88]
+ 236:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1171              		.loc 1 236 2 is_stmt 1 view .LVU423
+ 236:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1172              		.loc 1 236 24 is_stmt 0 view .LVU424
+ 1173 0462 2249     		ldr	r1, .L39+28
+ 236:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_DIR_0;			// mem to per
+ 1174              		.loc 1 236 22 view .LVU425
+ 1175 0464 5966     		str	r1, [r3, #100]
+ 237:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1176              		.loc 1 237 2 is_stmt 1 view .LVU426
+ 237:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
+ 1177              		.loc 1 237 20 is_stmt 0 view .LVU427
+ 1178 0466 996D     		ldr	r1, [r3, #88]
+ 1179 0468 41F04001 		orr	r1, r1, #64
+ 1180 046c 9965     		str	r1, [r3, #88]
+ 238:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1181              		.loc 1 238 2 is_stmt 1 view .LVU428
+ 238:Src/drv/drv_dshot.c **** 	DMA1_Stream3->FCR	&= ~DMA_SxFCR_FTH;			//1/4 full
+ 1182              		.loc 1 238 20 is_stmt 0 view .LVU429
+ 1183 046e D96E     		ldr	r1, [r3, #108]
+ 1184 0470 41F00401 		orr	r1, r1, #4
+ 1185 0474 D966     		str	r1, [r3, #108]
+ 239:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_MBURST;
+ 1186              		.loc 1 239 2 is_stmt 1 view .LVU430
+ 239:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_MBURST;
+ 1187              		.loc 1 239 20 is_stmt 0 view .LVU431
+ 1188 0476 D96E     		ldr	r1, [r3, #108]
+ 1189 0478 21F00301 		bic	r1, r1, #3
+ 1190 047c D966     		str	r1, [r3, #108]
+ 240:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PBURST;
+ 1191              		.loc 1 240 2 is_stmt 1 view .LVU432
+ 240:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PBURST;
+ 1192              		.loc 1 240 20 is_stmt 0 view .LVU433
+ 1193 047e 996D     		ldr	r1, [r3, #88]
+ 1194 0480 21F0C071 		bic	r1, r1, #25165824
+ 1195 0484 9965     		str	r1, [r3, #88]
+ 241:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR 	= (uint32_t)(&(TIM5->CCR4));
+ 1196              		.loc 1 241 2 is_stmt 1 view .LVU434
+ 241:Src/drv/drv_dshot.c **** 	DMA1_Stream3->PAR 	= (uint32_t)(&(TIM5->CCR4));
+ 1197              		.loc 1 241 20 is_stmt 0 view .LVU435
+ 1198 0486 996D     		ldr	r1, [r3, #88]
+ 1199 0488 21F4C001 		bic	r1, r1, #6291456
+ 1200 048c 9965     		str	r1, [r3, #88]
+ 242:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1201              		.loc 1 242 2 is_stmt 1 view .LVU436
+ 242:Src/drv/drv_dshot.c **** 	DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1202              		.loc 1 242 21 is_stmt 0 view .LVU437
+ 1203 048e 1849     		ldr	r1, .L39+32
+ 1204 0490 1966     		str	r1, [r3, #96]
+ 243:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PINC;
+ 1205              		.loc 1 243 2 is_stmt 1 view .LVU438
+ 243:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PINC;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 36
+
+
+ 1206              		.loc 1 243 21 is_stmt 0 view .LVU439
+ 1207 0492 DA65     		str	r2, [r3, #92]
+ 244:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MINC;
+ 1208              		.loc 1 244 2 is_stmt 1 view .LVU440
+ 244:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MINC;
+ 1209              		.loc 1 244 20 is_stmt 0 view .LVU441
+ 1210 0494 9A6D     		ldr	r2, [r3, #88]
+ 1211 0496 22F40072 		bic	r2, r2, #512
+ 1212 049a 9A65     		str	r2, [r3, #88]
+ 245:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MSIZE_1;
+ 1213              		.loc 1 245 2 is_stmt 1 view .LVU442
+ 245:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_MSIZE_1;
+ 1214              		.loc 1 245 20 is_stmt 0 view .LVU443
+ 1215 049c 9A6D     		ldr	r2, [r3, #88]
+ 1216 049e 42F48062 		orr	r2, r2, #1024
+ 1217 04a2 9A65     		str	r2, [r3, #88]
+ 246:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PSIZE_1;
+ 1218              		.loc 1 246 2 is_stmt 1 view .LVU444
+ 246:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PSIZE_1;
+ 1219              		.loc 1 246 20 is_stmt 0 view .LVU445
+ 1220 04a4 9A6D     		ldr	r2, [r3, #88]
+ 1221 04a6 42F48042 		orr	r2, r2, #16384
+ 1222 04aa 9A65     		str	r2, [r3, #88]
+ 247:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_CIRC;
+ 1223              		.loc 1 247 2 is_stmt 1 view .LVU446
+ 247:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_CIRC;
+ 1224              		.loc 1 247 20 is_stmt 0 view .LVU447
+ 1225 04ac 9A6D     		ldr	r2, [r3, #88]
+ 1226 04ae 42F48052 		orr	r2, r2, #4096
+ 1227 04b2 9A65     		str	r2, [r3, #88]
+ 248:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PL_0;
+ 1228              		.loc 1 248 2 is_stmt 1 view .LVU448
+ 248:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	|= DMA_SxCR_PL_0;
+ 1229              		.loc 1 248 20 is_stmt 0 view .LVU449
+ 1230 04b4 9A6D     		ldr	r2, [r3, #88]
+ 1231 04b6 22F48072 		bic	r2, r2, #256
+ 1232 04ba 9A65     		str	r2, [r3, #88]
+ 249:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1233              		.loc 1 249 2 is_stmt 1 view .LVU450
+ 249:Src/drv/drv_dshot.c **** 	// DMA transfer complete interrupt enable
+ 1234              		.loc 1 249 20 is_stmt 0 view .LVU451
+ 1235 04bc 9A6D     		ldr	r2, [r3, #88]
+ 1236 04be 42F48032 		orr	r2, r2, #65536
+ 1237 04c2 9A65     		str	r2, [r3, #88]
+ 251:Src/drv/drv_dshot.c **** 
+ 1238              		.loc 1 251 2 is_stmt 1 view .LVU452
+ 251:Src/drv/drv_dshot.c **** 
+ 1239              		.loc 1 251 20 is_stmt 0 view .LVU453
+ 1240 04c4 9A6D     		ldr	r2, [r3, #88]
+ 1241 04c6 42F01002 		orr	r2, r2, #16
+ 1242 04ca 9A65     		str	r2, [r3, #88]
+ 253:Src/drv/drv_dshot.c **** 
+ 1243              		.loc 1 253 1 view .LVU454
+ 1244 04cc 38BD     		pop	{r3, r4, r5, pc}
+ 1245              	.L40:
+ 1246 04ce 00BF     		.align	2
+ 1247              	.L39:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 37
+
+
+ 1248 04d0 00600240 		.word	1073897472
+ 1249 04d4 00000000 		.word	.LANCHOR4
+ 1250 04d8 340C0040 		.word	1073744948
+ 1251 04dc 00000000 		.word	.LANCHOR3
+ 1252 04e0 380C0040 		.word	1073744952
+ 1253 04e4 00000000 		.word	.LANCHOR2
+ 1254 04e8 3C0C0040 		.word	1073744956
+ 1255 04ec 00000000 		.word	.LANCHOR1
+ 1256 04f0 400C0040 		.word	1073744960
+ 1257              		.cfi_endproc
+ 1258              	.LFE187:
+ 1260              		.section	.text.dshotWrite,"ax",%progbits
+ 1261              		.align	1
+ 1262              		.global	dshotWrite
+ 1263              		.syntax unified
+ 1264              		.thumb
+ 1265              		.thumb_func
+ 1266              		.fpu fpv5-sp-d16
+ 1268              	dshotWrite:
+ 1269              	.LVL40:
+ 1270              	.LFB188:
+ 262:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer_all(motor_value);
+ 1271              		.loc 1 262 1 is_stmt 1 view -0
+ 1272              		.cfi_startproc
+ 1273              		@ args = 0, pretend = 0, frame = 0
+ 1274              		@ frame_needed = 0, uses_anonymous_args = 0
+ 262:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer_all(motor_value);
+ 1275              		.loc 1 262 1 is_stmt 0 view .LVU456
+ 1276 0000 08B5     		push	{r3, lr}
+ 1277              		.cfi_def_cfa_offset 8
+ 1278              		.cfi_offset 3, -8
+ 1279              		.cfi_offset 14, -4
+ 263:Src/drv/drv_dshot.c **** 	dshot_enable_dma_request();
+ 1280              		.loc 1 263 2 is_stmt 1 view .LVU457
+ 1281 0002 FFF7FEFF 		bl	dshot_prepare_dmabuffer_all
+ 1282              	.LVL41:
+ 264:Src/drv/drv_dshot.c **** 	dshot_dma_start();
+ 1283              		.loc 1 264 2 view .LVU458
+ 1284 0006 FFF7FEFF 		bl	dshot_enable_dma_request
+ 1285              	.LVL42:
+ 265:Src/drv/drv_dshot.c **** 
+ 1286              		.loc 1 265 2 view .LVU459
+ 1287 000a FFF7FEFF 		bl	dshot_dma_start
+ 1288              	.LVL43:
+ 267:Src/drv/drv_dshot.c **** }
+ 1289              		.loc 1 267 2 view .LVU460
+ 267:Src/drv/drv_dshot.c **** }
+ 1290              		.loc 1 267 21 is_stmt 0 view .LVU461
+ 1291 000e 034A     		ldr	r2, .L43
+ 1292 0010 1388     		ldrh	r3, [r2]
+ 1293 0012 9BB2     		uxth	r3, r3
+ 1294 0014 0133     		adds	r3, r3, #1
+ 1295 0016 9BB2     		uxth	r3, r3
+ 1296 0018 1380     		strh	r3, [r2]	@ movhi
+ 268:Src/drv/drv_dshot.c **** 
+ 1297              		.loc 1 268 1 view .LVU462
+ 1298 001a 08BD     		pop	{r3, pc}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 38
+
+
+ 1299              	.L44:
+ 1300              		.align	2
+ 1301              	.L43:
+ 1302 001c 00000000 		.word	.LANCHOR5
+ 1303              		.cfi_endproc
+ 1304              	.LFE188:
+ 1306              		.section	.text.dshotWait,"ax",%progbits
+ 1307              		.align	1
+ 1308              		.global	dshotWait
+ 1309              		.syntax unified
+ 1310              		.thumb
+ 1311              		.thumb_func
+ 1312              		.fpu fpv5-sp-d16
+ 1314              	dshotWait:
+ 1315              	.LVL44:
+ 1316              	.LFB189:
+ 277:Src/drv/drv_dshot.c **** 	dshot_command_count = 0;
+ 1317              		.loc 1 277 1 is_stmt 1 view -0
+ 1318              		.cfi_startproc
+ 1319              		@ args = 0, pretend = 0, frame = 0
+ 1320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1321              		@ link register save eliminated.
+ 278:Src/drv/drv_dshot.c **** 
+ 1322              		.loc 1 278 2 view .LVU464
+ 278:Src/drv/drv_dshot.c **** 
+ 1323              		.loc 1 278 22 is_stmt 0 view .LVU465
+ 1324 0000 124B     		ldr	r3, .L49
+ 1325 0002 0022     		movs	r2, #0
+ 1326 0004 1A80     		strh	r2, [r3]	@ movhi
+ 280:Src/drv/drv_dshot.c **** 	{
+ 1327              		.loc 1 280 2 is_stmt 1 view .LVU466
+ 280:Src/drv/drv_dshot.c **** 	{
+ 1328              		.loc 1 280 4 is_stmt 0 view .LVU467
+ 1329 0006 40F2DC53 		movw	r3, #1500
+ 1330 000a 9842     		cmp	r0, r3
+ 1331 000c 0FD0     		beq	.L48
+ 1332              	.L47:
+ 286:Src/drv/drv_dshot.c **** 
+ 1333              		.loc 1 286 42 is_stmt 1 discriminator 1 view .LVU468
+ 286:Src/drv/drv_dshot.c **** 
+ 1334              		.loc 1 286 7 discriminator 1 view .LVU469
+ 286:Src/drv/drv_dshot.c **** 
+ 1335              		.loc 1 286 28 is_stmt 0 discriminator 1 view .LVU470
+ 1336 000e 0F4B     		ldr	r3, .L49
+ 1337 0010 1B88     		ldrh	r3, [r3]
+ 1338 0012 9BB2     		uxth	r3, r3
+ 286:Src/drv/drv_dshot.c **** 
+ 1339              		.loc 1 286 7 discriminator 1 view .LVU471
+ 1340 0014 8342     		cmp	r3, r0
+ 1341 0016 FAD3     		bcc	.L47
+ 288:Src/drv/drv_dshot.c **** }
+ 1342              		.loc 1 288 2 is_stmt 1 view .LVU472
+ 288:Src/drv/drv_dshot.c **** }
+ 1343              		.loc 1 288 47 is_stmt 0 view .LVU473
+ 1344 0018 0D4B     		ldr	r3, .L49+4
+ 1345 001a 1B68     		ldr	r3, [r3]
+ 1346 001c 0D4A     		ldr	r2, .L49+8
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 39
+
+
+ 1347 001e A2FB0323 		umull	r2, r3, r2, r3
+ 1348 0022 9B09     		lsrs	r3, r3, #6
+ 288:Src/drv/drv_dshot.c **** }
+ 1349              		.loc 1 288 19 view .LVU474
+ 1350 0024 013B     		subs	r3, r3, #1
+ 288:Src/drv/drv_dshot.c **** }
+ 1351              		.loc 1 288 17 view .LVU475
+ 1352 0026 4FF0E022 		mov	r2, #-536813568
+ 1353 002a 5361     		str	r3, [r2, #20]
+ 289:Src/drv/drv_dshot.c **** 
+ 1354              		.loc 1 289 1 view .LVU476
+ 1355 002c 7047     		bx	lr
+ 1356              	.L48:
+ 282:Src/drv/drv_dshot.c **** 		wait_counts *= 10;
+ 1357              		.loc 1 282 3 is_stmt 1 view .LVU477
+ 282:Src/drv/drv_dshot.c **** 		wait_counts *= 10;
+ 1358              		.loc 1 282 48 is_stmt 0 view .LVU478
+ 1359 002e 084B     		ldr	r3, .L49+4
+ 1360 0030 1B68     		ldr	r3, [r3]
+ 1361 0032 094A     		ldr	r2, .L49+12
+ 1362 0034 A2FB0323 		umull	r2, r3, r2, r3
+ 1363 0038 5B0B     		lsrs	r3, r3, #13
+ 282:Src/drv/drv_dshot.c **** 		wait_counts *= 10;
+ 1364              		.loc 1 282 20 view .LVU479
+ 1365 003a 013B     		subs	r3, r3, #1
+ 282:Src/drv/drv_dshot.c **** 		wait_counts *= 10;
+ 1366              		.loc 1 282 18 view .LVU480
+ 1367 003c 4FF0E022 		mov	r2, #-536813568
+ 1368 0040 5361     		str	r3, [r2, #20]
+ 283:Src/drv/drv_dshot.c **** 	}
+ 1369              		.loc 1 283 3 is_stmt 1 view .LVU481
+ 283:Src/drv/drv_dshot.c **** 	}
+ 1370              		.loc 1 283 15 is_stmt 0 view .LVU482
+ 1371 0042 00EB8000 		add	r0, r0, r0, lsl #2
+ 1372              	.LVL45:
+ 283:Src/drv/drv_dshot.c **** 	}
+ 1373              		.loc 1 283 15 view .LVU483
+ 1374 0046 4000     		lsls	r0, r0, #1
+ 1375 0048 80B2     		uxth	r0, r0
+ 1376              	.LVL46:
+ 283:Src/drv/drv_dshot.c **** 	}
+ 1377              		.loc 1 283 15 view .LVU484
+ 1378 004a E0E7     		b	.L47
+ 1379              	.L50:
+ 1380              		.align	2
+ 1381              	.L49:
+ 1382 004c 00000000 		.word	.LANCHOR5
+ 1383 0050 00000000 		.word	SystemCoreClock
+ 1384 0054 D34D6210 		.word	274877907
+ 1385 0058 5917B7D1 		.word	-776530087
+ 1386              		.cfi_endproc
+ 1387              	.LFE189:
+ 1389              		.section	.text.DMA1_Stream2_IRQHandler,"ax",%progbits
+ 1390              		.align	1
+ 1391              		.global	DMA1_Stream2_IRQHandler
+ 1392              		.syntax unified
+ 1393              		.thumb
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 40
+
+
+ 1394              		.thumb_func
+ 1395              		.fpu fpv5-sp-d16
+ 1397              	DMA1_Stream2_IRQHandler:
+ 1398              	.LFB196:
+ 414:Src/drv/drv_dshot.c **** 
+ 415:Src/drv/drv_dshot.c **** /* Interrupt Handlers */
+ 416:Src/drv/drv_dshot.c **** 
+ 417:Src/drv/drv_dshot.c **** /**
+ 418:Src/drv/drv_dshot.c ****  * @brief This function handles DMA1 stream2 global interrupt.
+ 419:Src/drv/drv_dshot.c ****  */
+ 420:Src/drv/drv_dshot.c **** void
+ 421:Src/drv/drv_dshot.c **** DMA1_Stream2_IRQHandler(void)
+ 422:Src/drv/drv_dshot.c **** {
+ 1399              		.loc 1 422 1 is_stmt 1 view -0
+ 1400              		.cfi_startproc
+ 1401              		@ args = 0, pretend = 0, frame = 0
+ 1402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1403              		@ link register save eliminated.
+ 423:Src/drv/drv_dshot.c **** 	if(DMA1->LISR & DMA_LISR_TCIF2){
+ 1404              		.loc 1 423 2 view .LVU486
+ 1405              		.loc 1 423 9 is_stmt 0 view .LVU487
+ 1406 0000 0D4B     		ldr	r3, .L54
+ 1407 0002 1B68     		ldr	r3, [r3]
+ 1408              		.loc 1 423 4 view .LVU488
+ 1409 0004 13F4001F 		tst	r3, #2097152
+ 1410 0008 15D0     		beq	.L51
+ 424:Src/drv/drv_dshot.c **** 		DMA1_Stream2->CR 	&= ~DMA_SxCR_EN;
+ 1411              		.loc 1 424 3 is_stmt 1 view .LVU489
+ 1412              		.loc 1 424 21 is_stmt 0 view .LVU490
+ 1413 000a 0B4A     		ldr	r2, .L54
+ 1414 000c 136C     		ldr	r3, [r2, #64]
+ 1415 000e 23F00103 		bic	r3, r3, #1
+ 1416 0012 1364     		str	r3, [r2, #64]
+ 425:Src/drv/drv_dshot.c **** 		while(DMA1_Stream2->CR & DMA_SxCR_EN){}
+ 1417              		.loc 1 425 3 is_stmt 1 view .LVU491
+ 1418              	.L53:
+ 1419              		.loc 1 425 41 discriminator 1 view .LVU492
+ 1420              		.loc 1 425 8 discriminator 1 view .LVU493
+ 1421              		.loc 1 425 21 is_stmt 0 discriminator 1 view .LVU494
+ 1422 0014 084B     		ldr	r3, .L54
+ 1423 0016 1B6C     		ldr	r3, [r3, #64]
+ 1424              		.loc 1 425 8 discriminator 1 view .LVU495
+ 1425 0018 13F0010F 		tst	r3, #1
+ 1426 001c FAD1     		bne	.L53
+ 426:Src/drv/drv_dshot.c **** 		TIM5->DIER 			&= ~TIM_DIER_CC1DE;
+ 1427              		.loc 1 426 3 is_stmt 1 view .LVU496
+ 1428              		.loc 1 426 17 is_stmt 0 view .LVU497
+ 1429 001e 074A     		ldr	r2, .L54+4
+ 1430 0020 D368     		ldr	r3, [r2, #12]
+ 1431 0022 23F40073 		bic	r3, r3, #512
+ 1432 0026 D360     		str	r3, [r2, #12]
+ 427:Src/drv/drv_dshot.c **** 		DMA1->LIFCR			|= DMA_LIFCR_CTCIF2;
+ 1433              		.loc 1 427 3 is_stmt 1 view .LVU498
+ 1434              		.loc 1 427 17 is_stmt 0 view .LVU499
+ 1435 0028 034B     		ldr	r3, .L54
+ 1436 002a 9A68     		ldr	r2, [r3, #8]
+ 1437 002c 42F40012 		orr	r2, r2, #2097152
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 41
+
+
+ 1438 0030 9A60     		str	r2, [r3, #8]
+ 428:Src/drv/drv_dshot.c **** 		DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1439              		.loc 1 428 3 is_stmt 1 view .LVU500
+ 1440              		.loc 1 428 22 is_stmt 0 view .LVU501
+ 1441 0032 1222     		movs	r2, #18
+ 1442 0034 5A64     		str	r2, [r3, #68]
+ 1443              	.L51:
+ 429:Src/drv/drv_dshot.c **** 	}
+ 430:Src/drv/drv_dshot.c **** }
+ 1444              		.loc 1 430 1 view .LVU502
+ 1445 0036 7047     		bx	lr
+ 1446              	.L55:
+ 1447              		.align	2
+ 1448              	.L54:
+ 1449 0038 00600240 		.word	1073897472
+ 1450 003c 000C0040 		.word	1073744896
+ 1451              		.cfi_endproc
+ 1452              	.LFE196:
+ 1454              		.section	.text.DMA1_Stream4_IRQHandler,"ax",%progbits
+ 1455              		.align	1
+ 1456              		.global	DMA1_Stream4_IRQHandler
+ 1457              		.syntax unified
+ 1458              		.thumb
+ 1459              		.thumb_func
+ 1460              		.fpu fpv5-sp-d16
+ 1462              	DMA1_Stream4_IRQHandler:
+ 1463              	.LFB197:
+ 431:Src/drv/drv_dshot.c **** 
+ 432:Src/drv/drv_dshot.c **** /**
+ 433:Src/drv/drv_dshot.c ****  * @brief This function handles DMA1 stream4 global interrupt.
+ 434:Src/drv/drv_dshot.c ****  */
+ 435:Src/drv/drv_dshot.c **** void
+ 436:Src/drv/drv_dshot.c **** DMA1_Stream4_IRQHandler(void)
+ 437:Src/drv/drv_dshot.c **** {
+ 1464              		.loc 1 437 1 is_stmt 1 view -0
+ 1465              		.cfi_startproc
+ 1466              		@ args = 0, pretend = 0, frame = 0
+ 1467              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1468              		@ link register save eliminated.
+ 438:Src/drv/drv_dshot.c **** 	if(DMA1->HISR & DMA_HISR_TCIF4){
+ 1469              		.loc 1 438 2 view .LVU504
+ 1470              		.loc 1 438 9 is_stmt 0 view .LVU505
+ 1471 0000 0D4B     		ldr	r3, .L59
+ 1472 0002 5B68     		ldr	r3, [r3, #4]
+ 1473              		.loc 1 438 4 view .LVU506
+ 1474 0004 13F0200F 		tst	r3, #32
+ 1475 0008 15D0     		beq	.L56
+ 439:Src/drv/drv_dshot.c **** 		DMA1_Stream4->CR 	&= ~DMA_SxCR_EN;
+ 1476              		.loc 1 439 3 is_stmt 1 view .LVU507
+ 1477              		.loc 1 439 21 is_stmt 0 view .LVU508
+ 1478 000a 0B4A     		ldr	r2, .L59
+ 1479 000c 136F     		ldr	r3, [r2, #112]
+ 1480 000e 23F00103 		bic	r3, r3, #1
+ 1481 0012 1367     		str	r3, [r2, #112]
+ 440:Src/drv/drv_dshot.c **** 		while(DMA1_Stream4->CR & DMA_SxCR_EN){}
+ 1482              		.loc 1 440 3 is_stmt 1 view .LVU509
+ 1483              	.L58:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 42
+
+
+ 1484              		.loc 1 440 41 discriminator 1 view .LVU510
+ 1485              		.loc 1 440 8 discriminator 1 view .LVU511
+ 1486              		.loc 1 440 21 is_stmt 0 discriminator 1 view .LVU512
+ 1487 0014 084B     		ldr	r3, .L59
+ 1488 0016 1B6F     		ldr	r3, [r3, #112]
+ 1489              		.loc 1 440 8 discriminator 1 view .LVU513
+ 1490 0018 13F0010F 		tst	r3, #1
+ 1491 001c FAD1     		bne	.L58
+ 441:Src/drv/drv_dshot.c **** 		TIM5->DIER 			&= ~TIM_DIER_CC2DE;
+ 1492              		.loc 1 441 3 is_stmt 1 view .LVU514
+ 1493              		.loc 1 441 17 is_stmt 0 view .LVU515
+ 1494 001e 074A     		ldr	r2, .L59+4
+ 1495 0020 D368     		ldr	r3, [r2, #12]
+ 1496 0022 23F48063 		bic	r3, r3, #1024
+ 1497 0026 D360     		str	r3, [r2, #12]
+ 442:Src/drv/drv_dshot.c **** 		DMA1->HIFCR			|= DMA_HIFCR_CTCIF4;
+ 1498              		.loc 1 442 3 is_stmt 1 view .LVU516
+ 1499              		.loc 1 442 17 is_stmt 0 view .LVU517
+ 1500 0028 034B     		ldr	r3, .L59
+ 1501 002a DA68     		ldr	r2, [r3, #12]
+ 1502 002c 42F02002 		orr	r2, r2, #32
+ 1503 0030 DA60     		str	r2, [r3, #12]
+ 443:Src/drv/drv_dshot.c **** 		DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1504              		.loc 1 443 3 is_stmt 1 view .LVU518
+ 1505              		.loc 1 443 22 is_stmt 0 view .LVU519
+ 1506 0032 1222     		movs	r2, #18
+ 1507 0034 5A67     		str	r2, [r3, #116]
+ 1508              	.L56:
+ 444:Src/drv/drv_dshot.c **** 	}
+ 445:Src/drv/drv_dshot.c **** }
+ 1509              		.loc 1 445 1 view .LVU520
+ 1510 0036 7047     		bx	lr
+ 1511              	.L60:
+ 1512              		.align	2
+ 1513              	.L59:
+ 1514 0038 00600240 		.word	1073897472
+ 1515 003c 000C0040 		.word	1073744896
+ 1516              		.cfi_endproc
+ 1517              	.LFE197:
+ 1519              		.section	.text.DMA1_Stream0_IRQHandler,"ax",%progbits
+ 1520              		.align	1
+ 1521              		.global	DMA1_Stream0_IRQHandler
+ 1522              		.syntax unified
+ 1523              		.thumb
+ 1524              		.thumb_func
+ 1525              		.fpu fpv5-sp-d16
+ 1527              	DMA1_Stream0_IRQHandler:
+ 1528              	.LFB198:
+ 446:Src/drv/drv_dshot.c **** 
+ 447:Src/drv/drv_dshot.c **** /**
+ 448:Src/drv/drv_dshot.c ****  * @brief This function handles DMA1 stream0 global interrupt.
+ 449:Src/drv/drv_dshot.c ****  */
+ 450:Src/drv/drv_dshot.c **** void
+ 451:Src/drv/drv_dshot.c **** DMA1_Stream0_IRQHandler(void)
+ 452:Src/drv/drv_dshot.c **** {
+ 1529              		.loc 1 452 1 is_stmt 1 view -0
+ 1530              		.cfi_startproc
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 43
+
+
+ 1531              		@ args = 0, pretend = 0, frame = 0
+ 1532              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1533              		@ link register save eliminated.
+ 453:Src/drv/drv_dshot.c **** 	if(DMA1->LISR & DMA_LISR_TCIF0){
+ 1534              		.loc 1 453 2 view .LVU522
+ 1535              		.loc 1 453 9 is_stmt 0 view .LVU523
+ 1536 0000 0D4B     		ldr	r3, .L64
+ 1537 0002 1B68     		ldr	r3, [r3]
+ 1538              		.loc 1 453 4 view .LVU524
+ 1539 0004 13F0200F 		tst	r3, #32
+ 1540 0008 15D0     		beq	.L61
+ 454:Src/drv/drv_dshot.c **** 		DMA1_Stream0->CR 	&= ~DMA_SxCR_EN;
+ 1541              		.loc 1 454 3 is_stmt 1 view .LVU525
+ 1542              		.loc 1 454 21 is_stmt 0 view .LVU526
+ 1543 000a 0B4A     		ldr	r2, .L64
+ 1544 000c 1369     		ldr	r3, [r2, #16]
+ 1545 000e 23F00103 		bic	r3, r3, #1
+ 1546 0012 1361     		str	r3, [r2, #16]
+ 455:Src/drv/drv_dshot.c **** 		while(DMA1_Stream0->CR & DMA_SxCR_EN){}
+ 1547              		.loc 1 455 3 is_stmt 1 view .LVU527
+ 1548              	.L63:
+ 1549              		.loc 1 455 41 discriminator 1 view .LVU528
+ 1550              		.loc 1 455 8 discriminator 1 view .LVU529
+ 1551              		.loc 1 455 21 is_stmt 0 discriminator 1 view .LVU530
+ 1552 0014 084B     		ldr	r3, .L64
+ 1553 0016 1B69     		ldr	r3, [r3, #16]
+ 1554              		.loc 1 455 8 discriminator 1 view .LVU531
+ 1555 0018 13F0010F 		tst	r3, #1
+ 1556 001c FAD1     		bne	.L63
+ 456:Src/drv/drv_dshot.c **** 		TIM5->DIER 			&= ~TIM_DIER_CC3DE;
+ 1557              		.loc 1 456 3 is_stmt 1 view .LVU532
+ 1558              		.loc 1 456 17 is_stmt 0 view .LVU533
+ 1559 001e 074A     		ldr	r2, .L64+4
+ 1560 0020 D368     		ldr	r3, [r2, #12]
+ 1561 0022 23F40063 		bic	r3, r3, #2048
+ 1562 0026 D360     		str	r3, [r2, #12]
+ 457:Src/drv/drv_dshot.c **** 		DMA1->LIFCR			|= DMA_LIFCR_CTCIF0;
+ 1563              		.loc 1 457 3 is_stmt 1 view .LVU534
+ 1564              		.loc 1 457 17 is_stmt 0 view .LVU535
+ 1565 0028 034B     		ldr	r3, .L64
+ 1566 002a 9A68     		ldr	r2, [r3, #8]
+ 1567 002c 42F02002 		orr	r2, r2, #32
+ 1568 0030 9A60     		str	r2, [r3, #8]
+ 458:Src/drv/drv_dshot.c **** 		DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1569              		.loc 1 458 3 is_stmt 1 view .LVU536
+ 1570              		.loc 1 458 22 is_stmt 0 view .LVU537
+ 1571 0032 1222     		movs	r2, #18
+ 1572 0034 5A61     		str	r2, [r3, #20]
+ 1573              	.L61:
+ 459:Src/drv/drv_dshot.c **** 	}
+ 460:Src/drv/drv_dshot.c **** }
+ 1574              		.loc 1 460 1 view .LVU538
+ 1575 0036 7047     		bx	lr
+ 1576              	.L65:
+ 1577              		.align	2
+ 1578              	.L64:
+ 1579 0038 00600240 		.word	1073897472
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 44
+
+
+ 1580 003c 000C0040 		.word	1073744896
+ 1581              		.cfi_endproc
+ 1582              	.LFE198:
+ 1584              		.section	.text.DMA1_Stream3_IRQHandler,"ax",%progbits
+ 1585              		.align	1
+ 1586              		.global	DMA1_Stream3_IRQHandler
+ 1587              		.syntax unified
+ 1588              		.thumb
+ 1589              		.thumb_func
+ 1590              		.fpu fpv5-sp-d16
+ 1592              	DMA1_Stream3_IRQHandler:
+ 1593              	.LFB199:
+ 461:Src/drv/drv_dshot.c **** 
+ 462:Src/drv/drv_dshot.c **** /**
+ 463:Src/drv/drv_dshot.c ****  * @brief This function handles DMA1 stream3 global interrupt.
+ 464:Src/drv/drv_dshot.c ****  */
+ 465:Src/drv/drv_dshot.c **** void
+ 466:Src/drv/drv_dshot.c **** DMA1_Stream3_IRQHandler(void)
+ 467:Src/drv/drv_dshot.c **** {
+ 1594              		.loc 1 467 1 is_stmt 1 view -0
+ 1595              		.cfi_startproc
+ 1596              		@ args = 0, pretend = 0, frame = 0
+ 1597              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1598              		@ link register save eliminated.
+ 468:Src/drv/drv_dshot.c **** 	if(DMA1->LISR & DMA_LISR_TCIF3){
+ 1599              		.loc 1 468 2 view .LVU540
+ 1600              		.loc 1 468 9 is_stmt 0 view .LVU541
+ 1601 0000 0D4B     		ldr	r3, .L69
+ 1602 0002 1B68     		ldr	r3, [r3]
+ 1603              		.loc 1 468 4 view .LVU542
+ 1604 0004 13F0006F 		tst	r3, #134217728
+ 1605 0008 15D0     		beq	.L66
+ 469:Src/drv/drv_dshot.c **** 		DMA1_Stream3->CR 	&= ~DMA_SxCR_EN;
+ 1606              		.loc 1 469 3 is_stmt 1 view .LVU543
+ 1607              		.loc 1 469 21 is_stmt 0 view .LVU544
+ 1608 000a 0B4A     		ldr	r2, .L69
+ 1609 000c 936D     		ldr	r3, [r2, #88]
+ 1610 000e 23F00103 		bic	r3, r3, #1
+ 1611 0012 9365     		str	r3, [r2, #88]
+ 470:Src/drv/drv_dshot.c **** 		while(DMA1_Stream3->CR & DMA_SxCR_EN){}
+ 1612              		.loc 1 470 3 is_stmt 1 view .LVU545
+ 1613              	.L68:
+ 1614              		.loc 1 470 41 discriminator 1 view .LVU546
+ 1615              		.loc 1 470 8 discriminator 1 view .LVU547
+ 1616              		.loc 1 470 21 is_stmt 0 discriminator 1 view .LVU548
+ 1617 0014 084B     		ldr	r3, .L69
+ 1618 0016 9B6D     		ldr	r3, [r3, #88]
+ 1619              		.loc 1 470 8 discriminator 1 view .LVU549
+ 1620 0018 13F0010F 		tst	r3, #1
+ 1621 001c FAD1     		bne	.L68
+ 471:Src/drv/drv_dshot.c **** 		TIM5->DIER 			&= ~TIM_DIER_CC4DE;
+ 1622              		.loc 1 471 3 is_stmt 1 view .LVU550
+ 1623              		.loc 1 471 17 is_stmt 0 view .LVU551
+ 1624 001e 074A     		ldr	r2, .L69+4
+ 1625 0020 D368     		ldr	r3, [r2, #12]
+ 1626 0022 23F48053 		bic	r3, r3, #4096
+ 1627 0026 D360     		str	r3, [r2, #12]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 45
+
+
+ 472:Src/drv/drv_dshot.c **** 		DMA1->LIFCR			|= DMA_LIFCR_CTCIF3;
+ 1628              		.loc 1 472 3 is_stmt 1 view .LVU552
+ 1629              		.loc 1 472 17 is_stmt 0 view .LVU553
+ 1630 0028 034B     		ldr	r3, .L69
+ 1631 002a 9A68     		ldr	r2, [r3, #8]
+ 1632 002c 42F00062 		orr	r2, r2, #134217728
+ 1633 0030 9A60     		str	r2, [r3, #8]
+ 473:Src/drv/drv_dshot.c **** 		DMA1_Stream3->NDTR	= DSHOT_DMA_BUFFER_SIZE;
+ 1634              		.loc 1 473 3 is_stmt 1 view .LVU554
+ 1635              		.loc 1 473 22 is_stmt 0 view .LVU555
+ 1636 0032 1222     		movs	r2, #18
+ 1637 0034 DA65     		str	r2, [r3, #92]
+ 1638              	.L66:
+ 474:Src/drv/drv_dshot.c **** 	}
+ 475:Src/drv/drv_dshot.c **** }
+ 1639              		.loc 1 475 1 view .LVU556
+ 1640 0036 7047     		bx	lr
+ 1641              	.L70:
+ 1642              		.align	2
+ 1643              	.L69:
+ 1644 0038 00600240 		.word	1073897472
+ 1645 003c 000C0040 		.word	1073744896
+ 1646              		.cfi_endproc
+ 1647              	.LFE199:
+ 1649              		.global	dshot_telemetry
+ 1650              		.global	dshot_command_count
+ 1651              		.section	.bss.dshot_command_count,"aw",%nobits
+ 1652              		.align	1
+ 1653              		.set	.LANCHOR5,. + 0
+ 1656              	dshot_command_count:
+ 1657 0000 0000     		.space	2
+ 1658              		.section	.bss.dshot_telemetry,"aw",%nobits
+ 1659              		.set	.LANCHOR0,. + 0
+ 1662              	dshot_telemetry:
+ 1663 0000 00       		.space	1
+ 1664              		.section	.bss.motor1_dmabuffer,"aw",%nobits
+ 1665              		.align	2
+ 1666              		.set	.LANCHOR1,. + 0
+ 1669              	motor1_dmabuffer:
+ 1670 0000 00000000 		.space	72
+ 1670      00000000 
+ 1670      00000000 
+ 1670      00000000 
+ 1670      00000000 
+ 1671              		.section	.bss.motor2_dmabuffer,"aw",%nobits
+ 1672              		.align	2
+ 1673              		.set	.LANCHOR2,. + 0
+ 1676              	motor2_dmabuffer:
+ 1677 0000 00000000 		.space	72
+ 1677      00000000 
+ 1677      00000000 
+ 1677      00000000 
+ 1677      00000000 
+ 1678              		.section	.bss.motor3_dmabuffer,"aw",%nobits
+ 1679              		.align	2
+ 1680              		.set	.LANCHOR3,. + 0
+ 1683              	motor3_dmabuffer:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 46
+
+
+ 1684 0000 00000000 		.space	72
+ 1684      00000000 
+ 1684      00000000 
+ 1684      00000000 
+ 1684      00000000 
+ 1685              		.section	.bss.motor4_dmabuffer,"aw",%nobits
+ 1686              		.align	2
+ 1687              		.set	.LANCHOR4,. + 0
+ 1690              	motor4_dmabuffer:
+ 1691 0000 00000000 		.space	72
+ 1691      00000000 
+ 1691      00000000 
+ 1691      00000000 
+ 1691      00000000 
+ 1692              		.text
+ 1693              	.Letext0:
+ 1694              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 1695              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 1696              		.file 4 "Libraries/CMSIS/Include/core_cm7.h"
+ 1697              		.file 5 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 1698              		.file 6 "Src/drv/drv_dshot.h"
+ 1699              		.file 7 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
+ 1700              		.file 8 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 47
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 drv_dshot.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:18     .text.dshot_choose_type:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:25     .text.dshot_choose_type:0000000000000000 dshot_choose_type
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:60     .text.dshot_choose_type:0000000000000014 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:67     .text.dshot_prepare_packet:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:73     .text.dshot_prepare_packet:0000000000000000 dshot_prepare_packet
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:149    .text.dshot_prepare_packet:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:154    .text.dshot_prepare_dmabuffer:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:160    .text.dshot_prepare_dmabuffer:0000000000000000 dshot_prepare_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:235    .text.dshot_prepare_dmabuffer_all:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:241    .text.dshot_prepare_dmabuffer_all:0000000000000000 dshot_prepare_dmabuffer_all
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:283    .text.dshot_prepare_dmabuffer_all:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:291    .text.dshot_dma_start:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:297    .text.dshot_dma_start:0000000000000000 dshot_dma_start
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:334    .text.dshot_dma_start:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:339    .text.dshot_enable_dma_request:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:345    .text.dshot_enable_dma_request:0000000000000000 dshot_enable_dma_request
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:378    .text.dshot_enable_dma_request:0000000000000024 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:383    .rodata.dshotInit.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:387    .text.dshotInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:394    .text.dshotInit:0000000000000000 dshotInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:879    .text.dshotInit:00000000000002a8 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:887    .text.dshotInit:00000000000002c4 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1248   .text.dshotInit:00000000000004d0 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1261   .text.dshotWrite:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1268   .text.dshotWrite:0000000000000000 dshotWrite
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1302   .text.dshotWrite:000000000000001c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1307   .text.dshotWait:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1314   .text.dshotWait:0000000000000000 dshotWait
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1382   .text.dshotWait:000000000000004c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1390   .text.DMA1_Stream2_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1397   .text.DMA1_Stream2_IRQHandler:0000000000000000 DMA1_Stream2_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1449   .text.DMA1_Stream2_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1455   .text.DMA1_Stream4_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1462   .text.DMA1_Stream4_IRQHandler:0000000000000000 DMA1_Stream4_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1514   .text.DMA1_Stream4_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1520   .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1527   .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1579   .text.DMA1_Stream0_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1585   .text.DMA1_Stream3_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1592   .text.DMA1_Stream3_IRQHandler:0000000000000000 DMA1_Stream3_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1644   .text.DMA1_Stream3_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1662   .bss.dshot_telemetry:0000000000000000 dshot_telemetry
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1656   .bss.dshot_command_count:0000000000000000 dshot_command_count
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1652   .bss.dshot_command_count:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1663   .bss.dshot_telemetry:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1665   .bss.motor1_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1669   .bss.motor1_dmabuffer:0000000000000000 motor1_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1672   .bss.motor2_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1676   .bss.motor2_dmabuffer:0000000000000000 motor2_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1679   .bss.motor3_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1683   .bss.motor3_dmabuffer:0000000000000000 motor3_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1686   .bss.motor4_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s:1690   .bss.motor4_dmabuffer:0000000000000000 motor4_dmabuffer
+
+UNDEFINED SYMBOLS
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHzbEYQ.s 			page 48
+
+
+puts
+SystemCoreClock

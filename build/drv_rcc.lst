@@ -1,0 +1,262 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"drv_rcc.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.rcc216MHzInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	rcc216MHzInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	rcc216MHzInit:
+  27              	.LFB187:
+  28              		.file 1 "Src/drv/drv_rcc.c"
+   1:Src/drv/drv_rcc.c **** /** @file 		drv_rcc.c
+   2:Src/drv/drv_rcc.c ****  *  @brief
+   3:Src/drv/drv_rcc.c ****  *  	This file initializes the RCC clock.
+   4:Src/drv/drv_rcc.c ****  *
+   5:Src/drv/drv_rcc.c ****  *
+   6:Src/drv/drv_rcc.c ****  *  @author 	Jeremy Wolfe
+   7:Src/drv/drv_rcc.c ****  *  @date 		03 MAR 2022
+   8:Src/drv/drv_rcc.c ****  */
+   9:Src/drv/drv_rcc.c **** 
+  10:Src/drv/drv_rcc.c **** /* Includes */
+  11:Src/drv/drv_rcc.c **** #include "board.h"
+  12:Src/drv/drv_rcc.c **** 
+  13:Src/drv/drv_rcc.c **** /** @brief Changes clock speed to 216 MHz
+  14:Src/drv/drv_rcc.c ****  *
+  15:Src/drv/drv_rcc.c ****  *  @return Void.
+  16:Src/drv/drv_rcc.c ****  */
+  17:Src/drv/drv_rcc.c **** void
+  18:Src/drv/drv_rcc.c **** rcc216MHzInit(void)
+  19:Src/drv/drv_rcc.c **** {
+  29              		.loc 1 19 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  20:Src/drv/drv_rcc.c **** 	RCC->APB1ENR	|= RCC_APB1ENR_PWREN;
+  34              		.loc 1 20 2 view .LVU1
+  35              		.loc 1 20 15 is_stmt 0 view .LVU2
+  36 0000 2F4B     		ldr	r3, .L6
+  37 0002 1A6C     		ldr	r2, [r3, #64]
+  38 0004 42F08052 		orr	r2, r2, #268435456
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 2
+
+
+  39 0008 1A64     		str	r2, [r3, #64]
+  21:Src/drv/drv_rcc.c **** 	PWR->CR1		|= PWR_CR1_VOS;			// turn on voltage scaling
+  40              		.loc 1 21 2 is_stmt 1 view .LVU3
+  41              		.loc 1 21 12 is_stmt 0 view .LVU4
+  42 000a 2E4A     		ldr	r2, .L6+4
+  43 000c 1168     		ldr	r1, [r2]
+  44 000e 41F44041 		orr	r1, r1, #49152
+  45 0012 1160     		str	r1, [r2]
+  22:Src/drv/drv_rcc.c **** 	PWR->CR1 		|= PWR_CR1_ODEN;		// enable overdrive
+  46              		.loc 1 22 2 is_stmt 1 view .LVU5
+  47              		.loc 1 22 13 is_stmt 0 view .LVU6
+  48 0014 1168     		ldr	r1, [r2]
+  49 0016 41F48031 		orr	r1, r1, #65536
+  50 001a 1160     		str	r1, [r2]
+  23:Src/drv/drv_rcc.c **** 
+  24:Src/drv/drv_rcc.c **** 	RCC->APB2ENR 	|= RCC_APB2ENR_SYSCFGEN;
+  51              		.loc 1 24 2 is_stmt 1 view .LVU7
+  52              		.loc 1 24 16 is_stmt 0 view .LVU8
+  53 001c 5A6C     		ldr	r2, [r3, #68]
+  54 001e 42F48042 		orr	r2, r2, #16384
+  55 0022 5A64     		str	r2, [r3, #68]
+  25:Src/drv/drv_rcc.c **** 	FLASH->ACR		|= FLASH_ACR_LATENCY_7WS;		// set flash latency to 7 wait states
+  56              		.loc 1 25 2 is_stmt 1 view .LVU9
+  57              		.loc 1 25 14 is_stmt 0 view .LVU10
+  58 0024 284A     		ldr	r2, .L6+8
+  59 0026 1368     		ldr	r3, [r2]
+  60 0028 43F00703 		orr	r3, r3, #7
+  61 002c 1360     		str	r3, [r2]
+  26:Src/drv/drv_rcc.c **** 	while(!(FLASH->ACR & FLASH_ACR_LATENCY_7WS)){}	// wait for enabled
+  62              		.loc 1 26 2 is_stmt 1 view .LVU11
+  63              	.L2:
+  64              		.loc 1 26 47 discriminator 1 view .LVU12
+  65              		.loc 1 26 7 discriminator 1 view .LVU13
+  66              		.loc 1 26 15 is_stmt 0 discriminator 1 view .LVU14
+  67 002e 264B     		ldr	r3, .L6+8
+  68 0030 1B68     		ldr	r3, [r3]
+  69              		.loc 1 26 7 discriminator 1 view .LVU15
+  70 0032 13F0070F 		tst	r3, #7
+  71 0036 FAD0     		beq	.L2
+  27:Src/drv/drv_rcc.c **** 
+  28:Src/drv/drv_rcc.c **** 
+  29:Src/drv/drv_rcc.c **** 	RCC->CR 		|= RCC_CR_HSEON;		// turn on HSI
+  72              		.loc 1 29 2 is_stmt 1 view .LVU16
+  73              		.loc 1 29 12 is_stmt 0 view .LVU17
+  74 0038 214A     		ldr	r2, .L6
+  75 003a 1368     		ldr	r3, [r2]
+  76 003c 43F48033 		orr	r3, r3, #65536
+  77 0040 1360     		str	r3, [r2]
+  30:Src/drv/drv_rcc.c **** 	while(!(RCC->CR & RCC_CR_HSERDY)){}		// wait until HSI ready
+  78              		.loc 1 30 2 is_stmt 1 view .LVU18
+  79              	.L3:
+  80              		.loc 1 30 36 discriminator 1 view .LVU19
+  81              		.loc 1 30 7 discriminator 1 view .LVU20
+  82              		.loc 1 30 13 is_stmt 0 discriminator 1 view .LVU21
+  83 0042 1F4B     		ldr	r3, .L6
+  84 0044 1B68     		ldr	r3, [r3]
+  85              		.loc 1 30 7 discriminator 1 view .LVU22
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 3
+
+
+  86 0046 13F4003F 		tst	r3, #131072
+  87 004a FAD0     		beq	.L3
+  31:Src/drv/drv_rcc.c **** 
+  32:Src/drv/drv_rcc.c **** 	/*		PLL Division Configuration	*/
+  33:Src/drv/drv_rcc.c **** 	/*		16 / 8 = 2 * 216 = 432 / 2 = 216	*/
+  34:Src/drv/drv_rcc.c **** 	RCC->CR			&= ~RCC_CR_PLLON;
+  88              		.loc 1 34 2 is_stmt 1 view .LVU23
+  89              		.loc 1 34 12 is_stmt 0 view .LVU24
+  90 004c 1C4B     		ldr	r3, .L6
+  91 004e 1A68     		ldr	r2, [r3]
+  92 0050 22F08072 		bic	r2, r2, #16777216
+  93 0054 1A60     		str	r2, [r3]
+  35:Src/drv/drv_rcc.c **** 	RCC->PLLCFGR	|= RCC_PLLCFGR_PLLSRC_HSE;
+  94              		.loc 1 35 2 is_stmt 1 view .LVU25
+  95              		.loc 1 35 15 is_stmt 0 view .LVU26
+  96 0056 5A68     		ldr	r2, [r3, #4]
+  97 0058 42F48002 		orr	r2, r2, #4194304
+  98 005c 5A60     		str	r2, [r3, #4]
+  36:Src/drv/drv_rcc.c **** 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLM;
+  99              		.loc 1 36 2 is_stmt 1 view .LVU27
+ 100              		.loc 1 36 15 is_stmt 0 view .LVU28
+ 101 005e 5A68     		ldr	r2, [r3, #4]
+ 102 0060 22F03F02 		bic	r2, r2, #63
+ 103 0064 5A60     		str	r2, [r3, #4]
+  37:Src/drv/drv_rcc.c **** 	RCC->PLLCFGR	|= 4U;					// PLLM /8 div
+ 104              		.loc 1 37 2 is_stmt 1 view .LVU29
+ 105              		.loc 1 37 15 is_stmt 0 view .LVU30
+ 106 0066 5A68     		ldr	r2, [r3, #4]
+ 107 0068 42F00402 		orr	r2, r2, #4
+ 108 006c 5A60     		str	r2, [r3, #4]
+  38:Src/drv/drv_rcc.c **** 	RCC->PLLCFGR	|= (216U << 6U);		// PLLN *216 multi
+ 109              		.loc 1 38 2 is_stmt 1 view .LVU31
+ 110              		.loc 1 38 15 is_stmt 0 view .LVU32
+ 111 006e 5A68     		ldr	r2, [r3, #4]
+ 112 0070 42F45852 		orr	r2, r2, #13824
+ 113 0074 5A60     		str	r2, [r3, #4]
+  39:Src/drv/drv_rcc.c **** 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLP;	// PLLP /2 div
+ 114              		.loc 1 39 2 is_stmt 1 view .LVU33
+ 115              		.loc 1 39 15 is_stmt 0 view .LVU34
+ 116 0076 5A68     		ldr	r2, [r3, #4]
+ 117 0078 22F44032 		bic	r2, r2, #196608
+ 118 007c 5A60     		str	r2, [r3, #4]
+  40:Src/drv/drv_rcc.c **** 	RCC->CR			|= RCC_CR_PLLON;			// turn on PLL
+ 119              		.loc 1 40 2 is_stmt 1 view .LVU35
+ 120              		.loc 1 40 12 is_stmt 0 view .LVU36
+ 121 007e 1A68     		ldr	r2, [r3]
+ 122 0080 42F08072 		orr	r2, r2, #16777216
+ 123 0084 1A60     		str	r2, [r3]
+  41:Src/drv/drv_rcc.c **** 	while(!(RCC->CR & RCC_CR_PLLRDY)){}		// wait for PLL to be ready
+ 124              		.loc 1 41 2 is_stmt 1 view .LVU37
+ 125              	.L4:
+ 126              		.loc 1 41 36 discriminator 1 view .LVU38
+ 127              		.loc 1 41 7 discriminator 1 view .LVU39
+ 128              		.loc 1 41 13 is_stmt 0 discriminator 1 view .LVU40
+ 129 0086 0E4B     		ldr	r3, .L6
+ 130 0088 1B68     		ldr	r3, [r3]
+ 131              		.loc 1 41 7 discriminator 1 view .LVU41
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 4
+
+
+ 132 008a 13F0007F 		tst	r3, #33554432
+ 133 008e FAD0     		beq	.L4
+  42:Src/drv/drv_rcc.c **** 
+  43:Src/drv/drv_rcc.c **** 	/*		CPU, AHB, APB Bus Configuration	*/
+  44:Src/drv/drv_rcc.c **** 	RCC->CFGR		|= RCC_CFGR_HPRE_DIV1;	// AHB = 216MHz
+ 134              		.loc 1 44 2 is_stmt 1 view .LVU42
+ 135              		.loc 1 44 13 is_stmt 0 view .LVU43
+ 136 0090 0B4B     		ldr	r3, .L6
+ 137 0092 9A68     		ldr	r2, [r3, #8]
+ 138 0094 9A60     		str	r2, [r3, #8]
+  45:Src/drv/drv_rcc.c **** 	RCC->CFGR		|= RCC_CFGR_PPRE1_DIV4;	// APB1 = 216 / 4 = 54MHz
+ 139              		.loc 1 45 2 is_stmt 1 view .LVU44
+ 140              		.loc 1 45 13 is_stmt 0 view .LVU45
+ 141 0096 9A68     		ldr	r2, [r3, #8]
+ 142 0098 42F4A052 		orr	r2, r2, #5120
+ 143 009c 9A60     		str	r2, [r3, #8]
+  46:Src/drv/drv_rcc.c **** 	RCC->CFGR		|= RCC_CFGR_PPRE2_DIV2;	// APB2 = 216 / 2 = 108MHz
+ 144              		.loc 1 46 2 is_stmt 1 view .LVU46
+ 145              		.loc 1 46 13 is_stmt 0 view .LVU47
+ 146 009e 9A68     		ldr	r2, [r3, #8]
+ 147 00a0 42F40042 		orr	r2, r2, #32768
+ 148 00a4 9A60     		str	r2, [r3, #8]
+  47:Src/drv/drv_rcc.c **** 	RCC->CFGR		|= RCC_CFGR_SW_PLL;		// PLL selected as system clock
+ 149              		.loc 1 47 2 is_stmt 1 view .LVU48
+ 150              		.loc 1 47 13 is_stmt 0 view .LVU49
+ 151 00a6 9A68     		ldr	r2, [r3, #8]
+ 152 00a8 42F00202 		orr	r2, r2, #2
+ 153 00ac 9A60     		str	r2, [r3, #8]
+  48:Src/drv/drv_rcc.c **** 	while(!(RCC->CFGR & RCC_CFGR_SWS_PLL)){}// wait until selected
+ 154              		.loc 1 48 2 is_stmt 1 view .LVU50
+ 155              	.L5:
+ 156              		.loc 1 48 41 discriminator 1 view .LVU51
+ 157              		.loc 1 48 7 discriminator 1 view .LVU52
+ 158              		.loc 1 48 13 is_stmt 0 discriminator 1 view .LVU53
+ 159 00ae 044B     		ldr	r3, .L6
+ 160 00b0 9B68     		ldr	r3, [r3, #8]
+ 161              		.loc 1 48 7 discriminator 1 view .LVU54
+ 162 00b2 13F0080F 		tst	r3, #8
+ 163 00b6 FAD0     		beq	.L5
+  49:Src/drv/drv_rcc.c **** 
+  50:Src/drv/drv_rcc.c **** 	SystemCoreClock = 216000000;
+ 164              		.loc 1 50 2 is_stmt 1 view .LVU55
+ 165              		.loc 1 50 18 is_stmt 0 view .LVU56
+ 166 00b8 044B     		ldr	r3, .L6+12
+ 167 00ba 054A     		ldr	r2, .L6+16
+ 168 00bc 1A60     		str	r2, [r3]
+  51:Src/drv/drv_rcc.c **** }
+ 169              		.loc 1 51 1 view .LVU57
+ 170 00be 7047     		bx	lr
+ 171              	.L7:
+ 172              		.align	2
+ 173              	.L6:
+ 174 00c0 00380240 		.word	1073887232
+ 175 00c4 00700040 		.word	1073770496
+ 176 00c8 003C0240 		.word	1073888256
+ 177 00cc 00000000 		.word	SystemCoreClock
+ 178 00d0 00E6DF0C 		.word	216000000
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 5
+
+
+ 179              		.cfi_endproc
+ 180              	.LFE187:
+ 182              		.text
+ 183              	.Letext0:
+ 184              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 185              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 186              		.file 4 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 187              		.file 5 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 drv_rcc.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s:18     .text.rcc216MHzInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s:26     .text.rcc216MHzInit:0000000000000000 rcc216MHzInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccf3qRi3.s:174    .text.rcc216MHzInit:00000000000000c0 $d
+
+UNDEFINED SYMBOLS
+SystemCoreClock

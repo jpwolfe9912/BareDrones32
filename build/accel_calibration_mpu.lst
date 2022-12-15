@@ -1,0 +1,906 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"accel_calibration_mpu.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.accelCalibrationMPU.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC0:
+  20 0000 0A4D5055 		.ascii	"\012MPU6000 Accelerometer Calibration:\012\000"
+  20      36303030 
+  20      20416363 
+  20      656C6572 
+  20      6F6D6574 
+  21 0025 000000   		.align	2
+  22              	.LC1:
+  23 0028 506C6163 		.ascii	"Place accelerometer right side up\000"
+  23      65206163 
+  23      63656C65 
+  23      726F6D65 
+  23      74657220 
+  24 004a 0000     		.align	2
+  25              	.LC2:
+  26 004c 20205365 		.ascii	"  Send a character when ready to proceed\012\000"
+  26      6E642061 
+  26      20636861 
+  26      72616374 
+  26      65722077 
+  27 0076 0000     		.align	2
+  28              	.LC3:
+  29 0078 20204761 		.ascii	"  Gathering Data...\012\000"
+  29      74686572 
+  29      696E6720 
+  29      44617461 
+  29      2E2E2E0A 
+  30 008d 000000   		.align	2
+  31              	.LC4:
+  32 0090 506C6163 		.ascii	"Place accelerometer up side down\000"
+  32      65206163 
+  32      63656C65 
+  32      726F6D65 
+  32      74657220 
+  33 00b1 000000   		.align	2
+  34              	.LC5:
+  35 00b4 506C6163 		.ascii	"Place accelerometer left edge down\000"
+  35      65206163 
+  35      63656C65 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 2
+
+
+  35      726F6D65 
+  35      74657220 
+  36 00d7 00       		.align	2
+  37              	.LC6:
+  38 00d8 506C6163 		.ascii	"Place accelerometer right edge down\000"
+  38      65206163 
+  38      63656C65 
+  38      726F6D65 
+  38      74657220 
+  39              		.align	2
+  40              	.LC7:
+  41 00fc 506C6163 		.ascii	"Place accelerometer rear edge down\000"
+  41      65206163 
+  41      63656C65 
+  41      726F6D65 
+  41      74657220 
+  42 011f 00       		.align	2
+  43              	.LC8:
+  44 0120 506C6163 		.ascii	"Place accelerometer front edge down\000"
+  44      65206163 
+  44      63656C65 
+  44      726F6D65 
+  44      74657220 
+  45              		.section	.text.accelCalibrationMPU,"ax",%progbits
+  46              		.align	1
+  47              		.global	accelCalibrationMPU
+  48              		.arch armv7e-m
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv5-sp-d16
+  54              	accelCalibrationMPU:
+  55              	.LFB187:
+  56              		.file 1 "Src/sensors/accel_calibration_mpu.c"
+   1:Src/sensors/accel_calibration_mpu.c **** /** @file 		accel_calibration_mpu.c
+   2:Src/sensors/accel_calibration_mpu.c ****  *  @brief
+   3:Src/sensors/accel_calibration_mpu.c ****  *  	This file is used to calibrate the accelerometer.
+   4:Src/sensors/accel_calibration_mpu.c ****  *
+   5:Src/sensors/accel_calibration_mpu.c ****  *  @author 	Jeremy Wolfe
+   6:Src/sensors/accel_calibration_mpu.c ****  *  @date 		06 MAR 2022
+   7:Src/sensors/accel_calibration_mpu.c ****  */
+   8:Src/sensors/accel_calibration_mpu.c **** 
+   9:Src/sensors/accel_calibration_mpu.c **** /* Includes */
+  10:Src/sensors/accel_calibration_mpu.c **** #include "board.h"
+  11:Src/sensors/accel_calibration_mpu.c **** 
+  12:Src/sensors/accel_calibration_mpu.c **** /** @brief Calibrates the accelerometer.
+  13:Src/sensors/accel_calibration_mpu.c ****  *
+  14:Src/sensors/accel_calibration_mpu.c ****  *  @return Void.
+  15:Src/sensors/accel_calibration_mpu.c ****  */
+  16:Src/sensors/accel_calibration_mpu.c **** void
+  17:Src/sensors/accel_calibration_mpu.c **** accelCalibrationMPU(void)
+  18:Src/sensors/accel_calibration_mpu.c **** {
+  57              		.loc 1 18 1 view -0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+  61 0000 10B5     		push	{r4, lr}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 3
+
+
+  62              		.cfi_def_cfa_offset 8
+  63              		.cfi_offset 4, -8
+  64              		.cfi_offset 14, -4
+  65 0002 2DED068B 		vpush.64	{d8, d9, d10}
+  66              		.cfi_def_cfa_offset 32
+  67              		.cfi_offset 80, -32
+  68              		.cfi_offset 81, -28
+  69              		.cfi_offset 82, -24
+  70              		.cfi_offset 83, -20
+  71              		.cfi_offset 84, -16
+  72              		.cfi_offset 85, -12
+  19:Src/sensors/accel_calibration_mpu.c **** 	float noseUp        = 0.0f;
+  73              		.loc 1 19 2 view .LVU1
+  74              	.LVL0:
+  20:Src/sensors/accel_calibration_mpu.c **** 	float noseDown      = 0.0f;
+  75              		.loc 1 20 2 view .LVU2
+  21:Src/sensors/accel_calibration_mpu.c **** 	float leftWingDown  = 0.0f;
+  76              		.loc 1 21 2 view .LVU3
+  22:Src/sensors/accel_calibration_mpu.c **** 	float rightWingDown = 0.0f;
+  77              		.loc 1 22 2 view .LVU4
+  23:Src/sensors/accel_calibration_mpu.c **** 	float upSideDown    = 0.0f;
+  78              		.loc 1 23 2 view .LVU5
+  24:Src/sensors/accel_calibration_mpu.c **** 	float rightSideUp   = 0.0f;
+  79              		.loc 1 24 2 view .LVU6
+  25:Src/sensors/accel_calibration_mpu.c **** 
+  26:Src/sensors/accel_calibration_mpu.c **** 	int16_t index;
+  80              		.loc 1 26 2 view .LVU7
+  27:Src/sensors/accel_calibration_mpu.c **** 
+  28:Src/sensors/accel_calibration_mpu.c **** 	accelCalibrating = true;
+  81              		.loc 1 28 2 view .LVU8
+  82              		.loc 1 28 19 is_stmt 0 view .LVU9
+  83 0006 AA4B     		ldr	r3, .L15
+  84 0008 0122     		movs	r2, #1
+  85 000a 1A70     		strb	r2, [r3]
+  29:Src/sensors/accel_calibration_mpu.c **** 
+  30:Src/sensors/accel_calibration_mpu.c **** 	printf("\nMPU6000 Accelerometer Calibration:\n\n");
+  86              		.loc 1 30 2 is_stmt 1 view .LVU10
+  87 000c A948     		ldr	r0, .L15+4
+  88 000e FFF7FEFF 		bl	puts
+  89              	.LVL1:
+  31:Src/sensors/accel_calibration_mpu.c **** 
+  32:Src/sensors/accel_calibration_mpu.c **** 	///////////////////////////////////
+  33:Src/sensors/accel_calibration_mpu.c **** 
+  34:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer right side up\n");
+  90              		.loc 1 34 2 view .LVU11
+  91 0012 A948     		ldr	r0, .L15+8
+  92 0014 FFF7FEFF 		bl	puts
+  93              	.LVL2:
+  35:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+  94              		.loc 1 35 2 view .LVU12
+  95 0018 A848     		ldr	r0, .L15+12
+  96 001a FFF7FEFF 		bl	puts
+  97              	.LVL3:
+  36:Src/sensors/accel_calibration_mpu.c **** 
+  37:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+  98              		.loc 1 37 2 view .LVU13
+  99              		.loc 1 37 5 is_stmt 0 view .LVU14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 4
+
+
+ 100 001e 7920     		movs	r0, #121
+ 101 0020 FFF7FEFF 		bl	serialWaitFor
+ 102              	.LVL4:
+  38:Src/sensors/accel_calibration_mpu.c **** 
+  39:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 103              		.loc 1 39 2 is_stmt 1 view .LVU15
+ 104 0024 A648     		ldr	r0, .L15+16
+ 105 0026 FFF7FEFF 		bl	puts
+ 106              	.LVL5:
+  40:Src/sensors/accel_calibration_mpu.c **** 
+  41:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 107              		.loc 1 41 2 view .LVU16
+ 108              		.loc 1 41 13 is_stmt 0 view .LVU17
+ 109 002a 0024     		movs	r4, #0
+  24:Src/sensors/accel_calibration_mpu.c **** 
+ 110              		.loc 1 24 8 view .LVU18
+ 111 002c DFEDA58A 		vldr.32	s17, .L15+20
+ 112              		.loc 1 41 2 view .LVU19
+ 113 0030 16E0     		b	.L2
+ 114              	.LVL6:
+ 115              	.L3:
+  42:Src/sensors/accel_calibration_mpu.c **** 	{
+  43:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 116              		.loc 1 43 3 is_stmt 1 discriminator 3 view .LVU20
+ 117 0032 FFF7FEFF 		bl	readMPU6000
+ 118              	.LVL7:
+  44:Src/sensors/accel_calibration_mpu.c **** 
+  45:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 119              		.loc 1 45 3 discriminator 3 view .LVU21
+ 120 0036 FFF7FEFF 		bl	computeMPU6000TCBias
+ 121              	.LVL8:
+  46:Src/sensors/accel_calibration_mpu.c **** 
+  47:Src/sensors/accel_calibration_mpu.c **** 		rightSideUp += (float)rawAccel[ZAXIS].value - accelTCBias[ZAXIS];
+ 122              		.loc 1 47 3 discriminator 3 view .LVU22
+ 123              		.loc 1 47 40 is_stmt 0 discriminator 3 view .LVU23
+ 124 003a A34B     		ldr	r3, .L15+24
+ 125 003c B3F90430 		ldrsh	r3, [r3, #4]
+ 126 0040 07EE903A 		vmov	s15, r3	@ int
+ 127              		.loc 1 47 18 discriminator 3 view .LVU24
+ 128 0044 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 129              		.loc 1 47 60 discriminator 3 view .LVU25
+ 130 0048 A04B     		ldr	r3, .L15+28
+ 131 004a 93ED027A 		vldr.32	s14, [r3, #8]
+ 132              		.loc 1 47 47 discriminator 3 view .LVU26
+ 133 004e 77EEC77A 		vsub.f32	s15, s15, s14
+ 134              		.loc 1 47 15 discriminator 3 view .LVU27
+ 135 0052 78EEA78A 		vadd.f32	s17, s17, s15
+ 136              	.LVL9:
+  48:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 137              		.loc 1 48 3 is_stmt 1 discriminator 3 view .LVU28
+ 138 0056 6420     		movs	r0, #100
+ 139 0058 FFF7FEFF 		bl	delayMicroseconds
+ 140              	.LVL10:
+  41:Src/sensors/accel_calibration_mpu.c **** 	{
+ 141              		.loc 1 41 32 discriminator 3 view .LVU29
+  41:Src/sensors/accel_calibration_mpu.c **** 	{
+ 142              		.loc 1 41 37 is_stmt 0 discriminator 3 view .LVU30
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 5
+
+
+ 143 005c 0134     		adds	r4, r4, #1
+ 144              	.LVL11:
+  41:Src/sensors/accel_calibration_mpu.c **** 	{
+ 145              		.loc 1 41 37 discriminator 3 view .LVU31
+ 146 005e 24B2     		sxth	r4, r4
+ 147              	.LVL12:
+ 148              	.L2:
+  41:Src/sensors/accel_calibration_mpu.c **** 	{
+ 149              		.loc 1 41 18 is_stmt 1 discriminator 1 view .LVU32
+  41:Src/sensors/accel_calibration_mpu.c **** 	{
+ 150              		.loc 1 41 2 is_stmt 0 discriminator 1 view .LVU33
+ 151 0060 41F28733 		movw	r3, #4999
+ 152 0064 9C42     		cmp	r4, r3
+ 153 0066 E4DD     		ble	.L3
+  49:Src/sensors/accel_calibration_mpu.c **** 	}
+  50:Src/sensors/accel_calibration_mpu.c **** 
+  51:Src/sensors/accel_calibration_mpu.c **** 	rightSideUp /= 5000.0f;
+ 154              		.loc 1 51 2 is_stmt 1 view .LVU34
+ 155              		.loc 1 51 14 is_stmt 0 view .LVU35
+ 156 0068 DFED997A 		vldr.32	s15, .L15+32
+ 157 006c 88EEA78A 		vdiv.f32	s16, s17, s15
+ 158              	.LVL13:
+  52:Src/sensors/accel_calibration_mpu.c **** 
+  53:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer up side down\n");
+ 159              		.loc 1 53 2 is_stmt 1 view .LVU36
+ 160 0070 9848     		ldr	r0, .L15+36
+ 161 0072 FFF7FEFF 		bl	puts
+ 162              	.LVL14:
+  54:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+ 163              		.loc 1 54 2 view .LVU37
+ 164 0076 9148     		ldr	r0, .L15+12
+ 165 0078 FFF7FEFF 		bl	puts
+ 166              	.LVL15:
+  55:Src/sensors/accel_calibration_mpu.c **** 
+  56:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+ 167              		.loc 1 56 2 view .LVU38
+ 168              		.loc 1 56 5 is_stmt 0 view .LVU39
+ 169 007c 7920     		movs	r0, #121
+ 170 007e FFF7FEFF 		bl	serialWaitFor
+ 171              	.LVL16:
+  57:Src/sensors/accel_calibration_mpu.c **** 
+  58:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 172              		.loc 1 58 2 is_stmt 1 view .LVU40
+ 173 0082 8F48     		ldr	r0, .L15+16
+ 174 0084 FFF7FEFF 		bl	puts
+ 175              	.LVL17:
+  59:Src/sensors/accel_calibration_mpu.c **** 
+  60:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 176              		.loc 1 60 2 view .LVU41
+ 177              		.loc 1 60 13 is_stmt 0 view .LVU42
+ 178 0088 0024     		movs	r4, #0
+  23:Src/sensors/accel_calibration_mpu.c **** 	float rightSideUp   = 0.0f;
+ 179              		.loc 1 23 8 view .LVU43
+ 180 008a DFED8E8A 		vldr.32	s17, .L15+20
+ 181              		.loc 1 60 2 view .LVU44
+ 182 008e 16E0     		b	.L4
+ 183              	.LVL18:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 6
+
+
+ 184              	.L5:
+  61:Src/sensors/accel_calibration_mpu.c **** 	{
+  62:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 185              		.loc 1 62 3 is_stmt 1 discriminator 3 view .LVU45
+ 186 0090 FFF7FEFF 		bl	readMPU6000
+ 187              	.LVL19:
+  63:Src/sensors/accel_calibration_mpu.c **** 
+  64:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 188              		.loc 1 64 3 discriminator 3 view .LVU46
+ 189 0094 FFF7FEFF 		bl	computeMPU6000TCBias
+ 190              	.LVL20:
+  65:Src/sensors/accel_calibration_mpu.c **** 
+  66:Src/sensors/accel_calibration_mpu.c **** 		upSideDown += (float)rawAccel[ZAXIS].value - accelTCBias[ZAXIS];
+ 191              		.loc 1 66 3 discriminator 3 view .LVU47
+ 192              		.loc 1 66 39 is_stmt 0 discriminator 3 view .LVU48
+ 193 0098 8B4B     		ldr	r3, .L15+24
+ 194 009a B3F90430 		ldrsh	r3, [r3, #4]
+ 195 009e 07EE903A 		vmov	s15, r3	@ int
+ 196              		.loc 1 66 17 discriminator 3 view .LVU49
+ 197 00a2 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 198              		.loc 1 66 59 discriminator 3 view .LVU50
+ 199 00a6 894B     		ldr	r3, .L15+28
+ 200 00a8 93ED027A 		vldr.32	s14, [r3, #8]
+ 201              		.loc 1 66 46 discriminator 3 view .LVU51
+ 202 00ac 77EEC77A 		vsub.f32	s15, s15, s14
+ 203              		.loc 1 66 14 discriminator 3 view .LVU52
+ 204 00b0 78EEA78A 		vadd.f32	s17, s17, s15
+ 205              	.LVL21:
+  67:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 206              		.loc 1 67 3 is_stmt 1 discriminator 3 view .LVU53
+ 207 00b4 6420     		movs	r0, #100
+ 208 00b6 FFF7FEFF 		bl	delayMicroseconds
+ 209              	.LVL22:
+  60:Src/sensors/accel_calibration_mpu.c **** 	{
+ 210              		.loc 1 60 32 discriminator 3 view .LVU54
+  60:Src/sensors/accel_calibration_mpu.c **** 	{
+ 211              		.loc 1 60 37 is_stmt 0 discriminator 3 view .LVU55
+ 212 00ba 0134     		adds	r4, r4, #1
+ 213              	.LVL23:
+  60:Src/sensors/accel_calibration_mpu.c **** 	{
+ 214              		.loc 1 60 37 discriminator 3 view .LVU56
+ 215 00bc 24B2     		sxth	r4, r4
+ 216              	.LVL24:
+ 217              	.L4:
+  60:Src/sensors/accel_calibration_mpu.c **** 	{
+ 218              		.loc 1 60 18 is_stmt 1 discriminator 1 view .LVU57
+  60:Src/sensors/accel_calibration_mpu.c **** 	{
+ 219              		.loc 1 60 2 is_stmt 0 discriminator 1 view .LVU58
+ 220 00be 41F28733 		movw	r3, #4999
+ 221 00c2 9C42     		cmp	r4, r3
+ 222 00c4 E4DD     		ble	.L5
+  68:Src/sensors/accel_calibration_mpu.c **** 	}
+  69:Src/sensors/accel_calibration_mpu.c **** 
+  70:Src/sensors/accel_calibration_mpu.c **** 	upSideDown /= 5000.0f;
+ 223              		.loc 1 70 2 is_stmt 1 view .LVU59
+ 224              		.loc 1 70 13 is_stmt 0 view .LVU60
+ 225 00c6 DFED827A 		vldr.32	s15, .L15+32
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 7
+
+
+ 226 00ca 88EEA79A 		vdiv.f32	s18, s17, s15
+ 227              	.LVL25:
+  71:Src/sensors/accel_calibration_mpu.c **** 
+  72:Src/sensors/accel_calibration_mpu.c **** 	///////////////////////////////////
+  73:Src/sensors/accel_calibration_mpu.c **** 
+  74:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer left edge down\n");
+ 228              		.loc 1 74 2 is_stmt 1 view .LVU61
+ 229 00ce 8248     		ldr	r0, .L15+40
+ 230 00d0 FFF7FEFF 		bl	puts
+ 231              	.LVL26:
+  75:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+ 232              		.loc 1 75 2 view .LVU62
+ 233 00d4 7948     		ldr	r0, .L15+12
+ 234 00d6 FFF7FEFF 		bl	puts
+ 235              	.LVL27:
+  76:Src/sensors/accel_calibration_mpu.c **** 
+  77:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+ 236              		.loc 1 77 2 view .LVU63
+ 237              		.loc 1 77 5 is_stmt 0 view .LVU64
+ 238 00da 7920     		movs	r0, #121
+ 239 00dc FFF7FEFF 		bl	serialWaitFor
+ 240              	.LVL28:
+  78:Src/sensors/accel_calibration_mpu.c **** 
+  79:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 241              		.loc 1 79 2 is_stmt 1 view .LVU65
+ 242 00e0 7748     		ldr	r0, .L15+16
+ 243 00e2 FFF7FEFF 		bl	puts
+ 244              	.LVL29:
+  80:Src/sensors/accel_calibration_mpu.c **** 
+  81:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 245              		.loc 1 81 2 view .LVU66
+ 246              		.loc 1 81 13 is_stmt 0 view .LVU67
+ 247 00e6 0024     		movs	r4, #0
+  21:Src/sensors/accel_calibration_mpu.c **** 	float rightWingDown = 0.0f;
+ 248              		.loc 1 21 8 view .LVU68
+ 249 00e8 DFED768A 		vldr.32	s17, .L15+20
+ 250              		.loc 1 81 2 view .LVU69
+ 251 00ec 16E0     		b	.L6
+ 252              	.LVL30:
+ 253              	.L7:
+  82:Src/sensors/accel_calibration_mpu.c **** 	{
+  83:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 254              		.loc 1 83 3 is_stmt 1 discriminator 3 view .LVU70
+ 255 00ee FFF7FEFF 		bl	readMPU6000
+ 256              	.LVL31:
+  84:Src/sensors/accel_calibration_mpu.c **** 
+  85:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 257              		.loc 1 85 3 discriminator 3 view .LVU71
+ 258 00f2 FFF7FEFF 		bl	computeMPU6000TCBias
+ 259              	.LVL32:
+  86:Src/sensors/accel_calibration_mpu.c **** 
+  87:Src/sensors/accel_calibration_mpu.c **** 		leftWingDown += (float)rawAccel[YAXIS].value - accelTCBias[YAXIS];
+ 260              		.loc 1 87 3 discriminator 3 view .LVU72
+ 261              		.loc 1 87 41 is_stmt 0 discriminator 3 view .LVU73
+ 262 00f6 744B     		ldr	r3, .L15+24
+ 263 00f8 B3F90230 		ldrsh	r3, [r3, #2]
+ 264 00fc 07EE903A 		vmov	s15, r3	@ int
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 8
+
+
+ 265              		.loc 1 87 19 discriminator 3 view .LVU74
+ 266 0100 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 267              		.loc 1 87 61 discriminator 3 view .LVU75
+ 268 0104 714B     		ldr	r3, .L15+28
+ 269 0106 93ED017A 		vldr.32	s14, [r3, #4]
+ 270              		.loc 1 87 48 discriminator 3 view .LVU76
+ 271 010a 77EEC77A 		vsub.f32	s15, s15, s14
+ 272              		.loc 1 87 16 discriminator 3 view .LVU77
+ 273 010e 78EEA78A 		vadd.f32	s17, s17, s15
+ 274              	.LVL33:
+  88:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 275              		.loc 1 88 3 is_stmt 1 discriminator 3 view .LVU78
+ 276 0112 6420     		movs	r0, #100
+ 277 0114 FFF7FEFF 		bl	delayMicroseconds
+ 278              	.LVL34:
+  81:Src/sensors/accel_calibration_mpu.c **** 	{
+ 279              		.loc 1 81 32 discriminator 3 view .LVU79
+  81:Src/sensors/accel_calibration_mpu.c **** 	{
+ 280              		.loc 1 81 37 is_stmt 0 discriminator 3 view .LVU80
+ 281 0118 0134     		adds	r4, r4, #1
+ 282              	.LVL35:
+  81:Src/sensors/accel_calibration_mpu.c **** 	{
+ 283              		.loc 1 81 37 discriminator 3 view .LVU81
+ 284 011a 24B2     		sxth	r4, r4
+ 285              	.LVL36:
+ 286              	.L6:
+  81:Src/sensors/accel_calibration_mpu.c **** 	{
+ 287              		.loc 1 81 18 is_stmt 1 discriminator 1 view .LVU82
+  81:Src/sensors/accel_calibration_mpu.c **** 	{
+ 288              		.loc 1 81 2 is_stmt 0 discriminator 1 view .LVU83
+ 289 011c 41F28733 		movw	r3, #4999
+ 290 0120 9C42     		cmp	r4, r3
+ 291 0122 E4DD     		ble	.L7
+  89:Src/sensors/accel_calibration_mpu.c **** 	}
+  90:Src/sensors/accel_calibration_mpu.c **** 
+  91:Src/sensors/accel_calibration_mpu.c **** 	leftWingDown /= 5000.0f;
+ 292              		.loc 1 91 2 is_stmt 1 view .LVU84
+ 293              		.loc 1 91 15 is_stmt 0 view .LVU85
+ 294 0124 DFED6A7A 		vldr.32	s15, .L15+32
+ 295 0128 C8EEA79A 		vdiv.f32	s19, s17, s15
+ 296              	.LVL37:
+  92:Src/sensors/accel_calibration_mpu.c **** 
+  93:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer right edge down\n");
+ 297              		.loc 1 93 2 is_stmt 1 view .LVU86
+ 298 012c 6B48     		ldr	r0, .L15+44
+ 299 012e FFF7FEFF 		bl	puts
+ 300              	.LVL38:
+  94:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+ 301              		.loc 1 94 2 view .LVU87
+ 302 0132 6248     		ldr	r0, .L15+12
+ 303 0134 FFF7FEFF 		bl	puts
+ 304              	.LVL39:
+  95:Src/sensors/accel_calibration_mpu.c **** 
+  96:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+ 305              		.loc 1 96 2 view .LVU88
+ 306              		.loc 1 96 5 is_stmt 0 view .LVU89
+ 307 0138 7920     		movs	r0, #121
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 9
+
+
+ 308 013a FFF7FEFF 		bl	serialWaitFor
+ 309              	.LVL40:
+  97:Src/sensors/accel_calibration_mpu.c **** 
+  98:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 310              		.loc 1 98 2 is_stmt 1 view .LVU90
+ 311 013e 6048     		ldr	r0, .L15+16
+ 312 0140 FFF7FEFF 		bl	puts
+ 313              	.LVL41:
+  99:Src/sensors/accel_calibration_mpu.c **** 
+ 100:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 314              		.loc 1 100 2 view .LVU91
+ 315              		.loc 1 100 13 is_stmt 0 view .LVU92
+ 316 0144 0024     		movs	r4, #0
+  22:Src/sensors/accel_calibration_mpu.c **** 	float upSideDown    = 0.0f;
+ 317              		.loc 1 22 8 view .LVU93
+ 318 0146 DFED5F8A 		vldr.32	s17, .L15+20
+ 319              		.loc 1 100 2 view .LVU94
+ 320 014a 16E0     		b	.L8
+ 321              	.LVL42:
+ 322              	.L9:
+ 101:Src/sensors/accel_calibration_mpu.c **** 	{
+ 102:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 323              		.loc 1 102 3 is_stmt 1 discriminator 3 view .LVU95
+ 324 014c FFF7FEFF 		bl	readMPU6000
+ 325              	.LVL43:
+ 103:Src/sensors/accel_calibration_mpu.c **** 
+ 104:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 326              		.loc 1 104 3 discriminator 3 view .LVU96
+ 327 0150 FFF7FEFF 		bl	computeMPU6000TCBias
+ 328              	.LVL44:
+ 105:Src/sensors/accel_calibration_mpu.c **** 
+ 106:Src/sensors/accel_calibration_mpu.c **** 		rightWingDown += (float)rawAccel[YAXIS].value - accelTCBias[YAXIS];
+ 329              		.loc 1 106 3 discriminator 3 view .LVU97
+ 330              		.loc 1 106 42 is_stmt 0 discriminator 3 view .LVU98
+ 331 0154 5C4B     		ldr	r3, .L15+24
+ 332 0156 B3F90230 		ldrsh	r3, [r3, #2]
+ 333 015a 07EE903A 		vmov	s15, r3	@ int
+ 334              		.loc 1 106 20 discriminator 3 view .LVU99
+ 335 015e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 336              		.loc 1 106 62 discriminator 3 view .LVU100
+ 337 0162 5A4B     		ldr	r3, .L15+28
+ 338 0164 93ED017A 		vldr.32	s14, [r3, #4]
+ 339              		.loc 1 106 49 discriminator 3 view .LVU101
+ 340 0168 77EEC77A 		vsub.f32	s15, s15, s14
+ 341              		.loc 1 106 17 discriminator 3 view .LVU102
+ 342 016c 78EEA78A 		vadd.f32	s17, s17, s15
+ 343              	.LVL45:
+ 107:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 344              		.loc 1 107 3 is_stmt 1 discriminator 3 view .LVU103
+ 345 0170 6420     		movs	r0, #100
+ 346 0172 FFF7FEFF 		bl	delayMicroseconds
+ 347              	.LVL46:
+ 100:Src/sensors/accel_calibration_mpu.c **** 	{
+ 348              		.loc 1 100 32 discriminator 3 view .LVU104
+ 100:Src/sensors/accel_calibration_mpu.c **** 	{
+ 349              		.loc 1 100 37 is_stmt 0 discriminator 3 view .LVU105
+ 350 0176 0134     		adds	r4, r4, #1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 10
+
+
+ 351              	.LVL47:
+ 100:Src/sensors/accel_calibration_mpu.c **** 	{
+ 352              		.loc 1 100 37 discriminator 3 view .LVU106
+ 353 0178 24B2     		sxth	r4, r4
+ 354              	.LVL48:
+ 355              	.L8:
+ 100:Src/sensors/accel_calibration_mpu.c **** 	{
+ 356              		.loc 1 100 18 is_stmt 1 discriminator 1 view .LVU107
+ 100:Src/sensors/accel_calibration_mpu.c **** 	{
+ 357              		.loc 1 100 2 is_stmt 0 discriminator 1 view .LVU108
+ 358 017a 41F28733 		movw	r3, #4999
+ 359 017e 9C42     		cmp	r4, r3
+ 360 0180 E4DD     		ble	.L9
+ 108:Src/sensors/accel_calibration_mpu.c **** 	}
+ 109:Src/sensors/accel_calibration_mpu.c **** 
+ 110:Src/sensors/accel_calibration_mpu.c **** 	rightWingDown /= 5000.0f;
+ 361              		.loc 1 110 2 is_stmt 1 view .LVU109
+ 362              		.loc 1 110 16 is_stmt 0 view .LVU110
+ 363 0182 DFED537A 		vldr.32	s15, .L15+32
+ 364 0186 C8EEA7AA 		vdiv.f32	s21, s17, s15
+ 365              	.LVL49:
+ 111:Src/sensors/accel_calibration_mpu.c **** 
+ 112:Src/sensors/accel_calibration_mpu.c **** 	///////////////////////////////////
+ 113:Src/sensors/accel_calibration_mpu.c **** 
+ 114:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer rear edge down\n");
+ 366              		.loc 1 114 2 is_stmt 1 view .LVU111
+ 367 018a 5548     		ldr	r0, .L15+48
+ 368 018c FFF7FEFF 		bl	puts
+ 369              	.LVL50:
+ 115:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+ 370              		.loc 1 115 2 view .LVU112
+ 371 0190 4A48     		ldr	r0, .L15+12
+ 372 0192 FFF7FEFF 		bl	puts
+ 373              	.LVL51:
+ 116:Src/sensors/accel_calibration_mpu.c **** 
+ 117:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+ 374              		.loc 1 117 2 view .LVU113
+ 375              		.loc 1 117 5 is_stmt 0 view .LVU114
+ 376 0196 7920     		movs	r0, #121
+ 377 0198 FFF7FEFF 		bl	serialWaitFor
+ 378              	.LVL52:
+ 118:Src/sensors/accel_calibration_mpu.c **** 
+ 119:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 379              		.loc 1 119 2 is_stmt 1 view .LVU115
+ 380 019c 4848     		ldr	r0, .L15+16
+ 381 019e FFF7FEFF 		bl	puts
+ 382              	.LVL53:
+ 120:Src/sensors/accel_calibration_mpu.c **** 
+ 121:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 383              		.loc 1 121 2 view .LVU116
+ 384              		.loc 1 121 13 is_stmt 0 view .LVU117
+ 385 01a2 0024     		movs	r4, #0
+  19:Src/sensors/accel_calibration_mpu.c **** 	float noseDown      = 0.0f;
+ 386              		.loc 1 19 8 view .LVU118
+ 387 01a4 DFED478A 		vldr.32	s17, .L15+20
+ 388              		.loc 1 121 2 view .LVU119
+ 389 01a8 16E0     		b	.L10
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 11
+
+
+ 390              	.LVL54:
+ 391              	.L11:
+ 122:Src/sensors/accel_calibration_mpu.c **** 	{
+ 123:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 392              		.loc 1 123 3 is_stmt 1 discriminator 3 view .LVU120
+ 393 01aa FFF7FEFF 		bl	readMPU6000
+ 394              	.LVL55:
+ 124:Src/sensors/accel_calibration_mpu.c **** 
+ 125:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 395              		.loc 1 125 3 discriminator 3 view .LVU121
+ 396 01ae FFF7FEFF 		bl	computeMPU6000TCBias
+ 397              	.LVL56:
+ 126:Src/sensors/accel_calibration_mpu.c **** 
+ 127:Src/sensors/accel_calibration_mpu.c **** 		noseUp += (float)rawAccel[XAXIS].value - accelTCBias[XAXIS];
+ 398              		.loc 1 127 3 discriminator 3 view .LVU122
+ 399              		.loc 1 127 35 is_stmt 0 discriminator 3 view .LVU123
+ 400 01b2 454B     		ldr	r3, .L15+24
+ 401 01b4 B3F90030 		ldrsh	r3, [r3]
+ 402 01b8 07EE903A 		vmov	s15, r3	@ int
+ 403              		.loc 1 127 13 discriminator 3 view .LVU124
+ 404 01bc F8EEE77A 		vcvt.f32.s32	s15, s15
+ 405              		.loc 1 127 55 discriminator 3 view .LVU125
+ 406 01c0 424B     		ldr	r3, .L15+28
+ 407 01c2 93ED007A 		vldr.32	s14, [r3]
+ 408              		.loc 1 127 42 discriminator 3 view .LVU126
+ 409 01c6 77EEC77A 		vsub.f32	s15, s15, s14
+ 410              		.loc 1 127 10 discriminator 3 view .LVU127
+ 411 01ca 78EEA78A 		vadd.f32	s17, s17, s15
+ 412              	.LVL57:
+ 128:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 413              		.loc 1 128 3 is_stmt 1 discriminator 3 view .LVU128
+ 414 01ce 6420     		movs	r0, #100
+ 415 01d0 FFF7FEFF 		bl	delayMicroseconds
+ 416              	.LVL58:
+ 121:Src/sensors/accel_calibration_mpu.c **** 	{
+ 417              		.loc 1 121 32 discriminator 3 view .LVU129
+ 121:Src/sensors/accel_calibration_mpu.c **** 	{
+ 418              		.loc 1 121 37 is_stmt 0 discriminator 3 view .LVU130
+ 419 01d4 0134     		adds	r4, r4, #1
+ 420              	.LVL59:
+ 121:Src/sensors/accel_calibration_mpu.c **** 	{
+ 421              		.loc 1 121 37 discriminator 3 view .LVU131
+ 422 01d6 24B2     		sxth	r4, r4
+ 423              	.LVL60:
+ 424              	.L10:
+ 121:Src/sensors/accel_calibration_mpu.c **** 	{
+ 425              		.loc 1 121 18 is_stmt 1 discriminator 1 view .LVU132
+ 121:Src/sensors/accel_calibration_mpu.c **** 	{
+ 426              		.loc 1 121 2 is_stmt 0 discriminator 1 view .LVU133
+ 427 01d8 41F28733 		movw	r3, #4999
+ 428 01dc 9C42     		cmp	r4, r3
+ 429 01de E4DD     		ble	.L11
+ 129:Src/sensors/accel_calibration_mpu.c **** 	}
+ 130:Src/sensors/accel_calibration_mpu.c **** 
+ 131:Src/sensors/accel_calibration_mpu.c **** 	noseUp /= 5000.0f;
+ 430              		.loc 1 131 2 is_stmt 1 view .LVU134
+ 431              		.loc 1 131 9 is_stmt 0 view .LVU135
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 12
+
+
+ 432 01e0 DFED3B7A 		vldr.32	s15, .L15+32
+ 433 01e4 88EEA7AA 		vdiv.f32	s20, s17, s15
+ 434              	.LVL61:
+ 132:Src/sensors/accel_calibration_mpu.c **** 
+ 133:Src/sensors/accel_calibration_mpu.c **** 	printf("Place accelerometer front edge down\n");
+ 435              		.loc 1 133 2 is_stmt 1 view .LVU136
+ 436 01e8 3E48     		ldr	r0, .L15+52
+ 437 01ea FFF7FEFF 		bl	puts
+ 438              	.LVL62:
+ 134:Src/sensors/accel_calibration_mpu.c **** 	printf("  Send a character when ready to proceed\n\n");
+ 439              		.loc 1 134 2 view .LVU137
+ 440 01ee 3348     		ldr	r0, .L15+12
+ 441 01f0 FFF7FEFF 		bl	puts
+ 442              	.LVL63:
+ 135:Src/sensors/accel_calibration_mpu.c **** 
+ 136:Src/sensors/accel_calibration_mpu.c **** 	if(serialWaitFor('y'));
+ 443              		.loc 1 136 2 view .LVU138
+ 444              		.loc 1 136 5 is_stmt 0 view .LVU139
+ 445 01f4 7920     		movs	r0, #121
+ 446 01f6 FFF7FEFF 		bl	serialWaitFor
+ 447              	.LVL64:
+ 137:Src/sensors/accel_calibration_mpu.c **** 
+ 138:Src/sensors/accel_calibration_mpu.c **** 	printf("  Gathering Data...\n\n");
+ 448              		.loc 1 138 2 is_stmt 1 view .LVU140
+ 449 01fa 3148     		ldr	r0, .L15+16
+ 450 01fc FFF7FEFF 		bl	puts
+ 451              	.LVL65:
+ 139:Src/sensors/accel_calibration_mpu.c **** 
+ 140:Src/sensors/accel_calibration_mpu.c **** 	for (index = 0; index < 5000; index++)
+ 452              		.loc 1 140 2 view .LVU141
+ 453              		.loc 1 140 13 is_stmt 0 view .LVU142
+ 454 0200 0024     		movs	r4, #0
+  20:Src/sensors/accel_calibration_mpu.c **** 	float leftWingDown  = 0.0f;
+ 455              		.loc 1 20 8 view .LVU143
+ 456 0202 DFED308A 		vldr.32	s17, .L15+20
+ 457              		.loc 1 140 2 view .LVU144
+ 458 0206 16E0     		b	.L12
+ 459              	.LVL66:
+ 460              	.L13:
+ 141:Src/sensors/accel_calibration_mpu.c **** 	{
+ 142:Src/sensors/accel_calibration_mpu.c **** 		readMPU6000();
+ 461              		.loc 1 142 3 is_stmt 1 discriminator 3 view .LVU145
+ 462 0208 FFF7FEFF 		bl	readMPU6000
+ 463              	.LVL67:
+ 143:Src/sensors/accel_calibration_mpu.c **** 
+ 144:Src/sensors/accel_calibration_mpu.c **** 		computeMPU6000TCBias();
+ 464              		.loc 1 144 3 discriminator 3 view .LVU146
+ 465 020c FFF7FEFF 		bl	computeMPU6000TCBias
+ 466              	.LVL68:
+ 145:Src/sensors/accel_calibration_mpu.c **** 
+ 146:Src/sensors/accel_calibration_mpu.c **** 		noseDown += (float)rawAccel[XAXIS].value - accelTCBias[XAXIS];
+ 467              		.loc 1 146 3 discriminator 3 view .LVU147
+ 468              		.loc 1 146 37 is_stmt 0 discriminator 3 view .LVU148
+ 469 0210 2D4B     		ldr	r3, .L15+24
+ 470 0212 B3F90030 		ldrsh	r3, [r3]
+ 471 0216 07EE903A 		vmov	s15, r3	@ int
+ 472              		.loc 1 146 15 discriminator 3 view .LVU149
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 13
+
+
+ 473 021a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 474              		.loc 1 146 57 discriminator 3 view .LVU150
+ 475 021e 2B4B     		ldr	r3, .L15+28
+ 476 0220 93ED007A 		vldr.32	s14, [r3]
+ 477              		.loc 1 146 44 discriminator 3 view .LVU151
+ 478 0224 77EEC77A 		vsub.f32	s15, s15, s14
+ 479              		.loc 1 146 12 discriminator 3 view .LVU152
+ 480 0228 78EEA78A 		vadd.f32	s17, s17, s15
+ 481              	.LVL69:
+ 147:Src/sensors/accel_calibration_mpu.c **** 		delayMicroseconds(100);
+ 482              		.loc 1 147 3 is_stmt 1 discriminator 3 view .LVU153
+ 483 022c 6420     		movs	r0, #100
+ 484 022e FFF7FEFF 		bl	delayMicroseconds
+ 485              	.LVL70:
+ 140:Src/sensors/accel_calibration_mpu.c **** 	{
+ 486              		.loc 1 140 32 discriminator 3 view .LVU154
+ 140:Src/sensors/accel_calibration_mpu.c **** 	{
+ 487              		.loc 1 140 37 is_stmt 0 discriminator 3 view .LVU155
+ 488 0232 0134     		adds	r4, r4, #1
+ 489              	.LVL71:
+ 140:Src/sensors/accel_calibration_mpu.c **** 	{
+ 490              		.loc 1 140 37 discriminator 3 view .LVU156
+ 491 0234 24B2     		sxth	r4, r4
+ 492              	.LVL72:
+ 493              	.L12:
+ 140:Src/sensors/accel_calibration_mpu.c **** 	{
+ 494              		.loc 1 140 18 is_stmt 1 discriminator 1 view .LVU157
+ 140:Src/sensors/accel_calibration_mpu.c **** 	{
+ 495              		.loc 1 140 2 is_stmt 0 discriminator 1 view .LVU158
+ 496 0236 41F28733 		movw	r3, #4999
+ 497 023a 9C42     		cmp	r4, r3
+ 498 023c E4DD     		ble	.L13
+ 148:Src/sensors/accel_calibration_mpu.c **** 	}
+ 149:Src/sensors/accel_calibration_mpu.c **** 
+ 150:Src/sensors/accel_calibration_mpu.c **** 	noseDown /= 5000.0f;
+ 499              		.loc 1 150 2 is_stmt 1 view .LVU159
+ 500              		.loc 1 150 11 is_stmt 0 view .LVU160
+ 501 023e DFED247A 		vldr.32	s15, .L15+32
+ 502 0242 88EEA76A 		vdiv.f32	s12, s17, s15
+ 503              	.LVL73:
+ 151:Src/sensors/accel_calibration_mpu.c **** 
+ 152:Src/sensors/accel_calibration_mpu.c **** 	///////////////////////////////////
+ 153:Src/sensors/accel_calibration_mpu.c **** 
+ 154:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelBiasMPU[ZAXIS]        = (rightSideUp + upSideDown) / 2.0f;
+ 504              		.loc 1 154 2 is_stmt 1 view .LVU161
+ 505              		.loc 1 154 57 is_stmt 0 view .LVU162
+ 506 0246 78EE097A 		vadd.f32	s15, s16, s18
+ 507              		.loc 1 154 71 view .LVU163
+ 508 024a F6EE006A 		vmov.f32	s13, #5.0e-1
+ 509 024e 67EEA67A 		vmul.f32	s15, s15, s13
+ 510              		.loc 1 154 42 view .LVU164
+ 511 0252 254B     		ldr	r3, .L15+56
+ 512 0254 C3ED037A 		vstr.32	s15, [r3, #12]
+ 155:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelScaleFactorMPU[ZAXIS] = (2.0f * 9.8065f) / fabsf(rightSideUp - upSideDown);
+ 513              		.loc 1 155 2 is_stmt 1 view .LVU165
+ 514              		.loc 1 155 81 is_stmt 0 view .LVU166
+ 515 0258 78EE497A 		vsub.f32	s15, s16, s18
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 14
+
+
+ 516              		.loc 1 155 63 view .LVU167
+ 517 025c F0EEE77A 		vabs.f32	s15, s15
+ 518              		.loc 1 155 61 view .LVU168
+ 519 0260 9FED227A 		vldr.32	s14, .L15+60
+ 520 0264 C7EE275A 		vdiv.f32	s11, s14, s15
+ 521              		.loc 1 155 42 view .LVU169
+ 522 0268 C3ED065A 		vstr.32	s11, [r3, #24]
+ 156:Src/sensors/accel_calibration_mpu.c **** 
+ 157:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelBiasMPU[YAXIS]        = (leftWingDown + rightWingDown) / 2.0f;
+ 523              		.loc 1 157 2 is_stmt 1 view .LVU170
+ 524              		.loc 1 157 58 is_stmt 0 view .LVU171
+ 525 026c 79EEAA7A 		vadd.f32	s15, s19, s21
+ 526              		.loc 1 157 75 view .LVU172
+ 527 0270 67EEA67A 		vmul.f32	s15, s15, s13
+ 528              		.loc 1 157 42 view .LVU173
+ 529 0274 C3ED027A 		vstr.32	s15, [r3, #8]
+ 158:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelScaleFactorMPU[YAXIS] = (2.0f * 9.8065f) / fabsf(leftWingDown - rightWingDown);
+ 530              		.loc 1 158 2 is_stmt 1 view .LVU174
+ 531              		.loc 1 158 82 is_stmt 0 view .LVU175
+ 532 0278 79EEEA7A 		vsub.f32	s15, s19, s21
+ 533              		.loc 1 158 63 view .LVU176
+ 534 027c F0EEE77A 		vabs.f32	s15, s15
+ 535              		.loc 1 158 61 view .LVU177
+ 536 0280 C7EE275A 		vdiv.f32	s11, s14, s15
+ 537              		.loc 1 158 42 view .LVU178
+ 538 0284 C3ED055A 		vstr.32	s11, [r3, #20]
+ 159:Src/sensors/accel_calibration_mpu.c **** 
+ 160:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelBiasMPU[XAXIS]        = (noseUp + noseDown) / 2.0f;
+ 539              		.loc 1 160 2 is_stmt 1 view .LVU179
+ 540              		.loc 1 160 52 is_stmt 0 view .LVU180
+ 541 0288 7AEE067A 		vadd.f32	s15, s20, s12
+ 542              		.loc 1 160 64 view .LVU181
+ 543 028c 67EEA67A 		vmul.f32	s15, s15, s13
+ 544              		.loc 1 160 42 view .LVU182
+ 545 0290 C3ED017A 		vstr.32	s15, [r3, #4]
+ 161:Src/sensors/accel_calibration_mpu.c **** 	eepromConfig.accelScaleFactorMPU[XAXIS] = (2.0f * 9.8065f) / fabsf(noseUp - noseDown);
+ 546              		.loc 1 161 2 is_stmt 1 view .LVU183
+ 547              		.loc 1 161 76 is_stmt 0 view .LVU184
+ 548 0294 7AEE467A 		vsub.f32	s15, s20, s12
+ 549              		.loc 1 161 63 view .LVU185
+ 550 0298 F0EEE77A 		vabs.f32	s15, s15
+ 551              		.loc 1 161 61 view .LVU186
+ 552 029c C7EE276A 		vdiv.f32	s13, s14, s15
+ 553              		.loc 1 161 42 view .LVU187
+ 554 02a0 C3ED046A 		vstr.32	s13, [r3, #16]
+ 162:Src/sensors/accel_calibration_mpu.c **** 
+ 163:Src/sensors/accel_calibration_mpu.c **** 	///////////////////////////////////
+ 164:Src/sensors/accel_calibration_mpu.c **** 
+ 165:Src/sensors/accel_calibration_mpu.c **** 	accelCalibrating = false;
+ 555              		.loc 1 165 2 is_stmt 1 view .LVU188
+ 556              		.loc 1 165 19 is_stmt 0 view .LVU189
+ 557 02a4 024B     		ldr	r3, .L15
+ 558 02a6 0022     		movs	r2, #0
+ 559 02a8 1A70     		strb	r2, [r3]
+ 166:Src/sensors/accel_calibration_mpu.c **** }
+ 560              		.loc 1 166 1 view .LVU190
+ 561 02aa BDEC068B 		vldm	sp!, {d8-d10}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 15
+
+
+ 562              		.cfi_restore 84
+ 563              		.cfi_restore 85
+ 564              		.cfi_restore 82
+ 565              		.cfi_restore 83
+ 566              		.cfi_restore 80
+ 567              		.cfi_restore 81
+ 568              		.cfi_def_cfa_offset 8
+ 569              	.LVL74:
+ 570              		.loc 1 166 1 view .LVU191
+ 571 02ae 10BD     		pop	{r4, pc}
+ 572              	.LVL75:
+ 573              	.L16:
+ 574              		.loc 1 166 1 view .LVU192
+ 575              		.align	2
+ 576              	.L15:
+ 577 02b0 00000000 		.word	accelCalibrating
+ 578 02b4 00000000 		.word	.LC0
+ 579 02b8 28000000 		.word	.LC1
+ 580 02bc 4C000000 		.word	.LC2
+ 581 02c0 78000000 		.word	.LC3
+ 582 02c4 00000000 		.word	0
+ 583 02c8 00000000 		.word	rawAccel
+ 584 02cc 00000000 		.word	accelTCBias
+ 585 02d0 00409C45 		.word	1167867904
+ 586 02d4 90000000 		.word	.LC4
+ 587 02d8 B4000000 		.word	.LC5
+ 588 02dc D8000000 		.word	.LC6
+ 589 02e0 FC000000 		.word	.LC7
+ 590 02e4 20010000 		.word	.LC8
+ 591 02e8 00000000 		.word	eepromConfig
+ 592 02ec 6DE79C41 		.word	1100801901
+ 593              		.cfi_endproc
+ 594              	.LFE187:
+ 596              		.text
+ 597              	.Letext0:
+ 598              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 599              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 600              		.file 4 "Src/pid.h"
+ 601              		.file 5 "Src/autodrone32.h"
+ 602              		.file 6 "Src/sensors/mpu6000.h"
+ 603              		.file 7 "Src/drv/drv_serial.h"
+ 604              		.file 8 "Src/drv/drv_system.h"
+ 605              		.file 9 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 accel_calibration_mpu.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s:18     .rodata.accelCalibrationMPU.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s:46     .text.accelCalibrationMPU:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s:54     .text.accelCalibrationMPU:0000000000000000 accelCalibrationMPU
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccxI0swv.s:577    .text.accelCalibrationMPU:00000000000002b0 $d
+
+UNDEFINED SYMBOLS
+puts
+serialWaitFor
+readMPU6000
+computeMPU6000TCBias
+delayMicroseconds
+accelCalibrating
+rawAccel
+accelTCBias
+eepromConfig
