@@ -12,6 +12,7 @@
 #ifndef SANDBOX
 /* Global Variables */
 const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
+/* This is a test comment */
 
 eepromConfig_t eepromConfig;
 
