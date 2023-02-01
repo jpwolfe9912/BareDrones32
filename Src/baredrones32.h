@@ -6,8 +6,10 @@
  *  @date 		23 FEB 2022
  */
 
-#ifndef __AUTODRONE32_H__
-#define __AUTODRONE32_H__
+#ifndef __BAREDRONES32_H__
+#define __BAREDRONES32_H__
+
+#include "board.h"
 
 #ifndef PI
 #define PI  3.14159265358979f
@@ -196,4 +198,4 @@ enum crcFlags { CRC_HistoryBad = 1 };
 extern eepromConfig_t eepromConfig;
 
 
-#endif /* __AUTODRONE32_H__ */
+#endif /* __BAREDRONES32_H__ */

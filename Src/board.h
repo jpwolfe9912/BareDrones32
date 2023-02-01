@@ -28,7 +28,7 @@
 /* General */
 #include "scheduler.h"
 #include "pid.h"
-#include "autodrone32.h"
+#include "baredrones32.h"
 #include "main.h"
 #include "config.h"
 #include "utilities.h"
