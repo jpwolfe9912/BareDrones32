@@ -1,0 +1,861 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"drv_led.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ledInit,"ax",%progbits
+  18              		.align	1
+  19              		.global	ledInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	ledInit:
+  27              	.LFB187:
+  28              		.file 1 "Src/drv/drv_led.c"
+   1:Src/drv/drv_led.c **** /** @file 		drv_led.c
+   2:Src/drv/drv_led.c ****  *  @brief
+   3:Src/drv/drv_led.c ****  *  	This file contains functions to activate the 5 LEDs onboard.
+   4:Src/drv/drv_led.c ****  *
+   5:Src/drv/drv_led.c ****  *  @author 	Jeremy Wolfe
+   6:Src/drv/drv_led.c ****  *  @date 		19 MAR 2022
+   7:Src/drv/drv_led.c ****  */
+   8:Src/drv/drv_led.c **** 
+   9:Src/drv/drv_led.c **** #include "board.h"
+  10:Src/drv/drv_led.c **** 
+  11:Src/drv/drv_led.c **** void ledInit(void)
+  12:Src/drv/drv_led.c **** {
+  29              		.loc 1 12 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  13:Src/drv/drv_led.c ****     /*
+  14:Src/drv/drv_led.c ****      * 	LEDs are PC0-4
+  15:Src/drv/drv_led.c ****      */
+  16:Src/drv/drv_led.c ****     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+  34              		.loc 1 16 5 view .LVU1
+  35              		.loc 1 16 18 is_stmt 0 view .LVU2
+  36 0000 0A4A     		ldr	r2, .L2
+  37 0002 136B     		ldr	r3, [r2, #48]
+  38 0004 43F00403 		orr	r3, r3, #4
+  39 0008 1363     		str	r3, [r2, #48]
+  17:Src/drv/drv_led.c **** 
+  18:Src/drv/drv_led.c ****     GPIOC->MODER &= ~(GPIO_MODER_MODER0 |
+  40              		.loc 1 18 5 is_stmt 1 view .LVU3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 2
+
+
+  41              		.loc 1 18 18 is_stmt 0 view .LVU4
+  42 000a 094B     		ldr	r3, .L2+4
+  43 000c 1968     		ldr	r1, [r3]
+  44 000e 094A     		ldr	r2, .L2+8
+  45 0010 0A40     		ands	r2, r2, r1
+  46 0012 1A60     		str	r2, [r3]
+  19:Src/drv/drv_led.c ****                       GPIO_MODER_MODER1 |
+  20:Src/drv/drv_led.c ****                       GPIO_MODER_MODER2 |
+  21:Src/drv/drv_led.c ****                       GPIO_MODER_MODER3 |
+  22:Src/drv/drv_led.c ****                       GPIO_MODER_MODER4);
+  23:Src/drv/drv_led.c **** 
+  24:Src/drv/drv_led.c ****     GPIOC->MODER |= GPIO_MODER_MODER0_0 |
+  47              		.loc 1 24 5 is_stmt 1 view .LVU5
+  48              		.loc 1 24 18 is_stmt 0 view .LVU6
+  49 0014 1968     		ldr	r1, [r3]
+  50 0016 40F25512 		movw	r2, #341
+  51 001a 0A43     		orrs	r2, r2, r1
+  52 001c 1A60     		str	r2, [r3]
+  25:Src/drv/drv_led.c ****                     GPIO_MODER_MODER1_0 |
+  26:Src/drv/drv_led.c ****                     GPIO_MODER_MODER2_0 |
+  27:Src/drv/drv_led.c ****                     GPIO_MODER_MODER3_0 |
+  28:Src/drv/drv_led.c ****                     GPIO_MODER_MODER4_0;
+  29:Src/drv/drv_led.c **** 
+  30:Src/drv/drv_led.c ****     GPIOC->PUPDR |= GPIO_PUPDR_PUPDR0_1 |
+  53              		.loc 1 30 5 is_stmt 1 view .LVU7
+  54              		.loc 1 30 18 is_stmt 0 view .LVU8
+  55 001e D968     		ldr	r1, [r3, #12]
+  56 0020 40F2AA22 		movw	r2, #682
+  57 0024 0A43     		orrs	r2, r2, r1
+  58 0026 DA60     		str	r2, [r3, #12]
+  31:Src/drv/drv_led.c ****                     GPIO_PUPDR_PUPDR1_1 |
+  32:Src/drv/drv_led.c ****                     GPIO_PUPDR_PUPDR2_1 |
+  33:Src/drv/drv_led.c ****                     GPIO_PUPDR_PUPDR3_1 |
+  34:Src/drv/drv_led.c ****                     GPIO_PUPDR_PUPDR4_1;
+  35:Src/drv/drv_led.c **** }
+  59              		.loc 1 35 1 view .LVU9
+  60 0028 7047     		bx	lr
+  61              	.L3:
+  62 002a 00BF     		.align	2
+  63              	.L2:
+  64 002c 00380240 		.word	1073887232
+  65 0030 00080240 		.word	1073874944
+  66 0034 00FCFFFF 		.word	-1024
+  67              		.cfi_endproc
+  68              	.LFE187:
+  70              		.section	.text.led1ON,"ax",%progbits
+  71              		.align	1
+  72              		.global	led1ON
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu fpv5-sp-d16
+  78              	led1ON:
+  79              	.LFB188:
+  36:Src/drv/drv_led.c **** 
+  37:Src/drv/drv_led.c **** void led1ON(void)
+  38:Src/drv/drv_led.c **** {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 3
+
+
+  80              		.loc 1 38 1 is_stmt 1 view -0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  39:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BS0;
+  85              		.loc 1 39 5 view .LVU11
+  86              		.loc 1 39 17 is_stmt 0 view .LVU12
+  87 0000 024A     		ldr	r2, .L5
+  88 0002 9369     		ldr	r3, [r2, #24]
+  89 0004 43F00103 		orr	r3, r3, #1
+  90 0008 9361     		str	r3, [r2, #24]
+  40:Src/drv/drv_led.c **** }
+  91              		.loc 1 40 1 view .LVU13
+  92 000a 7047     		bx	lr
+  93              	.L6:
+  94              		.align	2
+  95              	.L5:
+  96 000c 00080240 		.word	1073874944
+  97              		.cfi_endproc
+  98              	.LFE188:
+ 100              		.section	.text.led1OFF,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	led1OFF
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv5-sp-d16
+ 108              	led1OFF:
+ 109              	.LFB189:
+  41:Src/drv/drv_led.c **** 
+  42:Src/drv/drv_led.c **** void led1OFF(void)
+  43:Src/drv/drv_led.c **** {
+ 110              		.loc 1 43 1 is_stmt 1 view -0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+  44:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BR0;
+ 115              		.loc 1 44 5 view .LVU15
+ 116              		.loc 1 44 17 is_stmt 0 view .LVU16
+ 117 0000 024A     		ldr	r2, .L8
+ 118 0002 9369     		ldr	r3, [r2, #24]
+ 119 0004 43F48033 		orr	r3, r3, #65536
+ 120 0008 9361     		str	r3, [r2, #24]
+  45:Src/drv/drv_led.c **** }
+ 121              		.loc 1 45 1 view .LVU17
+ 122 000a 7047     		bx	lr
+ 123              	.L9:
+ 124              		.align	2
+ 125              	.L8:
+ 126 000c 00080240 		.word	1073874944
+ 127              		.cfi_endproc
+ 128              	.LFE189:
+ 130              		.section	.text.led1TOGGLE,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	led1TOGGLE
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 4
+
+
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv5-sp-d16
+ 138              	led1TOGGLE:
+ 139              	.LFB190:
+  46:Src/drv/drv_led.c **** 
+  47:Src/drv/drv_led.c **** void led1TOGGLE(void)
+  48:Src/drv/drv_led.c **** {
+ 140              		.loc 1 48 1 is_stmt 1 view -0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+  49:Src/drv/drv_led.c ****     GPIOC->ODR ^= GPIO_ODR_OD0;
+ 145              		.loc 1 49 5 view .LVU19
+ 146              		.loc 1 49 16 is_stmt 0 view .LVU20
+ 147 0000 024A     		ldr	r2, .L11
+ 148 0002 5369     		ldr	r3, [r2, #20]
+ 149 0004 83F00103 		eor	r3, r3, #1
+ 150 0008 5361     		str	r3, [r2, #20]
+  50:Src/drv/drv_led.c **** }
+ 151              		.loc 1 50 1 view .LVU21
+ 152 000a 7047     		bx	lr
+ 153              	.L12:
+ 154              		.align	2
+ 155              	.L11:
+ 156 000c 00080240 		.word	1073874944
+ 157              		.cfi_endproc
+ 158              	.LFE190:
+ 160              		.section	.text.led2ON,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	led2ON
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu fpv5-sp-d16
+ 168              	led2ON:
+ 169              	.LFB191:
+  51:Src/drv/drv_led.c **** 
+  52:Src/drv/drv_led.c **** void led2ON(void)
+  53:Src/drv/drv_led.c **** {
+ 170              		.loc 1 53 1 is_stmt 1 view -0
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+  54:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BS1;
+ 175              		.loc 1 54 5 view .LVU23
+ 176              		.loc 1 54 17 is_stmt 0 view .LVU24
+ 177 0000 024A     		ldr	r2, .L14
+ 178 0002 9369     		ldr	r3, [r2, #24]
+ 179 0004 43F00203 		orr	r3, r3, #2
+ 180 0008 9361     		str	r3, [r2, #24]
+  55:Src/drv/drv_led.c **** }
+ 181              		.loc 1 55 1 view .LVU25
+ 182 000a 7047     		bx	lr
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 5
+
+
+ 183              	.L15:
+ 184              		.align	2
+ 185              	.L14:
+ 186 000c 00080240 		.word	1073874944
+ 187              		.cfi_endproc
+ 188              	.LFE191:
+ 190              		.section	.text.led2OFF,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	led2OFF
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu fpv5-sp-d16
+ 198              	led2OFF:
+ 199              	.LFB192:
+  56:Src/drv/drv_led.c **** 
+  57:Src/drv/drv_led.c **** void led2OFF(void)
+  58:Src/drv/drv_led.c **** {
+ 200              		.loc 1 58 1 is_stmt 1 view -0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+  59:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BR1;
+ 205              		.loc 1 59 5 view .LVU27
+ 206              		.loc 1 59 17 is_stmt 0 view .LVU28
+ 207 0000 024A     		ldr	r2, .L17
+ 208 0002 9369     		ldr	r3, [r2, #24]
+ 209 0004 43F40033 		orr	r3, r3, #131072
+ 210 0008 9361     		str	r3, [r2, #24]
+  60:Src/drv/drv_led.c **** }
+ 211              		.loc 1 60 1 view .LVU29
+ 212 000a 7047     		bx	lr
+ 213              	.L18:
+ 214              		.align	2
+ 215              	.L17:
+ 216 000c 00080240 		.word	1073874944
+ 217              		.cfi_endproc
+ 218              	.LFE192:
+ 220              		.section	.text.led2TOGGLE,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	led2TOGGLE
+ 223              		.syntax unified
+ 224              		.thumb
+ 225              		.thumb_func
+ 226              		.fpu fpv5-sp-d16
+ 228              	led2TOGGLE:
+ 229              	.LFB193:
+  61:Src/drv/drv_led.c **** 
+  62:Src/drv/drv_led.c **** void led2TOGGLE(void)
+  63:Src/drv/drv_led.c **** {
+ 230              		.loc 1 63 1 is_stmt 1 view -0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              		@ link register save eliminated.
+  64:Src/drv/drv_led.c ****     GPIOC->ODR ^= GPIO_ODR_OD1;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 6
+
+
+ 235              		.loc 1 64 5 view .LVU31
+ 236              		.loc 1 64 16 is_stmt 0 view .LVU32
+ 237 0000 024A     		ldr	r2, .L20
+ 238 0002 5369     		ldr	r3, [r2, #20]
+ 239 0004 83F00203 		eor	r3, r3, #2
+ 240 0008 5361     		str	r3, [r2, #20]
+  65:Src/drv/drv_led.c **** }
+ 241              		.loc 1 65 1 view .LVU33
+ 242 000a 7047     		bx	lr
+ 243              	.L21:
+ 244              		.align	2
+ 245              	.L20:
+ 246 000c 00080240 		.word	1073874944
+ 247              		.cfi_endproc
+ 248              	.LFE193:
+ 250              		.section	.text.led3ON,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	led3ON
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu fpv5-sp-d16
+ 258              	led3ON:
+ 259              	.LFB194:
+  66:Src/drv/drv_led.c **** 
+  67:Src/drv/drv_led.c **** void led3ON(void)
+  68:Src/drv/drv_led.c **** {
+ 260              		.loc 1 68 1 is_stmt 1 view -0
+ 261              		.cfi_startproc
+ 262              		@ args = 0, pretend = 0, frame = 0
+ 263              		@ frame_needed = 0, uses_anonymous_args = 0
+ 264              		@ link register save eliminated.
+  69:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BS2;
+ 265              		.loc 1 69 5 view .LVU35
+ 266              		.loc 1 69 17 is_stmt 0 view .LVU36
+ 267 0000 024A     		ldr	r2, .L23
+ 268 0002 9369     		ldr	r3, [r2, #24]
+ 269 0004 43F00403 		orr	r3, r3, #4
+ 270 0008 9361     		str	r3, [r2, #24]
+  70:Src/drv/drv_led.c **** }
+ 271              		.loc 1 70 1 view .LVU37
+ 272 000a 7047     		bx	lr
+ 273              	.L24:
+ 274              		.align	2
+ 275              	.L23:
+ 276 000c 00080240 		.word	1073874944
+ 277              		.cfi_endproc
+ 278              	.LFE194:
+ 280              		.section	.text.led3OFF,"ax",%progbits
+ 281              		.align	1
+ 282              		.global	led3OFF
+ 283              		.syntax unified
+ 284              		.thumb
+ 285              		.thumb_func
+ 286              		.fpu fpv5-sp-d16
+ 288              	led3OFF:
+ 289              	.LFB195:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 7
+
+
+  71:Src/drv/drv_led.c **** 
+  72:Src/drv/drv_led.c **** void led3OFF(void)
+  73:Src/drv/drv_led.c **** {
+ 290              		.loc 1 73 1 is_stmt 1 view -0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 0, uses_anonymous_args = 0
+ 294              		@ link register save eliminated.
+  74:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BR2;
+ 295              		.loc 1 74 5 view .LVU39
+ 296              		.loc 1 74 17 is_stmt 0 view .LVU40
+ 297 0000 024A     		ldr	r2, .L26
+ 298 0002 9369     		ldr	r3, [r2, #24]
+ 299 0004 43F48023 		orr	r3, r3, #262144
+ 300 0008 9361     		str	r3, [r2, #24]
+  75:Src/drv/drv_led.c **** }
+ 301              		.loc 1 75 1 view .LVU41
+ 302 000a 7047     		bx	lr
+ 303              	.L27:
+ 304              		.align	2
+ 305              	.L26:
+ 306 000c 00080240 		.word	1073874944
+ 307              		.cfi_endproc
+ 308              	.LFE195:
+ 310              		.section	.text.led3TOGGLE,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	led3TOGGLE
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu fpv5-sp-d16
+ 318              	led3TOGGLE:
+ 319              	.LFB196:
+  76:Src/drv/drv_led.c **** 
+  77:Src/drv/drv_led.c **** void led3TOGGLE(void)
+  78:Src/drv/drv_led.c **** {
+ 320              		.loc 1 78 1 is_stmt 1 view -0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+  79:Src/drv/drv_led.c ****     GPIOC->ODR ^= GPIO_ODR_OD2;
+ 325              		.loc 1 79 5 view .LVU43
+ 326              		.loc 1 79 16 is_stmt 0 view .LVU44
+ 327 0000 024A     		ldr	r2, .L29
+ 328 0002 5369     		ldr	r3, [r2, #20]
+ 329 0004 83F00403 		eor	r3, r3, #4
+ 330 0008 5361     		str	r3, [r2, #20]
+  80:Src/drv/drv_led.c **** }
+ 331              		.loc 1 80 1 view .LVU45
+ 332 000a 7047     		bx	lr
+ 333              	.L30:
+ 334              		.align	2
+ 335              	.L29:
+ 336 000c 00080240 		.word	1073874944
+ 337              		.cfi_endproc
+ 338              	.LFE196:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 8
+
+
+ 340              		.section	.text.led4ON,"ax",%progbits
+ 341              		.align	1
+ 342              		.global	led4ON
+ 343              		.syntax unified
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.fpu fpv5-sp-d16
+ 348              	led4ON:
+ 349              	.LFB197:
+  81:Src/drv/drv_led.c **** 
+  82:Src/drv/drv_led.c **** void led4ON(void)
+  83:Src/drv/drv_led.c **** {
+ 350              		.loc 1 83 1 is_stmt 1 view -0
+ 351              		.cfi_startproc
+ 352              		@ args = 0, pretend = 0, frame = 0
+ 353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 354              		@ link register save eliminated.
+  84:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BS3;
+ 355              		.loc 1 84 5 view .LVU47
+ 356              		.loc 1 84 17 is_stmt 0 view .LVU48
+ 357 0000 024A     		ldr	r2, .L32
+ 358 0002 9369     		ldr	r3, [r2, #24]
+ 359 0004 43F00803 		orr	r3, r3, #8
+ 360 0008 9361     		str	r3, [r2, #24]
+  85:Src/drv/drv_led.c **** }
+ 361              		.loc 1 85 1 view .LVU49
+ 362 000a 7047     		bx	lr
+ 363              	.L33:
+ 364              		.align	2
+ 365              	.L32:
+ 366 000c 00080240 		.word	1073874944
+ 367              		.cfi_endproc
+ 368              	.LFE197:
+ 370              		.section	.text.led4OFF,"ax",%progbits
+ 371              		.align	1
+ 372              		.global	led4OFF
+ 373              		.syntax unified
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.fpu fpv5-sp-d16
+ 378              	led4OFF:
+ 379              	.LFB198:
+  86:Src/drv/drv_led.c **** 
+  87:Src/drv/drv_led.c **** void led4OFF(void)
+  88:Src/drv/drv_led.c **** {
+ 380              		.loc 1 88 1 is_stmt 1 view -0
+ 381              		.cfi_startproc
+ 382              		@ args = 0, pretend = 0, frame = 0
+ 383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 384              		@ link register save eliminated.
+  89:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BR3;
+ 385              		.loc 1 89 5 view .LVU51
+ 386              		.loc 1 89 17 is_stmt 0 view .LVU52
+ 387 0000 024A     		ldr	r2, .L35
+ 388 0002 9369     		ldr	r3, [r2, #24]
+ 389 0004 43F40023 		orr	r3, r3, #524288
+ 390 0008 9361     		str	r3, [r2, #24]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 9
+
+
+  90:Src/drv/drv_led.c **** }
+ 391              		.loc 1 90 1 view .LVU53
+ 392 000a 7047     		bx	lr
+ 393              	.L36:
+ 394              		.align	2
+ 395              	.L35:
+ 396 000c 00080240 		.word	1073874944
+ 397              		.cfi_endproc
+ 398              	.LFE198:
+ 400              		.section	.text.led4TOGGLE,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	led4TOGGLE
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ 406              		.fpu fpv5-sp-d16
+ 408              	led4TOGGLE:
+ 409              	.LFB199:
+  91:Src/drv/drv_led.c **** 
+  92:Src/drv/drv_led.c **** void led4TOGGLE(void)
+  93:Src/drv/drv_led.c **** {
+ 410              		.loc 1 93 1 is_stmt 1 view -0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              		@ link register save eliminated.
+  94:Src/drv/drv_led.c ****     GPIOC->ODR ^= GPIO_ODR_OD3;
+ 415              		.loc 1 94 5 view .LVU55
+ 416              		.loc 1 94 16 is_stmt 0 view .LVU56
+ 417 0000 024A     		ldr	r2, .L38
+ 418 0002 5369     		ldr	r3, [r2, #20]
+ 419 0004 83F00803 		eor	r3, r3, #8
+ 420 0008 5361     		str	r3, [r2, #20]
+  95:Src/drv/drv_led.c **** }
+ 421              		.loc 1 95 1 view .LVU57
+ 422 000a 7047     		bx	lr
+ 423              	.L39:
+ 424              		.align	2
+ 425              	.L38:
+ 426 000c 00080240 		.word	1073874944
+ 427              		.cfi_endproc
+ 428              	.LFE199:
+ 430              		.section	.text.led5ON,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	led5ON
+ 433              		.syntax unified
+ 434              		.thumb
+ 435              		.thumb_func
+ 436              		.fpu fpv5-sp-d16
+ 438              	led5ON:
+ 439              	.LFB200:
+  96:Src/drv/drv_led.c **** 
+  97:Src/drv/drv_led.c **** void led5ON(void)
+  98:Src/drv/drv_led.c **** {
+ 440              		.loc 1 98 1 is_stmt 1 view -0
+ 441              		.cfi_startproc
+ 442              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 10
+
+
+ 443              		@ frame_needed = 0, uses_anonymous_args = 0
+ 444              		@ link register save eliminated.
+  99:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BS4;
+ 445              		.loc 1 99 5 view .LVU59
+ 446              		.loc 1 99 17 is_stmt 0 view .LVU60
+ 447 0000 024A     		ldr	r2, .L41
+ 448 0002 9369     		ldr	r3, [r2, #24]
+ 449 0004 43F01003 		orr	r3, r3, #16
+ 450 0008 9361     		str	r3, [r2, #24]
+ 100:Src/drv/drv_led.c **** }
+ 451              		.loc 1 100 1 view .LVU61
+ 452 000a 7047     		bx	lr
+ 453              	.L42:
+ 454              		.align	2
+ 455              	.L41:
+ 456 000c 00080240 		.word	1073874944
+ 457              		.cfi_endproc
+ 458              	.LFE200:
+ 460              		.section	.text.led5OFF,"ax",%progbits
+ 461              		.align	1
+ 462              		.global	led5OFF
+ 463              		.syntax unified
+ 464              		.thumb
+ 465              		.thumb_func
+ 466              		.fpu fpv5-sp-d16
+ 468              	led5OFF:
+ 469              	.LFB201:
+ 101:Src/drv/drv_led.c **** 
+ 102:Src/drv/drv_led.c **** void led5OFF(void)
+ 103:Src/drv/drv_led.c **** {
+ 470              		.loc 1 103 1 is_stmt 1 view -0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 0
+ 473              		@ frame_needed = 0, uses_anonymous_args = 0
+ 474              		@ link register save eliminated.
+ 104:Src/drv/drv_led.c ****     GPIOC->BSRR |= GPIO_BSRR_BR4;
+ 475              		.loc 1 104 5 view .LVU63
+ 476              		.loc 1 104 17 is_stmt 0 view .LVU64
+ 477 0000 024A     		ldr	r2, .L44
+ 478 0002 9369     		ldr	r3, [r2, #24]
+ 479 0004 43F48013 		orr	r3, r3, #1048576
+ 480 0008 9361     		str	r3, [r2, #24]
+ 105:Src/drv/drv_led.c **** }
+ 481              		.loc 1 105 1 view .LVU65
+ 482 000a 7047     		bx	lr
+ 483              	.L45:
+ 484              		.align	2
+ 485              	.L44:
+ 486 000c 00080240 		.word	1073874944
+ 487              		.cfi_endproc
+ 488              	.LFE201:
+ 490              		.section	.text.led5TOGGLE,"ax",%progbits
+ 491              		.align	1
+ 492              		.global	led5TOGGLE
+ 493              		.syntax unified
+ 494              		.thumb
+ 495              		.thumb_func
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 11
+
+
+ 496              		.fpu fpv5-sp-d16
+ 498              	led5TOGGLE:
+ 499              	.LFB202:
+ 106:Src/drv/drv_led.c **** 
+ 107:Src/drv/drv_led.c **** void led5TOGGLE(void)
+ 108:Src/drv/drv_led.c **** {
+ 500              		.loc 1 108 1 is_stmt 1 view -0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 0
+ 503              		@ frame_needed = 0, uses_anonymous_args = 0
+ 504              		@ link register save eliminated.
+ 109:Src/drv/drv_led.c ****     GPIOC->ODR ^= GPIO_ODR_OD4;
+ 505              		.loc 1 109 5 view .LVU67
+ 506              		.loc 1 109 16 is_stmt 0 view .LVU68
+ 507 0000 024A     		ldr	r2, .L47
+ 508 0002 5369     		ldr	r3, [r2, #20]
+ 509 0004 83F01003 		eor	r3, r3, #16
+ 510 0008 5361     		str	r3, [r2, #20]
+ 110:Src/drv/drv_led.c **** }
+ 511              		.loc 1 110 1 view .LVU69
+ 512 000a 7047     		bx	lr
+ 513              	.L48:
+ 514              		.align	2
+ 515              	.L47:
+ 516 000c 00080240 		.word	1073874944
+ 517              		.cfi_endproc
+ 518              	.LFE202:
+ 520              		.section	.text.ledsSet,"ax",%progbits
+ 521              		.align	1
+ 522              		.global	ledsSet
+ 523              		.syntax unified
+ 524              		.thumb
+ 525              		.thumb_func
+ 526              		.fpu fpv5-sp-d16
+ 528              	ledsSet:
+ 529              	.LFB203:
+ 111:Src/drv/drv_led.c **** 
+ 112:Src/drv/drv_led.c **** void ledsSet(void)
+ 113:Src/drv/drv_led.c **** {
+ 530              		.loc 1 113 1 is_stmt 1 view -0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 0
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 534 0000 08B5     		push	{r3, lr}
+ 535              		.cfi_def_cfa_offset 8
+ 536              		.cfi_offset 3, -8
+ 537              		.cfi_offset 14, -4
+ 114:Src/drv/drv_led.c ****     if (armed) // 1 - Armed
+ 538              		.loc 1 114 5 view .LVU71
+ 539              		.loc 1 114 9 is_stmt 0 view .LVU72
+ 540 0002 174B     		ldr	r3, .L64
+ 541 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 542              		.loc 1 114 8 view .LVU73
+ 543 0006 CBB1     		cbz	r3, .L50
+ 115:Src/drv/drv_led.c ****         led1ON();
+ 544              		.loc 1 115 9 is_stmt 1 view .LVU74
+ 545 0008 FFF7FEFF 		bl	led1ON
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 12
+
+
+ 546              	.LVL0:
+ 547              	.L51:
+ 116:Src/drv/drv_led.c ****     else
+ 117:Src/drv/drv_led.c ****         led1OFF();
+ 118:Src/drv/drv_led.c ****     if (systemReady) // 2 - System Initialized
+ 548              		.loc 1 118 5 view .LVU75
+ 549              		.loc 1 118 9 is_stmt 0 view .LVU76
+ 550 000c 154B     		ldr	r3, .L64+4
+ 551 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 552              		.loc 1 118 8 view .LVU77
+ 553 0010 BBB1     		cbz	r3, .L52
+ 119:Src/drv/drv_led.c ****         led2ON();
+ 554              		.loc 1 119 9 is_stmt 1 view .LVU78
+ 555 0012 FFF7FEFF 		bl	led2ON
+ 556              	.LVL1:
+ 557              	.L53:
+ 120:Src/drv/drv_led.c ****     else
+ 121:Src/drv/drv_led.c ****         led2OFF();
+ 122:Src/drv/drv_led.c ****     if (rcActive) // 3 - Receiver Connected
+ 558              		.loc 1 122 5 view .LVU79
+ 559              		.loc 1 122 9 is_stmt 0 view .LVU80
+ 560 0016 144B     		ldr	r3, .L64+8
+ 561 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 562              		.loc 1 122 8 view .LVU81
+ 563 001a ABB1     		cbz	r3, .L54
+ 123:Src/drv/drv_led.c ****         led3ON();
+ 564              		.loc 1 123 9 is_stmt 1 view .LVU82
+ 565 001c FFF7FEFF 		bl	led3ON
+ 566              	.LVL2:
+ 567              	.L55:
+ 124:Src/drv/drv_led.c ****     else
+ 125:Src/drv/drv_led.c ****         led3OFF();
+ 126:Src/drv/drv_led.c ****     if (battLow) // 4 - Battery Low
+ 568              		.loc 1 126 5 view .LVU83
+ 569              		.loc 1 126 9 is_stmt 0 view .LVU84
+ 570 0020 124B     		ldr	r3, .L64+12
+ 571 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 572              		.loc 1 126 8 view .LVU85
+ 573 0024 9BB1     		cbz	r3, .L56
+ 127:Src/drv/drv_led.c ****         led4TOGGLE();
+ 574              		.loc 1 127 9 is_stmt 1 view .LVU86
+ 575 0026 FFF7FEFF 		bl	led4TOGGLE
+ 576              	.LVL3:
+ 577              	.L57:
+ 128:Src/drv/drv_led.c ****     else
+ 129:Src/drv/drv_led.c ****         led4OFF();
+ 130:Src/drv/drv_led.c ****     if (mode == FLIGHT) // 5(toggle) - Flight Mode
+ 578              		.loc 1 130 5 view .LVU87
+ 579              		.loc 1 130 14 is_stmt 0 view .LVU88
+ 580 002a 114B     		ldr	r3, .L64+16
+ 581 002c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 582              		.loc 1 130 8 view .LVU89
+ 583 002e 012B     		cmp	r3, #1
+ 584 0030 10D0     		beq	.L62
+ 131:Src/drv/drv_led.c ****         led5TOGGLE();
+ 132:Src/drv/drv_led.c ****     else if (mode == ROVER) // 5(on) - Rover Mode
+ 585              		.loc 1 132 10 is_stmt 1 view .LVU90
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 13
+
+
+ 586              		.loc 1 132 13 is_stmt 0 view .LVU91
+ 587 0032 032B     		cmp	r3, #3
+ 588 0034 11D0     		beq	.L63
+ 133:Src/drv/drv_led.c ****         led5ON();
+ 134:Src/drv/drv_led.c ****     else
+ 135:Src/drv/drv_led.c ****         led5OFF();
+ 589              		.loc 1 135 9 is_stmt 1 view .LVU92
+ 590 0036 FFF7FEFF 		bl	led5OFF
+ 591              	.LVL4:
+ 592              	.L49:
+ 136:Src/drv/drv_led.c **** }...
+ 593              		.loc 1 136 1 is_stmt 0 view .LVU93
+ 594 003a 08BD     		pop	{r3, pc}
+ 595              	.L50:
+ 117:Src/drv/drv_led.c ****         led1OFF();
+ 596              		.loc 1 117 9 is_stmt 1 view .LVU94
+ 597 003c FFF7FEFF 		bl	led1OFF
+ 598              	.LVL5:
+ 599 0040 E4E7     		b	.L51
+ 600              	.L52:
+ 121:Src/drv/drv_led.c ****         led2OFF();
+ 601              		.loc 1 121 9 view .LVU95
+ 602 0042 FFF7FEFF 		bl	led2OFF
+ 603              	.LVL6:
+ 604 0046 E6E7     		b	.L53
+ 605              	.L54:
+ 125:Src/drv/drv_led.c ****         led3OFF();
+ 606              		.loc 1 125 9 view .LVU96
+ 607 0048 FFF7FEFF 		bl	led3OFF
+ 608              	.LVL7:
+ 609 004c E8E7     		b	.L55
+ 610              	.L56:
+ 129:Src/drv/drv_led.c ****         led4OFF();
+ 611              		.loc 1 129 9 view .LVU97
+ 612 004e FFF7FEFF 		bl	led4OFF
+ 613              	.LVL8:
+ 614 0052 EAE7     		b	.L57
+ 615              	.L62:
+ 131:Src/drv/drv_led.c ****         led5TOGGLE();
+ 616              		.loc 1 131 9 view .LVU98
+ 617 0054 FFF7FEFF 		bl	led5TOGGLE
+ 618              	.LVL9:
+ 619 0058 EFE7     		b	.L49
+ 620              	.L63:
+ 133:Src/drv/drv_led.c ****         led5ON();
+ 621              		.loc 1 133 9 view .LVU99
+ 622 005a FFF7FEFF 		bl	led5ON
+ 623              	.LVL10:
+ 624 005e ECE7     		b	.L49
+ 625              	.L65:
+ 626              		.align	2
+ 627              	.L64:
+ 628 0060 00000000 		.word	armed
+ 629 0064 00000000 		.word	systemReady
+ 630 0068 00000000 		.word	rcActive
+ 631 006c 00000000 		.word	battLow
+ 632 0070 00000000 		.word	mode
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 14
+
+
+ 633              		.cfi_endproc
+ 634              	.LFE203:
+ 636              		.text
+ 637              	.Letext0:
+ 638              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 639              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 640              		.file 4 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 641              		.file 5 "Src/baredrones32.h"
+ 642              		.file 6 "Src/battery.h"
+ 643              		.file 7 "Src/drv/drv_system.h"
+ 644              		.file 8 "Src/motion/process_commands.h"
+ 645              		.file 9 "Src/sensors/ibus.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 drv_led.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:18     .text.ledInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:26     .text.ledInit:0000000000000000 ledInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:64     .text.ledInit:000000000000002c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:71     .text.led1ON:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:78     .text.led1ON:0000000000000000 led1ON
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:96     .text.led1ON:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:101    .text.led1OFF:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:108    .text.led1OFF:0000000000000000 led1OFF
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:126    .text.led1OFF:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:131    .text.led1TOGGLE:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:138    .text.led1TOGGLE:0000000000000000 led1TOGGLE
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:156    .text.led1TOGGLE:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:161    .text.led2ON:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:168    .text.led2ON:0000000000000000 led2ON
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:186    .text.led2ON:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:191    .text.led2OFF:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:198    .text.led2OFF:0000000000000000 led2OFF
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:216    .text.led2OFF:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:221    .text.led2TOGGLE:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:228    .text.led2TOGGLE:0000000000000000 led2TOGGLE
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:246    .text.led2TOGGLE:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:251    .text.led3ON:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:258    .text.led3ON:0000000000000000 led3ON
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:276    .text.led3ON:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:281    .text.led3OFF:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:288    .text.led3OFF:0000000000000000 led3OFF
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:306    .text.led3OFF:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:311    .text.led3TOGGLE:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:318    .text.led3TOGGLE:0000000000000000 led3TOGGLE
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:336    .text.led3TOGGLE:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:341    .text.led4ON:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:348    .text.led4ON:0000000000000000 led4ON
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:366    .text.led4ON:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:371    .text.led4OFF:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:378    .text.led4OFF:0000000000000000 led4OFF
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:396    .text.led4OFF:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:401    .text.led4TOGGLE:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:408    .text.led4TOGGLE:0000000000000000 led4TOGGLE
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:426    .text.led4TOGGLE:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:431    .text.led5ON:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:438    .text.led5ON:0000000000000000 led5ON
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:456    .text.led5ON:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:461    .text.led5OFF:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:468    .text.led5OFF:0000000000000000 led5OFF
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:486    .text.led5OFF:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:491    .text.led5TOGGLE:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:498    .text.led5TOGGLE:0000000000000000 led5TOGGLE
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:516    .text.led5TOGGLE:000000000000000c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:521    .text.ledsSet:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:528    .text.ledsSet:0000000000000000 ledsSet
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s:628    .text.ledsSet:0000000000000060 $d
+
+UNDEFINED SYMBOLS
+armed
+systemReady
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccb0Q3wN.s 			page 16
+
+
+rcActive
+battLow
+mode

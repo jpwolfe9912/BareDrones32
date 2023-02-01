@@ -1,0 +1,401 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"rotations.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.computeRotations500Hz,"ax",%progbits
+  18              		.align	1
+  19              		.global	computeRotations500Hz
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	computeRotations500Hz:
+  27              	.LFB187:
+  28              		.file 1 "Src/motion/rotations.c"
+   1:Src/motion/rotations.c **** /** @file 		rotations.c
+   2:Src/motion/rotations.c ****  *  @brief
+   3:Src/motion/rotations.c ****  *  	This file computes the body fixed rotation matrices for the 100 and 500Hz loops.
+   4:Src/motion/rotations.c ****  *
+   5:Src/motion/rotations.c ****  *  @author 	Jeremy Wolfe
+   6:Src/motion/rotations.c ****  *  @date 		10 MAR 2022
+   7:Src/motion/rotations.c ****  */
+   8:Src/motion/rotations.c **** 
+   9:Src/motion/rotations.c **** /* Includes */
+  10:Src/motion/rotations.c **** #include "board.h"
+  11:Src/motion/rotations.c **** 
+  12:Src/motion/rotations.c **** /** @brief Computes the body frame for 500Hz loop.
+  13:Src/motion/rotations.c ****  *
+  14:Src/motion/rotations.c ****  *  @return Void.
+  15:Src/motion/rotations.c ****  */
+  16:Src/motion/rotations.c **** void computeRotations500Hz(void)
+  17:Src/motion/rotations.c **** {
+  29              		.loc 1 17 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 24
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39 0002 2DED028B 		vpush.64	{d8}
+  40              		.cfi_def_cfa_offset 24
+  41              		.cfi_offset 80, -24
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 2
+
+
+  42              		.cfi_offset 81, -20
+  43 0006 86B0     		sub	sp, sp, #24
+  44              		.cfi_def_cfa_offset 48
+  18:Src/motion/rotations.c ****     arm_matrix_instance_f32 a;
+  45              		.loc 1 18 5 view .LVU1
+  19:Src/motion/rotations.c ****     arm_matrix_instance_f32 b;
+  46              		.loc 1 19 5 view .LVU2
+  20:Src/motion/rotations.c ****     arm_matrix_instance_f32 x;
+  47              		.loc 1 20 5 view .LVU3
+  21:Src/motion/rotations.c **** 
+  22:Src/motion/rotations.c ****     for (uint8_t index = 0; index < 3; index++)
+  48              		.loc 1 22 5 view .LVU4
+  49              	.LBB2:
+  50              		.loc 1 22 10 view .LVU5
+  51              	.LVL0:
+  52              		.loc 1 22 18 is_stmt 0 view .LVU6
+  53 0008 0023     		movs	r3, #0
+  54              		.loc 1 22 5 view .LVU7
+  55 000a 12E0     		b	.L2
+  56              	.LVL1:
+  57              	.L3:
+  23:Src/motion/rotations.c ****     {
+  24:Src/motion/rotations.c ****         accelSummedSamples500Hz[index] = accelSum500Hz[index];
+  58              		.loc 1 24 9 is_stmt 1 discriminator 3 view .LVU8
+  59              		.loc 1 24 55 is_stmt 0 discriminator 3 view .LVU9
+  60 000c 5C4A     		ldr	r2, .L5
+  61 000e 52F82300 		ldr	r0, [r2, r3, lsl #2]
+  62              		.loc 1 24 40 discriminator 3 view .LVU10
+  63 0012 5C49     		ldr	r1, .L5+4
+  64 0014 41F82300 		str	r0, [r1, r3, lsl #2]
+  25:Src/motion/rotations.c ****         accelSum500Hz[index] = 0;
+  65              		.loc 1 25 9 is_stmt 1 discriminator 3 view .LVU11
+  66              		.loc 1 25 30 is_stmt 0 discriminator 3 view .LVU12
+  67 0018 0021     		movs	r1, #0
+  68 001a 42F82310 		str	r1, [r2, r3, lsl #2]
+  26:Src/motion/rotations.c **** 
+  27:Src/motion/rotations.c ****         gyroSummedSamples500Hz[index] = gyroSum500Hz[index];
+  69              		.loc 1 27 9 is_stmt 1 discriminator 3 view .LVU13
+  70              		.loc 1 27 53 is_stmt 0 discriminator 3 view .LVU14
+  71 001e 5A4A     		ldr	r2, .L5+8
+  72              		.loc 1 27 39 discriminator 3 view .LVU15
+  73 0020 5A48     		ldr	r0, .L5+12
+  74 0022 52F82340 		ldr	r4, [r2, r3, lsl #2]
+  75 0026 40F82340 		str	r4, [r0, r3, lsl #2]
+  28:Src/motion/rotations.c ****         gyroSum500Hz[index] = 0;
+  76              		.loc 1 28 9 is_stmt 1 discriminator 3 view .LVU16
+  77              		.loc 1 28 29 is_stmt 0 discriminator 3 view .LVU17
+  78 002a 42F82310 		str	r1, [r2, r3, lsl #2]
+  22:Src/motion/rotations.c ****     {
+  79              		.loc 1 22 40 is_stmt 1 discriminator 3 view .LVU18
+  22:Src/motion/rotations.c ****     {
+  80              		.loc 1 22 45 is_stmt 0 discriminator 3 view .LVU19
+  81 002e 0133     		adds	r3, r3, #1
+  82              	.LVL2:
+  22:Src/motion/rotations.c ****     {
+  83              		.loc 1 22 45 discriminator 3 view .LVU20
+  84 0030 DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 3
+
+
+  85              	.LVL3:
+  86              	.L2:
+  22:Src/motion/rotations.c ****     {
+  87              		.loc 1 22 29 is_stmt 1 discriminator 1 view .LVU21
+  22:Src/motion/rotations.c ****     {
+  88              		.loc 1 22 5 is_stmt 0 discriminator 1 view .LVU22
+  89 0032 022B     		cmp	r3, #2
+  90 0034 EAD9     		bls	.L3
+  91              	.LBE2:
+  29:Src/motion/rotations.c ****     }
+  30:Src/motion/rotations.c **** 
+  31:Src/motion/rotations.c ****     computeMPU6000TCBias();
+  92              		.loc 1 31 5 is_stmt 1 view .LVU23
+  93 0036 FFF7FEFF 		bl	computeMPU6000TCBias
+  94              	.LVL4:
+  32:Src/motion/rotations.c **** 
+  33:Src/motion/rotations.c ****     nonRotatedAccelData[XAXIS] = ((float)accelSummedSamples500Hz[XAXIS] * 0.5f - accelTCBias[XAXIS]
+  95              		.loc 1 33 5 view .LVU24
+  96              		.loc 1 33 65 is_stmt 0 view .LVU25
+  97 003a 524A     		ldr	r2, .L5+4
+  98              		.loc 1 33 35 view .LVU26
+  99 003c D2ED007A 		vldr.32	s15, [r2]	@ int
+ 100 0040 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 101              		.loc 1 33 73 view .LVU27
+ 102 0044 B6EE008A 		vmov.f32	s16, #5.0e-1
+ 103 0048 27EE087A 		vmul.f32	s14, s14, s16
+ 104              		.loc 1 33 93 view .LVU28
+ 105 004c 504B     		ldr	r3, .L5+16
+ 106 004e D3ED007A 		vldr.32	s15, [r3]
+ 107              		.loc 1 33 80 view .LVU29
+ 108 0052 37EE677A 		vsub.f32	s14, s14, s15
+ 109              		.loc 1 33 102 view .LVU30
+ 110 0056 DFED4F6A 		vldr.32	s13, .L5+20
+ 111 005a 27EE267A 		vmul.f32	s14, s14, s13
+ 112              		.loc 1 33 32 view .LVU31
+ 113 005e 4E4C     		ldr	r4, .L5+24
+ 114 0060 84ED007A 		vstr.32	s14, [r4]
+  34:Src/motion/rotations.c ****     nonRotatedAccelData[YAXIS] = ((float)accelSummedSamples500Hz[YAXIS] * 0.5f - accelTCBias[YAXIS]
+ 115              		.loc 1 34 5 is_stmt 1 view .LVU32
+ 116              		.loc 1 34 35 is_stmt 0 view .LVU33
+ 117 0064 D2ED017A 		vldr.32	s15, [r2, #4]	@ int
+ 118 0068 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 119              		.loc 1 34 73 view .LVU34
+ 120 006c 27EE087A 		vmul.f32	s14, s14, s16
+ 121              		.loc 1 34 93 view .LVU35
+ 122 0070 D3ED017A 		vldr.32	s15, [r3, #4]
+ 123              		.loc 1 34 80 view .LVU36
+ 124 0074 37EE677A 		vsub.f32	s14, s14, s15
+ 125              		.loc 1 34 102 view .LVU37
+ 126 0078 27EE267A 		vmul.f32	s14, s14, s13
+ 127              		.loc 1 34 32 view .LVU38
+ 128 007c 84ED017A 		vstr.32	s14, [r4, #4]
+  35:Src/motion/rotations.c ****     nonRotatedAccelData[ZAXIS] = ((float)accelSummedSamples500Hz[ZAXIS] * 0.5f - accelTCBias[ZAXIS]
+ 129              		.loc 1 35 5 is_stmt 1 view .LVU39
+ 130              		.loc 1 35 65 is_stmt 0 view .LVU40
+ 131 0080 D2ED027A 		vldr.32	s15, [r2, #8]	@ int
+ 132              		.loc 1 35 35 view .LVU41
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 4
+
+
+ 133 0084 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 134              		.loc 1 35 73 view .LVU42
+ 135 0088 67EE887A 		vmul.f32	s15, s15, s16
+ 136              		.loc 1 35 93 view .LVU43
+ 137 008c 93ED027A 		vldr.32	s14, [r3, #8]
+ 138              		.loc 1 35 80 view .LVU44
+ 139 0090 77EEC77A 		vsub.f32	s15, s15, s14
+ 140              		.loc 1 35 102 view .LVU45
+ 141 0094 67EEA67A 		vmul.f32	s15, s15, s13
+ 142              		.loc 1 35 32 view .LVU46
+ 143 0098 C4ED027A 		vstr.32	s15, [r4, #8]
+  36:Src/motion/rotations.c **** 
+  37:Src/motion/rotations.c ****     arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
+ 144              		.loc 1 37 5 is_stmt 1 view .LVU47
+ 145 009c 3F4E     		ldr	r6, .L5+28
+ 146 009e 3346     		mov	r3, r6
+ 147 00a0 0322     		movs	r2, #3
+ 148 00a2 1146     		mov	r1, r2
+ 149 00a4 04A8     		add	r0, sp, #16
+ 150 00a6 FFF7FEFF 		bl	arm_mat_init_f32
+ 151              	.LVL5:
+  38:Src/motion/rotations.c **** 
+  39:Src/motion/rotations.c ****     arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedAccelData);
+ 152              		.loc 1 39 5 view .LVU48
+ 153 00aa 2346     		mov	r3, r4
+ 154 00ac 0122     		movs	r2, #1
+ 155 00ae 0321     		movs	r1, #3
+ 156 00b0 02A8     		add	r0, sp, #8
+ 157 00b2 FFF7FEFF 		bl	arm_mat_init_f32
+ 158              	.LVL6:
+  40:Src/motion/rotations.c **** 
+  41:Src/motion/rotations.c ****     arm_mat_init_f32(&x, 3, 1, sensors.accel500Hz);
+ 159              		.loc 1 41 5 view .LVU49
+ 160 00b6 3A4D     		ldr	r5, .L5+32
+ 161 00b8 2B46     		mov	r3, r5
+ 162 00ba 0122     		movs	r2, #1
+ 163 00bc 0321     		movs	r1, #3
+ 164 00be 6846     		mov	r0, sp
+ 165 00c0 FFF7FEFF 		bl	arm_mat_init_f32
+ 166              	.LVL7:
+  42:Src/motion/rotations.c **** 
+  43:Src/motion/rotations.c ****     arm_mat_mult_f32(&a, &b, &x);
+ 167              		.loc 1 43 5 view .LVU50
+ 168 00c4 6A46     		mov	r2, sp
+ 169 00c6 02A9     		add	r1, sp, #8
+ 170 00c8 04A8     		add	r0, sp, #16
+ 171 00ca FFF7FEFF 		bl	arm_mat_mult_f32
+ 172              	.LVL8:
+  44:Src/motion/rotations.c **** 
+  45:Src/motion/rotations.c ****     nonRotatedGyroData[ROLL] = ((float)gyroSummedSamples500Hz[ROLL] * 0.5f - gyroRTBias[ROLL] - gyr
+ 173              		.loc 1 45 5 view .LVU51
+ 174              		.loc 1 45 62 is_stmt 0 view .LVU52
+ 175 00ce 2F49     		ldr	r1, .L5+12
+ 176              		.loc 1 45 33 view .LVU53
+ 177 00d0 D1ED007A 		vldr.32	s15, [r1]	@ int
+ 178 00d4 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 179              		.loc 1 45 69 view .LVU54
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 5
+
+
+ 180 00d8 27EE087A 		vmul.f32	s14, s14, s16
+ 181              		.loc 1 45 88 view .LVU55
+ 182 00dc 314A     		ldr	r2, .L5+36
+ 183 00de D2ED007A 		vldr.32	s15, [r2]
+ 184              		.loc 1 45 76 view .LVU56
+ 185 00e2 37EE677A 		vsub.f32	s14, s14, s15
+ 186              		.loc 1 45 107 view .LVU57
+ 187 00e6 304B     		ldr	r3, .L5+40
+ 188 00e8 D3ED007A 		vldr.32	s15, [r3]
+ 189              		.loc 1 45 95 view .LVU58
+ 190 00ec 37EE677A 		vsub.f32	s14, s14, s15
+ 191              		.loc 1 45 115 view .LVU59
+ 192 00f0 DFED2E6A 		vldr.32	s13, .L5+44
+ 193 00f4 27EE267A 		vmul.f32	s14, s14, s13
+ 194              		.loc 1 45 30 view .LVU60
+ 195 00f8 2D4C     		ldr	r4, .L5+48
+ 196 00fa 84ED007A 		vstr.32	s14, [r4]
+  46:Src/motion/rotations.c ****     nonRotatedGyroData[PITCH] = ((float)gyroSummedSamples500Hz[PITCH] * 0.5f - gyroRTBias[PITCH] - 
+ 197              		.loc 1 46 5 is_stmt 1 view .LVU61
+ 198              		.loc 1 46 34 is_stmt 0 view .LVU62
+ 199 00fe D1ED017A 		vldr.32	s15, [r1, #4]	@ int
+ 200 0102 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 201              		.loc 1 46 71 view .LVU63
+ 202 0106 27EE087A 		vmul.f32	s14, s14, s16
+ 203              		.loc 1 46 90 view .LVU64
+ 204 010a D2ED017A 		vldr.32	s15, [r2, #4]
+ 205              		.loc 1 46 78 view .LVU65
+ 206 010e 37EE677A 		vsub.f32	s14, s14, s15
+ 207              		.loc 1 46 110 view .LVU66
+ 208 0112 D3ED017A 		vldr.32	s15, [r3, #4]
+ 209              		.loc 1 46 98 view .LVU67
+ 210 0116 37EE677A 		vsub.f32	s14, s14, s15
+ 211              		.loc 1 46 119 view .LVU68
+ 212 011a 27EE267A 		vmul.f32	s14, s14, s13
+ 213              		.loc 1 46 31 view .LVU69
+ 214 011e 84ED017A 		vstr.32	s14, [r4, #4]
+  47:Src/motion/rotations.c ****     nonRotatedGyroData[YAW] = ((float)gyroSummedSamples500Hz[YAW] * 0.5f - gyroRTBias[YAW] - gyroTC
+ 215              		.loc 1 47 5 is_stmt 1 view .LVU70
+ 216              		.loc 1 47 61 is_stmt 0 view .LVU71
+ 217 0122 D1ED027A 		vldr.32	s15, [r1, #8]	@ int
+ 218              		.loc 1 47 32 view .LVU72
+ 219 0126 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 220              		.loc 1 47 67 view .LVU73
+ 221 012a 67EE887A 		vmul.f32	s15, s15, s16
+ 222              		.loc 1 47 86 view .LVU74
+ 223 012e 92ED027A 		vldr.32	s14, [r2, #8]
+ 224              		.loc 1 47 74 view .LVU75
+ 225 0132 77EEC77A 		vsub.f32	s15, s15, s14
+ 226              		.loc 1 47 104 view .LVU76
+ 227 0136 93ED027A 		vldr.32	s14, [r3, #8]
+ 228              		.loc 1 47 92 view .LVU77
+ 229 013a 77EEC77A 		vsub.f32	s15, s15, s14
+ 230              		.loc 1 47 111 view .LVU78
+ 231 013e 67EEA67A 		vmul.f32	s15, s15, s13
+ 232              		.loc 1 47 29 view .LVU79
+ 233 0142 C4ED027A 		vstr.32	s15, [r4, #8]
+  48:Src/motion/rotations.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 6
+
+
+  49:Src/motion/rotations.c ****     arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
+ 234              		.loc 1 49 5 is_stmt 1 view .LVU80
+ 235 0146 3346     		mov	r3, r6
+ 236 0148 0322     		movs	r2, #3
+ 237 014a 1146     		mov	r1, r2
+ 238 014c 04A8     		add	r0, sp, #16
+ 239 014e FFF7FEFF 		bl	arm_mat_init_f32
+ 240              	.LVL9:
+  50:Src/motion/rotations.c **** 
+  51:Src/motion/rotations.c ****     arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedGyroData);
+ 241              		.loc 1 51 5 view .LVU81
+ 242 0152 2346     		mov	r3, r4
+ 243 0154 0122     		movs	r2, #1
+ 244 0156 0321     		movs	r1, #3
+ 245 0158 02A8     		add	r0, sp, #8
+ 246 015a FFF7FEFF 		bl	arm_mat_init_f32
+ 247              	.LVL10:
+  52:Src/motion/rotations.c **** 
+  53:Src/motion/rotations.c ****     arm_mat_init_f32(&x, 3, 1, sensors.gyro500Hz);
+ 248              		.loc 1 53 5 view .LVU82
+ 249 015e 05F12403 		add	r3, r5, #36
+ 250 0162 0122     		movs	r2, #1
+ 251 0164 0321     		movs	r1, #3
+ 252 0166 6846     		mov	r0, sp
+ 253 0168 FFF7FEFF 		bl	arm_mat_init_f32
+ 254              	.LVL11:
+  54:Src/motion/rotations.c **** 
+  55:Src/motion/rotations.c ****     arm_mat_mult_f32(&a, &b, &x);
+ 255              		.loc 1 55 5 view .LVU83
+ 256 016c 6A46     		mov	r2, sp
+ 257 016e 02A9     		add	r1, sp, #8
+ 258 0170 04A8     		add	r0, sp, #16
+ 259 0172 FFF7FEFF 		bl	arm_mat_mult_f32
+ 260              	.LVL12:
+  56:Src/motion/rotations.c **** }...
+ 261              		.loc 1 56 1 is_stmt 0 view .LVU84
+ 262 0176 06B0     		add	sp, sp, #24
+ 263              		.cfi_def_cfa_offset 24
+ 264              		@ sp needed
+ 265 0178 BDEC028B 		vldm	sp!, {d8}
+ 266              		.cfi_restore 80
+ 267              		.cfi_restore 81
+ 268              		.cfi_def_cfa_offset 16
+ 269 017c 70BD     		pop	{r4, r5, r6, pc}
+ 270              	.L6:
+ 271 017e 00BF     		.align	2
+ 272              	.L5:
+ 273 0180 00000000 		.word	accelSum500Hz
+ 274 0184 00000000 		.word	accelSummedSamples500Hz
+ 275 0188 00000000 		.word	gyroSum500Hz
+ 276 018c 00000000 		.word	gyroSummedSamples500Hz
+ 277 0190 00000000 		.word	accelTCBias
+ 278 0194 09E89C3B 		.word	1000138761
+ 279 0198 00000000 		.word	nonRotatedAccelData
+ 280 019c 00000000 		.word	mpuOrientationMatrix
+ 281 01a0 00000000 		.word	sensors
+ 282 01a4 00000000 		.word	gyroRTBias
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 7
+
+
+ 283 01a8 00000000 		.word	gyroTCBias
+ 284 01ac 54A00B3A 		.word	973840468
+ 285 01b0 00000000 		.word	nonRotatedGyroData
+ 286              		.cfi_endproc
+ 287              	.LFE187:
+ 289              		.text
+ 290              	.Letext0:
+ 291              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 292              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 293              		.file 4 "Libraries/CMSIS/Include/arm_math_types.h"
+ 294              		.file 5 "Libraries/CMSIS/Include/dsp/matrix_functions.h"
+ 295              		.file 6 "Src/baredrones32.h"
+ 296              		.file 7 "Src/sensors/mpu6000.h"
+ 297              		.file 8 "Src/sensors/orientation.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rotations.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s:18     .text.computeRotations500Hz:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s:26     .text.computeRotations500Hz:0000000000000000 computeRotations500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVHzml8.s:273    .text.computeRotations500Hz:0000000000000180 $d
+
+UNDEFINED SYMBOLS
+computeMPU6000TCBias
+arm_mat_init_f32
+arm_mat_mult_f32
+accelSum500Hz
+accelSummedSamples500Hz
+gyroSum500Hz
+gyroSummedSamples500Hz
+accelTCBias
+nonRotatedAccelData
+mpuOrientationMatrix
+sensors
+gyroRTBias
+gyroTCBias
+nonRotatedGyroData

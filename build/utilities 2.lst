@@ -1,0 +1,918 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"utilities.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.constrain,"ax",%progbits
+  18              		.align	1
+  19              		.global	constrain
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	constrain:
+  27              	.LVL0:
+  28              	.LFB187:
+  29              		.file 1 "Src/utilities.c"
+   1:Src/utilities.c **** /** @file 		utilities.c
+   2:Src/utilities.c ****  *  @brief
+   3:Src/utilities.c ****  *  	This file contains random useful functions.
+   4:Src/utilities.c ****  *
+   5:Src/utilities.c ****  *  @author 	Jeremy Wolfe
+   6:Src/utilities.c ****  *  @date 		07 MAR 2022
+   7:Src/utilities.c ****  */
+   8:Src/utilities.c **** 
+   9:Src/utilities.c **** /* Includes */
+  10:Src/utilities.c **** #include "board.h"
+  11:Src/utilities.c **** 
+  12:Src/utilities.c **** /** @brief Constrains an input between two values.
+  13:Src/utilities.c ****  *
+  14:Src/utilities.c ****  *  @param input Value to be constrained.
+  15:Src/utilities.c ****  *  @param minValue Lower threshold.
+  16:Src/utilities.c ****  *  @param maxValue Upper threshold.
+  17:Src/utilities.c ****  *  @return float Constrained value.
+  18:Src/utilities.c ****  */
+  19:Src/utilities.c **** float
+  20:Src/utilities.c **** constrain(float input, float minValue, float maxValue)
+  21:Src/utilities.c **** {
+  30              		.loc 1 21 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  22:Src/utilities.c ****     if (input < minValue)
+  35              		.loc 1 22 5 view .LVU1
+  36              		.loc 1 22 8 is_stmt 0 view .LVU2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 2
+
+
+  37 0000 B4EEE00A 		vcmpe.f32	s0, s1
+  38 0004 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  39 0008 07D4     		bmi	.L4
+  23:Src/utilities.c ****         return minValue;
+  24:Src/utilities.c ****     else if (input > maxValue)
+  40              		.loc 1 24 10 is_stmt 1 view .LVU3
+  41              		.loc 1 24 13 is_stmt 0 view .LVU4
+  42 000a B4EEC10A 		vcmpe.f32	s0, s2
+  43 000e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  44 0012 04DD     		ble	.L1
+  25:Src/utilities.c ****         return maxValue;
+  45              		.loc 1 25 16 view .LVU5
+  46 0014 B0EE410A 		vmov.f32	s0, s2
+  47              	.LVL1:
+  48              		.loc 1 25 16 view .LVU6
+  49 0018 7047     		bx	lr
+  50              	.LVL2:
+  51              	.L4:
+  23:Src/utilities.c ****         return minValue;
+  52              		.loc 1 23 16 view .LVU7
+  53 001a B0EE600A 		vmov.f32	s0, s1
+  54              	.LVL3:
+  55              	.L1:
+  26:Src/utilities.c ****     else
+  27:Src/utilities.c ****         return input;
+  28:Src/utilities.c **** }
+  56              		.loc 1 28 1 view .LVU8
+  57 001e 7047     		bx	lr
+  58              		.cfi_endproc
+  59              	.LFE187:
+  61              		.section	.text.constrain16,"ax",%progbits
+  62              		.align	1
+  63              		.global	constrain16
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  67              		.fpu fpv5-sp-d16
+  69              	constrain16:
+  70              	.LVL4:
+  71              	.LFB188:
+  29:Src/utilities.c **** 
+  30:Src/utilities.c **** /** @brief Constrains an input uint16_t between two values.
+  31:Src/utilities.c ****  *
+  32:Src/utilities.c ****  *  @param input Value to be constrained.
+  33:Src/utilities.c ****  *  @param minValue Lower threshold.
+  34:Src/utilities.c ****  *  @param maxValue Upper threshold.
+  35:Src/utilities.c ****  *  @return uint16_t Constrained value.
+  36:Src/utilities.c ****  */
+  37:Src/utilities.c **** uint16_t
+  38:Src/utilities.c **** constrain16(uint16_t input, uint16_t minValue, uint16_t maxValue)
+  39:Src/utilities.c **** {
+  72              		.loc 1 39 1 is_stmt 1 view -0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  40:Src/utilities.c ****     if (input < minValue)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 3
+
+
+  77              		.loc 1 40 5 view .LVU10
+  78              		.loc 1 40 8 is_stmt 0 view .LVU11
+  79 0000 8842     		cmp	r0, r1
+  80 0002 03D3     		bcc	.L10
+  41:Src/utilities.c ****         return minValue;
+  42:Src/utilities.c ****     else if (input > maxValue)
+  81              		.loc 1 42 10 is_stmt 1 view .LVU12
+  82              		.loc 1 42 13 is_stmt 0 view .LVU13
+  83 0004 9042     		cmp	r0, r2
+  84 0006 02D9     		bls	.L9
+  43:Src/utilities.c ****         return maxValue;
+  85              		.loc 1 43 16 view .LVU14
+  86 0008 1046     		mov	r0, r2
+  87              	.LVL5:
+  88              		.loc 1 43 16 view .LVU15
+  89 000a 7047     		bx	lr
+  90              	.LVL6:
+  91              	.L10:
+  41:Src/utilities.c ****         return minValue;
+  92              		.loc 1 41 16 view .LVU16
+  93 000c 0846     		mov	r0, r1
+  94              	.LVL7:
+  95              	.L9:
+  44:Src/utilities.c ****     else
+  45:Src/utilities.c ****         return input;
+  46:Src/utilities.c **** }
+  96              		.loc 1 46 1 view .LVU17
+  97 000e 7047     		bx	lr
+  98              		.cfi_endproc
+  99              	.LFE188:
+ 101              		.section	.text.standardRadianFormat,"ax",%progbits
+ 102              		.align	1
+ 103              		.global	standardRadianFormat
+ 104              		.syntax unified
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.fpu fpv5-sp-d16
+ 109              	standardRadianFormat:
+ 110              	.LVL8:
+ 111              	.LFB189:
+  47:Src/utilities.c **** 
+  48:Src/utilities.c **** 
+  49:Src/utilities.c **** /** @brief Puts a value in standard radian format.
+  50:Src/utilities.c ****  *
+  51:Src/utilities.c ****  *  @param angle Value to be formatted.
+  52:Src/utilities.c ****  *  @return float Formatted value.
+  53:Src/utilities.c ****  */
+  54:Src/utilities.c **** float
+  55:Src/utilities.c **** standardRadianFormat(float angle)
+  56:Src/utilities.c **** {
+ 112              		.loc 1 56 1 is_stmt 1 view -0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              		@ link register save eliminated.
+  57:Src/utilities.c ****     if (angle >= PI)
+ 117              		.loc 1 57 5 view .LVU19
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 4
+
+
+ 118              		.loc 1 57 8 is_stmt 0 view .LVU20
+ 119 0000 DFED0B7A 		vldr.32	s15, .L23
+ 120 0004 B4EEE70A 		vcmpe.f32	s0, s15
+ 121 0008 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 122 000c 0BDA     		bge	.L22
+  58:Src/utilities.c ****         return (angle - 2 * PI);
+  59:Src/utilities.c ****     else if (angle < -PI)
+ 123              		.loc 1 59 10 is_stmt 1 view .LVU21
+ 124              		.loc 1 59 13 is_stmt 0 view .LVU22
+ 125 000e DFED097A 		vldr.32	s15, .L23+4
+ 126 0012 B4EEE70A 		vcmpe.f32	s0, s15
+ 127 0016 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 128 001a 03D5     		bpl	.L12
+  60:Src/utilities.c ****         return (angle + 2 * PI);
+ 129              		.loc 1 60 9 is_stmt 1 view .LVU23
+ 130              		.loc 1 60 23 is_stmt 0 view .LVU24
+ 131 001c DFED067A 		vldr.32	s15, .L23+8
+ 132 0020 30EE270A 		vadd.f32	s0, s0, s15
+ 133              	.LVL9:
+ 134              	.L12:
+  61:Src/utilities.c ****     else
+  62:Src/utilities.c ****         return (angle);
+  63:Src/utilities.c **** }
+ 135              		.loc 1 63 1 view .LVU25
+ 136 0024 7047     		bx	lr
+ 137              	.LVL10:
+ 138              	.L22:
+  58:Src/utilities.c ****     else if (angle < -PI)
+ 139              		.loc 1 58 9 is_stmt 1 view .LVU26
+  58:Src/utilities.c ****     else if (angle < -PI)
+ 140              		.loc 1 58 23 is_stmt 0 view .LVU27
+ 141 0026 DFED047A 		vldr.32	s15, .L23+8
+ 142 002a 30EE670A 		vsub.f32	s0, s0, s15
+ 143              	.LVL11:
+  58:Src/utilities.c ****     else if (angle < -PI)
+ 144              		.loc 1 58 23 view .LVU28
+ 145 002e 7047     		bx	lr
+ 146              	.L24:
+ 147              		.align	2
+ 148              	.L23:
+ 149 0030 DB0F4940 		.word	1078530011
+ 150 0034 DB0F49C0 		.word	-1068953637
+ 151 0038 DB0FC940 		.word	1086918619
+ 152              		.cfi_endproc
+ 153              	.LFE189:
+ 155              		.section	.text.dshot3dFormat,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	dshot3dFormat
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv5-sp-d16
+ 163              	dshot3dFormat:
+ 164              	.LVL12:
+ 165              	.LFB190:
+  64:Src/utilities.c **** 
+  65:Src/utilities.c **** /** @brief Formats values from an iBus receiver for 3D mode.
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 5
+
+
+  66:Src/utilities.c ****  *
+  67:Src/utilities.c ****  *  @param rxCommand Value from iBus receiver.
+  68:Src/utilities.c ****  *  @return uint16_t Formatted value.
+  69:Src/utilities.c ****  */
+  70:Src/utilities.c **** uint16_t
+  71:Src/utilities.c **** dshot3dFormat(int16_t rxCmd)
+  72:Src/utilities.c **** {
+ 166              		.loc 1 72 1 is_stmt 1 view -0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170              		.loc 1 72 1 is_stmt 0 view .LVU30
+ 171 0000 08B5     		push	{r3, lr}
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 3, -8
+ 174              		.cfi_offset 14, -4
+  73:Src/utilities.c **** 	if(rxCmd < 0){
+ 175              		.loc 1 73 2 is_stmt 1 view .LVU31
+ 176              		.loc 1 73 4 is_stmt 0 view .LVU32
+ 177 0002 0028     		cmp	r0, #0
+ 178              	.LVL13:
+ 179              		.loc 1 73 4 view .LVU33
+ 180 0004 0CDB     		blt	.L29
+  74:Src/utilities.c **** 		return (constrain16((47 - rxCmd), 48, 1047) + 1000);
+  75:Src/utilities.c **** 	}
+  76:Src/utilities.c **** 	else
+  77:Src/utilities.c **** 		return (constrain16((rxCmd + 1048), 1048, 2047) - 1000);
+ 181              		.loc 1 77 3 is_stmt 1 view .LVU34
+ 182              		.loc 1 77 11 is_stmt 0 view .LVU35
+ 183 0006 00F58360 		add	r0, r0, #1048
+ 184 000a 40F2FF72 		movw	r2, #2047
+ 185 000e 4FF48361 		mov	r1, #1048
+ 186 0012 80B2     		uxth	r0, r0
+ 187 0014 FFF7FEFF 		bl	constrain16
+ 188              	.LVL14:
+ 189              		.loc 1 77 51 view .LVU36
+ 190 0018 A0F57A70 		sub	r0, r0, #1000
+ 191 001c 80B2     		uxth	r0, r0
+ 192              	.L27:
+  78:Src/utilities.c **** 
+  79:Src/utilities.c **** }
+ 193              		.loc 1 79 1 view .LVU37
+ 194 001e 08BD     		pop	{r3, pc}
+ 195              	.L29:
+  74:Src/utilities.c **** 		return (constrain16((47 - rxCmd), 48, 1047) + 1000);
+ 196              		.loc 1 74 3 is_stmt 1 view .LVU38
+  74:Src/utilities.c **** 		return (constrain16((47 - rxCmd), 48, 1047) + 1000);
+ 197              		.loc 1 74 11 is_stmt 0 view .LVU39
+ 198 0020 C0F12F00 		rsb	r0, r0, #47
+ 199 0024 40F21742 		movw	r2, #1047
+ 200 0028 3021     		movs	r1, #48
+ 201 002a 80B2     		uxth	r0, r0
+ 202 002c FFF7FEFF 		bl	constrain16
+ 203              	.LVL15:
+  74:Src/utilities.c **** 		return (constrain16((47 - rxCmd), 48, 1047) + 1000);
+ 204              		.loc 1 74 47 view .LVU40
+ 205 0030 00F57A70 		add	r0, r0, #1000
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 6
+
+
+ 206 0034 80B2     		uxth	r0, r0
+ 207 0036 F2E7     		b	.L27
+ 208              		.cfi_endproc
+ 209              	.LFE190:
+ 211              		.global	__aeabi_dmul
+ 212              		.global	__aeabi_i2d
+ 213              		.global	__aeabi_dadd
+ 214              		.global	__aeabi_ddiv
+ 215              		.global	__aeabi_d2f
+ 216              		.section	.text.stringToFloat,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	stringToFloat
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu fpv5-sp-d16
+ 224              	stringToFloat:
+ 225              	.LVL16:
+ 226              	.LFB191:
+  80:Src/utilities.c **** 
+  81:Src/utilities.c **** /** @brief Simple and fast atof (ascii to float) function.
+  82:Src/utilities.c ****  *
+  83:Src/utilities.c ****  * 		Executes about 5x faster than standard MSCRT library atof()
+  84:Src/utilities.c ****  * 		-An attractive alternative if the number of calls is in the millions.
+  85:Src/utilities.c ****  * 		-Assumes input is a proper integer, fraction, or scientific format.
+  86:Src/utilities.c ****  * 		-Matches library atof() to 15 digits (except at extreme exponents).
+  87:Src/utilities.c ****  * 		-Follows atof() precedent of essentially no error checking.
+  88:Src/utilities.c ****  *
+  89:Src/utilities.c ****  * 		09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
+  90:Src/utilities.c ****  *
+  91:Src/utilities.c ****  *  @param *p Pointer to string.
+  92:Src/utilities.c ****  *  @return float Converted float value.
+  93:Src/utilities.c ****  */
+  94:Src/utilities.c **** float
+  95:Src/utilities.c **** stringToFloat(const char *p)
+  96:Src/utilities.c **** {
+ 227              		.loc 1 96 1 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231              		.loc 1 96 1 is_stmt 0 view .LVU42
+ 232 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 233              		.cfi_def_cfa_offset 32
+ 234              		.cfi_offset 4, -32
+ 235              		.cfi_offset 5, -28
+ 236              		.cfi_offset 6, -24
+ 237              		.cfi_offset 7, -20
+ 238              		.cfi_offset 8, -16
+ 239              		.cfi_offset 9, -12
+ 240              		.cfi_offset 10, -8
+ 241              		.cfi_offset 14, -4
+ 242 0004 8246     		mov	r10, r0
+  97:Src/utilities.c ****     int frac = 0;
+ 243              		.loc 1 97 5 is_stmt 1 view .LVU43
+ 244              	.LVL17:
+  98:Src/utilities.c ****     double sign, value, scale;
+ 245              		.loc 1 98 5 view .LVU44
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 7
+
+
+  99:Src/utilities.c **** 
+ 100:Src/utilities.c ****     // Skip leading white space, if any.
+ 101:Src/utilities.c **** 
+ 102:Src/utilities.c ****     while (white_space(*p) ) {
+ 246              		.loc 1 102 5 view .LVU45
+ 247              		.loc 1 102 11 is_stmt 0 view .LVU46
+ 248 0006 01E0     		b	.L31
+ 249              	.LVL18:
+ 250              	.L32:
+ 103:Src/utilities.c ****         p += 1;
+ 251              		.loc 1 103 9 is_stmt 1 view .LVU47
+ 252              		.loc 1 103 11 is_stmt 0 view .LVU48
+ 253 0008 0AF1010A 		add	r10, r10, #1
+ 254              	.LVL19:
+ 255              	.L31:
+ 102:Src/utilities.c ****         p += 1;
+ 256              		.loc 1 102 11 is_stmt 1 view .LVU49
+ 102:Src/utilities.c ****         p += 1;
+ 257              		.loc 1 102 12 is_stmt 0 view .LVU50
+ 258 000c 9AF80030 		ldrb	r3, [r10]	@ zero_extendqisi2
+ 102:Src/utilities.c ****         p += 1;
+ 259              		.loc 1 102 11 view .LVU51
+ 260 0010 092B     		cmp	r3, #9
+ 261 0012 18BF     		it	ne
+ 262 0014 202B     		cmpne	r3, #32
+ 263 0016 F7D0     		beq	.L32
+ 104:Src/utilities.c ****     }
+ 105:Src/utilities.c **** 
+ 106:Src/utilities.c ****     // Get sign, if any.
+ 107:Src/utilities.c **** 
+ 108:Src/utilities.c ****     sign = 1.0;
+ 264              		.loc 1 108 5 is_stmt 1 view .LVU52
+ 265              	.LVL20:
+ 109:Src/utilities.c ****     if (*p == '-') {
+ 266              		.loc 1 109 5 view .LVU53
+ 267              		.loc 1 109 8 is_stmt 0 view .LVU54
+ 268 0018 2D2B     		cmp	r3, #45
+ 269 001a 08D0     		beq	.L58
+ 110:Src/utilities.c ****         sign = -1.0;
+ 111:Src/utilities.c ****         p += 1;
+ 112:Src/utilities.c **** 
+ 113:Src/utilities.c ****     } else if (*p == '+') {
+ 270              		.loc 1 113 12 is_stmt 1 view .LVU55
+ 271              		.loc 1 113 15 is_stmt 0 view .LVU56
+ 272 001c 2B2B     		cmp	r3, #43
+ 273 001e 0DD0     		beq	.L59
+ 108:Src/utilities.c ****     if (*p == '-') {
+ 274              		.loc 1 108 10 view .LVU57
+ 275 0020 4FF00008 		mov	r8, #0
+ 276 0024 DFF88C91 		ldr	r9, .L63+20
+ 277              	.LVL21:
+ 278              	.L34:
+ 114:Src/utilities.c ****         p += 1;
+ 115:Src/utilities.c ****     }
+ 116:Src/utilities.c **** 
+ 117:Src/utilities.c ****     // Get digits before decimal point or exponent, if any.
+ 118:Src/utilities.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 8
+
+
+ 119:Src/utilities.c ****     value = 0.0;
+ 279              		.loc 1 119 5 is_stmt 1 view .LVU58
+ 120:Src/utilities.c ****     while (valid_digit(*p)) {
+ 280              		.loc 1 120 5 view .LVU59
+ 119:Src/utilities.c ****     while (valid_digit(*p)) {
+ 281              		.loc 1 119 11 is_stmt 0 view .LVU60
+ 282 0028 0024     		movs	r4, #0
+ 283 002a 0025     		movs	r5, #0
+ 284              		.loc 1 120 11 view .LVU61
+ 285 002c 23E0     		b	.L35
+ 286              	.LVL22:
+ 287              	.L58:
+ 110:Src/utilities.c ****         p += 1;
+ 288              		.loc 1 110 9 is_stmt 1 view .LVU62
+ 111:Src/utilities.c **** 
+ 289              		.loc 1 111 9 view .LVU63
+ 111:Src/utilities.c **** 
+ 290              		.loc 1 111 11 is_stmt 0 view .LVU64
+ 291 002e 0AF1010A 		add	r10, r10, #1
+ 292              	.LVL23:
+ 110:Src/utilities.c ****         p += 1;
+ 293              		.loc 1 110 14 view .LVU65
+ 294 0032 4FF00008 		mov	r8, #0
+ 295 0036 DFF88091 		ldr	r9, .L63+24
+ 296 003a F5E7     		b	.L34
+ 297              	.LVL24:
+ 298              	.L59:
+ 114:Src/utilities.c ****     }
+ 299              		.loc 1 114 9 is_stmt 1 view .LVU66
+ 114:Src/utilities.c ****     }
+ 300              		.loc 1 114 11 is_stmt 0 view .LVU67
+ 301 003c 0AF1010A 		add	r10, r10, #1
+ 302              	.LVL25:
+ 108:Src/utilities.c ****     if (*p == '-') {
+ 303              		.loc 1 108 10 view .LVU68
+ 304 0040 4FF00008 		mov	r8, #0
+ 305 0044 DFF86C91 		ldr	r9, .L63+20
+ 306 0048 EEE7     		b	.L34
+ 307              	.LVL26:
+ 308              	.L36:
+ 121:Src/utilities.c ****         value = value * 10.0 + (*p - '0');
+ 309              		.loc 1 121 9 is_stmt 1 view .LVU69
+ 310              		.loc 1 121 23 is_stmt 0 view .LVU70
+ 311 004a 0022     		movs	r2, #0
+ 312 004c 584B     		ldr	r3, .L63+16
+ 313 004e 2046     		mov	r0, r4
+ 314 0050 2946     		mov	r1, r5
+ 315 0052 FFF7FEFF 		bl	__aeabi_dmul
+ 316              	.LVL27:
+ 317 0056 0446     		mov	r4, r0
+ 318              	.LVL28:
+ 319              		.loc 1 121 23 view .LVU71
+ 320 0058 0D46     		mov	r5, r1
+ 321              		.loc 1 121 30 view .LVU72
+ 322 005a A6F13000 		sub	r0, r6, #48
+ 323 005e FFF7FEFF 		bl	__aeabi_i2d
+ 324              	.LVL29:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 9
+
+
+ 325 0062 0246     		mov	r2, r0
+ 326 0064 0B46     		mov	r3, r1
+ 327              		.loc 1 121 15 view .LVU73
+ 328 0066 2046     		mov	r0, r4
+ 329 0068 2946     		mov	r1, r5
+ 330 006a FFF7FEFF 		bl	__aeabi_dadd
+ 331              	.LVL30:
+ 332 006e 0446     		mov	r4, r0
+ 333 0070 0D46     		mov	r5, r1
+ 334              	.LVL31:
+ 122:Src/utilities.c ****         p += 1;
+ 335              		.loc 1 122 9 is_stmt 1 view .LVU74
+ 336              		.loc 1 122 11 is_stmt 0 view .LVU75
+ 337 0072 0AF1010A 		add	r10, r10, #1
+ 338              	.LVL32:
+ 339              	.L35:
+ 120:Src/utilities.c ****         value = value * 10.0 + (*p - '0');
+ 340              		.loc 1 120 11 is_stmt 1 view .LVU76
+ 120:Src/utilities.c ****         value = value * 10.0 + (*p - '0');
+ 341              		.loc 1 120 12 is_stmt 0 view .LVU77
+ 342 0076 9AF80060 		ldrb	r6, [r10]	@ zero_extendqisi2
+ 343 007a A6F13003 		sub	r3, r6, #48
+ 344 007e DBB2     		uxtb	r3, r3
+ 120:Src/utilities.c ****         value = value * 10.0 + (*p - '0');
+ 345              		.loc 1 120 11 view .LVU78
+ 346 0080 092B     		cmp	r3, #9
+ 347 0082 E2D9     		bls	.L36
+ 123:Src/utilities.c ****     }
+ 124:Src/utilities.c **** 
+ 125:Src/utilities.c ****     // Get digits after decimal point, if any.
+ 126:Src/utilities.c **** 
+ 127:Src/utilities.c ****     if (*p == '.') {
+ 348              		.loc 1 127 5 is_stmt 1 view .LVU79
+ 349              		.loc 1 127 8 is_stmt 0 view .LVU80
+ 350 0084 2E2E     		cmp	r6, #46
+ 351 0086 10D0     		beq	.L60
+ 352              	.L37:
+ 128:Src/utilities.c ****         double pow10 = 10.0;
+ 129:Src/utilities.c ****         p += 1;
+ 130:Src/utilities.c **** 
+ 131:Src/utilities.c ****         while (valid_digit(*p)) {
+ 132:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 133:Src/utilities.c ****             pow10 *= 10.0;
+ 134:Src/utilities.c ****             p += 1;
+ 135:Src/utilities.c ****         }
+ 136:Src/utilities.c ****     }
+ 137:Src/utilities.c **** 
+ 138:Src/utilities.c ****     // Handle exponent, if any.
+ 139:Src/utilities.c **** 
+ 140:Src/utilities.c ****     scale = 1.0;
+ 353              		.loc 1 140 5 is_stmt 1 view .LVU81
+ 354              	.LVL33:
+ 141:Src/utilities.c ****     if ((*p == 'e') || (*p == 'E')) {
+ 355              		.loc 1 141 5 view .LVU82
+ 356              		.loc 1 141 10 is_stmt 0 view .LVU83
+ 357 0088 9AF80030 		ldrb	r3, [r10]	@ zero_extendqisi2
+ 358              		.loc 1 141 8 view .LVU84
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 10
+
+
+ 359 008c 452B     		cmp	r3, #69
+ 360 008e 18BF     		it	ne
+ 361 0090 652B     		cmpne	r3, #101
+ 362 0092 6FD1     		bne	.L54
+ 363              	.LBB2:
+ 142:Src/utilities.c ****         unsigned int expon;
+ 364              		.loc 1 142 9 is_stmt 1 view .LVU85
+ 143:Src/utilities.c ****         p += 1;
+ 365              		.loc 1 143 9 view .LVU86
+ 366              		.loc 1 143 11 is_stmt 0 view .LVU87
+ 367 0094 0AF10101 		add	r1, r10, #1
+ 368              	.LVL34:
+ 144:Src/utilities.c **** 
+ 145:Src/utilities.c ****         // Get sign of exponent, if any.
+ 146:Src/utilities.c **** 
+ 147:Src/utilities.c ****         frac = 0;
+ 369              		.loc 1 147 9 is_stmt 1 view .LVU88
+ 148:Src/utilities.c ****         if (*p == '-') {
+ 370              		.loc 1 148 9 view .LVU89
+ 371              		.loc 1 148 13 is_stmt 0 view .LVU90
+ 372 0098 9AF80130 		ldrb	r3, [r10, #1]	@ zero_extendqisi2
+ 373              		.loc 1 148 12 view .LVU91
+ 374 009c 2D2B     		cmp	r3, #45
+ 375 009e 2AD0     		beq	.L61
+ 149:Src/utilities.c ****             frac = 1;
+ 150:Src/utilities.c ****             p += 1;
+ 151:Src/utilities.c **** 
+ 152:Src/utilities.c ****         } else if (*p == '+') {
+ 376              		.loc 1 152 16 is_stmt 1 view .LVU92
+ 377              		.loc 1 152 19 is_stmt 0 view .LVU93
+ 378 00a0 2B2B     		cmp	r3, #43
+ 379 00a2 2CD0     		beq	.L62
+ 147:Src/utilities.c ****         if (*p == '-') {
+ 380              		.loc 1 147 14 view .LVU94
+ 381 00a4 0027     		movs	r7, #0
+ 382              	.LVL35:
+ 383              	.L42:
+ 153:Src/utilities.c ****             p += 1;
+ 154:Src/utilities.c ****         }
+ 155:Src/utilities.c **** 
+ 156:Src/utilities.c ****         // Get digits of exponent, if any.
+ 157:Src/utilities.c **** 
+ 158:Src/utilities.c ****         expon = 0;
+ 384              		.loc 1 158 9 is_stmt 1 view .LVU95
+ 159:Src/utilities.c ****         while (valid_digit(*p)) {
+ 385              		.loc 1 159 9 view .LVU96
+ 158:Src/utilities.c ****         while (valid_digit(*p)) {
+ 386              		.loc 1 158 15 is_stmt 0 view .LVU97
+ 387 00a6 0026     		movs	r6, #0
+ 388              		.loc 1 159 15 view .LVU98
+ 389 00a8 33E0     		b	.L43
+ 390              	.LVL36:
+ 391              	.L60:
+ 392              		.loc 1 159 15 view .LVU99
+ 393              	.LBE2:
+ 394              	.LBB3:
+ 128:Src/utilities.c ****         p += 1;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 11
+
+
+ 395              		.loc 1 128 9 is_stmt 1 view .LVU100
+ 129:Src/utilities.c **** 
+ 396              		.loc 1 129 9 view .LVU101
+ 129:Src/utilities.c **** 
+ 397              		.loc 1 129 11 is_stmt 0 view .LVU102
+ 398 00aa 0AF1010A 		add	r10, r10, #1
+ 399              	.LVL37:
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 400              		.loc 1 131 9 is_stmt 1 view .LVU103
+ 128:Src/utilities.c ****         p += 1;
+ 401              		.loc 1 128 16 is_stmt 0 view .LVU104
+ 402 00ae 0026     		movs	r6, #0
+ 403 00b0 3F4F     		ldr	r7, .L63+16
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 404              		.loc 1 131 15 view .LVU105
+ 405 00b2 18E0     		b	.L38
+ 406              	.LVL38:
+ 407              	.L39:
+ 132:Src/utilities.c ****             pow10 *= 10.0;
+ 408              		.loc 1 132 13 is_stmt 1 view .LVU106
+ 132:Src/utilities.c ****             pow10 *= 10.0;
+ 409              		.loc 1 132 33 is_stmt 0 view .LVU107
+ 410 00b4 3038     		subs	r0, r0, #48
+ 411 00b6 FFF7FEFF 		bl	__aeabi_i2d
+ 412              	.LVL39:
+ 413 00ba 3246     		mov	r2, r6
+ 414 00bc 3B46     		mov	r3, r7
+ 415 00be FFF7FEFF 		bl	__aeabi_ddiv
+ 416              	.LVL40:
+ 417 00c2 0246     		mov	r2, r0
+ 418 00c4 0B46     		mov	r3, r1
+ 132:Src/utilities.c ****             pow10 *= 10.0;
+ 419              		.loc 1 132 19 view .LVU108
+ 420 00c6 2046     		mov	r0, r4
+ 421 00c8 2946     		mov	r1, r5
+ 422 00ca FFF7FEFF 		bl	__aeabi_dadd
+ 423              	.LVL41:
+ 424 00ce 0446     		mov	r4, r0
+ 425              	.LVL42:
+ 132:Src/utilities.c ****             pow10 *= 10.0;
+ 426              		.loc 1 132 19 view .LVU109
+ 427 00d0 0D46     		mov	r5, r1
+ 428              	.LVL43:
+ 133:Src/utilities.c ****             p += 1;
+ 429              		.loc 1 133 13 is_stmt 1 view .LVU110
+ 133:Src/utilities.c ****             p += 1;
+ 430              		.loc 1 133 19 is_stmt 0 view .LVU111
+ 431 00d2 0022     		movs	r2, #0
+ 432 00d4 364B     		ldr	r3, .L63+16
+ 433 00d6 3046     		mov	r0, r6
+ 434 00d8 3946     		mov	r1, r7
+ 435 00da FFF7FEFF 		bl	__aeabi_dmul
+ 436              	.LVL44:
+ 437 00de 0646     		mov	r6, r0
+ 438              	.LVL45:
+ 133:Src/utilities.c ****             p += 1;
+ 439              		.loc 1 133 19 view .LVU112
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 12
+
+
+ 440 00e0 0F46     		mov	r7, r1
+ 441              	.LVL46:
+ 134:Src/utilities.c ****         }
+ 442              		.loc 1 134 13 is_stmt 1 view .LVU113
+ 134:Src/utilities.c ****         }
+ 443              		.loc 1 134 15 is_stmt 0 view .LVU114
+ 444 00e2 0AF1010A 		add	r10, r10, #1
+ 445              	.LVL47:
+ 446              	.L38:
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 447              		.loc 1 131 15 is_stmt 1 view .LVU115
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 448              		.loc 1 131 16 is_stmt 0 view .LVU116
+ 449 00e6 9AF80000 		ldrb	r0, [r10]	@ zero_extendqisi2
+ 450 00ea A0F13003 		sub	r3, r0, #48
+ 451 00ee DBB2     		uxtb	r3, r3
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 452              		.loc 1 131 15 view .LVU117
+ 453 00f0 092B     		cmp	r3, #9
+ 454 00f2 DFD9     		bls	.L39
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 455              		.loc 1 131 15 view .LVU118
+ 456 00f4 C8E7     		b	.L37
+ 457              	.LVL48:
+ 458              	.L61:
+ 131:Src/utilities.c ****             value += (*p - '0') / pow10;
+ 459              		.loc 1 131 15 view .LVU119
+ 460              	.LBE3:
+ 461              	.LBB4:
+ 149:Src/utilities.c ****             p += 1;
+ 462              		.loc 1 149 13 is_stmt 1 view .LVU120
+ 150:Src/utilities.c **** 
+ 463              		.loc 1 150 13 view .LVU121
+ 150:Src/utilities.c **** 
+ 464              		.loc 1 150 15 is_stmt 0 view .LVU122
+ 465 00f6 0AF10201 		add	r1, r10, #2
+ 466              	.LVL49:
+ 149:Src/utilities.c ****             p += 1;
+ 467              		.loc 1 149 18 view .LVU123
+ 468 00fa 0127     		movs	r7, #1
+ 469 00fc D3E7     		b	.L42
+ 470              	.LVL50:
+ 471              	.L62:
+ 153:Src/utilities.c ****         }
+ 472              		.loc 1 153 13 is_stmt 1 view .LVU124
+ 153:Src/utilities.c ****         }
+ 473              		.loc 1 153 15 is_stmt 0 view .LVU125
+ 474 00fe 0AF10201 		add	r1, r10, #2
+ 475              	.LVL51:
+ 147:Src/utilities.c ****         if (*p == '-') {
+ 476              		.loc 1 147 14 view .LVU126
+ 477 0102 0027     		movs	r7, #0
+ 478 0104 CFE7     		b	.L42
+ 479              	.LVL52:
+ 480              	.L44:
+ 160:Src/utilities.c ****             expon = expon * 10 + (*p - '0');
+ 481              		.loc 1 160 13 is_stmt 1 view .LVU127
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 13
+
+
+ 482              		.loc 1 160 27 is_stmt 0 view .LVU128
+ 483 0106 06EB8606 		add	r6, r6, r6, lsl #2
+ 484              	.LVL53:
+ 485              		.loc 1 160 32 view .LVU129
+ 486 010a 03EB4606 		add	r6, r3, r6, lsl #1
+ 487              		.loc 1 160 19 view .LVU130
+ 488 010e 303E     		subs	r6, r6, #48
+ 489              	.LVL54:
+ 161:Src/utilities.c ****             p += 1;
+ 490              		.loc 1 161 13 is_stmt 1 view .LVU131
+ 491              		.loc 1 161 15 is_stmt 0 view .LVU132
+ 492 0110 0131     		adds	r1, r1, #1
+ 493              	.LVL55:
+ 494              	.L43:
+ 159:Src/utilities.c ****             expon = expon * 10 + (*p - '0');
+ 495              		.loc 1 159 15 is_stmt 1 view .LVU133
+ 159:Src/utilities.c ****             expon = expon * 10 + (*p - '0');
+ 496              		.loc 1 159 16 is_stmt 0 view .LVU134
+ 497 0112 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 498 0114 A3F13002 		sub	r2, r3, #48
+ 499 0118 D2B2     		uxtb	r2, r2
+ 159:Src/utilities.c ****             expon = expon * 10 + (*p - '0');
+ 500              		.loc 1 159 15 view .LVU135
+ 501 011a 092A     		cmp	r2, #9
+ 502 011c F3D9     		bls	.L44
+ 162:Src/utilities.c ****         }
+ 163:Src/utilities.c ****         if (expon > 308) expon = 308;
+ 503              		.loc 1 163 9 is_stmt 1 view .LVU136
+ 504              		.loc 1 163 12 is_stmt 0 view .LVU137
+ 505 011e B6F59A7F 		cmp	r6, #308
+ 506 0122 01D9     		bls	.L45
+ 507              		.loc 1 163 32 view .LVU138
+ 508 0124 4FF49A76 		mov	r6, #308
+ 509              	.LVL56:
+ 510              	.L45:
+ 511              		.loc 1 163 32 discriminator 1 view .LVU139
+ 512 0128 0020     		movs	r0, #0
+ 513 012a 2249     		ldr	r1, .L63+20
+ 514              	.LVL57:
+ 515              		.loc 1 163 32 discriminator 1 view .LVU140
+ 516 012c 05E0     		b	.L46
+ 517              	.LVL58:
+ 518              	.L47:
+ 164:Src/utilities.c **** 
+ 165:Src/utilities.c ****         // Calculate scaling factor.
+ 166:Src/utilities.c **** 
+ 167:Src/utilities.c ****         while (expon >= 50) { scale *= 1E50; expon -= 50; }
+ 519              		.loc 1 167 31 is_stmt 1 discriminator 2 view .LVU141
+ 520              		.loc 1 167 37 is_stmt 0 discriminator 2 view .LVU142
+ 521 012e 1CA3     		adr	r3, .L63
+ 522 0130 D3E90023 		ldrd	r2, [r3]
+ 523 0134 FFF7FEFF 		bl	__aeabi_dmul
+ 524              	.LVL59:
+ 525              		.loc 1 167 46 is_stmt 1 discriminator 2 view .LVU143
+ 526              		.loc 1 167 52 is_stmt 0 discriminator 2 view .LVU144
+ 527 0138 323E     		subs	r6, r6, #50
+ 528              	.LVL60:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 14
+
+
+ 529              	.L46:
+ 530              		.loc 1 167 15 is_stmt 1 discriminator 1 view .LVU145
+ 531 013a 312E     		cmp	r6, #49
+ 532 013c F7D8     		bhi	.L47
+ 533 013e 05E0     		b	.L48
+ 534              	.L49:
+ 168:Src/utilities.c ****         while (expon >=  8) { scale *= 1E8;  expon -=  8; }
+ 535              		.loc 1 168 31 discriminator 2 view .LVU146
+ 536              		.loc 1 168 37 is_stmt 0 discriminator 2 view .LVU147
+ 537 0140 19A3     		adr	r3, .L63+8
+ 538 0142 D3E90023 		ldrd	r2, [r3]
+ 539 0146 FFF7FEFF 		bl	__aeabi_dmul
+ 540              	.LVL61:
+ 541              		.loc 1 168 46 is_stmt 1 discriminator 2 view .LVU148
+ 542              		.loc 1 168 52 is_stmt 0 discriminator 2 view .LVU149
+ 543 014a 083E     		subs	r6, r6, #8
+ 544              	.LVL62:
+ 545              	.L48:
+ 546              		.loc 1 168 15 is_stmt 1 discriminator 1 view .LVU150
+ 547 014c 072E     		cmp	r6, #7
+ 548 014e F7D8     		bhi	.L49
+ 549              		.loc 1 168 15 is_stmt 0 discriminator 1 view .LVU151
+ 550 0150 04E0     		b	.L50
+ 551              	.L51:
+ 169:Src/utilities.c ****         while (expon >   0) { scale *= 10.0; expon -=  1; }
+ 552              		.loc 1 169 31 is_stmt 1 discriminator 2 view .LVU152
+ 553              		.loc 1 169 37 is_stmt 0 discriminator 2 view .LVU153
+ 554 0152 0022     		movs	r2, #0
+ 555 0154 164B     		ldr	r3, .L63+16
+ 556 0156 FFF7FEFF 		bl	__aeabi_dmul
+ 557              	.LVL63:
+ 558              		.loc 1 169 46 is_stmt 1 discriminator 2 view .LVU154
+ 559              		.loc 1 169 52 is_stmt 0 discriminator 2 view .LVU155
+ 560 015a 013E     		subs	r6, r6, #1
+ 561              	.LVL64:
+ 562              	.L50:
+ 563              		.loc 1 169 15 is_stmt 1 discriminator 1 view .LVU156
+ 564 015c 002E     		cmp	r6, #0
+ 565 015e F8D1     		bne	.L51
+ 566              		.loc 1 169 15 is_stmt 0 discriminator 1 view .LVU157
+ 567              	.LBE4:
+ 170:Src/utilities.c ****     }
+ 171:Src/utilities.c **** 
+ 172:Src/utilities.c ****     // Return signed and scaled floating point result.
+ 173:Src/utilities.c **** 
+ 174:Src/utilities.c ****     return sign * (frac ? (value / scale) : (value * scale));
+ 568              		.loc 1 174 5 is_stmt 1 view .LVU158
+ 569              		.loc 1 174 43 is_stmt 0 view .LVU159
+ 570 0160 57B1     		cbz	r7, .L40
+ 571              		.loc 1 174 43 discriminator 1 view .LVU160
+ 572 0162 0246     		mov	r2, r0
+ 573 0164 0B46     		mov	r3, r1
+ 574 0166 2046     		mov	r0, r4
+ 575              	.LVL65:
+ 576              		.loc 1 174 43 discriminator 1 view .LVU161
+ 577 0168 2946     		mov	r1, r5
+ 578 016a FFF7FEFF 		bl	__aeabi_ddiv
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 15
+
+
+ 579              	.LVL66:
+ 580 016e 0246     		mov	r2, r0
+ 581 0170 0B46     		mov	r3, r1
+ 582 0172 09E0     		b	.L52
+ 583              	.LVL67:
+ 584              	.L54:
+ 140:Src/utilities.c ****     if ((*p == 'e') || (*p == 'E')) {
+ 585              		.loc 1 140 11 view .LVU162
+ 586 0174 0020     		movs	r0, #0
+ 587 0176 0F49     		ldr	r1, .L63+20
+ 588              	.LVL68:
+ 589              	.L40:
+ 590              		.loc 1 174 43 discriminator 2 view .LVU163
+ 591 0178 0246     		mov	r2, r0
+ 592 017a 0B46     		mov	r3, r1
+ 593 017c 2046     		mov	r0, r4
+ 594 017e 2946     		mov	r1, r5
+ 595 0180 FFF7FEFF 		bl	__aeabi_dmul
+ 596              	.LVL69:
+ 597 0184 0246     		mov	r2, r0
+ 598 0186 0B46     		mov	r3, r1
+ 599              	.L52:
+ 600              		.loc 1 174 17 discriminator 4 view .LVU164
+ 601 0188 4046     		mov	r0, r8
+ 602 018a 4946     		mov	r1, r9
+ 603 018c FFF7FEFF 		bl	__aeabi_dmul
+ 604              	.LVL70:
+ 605 0190 FFF7FEFF 		bl	__aeabi_d2f
+ 606              	.LVL71:
+ 175:Src/utilities.c **** }
+ 607              		.loc 1 175 1 discriminator 4 view .LVU165
+ 608 0194 00EE100A 		vmov	s0, r0
+ 609 0198 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 610              	.LVL72:
+ 611              	.L64:
+ 612              		.loc 1 175 1 discriminator 4 view .LVU166
+ 613 019c AFF30080 		.align	3
+ 614              	.L63:
+ 615 01a0 9A647EC5 		.word	-981572454
+ 616 01a4 0E1B514A 		.word	1246829326
+ 617 01a8 00000000 		.word	0
+ 618 01ac 84D79741 		.word	1100470148
+ 619 01b0 00002440 		.word	1076101120
+ 620 01b4 0000F03F 		.word	1072693248
+ 621 01b8 0000F0BF 		.word	-1074790400
+ 622              		.cfi_endproc
+ 623              	.LFE191:
+ 625              		.text
+ 626              	.Letext0:
+ 627              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 628              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 utilities.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:18     .text.constrain:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:26     .text.constrain:0000000000000000 constrain
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:62     .text.constrain16:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:69     .text.constrain16:0000000000000000 constrain16
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:102    .text.standardRadianFormat:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:109    .text.standardRadianFormat:0000000000000000 standardRadianFormat
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:149    .text.standardRadianFormat:0000000000000030 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:156    .text.dshot3dFormat:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:163    .text.dshot3dFormat:0000000000000000 dshot3dFormat
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:217    .text.stringToFloat:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:224    .text.stringToFloat:0000000000000000 stringToFloat
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccRmppM8.s:615    .text.stringToFloat:00000000000001a0 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dmul
+__aeabi_i2d
+__aeabi_dadd
+__aeabi_ddiv
+__aeabi_d2f

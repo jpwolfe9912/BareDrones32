@@ -1,0 +1,821 @@
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"config.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.readEEPROM,"ax",%progbits
+  18              		.align	1
+  19              		.global	readEEPROM
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	readEEPROM:
+  27              	.LFB187:
+  28              		.file 1 "Src/config.c"
+   1:Src/config.c  **** /** @file 		config.c
+   2:Src/config.c  ****  *  @brief
+   3:Src/config.c  ****  *  	This file configures the EEPROM settings of the flight controller.
+   4:Src/config.c  ****  *
+   5:Src/config.c  ****  *
+   6:Src/config.c  ****  *  @author 	Jeremy Wolfe
+   7:Src/config.c  ****  *  @date 		03 MAR 2022
+   8:Src/config.c  ****  */
+   9:Src/config.c  **** 
+  10:Src/config.c  **** /* Includes */
+  11:Src/config.c  **** #include "board.h"
+  12:Src/config.c  **** 
+  13:Src/config.c  **** /* Global Variabels */
+  14:Src/config.c  **** const char rcChannelLetters[] = "AERT12345678";
+  15:Src/config.c  **** 
+  16:Src/config.c  **** semaphore_t eepromChanged = false;
+  17:Src/config.c  **** 
+  18:Src/config.c  **** /* Static Variables */
+  19:Src/config.c  **** static uint8_t checkNewEEPROMConf = 29;
+  20:Src/config.c  **** 
+  21:Src/config.c  **** void readEEPROM(void)
+  22:Src/config.c  **** {
+  29              		.loc 1 22 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 2
+
+
+  23:Src/config.c  **** 	eepromConfig_t *dst = &eepromConfig;
+  37              		.loc 1 23 2 view .LVU1
+  38              	.LVL0:
+  24:Src/config.c  **** 
+  25:Src/config.c  **** 	*dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR;
+  39              		.loc 1 25 2 view .LVU2
+  40              		.loc 1 25 7 is_stmt 0 view .LVU3
+  41 0002 4FF49C72 		mov	r2, #312
+  42 0006 0249     		ldr	r1, .L3
+  43 0008 0248     		ldr	r0, .L3+4
+  44 000a FFF7FEFF 		bl	memcpy
+  45              	.LVL1:
+  26:Src/config.c  **** }
+  46              		.loc 1 26 1 view .LVU4
+  47 000e 08BD     		pop	{r3, pc}
+  48              	.L4:
+  49              		.align	2
+  50              	.L3:
+  51 0010 00000608 		.word	134610944
+  52 0014 00000000 		.word	eepromConfig
+  53              		.cfi_endproc
+  54              	.LFE187:
+  56              		.section	.rodata.writeEEPROM.str1.4,"aMS",%progbits,1
+  57              		.align	2
+  58              	.LC0:
+  59 0000 0A577269 		.ascii	"\012Writing to EEPROM...\000"
+  59      74696E67 
+  59      20746F20 
+  59      45455052 
+  59      4F4D2E2E 
+  60 0016 0000     		.align	2
+  61              	.LC1:
+  62 0018 0A454550 		.ascii	"\012EEPROM write complete. Return status of %X\012\000"
+  62      524F4D20 
+  62      77726974 
+  62      6520636F 
+  62      6D706C65 
+  63              		.section	.text.writeEEPROM,"ax",%progbits
+  64              		.align	1
+  65              		.global	writeEEPROM
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  69              		.fpu fpv5-sp-d16
+  71              	writeEEPROM:
+  72              	.LFB188:
+  27:Src/config.c  **** 
+  28:Src/config.c  **** ///////////////////////////////////////////////////////////////////////////////
+  29:Src/config.c  **** 
+  30:Src/config.c  **** void
+  31:Src/config.c  **** writeEEPROM(void)
+  32:Src/config.c  **** {
+  73              		.loc 1 32 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 16
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 30B5     		push	{r4, r5, lr}
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 3
+
+
+  78              		.cfi_def_cfa_offset 12
+  79              		.cfi_offset 4, -12
+  80              		.cfi_offset 5, -8
+  81              		.cfi_offset 14, -4
+  82 0002 85B0     		sub	sp, sp, #20
+  83              		.cfi_def_cfa_offset 32
+  33:Src/config.c  **** 	color(BLUE, YES);
+  84              		.loc 1 33 2 view .LVU6
+  85 0004 0121     		movs	r1, #1
+  86 0006 0420     		movs	r0, #4
+  87 0008 FFF7FEFF 		bl	color
+  88              	.LVL2:
+  34:Src/config.c  **** 	printf("\nWriting to EEPROM...\n");
+  89              		.loc 1 34 2 view .LVU7
+  90 000c 1B48     		ldr	r0, .L11
+  91 000e FFF7FEFF 		bl	puts
+  92              	.LVL3:
+  35:Src/config.c  **** 
+  36:Src/config.c  **** 	int32_t i;
+  93              		.loc 1 36 2 view .LVU8
+  37:Src/config.c  **** 
+  38:Src/config.c  **** 	FLASH_EraseInitTypeDef erase;
+  94              		.loc 1 38 2 view .LVU9
+  39:Src/config.c  ****     bool status = true;
+  95              		.loc 1 39 5 view .LVU10
+  40:Src/config.c  **** 
+  41:Src/config.c  **** 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
+  96              		.loc 1 41 2 view .LVU11
+  97              		.loc 1 41 18 is_stmt 0 view .LVU12
+  98 0012 0023     		movs	r3, #0
+  99 0014 0093     		str	r3, [sp]
+  42:Src/config.c  **** 	erase.NbSectors = 1;
+ 100              		.loc 1 42 2 is_stmt 1 view .LVU13
+ 101              		.loc 1 42 18 is_stmt 0 view .LVU14
+ 102 0016 0123     		movs	r3, #1
+ 103 0018 0293     		str	r3, [sp, #8]
+  43:Src/config.c  **** 	erase.Sector = FLASH_SECTOR_7;
+ 104              		.loc 1 43 2 is_stmt 1 view .LVU15
+ 105              		.loc 1 43 15 is_stmt 0 view .LVU16
+ 106 001a 0723     		movs	r3, #7
+ 107 001c 0193     		str	r3, [sp, #4]
+  44:Src/config.c  **** 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+ 108              		.loc 1 44 2 is_stmt 1 view .LVU17
+ 109              		.loc 1 44 21 is_stmt 0 view .LVU18
+ 110 001e 0223     		movs	r3, #2
+ 111 0020 0393     		str	r3, [sp, #12]
+  45:Src/config.c  **** 
+  46:Src/config.c  **** 	eepromConfig_t *src = &eepromConfig;
+ 112              		.loc 1 46 2 is_stmt 1 view .LVU19
+ 113              	.LVL4:
+  47:Src/config.c  **** 	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
+ 114              		.loc 1 47 2 view .LVU20
+  48:Src/config.c  **** 
+  49:Src/config.c  **** 	// there's no reason to write these values to EEPROM, they'll just be noise
+  50:Src/config.c  **** 
+  51:Src/config.c  **** 	status = flashUnlock();
+ 115              		.loc 1 51 2 view .LVU21
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 4
+
+
+ 116              		.loc 1 51 11 is_stmt 0 view .LVU22
+ 117 0022 FFF7FEFF 		bl	flashUnlock
+ 118              	.LVL5:
+  52:Src/config.c  **** 
+  53:Src/config.c  **** 	status = flashErase(&erase);
+ 119              		.loc 1 53 2 is_stmt 1 view .LVU23
+ 120              		.loc 1 53 11 is_stmt 0 view .LVU24
+ 121 0026 6846     		mov	r0, sp
+ 122 0028 FFF7FEFF 		bl	flashErase
+ 123              	.LVL6:
+ 124 002c 0546     		mov	r5, r0
+ 125              	.LVL7:
+  54:Src/config.c  **** 	///////////////////////////////////
+  55:Src/config.c  **** 
+  56:Src/config.c  **** 	i = -1;
+ 126              		.loc 1 56 2 is_stmt 1 view .LVU25
+  57:Src/config.c  **** 
+  58:Src/config.c  **** 	while (i++ < eepromConfigNUMWORD )
+ 127              		.loc 1 58 2 view .LVU26
+  56:Src/config.c  **** 
+ 128              		.loc 1 56 4 is_stmt 0 view .LVU27
+ 129 002e 4FF0FF33 		mov	r3, #-1
+ 130              		.loc 1 58 8 view .LVU28
+ 131 0032 0AE0     		b	.L6
+ 132              	.LVL8:
+ 133              	.L7:
+  59:Src/config.c  **** 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
+ 134              		.loc 1 59 3 is_stmt 1 view .LVU29
+ 135              		.loc 1 59 12 is_stmt 0 view .LVU30
+ 136 0034 124B     		ldr	r3, .L11+4
+ 137 0036 53F82420 		ldr	r2, [r3, r4, lsl #2]
+ 138 003a 0023     		movs	r3, #0
+ 139 003c 1148     		ldr	r0, .L11+8
+ 140 003e 00EB8400 		add	r0, r0, r4, lsl #2
+ 141 0042 FFF7FEFF 		bl	flashProgram
+ 142              	.LVL9:
+ 143 0046 0546     		mov	r5, r0
+ 144              	.LVL10:
+  58:Src/config.c  **** 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
+ 145              		.loc 1 58 10 view .LVU31
+ 146 0048 2346     		mov	r3, r4
+ 147              	.LVL11:
+ 148              	.L6:
+  58:Src/config.c  **** 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
+ 149              		.loc 1 58 8 is_stmt 1 view .LVU32
+  58:Src/config.c  **** 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
+ 150              		.loc 1 58 10 is_stmt 0 view .LVU33
+ 151 004a 5C1C     		adds	r4, r3, #1
+ 152              	.LVL12:
+  58:Src/config.c  **** 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
+ 153              		.loc 1 58 8 view .LVU34
+ 154 004c 4D2B     		cmp	r3, #77
+ 155 004e F1DD     		ble	.L7
+  60:Src/config.c  **** 
+  61:Src/config.c  **** 	///////////////////////////////////
+  62:Src/config.c  **** 
+  63:Src/config.c  **** 	flashLock();
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 5
+
+
+ 156              		.loc 1 63 2 is_stmt 1 view .LVU35
+ 157 0050 FFF7FEFF 		bl	flashLock
+ 158              	.LVL13:
+  64:Src/config.c  **** 
+  65:Src/config.c  **** 	readEEPROM();
+ 159              		.loc 1 65 2 view .LVU36
+ 160 0054 FFF7FEFF 		bl	readEEPROM
+ 161              	.LVL14:
+  66:Src/config.c  **** 
+  67:Src/config.c  **** 	if(status)
+ 162              		.loc 1 67 2 view .LVU37
+ 163              		.loc 1 67 4 is_stmt 0 view .LVU38
+ 164 0058 5DB1     		cbz	r5, .L8
+  68:Src/config.c  **** 		color(GREEN, YES);
+ 165              		.loc 1 68 3 is_stmt 1 view .LVU39
+ 166 005a 0121     		movs	r1, #1
+ 167 005c 0220     		movs	r0, #2
+ 168 005e FFF7FEFF 		bl	color
+ 169              	.LVL15:
+ 170              	.L9:
+  69:Src/config.c  **** 	else
+  70:Src/config.c  **** 		color(RED, YES);
+  71:Src/config.c  **** 
+  72:Src/config.c  **** 	printf("\nEEPROM write complete. Return status of %X\n", status);
+ 171              		.loc 1 72 2 view .LVU40
+ 172 0062 2946     		mov	r1, r5
+ 173 0064 0848     		ldr	r0, .L11+12
+ 174 0066 FFF7FEFF 		bl	printf
+ 175              	.LVL16:
+  73:Src/config.c  **** 	colorDefault();
+ 176              		.loc 1 73 2 view .LVU41
+ 177 006a FFF7FEFF 		bl	colorDefault
+ 178              	.LVL17:
+  74:Src/config.c  **** }
+ 179              		.loc 1 74 1 is_stmt 0 view .LVU42
+ 180 006e 05B0     		add	sp, sp, #20
+ 181              		.cfi_remember_state
+ 182              		.cfi_def_cfa_offset 12
+ 183              		@ sp needed
+ 184 0070 30BD     		pop	{r4, r5, pc}
+ 185              	.LVL18:
+ 186              	.L8:
+ 187              		.cfi_restore_state
+  70:Src/config.c  **** 
+ 188              		.loc 1 70 3 is_stmt 1 view .LVU43
+ 189 0072 0121     		movs	r1, #1
+ 190 0074 0846     		mov	r0, r1
+ 191 0076 FFF7FEFF 		bl	color
+ 192              	.LVL19:
+ 193 007a F2E7     		b	.L9
+ 194              	.L12:
+ 195              		.align	2
+ 196              	.L11:
+ 197 007c 00000000 		.word	.LC0
+ 198 0080 00000000 		.word	eepromConfig
+ 199 0084 00000608 		.word	134610944
+ 200 0088 18000000 		.word	.LC1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 6
+
+
+ 201              		.cfi_endproc
+ 202              	.LFE188:
+ 204              		.section	.text.checkFirstTime,"ax",%progbits
+ 205              		.align	1
+ 206              		.global	checkFirstTime
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv5-sp-d16
+ 212              	checkFirstTime:
+ 213              	.LVL20:
+ 214              	.LFB189:
+  75:Src/config.c  **** 
+  76:Src/config.c  **** /** @brief Sets all the default config values
+  77:Src/config.c  ****  *
+  78:Src/config.c  ****  *	@param bool eepromReset Whether or not you want to write config values to EEPROM.
+  79:Src/config.c  ****  *  @return Void.
+  80:Src/config.c  ****  */
+  81:Src/config.c  **** void
+  82:Src/config.c  **** checkFirstTime(bool eepromReset)
+  83:Src/config.c  **** {
+ 215              		.loc 1 83 1 view -0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              		.loc 1 83 1 is_stmt 0 view .LVU45
+ 220 0000 08B5     		push	{r3, lr}
+ 221              		.cfi_def_cfa_offset 8
+ 222              		.cfi_offset 3, -8
+ 223              		.cfi_offset 14, -4
+  84:Src/config.c  **** 	uint8_t test_val;
+ 224              		.loc 1 84 2 is_stmt 1 view .LVU46
+  85:Src/config.c  **** 
+  86:Src/config.c  **** 	test_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
+ 225              		.loc 1 86 2 view .LVU47
+ 226              		.loc 1 86 11 is_stmt 0 view .LVU48
+ 227 0002 4F4B     		ldr	r3, .L17+8
+ 228 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 229              	.LVL21:
+  87:Src/config.c  **** 
+  88:Src/config.c  **** 	if (eepromReset || (test_val != checkNewEEPROMConf))
+ 230              		.loc 1 88 2 is_stmt 1 view .LVU49
+ 231              		.loc 1 88 5 is_stmt 0 view .LVU50
+ 232 0006 10B9     		cbnz	r0, .L14
+ 233              		.loc 1 88 18 discriminator 1 view .LVU51
+ 234 0008 1D2B     		cmp	r3, #29
+ 235 000a 00F09280 		beq	.L13
+ 236              	.L14:
+  89:Src/config.c  **** 	{
+  90:Src/config.c  **** 		// Default settings
+  91:Src/config.c  **** 		eepromConfig.version = checkNewEEPROMConf;
+ 237              		.loc 1 91 3 is_stmt 1 view .LVU52
+ 238              		.loc 1 91 24 is_stmt 0 view .LVU53
+ 239 000e 4D4B     		ldr	r3, .L17+12
+ 240              	.LVL22:
+ 241              		.loc 1 91 24 view .LVU54
+ 242 0010 1D22     		movs	r2, #29
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 7
+
+
+ 243 0012 1A70     		strb	r2, [r3]
+ 244              	.LVL23:
+  92:Src/config.c  **** 
+  93:Src/config.c  **** 		///////////////////////////////
+  94:Src/config.c  **** 
+  95:Src/config.c  **** 		eepromConfig.accelBiasMPU[XAXIS] = 0.0f;
+ 245              		.loc 1 95 3 is_stmt 1 view .LVU55
+ 246              		.loc 1 95 36 is_stmt 0 view .LVU56
+ 247 0014 0022     		movs	r2, #0
+ 248 0016 5A60     		str	r2, [r3, #4]	@ float
+  96:Src/config.c  **** 		eepromConfig.accelBiasMPU[YAXIS] = 0.0f;
+ 249              		.loc 1 96 3 is_stmt 1 view .LVU57
+ 250              		.loc 1 96 36 is_stmt 0 view .LVU58
+ 251 0018 9A60     		str	r2, [r3, #8]	@ float
+  97:Src/config.c  **** 		eepromConfig.accelBiasMPU[ZAXIS] = 0.0f;
+ 252              		.loc 1 97 3 is_stmt 1 view .LVU59
+ 253              		.loc 1 97 36 is_stmt 0 view .LVU60
+ 254 001a DA60     		str	r2, [r3, #12]	@ float
+  98:Src/config.c  **** 
+  99:Src/config.c  **** 		///////////////////////////////
+ 100:Src/config.c  **** 
+ 101:Src/config.c  **** 		eepromConfig.accelScaleFactorMPU[XAXIS] = 0.00119708f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+ 255              		.loc 1 101 3 is_stmt 1 view .LVU61
+ 256              		.loc 1 101 43 is_stmt 0 view .LVU62
+ 257 001c 4A49     		ldr	r1, .L17+16
+ 258 001e 1961     		str	r1, [r3, #16]	@ float
+ 102:Src/config.c  **** 		eepromConfig.accelScaleFactorMPU[YAXIS] = 0.00119708f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+ 259              		.loc 1 102 3 is_stmt 1 view .LVU63
+ 260              		.loc 1 102 43 is_stmt 0 view .LVU64
+ 261 0020 5961     		str	r1, [r3, #20]	@ float
+ 103:Src/config.c  **** 		eepromConfig.accelScaleFactorMPU[ZAXIS] = 0.00119708f;  // (1/8192) * 9.8065  (8192 LSB = 1 G)
+ 262              		.loc 1 103 3 is_stmt 1 view .LVU65
+ 263              		.loc 1 103 43 is_stmt 0 view .LVU66
+ 264 0022 9961     		str	r1, [r3, #24]	@ float
+ 104:Src/config.c  **** 
+ 105:Src/config.c  **** 		///////////////////////////////
+ 106:Src/config.c  **** 
+ 107:Src/config.c  **** 		eepromConfig.accelTCBiasSlope[XAXIS] = 0.0f;
+ 265              		.loc 1 107 3 is_stmt 1 view .LVU67
+ 266              		.loc 1 107 40 is_stmt 0 view .LVU68
+ 267 0024 DA61     		str	r2, [r3, #28]	@ float
+ 108:Src/config.c  **** 		eepromConfig.accelTCBiasSlope[YAXIS] = 0.0f;
+ 268              		.loc 1 108 3 is_stmt 1 view .LVU69
+ 269              		.loc 1 108 40 is_stmt 0 view .LVU70
+ 270 0026 1A62     		str	r2, [r3, #32]	@ float
+ 109:Src/config.c  **** 		eepromConfig.accelTCBiasSlope[ZAXIS] = 0.0f;
+ 271              		.loc 1 109 3 is_stmt 1 view .LVU71
+ 272              		.loc 1 109 40 is_stmt 0 view .LVU72
+ 273 0028 5A62     		str	r2, [r3, #36]	@ float
+ 110:Src/config.c  **** 
+ 111:Src/config.c  **** 		///////////////////////////////
+ 112:Src/config.c  **** 
+ 113:Src/config.c  **** 		eepromConfig.accelTCBiasIntercept[XAXIS] = 0.0f;
+ 274              		.loc 1 113 3 is_stmt 1 view .LVU73
+ 275              		.loc 1 113 44 is_stmt 0 view .LVU74
+ 276 002a 9A62     		str	r2, [r3, #40]	@ float
+ 114:Src/config.c  **** 		eepromConfig.accelTCBiasIntercept[YAXIS] = 0.0f;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 8
+
+
+ 277              		.loc 1 114 3 is_stmt 1 view .LVU75
+ 278              		.loc 1 114 44 is_stmt 0 view .LVU76
+ 279 002c DA62     		str	r2, [r3, #44]	@ float
+ 115:Src/config.c  **** 		eepromConfig.accelTCBiasIntercept[ZAXIS] = 0.0f;
+ 280              		.loc 1 115 3 is_stmt 1 view .LVU77
+ 281              		.loc 1 115 44 is_stmt 0 view .LVU78
+ 282 002e 1A63     		str	r2, [r3, #48]	@ float
+ 116:Src/config.c  **** 
+ 117:Src/config.c  **** 		///////////////////////////////
+ 118:Src/config.c  **** 
+ 119:Src/config.c  **** 		eepromConfig.gyroTCBiasSlope[ROLL ] = 0.0f;
+ 283              		.loc 1 119 3 is_stmt 1 view .LVU79
+ 284              		.loc 1 119 39 is_stmt 0 view .LVU80
+ 285 0030 5A63     		str	r2, [r3, #52]	@ float
+ 120:Src/config.c  **** 		eepromConfig.gyroTCBiasSlope[PITCH] = 0.0f;
+ 286              		.loc 1 120 3 is_stmt 1 view .LVU81
+ 287              		.loc 1 120 39 is_stmt 0 view .LVU82
+ 288 0032 9A63     		str	r2, [r3, #56]	@ float
+ 121:Src/config.c  **** 		eepromConfig.gyroTCBiasSlope[YAW  ] = 0.0f;
+ 289              		.loc 1 121 3 is_stmt 1 view .LVU83
+ 290              		.loc 1 121 39 is_stmt 0 view .LVU84
+ 291 0034 DA63     		str	r2, [r3, #60]	@ float
+ 122:Src/config.c  **** 
+ 123:Src/config.c  **** 		///////////////////////////////
+ 124:Src/config.c  **** 
+ 125:Src/config.c  **** 		eepromConfig.gyroTCBiasIntercept[ROLL ] = 0.0f;
+ 292              		.loc 1 125 3 is_stmt 1 view .LVU85
+ 293              		.loc 1 125 43 is_stmt 0 view .LVU86
+ 294 0036 1A64     		str	r2, [r3, #64]	@ float
+ 126:Src/config.c  **** 		eepromConfig.gyroTCBiasIntercept[PITCH] = 0.0f;
+ 295              		.loc 1 126 3 is_stmt 1 view .LVU87
+ 296              		.loc 1 126 43 is_stmt 0 view .LVU88
+ 297 0038 5A64     		str	r2, [r3, #68]	@ float
+ 127:Src/config.c  **** 		eepromConfig.gyroTCBiasIntercept[YAW  ] = 0.0f;
+ 298              		.loc 1 127 3 is_stmt 1 view .LVU89
+ 299              		.loc 1 127 43 is_stmt 0 view .LVU90
+ 300 003a 9A64     		str	r2, [r3, #72]	@ float
+ 128:Src/config.c  **** 
+ 129:Src/config.c  **** 		///////////////////////////////
+ 130:Src/config.c  **** 
+ 131:Src/config.c  **** 		eepromConfig.accelCutoff = 0.25f;
+ 301              		.loc 1 131 3 is_stmt 1 view .LVU91
+ 302              		.loc 1 131 28 is_stmt 0 view .LVU92
+ 303 003c 4FF07A51 		mov	r1, #1048576000
+ 304 0040 D964     		str	r1, [r3, #76]	@ float
+ 132:Src/config.c  **** 
+ 133:Src/config.c  **** 		///////////////////////////////
+ 134:Src/config.c  **** 
+ 135:Src/config.c  **** 		eepromConfig.KpAcc = 1.0f;    // proportional gain governs rate of convergence to accelerometer
+ 305              		.loc 1 135 3 is_stmt 1 view .LVU93
+ 306              		.loc 1 135 22 is_stmt 0 view .LVU94
+ 307 0042 4FF07E51 		mov	r1, #1065353216
+ 308 0046 1965     		str	r1, [r3, #80]	@ float
+ 136:Src/config.c  **** 		eepromConfig.KiAcc = 0.0f;    // integral gain governs rate of convergence of gyroscope biases
+ 309              		.loc 1 136 3 is_stmt 1 view .LVU95
+ 310              		.loc 1 136 22 is_stmt 0 view .LVU96
+ 311 0048 5A65     		str	r2, [r3, #84]	@ float
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 9
+
+
+ 137:Src/config.c  **** 
+ 138:Src/config.c  **** 		///////////////////////////////
+ 139:Src/config.c  **** 
+ 140:Src/config.c  **** 		eepromConfig.dlpfSetting = BITS_DLPF_CFG_98HZ;
+ 312              		.loc 1 140 3 is_stmt 1 view .LVU97
+ 313              		.loc 1 140 28 is_stmt 0 view .LVU98
+ 314 004a 0220     		movs	r0, #2
+ 315              	.LVL24:
+ 316              		.loc 1 140 28 view .LVU99
+ 317 004c 83F85800 		strb	r0, [r3, #88]
+ 141:Src/config.c  **** 
+ 142:Src/config.c  **** 		///////////////////////////////////
+ 143:Src/config.c  **** 
+ 144:Src/config.c  **** 		eepromConfig.sensorOrientation = 1;  // No rotation
+ 318              		.loc 1 144 3 is_stmt 1 view .LVU100
+ 319              		.loc 1 144 34 is_stmt 0 view .LVU101
+ 320 0050 0120     		movs	r0, #1
+ 321 0052 83F85900 		strb	r0, [r3, #89]
+ 145:Src/config.c  **** 
+ 146:Src/config.c  **** 		///////////////////////////////////
+ 147:Src/config.c  **** 
+ 148:Src/config.c  **** 		eepromConfig.rateCoeffAlpha 		= 8.5e-7;  // Stick to rate scaling for 100 DPS
+ 322              		.loc 1 148 3 is_stmt 1 view .LVU102
+ 323              		.loc 1 148 33 is_stmt 0 view .LVU103
+ 324 0056 9FED387B 		vldr.64	d7, .L17
+ 325 005a 83ED187B 		vstr.64	d7, [r3, #96]
+ 149:Src/config.c  **** 		eepromConfig.rateCoeffBravo			= 0.15;
+ 326              		.loc 1 149 3 is_stmt 1 view .LVU104
+ 327              		.loc 1 149 33 is_stmt 0 view .LVU105
+ 328 005e 3B48     		ldr	r0, .L17+20
+ 329 0060 9866     		str	r0, [r3, #104]	@ float
+ 150:Src/config.c  **** 		eepromConfig.yawRateScaling			= 500.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
+ 330              		.loc 1 150 3 is_stmt 1 view .LVU106
+ 331              		.loc 1 150 33 is_stmt 0 view .LVU107
+ 332 0062 3B48     		ldr	r0, .L17+24
+ 333 0064 D866     		str	r0, [r3, #108]	@ float
+ 151:Src/config.c  **** 
+ 152:Src/config.c  **** 		eepromConfig.attitudeScaling         = 30.0  / 180000.0 * PI;  // Stick to att scaling for 30 deg
+ 334              		.loc 1 152 3 is_stmt 1 view .LVU108
+ 335              		.loc 1 152 40 is_stmt 0 view .LVU109
+ 336 0066 3B48     		ldr	r0, .L17+28
+ 337 0068 1867     		str	r0, [r3, #112]	@ float
+ 153:Src/config.c  **** 
+ 154:Src/config.c  **** 		///////////////////////////////
+ 155:Src/config.c  **** 
+ 156:Src/config.c  **** 		eepromConfig.yawDirection       = 1.0f;		// TODO check this value
+ 338              		.loc 1 156 3 is_stmt 1 view .LVU110
+ 339              		.loc 1 156 35 is_stmt 0 view .LVU111
+ 340 006a C3F83411 		str	r1, [r3, #308]	@ float
+ 157:Src/config.c  **** 
+ 158:Src/config.c  **** 		eepromConfig.midCommand   = 3000.0f;
+ 341              		.loc 1 158 3 is_stmt 1 view .LVU112
+ 342              		.loc 1 158 29 is_stmt 0 view .LVU113
+ 343 006e 3A49     		ldr	r1, .L17+32
+ 344 0070 5967     		str	r1, [r3, #116]	@ float
+ 159:Src/config.c  **** 		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
+ 345              		.loc 1 159 3 is_stmt 1 view .LVU114
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 10
+
+
+ 346              		.loc 1 159 29 is_stmt 0 view .LVU115
+ 347 0072 3A49     		ldr	r1, .L17+36
+ 348 0074 9967     		str	r1, [r3, #120]	@ float
+ 160:Src/config.c  **** 		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 200);
+ 349              		.loc 1 160 3 is_stmt 1 view .LVU116
+ 350              		.loc 1 160 29 is_stmt 0 view .LVU117
+ 351 0076 3A48     		ldr	r0, .L17+40
+ 352 0078 D867     		str	r0, [r3, #124]	@ float
+ 161:Src/config.c  **** 		eepromConfig.minThrottle  = (float)(MINCOMMAND + 200);
+ 353              		.loc 1 161 3 is_stmt 1 view .LVU118
+ 354              		.loc 1 161 29 is_stmt 0 view .LVU119
+ 355 007a C3F88010 		str	r1, [r3, #128]	@ float
+ 162:Src/config.c  **** 		eepromConfig.maxThrottle  = (float)(MAXCOMMAND);
+ 356              		.loc 1 162 3 is_stmt 1 view .LVU120
+ 357              		.loc 1 162 29 is_stmt 0 view .LVU121
+ 358 007e 3949     		ldr	r1, .L17+44
+ 359 0080 C3F88410 		str	r1, [r3, #132]	@ float
+ 163:Src/config.c  **** 
+ 164:Src/config.c  **** 		///////////////////////////////
+ 165:Src/config.c  **** 
+ 166:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].P                =  250.0f;
+ 360              		.loc 1 166 3 is_stmt 1 view .LVU122
+ 361              		.loc 1 166 52 is_stmt 0 view .LVU123
+ 362 0084 DFF8ECE0 		ldr	lr, .L17+60
+ 363 0088 C3F888E0 		str	lr, [r3, #136]	@ float
+ 167:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].I                =  100.0f;
+ 364              		.loc 1 167 3 is_stmt 1 view .LVU124
+ 365              		.loc 1 167 52 is_stmt 0 view .LVU125
+ 366 008c 3648     		ldr	r0, .L17+48
+ 367 008e C3F88C00 		str	r0, [r3, #140]	@ float
+ 168:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].D                =    0.0f;
+ 368              		.loc 1 168 3 is_stmt 1 view .LVU126
+ 369              		.loc 1 168 52 is_stmt 0 view .LVU127
+ 370 0092 C3F89020 		str	r2, [r3, #144]	@ float
+ 169:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].Limit            = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * 
+ 371              		.loc 1 169 3 is_stmt 1 view .LVU128
+ 372              		.loc 1 169 52 is_stmt 0 view .LVU129
+ 373 0096 DFF8E0C0 		ldr	ip, .L17+64
+ 374 009a C3F894C0 		str	ip, [r3, #148]	@ float
+ 170:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].integratorState  =    0.0f;
+ 375              		.loc 1 170 3 is_stmt 1 view .LVU130
+ 376              		.loc 1 170 52 is_stmt 0 view .LVU131
+ 377 009e C3F89820 		str	r2, [r3, #152]	@ float
+ 171:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].filterState      =    0.0f;
+ 378              		.loc 1 171 3 is_stmt 1 view .LVU132
+ 379              		.loc 1 171 52 is_stmt 0 view .LVU133
+ 380 00a2 C3F89C20 		str	r2, [r3, #156]	@ float
+ 172:Src/config.c  **** 		eepromConfig.PID[ROLL_RATE_PID].prevResetState   =   false;
+ 381              		.loc 1 172 3 is_stmt 1 view .LVU134
+ 382              		.loc 1 172 52 is_stmt 0 view .LVU135
+ 383 00a6 0021     		movs	r1, #0
+ 384 00a8 83F8A010 		strb	r1, [r3, #160]
+ 173:Src/config.c  **** 
+ 174:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].P               =  250.0f;
+ 385              		.loc 1 174 3 is_stmt 1 view .LVU136
+ 386              		.loc 1 174 52 is_stmt 0 view .LVU137
+ 387 00ac C3F8A4E0 		str	lr, [r3, #164]	@ float
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 11
+
+
+ 175:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].I               =  100.0f;
+ 388              		.loc 1 175 3 is_stmt 1 view .LVU138
+ 389              		.loc 1 175 52 is_stmt 0 view .LVU139
+ 390 00b0 C3F8A800 		str	r0, [r3, #168]	@ float
+ 176:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].D               =    0.0f;
+ 391              		.loc 1 176 3 is_stmt 1 view .LVU140
+ 392              		.loc 1 176 52 is_stmt 0 view .LVU141
+ 393 00b4 C3F8AC20 		str	r2, [r3, #172]	@ float
+ 177:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].Limit           = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P *
+ 394              		.loc 1 177 3 is_stmt 1 view .LVU142
+ 395              		.loc 1 177 52 is_stmt 0 view .LVU143
+ 396 00b8 C3F8B0C0 		str	ip, [r3, #176]	@ float
+ 178:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].integratorState =    0.0f;
+ 397              		.loc 1 178 3 is_stmt 1 view .LVU144
+ 398              		.loc 1 178 52 is_stmt 0 view .LVU145
+ 399 00bc C3F8B420 		str	r2, [r3, #180]	@ float
+ 179:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].filterState     =    0.0f;
+ 400              		.loc 1 179 3 is_stmt 1 view .LVU146
+ 401              		.loc 1 179 52 is_stmt 0 view .LVU147
+ 402 00c0 C3F8B820 		str	r2, [r3, #184]	@ float
+ 180:Src/config.c  **** 		eepromConfig.PID[PITCH_RATE_PID].prevResetState  =   false;
+ 403              		.loc 1 180 3 is_stmt 1 view .LVU148
+ 404              		.loc 1 180 52 is_stmt 0 view .LVU149
+ 405 00c4 83F8BC10 		strb	r1, [r3, #188]
+ 181:Src/config.c  **** 
+ 182:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].P                 =  350.0f;
+ 406              		.loc 1 182 3 is_stmt 1 view .LVU150
+ 407              		.loc 1 182 52 is_stmt 0 view .LVU151
+ 408 00c8 DFF8B0C0 		ldr	ip, .L17+68
+ 409 00cc C3F8C0C0 		str	ip, [r3, #192]	@ float
+ 183:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].I                 =  100.0f;
+ 410              		.loc 1 183 3 is_stmt 1 view .LVU152
+ 411              		.loc 1 183 52 is_stmt 0 view .LVU153
+ 412 00d0 C3F8C400 		str	r0, [r3, #196]	@ float
+ 184:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].D                 =    0.0f;
+ 413              		.loc 1 184 3 is_stmt 1 view .LVU154
+ 414              		.loc 1 184 52 is_stmt 0 view .LVU155
+ 415 00d4 C3F8C820 		str	r2, [r3, #200]	@ float
+ 185:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].Limit             =  1000.0f * eepromConfig.yawRateScaling * eepro
+ 416              		.loc 1 185 3 is_stmt 1 view .LVU156
+ 417              		.loc 1 185 52 is_stmt 0 view .LVU157
+ 418 00d8 2448     		ldr	r0, .L17+52
+ 419 00da C3F8CC00 		str	r0, [r3, #204]	@ float
+ 186:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].integratorState   =    0.0f;
+ 420              		.loc 1 186 3 is_stmt 1 view .LVU158
+ 421              		.loc 1 186 52 is_stmt 0 view .LVU159
+ 422 00de C3F8D020 		str	r2, [r3, #208]	@ float
+ 187:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].filterState       =    0.0f;
+ 423              		.loc 1 187 3 is_stmt 1 view .LVU160
+ 424              		.loc 1 187 52 is_stmt 0 view .LVU161
+ 425 00e2 C3F8D420 		str	r2, [r3, #212]	@ float
+ 188:Src/config.c  **** 		eepromConfig.PID[YAW_RATE_PID].prevResetState    =   false;
+ 426              		.loc 1 188 3 is_stmt 1 view .LVU162
+ 427              		.loc 1 188 52 is_stmt 0 view .LVU163
+ 428 00e6 83F8D810 		strb	r1, [r3, #216]
+ 189:Src/config.c  **** 
+ 190:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].P                 =    2.0f;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 12
+
+
+ 429              		.loc 1 190 3 is_stmt 1 view .LVU164
+ 430              		.loc 1 190 52 is_stmt 0 view .LVU165
+ 431 00ea 4FF0804C 		mov	ip, #1073741824
+ 432 00ee C3F8DCC0 		str	ip, [r3, #220]	@ float
+ 191:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].I                 =    0.0f;
+ 433              		.loc 1 191 3 is_stmt 1 view .LVU166
+ 434              		.loc 1 191 52 is_stmt 0 view .LVU167
+ 435 00f2 C3F8E020 		str	r2, [r3, #224]	@ float
+ 192:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].D                 =    0.0f;
+ 436              		.loc 1 192 3 is_stmt 1 view .LVU168
+ 437              		.loc 1 192 52 is_stmt 0 view .LVU169
+ 438 00f6 C3F8E420 		str	r2, [r3, #228]	@ float
+ 193:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].Limit             = 1000.0f * eepromConfig.attitudeScaling * eepro
+ 439              		.loc 1 193 3 is_stmt 1 view .LVU170
+ 440              		.loc 1 193 52 is_stmt 0 view .LVU171
+ 441 00fa 1D48     		ldr	r0, .L17+56
+ 442 00fc C3F8E800 		str	r0, [r3, #232]	@ float
+ 194:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].integratorState   =    0.0f;
+ 443              		.loc 1 194 3 is_stmt 1 view .LVU172
+ 444              		.loc 1 194 52 is_stmt 0 view .LVU173
+ 445 0100 C3F8EC20 		str	r2, [r3, #236]	@ float
+ 195:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].filterState       =    0.0f;
+ 446              		.loc 1 195 3 is_stmt 1 view .LVU174
+ 447              		.loc 1 195 52 is_stmt 0 view .LVU175
+ 448 0104 C3F8F020 		str	r2, [r3, #240]	@ float
+ 196:Src/config.c  **** 		eepromConfig.PID[ROLL_ATT_PID].prevResetState    =   false;
+ 449              		.loc 1 196 3 is_stmt 1 view .LVU176
+ 450              		.loc 1 196 52 is_stmt 0 view .LVU177
+ 451 0108 83F8F410 		strb	r1, [r3, #244]
+ 197:Src/config.c  **** 
+ 198:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].P                =    2.0f;
+ 452              		.loc 1 198 3 is_stmt 1 view .LVU178
+ 453              		.loc 1 198 52 is_stmt 0 view .LVU179
+ 454 010c C3F8F8C0 		str	ip, [r3, #248]	@ float
+ 199:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].I                =    0.0f;
+ 455              		.loc 1 199 3 is_stmt 1 view .LVU180
+ 456              		.loc 1 199 52 is_stmt 0 view .LVU181
+ 457 0110 C3F8FC20 		str	r2, [r3, #252]	@ float
+ 200:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].D                =    0.0f;
+ 458              		.loc 1 200 3 is_stmt 1 view .LVU182
+ 459              		.loc 1 200 52 is_stmt 0 view .LVU183
+ 460 0114 C3F80021 		str	r2, [r3, #256]	@ float
+ 201:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].Limit            = 1000.0f * eepromConfig.attitudeScaling * eepro
+ 461              		.loc 1 201 3 is_stmt 1 view .LVU184
+ 462              		.loc 1 201 52 is_stmt 0 view .LVU185
+ 463 0118 C3F80401 		str	r0, [r3, #260]	@ float
+ 202:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].integratorState  =    0.0f;
+ 464              		.loc 1 202 3 is_stmt 1 view .LVU186
+ 465              		.loc 1 202 52 is_stmt 0 view .LVU187
+ 466 011c C3F80821 		str	r2, [r3, #264]	@ float
+ 203:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].filterState      =    0.0f;
+ 467              		.loc 1 203 3 is_stmt 1 view .LVU188
+ 468              		.loc 1 203 52 is_stmt 0 view .LVU189
+ 469 0120 C3F80C21 		str	r2, [r3, #268]	@ float
+ 204:Src/config.c  **** 		eepromConfig.PID[PITCH_ATT_PID].prevResetState   =   false;
+ 470              		.loc 1 204 3 is_stmt 1 view .LVU190
+ 471              		.loc 1 204 52 is_stmt 0 view .LVU191
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 13
+
+
+ 472 0124 83F81011 		strb	r1, [r3, #272]
+ 205:Src/config.c  **** 
+ 206:Src/config.c  **** 		///////////////////////////////
+ 207:Src/config.c  **** 
+ 208:Src/config.c  **** 		eepromConfig.activeTelemetry          = 5;
+ 473              		.loc 1 208 3 is_stmt 1 view .LVU192
+ 474              		.loc 1 208 41 is_stmt 0 view .LVU193
+ 475 0128 0522     		movs	r2, #5
+ 476 012a A3F83021 		strh	r2, [r3, #304]	@ movhi
+ 209:Src/config.c  **** 
+ 210:Src/config.c  **** 		writeEEPROM();
+ 477              		.loc 1 210 3 is_stmt 1 view .LVU194
+ 478 012e FFF7FEFF 		bl	writeEEPROM
+ 479              	.LVL25:
+ 480              	.L13:
+ 211:Src/config.c  **** 	}
+ 212:Src/config.c  **** }
+ 481              		.loc 1 212 1 is_stmt 0 view .LVU195
+ 482 0132 08BD     		pop	{r3, pc}
+ 483              	.L18:
+ 484 0134 AFF30080 		.align	3
+ 485              	.L17:
+ 486 0138 3D7A68C4 		.word	-999785923
+ 487 013c 7185AC3E 		.word	1051493745
+ 488 0140 00000608 		.word	134610944
+ 489 0144 00000000 		.word	eepromConfig
+ 490 0148 57E79C3A 		.word	983361367
+ 491 014c 9A99193E 		.word	1041865114
+ 492 0150 35FA0E3C 		.word	1007614517
+ 493 0154 1F42093A 		.word	973685279
+ 494 0158 00803B45 		.word	1161527296
+ 495 015c 00800945 		.word	1158250496
+ 496 0160 00806D45 		.word	1164804096
+ 497 0164 00007A45 		.word	1165623296
+ 498 0168 0000C842 		.word	1120403456
+ 499 016c 38E53E45 		.word	1161749816
+ 500 0170 920A863F 		.word	1065749138
+ 501 0174 00007A43 		.word	1132068864
+ 502 0178 965A8845 		.word	1166563990
+ 503 017c 0000AF43 		.word	1135542272
+ 504              		.cfi_endproc
+ 505              	.LFE189:
+ 507              		.global	eepromChanged
+ 508              		.global	rcChannelLetters
+ 509              		.section	.bss.eepromChanged,"aw",%nobits
+ 512              	eepromChanged:
+ 513 0000 00       		.space	1
+ 514              		.section	.rodata.rcChannelLetters,"a"
+ 515              		.align	2
+ 518              	rcChannelLetters:
+ 519 0000 41455254 		.ascii	"AERT12345678"
+ 519      31323334 
+ 519      35363738 
+ 520              		.text
+ 521              	.Letext0:
+ 522              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 523              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 14
+
+
+ 524              		.file 4 "Src/pid.h"
+ 525              		.file 5 "Src/baredrones32.h"
+ 526              		.file 6 "Src/config.h"
+ 527              		.file 7 "Src/drv/drv_color.h"
+ 528              		.file 8 "Src/drv/drv_flash.h"
+ 529              		.file 9 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ 530              		.file 10 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 config.c
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:18     .text.readEEPROM:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:26     .text.readEEPROM:0000000000000000 readEEPROM
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:51     .text.readEEPROM:0000000000000010 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:57     .rodata.writeEEPROM.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:64     .text.writeEEPROM:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:71     .text.writeEEPROM:0000000000000000 writeEEPROM
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:197    .text.writeEEPROM:000000000000007c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:205    .text.checkFirstTime:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:212    .text.checkFirstTime:0000000000000000 checkFirstTime
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:486    .text.checkFirstTime:0000000000000138 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:512    .bss.eepromChanged:0000000000000000 eepromChanged
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:518    .rodata.rcChannelLetters:0000000000000000 rcChannelLetters
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:513    .bss.eepromChanged:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccvGiq45.s:515    .rodata.rcChannelLetters:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+memcpy
+eepromConfig
+color
+puts
+flashUnlock
+flashErase
+flashProgram
+flashLock
+printf
+colorDefault
