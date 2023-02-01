@@ -21,42 +21,38 @@ sensors_t sensors;
 
 uint16_t timerValue;
 
-void printData(void);
-
 int main(void)
 {
-    uint32_t currentTime;
-
     systemReady = false;
 
     systemInit();
 
     /* Add tasks */
-    Tasks *loopHead[8] = {NULL};
+    Tasks *execTasks[8] = {NULL};
 
-    append(&loopHead[FRAME_1000HZ], readMPU6000);
+    append(&execTasks[FRAME_1000HZ], readMPU6000);
 
-    append(&loopHead[FRAME_500HZ], computeRotations500Hz);
-    append(&loopHead[FRAME_500HZ], updateIMU);
-    append(&loopHead[FRAME_500HZ], updateAttitude);
-    append(&loopHead[FRAME_500HZ], processCommands);
-    append(&loopHead[FRAME_500HZ], computeAxisCommands);
-    append(&loopHead[FRAME_500HZ], mixTable);
-    append(&loopHead[FRAME_500HZ], dshotWrite);
+    append(&execTasks[FRAME_500HZ], computeRotations500Hz);
+    append(&execTasks[FRAME_500HZ], updateIMU);
+    append(&execTasks[FRAME_500HZ], updateAttitude);
+    append(&execTasks[FRAME_500HZ], processCommands);
+    append(&execTasks[FRAME_500HZ], computeAxisCommands);
+    append(&execTasks[FRAME_500HZ], mixTable);
+    append(&execTasks[FRAME_500HZ], dshotWrite);
 
-    append(&loopHead[FRAME_200HZ], ibusProcess);
+    append(&execTasks[FRAME_200HZ], ibusProcess);
 
-    append(&loopHead[FRAME_100HZ], printLog);
+    append(&execTasks[FRAME_100HZ], printLog);
 
-    append(&loopHead[FRAME_5HZ], battMonRead);
+    append(&execTasks[FRAME_5HZ], battMonRead);
 
-    append(&loopHead[FRAME_1HZ], ledsSet);
+    append(&execTasks[FRAME_1HZ], ledsSet);
 
     systemReady = true;
 
     while (1)
     {
-        run(loopHead);
+        run(execTasks);
         // if (frame_1000Hz)
         // {
         //     frame_1000Hz = false;
@@ -191,10 +187,6 @@ int main(void)
         //     executionTime1Hz = micros() - currentTime;
         // }
     }
-}
-void printData(void)
-{
-    printf("%u\n", rawAccel[XAXIS]);
 }
 
 #else

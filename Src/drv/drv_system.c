@@ -18,23 +18,23 @@ static volatile uint32_t sysTickCycleCounter = 0;
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-semaphore_t frame_1000Hz = false;
-semaphore_t frame_500Hz = false;
-semaphore_t frame_200Hz = false;
-semaphore_t frame_100Hz = false;
-semaphore_t frame_50Hz = false;
-semaphore_t frame_10Hz = false;
-semaphore_t frame_5Hz = false;
-semaphore_t frame_1Hz = false;
+// semaphore_t frame_1000Hz = false;
+// semaphore_t frame_500Hz = false;
+// semaphore_t frame_200Hz = false;
+// semaphore_t frame_100Hz = false;
+// semaphore_t frame_50Hz = false;
+// semaphore_t frame_10Hz = false;
+// semaphore_t frame_5Hz = false;
+// semaphore_t frame_1Hz = false;
 
-uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
-uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
-uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
-uint32_t deltaTime100Hz, executionTime100Hz, previous100HzTime;
-uint32_t deltaTime50Hz, executionTime50Hz, previous50HzTime;
-uint32_t deltaTime10Hz, executionTime10Hz, previous10HzTime;
-uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
-uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
+// uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
+// uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
+// uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
+// uint32_t deltaTime100Hz, executionTime100Hz, previous100HzTime;
+// uint32_t deltaTime50Hz, executionTime50Hz, previous50HzTime;
+// uint32_t deltaTime10Hz, executionTime10Hz, previous10HzTime;
+// uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
+// uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
 
 float dt500Hz;
 
@@ -53,8 +53,6 @@ static void cycleCounterInit(void);
  */
 void SysTick_Handler(void)
 {
-    uint32_t currentTime;
-
     sysTickCycleCounter = DWT->CYCCNT;
     sysTickUptime++;
 
@@ -94,10 +92,6 @@ void SysTick_Handler(void)
             loopMask |= MASK_1HZ;
 
         loopsChecked = true;
-
-        ///////////////////////////////////
-
-        executionTime1000Hz = micros() - currentTime;
 
         ///////////////////////////////
     }
@@ -217,7 +211,7 @@ void systemInit(void)
     adc1Ch8Init();
 
     dshotInit(DSHOT600);
-    // motorInit();
+    motorInit();
 
     spi1Init();
 
@@ -225,8 +219,6 @@ void systemInit(void)
     usart6Init();
 
     tim9Init();
-
-    wormInit();
 
     /*		SENSOR INITIALIZATION		*/
     battMonInit();

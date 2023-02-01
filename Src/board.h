@@ -47,7 +47,6 @@
 #include "drv_dma.h"
 #include "drv_spi1.h"
 #include "drv_tim.h"
-#include "drv_worm.h"
 #include "drv_dshot.h"
 
 /* Motion */
@@ -56,7 +55,6 @@
 #include "mixer.h"
 #include "motors.h"
 #include "rotations.h"
-#include "transition.h"
 
 /* Sensors */
 #include "mpu6000.h"

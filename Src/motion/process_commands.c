@@ -14,7 +14,6 @@
 uint8_t  commandInDetent[3]         = { true, true, true };
 uint8_t  previousCommandInDetent[3] = { true, true, true };
 
-modes_e mode = TRANS_FLIGHT;
 flightModes_e flightMode = ANGLE;
 semaphore_t armed = false;
 uint8_t armingTimer    = 0;
@@ -128,32 +127,5 @@ processCommands(void)
 		pidReset = false;
 	else
 		pidReset = true;
-
-	///////////////////////////////////
-
-	// Check AUX1 for flight or rover mode
-
-	if ((rxCommands[AUX2] > MIDCOMMAND) &&
-		(mode == ROVER) &&
-		(armed == false))
-	{
-		mode = TRANS_FLIGHT;
-		setPIDstates(ROLL_ATT_PID,  0.0f);
-		setPIDstates(PITCH_ATT_PID, 0.0f);
-		setPIDstates(HEADING_PID,   0.0f);
-
-		modeTransition();
-	}
-	else if ((rxCommands[AUX2] <= MIDCOMMAND) &&
-			 (mode == FLIGHT) &&
-			 (armed == false))
-	{
-		mode = TRANS_ROVER;
-		setPIDstates(ROLL_ATT_PID,  0.0f);
-		setPIDstates(PITCH_ATT_PID, 0.0f);
-		setPIDstates(HEADING_PID,   0.0f);
-
-		modeTransition();
-	}
 }
 

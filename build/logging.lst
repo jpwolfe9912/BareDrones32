@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   19:Src/logging.c ****  *	@param logType The type of data you want.
   20:Src/logging.c ****  *  @return Void.
   21:Src/logging.c ****  */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 2
 
 
   22:Src/logging.c **** void
@@ -92,7 +92,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   31:Src/logging.c **** 		sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
   32:Src/logging.c **** 				logType,
   33:Src/logging.c **** 				battVoltage,
-  34:Src/logging.c **** 				mode,
+  34:Src/logging.c **** 				flightMode,
   35:Src/logging.c **** 				rateCmd[logType],
   36:Src/logging.c **** 				sensors.gyro500Hz[logType],
   37:Src/logging.c **** 				ratePID[logType],
@@ -107,7 +107,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   46:Src/logging.c **** 		sprintf(logData, "%d %f %d %u %u %u %u \r",
   47:Src/logging.c **** 				logType,
   48:Src/logging.c **** 				battVoltage,
-  49:Src/logging.c **** 				mode,
+  49:Src/logging.c **** 				flightMode,
   50:Src/logging.c **** 				motor_value[MOTOR1],
   51:Src/logging.c **** 				motor_value[MOTOR2],
   52:Src/logging.c **** 				motor_value[MOTOR3],
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   57:Src/logging.c **** 
   58:Src/logging.c **** #else
   59:Src/logging.c **** 	if(logType < 3)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 3
 
 
   53              		.loc 1 59 2 view .LVU2
@@ -127,7 +127,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   54              		.loc 1 61 4 view .LVU3
   62:Src/logging.c **** 					logType,
   63:Src/logging.c **** 					battVoltage,
-  64:Src/logging.c **** 					mode,
+  64:Src/logging.c **** 					flightMode,
   65:Src/logging.c **** 					rateCmd[logType],
   55              		.loc 1 65 13 is_stmt 0 view .LVU4
   56 0006 1F4B     		ldr	r3, .L3
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   95 0058 3846     		mov	r0, r7	@ float
   96 005a FFF7FEFF 		bl	__aeabi_f2d
   97              	.LVL6:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 4
 
 
   98 005e CDE90401 		strd	r0, [sp, #16]
@@ -204,7 +204,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
   76:Src/logging.c **** 			printf("%d %f %d %u %u %u %u \r",
   77:Src/logging.c **** 					logType,
   78:Src/logging.c **** 					battVoltage,
-  79:Src/logging.c **** 					mode,
+  79:Src/logging.c **** 					flightMode,
   80:Src/logging.c **** 					motor_value[MOTOR1],
   81:Src/logging.c **** 					motor_value[MOTOR2],
   82:Src/logging.c **** 					motor_value[MOTOR3],
@@ -227,7 +227,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
  124 0090 00000000 		.word	attCmd
  125 0094 00000000 		.word	attPID
  126 0098 00000000 		.word	battVoltage
- 127 009c 00000000 		.word	mode
+ 127 009c 00000000 		.word	flightMode
  128 00a0 00000000 		.word	.LC0
  129              		.cfi_endproc
  130              	.LFE187:
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
  138 0000 00       		.space	1
  139              		.section	.data.logData,"aw"
  140              		.align	2
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 5
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 5
 
 
  143              	logData:
@@ -254,19 +254,19 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 1
  153              		.file 8 "Src/motion/compute_axis_commands.h"
  154              		.file 9 "Src/motors.h"
  155              		.file 10 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s 			page 6
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 logging.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:19     .rodata.printLog.str1.4:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:23     .text.printLog:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:31     .text.printLog:0000000000000000 printLog
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:121    .text.printLog:0000000000000084 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:143    .data.logData:0000000000000000 logData
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:137    .bss.log_count:0000000000000000 log_count
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:138    .bss.log_count:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccKhCTuy.s:140    .data.logData:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:19     .rodata.printLog.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:23     .text.printLog:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:31     .text.printLog:0000000000000000 printLog
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:121    .text.printLog:0000000000000084 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:143    .data.logData:0000000000000000 logData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:137    .bss.log_count:0000000000000000 log_count
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:138    .bss.log_count:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc33Kinl.s:140    .data.logData:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 __aeabi_f2d
@@ -277,4 +277,4 @@ ratePID
 attCmd
 attPID
 battVoltage
-mode
+flightMode

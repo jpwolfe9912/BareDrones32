@@ -127,9 +127,7 @@ void ledsSet(void)
         led4TOGGLE();
     else
         led4OFF();
-    if (mode == FLIGHT) // 5(toggle) - Flight Mode
-        led5TOGGLE();
-    else if (mode == ROVER) // 5(on) - Rover Mode
+    if (flightMode == ANGLE) // 5(toggle) - Flight Mode
         led5ON();
     else
         led5OFF();

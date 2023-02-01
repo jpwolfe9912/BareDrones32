@@ -1,10 +1,13 @@
 #include "board.h"
 
-// Tasks_t loops[8];
+uint32_t deltaTime[TOTAL_LOOPS];
+uint32_t executionTime[TOTAL_LOOPS];
+uint32_t previousTime[TOTAL_LOOPS];
+uint32_t currentTime;
 
-volatile uint8_t loopTaskIdx[8] = {0};
+volatile uint8_t loopTaskIdx[TOTAL_LOOPS] = {0};
 
-static void runAllTasksInLoop(Tasks* tasks);
+static void runAllTasksInLoop(Tasks *tasks);
 
 void run(Tasks **head_ref)
 {
@@ -17,13 +20,19 @@ void run(Tasks **head_ref)
     {
         if (((loopMask >> loopToRun) & 0x01)) // if there is a 1 in the spot of the loop to run
         {
-            runAllTasksInLoop(head_ref[loopToRun]);    // run all the tasks in that loop
-            loopMask &= ~(0x1 << loopToRun); // clear the mask
+            currentTime = micros();
+            deltaTime[loopToRun] = currentTime - previousTime[loopToRun]; // time between loop calls
+            previousTime[loopToRun] = currentTime;
+
+            runAllTasksInLoop(head_ref[loopToRun]); // run all the tasks in that loop
+            loopMask &= ~(0x1 << loopToRun);        // clear the mask
+
+            executionTime[loopToRun] = micros() - currentTime; // how long loop took to run
         }
     }
 }
 
-static void runAllTasksInLoop(Tasks* tasks)
+static void runAllTasksInLoop(Tasks *tasks)
 {
     while (tasks != NULL)
     {
@@ -31,7 +40,6 @@ static void runAllTasksInLoop(Tasks* tasks)
         tasks = tasks->next;
     }
 }
-
 
 /* Linked List Functions */
 

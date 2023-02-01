@@ -52,14 +52,12 @@ Src/drv/drv_spi1.c \
 Src/drv/drv_system.c \
 Src/drv/drv_tim.c \
 Src/drv/drv_usart.c \
-Src/drv/drv_worm.c \
 Src/logging.c \
 Src/main.c \
 Src/motion/compute_axis_commands.c \
 Src/motion/mixer.c \
 Src/motion/process_commands.c \
 Src/motion/rotations.c \
-Src/motion/transition.c \
 Src/motors.c \
 Src/pid.c \
 Src/scheduler.c \

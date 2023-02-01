@@ -9,8 +9,6 @@
 #ifndef __BAREDRONES32_H__
 #define __BAREDRONES32_H__
 
-#include "board.h"
-
 #ifndef PI
 #define PI  3.14159265358979f
 #endif
@@ -112,15 +110,6 @@ extern sensors_t sensors;
 ///////////////////////////////////////////////////////////////////////////////
 // Flight Modes
 ///////////////////////////////////////////////////////////////////////////////
-
-typedef enum
-{
-	TRANS_FLIGHT,
-	FLIGHT,
-	TRANS_ROVER,
-	ROVER
-}modes_e;
-
 typedef enum
 {
 	RATE,

@@ -38,8 +38,7 @@ mixTable(void)
 {
 	uint8_t i;
 
-	if((mode == FLIGHT) &&
-	   (armed == true))
+	if(armed == true)
 	{
 		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
 		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
@@ -61,26 +60,6 @@ mixTable(void)
 			motor_temp[i] = ((motor_temp[i] * THROTTLE_DEADBAND_SLOPE) + THROTTLE_DEADBAND) / 2 + 47;
 			motor_value[i] = constrain16(motor_temp[i], 1237, 2047);
 		}
-	}
-	else if((mode == ROVER) &&
-			(armed == true))
-	{
-
-		motor_temp[0] = PIDMIXROVER(  1.0f,  1.0f);	// front left
-		motor_temp[1] = PIDMIXROVER( -1.0f,  1.0f);	// front right
-
-		if((motor_temp[0] < 10) && (motor_temp[0] > -10))
-			motor_value[MOTOR4] = 0;
-		else
-			motor_value[MOTOR4] = dshot3dFormat(motor_temp[0]);
-
-		if((motor_temp[1] < 10) && (motor_temp[1] > -10))
-			motor_value[MOTOR2] = 0;
-		else
-			motor_value[MOTOR2] = dshot3dFormat(motor_temp[1]);
-
-		motor_value[MOTOR1] = 0;
-		motor_value[MOTOR3] = 0;
 	}
 	else
 	{

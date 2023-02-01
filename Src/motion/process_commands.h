@@ -18,8 +18,6 @@
 extern uint8_t commandInDetent[3];
 extern uint8_t previousCommandInDetent[3];
 
-extern modes_e mode;
-
 extern flightModes_e flightMode;
 
 extern semaphore_t armed;
