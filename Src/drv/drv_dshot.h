@@ -76,7 +76,7 @@ extern bool dshot_telemetry;
 
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
-void dshotWrite(uint16_t *motor_value);
+void dshotWrite(void);
 void dshotWait(uint16_t wait_counts);
 
 #endif /* __DRV_DSHOT_H__ */

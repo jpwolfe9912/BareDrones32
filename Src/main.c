@@ -19,7 +19,9 @@ uint8_t execUpCount = 0;
 
 sensors_t sensors;
 
-uint16_t		timerValue;
+uint16_t timerValue;
+
+void printData(void);
 
 int main(void)
 {
@@ -29,170 +31,170 @@ int main(void)
 
     systemInit();
 
+    /* Add tasks */
+    Tasks *loopHead[8] = {NULL};
+
+    append(&loopHead[FRAME_1000HZ], readMPU6000);
+
+    append(&loopHead[FRAME_500HZ], computeRotations500Hz);
+    append(&loopHead[FRAME_500HZ], updateIMU);
+    append(&loopHead[FRAME_500HZ], updateAttitude);
+    append(&loopHead[FRAME_500HZ], processCommands);
+    append(&loopHead[FRAME_500HZ], computeAxisCommands);
+    append(&loopHead[FRAME_500HZ], mixTable);
+    append(&loopHead[FRAME_500HZ], dshotWrite);
+
+    append(&loopHead[FRAME_200HZ], ibusProcess);
+
+    append(&loopHead[FRAME_100HZ], printLog);
+
+    append(&loopHead[FRAME_5HZ], battMonRead);
+
+    append(&loopHead[FRAME_1HZ], ledsSet);
+
     systemReady = true;
 
     while (1)
     {
-        if (frame_1000Hz)
-        {
-            frame_1000Hz = false;
+        run(loopHead);
+        // if (frame_1000Hz)
+        // {
+        //     frame_1000Hz = false;
 
-            currentTime = micros();
-            deltaTime1000Hz = currentTime = previous1000HzTime;
-            previous1000HzTime = currentTime;
+        //     currentTime = micros();
+        //     deltaTime1000Hz = currentTime = previous1000HzTime;
+        //     previous1000HzTime = currentTime;
 
-            executionTime1000Hz = micros() - currentTime;
-        }
+        //     executionTime1000Hz = micros() - currentTime;
+        // }
 
-        if (frame_500Hz)
-        {
+        // if (frame_500Hz)
+        // {
 
-            frame_500Hz = false;
+        //     frame_500Hz = false;
 
-            currentTime = micros();
-            deltaTime500Hz = currentTime - previous500HzTime;
-            previous500HzTime = currentTime;
+        //     currentTime = micros();
+        //     deltaTime500Hz = currentTime - previous500HzTime;
+        //     previous500HzTime = currentTime;
 
-            tim9Disable();
-            timerValue = tim9GetCnt();
-            tim9ResetCnt();
-            tim9Enable();
+        //     computeRotations500Hz();
+        //     updateIMU();
+        //     processCommands();
+        //     computeAxisCommands();
+        //     mixTable();
+        //     dshotWrite();
 
-            dt500Hz = (float)timerValue * 0.0000005f; // For integrations in 500 Hz loop
+        //     executionTime500Hz = micros() - currentTime;
+        // }
 
-            computeRotations500Hz();
+        // if (frame_200Hz)
+        // {
+        //     frame_200Hz = false;
 
-            updateIMU(sensors.gyro500Hz[ROLL], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
-                      sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
-            sensors.attitude500Hz[ROLL] = getRollRadians();
-            sensors.attitude500Hz[PITCH] = getPitchRadians();
-            sensors.attitude500Hz[YAW] = getYawRadians();
+        //     currentTime = micros();
+        //     deltaTime200Hz = currentTime - previous200HzTime;
+        //     previous200HzTime = currentTime;
 
-            sensors.attDeg500Hz[ROLL] = sensors.attitude500Hz[ROLL] * 57.29578f;
-            sensors.attDeg500Hz[PITCH] = sensors.attitude500Hz[PITCH] * 57.29578f;
-            sensors.attDeg500Hz[YAW] = sensors.attitude500Hz[YAW] * 57.29578f;
+        //     ibusProcess();
 
-            processCommands();
-            computeAxisCommands(dt500Hz);
-            mixTable();
-            dshotWrite(motor_value);
+        //     executionTime200Hz = micros() - currentTime;
+        // }
 
-            executionTime500Hz = micros() - currentTime;
-        }
+        // if (frame_100Hz)
+        // {
 
-        ///////////////////////////////
+        //     frame_100Hz = false;
 
-        if (frame_200Hz)
-        {
-            frame_200Hz = false;
+        //     currentTime = micros();
+        //     deltaTime100Hz = currentTime - previous100HzTime;
+        //     previous100HzTime = currentTime;
 
-            currentTime = micros();
-            deltaTime200Hz = currentTime - previous200HzTime;
-            previous200HzTime = currentTime;
+        //     if (armed == false)
+        //     {
+        //         printLog(PITCH);
+        //     }
 
-            ibusProcess();
+        //     executionTime100Hz = micros() - currentTime;
+        // }
+        
+        // if (frame_50Hz)
+        // {
 
-            executionTime200Hz = micros() - currentTime;
-        }
+        //     frame_50Hz = false;
 
-        ///////////////////////////////
+        //     currentTime = micros();
+        //     deltaTime50Hz = currentTime - previous50HzTime;
+        //     previous50HzTime = currentTime;
 
-        if (frame_100Hz)
-        {
+        //     executionTime50Hz = micros() - currentTime;
+        // }
 
-            frame_100Hz = false;
+        // if (frame_10Hz)
+        // {
 
-            currentTime = micros();
-            deltaTime100Hz = currentTime - previous100HzTime;
-            previous100HzTime = currentTime;
+        //     frame_10Hz = false;
 
-            if (armed == false)
-            {
-                printLog(PITCH);
-            }
+        //     currentTime = micros();
+        //     deltaTime10Hz = currentTime - previous10HzTime;
+        //     previous10HzTime = currentTime;
+        //     executionTime10Hz = micros() - currentTime;
+        // }
 
-            executionTime100Hz = micros() - currentTime;
-        }
-        if (frame_50Hz)
-        {
+        // if (frame_5Hz)
+        // {
+        //     frame_5Hz = false;
 
-            frame_50Hz = false;
+        //     currentTime = micros();
+        //     deltaTime5Hz = currentTime - previous5HzTime;
+        //     previous5HzTime = currentTime;
 
-            currentTime = micros();
-            deltaTime50Hz = currentTime - previous50HzTime;
-            previous50HzTime = currentTime;
+        //     battMonRead();
+        //     if (battEmpty)
+        //         led4TOGGLE();
+        //     else
+        //         led4OFF();
 
-            executionTime50Hz = micros() - currentTime;
-        }
+        //     executionTime5Hz = micros() - currentTime;
+        // }
 
-        ///////////////////////////////
+        // if (frame_1Hz)
+        // {
+        //     frame_1Hz = false;
 
-        if (frame_10Hz)
-        {
+        //     currentTime = micros();
+        //     deltaTime1Hz = currentTime - previous1HzTime;
+        //     previous1HzTime = currentTime;
 
-            frame_10Hz = false;
+        //     if (armed) // 1 - Armed
+        //         led1ON();
+        //     else
+        //         led1OFF();
+        //     if (systemReady) // 2 - System Initialized
+        //         led2ON();
+        //     else
+        //         led2OFF();
+        //     if (rcActive) // 3 - Receiver Connected
+        //         led3ON();
+        //     else
+        //         led3OFF();
+        //     if (battLow) // 4 - Battery Low
+        //         led4TOGGLE();
+        //     else
+        //         led4OFF();
+        //     if (mode == FLIGHT) // 5(toggle) - Flight Mode
+        //         led5TOGGLE();
+        //     else if (mode == ROVER) // 5(on) - Rover Mode
+        //         led5ON();
+        //     else
+        //         led5OFF();
 
-            currentTime = micros();
-            deltaTime10Hz = currentTime - previous10HzTime;
-            previous10HzTime = currentTime;
-            executionTime10Hz = micros() - currentTime;
-        }
-
-        ///////////////////////////////
-
-        if (frame_5Hz)
-        {
-            frame_5Hz = false;
-
-            currentTime = micros();
-            deltaTime5Hz = currentTime - previous5HzTime;
-            previous5HzTime = currentTime;
-
-            battMonRead();
-            if (battEmpty)
-                led4TOGGLE();
-            else
-                led4OFF();
-
-            executionTime5Hz = micros() - currentTime;
-        }
-
-        ///////////////////////////////
-
-        if (frame_1Hz)
-        {
-            frame_1Hz = false;
-
-            currentTime = micros();
-            deltaTime1Hz = currentTime - previous1HzTime;
-            previous1HzTime = currentTime;
-
-            if (armed) // 1 - Armed
-                led1ON();
-            else
-                led1OFF();
-            if (systemReady) // 2 - System Initialized
-                led2ON();
-            else
-                led2OFF();
-            if (rcActive) // 3 - Receiver Connected
-                led3ON();
-            else
-                led3OFF();
-            if (battLow) // 4 - Battery Low
-                led4TOGGLE();
-            else
-                led4OFF();
-            if (mode == FLIGHT) // 5(toggle) - Flight Mode
-                led5TOGGLE();
-            else if (mode == ROVER) // 5(on) - Rover Mode
-                led5ON();
-            else
-                led5OFF();
-
-            executionTime1Hz = micros() - currentTime;
-        }
+        //     executionTime1Hz = micros() - currentTime;
+        // }
     }
+}
+void printData(void)
+{
+    printf("%u\n", rawAccel[XAXIS]);
 }
 
 #else
@@ -209,11 +211,11 @@ uint16_t timerValue;
 int main(void)
 {
     systemInit();
-    systemReady= true;
+    systemReady = true;
 
     while (1)
     {
-        if(frame_1000Hz)
+        if (frame_1000Hz)
             frame_1000Hz = false;
         if (frame_500Hz)
         {

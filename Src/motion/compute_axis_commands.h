@@ -19,6 +19,6 @@ extern float   ratePID[3];
 extern float   rateCmd[3];
 
 /* Function Prototypes */
-void computeAxisCommands(float dt);
+void computeAxisCommands(void);
 
 #endif /* __COMPUTE_AXIS_COMMANDS_H__ */

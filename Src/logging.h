@@ -23,6 +23,6 @@ typedef enum
 #define LOG_SIZE		64
 
 /* Functions */
-void printLog(uint8_t logType);
+void printLog(void);
 
 #endif /* __LOGGING_H__ */

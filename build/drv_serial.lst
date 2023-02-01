@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -57,210 +57,60 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
   27:Src/drv/drv_serial.c ****  */
   28:Src/drv/drv_serial.c **** void serialInit(void)
   29:Src/drv/drv_serial.c **** {
-  30:Src/drv/drv_serial.c ****     RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock for port D
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 2
+  29              		.loc 1 29 1 view -0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 2
 
 
-  31:Src/drv/drv_serial.c ****     RCC->APB1ENR |= RCC_APB1ENR_USART3EN; // enable the clock for UART3
-  32:Src/drv/drv_serial.c **** 
-  33:Src/drv/drv_serial.c ****     GPIOD->AFR[1] |= (0x7 << (4 * 0U)); // set pin A2 as alternate function
-  34:Src/drv/drv_serial.c ****     GPIOD->AFR[1] |= (0x7 << (4 * 1U)); // set pin A3 as alternate function
-  35:Src/drv/drv_serial.c **** 
-  36:Src/drv/drv_serial.c ****     GPIOD->MODER &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9);
-  37:Src/drv/drv_serial.c ****     GPIOD->MODER |= GPIO_MODER_MODER8_1 | GPIO_MODER_MODER9_1; // set PD8,9 as alternate function
-  38:Src/drv/drv_serial.c **** 
-  39:Src/drv/drv_serial.c ****     NVIC_SetPriority(USART3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-  40:Src/drv/drv_serial.c ****     NVIC_EnableIRQ(USART3_IRQn);
-  41:Src/drv/drv_serial.c **** 
-  42:Src/drv/drv_serial.c ****     USART3->BRR = 0x1D5;                                       // set baud rate to 115200
-  43:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE; // enable the receiver, transmitter,
-  44:Src/drv/drv_serial.c **** }
-  45:Src/drv/drv_serial.c **** 
-  46:Src/drv/drv_serial.c **** /** @brief Uses polling to write data to the transmit buffer.
-  47:Src/drv/drv_serial.c ****  *
-  48:Src/drv/drv_serial.c ****  *  @param ch The character to send.
-  49:Src/drv/drv_serial.c ****  *  @return Void.
-  50:Src/drv/drv_serial.c ****  */
-  51:Src/drv/drv_serial.c **** void serialWrite(uint8_t ch)
-  52:Src/drv/drv_serial.c **** {
-  53:Src/drv/drv_serial.c ****     while (!(USART3->ISR & USART_ISR_TXE))
-  54:Src/drv/drv_serial.c ****     {
-  55:Src/drv/drv_serial.c ****     }                 // waits for TX buffer to become empty
-  56:Src/drv/drv_serial.c ****     USART3->TDR = ch; // transfers the value of the data register into ch
-  57:Src/drv/drv_serial.c **** }
-  58:Src/drv/drv_serial.c **** 
-  59:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read uint8 data to the receive buffer.
-  60:Src/drv/drv_serial.c ****  *
-  61:Src/drv/drv_serial.c ****  *  @param uint8_t *num Pointer to the location you want to store the received number
-  62:Src/drv/drv_serial.c ****  *  @return Void.
-  63:Src/drv/drv_serial.c ****  */
-  64:Src/drv/drv_serial.c **** void serialRead8(uint8_t *num)
-  65:Src/drv/drv_serial.c **** {
-  66:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
-  67:Src/drv/drv_serial.c ****     while (!temp)
-  68:Src/drv/drv_serial.c ****         ;
-  69:Src/drv/drv_serial.c **** 
-  70:Src/drv/drv_serial.c ****     *num = (uint8_t)temp;
-  71:Src/drv/drv_serial.c ****     USART3->CR1 &= ~USART_CR1_RXNEIE;
-  72:Src/drv/drv_serial.c **** }
-  73:Src/drv/drv_serial.c **** 
-  74:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read a string of PID values.
-  75:Src/drv/drv_serial.c ****  *
-  76:Src/drv/drv_serial.c ****  *  @param * Pointer to the location you want to store the received number
-  77:Src/drv/drv_serial.c ****  *  @return Void.
-  78:Src/drv/drv_serial.c ****  */
-  79:Src/drv/drv_serial.c **** void serialReadPID(float *P, float *I, float *D)
-  80:Src/drv/drv_serial.c **** {
-  81:Src/drv/drv_serial.c ****     serialIndex = 0;
-  82:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
-  83:Src/drv/drv_serial.c **** 
-  84:Src/drv/drv_serial.c ****     endOfString = false;
-  85:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
-  86:Src/drv/drv_serial.c ****     while (!endOfString)
-  87:Src/drv/drv_serial.c ****         ;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 3
-
-
-  88:Src/drv/drv_serial.c **** 
-  89:Src/drv/drv_serial.c ****     sscanf((char *)serialBuf, "%f, %f, %f", P, I, D);
-  90:Src/drv/drv_serial.c **** 
-  91:Src/drv/drv_serial.c ****     USART3->CR1 &= ~USART_CR1_RXNEIE;
-  92:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
-  93:Src/drv/drv_serial.c **** }
-  94:Src/drv/drv_serial.c **** 
-  95:Src/drv/drv_serial.c **** /** @brief Waits for a character.
-  96:Src/drv/drv_serial.c ****  *
-  97:Src/drv/drv_serial.c ****  *  @param wait Character to wait for.
-  98:Src/drv/drv_serial.c ****  *  @return bool True or False based on whether or not the character.
-  99:Src/drv/drv_serial.c ****  *  received is the input to the function.
- 100:Src/drv/drv_serial.c ****  */
- 101:Src/drv/drv_serial.c **** bool serialWaitFor(char wait)
- 102:Src/drv/drv_serial.c **** {
- 103:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
- 104:Src/drv/drv_serial.c ****     while (!temp)
- 105:Src/drv/drv_serial.c ****         ;
- 106:Src/drv/drv_serial.c ****     if (temp == wait)
- 107:Src/drv/drv_serial.c ****     {
- 108:Src/drv/drv_serial.c ****         temp = '\0';
- 109:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
- 110:Src/drv/drv_serial.c ****         return true;
- 111:Src/drv/drv_serial.c ****     }
- 112:Src/drv/drv_serial.c ****     else
- 113:Src/drv/drv_serial.c ****     {
- 114:Src/drv/drv_serial.c ****         temp = '\0';
- 115:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
- 116:Src/drv/drv_serial.c ****         return false;
- 117:Src/drv/drv_serial.c ****     }
- 118:Src/drv/drv_serial.c **** }
- 119:Src/drv/drv_serial.c **** 
- 120:Src/drv/drv_serial.c **** /* Interrupt Handlers */
- 121:Src/drv/drv_serial.c **** 
- 122:Src/drv/drv_serial.c **** /**
- 123:Src/drv/drv_serial.c ****  * @brief This function handles UART3 global interrupt.
- 124:Src/drv/drv_serial.c ****  */
- 125:Src/drv/drv_serial.c **** void USART3_IRQHandler(void)
- 126:Src/drv/drv_serial.c **** {
- 127:Src/drv/drv_serial.c ****     if ((USART3->ISR & USART_ISR_RXNE) && (USART3->CR1 & USART_CR1_RXNEIE))
- 128:Src/drv/drv_serial.c ****     {
- 129:Src/drv/drv_serial.c ****         temp = USART3->RDR;
- 130:Src/drv/drv_serial.c ****         USART3->TDR = temp;
- 131:Src/drv/drv_serial.c ****         if (temp == '\r')
- 132:Src/drv/drv_serial.c ****         {
- 133:Src/drv/drv_serial.c ****             endOfString = true;
- 134:Src/drv/drv_serial.c ****             serialIndex = 0;
- 135:Src/drv/drv_serial.c ****         }
- 136:Src/drv/drv_serial.c ****         else
- 137:Src/drv/drv_serial.c ****         {
- 138:Src/drv/drv_serial.c ****             serialBuf[serialIndex] = temp;
- 139:Src/drv/drv_serial.c ****             serialIndex++;
- 140:Src/drv/drv_serial.c ****         }
- 141:Src/drv/drv_serial.c ****     }
- 142:Src/drv/drv_serial.c ****     if (USART3->ISR & USART_ISR_ORE)
- 143:Src/drv/drv_serial.c ****         USART3->ICR |= USART_ICR_ORECF;
- 144:Src/drv/drv_serial.c **** }
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 4
-
-
- 145:Src/drv/drv_serial.c **** 
- 146:Src/drv/drv_serial.c **** #endif
- 147:Src/drv/drv_serial.c **** 
- 148:Src/drv/drv_serial.c **** #ifdef USE_AUTODRONE
- 149:Src/drv/drv_serial.c **** 
- 150:Src/drv/drv_serial.c **** /** @brief Initializes the low level uart registers in order to use printf.
- 151:Src/drv/drv_serial.c ****  *
- 152:Src/drv/drv_serial.c ****  *  @return Void.
- 153:Src/drv/drv_serial.c ****  */
- 154:Src/drv/drv_serial.c **** void serialInit(void)
- 155:Src/drv/drv_serial.c **** {
-  29              		.loc 1 155 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              		@ link register save eliminated.
- 156:Src/drv/drv_serial.c **** 
- 157:Src/drv/drv_serial.c ****     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN |
-  34              		.loc 1 157 5 view .LVU1
-  35              		.loc 1 157 18 is_stmt 0 view .LVU2
-  36 0000 1A4B     		ldr	r3, .L2
+  30:Src/drv/drv_serial.c ****     RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;  // enable the clock for port D
+  34              		.loc 1 30 5 view .LVU1
+  35              		.loc 1 30 18 is_stmt 0 view .LVU2
+  36 0000 154B     		ldr	r3, .L2
   37 0002 1A6B     		ldr	r2, [r3, #48]
-  38 0004 42F00C02 		orr	r2, r2, #12
+  38 0004 42F00802 		orr	r2, r2, #8
   39 0008 1A63     		str	r2, [r3, #48]
- 158:Src/drv/drv_serial.c ****                     RCC_AHB1ENR_GPIODEN; // enable the clock for port C, D
- 159:Src/drv/drv_serial.c ****     RCC->APB1ENR |= RCC_APB1ENR_UART5EN; // enable the clock for UART5
-  40              		.loc 1 159 5 is_stmt 1 view .LVU3
-  41              		.loc 1 159 18 is_stmt 0 view .LVU4
+  31:Src/drv/drv_serial.c ****     RCC->APB1ENR |= RCC_APB1ENR_USART3EN; // enable the clock for UART3
+  40              		.loc 1 31 5 is_stmt 1 view .LVU3
+  41              		.loc 1 31 18 is_stmt 0 view .LVU4
   42 000a 1A6C     		ldr	r2, [r3, #64]
-  43 000c 42F48012 		orr	r2, r2, #1048576
+  43 000c 42F48022 		orr	r2, r2, #262144
   44 0010 1A64     		str	r2, [r3, #64]
- 160:Src/drv/drv_serial.c **** 
- 161:Src/drv/drv_serial.c ****     GPIOC->AFR[1] |= (0x8 << (4 * 4U)); // set pin A2 as alternate function
-  45              		.loc 1 161 5 is_stmt 1 view .LVU5
-  46              		.loc 1 161 19 is_stmt 0 view .LVU6
-  47 0012 174A     		ldr	r2, .L2+4
-  48 0014 536A     		ldr	r3, [r2, #36]
-  49 0016 43F40023 		orr	r3, r3, #524288
-  50 001a 5362     		str	r3, [r2, #36]
- 162:Src/drv/drv_serial.c ****     GPIOD->AFR[0] |= (0x8 << (4 * 2U)); // set pin A3 as alternate function
-  51              		.loc 1 162 5 is_stmt 1 view .LVU7
-  52              		.loc 1 162 19 is_stmt 0 view .LVU8
-  53 001c 154B     		ldr	r3, .L2+8
-  54 001e 196A     		ldr	r1, [r3, #32]
-  55 0020 41F40061 		orr	r1, r1, #2048
-  56 0024 1962     		str	r1, [r3, #32]
- 163:Src/drv/drv_serial.c **** 
- 164:Src/drv/drv_serial.c ****     GPIOC->MODER &= ~(GPIO_MODER_MODER12);
-  57              		.loc 1 164 5 is_stmt 1 view .LVU9
-  58              		.loc 1 164 18 is_stmt 0 view .LVU10
-  59 0026 1168     		ldr	r1, [r2]
-  60 0028 21F04071 		bic	r1, r1, #50331648
-  61 002c 1160     		str	r1, [r2]
- 165:Src/drv/drv_serial.c ****     GPIOD->MODER &= ~(GPIO_MODER_MODER2);
-  62              		.loc 1 165 5 is_stmt 1 view .LVU11
-  63              		.loc 1 165 18 is_stmt 0 view .LVU12
-  64 002e 1968     		ldr	r1, [r3]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 5
-
-
-  65 0030 21F03001 		bic	r1, r1, #48
-  66 0034 1960     		str	r1, [r3]
- 166:Src/drv/drv_serial.c ****     GPIOC->MODER |= GPIO_MODER_MODER12_1; // set PC12 as alternate function
-  67              		.loc 1 166 5 is_stmt 1 view .LVU13
-  68              		.loc 1 166 18 is_stmt 0 view .LVU14
-  69 0036 1168     		ldr	r1, [r2]
-  70 0038 41F00071 		orr	r1, r1, #33554432
-  71 003c 1160     		str	r1, [r2]
- 167:Src/drv/drv_serial.c ****     GPIOD->MODER |= GPIO_MODER_MODER2_1;  // set PD2 as alternate function
-  72              		.loc 1 167 5 is_stmt 1 view .LVU15
-  73              		.loc 1 167 18 is_stmt 0 view .LVU16
-  74 003e 1A68     		ldr	r2, [r3]
-  75 0040 42F02002 		orr	r2, r2, #32
-  76 0044 1A60     		str	r2, [r3]
- 168:Src/drv/drv_serial.c **** 
- 169:Src/drv/drv_serial.c ****     NVIC_SetPriority(UART5_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-  77              		.loc 1 169 5 is_stmt 1 view .LVU17
-  78              	.LBB16:
-  79              	.LBI16:
-  80              		.file 2 "Libraries/CMSIS/Include/core_cm7.h"
+  32:Src/drv/drv_serial.c **** 
+  33:Src/drv/drv_serial.c ****     GPIOD->AFR[1] |= (0x7 << (4 * 0U)); // set pin A2 as alternate function
+  45              		.loc 1 33 5 is_stmt 1 view .LVU5
+  46              		.loc 1 33 19 is_stmt 0 view .LVU6
+  47 0012 A3F53053 		sub	r3, r3, #11264
+  48 0016 5A6A     		ldr	r2, [r3, #36]
+  49 0018 42F00702 		orr	r2, r2, #7
+  50 001c 5A62     		str	r2, [r3, #36]
+  34:Src/drv/drv_serial.c ****     GPIOD->AFR[1] |= (0x7 << (4 * 1U)); // set pin A3 as alternate function
+  51              		.loc 1 34 5 is_stmt 1 view .LVU7
+  52              		.loc 1 34 19 is_stmt 0 view .LVU8
+  53 001e 5A6A     		ldr	r2, [r3, #36]
+  54 0020 42F07002 		orr	r2, r2, #112
+  55 0024 5A62     		str	r2, [r3, #36]
+  35:Src/drv/drv_serial.c **** 
+  36:Src/drv/drv_serial.c ****     GPIOD->MODER &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9);
+  56              		.loc 1 36 5 is_stmt 1 view .LVU9
+  57              		.loc 1 36 18 is_stmt 0 view .LVU10
+  58 0026 1A68     		ldr	r2, [r3]
+  59 0028 22F47022 		bic	r2, r2, #983040
+  60 002c 1A60     		str	r2, [r3]
+  37:Src/drv/drv_serial.c ****     GPIOD->MODER |= GPIO_MODER_MODER8_1 | GPIO_MODER_MODER9_1; // set PD8,9 as alternate function
+  61              		.loc 1 37 5 is_stmt 1 view .LVU11
+  62              		.loc 1 37 18 is_stmt 0 view .LVU12
+  63 002e 1A68     		ldr	r2, [r3]
+  64 0030 42F42022 		orr	r2, r2, #655360
+  65 0034 1A60     		str	r2, [r3]
+  38:Src/drv/drv_serial.c **** 
+  39:Src/drv/drv_serial.c ****     NVIC_SetPriority(USART3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+  66              		.loc 1 39 5 is_stmt 1 view .LVU13
+  67              	.LBB16:
+  68              	.LBI16:
+  69              		.file 2 "Libraries/CMSIS/Include/core_cm7.h"
    1:Libraries/CMSIS/Include/core_cm7.h **** /**************************************************************************//**
    2:Libraries/CMSIS/Include/core_cm7.h ****  * @file     core_cm7.h
    3:Libraries/CMSIS/Include/core_cm7.h ****  * @brief    CMSIS Cortex-M7 Core Peripheral Access Layer Header File
@@ -268,6 +118,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
    5:Libraries/CMSIS/Include/core_cm7.h ****  * @date     04. June 2018
    6:Libraries/CMSIS/Include/core_cm7.h ****  ******************************************************************************/
    7:Libraries/CMSIS/Include/core_cm7.h **** /*
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 3
+
+
    8:Libraries/CMSIS/Include/core_cm7.h ****  * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
    9:Libraries/CMSIS/Include/core_cm7.h ****  *
   10:Libraries/CMSIS/Include/core_cm7.h ****  * SPDX-License-Identifier: Apache-2.0
@@ -298,9 +151,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
   35:Libraries/CMSIS/Include/core_cm7.h **** 
   36:Libraries/CMSIS/Include/core_cm7.h **** #ifdef __cplusplus
   37:Libraries/CMSIS/Include/core_cm7.h ****  extern "C" {
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 6
-
-
   38:Libraries/CMSIS/Include/core_cm7.h **** #endif
   39:Libraries/CMSIS/Include/core_cm7.h **** 
   40:Libraries/CMSIS/Include/core_cm7.h **** /**
@@ -328,6 +178,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
   62:Libraries/CMSIS/Include/core_cm7.h **** 
   63:Libraries/CMSIS/Include/core_cm7.h **** #include "../../../Libraries/CMSIS/Include/cmsis_version.h"
   64:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 4
+
+
   65:Libraries/CMSIS/Include/core_cm7.h **** /* CMSIS CM7 definitions */
   66:Libraries/CMSIS/Include/core_cm7.h **** #define __CM7_CMSIS_VERSION_MAIN  (__CM_CMSIS_VERSION_MAIN)                  /*!< \deprecated [31:1
   67:Libraries/CMSIS/Include/core_cm7.h **** #define __CM7_CMSIS_VERSION_SUB   ( __CM_CMSIS_VERSION_SUB)                  /*!< \deprecated [15:0
@@ -358,9 +211,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
   92:Libraries/CMSIS/Include/core_cm7.h ****     #else
   93:Libraries/CMSIS/Include/core_cm7.h ****       #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESEN
   94:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       0U
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 7
-
-
   95:Libraries/CMSIS/Include/core_cm7.h ****     #endif
   96:Libraries/CMSIS/Include/core_cm7.h ****   #else
   97:Libraries/CMSIS/Include/core_cm7.h ****     #define __FPU_USED         0U
@@ -388,6 +238,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  119:Libraries/CMSIS/Include/core_cm7.h ****     #endif
  120:Libraries/CMSIS/Include/core_cm7.h ****   #else
  121:Libraries/CMSIS/Include/core_cm7.h ****     #define __FPU_USED         0U
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 5
+
+
  122:Libraries/CMSIS/Include/core_cm7.h ****   #endif
  123:Libraries/CMSIS/Include/core_cm7.h **** 
  124:Libraries/CMSIS/Include/core_cm7.h **** #elif defined ( __TI_ARM__ )
@@ -418,9 +271,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  149:Libraries/CMSIS/Include/core_cm7.h ****   #if ( __CSMC__ & 0x400U)
  150:Libraries/CMSIS/Include/core_cm7.h ****     #if defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)
  151:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       1U
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 8
-
-
  152:Libraries/CMSIS/Include/core_cm7.h ****     #else
  153:Libraries/CMSIS/Include/core_cm7.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
  154:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       0U
@@ -448,6 +298,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  176:Libraries/CMSIS/Include/core_cm7.h **** #ifdef __cplusplus
  177:Libraries/CMSIS/Include/core_cm7.h ****  extern "C" {
  178:Libraries/CMSIS/Include/core_cm7.h **** #endif
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 6
+
+
  179:Libraries/CMSIS/Include/core_cm7.h **** 
  180:Libraries/CMSIS/Include/core_cm7.h **** /* check device defines and use defaults */
  181:Libraries/CMSIS/Include/core_cm7.h **** #if defined __CHECK_DEVICE_DEFINES
@@ -478,9 +331,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  206:Libraries/CMSIS/Include/core_cm7.h **** 
  207:Libraries/CMSIS/Include/core_cm7.h ****   #ifndef __DTCM_PRESENT
  208:Libraries/CMSIS/Include/core_cm7.h ****     #define __DTCM_PRESENT            0U
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 9
-
-
  209:Libraries/CMSIS/Include/core_cm7.h ****     #warning "__DTCM_PRESENT        not defined in device header file; using default!"
  210:Libraries/CMSIS/Include/core_cm7.h ****   #endif
  211:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -508,6 +358,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  233:Libraries/CMSIS/Include/core_cm7.h **** #else
  234:Libraries/CMSIS/Include/core_cm7.h ****   #define   __I     volatile const       /*!< Defines 'read only' permissions */
  235:Libraries/CMSIS/Include/core_cm7.h **** #endif
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 7
+
+
  236:Libraries/CMSIS/Include/core_cm7.h **** #define     __O     volatile             /*!< Defines 'write only' permissions */
  237:Libraries/CMSIS/Include/core_cm7.h **** #define     __IO    volatile             /*!< Defines 'read / write' permissions */
  238:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -538,9 +391,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  263:Libraries/CMSIS/Include/core_cm7.h **** 
  264:Libraries/CMSIS/Include/core_cm7.h **** /**
  265:Libraries/CMSIS/Include/core_cm7.h ****   \ingroup    CMSIS_core_register
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 10
-
-
  266:Libraries/CMSIS/Include/core_cm7.h ****   \defgroup   CMSIS_CORE  Status and Control Registers
  267:Libraries/CMSIS/Include/core_cm7.h ****   \brief      Core Register type definitions.
  268:Libraries/CMSIS/Include/core_cm7.h ****   @{
@@ -568,6 +418,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  290:Libraries/CMSIS/Include/core_cm7.h **** /* APSR Register Definitions */
  291:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_N_Pos                         31U                                            /*!< APSR
  292:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_N_Msk                         (1UL << APSR_N_Pos)                            /*!< APSR
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 8
+
+
  293:Libraries/CMSIS/Include/core_cm7.h **** 
  294:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_Z_Pos                         30U                                            /*!< APSR
  295:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_Z_Msk                         (1UL << APSR_Z_Pos)                            /*!< APSR
@@ -598,9 +451,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  320:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t w;                            /*!< Type      used for word access */
  321:Libraries/CMSIS/Include/core_cm7.h **** } IPSR_Type;
  322:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 11
-
-
  323:Libraries/CMSIS/Include/core_cm7.h **** /* IPSR Register Definitions */
  324:Libraries/CMSIS/Include/core_cm7.h **** #define IPSR_ISR_Pos                        0U                                            /*!< IPSR
  325:Libraries/CMSIS/Include/core_cm7.h **** #define IPSR_ISR_Msk                       (0x1FFUL /*<< IPSR_ISR_Pos*/)                  /*!< IPSR
@@ -628,6 +478,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  347:Libraries/CMSIS/Include/core_cm7.h ****   } b;                                   /*!< Structure used for bit  access */
  348:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t w;                            /*!< Type      used for word access */
  349:Libraries/CMSIS/Include/core_cm7.h **** } xPSR_Type;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 9
+
+
  350:Libraries/CMSIS/Include/core_cm7.h **** 
  351:Libraries/CMSIS/Include/core_cm7.h **** /* xPSR Register Definitions */
  352:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_N_Pos                         31U                                            /*!< xPSR
@@ -658,9 +511,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  377:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_ICI_IT_1_Msk                  (0x3FUL << xPSR_ICI_IT_1_Pos)                  /*!< xPSR
  378:Libraries/CMSIS/Include/core_cm7.h **** 
  379:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_ISR_Pos                        0U                                            /*!< xPSR
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 12
-
-
  380:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_ISR_Msk                       (0x1FFUL /*<< xPSR_ISR_Pos*/)                  /*!< xPSR
  381:Libraries/CMSIS/Include/core_cm7.h **** 
  382:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -688,6 +538,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  404:Libraries/CMSIS/Include/core_cm7.h **** 
  405:Libraries/CMSIS/Include/core_cm7.h **** #define CONTROL_nPRIV_Pos                   0U                                            /*!< CONT
  406:Libraries/CMSIS/Include/core_cm7.h **** #define CONTROL_nPRIV_Msk                  (1UL /*<< CONTROL_nPRIV_Pos*/)                 /*!< CONT
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 10
+
+
  407:Libraries/CMSIS/Include/core_cm7.h **** 
  408:Libraries/CMSIS/Include/core_cm7.h **** /*@} end of group CMSIS_CORE */
  409:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -718,9 +571,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  434:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED5[644U];
  435:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t STIR;                   /*!< Offset: 0xE00 ( /W)  Software Trigger Interrupt Regis
  436:Libraries/CMSIS/Include/core_cm7.h **** }  NVIC_Type;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 13
-
-
  437:Libraries/CMSIS/Include/core_cm7.h **** 
  438:Libraries/CMSIS/Include/core_cm7.h **** /* Software Triggered Interrupt Register Definitions */
  439:Libraries/CMSIS/Include/core_cm7.h **** #define NVIC_STIR_INTID_Pos                 0U                                         /*!< STIR: I
@@ -748,6 +598,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  461:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t SCR;                    /*!< Offset: 0x010 (R/W)  System Control Register */
  462:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CCR;                    /*!< Offset: 0x014 (R/W)  Configuration Control Register *
  463:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint8_t  SHPR[12U];              /*!< Offset: 0x018 (R/W)  System Handlers Priority Registe
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 11
+
+
  464:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t SHCSR;                  /*!< Offset: 0x024 (R/W)  System Handler Control and State
  465:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CFSR;                   /*!< Offset: 0x028 (R/W)  Configurable Fault Status Regist
  466:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t HFSR;                   /*!< Offset: 0x02C (R/W)  HardFault Status Register */
@@ -778,9 +631,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  491:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t ICIMVAU;                /*!< Offset: 0x258 ( /W)  I-Cache Invalidate by MVA to PoU
  492:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCIMVAC;                /*!< Offset: 0x25C ( /W)  D-Cache Invalidate by MVA to PoC
  493:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCISW;                  /*!< Offset: 0x260 ( /W)  D-Cache Invalidate by Set-way */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 14
-
-
  494:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCCMVAU;                /*!< Offset: 0x264 ( /W)  D-Cache Clean by MVA to PoU */
  495:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCCMVAC;                /*!< Offset: 0x268 ( /W)  D-Cache Clean by MVA to PoC */
  496:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCCSW;                  /*!< Offset: 0x26C ( /W)  D-Cache Clean by Set-way */
@@ -808,6 +658,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  518:Libraries/CMSIS/Include/core_cm7.h **** 
  519:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CPUID_PARTNO_Pos                4U                                            /*!< SCB 
  520:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CPUID_PARTNO_Msk               (0xFFFUL << SCB_CPUID_PARTNO_Pos)              /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 12
+
+
  521:Libraries/CMSIS/Include/core_cm7.h **** 
  522:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CPUID_REVISION_Pos              0U                                            /*!< SCB 
  523:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CPUID_REVISION_Msk             (0xFUL /*<< SCB_CPUID_REVISION_Pos*/)          /*!< SCB 
@@ -838,9 +691,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  548:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_VECTPENDING_Msk           (0x1FFUL << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB 
  549:Libraries/CMSIS/Include/core_cm7.h **** 
  550:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_RETTOBASE_Pos             11U                                            /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 15
-
-
  551:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_RETTOBASE_Msk             (1UL << SCB_ICSR_RETTOBASE_Pos)                /*!< SCB 
  552:Libraries/CMSIS/Include/core_cm7.h **** 
  553:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_VECTACTIVE_Pos             0U                                            /*!< SCB 
@@ -868,6 +718,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  575:Libraries/CMSIS/Include/core_cm7.h **** 
  576:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AIRCR_VECTCLRACTIVE_Pos         1U                                            /*!< SCB 
  577:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AIRCR_VECTCLRACTIVE_Msk        (1UL << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 13
+
+
  578:Libraries/CMSIS/Include/core_cm7.h **** 
  579:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AIRCR_VECTRESET_Pos             0U                                            /*!< SCB 
  580:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AIRCR_VECTRESET_Msk            (1UL /*<< SCB_AIRCR_VECTRESET_Pos*/)           /*!< SCB 
@@ -898,9 +751,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  605:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_BFHFNMIGN_Pos               8U                                            /*!< SCB 
  606:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_BFHFNMIGN_Msk              (1UL << SCB_CCR_BFHFNMIGN_Pos)                 /*!< SCB 
  607:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 16
-
-
  608:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_DIV_0_TRP_Pos               4U                                            /*!< SCB 
  609:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_DIV_0_TRP_Msk              (1UL << SCB_CCR_DIV_0_TRP_Pos)                 /*!< SCB 
  610:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -928,6 +778,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  632:Libraries/CMSIS/Include/core_cm7.h **** 
  633:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_BUSFAULTPENDED_Pos       14U                                            /*!< SCB 
  634:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_BUSFAULTPENDED_Msk       (1UL << SCB_SHCSR_BUSFAULTPENDED_Pos)          /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 14
+
+
  635:Libraries/CMSIS/Include/core_cm7.h **** 
  636:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_MEMFAULTPENDED_Pos       13U                                            /*!< SCB 
  637:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_MEMFAULTPENDED_Msk       (1UL << SCB_SHCSR_MEMFAULTPENDED_Pos)          /*!< SCB 
@@ -958,9 +811,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  662:Libraries/CMSIS/Include/core_cm7.h **** 
  663:Libraries/CMSIS/Include/core_cm7.h **** /* SCB Configurable Fault Status Register Definitions */
  664:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_USGFAULTSR_Pos            16U                                            /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 17
-
-
  665:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_USGFAULTSR_Msk            (0xFFFFUL << SCB_CFSR_USGFAULTSR_Pos)          /*!< SCB 
  666:Libraries/CMSIS/Include/core_cm7.h **** 
  667:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_BUSFAULTSR_Pos             8U                                            /*!< SCB 
@@ -988,6 +838,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  689:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_IACCVIOL_Pos              (SCB_SHCSR_MEMFAULTACT_Pos + 0U)               /*!< SCB 
  690:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_IACCVIOL_Msk              (1UL /*<< SCB_CFSR_IACCVIOL_Pos*/)             /*!< SCB 
  691:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 15
+
+
  692:Libraries/CMSIS/Include/core_cm7.h **** /* BusFault Status Register (part of SCB Configurable Fault Status Register) */
  693:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_BFARVALID_Pos            (SCB_CFSR_BUSFAULTSR_Pos + 7U)                  /*!< SCB 
  694:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_BFARVALID_Msk            (1UL << SCB_CFSR_BFARVALID_Pos)                 /*!< SCB 
@@ -1018,9 +871,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  719:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_UNALIGNED_Msk            (1UL << SCB_CFSR_UNALIGNED_Pos)                 /*!< SCB 
  720:Libraries/CMSIS/Include/core_cm7.h **** 
  721:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_NOCP_Pos                 (SCB_CFSR_USGFAULTSR_Pos + 3U)                  /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 18
-
-
  722:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_NOCP_Msk                 (1UL << SCB_CFSR_NOCP_Pos)                      /*!< SCB 
  723:Libraries/CMSIS/Include/core_cm7.h **** 
  724:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_INVPC_Pos                (SCB_CFSR_USGFAULTSR_Pos + 2U)                  /*!< SCB 
@@ -1048,6 +898,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  746:Libraries/CMSIS/Include/core_cm7.h **** 
  747:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DFSR_VCATCH_Pos                 3U                                            /*!< SCB 
  748:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DFSR_VCATCH_Msk                (1UL << SCB_DFSR_VCATCH_Pos)                   /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 16
+
+
  749:Libraries/CMSIS/Include/core_cm7.h **** 
  750:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DFSR_DWTTRAP_Pos                2U                                            /*!< SCB 
  751:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DFSR_DWTTRAP_Msk               (1UL << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB 
@@ -1078,9 +931,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  776:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_DMINLINE_Pos               16U                                            /*!< SCB 
  777:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_DMINLINE_Msk               (0xFUL << SCB_CTR_DMINLINE_Pos)                /*!< SCB 
  778:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 19
-
-
  779:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_IMINLINE_Pos                0U                                            /*!< SCB 
  780:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_IMINLINE_Msk               (0xFUL /*<< SCB_CTR_IMINLINE_Pos*/)            /*!< SCB 
  781:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1108,6 +958,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  803:Libraries/CMSIS/Include/core_cm7.h **** 
  804:Libraries/CMSIS/Include/core_cm7.h **** /* SCB Cache Size Selection Register Definitions */
  805:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CSSELR_LEVEL_Pos                1U                                            /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 17
+
+
  806:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CSSELR_LEVEL_Msk               (7UL << SCB_CSSELR_LEVEL_Pos)                  /*!< SCB 
  807:Libraries/CMSIS/Include/core_cm7.h **** 
  808:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CSSELR_IND_Pos                  0U                                            /*!< SCB 
@@ -1138,9 +991,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  833:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCCISW_SET_Pos                  5U                                            /*!< SCB 
  834:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCCISW_SET_Msk                 (0x1FFUL << SCB_DCCISW_SET_Pos)                /*!< SCB 
  835:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 20
-
-
  836:Libraries/CMSIS/Include/core_cm7.h **** /* Instruction Tightly-Coupled Memory Control Register Definitions */
  837:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ITCMCR_SZ_Pos                   3U                                            /*!< SCB 
  838:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ITCMCR_SZ_Msk                  (0xFUL << SCB_ITCMCR_SZ_Pos)                   /*!< SCB 
@@ -1168,6 +1018,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  860:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DTCMCR_EN_Msk                  (1UL /*<< SCB_DTCMCR_EN_Pos*/)                 /*!< SCB 
  861:Libraries/CMSIS/Include/core_cm7.h **** 
  862:Libraries/CMSIS/Include/core_cm7.h **** /* AHBP Control Register Definitions */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 18
+
+
  863:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AHBPCR_SZ_Pos                   1U                                            /*!< SCB 
  864:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AHBPCR_SZ_Msk                  (7UL << SCB_AHBPCR_SZ_Pos)                     /*!< SCB 
  865:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1198,9 +1051,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  890:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ABFSR_AXIMTYPE_Pos              8U                                            /*!< SCB 
  891:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ABFSR_AXIMTYPE_Msk             (3UL << SCB_ABFSR_AXIMTYPE_Pos)                /*!< SCB 
  892:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 21
-
-
  893:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ABFSR_EPPB_Pos                  4U                                            /*!< SCB 
  894:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ABFSR_EPPB_Msk                 (1UL << SCB_ABFSR_EPPB_Pos)                    /*!< SCB 
  895:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1228,6 +1078,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  917:Libraries/CMSIS/Include/core_cm7.h **** 
  918:Libraries/CMSIS/Include/core_cm7.h **** /**
  919:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Structure type to access the System Control and ID Register not in the SCB.
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 19
+
+
  920:Libraries/CMSIS/Include/core_cm7.h ****  */
  921:Libraries/CMSIS/Include/core_cm7.h **** typedef struct
  922:Libraries/CMSIS/Include/core_cm7.h **** {
@@ -1258,9 +1111,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  947:Libraries/CMSIS/Include/core_cm7.h **** 
  948:Libraries/CMSIS/Include/core_cm7.h **** /*@} end of group CMSIS_SCnotSCB */
  949:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 22
-
-
  950:Libraries/CMSIS/Include/core_cm7.h **** 
  951:Libraries/CMSIS/Include/core_cm7.h **** /**
  952:Libraries/CMSIS/Include/core_cm7.h ****   \ingroup  CMSIS_core_register
@@ -1288,6 +1138,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  974:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysT
  975:Libraries/CMSIS/Include/core_cm7.h **** 
  976:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CTRL_TICKINT_Pos            1U                                            /*!< SysT
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 20
+
+
  977:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysT
  978:Libraries/CMSIS/Include/core_cm7.h **** 
  979:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CTRL_ENABLE_Pos             0U                                            /*!< SysT
@@ -1318,9 +1171,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1004:Libraries/CMSIS/Include/core_cm7.h ****   \ingroup  CMSIS_core_register
 1005:Libraries/CMSIS/Include/core_cm7.h ****   \defgroup CMSIS_ITM     Instrumentation Trace Macrocell (ITM)
 1006:Libraries/CMSIS/Include/core_cm7.h ****   \brief    Type definitions for the Instrumentation Trace Macrocell (ITM)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 23
-
-
 1007:Libraries/CMSIS/Include/core_cm7.h ****   @{
 1008:Libraries/CMSIS/Include/core_cm7.h ****  */
 1009:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1348,6 +1198,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1031:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED4[43U];
 1032:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t LAR;                    /*!< Offset: 0xFB0 ( /W)  ITM Lock Access Register */
 1033:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t LSR;                    /*!< Offset: 0xFB4 (R/ )  ITM Lock Status Register */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 21
+
+
 1034:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED5[6U];
 1035:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t PID4;                   /*!< Offset: 0xFD0 (R/ )  ITM Peripheral Identification Re
 1036:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t PID5;                   /*!< Offset: 0xFD4 (R/ )  ITM Peripheral Identification Re
@@ -1378,9 +1231,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1061:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TCR_GTSFREQ_Msk                (3UL << ITM_TCR_GTSFREQ_Pos)                   /*!< ITM 
 1062:Libraries/CMSIS/Include/core_cm7.h **** 
 1063:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TCR_TSPrescale_Pos              8U                                            /*!< ITM 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 24
-
-
 1064:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TCR_TSPrescale_Msk             (3UL << ITM_TCR_TSPrescale_Pos)                /*!< ITM 
 1065:Libraries/CMSIS/Include/core_cm7.h **** 
 1066:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TCR_SWOENA_Pos                  4U                                            /*!< ITM 
@@ -1408,6 +1258,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1088:Libraries/CMSIS/Include/core_cm7.h **** 
 1089:Libraries/CMSIS/Include/core_cm7.h **** /* ITM Integration Mode Control Register Definitions */
 1090:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_IMCR_INTEGRATION_Pos            0U                                            /*!< ITM 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 22
+
+
 1091:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_IMCR_INTEGRATION_Msk           (1UL /*<< ITM_IMCR_INTEGRATION_Pos*/)          /*!< ITM 
 1092:Libraries/CMSIS/Include/core_cm7.h **** 
 1093:Libraries/CMSIS/Include/core_cm7.h **** /* ITM Lock Status Register Definitions */
@@ -1438,9 +1291,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1118:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  Control Register */
 1119:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CYCCNT;                 /*!< Offset: 0x004 (R/W)  Cycle Count Register */
 1120:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CPICNT;                 /*!< Offset: 0x008 (R/W)  CPI Count Register */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 25
-
-
 1121:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t EXCCNT;                 /*!< Offset: 0x00C (R/W)  Exception Overhead Count Registe
 1122:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t SLEEPCNT;               /*!< Offset: 0x010 (R/W)  Sleep Count Register */
 1123:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t LSUCNT;                 /*!< Offset: 0x014 (R/W)  LSU Count Register */
@@ -1468,6 +1318,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1145:Libraries/CMSIS/Include/core_cm7.h **** 
 1146:Libraries/CMSIS/Include/core_cm7.h **** /* DWT Control Register Definitions */
 1147:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_NUMCOMP_Pos               28U                                         /*!< DWT CTR
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 23
+
+
 1148:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_NUMCOMP_Msk               (0xFUL << DWT_CTRL_NUMCOMP_Pos)             /*!< DWT CTR
 1149:Libraries/CMSIS/Include/core_cm7.h **** 
 1150:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_NOTRCPKT_Pos              27U                                         /*!< DWT CTR
@@ -1498,9 +1351,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1175:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_EXCEVTENA_Msk             (0x1UL << DWT_CTRL_EXCEVTENA_Pos)           /*!< DWT CTR
 1176:Libraries/CMSIS/Include/core_cm7.h **** 
 1177:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_CPIEVTENA_Pos             17U                                         /*!< DWT CTR
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 26
-
-
 1178:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_CPIEVTENA_Msk             (0x1UL << DWT_CTRL_CPIEVTENA_Pos)           /*!< DWT CTR
 1179:Libraries/CMSIS/Include/core_cm7.h **** 
 1180:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_EXCTRCENA_Pos             16U                                         /*!< DWT CTR
@@ -1528,6 +1378,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1202:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CPICNT_CPICNT_Pos               0U                                         /*!< DWT CPI
 1203:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CPICNT_CPICNT_Msk              (0xFFUL /*<< DWT_CPICNT_CPICNT_Pos*/)       /*!< DWT CPI
 1204:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 24
+
+
 1205:Libraries/CMSIS/Include/core_cm7.h **** /* DWT Exception Overhead Count Register Definitions */
 1206:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_EXCCNT_EXCCNT_Pos               0U                                         /*!< DWT EXC
 1207:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_EXCCNT_EXCCNT_Msk              (0xFFUL /*<< DWT_EXCCNT_EXCCNT_Pos*/)       /*!< DWT EXC
@@ -1558,9 +1411,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1232:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FUNCTION_DATAVADDR0_Pos        12U                                         /*!< DWT FUN
 1233:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FUNCTION_DATAVADDR0_Msk        (0xFUL << DWT_FUNCTION_DATAVADDR0_Pos)      /*!< DWT FUN
 1234:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 27
-
-
 1235:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FUNCTION_DATAVSIZE_Pos         10U                                         /*!< DWT FUN
 1236:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FUNCTION_DATAVSIZE_Msk         (0x3UL << DWT_FUNCTION_DATAVSIZE_Pos)       /*!< DWT FUN
 1237:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1588,6 +1438,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1259:Libraries/CMSIS/Include/core_cm7.h ****   \brief    Type definitions for the Trace Port Interface (TPI)
 1260:Libraries/CMSIS/Include/core_cm7.h ****   @{
 1261:Libraries/CMSIS/Include/core_cm7.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 25
+
+
 1262:Libraries/CMSIS/Include/core_cm7.h **** 
 1263:Libraries/CMSIS/Include/core_cm7.h **** /**
 1264:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Structure type to access the Trace Port Interface Register (TPI).
@@ -1618,9 +1471,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1289:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED7[8U];
 1290:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t DEVID;                  /*!< Offset: 0xFC8 (R/ )  TPIU_DEVID */
 1291:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t DEVTYPE;                /*!< Offset: 0xFCC (R/ )  TPIU_DEVTYPE */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 28
-
-
 1292:Libraries/CMSIS/Include/core_cm7.h **** } TPI_Type;
 1293:Libraries/CMSIS/Include/core_cm7.h **** 
 1294:Libraries/CMSIS/Include/core_cm7.h **** /* TPI Asynchronous Clock Prescaler Register Definitions */
@@ -1648,6 +1498,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1316:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FFCR_TrigIn_Pos                 8U                                         /*!< TPI FFC
 1317:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FFCR_TrigIn_Msk                (0x1UL << TPI_FFCR_TrigIn_Pos)              /*!< TPI FFC
 1318:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 26
+
+
 1319:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FFCR_EnFCont_Pos                1U                                         /*!< TPI FFC
 1320:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FFCR_EnFCont_Msk               (0x1UL << TPI_FFCR_EnFCont_Pos)             /*!< TPI FFC
 1321:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1678,9 +1531,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1346:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ETM0_Msk                 (0xFFUL /*<< TPI_FIFO0_ETM0_Pos*/)          /*!< TPI FIF
 1347:Libraries/CMSIS/Include/core_cm7.h **** 
 1348:Libraries/CMSIS/Include/core_cm7.h **** /* TPI ITATBCTR2 Register Definitions */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 29
-
-
 1349:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_ITATBCTR2_ATREADY2_Pos          0U                                         /*!< TPI ITA
 1350:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_ITATBCTR2_ATREADY2_Msk         (0x1UL /*<< TPI_ITATBCTR2_ATREADY2_Pos*/)   /*!< TPI ITA
 1351:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1708,6 +1558,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1373:Libraries/CMSIS/Include/core_cm7.h **** 
 1374:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO1_ITM0_Pos                  0U                                         /*!< TPI FIF
 1375:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO1_ITM0_Msk                 (0xFFUL /*<< TPI_FIFO1_ITM0_Pos*/)          /*!< TPI FIF
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 27
+
+
 1376:Libraries/CMSIS/Include/core_cm7.h **** 
 1377:Libraries/CMSIS/Include/core_cm7.h **** /* TPI ITATBCTR0 Register Definitions */
 1378:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_ITATBCTR0_ATREADY2_Pos          0U                                         /*!< TPI ITA
@@ -1738,9 +1591,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1403:Libraries/CMSIS/Include/core_cm7.h **** 
 1404:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_NrTraceInput_Pos          0U                                         /*!< TPI DEV
 1405:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_NrTraceInput_Msk         (0x1FUL /*<< TPI_DEVID_NrTraceInput_Pos*/)  /*!< TPI DEV
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 30
-
-
 1406:Libraries/CMSIS/Include/core_cm7.h **** 
 1407:Libraries/CMSIS/Include/core_cm7.h **** /* TPI DEVTYPE Register Definitions */
 1408:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVTYPE_SubType_Pos             4U                                         /*!< TPI DEV
@@ -1768,6 +1618,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1430:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t TYPE;                   /*!< Offset: 0x000 (R/ )  MPU Type Register */
 1431:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CTRL;                   /*!< Offset: 0x004 (R/W)  MPU Control Register */
 1432:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t RNR;                    /*!< Offset: 0x008 (R/W)  MPU Region RNRber Register */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 28
+
+
 1433:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t RBAR;                   /*!< Offset: 0x00C (R/W)  MPU Region Base Address Register
 1434:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t RASR;                   /*!< Offset: 0x010 (R/W)  MPU Region Attribute and Size Re
 1435:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t RBAR_A1;                /*!< Offset: 0x014 (R/W)  MPU Alias 1 Region Base Address 
@@ -1798,9 +1651,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1460:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_CTRL_HFNMIENA_Msk              (1UL << MPU_CTRL_HFNMIENA_Pos)                 /*!< MPU 
 1461:Libraries/CMSIS/Include/core_cm7.h **** 
 1462:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_CTRL_ENABLE_Pos                 0U                                            /*!< MPU 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 31
-
-
 1463:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_CTRL_ENABLE_Msk                (1UL /*<< MPU_CTRL_ENABLE_Pos*/)               /*!< MPU 
 1464:Libraries/CMSIS/Include/core_cm7.h **** 
 1465:Libraries/CMSIS/Include/core_cm7.h **** /* MPU Region Number Register Definitions */
@@ -1828,6 +1678,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1487:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_AP_Msk                    (0x7UL << MPU_RASR_AP_Pos)                     /*!< MPU 
 1488:Libraries/CMSIS/Include/core_cm7.h **** 
 1489:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_TEX_Pos                   19U                                            /*!< MPU 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 29
+
+
 1490:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_TEX_Msk                   (0x7UL << MPU_RASR_TEX_Pos)                    /*!< MPU 
 1491:Libraries/CMSIS/Include/core_cm7.h **** 
 1492:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_S_Pos                     18U                                            /*!< MPU 
@@ -1858,9 +1711,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1517:Libraries/CMSIS/Include/core_cm7.h ****   \brief    Type definitions for the Floating Point Unit (FPU)
 1518:Libraries/CMSIS/Include/core_cm7.h ****   @{
 1519:Libraries/CMSIS/Include/core_cm7.h ****  */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 32
-
-
 1520:Libraries/CMSIS/Include/core_cm7.h **** 
 1521:Libraries/CMSIS/Include/core_cm7.h **** /**
 1522:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Structure type to access the Floating Point Unit (FPU).
@@ -1888,6 +1738,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1544:Libraries/CMSIS/Include/core_cm7.h **** 
 1545:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_BFRDY_Pos                 6U                                            /*!< FPCC
 1546:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_BFRDY_Msk                (1UL << FPU_FPCCR_BFRDY_Pos)                   /*!< FPCC
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 30
+
+
 1547:Libraries/CMSIS/Include/core_cm7.h **** 
 1548:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_MMRDY_Pos                 5U                                            /*!< FPCC
 1549:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_MMRDY_Msk                (1UL << FPU_FPCCR_MMRDY_Pos)                   /*!< FPCC
@@ -1918,9 +1771,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1574:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPDSCR_FZ_Pos                  24U                                            /*!< FPDS
 1575:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPDSCR_FZ_Msk                  (1UL << FPU_FPDSCR_FZ_Pos)                     /*!< FPDS
 1576:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 33
-
-
 1577:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPDSCR_RMode_Pos               22U                                            /*!< FPDS
 1578:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPDSCR_RMode_Msk               (3UL << FPU_FPDSCR_RMode_Pos)                  /*!< FPDS
 1579:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -1948,6 +1798,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1601:Libraries/CMSIS/Include/core_cm7.h **** 
 1602:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_MVFR0_A_SIMD_registers_Pos      0U                                            /*!< MVFR
 1603:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_MVFR0_A_SIMD_registers_Msk     (0xFUL /*<< FPU_MVFR0_A_SIMD_registers_Pos*/)  /*!< MVFR
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 31
+
+
 1604:Libraries/CMSIS/Include/core_cm7.h **** 
 1605:Libraries/CMSIS/Include/core_cm7.h **** /* Media and FP Feature Register 1 Definitions */
 1606:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_MVFR1_FP_fused_MAC_Pos         28U                                            /*!< MVFR
@@ -1978,9 +1831,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1631:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Structure type to access the Core Debug Register (CoreDebug).
 1632:Libraries/CMSIS/Include/core_cm7.h ****  */
 1633:Libraries/CMSIS/Include/core_cm7.h **** typedef struct
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 34
-
-
 1634:Libraries/CMSIS/Include/core_cm7.h **** {
 1635:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t DHCSR;                  /*!< Offset: 0x000 (R/W)  Debug Halting Control and Status
 1636:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t DCRSR;                  /*!< Offset: 0x004 ( /W)  Debug Core Register Selector Reg
@@ -2008,6 +1858,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1658:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_S_HALT_Msk         (1UL << CoreDebug_DHCSR_S_HALT_Pos)            /*!< Core
 1659:Libraries/CMSIS/Include/core_cm7.h **** 
 1660:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_S_REGRDY_Pos       16U                                            /*!< Core
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 32
+
+
 1661:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_S_REGRDY_Msk       (1UL << CoreDebug_DHCSR_S_REGRDY_Pos)          /*!< Core
 1662:Libraries/CMSIS/Include/core_cm7.h **** 
 1663:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_C_SNAPSTALL_Pos     5U                                            /*!< Core
@@ -2038,9 +1891,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1688:Libraries/CMSIS/Include/core_cm7.h **** 
 1689:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_MON_REQ_Pos        19U                                            /*!< Core
 1690:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_MON_REQ_Msk        (1UL << CoreDebug_DEMCR_MON_REQ_Pos)           /*!< Core
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 35
-
-
 1691:Libraries/CMSIS/Include/core_cm7.h **** 
 1692:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_MON_STEP_Pos       18U                                            /*!< Core
 1693:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_MON_STEP_Msk       (1UL << CoreDebug_DEMCR_MON_STEP_Pos)          /*!< Core
@@ -2068,6 +1918,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1715:Libraries/CMSIS/Include/core_cm7.h **** 
 1716:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_VC_NOCPERR_Pos      5U                                            /*!< Core
 1717:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_VC_NOCPERR_Msk     (1UL << CoreDebug_DEMCR_VC_NOCPERR_Pos)        /*!< Core
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 33
+
+
 1718:Libraries/CMSIS/Include/core_cm7.h **** 
 1719:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_VC_MMERR_Pos        4U                                            /*!< Core
 1720:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DEMCR_VC_MMERR_Msk       (1UL << CoreDebug_DEMCR_VC_MMERR_Pos)          /*!< Core
@@ -2098,9 +1951,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1745:Libraries/CMSIS/Include/core_cm7.h ****   \param[in] field  Name of the register bit field.
 1746:Libraries/CMSIS/Include/core_cm7.h ****   \param[in] value  Value of register. This parameter is interpreted as an uint32_t type.
 1747:Libraries/CMSIS/Include/core_cm7.h ****   \return           Masked and shifted bit field value.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 36
-
-
 1748:Libraries/CMSIS/Include/core_cm7.h **** */
 1749:Libraries/CMSIS/Include/core_cm7.h **** #define _FLD2VAL(field, value)    (((uint32_t)(value) & field ## _Msk) >> field ## _Pos)
 1750:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -2128,6 +1978,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1772:Libraries/CMSIS/Include/core_cm7.h **** #define SCB                 ((SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct
 1773:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick             ((SysTick_Type   *)     SysTick_BASE  )   /*!< SysTick configuration st
 1774:Libraries/CMSIS/Include/core_cm7.h **** #define NVIC                ((NVIC_Type      *)     NVIC_BASE     )   /*!< NVIC configuration struc
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 34
+
+
 1775:Libraries/CMSIS/Include/core_cm7.h **** #define ITM                 ((ITM_Type       *)     ITM_BASE      )   /*!< ITM configuration struct
 1776:Libraries/CMSIS/Include/core_cm7.h **** #define DWT                 ((DWT_Type       *)     DWT_BASE      )   /*!< DWT configuration struct
 1777:Libraries/CMSIS/Include/core_cm7.h **** #define TPI                 ((TPI_Type       *)     TPI_BASE      )   /*!< TPI configuration struct
@@ -2158,9 +2011,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1802:Libraries/CMSIS/Include/core_cm7.h **** */
 1803:Libraries/CMSIS/Include/core_cm7.h **** 
 1804:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 37
-
-
 1805:Libraries/CMSIS/Include/core_cm7.h **** 
 1806:Libraries/CMSIS/Include/core_cm7.h **** /* ##########################   NVIC functions  #################################### */
 1807:Libraries/CMSIS/Include/core_cm7.h **** /**
@@ -2188,6 +2038,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1829:Libraries/CMSIS/Include/core_cm7.h ****   #define NVIC_SetPriority            __NVIC_SetPriority
 1830:Libraries/CMSIS/Include/core_cm7.h ****   #define NVIC_GetPriority            __NVIC_GetPriority
 1831:Libraries/CMSIS/Include/core_cm7.h ****   #define NVIC_SystemReset            __NVIC_SystemReset
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 35
+
+
 1832:Libraries/CMSIS/Include/core_cm7.h **** #endif /* CMSIS_NVIC_VIRTUAL */
 1833:Libraries/CMSIS/Include/core_cm7.h **** 
 1834:Libraries/CMSIS/Include/core_cm7.h **** #ifdef CMSIS_VECTAB_VIRTUAL
@@ -2218,9 +2071,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1859:Libraries/CMSIS/Include/core_cm7.h ****            The parameter PriorityGroup is assigned to the field SCB->AIRCR [10:8] PRIGROUP field.
 1860:Libraries/CMSIS/Include/core_cm7.h ****            Only values from 0..7 are used.
 1861:Libraries/CMSIS/Include/core_cm7.h ****            In case of a conflict between priority grouping and available
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 38
-
-
 1862:Libraries/CMSIS/Include/core_cm7.h ****            priority bits (__NVIC_PRIO_BITS), the smallest possible priority group is set.
 1863:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]      PriorityGroup  Priority grouping field.
 1864:Libraries/CMSIS/Include/core_cm7.h ****  */
@@ -2244,20 +2094,23 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1882:Libraries/CMSIS/Include/core_cm7.h ****   \return                Priority grouping field (SCB->AIRCR [10:8] PRIGROUP field).
 1883:Libraries/CMSIS/Include/core_cm7.h ****  */
 1884:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t __NVIC_GetPriorityGrouping(void)
-  81              		.loc 2 1884 26 view .LVU18
-  82              	.LBB17:
+  70              		.loc 2 1884 26 view .LVU14
+  71              	.LBB17:
 1885:Libraries/CMSIS/Include/core_cm7.h **** {
 1886:Libraries/CMSIS/Include/core_cm7.h ****   return ((uint32_t)((SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) >> SCB_AIRCR_PRIGROUP_Pos));
-  83              		.loc 2 1886 3 view .LVU19
-  84              		.loc 2 1886 26 is_stmt 0 view .LVU20
-  85 0046 0C4B     		ldr	r3, .L2+12
-  86 0048 DB68     		ldr	r3, [r3, #12]
-  87              	.LVL0:
-  88              		.loc 2 1886 26 view .LVU21
-  89              	.LBE17:
-  90              	.LBE16:
-  91              	.LBB18:
-  92              	.LBI18:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 36
+
+
+  72              		.loc 2 1886 3 view .LVU15
+  73              		.loc 2 1886 26 is_stmt 0 view .LVU16
+  74 0036 094B     		ldr	r3, .L2+4
+  75 0038 DB68     		ldr	r3, [r3, #12]
+  76              	.LVL0:
+  77              		.loc 2 1886 26 view .LVU17
+  78              	.LBE17:
+  79              	.LBE16:
+  80              	.LBB18:
+  81              	.LBI18:
 1887:Libraries/CMSIS/Include/core_cm7.h **** }
 1888:Libraries/CMSIS/Include/core_cm7.h **** 
 1889:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -2278,9 +2131,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1904:Libraries/CMSIS/Include/core_cm7.h **** 
 1905:Libraries/CMSIS/Include/core_cm7.h **** /**
 1906:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Get Interrupt Enable status
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 39
-
-
 1907:Libraries/CMSIS/Include/core_cm7.h ****   \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
 1908:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]      IRQn  Device specific interrupt number.
 1909:Libraries/CMSIS/Include/core_cm7.h ****   \return             0  Interrupt is not enabled.
@@ -2308,6 +2158,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1931:Libraries/CMSIS/Include/core_cm7.h ****  */
 1932:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE void __NVIC_DisableIRQ(IRQn_Type IRQn)
 1933:Libraries/CMSIS/Include/core_cm7.h **** {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 37
+
+
 1934:Libraries/CMSIS/Include/core_cm7.h ****   if ((int32_t)(IRQn) >= 0)
 1935:Libraries/CMSIS/Include/core_cm7.h ****   {
 1936:Libraries/CMSIS/Include/core_cm7.h ****     NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
@@ -2338,9 +2191,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1961:Libraries/CMSIS/Include/core_cm7.h **** }
 1962:Libraries/CMSIS/Include/core_cm7.h **** 
 1963:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 40
-
-
 1964:Libraries/CMSIS/Include/core_cm7.h **** /**
 1965:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Set Pending Interrupt
 1966:Libraries/CMSIS/Include/core_cm7.h ****   \details Sets the pending bit of a device specific interrupt in the NVIC pending register.
@@ -2368,6 +2218,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 1988:Libraries/CMSIS/Include/core_cm7.h ****   {
 1989:Libraries/CMSIS/Include/core_cm7.h ****     NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
 1990:Libraries/CMSIS/Include/core_cm7.h ****   }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 38
+
+
 1991:Libraries/CMSIS/Include/core_cm7.h **** }
 1992:Libraries/CMSIS/Include/core_cm7.h **** 
 1993:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -2398,9 +2251,6 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 2018:Libraries/CMSIS/Include/core_cm7.h ****            The interrupt number can be positive to specify a device specific interrupt,
 2019:Libraries/CMSIS/Include/core_cm7.h ****            or negative to specify a processor exception.
 2020:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]      IRQn  Interrupt number.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 41
-
-
 2021:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]  priority  Priority to set.
 2022:Libraries/CMSIS/Include/core_cm7.h ****   \note    The priority cannot be set for every processor exception.
 2023:Libraries/CMSIS/Include/core_cm7.h ****  */
@@ -2428,6 +2278,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 2045:Libraries/CMSIS/Include/core_cm7.h ****  */
 2046:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t __NVIC_GetPriority(IRQn_Type IRQn)
 2047:Libraries/CMSIS/Include/core_cm7.h **** {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 39
+
+
 2048:Libraries/CMSIS/Include/core_cm7.h **** 
 2049:Libraries/CMSIS/Include/core_cm7.h ****   if ((int32_t)(IRQn) >= 0)
 2050:Libraries/CMSIS/Include/core_cm7.h ****   {
@@ -2452,107 +2305,648 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
 2069:Libraries/CMSIS/Include/core_cm7.h ****   \return                        Encoded priority. Value can be used in the function \ref NVIC_SetP
 2070:Libraries/CMSIS/Include/core_cm7.h ****  */
 2071:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uin
-  93              		.loc 2 2071 26 is_stmt 1 view .LVU22
-  94              	.LBB19:
+  82              		.loc 2 2071 26 is_stmt 1 view .LVU18
+  83              	.LBB19:
 2072:Libraries/CMSIS/Include/core_cm7.h **** {
 2073:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t PriorityGroupTmp = (PriorityGroup & (uint32_t)0x07UL);   /* only values 0..7 are used   
-  95              		.loc 2 2073 3 view .LVU23
+  84              		.loc 2 2073 3 view .LVU19
 2074:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t PreemptPriorityBits;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 42
-
-
-  96              		.loc 2 2074 3 view .LVU24
+  85              		.loc 2 2074 3 view .LVU20
 2075:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t SubPriorityBits;
-  97              		.loc 2 2075 3 view .LVU25
+  86              		.loc 2 2075 3 view .LVU21
 2076:Libraries/CMSIS/Include/core_cm7.h **** 
 2077:Libraries/CMSIS/Include/core_cm7.h ****   PreemptPriorityBits = ((7UL - PriorityGroupTmp) > (uint32_t)(__NVIC_PRIO_BITS)) ? (uint32_t)(__NV
-  98              		.loc 2 2077 3 view .LVU26
+  87              		.loc 2 2077 3 view .LVU22
 2078:Libraries/CMSIS/Include/core_cm7.h ****   SubPriorityBits     = ((PriorityGroupTmp + (uint32_t)(__NVIC_PRIO_BITS)) < (uint32_t)7UL) ? (uint
-  99              		.loc 2 2078 3 view .LVU27
+  88              		.loc 2 2078 3 view .LVU23
 2079:Libraries/CMSIS/Include/core_cm7.h **** 
 2080:Libraries/CMSIS/Include/core_cm7.h ****   return (
- 100              		.loc 2 2080 3 view .LVU28
- 101              		.loc 2 2080 3 is_stmt 0 view .LVU29
- 102              	.LBE19:
- 103              	.LBE18:
- 104              	.LBB20:
- 105              	.LBI20:
+  89              		.loc 2 2080 3 view .LVU24
+  90              		.loc 2 2080 3 is_stmt 0 view .LVU25
+  91              	.LBE19:
+  92              	.LBE18:
+  93              	.LBB20:
+  94              	.LBI20:
 2024:Libraries/CMSIS/Include/core_cm7.h **** {
- 106              		.loc 2 2024 22 is_stmt 1 view .LVU30
- 107              	.LBB21:
+  95              		.loc 2 2024 22 is_stmt 1 view .LVU26
+  96              	.LBB21:
 2026:Libraries/CMSIS/Include/core_cm7.h ****   {
- 108              		.loc 2 2026 3 view .LVU31
+  97              		.loc 2 2026 3 view .LVU27
 2028:Libraries/CMSIS/Include/core_cm7.h ****   }
- 109              		.loc 2 2028 5 view .LVU32
+  98              		.loc 2 2028 5 view .LVU28
 2028:Libraries/CMSIS/Include/core_cm7.h ****   }
- 110              		.loc 2 2028 47 is_stmt 0 view .LVU33
- 111 004a 0C4B     		ldr	r3, .L2+16
- 112 004c 0022     		movs	r2, #0
- 113 004e 83F83523 		strb	r2, [r3, #821]
- 114              	.LVL1:
+  99              		.loc 2 2028 47 is_stmt 0 view .LVU29
+ 100 003a 094B     		ldr	r3, .L2+8
+ 101 003c 0022     		movs	r2, #0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 40
+
+
+ 102 003e 83F82723 		strb	r2, [r3, #807]
+ 103              	.LVL1:
 2028:Libraries/CMSIS/Include/core_cm7.h ****   }
- 115              		.loc 2 2028 47 view .LVU34
- 116              	.LBE21:
- 117              	.LBE20:
- 170:Src/drv/drv_serial.c ****     NVIC_EnableIRQ(UART5_IRQn);
- 118              		.loc 1 170 5 is_stmt 1 view .LVU35
- 119              	.LBB22:
- 120              	.LBI22:
+ 104              		.loc 2 2028 47 view .LVU30
+ 105              	.LBE21:
+ 106              	.LBE20:
+  40:Src/drv/drv_serial.c ****     NVIC_EnableIRQ(USART3_IRQn);
+ 107              		.loc 1 40 5 is_stmt 1 view .LVU31
+ 108              	.LBB22:
+ 109              	.LBI22:
 1896:Libraries/CMSIS/Include/core_cm7.h **** {
- 121              		.loc 2 1896 22 view .LVU36
- 122              	.LBB23:
+ 110              		.loc 2 1896 22 view .LVU32
+ 111              	.LBB23:
 1898:Libraries/CMSIS/Include/core_cm7.h ****   {
- 123              		.loc 2 1898 3 view .LVU37
+ 112              		.loc 2 1898 3 view .LVU33
 1900:Libraries/CMSIS/Include/core_cm7.h ****   }
- 124              		.loc 2 1900 5 view .LVU38
+ 113              		.loc 2 1900 5 view .LVU34
 1900:Libraries/CMSIS/Include/core_cm7.h ****   }
- 125              		.loc 2 1900 43 is_stmt 0 view .LVU39
- 126 0052 4FF40012 		mov	r2, #2097152
- 127 0056 5A60     		str	r2, [r3, #4]
- 128              	.LVL2:
+ 114              		.loc 2 1900 43 is_stmt 0 view .LVU35
+ 115 0042 8022     		movs	r2, #128
+ 116 0044 5A60     		str	r2, [r3, #4]
+ 117              	.LVL2:
 1900:Libraries/CMSIS/Include/core_cm7.h ****   }
- 129              		.loc 2 1900 43 view .LVU40
- 130              	.LBE23:
- 131              	.LBE22:
+ 118              		.loc 2 1900 43 view .LVU36
+ 119              	.LBE23:
+ 120              	.LBE22:
+  41:Src/drv/drv_serial.c **** 
+  42:Src/drv/drv_serial.c ****     USART3->BRR = 0x1D5;                                       // set baud rate to 115200
+ 121              		.loc 1 42 5 is_stmt 1 view .LVU37
+ 122              		.loc 1 42 17 is_stmt 0 view .LVU38
+ 123 0046 074B     		ldr	r3, .L2+12
+ 124 0048 40F2D512 		movw	r2, #469
+ 125 004c DA60     		str	r2, [r3, #12]
+  43:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE; // enable the receiver, transmitter,
+ 126              		.loc 1 43 5 is_stmt 1 view .LVU39
+ 127              		.loc 1 43 17 is_stmt 0 view .LVU40
+ 128 004e 1A68     		ldr	r2, [r3]
+ 129 0050 42F00D02 		orr	r2, r2, #13
+ 130 0054 1A60     		str	r2, [r3]
+  44:Src/drv/drv_serial.c **** }
+ 131              		.loc 1 44 1 view .LVU41
+ 132 0056 7047     		bx	lr
+ 133              	.L3:
+ 134              		.align	2
+ 135              	.L2:
+ 136 0058 00380240 		.word	1073887232
+ 137 005c 00ED00E0 		.word	-536810240
+ 138 0060 00E100E0 		.word	-536813312
+ 139 0064 00480040 		.word	1073760256
+ 140              		.cfi_endproc
+ 141              	.LFE187:
+ 143              		.section	.text.serialWrite,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	serialWrite
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 41
+
+
+ 149              		.fpu fpv5-sp-d16
+ 151              	serialWrite:
+ 152              	.LFB188:
+  45:Src/drv/drv_serial.c **** 
+  46:Src/drv/drv_serial.c **** /** @brief Uses polling to write data to the transmit buffer.
+  47:Src/drv/drv_serial.c ****  *
+  48:Src/drv/drv_serial.c ****  *  @param ch The character to send.
+  49:Src/drv/drv_serial.c ****  *  @return Void.
+  50:Src/drv/drv_serial.c ****  */
+  51:Src/drv/drv_serial.c **** void serialWrite(uint8_t ch)
+  52:Src/drv/drv_serial.c **** {
+ 153              		.loc 1 52 1 is_stmt 1 view -0
+ 154              		.cfi_startproc
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157              		@ link register save eliminated.
+ 158              	.LVL3:
+ 159              	.L5:
+  53:Src/drv/drv_serial.c ****     while (!(USART3->ISR & USART_ISR_TXE))
+  54:Src/drv/drv_serial.c ****     {
+  55:Src/drv/drv_serial.c ****     }                 // waits for TX buffer to become empty
+ 160              		.loc 1 55 5 discriminator 1 view .LVU43
+  53:Src/drv/drv_serial.c ****     while (!(USART3->ISR & USART_ISR_TXE))
+ 161              		.loc 1 53 11 discriminator 1 view .LVU44
+  53:Src/drv/drv_serial.c ****     while (!(USART3->ISR & USART_ISR_TXE))
+ 162              		.loc 1 53 20 is_stmt 0 discriminator 1 view .LVU45
+ 163 0000 034B     		ldr	r3, .L6
+ 164 0002 DB69     		ldr	r3, [r3, #28]
+  53:Src/drv/drv_serial.c ****     while (!(USART3->ISR & USART_ISR_TXE))
+ 165              		.loc 1 53 11 discriminator 1 view .LVU46
+ 166 0004 13F0800F 		tst	r3, #128
+ 167 0008 FAD0     		beq	.L5
+  56:Src/drv/drv_serial.c ****     USART3->TDR = ch; // transfers the value of the data register into ch
+ 168              		.loc 1 56 5 is_stmt 1 view .LVU47
+ 169              		.loc 1 56 17 is_stmt 0 view .LVU48
+ 170 000a 014B     		ldr	r3, .L6
+ 171 000c 9862     		str	r0, [r3, #40]
+  57:Src/drv/drv_serial.c **** }
+ 172              		.loc 1 57 1 view .LVU49
+ 173 000e 7047     		bx	lr
+ 174              	.L7:
+ 175              		.align	2
+ 176              	.L6:
+ 177 0010 00480040 		.word	1073760256
+ 178              		.cfi_endproc
+ 179              	.LFE188:
+ 181              		.section	.text.serialRead8,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	serialRead8
+ 184              		.syntax unified
+ 185              		.thumb
+ 186              		.thumb_func
+ 187              		.fpu fpv5-sp-d16
+ 189              	serialRead8:
+ 190              	.LVL4:
+ 191              	.LFB189:
+  58:Src/drv/drv_serial.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 42
+
+
+  59:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read uint8 data to the receive buffer.
+  60:Src/drv/drv_serial.c ****  *
+  61:Src/drv/drv_serial.c ****  *  @param uint8_t *num Pointer to the location you want to store the received number
+  62:Src/drv/drv_serial.c ****  *  @return Void.
+  63:Src/drv/drv_serial.c ****  */
+  64:Src/drv/drv_serial.c **** void serialRead8(uint8_t *num)
+  65:Src/drv/drv_serial.c **** {
+ 192              		.loc 1 65 1 is_stmt 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+  66:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
+ 197              		.loc 1 66 5 view .LVU51
+ 198              		.loc 1 66 17 is_stmt 0 view .LVU52
+ 199 0000 074A     		ldr	r2, .L10
+ 200 0002 1368     		ldr	r3, [r2]
+ 201 0004 43F02003 		orr	r3, r3, #32
+ 202 0008 1360     		str	r3, [r2]
+  67:Src/drv/drv_serial.c ****     while (!temp)
+ 203              		.loc 1 67 5 is_stmt 1 view .LVU53
+ 204              	.L9:
+  68:Src/drv/drv_serial.c ****         ;
+ 205              		.loc 1 68 9 discriminator 1 view .LVU54
+  67:Src/drv/drv_serial.c ****     while (!temp)
+ 206              		.loc 1 67 11 discriminator 1 view .LVU55
+  67:Src/drv/drv_serial.c ****     while (!temp)
+ 207              		.loc 1 67 12 is_stmt 0 discriminator 1 view .LVU56
+ 208 000a 064B     		ldr	r3, .L10+4
+ 209 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  67:Src/drv/drv_serial.c ****     while (!temp)
+ 210              		.loc 1 67 11 discriminator 1 view .LVU57
+ 211 000e 002B     		cmp	r3, #0
+ 212 0010 FBD0     		beq	.L9
+  69:Src/drv/drv_serial.c **** 
+  70:Src/drv/drv_serial.c ****     *num = (uint8_t)temp;
+ 213              		.loc 1 70 5 is_stmt 1 view .LVU58
+ 214              		.loc 1 70 10 is_stmt 0 view .LVU59
+ 215 0012 0370     		strb	r3, [r0]
+  71:Src/drv/drv_serial.c ****     USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 216              		.loc 1 71 5 is_stmt 1 view .LVU60
+ 217              		.loc 1 71 17 is_stmt 0 view .LVU61
+ 218 0014 024A     		ldr	r2, .L10
+ 219 0016 1368     		ldr	r3, [r2]
+ 220 0018 23F02003 		bic	r3, r3, #32
+ 221 001c 1360     		str	r3, [r2]
+  72:Src/drv/drv_serial.c **** }
+ 222              		.loc 1 72 1 view .LVU62
+ 223 001e 7047     		bx	lr
+ 224              	.L11:
+ 225              		.align	2
+ 226              	.L10:
+ 227 0020 00480040 		.word	1073760256
+ 228 0024 00000000 		.word	.LANCHOR0
+ 229              		.cfi_endproc
+ 230              	.LFE189:
+ 232              		.section	.rodata.serialReadPID.str1.4,"aMS",%progbits,1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 43
+
+
+ 233              		.align	2
+ 234              	.LC0:
+ 235 0000 25662C20 		.ascii	"%f, %f, %f\000"
+ 235      25662C20 
+ 235      256600
+ 236              		.section	.text.serialReadPID,"ax",%progbits
+ 237              		.align	1
+ 238              		.global	serialReadPID
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 242              		.fpu fpv5-sp-d16
+ 244              	serialReadPID:
+ 245              	.LVL5:
+ 246              	.LFB190:
+  73:Src/drv/drv_serial.c **** 
+  74:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read a string of PID values.
+  75:Src/drv/drv_serial.c ****  *
+  76:Src/drv/drv_serial.c ****  *  @param * Pointer to the location you want to store the received number
+  77:Src/drv/drv_serial.c ****  *  @return Void.
+  78:Src/drv/drv_serial.c ****  */
+  79:Src/drv/drv_serial.c **** void serialReadPID(float *P, float *I, float *D)
+  80:Src/drv/drv_serial.c **** {
+ 247              		.loc 1 80 1 is_stmt 1 view -0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 0
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 251              		.loc 1 80 1 is_stmt 0 view .LVU64
+ 252 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 253              		.cfi_def_cfa_offset 20
+ 254              		.cfi_offset 4, -20
+ 255              		.cfi_offset 5, -16
+ 256              		.cfi_offset 6, -12
+ 257              		.cfi_offset 7, -8
+ 258              		.cfi_offset 14, -4
+ 259 0002 83B0     		sub	sp, sp, #12
+ 260              		.cfi_def_cfa_offset 32
+ 261 0004 0446     		mov	r4, r0
+ 262 0006 0D46     		mov	r5, r1
+ 263 0008 1646     		mov	r6, r2
+  81:Src/drv/drv_serial.c ****     serialIndex = 0;
+ 264              		.loc 1 81 5 is_stmt 1 view .LVU65
+ 265              		.loc 1 81 17 is_stmt 0 view .LVU66
+ 266 000a 0027     		movs	r7, #0
+ 267 000c 124B     		ldr	r3, .L15
+ 268 000e 1F70     		strb	r7, [r3]
+  82:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
+ 269              		.loc 1 82 5 is_stmt 1 view .LVU67
+ 270 0010 6422     		movs	r2, #100
+ 271              	.LVL6:
+ 272              		.loc 1 82 5 is_stmt 0 view .LVU68
+ 273 0012 3946     		mov	r1, r7
+ 274              	.LVL7:
+ 275              		.loc 1 82 5 view .LVU69
+ 276 0014 1148     		ldr	r0, .L15+4
+ 277              	.LVL8:
+ 278              		.loc 1 82 5 view .LVU70
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 44
+
+
+ 279 0016 FFF7FEFF 		bl	memset
+ 280              	.LVL9:
+  83:Src/drv/drv_serial.c **** 
+  84:Src/drv/drv_serial.c ****     endOfString = false;
+ 281              		.loc 1 84 5 is_stmt 1 view .LVU71
+ 282              		.loc 1 84 17 is_stmt 0 view .LVU72
+ 283 001a 114B     		ldr	r3, .L15+8
+ 284 001c 1F70     		strb	r7, [r3]
+  85:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
+ 285              		.loc 1 85 5 is_stmt 1 view .LVU73
+ 286              		.loc 1 85 17 is_stmt 0 view .LVU74
+ 287 001e 114A     		ldr	r2, .L15+12
+ 288 0020 1368     		ldr	r3, [r2]
+ 289 0022 43F02003 		orr	r3, r3, #32
+ 290 0026 1360     		str	r3, [r2]
+  86:Src/drv/drv_serial.c ****     while (!endOfString)
+ 291              		.loc 1 86 5 is_stmt 1 view .LVU75
+ 292              	.L13:
+  87:Src/drv/drv_serial.c ****         ;
+ 293              		.loc 1 87 9 discriminator 1 view .LVU76
+  86:Src/drv/drv_serial.c ****     while (!endOfString)
+ 294              		.loc 1 86 11 discriminator 1 view .LVU77
+  86:Src/drv/drv_serial.c ****     while (!endOfString)
+ 295              		.loc 1 86 12 is_stmt 0 discriminator 1 view .LVU78
+ 296 0028 0D4B     		ldr	r3, .L15+8
+ 297 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  86:Src/drv/drv_serial.c ****     while (!endOfString)
+ 298              		.loc 1 86 11 discriminator 1 view .LVU79
+ 299 002c 002B     		cmp	r3, #0
+ 300 002e FBD0     		beq	.L13
+  88:Src/drv/drv_serial.c **** 
+  89:Src/drv/drv_serial.c ****     sscanf((char *)serialBuf, "%f, %f, %f", P, I, D);
+ 301              		.loc 1 89 5 is_stmt 1 view .LVU80
+ 302 0030 0A4F     		ldr	r7, .L15+4
+ 303 0032 0096     		str	r6, [sp]
+ 304 0034 2B46     		mov	r3, r5
+ 305 0036 2246     		mov	r2, r4
+ 306 0038 0B49     		ldr	r1, .L15+16
+ 307 003a 3846     		mov	r0, r7
+ 308 003c FFF7FEFF 		bl	sscanf
+ 309              	.LVL10:
+  90:Src/drv/drv_serial.c **** 
+  91:Src/drv/drv_serial.c ****     USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 310              		.loc 1 91 5 view .LVU81
+ 311              		.loc 1 91 17 is_stmt 0 view .LVU82
+ 312 0040 084A     		ldr	r2, .L15+12
+ 313 0042 1368     		ldr	r3, [r2]
+ 314 0044 23F02003 		bic	r3, r3, #32
+ 315 0048 1360     		str	r3, [r2]
+  92:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
+ 316              		.loc 1 92 5 is_stmt 1 view .LVU83
+ 317 004a 6422     		movs	r2, #100
+ 318 004c 0021     		movs	r1, #0
+ 319 004e 3846     		mov	r0, r7
+ 320 0050 FFF7FEFF 		bl	memset
+ 321              	.LVL11:
+  93:Src/drv/drv_serial.c **** }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 45
+
+
+ 322              		.loc 1 93 1 is_stmt 0 view .LVU84
+ 323 0054 03B0     		add	sp, sp, #12
+ 324              		.cfi_def_cfa_offset 20
+ 325              		@ sp needed
+ 326 0056 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 327              	.LVL12:
+ 328              	.L16:
+ 329              		.loc 1 93 1 view .LVU85
+ 330              		.align	2
+ 331              	.L15:
+ 332 0058 00000000 		.word	.LANCHOR1
+ 333 005c 00000000 		.word	.LANCHOR2
+ 334 0060 00000000 		.word	.LANCHOR3
+ 335 0064 00480040 		.word	1073760256
+ 336 0068 00000000 		.word	.LC0
+ 337              		.cfi_endproc
+ 338              	.LFE190:
+ 340              		.section	.text.serialWaitFor,"ax",%progbits
+ 341              		.align	1
+ 342              		.global	serialWaitFor
+ 343              		.syntax unified
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.fpu fpv5-sp-d16
+ 348              	serialWaitFor:
+ 349              	.LVL13:
+ 350              	.LFB191:
+  94:Src/drv/drv_serial.c **** 
+  95:Src/drv/drv_serial.c **** /** @brief Waits for a character.
+  96:Src/drv/drv_serial.c ****  *
+  97:Src/drv/drv_serial.c ****  *  @param wait Character to wait for.
+  98:Src/drv/drv_serial.c ****  *  @return bool True or False based on whether or not the character.
+  99:Src/drv/drv_serial.c ****  *  received is the input to the function.
+ 100:Src/drv/drv_serial.c ****  */
+ 101:Src/drv/drv_serial.c **** bool serialWaitFor(char wait)
+ 102:Src/drv/drv_serial.c **** {
+ 351              		.loc 1 102 1 is_stmt 1 view -0
+ 352              		.cfi_startproc
+ 353              		@ args = 0, pretend = 0, frame = 0
+ 354              		@ frame_needed = 0, uses_anonymous_args = 0
+ 355              		@ link register save eliminated.
+ 103:Src/drv/drv_serial.c ****     USART3->CR1 |= USART_CR1_RXNEIE;
+ 356              		.loc 1 103 5 view .LVU87
+ 357              		.loc 1 103 17 is_stmt 0 view .LVU88
+ 358 0000 0E4A     		ldr	r2, .L22
+ 359 0002 1368     		ldr	r3, [r2]
+ 360 0004 43F02003 		orr	r3, r3, #32
+ 361 0008 1360     		str	r3, [r2]
+ 104:Src/drv/drv_serial.c ****     while (!temp)
+ 362              		.loc 1 104 5 is_stmt 1 view .LVU89
+ 363              	.L18:
+ 105:Src/drv/drv_serial.c ****         ;
+ 364              		.loc 1 105 9 discriminator 1 view .LVU90
+ 104:Src/drv/drv_serial.c ****     while (!temp)
+ 365              		.loc 1 104 11 discriminator 1 view .LVU91
+ 104:Src/drv/drv_serial.c ****     while (!temp)
+ 366              		.loc 1 104 12 is_stmt 0 discriminator 1 view .LVU92
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 46
+
+
+ 367 000a 0D4B     		ldr	r3, .L22+4
+ 368 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 104:Src/drv/drv_serial.c ****     while (!temp)
+ 369              		.loc 1 104 11 discriminator 1 view .LVU93
+ 370 000e 002B     		cmp	r3, #0
+ 371 0010 FBD0     		beq	.L18
+ 106:Src/drv/drv_serial.c ****     if (temp == wait)
+ 372              		.loc 1 106 5 is_stmt 1 view .LVU94
+ 373              		.loc 1 106 8 is_stmt 0 view .LVU95
+ 374 0012 8342     		cmp	r3, r0
+ 375 0014 08D0     		beq	.L21
+ 107:Src/drv/drv_serial.c ****     {
+ 108:Src/drv/drv_serial.c ****         temp = '\0';
+ 109:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 110:Src/drv/drv_serial.c ****         return true;
+ 111:Src/drv/drv_serial.c ****     }
+ 112:Src/drv/drv_serial.c ****     else
+ 113:Src/drv/drv_serial.c ****     {
+ 114:Src/drv/drv_serial.c ****         temp = '\0';
+ 376              		.loc 1 114 9 is_stmt 1 view .LVU96
+ 377              		.loc 1 114 14 is_stmt 0 view .LVU97
+ 378 0016 0020     		movs	r0, #0
+ 379              	.LVL14:
+ 380              		.loc 1 114 14 view .LVU98
+ 381 0018 094B     		ldr	r3, .L22+4
+ 382 001a 1870     		strb	r0, [r3]
+ 115:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 383              		.loc 1 115 9 is_stmt 1 view .LVU99
+ 384              		.loc 1 115 21 is_stmt 0 view .LVU100
+ 385 001c 074A     		ldr	r2, .L22
+ 386 001e 1368     		ldr	r3, [r2]
+ 387 0020 23F02003 		bic	r3, r3, #32
+ 388 0024 1360     		str	r3, [r2]
+ 116:Src/drv/drv_serial.c ****         return false;
+ 389              		.loc 1 116 9 is_stmt 1 view .LVU101
+ 117:Src/drv/drv_serial.c ****     }
+ 118:Src/drv/drv_serial.c **** }
+ 390              		.loc 1 118 1 is_stmt 0 view .LVU102
+ 391 0026 7047     		bx	lr
+ 392              	.LVL15:
+ 393              	.L21:
+ 108:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 394              		.loc 1 108 9 is_stmt 1 view .LVU103
+ 108:Src/drv/drv_serial.c ****         USART3->CR1 &= ~USART_CR1_RXNEIE;
+ 395              		.loc 1 108 14 is_stmt 0 view .LVU104
+ 396 0028 054B     		ldr	r3, .L22+4
+ 397 002a 0022     		movs	r2, #0
+ 398 002c 1A70     		strb	r2, [r3]
+ 109:Src/drv/drv_serial.c ****         return true;
+ 399              		.loc 1 109 9 is_stmt 1 view .LVU105
+ 109:Src/drv/drv_serial.c ****         return true;
+ 400              		.loc 1 109 21 is_stmt 0 view .LVU106
+ 401 002e 034A     		ldr	r2, .L22
+ 402 0030 1368     		ldr	r3, [r2]
+ 403 0032 23F02003 		bic	r3, r3, #32
+ 404 0036 1360     		str	r3, [r2]
+ 110:Src/drv/drv_serial.c ****     }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 47
+
+
+ 405              		.loc 1 110 9 is_stmt 1 view .LVU107
+ 110:Src/drv/drv_serial.c ****     }
+ 406              		.loc 1 110 16 is_stmt 0 view .LVU108
+ 407 0038 0120     		movs	r0, #1
+ 408              	.LVL16:
+ 110:Src/drv/drv_serial.c ****     }
+ 409              		.loc 1 110 16 view .LVU109
+ 410 003a 7047     		bx	lr
+ 411              	.L23:
+ 412              		.align	2
+ 413              	.L22:
+ 414 003c 00480040 		.word	1073760256
+ 415 0040 00000000 		.word	.LANCHOR0
+ 416              		.cfi_endproc
+ 417              	.LFE191:
+ 419              		.section	.text.USART3_IRQHandler,"ax",%progbits
+ 420              		.align	1
+ 421              		.global	USART3_IRQHandler
+ 422              		.syntax unified
+ 423              		.thumb
+ 424              		.thumb_func
+ 425              		.fpu fpv5-sp-d16
+ 427              	USART3_IRQHandler:
+ 428              	.LFB192:
+ 119:Src/drv/drv_serial.c **** 
+ 120:Src/drv/drv_serial.c **** /* Interrupt Handlers */
+ 121:Src/drv/drv_serial.c **** 
+ 122:Src/drv/drv_serial.c **** /**
+ 123:Src/drv/drv_serial.c ****  * @brief This function handles UART3 global interrupt.
+ 124:Src/drv/drv_serial.c ****  */
+ 125:Src/drv/drv_serial.c **** void USART3_IRQHandler(void)
+ 126:Src/drv/drv_serial.c **** {
+ 429              		.loc 1 126 1 is_stmt 1 view -0
+ 430              		.cfi_startproc
+ 431              		@ args = 0, pretend = 0, frame = 0
+ 432              		@ frame_needed = 0, uses_anonymous_args = 0
+ 433              		@ link register save eliminated.
+ 127:Src/drv/drv_serial.c ****     if ((USART3->ISR & USART_ISR_RXNE) && (USART3->CR1 & USART_CR1_RXNEIE))
+ 434              		.loc 1 127 5 view .LVU111
+ 435              		.loc 1 127 16 is_stmt 0 view .LVU112
+ 436 0000 144B     		ldr	r3, .L29
+ 437 0002 DB69     		ldr	r3, [r3, #28]
+ 438              		.loc 1 127 8 view .LVU113
+ 439 0004 13F0200F 		tst	r3, #32
+ 440 0008 12D0     		beq	.L25
+ 441              		.loc 1 127 50 discriminator 1 view .LVU114
+ 442 000a 124B     		ldr	r3, .L29
+ 443 000c 1B68     		ldr	r3, [r3]
+ 444              		.loc 1 127 40 discriminator 1 view .LVU115
+ 445 000e 13F0200F 		tst	r3, #32
+ 446 0012 0DD0     		beq	.L25
+ 128:Src/drv/drv_serial.c ****     {
+ 129:Src/drv/drv_serial.c ****         temp = USART3->RDR;
+ 447              		.loc 1 129 9 is_stmt 1 view .LVU116
+ 448              		.loc 1 129 22 is_stmt 0 view .LVU117
+ 449 0014 0F4A     		ldr	r2, .L29
+ 450 0016 536A     		ldr	r3, [r2, #36]
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 48
+
+
+ 451              		.loc 1 129 14 view .LVU118
+ 452 0018 DBB2     		uxtb	r3, r3
+ 453 001a 0F49     		ldr	r1, .L29+4
+ 454 001c 0B70     		strb	r3, [r1]
+ 130:Src/drv/drv_serial.c ****         USART3->TDR = temp;
+ 455              		.loc 1 130 9 is_stmt 1 view .LVU119
+ 456              		.loc 1 130 21 is_stmt 0 view .LVU120
+ 457 001e 9362     		str	r3, [r2, #40]
+ 131:Src/drv/drv_serial.c ****         if (temp == '\r')
+ 458              		.loc 1 131 9 is_stmt 1 view .LVU121
+ 459              		.loc 1 131 12 is_stmt 0 view .LVU122
+ 460 0020 0D2B     		cmp	r3, #13
+ 461 0022 10D0     		beq	.L28
+ 132:Src/drv/drv_serial.c ****         {
+ 133:Src/drv/drv_serial.c ****             endOfString = true;
+ 134:Src/drv/drv_serial.c ****             serialIndex = 0;
+ 135:Src/drv/drv_serial.c ****         }
+ 136:Src/drv/drv_serial.c ****         else
+ 137:Src/drv/drv_serial.c ****         {
+ 138:Src/drv/drv_serial.c ****             serialBuf[serialIndex] = temp;
+ 462              		.loc 1 138 13 is_stmt 1 view .LVU123
+ 463              		.loc 1 138 22 is_stmt 0 view .LVU124
+ 464 0024 0D49     		ldr	r1, .L29+8
+ 465 0026 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 466              		.loc 1 138 36 view .LVU125
+ 467 0028 0D48     		ldr	r0, .L29+12
+ 468 002a 8354     		strb	r3, [r0, r2]
+ 139:Src/drv/drv_serial.c ****             serialIndex++;
+ 469              		.loc 1 139 13 is_stmt 1 view .LVU126
+ 470              		.loc 1 139 24 is_stmt 0 view .LVU127
+ 471 002c 0132     		adds	r2, r2, #1
+ 472 002e 0A70     		strb	r2, [r1]
+ 473              	.L25:
+ 140:Src/drv/drv_serial.c ****         }
+ 141:Src/drv/drv_serial.c ****     }
+ 142:Src/drv/drv_serial.c ****     if (USART3->ISR & USART_ISR_ORE)
+ 474              		.loc 1 142 5 is_stmt 1 view .LVU128
+ 475              		.loc 1 142 15 is_stmt 0 view .LVU129
+ 476 0030 084B     		ldr	r3, .L29
+ 477 0032 DB69     		ldr	r3, [r3, #28]
+ 478              		.loc 1 142 8 view .LVU130
+ 479 0034 13F0080F 		tst	r3, #8
+ 480 0038 04D0     		beq	.L24
+ 143:Src/drv/drv_serial.c ****         USART3->ICR |= USART_ICR_ORECF;
+ 481              		.loc 1 143 9 is_stmt 1 view .LVU131
+ 482              		.loc 1 143 21 is_stmt 0 view .LVU132
+ 483 003a 064A     		ldr	r2, .L29
+ 484 003c 136A     		ldr	r3, [r2, #32]
+ 485 003e 43F00803 		orr	r3, r3, #8
+ 486 0042 1362     		str	r3, [r2, #32]
+ 487              	.L24:
+ 144:Src/drv/drv_serial.c **** }
+ 488              		.loc 1 144 1 view .LVU133
+ 489 0044 7047     		bx	lr
+ 490              	.L28:
+ 133:Src/drv/drv_serial.c ****             serialIndex = 0;
+ 491              		.loc 1 133 13 is_stmt 1 view .LVU134
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 49
+
+
+ 133:Src/drv/drv_serial.c ****             serialIndex = 0;
+ 492              		.loc 1 133 25 is_stmt 0 view .LVU135
+ 493 0046 074B     		ldr	r3, .L29+16
+ 494 0048 0122     		movs	r2, #1
+ 495 004a 1A70     		strb	r2, [r3]
+ 134:Src/drv/drv_serial.c ****         }
+ 496              		.loc 1 134 13 is_stmt 1 view .LVU136
+ 134:Src/drv/drv_serial.c ****         }
+ 497              		.loc 1 134 25 is_stmt 0 view .LVU137
+ 498 004c 034B     		ldr	r3, .L29+8
+ 499 004e 0022     		movs	r2, #0
+ 500 0050 1A70     		strb	r2, [r3]
+ 501 0052 EDE7     		b	.L25
+ 502              	.L30:
+ 503              		.align	2
+ 504              	.L29:
+ 505 0054 00480040 		.word	1073760256
+ 506 0058 00000000 		.word	.LANCHOR0
+ 507 005c 00000000 		.word	.LANCHOR1
+ 508 0060 00000000 		.word	.LANCHOR2
+ 509 0064 00000000 		.word	.LANCHOR3
+ 510              		.cfi_endproc
+ 511              	.LFE192:
+ 513              		.section	.text.__io_putchar,"ax",%progbits
+ 514              		.align	1
+ 515              		.global	__io_putchar
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.fpu fpv5-sp-d16
+ 521              	__io_putchar:
+ 522              	.LVL17:
+ 523              	.LFB193:
+ 145:Src/drv/drv_serial.c **** 
+ 146:Src/drv/drv_serial.c **** #endif
+ 147:Src/drv/drv_serial.c **** 
+ 148:Src/drv/drv_serial.c **** #ifdef USE_AUTODRONE
+ 149:Src/drv/drv_serial.c **** 
+ 150:Src/drv/drv_serial.c **** /** @brief Initializes the low level uart registers in order to use printf.
+ 151:Src/drv/drv_serial.c ****  *
+ 152:Src/drv/drv_serial.c ****  *  @return Void.
+ 153:Src/drv/drv_serial.c ****  */
+ 154:Src/drv/drv_serial.c **** void serialInit(void)
+ 155:Src/drv/drv_serial.c **** {
+ 156:Src/drv/drv_serial.c **** 
+ 157:Src/drv/drv_serial.c ****     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN |
+ 158:Src/drv/drv_serial.c ****                     RCC_AHB1ENR_GPIODEN; // enable the clock for port C, D
+ 159:Src/drv/drv_serial.c ****     RCC->APB1ENR |= RCC_APB1ENR_UART5EN; // enable the clock for UART5
+ 160:Src/drv/drv_serial.c **** 
+ 161:Src/drv/drv_serial.c ****     GPIOC->AFR[1] |= (0x8 << (4 * 4U)); // set pin A2 as alternate function
+ 162:Src/drv/drv_serial.c ****     GPIOD->AFR[0] |= (0x8 << (4 * 2U)); // set pin A3 as alternate function
+ 163:Src/drv/drv_serial.c **** 
+ 164:Src/drv/drv_serial.c ****     GPIOC->MODER &= ~(GPIO_MODER_MODER12);
+ 165:Src/drv/drv_serial.c ****     GPIOD->MODER &= ~(GPIO_MODER_MODER2);
+ 166:Src/drv/drv_serial.c ****     GPIOC->MODER |= GPIO_MODER_MODER12_1; // set PC12 as alternate function
+ 167:Src/drv/drv_serial.c ****     GPIOD->MODER |= GPIO_MODER_MODER2_1;  // set PD2 as alternate function
+ 168:Src/drv/drv_serial.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 50
+
+
+ 169:Src/drv/drv_serial.c ****     NVIC_SetPriority(UART5_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+ 170:Src/drv/drv_serial.c ****     NVIC_EnableIRQ(UART5_IRQn);
  171:Src/drv/drv_serial.c **** 
  172:Src/drv/drv_serial.c ****     UART5->BRR = 0x1D5;                                       // set baud rate to 115200
- 132              		.loc 1 172 5 is_stmt 1 view .LVU41
- 133              		.loc 1 172 16 is_stmt 0 view .LVU42
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 43
-
-
- 134 0058 094B     		ldr	r3, .L2+20
- 135 005a 40F2D512 		movw	r2, #469
- 136 005e DA60     		str	r2, [r3, #12]
  173:Src/drv/drv_serial.c ****     UART5->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE; // enable the receiver, transmitter, 
- 137              		.loc 1 173 5 is_stmt 1 view .LVU43
- 138              		.loc 1 173 16 is_stmt 0 view .LVU44
- 139 0060 1A68     		ldr	r2, [r3]
- 140 0062 42F00D02 		orr	r2, r2, #13
- 141 0066 1A60     		str	r2, [r3]
  174:Src/drv/drv_serial.c **** }
- 142              		.loc 1 174 1 view .LVU45
- 143 0068 7047     		bx	lr
- 144              	.L3:
- 145 006a 00BF     		.align	2
- 146              	.L2:
- 147 006c 00380240 		.word	1073887232
- 148 0070 00080240 		.word	1073874944
- 149 0074 000C0240 		.word	1073875968
- 150 0078 00ED00E0 		.word	-536810240
- 151 007c 00E100E0 		.word	-536813312
- 152 0080 00500040 		.word	1073762304
- 153              		.cfi_endproc
- 154              	.LFE187:
- 156              		.section	.text.serialWrite,"ax",%progbits
- 157              		.align	1
- 158              		.global	serialWrite
- 159              		.syntax unified
- 160              		.thumb
- 161              		.thumb_func
- 162              		.fpu fpv5-sp-d16
- 164              	serialWrite:
- 165              	.LFB188:
  175:Src/drv/drv_serial.c **** 
  176:Src/drv/drv_serial.c **** /** @brief Uses polling to write data to the transmit buffer.
  177:Src/drv/drv_serial.c ****  *
@@ -2561,54 +2955,11 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  180:Src/drv/drv_serial.c ****  */
  181:Src/drv/drv_serial.c **** void serialWrite(uint8_t ch)
  182:Src/drv/drv_serial.c **** {
- 166              		.loc 1 182 1 is_stmt 1 view -0
- 167              		.cfi_startproc
- 168              		@ args = 0, pretend = 0, frame = 0
- 169              		@ frame_needed = 0, uses_anonymous_args = 0
- 170              		@ link register save eliminated.
- 171              	.LVL3:
- 172              	.L5:
  183:Src/drv/drv_serial.c ****     while (!(UART5->ISR & USART_ISR_TXE))
  184:Src/drv/drv_serial.c ****     {
  185:Src/drv/drv_serial.c ****     }                // waits for TX buffer to become empty
- 173              		.loc 1 185 5 discriminator 1 view .LVU47
- 183:Src/drv/drv_serial.c ****     while (!(UART5->ISR & USART_ISR_TXE))
- 174              		.loc 1 183 11 discriminator 1 view .LVU48
- 183:Src/drv/drv_serial.c ****     while (!(UART5->ISR & USART_ISR_TXE))
- 175              		.loc 1 183 19 is_stmt 0 discriminator 1 view .LVU49
- 176 0000 034B     		ldr	r3, .L6
- 177 0002 DB69     		ldr	r3, [r3, #28]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 44
-
-
- 183:Src/drv/drv_serial.c ****     while (!(UART5->ISR & USART_ISR_TXE))
- 178              		.loc 1 183 11 discriminator 1 view .LVU50
- 179 0004 13F0800F 		tst	r3, #128
- 180 0008 FAD0     		beq	.L5
  186:Src/drv/drv_serial.c ****     UART5->TDR = ch; // transfers the value of the data register into ch
- 181              		.loc 1 186 5 is_stmt 1 view .LVU51
- 182              		.loc 1 186 16 is_stmt 0 view .LVU52
- 183 000a 014B     		ldr	r3, .L6
- 184 000c 9862     		str	r0, [r3, #40]
  187:Src/drv/drv_serial.c **** }
- 185              		.loc 1 187 1 view .LVU53
- 186 000e 7047     		bx	lr
- 187              	.L7:
- 188              		.align	2
- 189              	.L6:
- 190 0010 00500040 		.word	1073762304
- 191              		.cfi_endproc
- 192              	.LFE188:
- 194              		.section	.text.serialRead8,"ax",%progbits
- 195              		.align	1
- 196              		.global	serialRead8
- 197              		.syntax unified
- 198              		.thumb
- 199              		.thumb_func
- 200              		.fpu fpv5-sp-d16
- 202              	serialRead8:
- 203              	.LVL4:
- 204              	.LFB189:
  188:Src/drv/drv_serial.c **** 
  189:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read uint8 data to the receive buffer.
  190:Src/drv/drv_serial.c ****  *
@@ -2617,218 +2968,39 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  193:Src/drv/drv_serial.c ****  */
  194:Src/drv/drv_serial.c **** void serialRead8(uint8_t *num)
  195:Src/drv/drv_serial.c **** {
- 205              		.loc 1 195 1 is_stmt 1 view -0
- 206              		.cfi_startproc
- 207              		@ args = 0, pretend = 0, frame = 0
- 208              		@ frame_needed = 0, uses_anonymous_args = 0
- 209              		@ link register save eliminated.
  196:Src/drv/drv_serial.c ****     temp = '\0';
- 210              		.loc 1 196 5 view .LVU55
- 211              		.loc 1 196 10 is_stmt 0 view .LVU56
- 212 0000 094B     		ldr	r3, .L10
- 213 0002 0022     		movs	r2, #0
- 214 0004 1A70     		strb	r2, [r3]
  197:Src/drv/drv_serial.c ****     UART5->CR1 |= USART_CR1_RXNEIE;
- 215              		.loc 1 197 5 is_stmt 1 view .LVU57
- 216              		.loc 1 197 16 is_stmt 0 view .LVU58
- 217 0006 094A     		ldr	r2, .L10+4
- 218 0008 1368     		ldr	r3, [r2]
- 219 000a 43F02003 		orr	r3, r3, #32
- 220 000e 1360     		str	r3, [r2]
  198:Src/drv/drv_serial.c ****     while (!temp)
- 221              		.loc 1 198 5 is_stmt 1 view .LVU59
- 222              	.L9:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 45
-
-
  199:Src/drv/drv_serial.c ****         ;
- 223              		.loc 1 199 9 discriminator 1 view .LVU60
- 198:Src/drv/drv_serial.c ****     while (!temp)
- 224              		.loc 1 198 11 discriminator 1 view .LVU61
- 198:Src/drv/drv_serial.c ****     while (!temp)
- 225              		.loc 1 198 12 is_stmt 0 discriminator 1 view .LVU62
- 226 0010 054B     		ldr	r3, .L10
- 227 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 198:Src/drv/drv_serial.c ****     while (!temp)
- 228              		.loc 1 198 11 discriminator 1 view .LVU63
- 229 0014 002B     		cmp	r3, #0
- 230 0016 FBD0     		beq	.L9
  200:Src/drv/drv_serial.c **** 
  201:Src/drv/drv_serial.c ****     *num = (uint8_t)temp - 48;
- 231              		.loc 1 201 5 is_stmt 1 view .LVU64
- 232              		.loc 1 201 26 is_stmt 0 view .LVU65
- 233 0018 303B     		subs	r3, r3, #48
- 234              		.loc 1 201 10 view .LVU66
- 235 001a 0370     		strb	r3, [r0]
  202:Src/drv/drv_serial.c ****     UART5->CR1 &= ~USART_CR1_RXNEIE;
- 236              		.loc 1 202 5 is_stmt 1 view .LVU67
- 237              		.loc 1 202 16 is_stmt 0 view .LVU68
- 238 001c 034A     		ldr	r2, .L10+4
- 239 001e 1368     		ldr	r3, [r2]
- 240 0020 23F02003 		bic	r3, r3, #32
- 241 0024 1360     		str	r3, [r2]
  203:Src/drv/drv_serial.c **** }
- 242              		.loc 1 203 1 view .LVU69
- 243 0026 7047     		bx	lr
- 244              	.L11:
- 245              		.align	2
- 246              	.L10:
- 247 0028 00000000 		.word	.LANCHOR0
- 248 002c 00500040 		.word	1073762304
- 249              		.cfi_endproc
- 250              	.LFE189:
- 252              		.section	.rodata.serialReadPID.str1.4,"aMS",%progbits,1
- 253              		.align	2
- 254              	.LC0:
- 255 0000 25662C20 		.ascii	"%f, %f, %f\000"
- 255      25662C20 
- 255      256600
- 256              		.section	.text.serialReadPID,"ax",%progbits
- 257              		.align	1
- 258              		.global	serialReadPID
- 259              		.syntax unified
- 260              		.thumb
- 261              		.thumb_func
- 262              		.fpu fpv5-sp-d16
- 264              	serialReadPID:
- 265              	.LVL5:
- 266              	.LFB190:
  204:Src/drv/drv_serial.c **** 
  205:Src/drv/drv_serial.c **** /** @brief Uses interrupts to read a string of PID values.
  206:Src/drv/drv_serial.c ****  *
  207:Src/drv/drv_serial.c ****  *  @param * Pointer to the location you want to store the received number
  208:Src/drv/drv_serial.c ****  *  @return Void.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 46
-
-
  209:Src/drv/drv_serial.c ****  */
  210:Src/drv/drv_serial.c **** void serialReadPID(float *P, float *I, float *D)
  211:Src/drv/drv_serial.c **** {
- 267              		.loc 1 211 1 is_stmt 1 view -0
- 268              		.cfi_startproc
- 269              		@ args = 0, pretend = 0, frame = 0
- 270              		@ frame_needed = 0, uses_anonymous_args = 0
- 271              		.loc 1 211 1 is_stmt 0 view .LVU71
- 272 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 273              		.cfi_def_cfa_offset 20
- 274              		.cfi_offset 4, -20
- 275              		.cfi_offset 5, -16
- 276              		.cfi_offset 6, -12
- 277              		.cfi_offset 7, -8
- 278              		.cfi_offset 14, -4
- 279 0002 83B0     		sub	sp, sp, #12
- 280              		.cfi_def_cfa_offset 32
- 281 0004 0446     		mov	r4, r0
- 282 0006 0D46     		mov	r5, r1
- 283 0008 1646     		mov	r6, r2
  212:Src/drv/drv_serial.c ****     serialIndex = 0;
- 284              		.loc 1 212 5 is_stmt 1 view .LVU72
- 285              		.loc 1 212 17 is_stmt 0 view .LVU73
- 286 000a 0027     		movs	r7, #0
- 287 000c 124B     		ldr	r3, .L15
- 288 000e 1F70     		strb	r7, [r3]
  213:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
- 289              		.loc 1 213 5 is_stmt 1 view .LVU74
- 290 0010 6422     		movs	r2, #100
- 291              	.LVL6:
- 292              		.loc 1 213 5 is_stmt 0 view .LVU75
- 293 0012 3946     		mov	r1, r7
- 294              	.LVL7:
- 295              		.loc 1 213 5 view .LVU76
- 296 0014 1148     		ldr	r0, .L15+4
- 297              	.LVL8:
- 298              		.loc 1 213 5 view .LVU77
- 299 0016 FFF7FEFF 		bl	memset
- 300              	.LVL9:
  214:Src/drv/drv_serial.c **** 
  215:Src/drv/drv_serial.c ****     endOfString = false;
- 301              		.loc 1 215 5 is_stmt 1 view .LVU78
- 302              		.loc 1 215 17 is_stmt 0 view .LVU79
- 303 001a 114B     		ldr	r3, .L15+8
- 304 001c 1F70     		strb	r7, [r3]
  216:Src/drv/drv_serial.c ****     UART5->CR1 |= USART_CR1_RXNEIE;
- 305              		.loc 1 216 5 is_stmt 1 view .LVU80
- 306              		.loc 1 216 16 is_stmt 0 view .LVU81
- 307 001e 114A     		ldr	r2, .L15+12
- 308 0020 1368     		ldr	r3, [r2]
- 309 0022 43F02003 		orr	r3, r3, #32
- 310 0026 1360     		str	r3, [r2]
  217:Src/drv/drv_serial.c ****     while (!endOfString)
- 311              		.loc 1 217 5 is_stmt 1 view .LVU82
- 312              	.L13:
  218:Src/drv/drv_serial.c ****         ;
- 313              		.loc 1 218 9 discriminator 1 view .LVU83
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 47
-
-
- 217:Src/drv/drv_serial.c ****     while (!endOfString)
- 314              		.loc 1 217 11 discriminator 1 view .LVU84
- 217:Src/drv/drv_serial.c ****     while (!endOfString)
- 315              		.loc 1 217 12 is_stmt 0 discriminator 1 view .LVU85
- 316 0028 0D4B     		ldr	r3, .L15+8
- 317 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 217:Src/drv/drv_serial.c ****     while (!endOfString)
- 318              		.loc 1 217 11 discriminator 1 view .LVU86
- 319 002c 002B     		cmp	r3, #0
- 320 002e FBD0     		beq	.L13
  219:Src/drv/drv_serial.c **** 
  220:Src/drv/drv_serial.c ****     sscanf((char *)serialBuf, "%f, %f, %f", P, I, D);
- 321              		.loc 1 220 5 is_stmt 1 view .LVU87
- 322 0030 0A4F     		ldr	r7, .L15+4
- 323 0032 0096     		str	r6, [sp]
- 324 0034 2B46     		mov	r3, r5
- 325 0036 2246     		mov	r2, r4
- 326 0038 0B49     		ldr	r1, .L15+16
- 327 003a 3846     		mov	r0, r7
- 328 003c FFF7FEFF 		bl	sscanf
- 329              	.LVL10:
  221:Src/drv/drv_serial.c **** 
  222:Src/drv/drv_serial.c ****     UART5->CR1 &= ~USART_CR1_RXNEIE;
- 330              		.loc 1 222 5 view .LVU88
- 331              		.loc 1 222 16 is_stmt 0 view .LVU89
- 332 0040 084A     		ldr	r2, .L15+12
- 333 0042 1368     		ldr	r3, [r2]
- 334 0044 23F02003 		bic	r3, r3, #32
- 335 0048 1360     		str	r3, [r2]
  223:Src/drv/drv_serial.c ****     memset(serialBuf, '\0', sizeof(serialBuf));
- 336              		.loc 1 223 5 is_stmt 1 view .LVU90
- 337 004a 6422     		movs	r2, #100
- 338 004c 0021     		movs	r1, #0
- 339 004e 3846     		mov	r0, r7
- 340 0050 FFF7FEFF 		bl	memset
- 341              	.LVL11:
  224:Src/drv/drv_serial.c **** }
- 342              		.loc 1 224 1 is_stmt 0 view .LVU91
- 343 0054 03B0     		add	sp, sp, #12
- 344              		.cfi_def_cfa_offset 20
- 345              		@ sp needed
- 346 0056 F0BD     		pop	{r4, r5, r6, r7, pc}
- 347              	.LVL12:
- 348              	.L16:
- 349              		.loc 1 224 1 view .LVU92
- 350              		.align	2
- 351              	.L15:
- 352 0058 00000000 		.word	.LANCHOR1
- 353 005c 00000000 		.word	.LANCHOR2
- 354 0060 00000000 		.word	.LANCHOR3
- 355 0064 00500040 		.word	1073762304
- 356 0068 00000000 		.word	.LC0
- 357              		.cfi_endproc
- 358              	.LFE190:
- 360              		.section	.text.serialWaitFor,"ax",%progbits
- 361              		.align	1
- 362              		.global	serialWaitFor
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 48
-
-
- 363              		.syntax unified
- 364              		.thumb
- 365              		.thumb_func
- 366              		.fpu fpv5-sp-d16
- 368              	serialWaitFor:
- 369              	.LVL13:
- 370              	.LFB191:
  225:Src/drv/drv_serial.c **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 51
+
+
  226:Src/drv/drv_serial.c **** /** @brief Waits for a character.
  227:Src/drv/drv_serial.c ****  *
  228:Src/drv/drv_serial.c ****  *  @param wait Character to wait for.
@@ -2837,53 +3009,13 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  231:Src/drv/drv_serial.c ****  */
  232:Src/drv/drv_serial.c **** bool serialWaitFor(char wait)
  233:Src/drv/drv_serial.c **** {
- 371              		.loc 1 233 1 is_stmt 1 view -0
- 372              		.cfi_startproc
- 373              		@ args = 0, pretend = 0, frame = 0
- 374              		@ frame_needed = 0, uses_anonymous_args = 0
- 375              		@ link register save eliminated.
  234:Src/drv/drv_serial.c ****     temp = '\0';
- 376              		.loc 1 234 5 view .LVU94
- 377              		.loc 1 234 10 is_stmt 0 view .LVU95
- 378 0000 0023     		movs	r3, #0
- 379 0002 114A     		ldr	r2, .L22
- 380 0004 1370     		strb	r3, [r2]
  235:Src/drv/drv_serial.c ****     serialIndex = 0;
- 381              		.loc 1 235 5 is_stmt 1 view .LVU96
- 382              		.loc 1 235 17 is_stmt 0 view .LVU97
- 383 0006 114A     		ldr	r2, .L22+4
- 384 0008 1370     		strb	r3, [r2]
  236:Src/drv/drv_serial.c **** 
  237:Src/drv/drv_serial.c ****     UART5->CR1 |= USART_CR1_RXNEIE;
- 385              		.loc 1 237 5 is_stmt 1 view .LVU98
- 386              		.loc 1 237 16 is_stmt 0 view .LVU99
- 387 000a 114A     		ldr	r2, .L22+8
- 388 000c 1368     		ldr	r3, [r2]
- 389 000e 43F02003 		orr	r3, r3, #32
- 390 0012 1360     		str	r3, [r2]
  238:Src/drv/drv_serial.c ****     while (!temp)
- 391              		.loc 1 238 5 is_stmt 1 view .LVU100
- 392              	.L18:
  239:Src/drv/drv_serial.c ****         ;
- 393              		.loc 1 239 9 discriminator 1 view .LVU101
- 238:Src/drv/drv_serial.c ****     while (!temp)
- 394              		.loc 1 238 11 discriminator 1 view .LVU102
- 238:Src/drv/drv_serial.c ****     while (!temp)
- 395              		.loc 1 238 12 is_stmt 0 discriminator 1 view .LVU103
- 396 0014 0C4B     		ldr	r3, .L22
- 397 0016 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 238:Src/drv/drv_serial.c ****     while (!temp)
- 398              		.loc 1 238 11 discriminator 1 view .LVU104
- 399 0018 002B     		cmp	r3, #0
- 400 001a FBD0     		beq	.L18
  240:Src/drv/drv_serial.c ****     if (temp == wait)
- 401              		.loc 1 240 5 is_stmt 1 view .LVU105
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 49
-
-
- 402              		.loc 1 240 8 is_stmt 0 view .LVU106
- 403 001c 8342     		cmp	r3, r0
- 404 001e 08D0     		beq	.L21
  241:Src/drv/drv_serial.c ****     {
  242:Src/drv/drv_serial.c ****         temp = '\0';
  243:Src/drv/drv_serial.c ****         UART5->CR1 &= ~USART_CR1_RXNEIE;
@@ -2892,72 +3024,10 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  246:Src/drv/drv_serial.c ****     else
  247:Src/drv/drv_serial.c ****     {
  248:Src/drv/drv_serial.c ****         temp = '\0';
- 405              		.loc 1 248 9 is_stmt 1 view .LVU107
- 406              		.loc 1 248 14 is_stmt 0 view .LVU108
- 407 0020 0020     		movs	r0, #0
- 408              	.LVL14:
- 409              		.loc 1 248 14 view .LVU109
- 410 0022 094B     		ldr	r3, .L22
- 411 0024 1870     		strb	r0, [r3]
  249:Src/drv/drv_serial.c ****         UART5->CR1 &= ~USART_CR1_RXNEIE;
- 412              		.loc 1 249 9 is_stmt 1 view .LVU110
- 413              		.loc 1 249 20 is_stmt 0 view .LVU111
- 414 0026 0A4A     		ldr	r2, .L22+8
- 415 0028 1368     		ldr	r3, [r2]
- 416 002a 23F02003 		bic	r3, r3, #32
- 417 002e 1360     		str	r3, [r2]
  250:Src/drv/drv_serial.c ****         return false;
- 418              		.loc 1 250 9 is_stmt 1 view .LVU112
  251:Src/drv/drv_serial.c ****     }
  252:Src/drv/drv_serial.c **** }
- 419              		.loc 1 252 1 is_stmt 0 view .LVU113
- 420 0030 7047     		bx	lr
- 421              	.LVL15:
- 422              	.L21:
- 242:Src/drv/drv_serial.c ****         UART5->CR1 &= ~USART_CR1_RXNEIE;
- 423              		.loc 1 242 9 is_stmt 1 view .LVU114
- 242:Src/drv/drv_serial.c ****         UART5->CR1 &= ~USART_CR1_RXNEIE;
- 424              		.loc 1 242 14 is_stmt 0 view .LVU115
- 425 0032 054B     		ldr	r3, .L22
- 426 0034 0022     		movs	r2, #0
- 427 0036 1A70     		strb	r2, [r3]
- 243:Src/drv/drv_serial.c ****         return true;
- 428              		.loc 1 243 9 is_stmt 1 view .LVU116
- 243:Src/drv/drv_serial.c ****         return true;
- 429              		.loc 1 243 20 is_stmt 0 view .LVU117
- 430 0038 054A     		ldr	r2, .L22+8
- 431 003a 1368     		ldr	r3, [r2]
- 432 003c 23F02003 		bic	r3, r3, #32
- 433 0040 1360     		str	r3, [r2]
- 244:Src/drv/drv_serial.c ****     }
- 434              		.loc 1 244 9 is_stmt 1 view .LVU118
- 244:Src/drv/drv_serial.c ****     }
- 435              		.loc 1 244 16 is_stmt 0 view .LVU119
- 436 0042 0120     		movs	r0, #1
- 437              	.LVL16:
- 244:Src/drv/drv_serial.c ****     }
- 438              		.loc 1 244 16 view .LVU120
- 439 0044 7047     		bx	lr
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 50
-
-
- 440              	.L23:
- 441 0046 00BF     		.align	2
- 442              	.L22:
- 443 0048 00000000 		.word	.LANCHOR0
- 444 004c 00000000 		.word	.LANCHOR1
- 445 0050 00500040 		.word	1073762304
- 446              		.cfi_endproc
- 447              	.LFE191:
- 449              		.section	.text.UART5_IRQHandler,"ax",%progbits
- 450              		.align	1
- 451              		.global	UART5_IRQHandler
- 452              		.syntax unified
- 453              		.thumb
- 454              		.thumb_func
- 455              		.fpu fpv5-sp-d16
- 457              	UART5_IRQHandler:
- 458              	.LFB192:
  253:Src/drv/drv_serial.c **** 
  254:Src/drv/drv_serial.c **** /* Interrupt Handlers */
  255:Src/drv/drv_serial.c **** 
@@ -2966,47 +3036,11 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  258:Src/drv/drv_serial.c ****  */
  259:Src/drv/drv_serial.c **** void UART5_IRQHandler(void)
  260:Src/drv/drv_serial.c **** {
- 459              		.loc 1 260 1 is_stmt 1 view -0
- 460              		.cfi_startproc
- 461              		@ args = 0, pretend = 0, frame = 0
- 462              		@ frame_needed = 0, uses_anonymous_args = 0
- 463              		@ link register save eliminated.
  261:Src/drv/drv_serial.c ****     if ((UART5->ISR & USART_ISR_RXNE) && (UART5->CR1 & USART_CR1_RXNEIE))
- 464              		.loc 1 261 5 view .LVU122
- 465              		.loc 1 261 15 is_stmt 0 view .LVU123
- 466 0000 144B     		ldr	r3, .L29
- 467 0002 DB69     		ldr	r3, [r3, #28]
- 468              		.loc 1 261 8 view .LVU124
- 469 0004 13F0200F 		tst	r3, #32
- 470 0008 12D0     		beq	.L25
- 471              		.loc 1 261 48 discriminator 1 view .LVU125
- 472 000a 124B     		ldr	r3, .L29
- 473 000c 1B68     		ldr	r3, [r3]
- 474              		.loc 1 261 39 discriminator 1 view .LVU126
- 475 000e 13F0200F 		tst	r3, #32
- 476 0012 0DD0     		beq	.L25
  262:Src/drv/drv_serial.c ****     {
  263:Src/drv/drv_serial.c ****         temp = UART5->RDR;
- 477              		.loc 1 263 9 is_stmt 1 view .LVU127
- 478              		.loc 1 263 21 is_stmt 0 view .LVU128
- 479 0014 0F4A     		ldr	r2, .L29
- 480 0016 536A     		ldr	r3, [r2, #36]
- 481              		.loc 1 263 14 view .LVU129
- 482 0018 DBB2     		uxtb	r3, r3
- 483 001a 0F49     		ldr	r1, .L29+4
- 484 001c 0B70     		strb	r3, [r1]
  264:Src/drv/drv_serial.c ****         UART5->TDR = temp;
- 485              		.loc 1 264 9 is_stmt 1 view .LVU130
- 486              		.loc 1 264 20 is_stmt 0 view .LVU131
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 51
-
-
- 487 001e 9362     		str	r3, [r2, #40]
  265:Src/drv/drv_serial.c ****         if (temp == '\r')
- 488              		.loc 1 265 9 is_stmt 1 view .LVU132
- 489              		.loc 1 265 12 is_stmt 0 view .LVU133
- 490 0020 0D2B     		cmp	r3, #13
- 491 0022 10D0     		beq	.L28
  266:Src/drv/drv_serial.c ****         {
  267:Src/drv/drv_serial.c ****             endOfString = true;
  268:Src/drv/drv_serial.c ****             serialIndex = 0;
@@ -3014,83 +3048,19 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  270:Src/drv/drv_serial.c ****         else
  271:Src/drv/drv_serial.c ****         {
  272:Src/drv/drv_serial.c ****             serialBuf[serialIndex] = temp;
- 492              		.loc 1 272 13 is_stmt 1 view .LVU134
- 493              		.loc 1 272 22 is_stmt 0 view .LVU135
- 494 0024 0D49     		ldr	r1, .L29+8
- 495 0026 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
- 496              		.loc 1 272 36 view .LVU136
- 497 0028 0D48     		ldr	r0, .L29+12
- 498 002a 8354     		strb	r3, [r0, r2]
  273:Src/drv/drv_serial.c ****             serialIndex++;
- 499              		.loc 1 273 13 is_stmt 1 view .LVU137
- 500              		.loc 1 273 24 is_stmt 0 view .LVU138
- 501 002c 0132     		adds	r2, r2, #1
- 502 002e 0A70     		strb	r2, [r1]
- 503              	.L25:
  274:Src/drv/drv_serial.c ****         }
  275:Src/drv/drv_serial.c ****     }
  276:Src/drv/drv_serial.c ****     if (UART5->ISR & USART_ISR_ORE)
- 504              		.loc 1 276 5 is_stmt 1 view .LVU139
- 505              		.loc 1 276 14 is_stmt 0 view .LVU140
- 506 0030 084B     		ldr	r3, .L29
- 507 0032 DB69     		ldr	r3, [r3, #28]
- 508              		.loc 1 276 8 view .LVU141
- 509 0034 13F0080F 		tst	r3, #8
- 510 0038 04D0     		beq	.L24
  277:Src/drv/drv_serial.c ****         UART5->ICR |= USART_ICR_ORECF;
- 511              		.loc 1 277 9 is_stmt 1 view .LVU142
- 512              		.loc 1 277 20 is_stmt 0 view .LVU143
- 513 003a 064A     		ldr	r2, .L29
- 514 003c 136A     		ldr	r3, [r2, #32]
- 515 003e 43F00803 		orr	r3, r3, #8
- 516 0042 1362     		str	r3, [r2, #32]
- 517              	.L24:
  278:Src/drv/drv_serial.c **** }
- 518              		.loc 1 278 1 view .LVU144
- 519 0044 7047     		bx	lr
- 520              	.L28:
- 267:Src/drv/drv_serial.c ****             serialIndex = 0;
- 521              		.loc 1 267 13 is_stmt 1 view .LVU145
- 267:Src/drv/drv_serial.c ****             serialIndex = 0;
- 522              		.loc 1 267 25 is_stmt 0 view .LVU146
- 523 0046 074B     		ldr	r3, .L29+16
- 524 0048 0122     		movs	r2, #1
- 525 004a 1A70     		strb	r2, [r3]
- 268:Src/drv/drv_serial.c ****         }
- 526              		.loc 1 268 13 is_stmt 1 view .LVU147
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 52
-
-
- 268:Src/drv/drv_serial.c ****         }
- 527              		.loc 1 268 25 is_stmt 0 view .LVU148
- 528 004c 034B     		ldr	r3, .L29+8
- 529 004e 0022     		movs	r2, #0
- 530 0050 1A70     		strb	r2, [r3]
- 531 0052 EDE7     		b	.L25
- 532              	.L30:
- 533              		.align	2
- 534              	.L29:
- 535 0054 00500040 		.word	1073762304
- 536 0058 00000000 		.word	.LANCHOR0
- 537 005c 00000000 		.word	.LANCHOR1
- 538 0060 00000000 		.word	.LANCHOR2
- 539 0064 00000000 		.word	.LANCHOR3
- 540              		.cfi_endproc
- 541              	.LFE192:
- 543              		.section	.text.__io_putchar,"ax",%progbits
- 544              		.align	1
- 545              		.global	__io_putchar
- 546              		.syntax unified
- 547              		.thumb
- 548              		.thumb_func
- 549              		.fpu fpv5-sp-d16
- 551              	__io_putchar:
- 552              	.LVL17:
- 553              	.LFB193:
  279:Src/drv/drv_serial.c **** 
  280:Src/drv/drv_serial.c **** #endif
  281:Src/drv/drv_serial.c **** 
  282:Src/drv/drv_serial.c **** /*	This is required to use printf											*/
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 52
+
+
  283:Src/drv/drv_serial.c **** /*	This basically tells the compiler what to do when it encounters printf	*/
  284:Src/drv/drv_serial.c **** /*	I honestly can't fully explain what is going on but it works			*/
  285:Src/drv/drv_serial.c **** #ifdef __GNUC__
@@ -3103,101 +3073,101 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 1
  292:Src/drv/drv_serial.c **** 
  293:Src/drv/drv_serial.c **** PUTCHAR_PROTOTYPE
  294:Src/drv/drv_serial.c **** {
- 554              		.loc 1 294 1 is_stmt 1 view -0
- 555              		.cfi_startproc
- 556              		@ args = 0, pretend = 0, frame = 0
- 557              		@ frame_needed = 0, uses_anonymous_args = 0
- 558              		.loc 1 294 1 is_stmt 0 view .LVU150
- 559 0000 10B5     		push	{r4, lr}
- 560              		.cfi_def_cfa_offset 8
- 561              		.cfi_offset 4, -8
- 562              		.cfi_offset 14, -4
- 563 0002 0446     		mov	r4, r0
+ 524              		.loc 1 294 1 is_stmt 1 view -0
+ 525              		.cfi_startproc
+ 526              		@ args = 0, pretend = 0, frame = 0
+ 527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 528              		.loc 1 294 1 is_stmt 0 view .LVU139
+ 529 0000 10B5     		push	{r4, lr}
+ 530              		.cfi_def_cfa_offset 8
+ 531              		.cfi_offset 4, -8
+ 532              		.cfi_offset 14, -4
+ 533 0002 0446     		mov	r4, r0
  295:Src/drv/drv_serial.c ****     serialWrite(ch);
- 564              		.loc 1 295 5 is_stmt 1 view .LVU151
- 565 0004 C0B2     		uxtb	r0, r0
- 566              	.LVL18:
- 567              		.loc 1 295 5 is_stmt 0 view .LVU152
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 53
-
-
- 568 0006 FFF7FEFF 		bl	serialWrite
- 569              	.LVL19:
+ 534              		.loc 1 295 5 is_stmt 1 view .LVU140
+ 535 0004 C0B2     		uxtb	r0, r0
+ 536              	.LVL18:
+ 537              		.loc 1 295 5 is_stmt 0 view .LVU141
+ 538 0006 FFF7FEFF 		bl	serialWrite
+ 539              	.LVL19:
  296:Src/drv/drv_serial.c ****     return ch;
- 570              		.loc 1 296 5 is_stmt 1 view .LVU153
+ 540              		.loc 1 296 5 is_stmt 1 view .LVU142
  297:Src/drv/drv_serial.c **** }
- 571              		.loc 1 297 1 is_stmt 0 view .LVU154
- 572 000a 2046     		mov	r0, r4
- 573 000c 10BD     		pop	{r4, pc}
- 574              		.loc 1 297 1 view .LVU155
- 575              		.cfi_endproc
- 576              	.LFE193:
- 578              		.global	serialIndex
- 579              		.global	endOfString
- 580              		.global	serialBuf
- 581              		.global	temp
- 582              		.section	.bss.endOfString,"aw",%nobits
- 583              		.set	.LANCHOR3,. + 0
- 586              	endOfString:
- 587 0000 00       		.space	1
- 588              		.section	.bss.serialBuf,"aw",%nobits
- 589              		.align	2
- 590              		.set	.LANCHOR2,. + 0
- 593              	serialBuf:
- 594 0000 00000000 		.space	100
- 594      00000000 
- 594      00000000 
- 594      00000000 
- 594      00000000 
- 595              		.section	.bss.serialIndex,"aw",%nobits
- 596              		.set	.LANCHOR1,. + 0
- 599              	serialIndex:
- 600 0000 00       		.space	1
- 601              		.section	.bss.temp,"aw",%nobits
- 602              		.set	.LANCHOR0,. + 0
- 605              	temp:
- 606 0000 00       		.space	1
- 607              		.text
- 608              	.Letext0:
- 609              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
- 610              		.file 4 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
- 611              		.file 5 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
- 612              		.file 6 "<built-in>"
- 613              		.file 7 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s 			page 54
+ 541              		.loc 1 297 1 is_stmt 0 view .LVU143
+ 542 000a 2046     		mov	r0, r4
+ 543 000c 10BD     		pop	{r4, pc}
+ 544              		.loc 1 297 1 view .LVU144
+ 545              		.cfi_endproc
+ 546              	.LFE193:
+ 548              		.global	serialIndex
+ 549              		.global	endOfString
+ 550              		.global	serialBuf
+ 551              		.global	temp
+ 552              		.section	.bss.endOfString,"aw",%nobits
+ 553              		.set	.LANCHOR3,. + 0
+ 556              	endOfString:
+ 557 0000 00       		.space	1
+ 558              		.section	.bss.serialBuf,"aw",%nobits
+ 559              		.align	2
+ 560              		.set	.LANCHOR2,. + 0
+ 563              	serialBuf:
+ 564 0000 00000000 		.space	100
+ 564      00000000 
+ 564      00000000 
+ 564      00000000 
+ 564      00000000 
+ 565              		.section	.bss.serialIndex,"aw",%nobits
+ 566              		.set	.LANCHOR1,. + 0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 53
+
+
+ 569              	serialIndex:
+ 570 0000 00       		.space	1
+ 571              		.section	.bss.temp,"aw",%nobits
+ 572              		.set	.LANCHOR0,. + 0
+ 575              	temp:
+ 576 0000 00       		.space	1
+ 577              		.text
+ 578              	.Letext0:
+ 579              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 580              		.file 4 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 581              		.file 5 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 582              		.file 6 "<built-in>"
+ 583              		.file 7 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s 			page 54
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 drv_serial.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:18     .text.serialInit:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:26     .text.serialInit:0000000000000000 serialInit
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:147    .text.serialInit:000000000000006c $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:157    .text.serialWrite:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:164    .text.serialWrite:0000000000000000 serialWrite
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:190    .text.serialWrite:0000000000000010 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:195    .text.serialRead8:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:202    .text.serialRead8:0000000000000000 serialRead8
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:247    .text.serialRead8:0000000000000028 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:253    .rodata.serialReadPID.str1.4:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:257    .text.serialReadPID:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:264    .text.serialReadPID:0000000000000000 serialReadPID
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:352    .text.serialReadPID:0000000000000058 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:361    .text.serialWaitFor:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:368    .text.serialWaitFor:0000000000000000 serialWaitFor
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:443    .text.serialWaitFor:0000000000000048 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:450    .text.UART5_IRQHandler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:457    .text.UART5_IRQHandler:0000000000000000 UART5_IRQHandler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:535    .text.UART5_IRQHandler:0000000000000054 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:544    .text.__io_putchar:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:551    .text.__io_putchar:0000000000000000 __io_putchar
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:599    .bss.serialIndex:0000000000000000 serialIndex
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:586    .bss.endOfString:0000000000000000 endOfString
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:593    .bss.serialBuf:0000000000000000 serialBuf
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:605    .bss.temp:0000000000000000 temp
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:587    .bss.endOfString:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:589    .bss.serialBuf:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:600    .bss.serialIndex:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//cc26HLSN.s:606    .bss.temp:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:18     .text.serialInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:26     .text.serialInit:0000000000000000 serialInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:136    .text.serialInit:0000000000000058 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:144    .text.serialWrite:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:151    .text.serialWrite:0000000000000000 serialWrite
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:177    .text.serialWrite:0000000000000010 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:182    .text.serialRead8:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:189    .text.serialRead8:0000000000000000 serialRead8
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:227    .text.serialRead8:0000000000000020 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:233    .rodata.serialReadPID.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:237    .text.serialReadPID:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:244    .text.serialReadPID:0000000000000000 serialReadPID
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:332    .text.serialReadPID:0000000000000058 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:341    .text.serialWaitFor:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:348    .text.serialWaitFor:0000000000000000 serialWaitFor
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:414    .text.serialWaitFor:000000000000003c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:420    .text.USART3_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:427    .text.USART3_IRQHandler:0000000000000000 USART3_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:505    .text.USART3_IRQHandler:0000000000000054 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:514    .text.__io_putchar:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:521    .text.__io_putchar:0000000000000000 __io_putchar
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:569    .bss.serialIndex:0000000000000000 serialIndex
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:556    .bss.endOfString:0000000000000000 endOfString
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:563    .bss.serialBuf:0000000000000000 serialBuf
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:575    .bss.temp:0000000000000000 temp
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:557    .bss.endOfString:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:559    .bss.serialBuf:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:570    .bss.serialIndex:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccOfBPO9.s:576    .bss.temp:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 memset

@@ -20,8 +20,9 @@ static void writeLog(char *pLog);
  *  @return Void.
  */
 void
-printLog(logs_t logType)
+printLog(void)
 {
+    logs_t logType = PITCH;
 #ifdef OPENLAGER
 	memset(logData, '\0', LOG_SIZE);
 
@@ -57,17 +58,16 @@ printLog(logs_t logType)
 #else
 	if(logType < 3)
 		{
-			// printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
-			// 		logType,
-			// 		battVoltage,
-			// 		mode,
-			// 		rateCmd[logType],
-			// 		sensors.gyro500Hz[logType],
-			// 		ratePID[logType],
-			// 		attCmd[logType],
-			// 		sensors.attitude500Hz[logType],
-			// 		attPID[logType]);
-            printf("%f\n", sensors.attDeg500Hz[logType]);
+			printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
+					logType,
+					battVoltage,
+					mode,
+					rateCmd[logType],
+					sensors.gyro500Hz[logType],
+					ratePID[logType],
+					attCmd[logType],
+					sensors.attitude500Hz[logType],
+					attPID[logType]);
 		}
 
 

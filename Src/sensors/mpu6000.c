@@ -84,7 +84,7 @@ bool mpu6000Init(void)
     /* Read Device ID */
     while (devIdReadAttempts--)
     {
-        spi1ReadOneByte(MPU6000_WHOAMI, &whoami);
+        spi1ReadOneByte(MPU6000_WHOAMI, whoami);
         delayMicroseconds(15);
         if (whoami[1] == 0x68)
         {

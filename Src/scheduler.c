@@ -8,8 +8,8 @@ static void runAllTasksInLoop(Tasks* tasks);
 
 void run(Tasks **head_ref)
 {
-    while (!flag)
-        flag = false;
+    while (!loopsChecked)
+        loopsChecked = false;
 
     LoopFreqs_e loopToRun = FRAME_1000HZ;
 

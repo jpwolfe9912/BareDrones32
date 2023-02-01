@@ -16,6 +16,8 @@ void tim9ResetCnt(void);
 void tim9Enable(void);
 void tim9Disable(void);
 
+uint16_t getTimerValue(void);
+
 #endif /* __DRV_TIM_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

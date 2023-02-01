@@ -32,4 +32,6 @@ void led5ON(void);
 void led5OFF(void);
 void led5TOGGLE(void);
 
+void ledsSet(void);
+
 #endif /* __LED_H__ */

@@ -16,8 +16,9 @@
 
 /* Function Prototypes */
 void madgwickInit(void);
-void updateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+void updateIMU(void);
 void computeAngles(void);
+void updateAttitude(void);
 
 /* Global Variables */
 extern float beta;				// algorithm gain

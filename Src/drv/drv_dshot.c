@@ -258,7 +258,7 @@ dshotInit(dshot_type_e dshot_type)
  *  @return Void.
  */
 void
-dshotWrite(uint16_t *motor_value)
+dshotWrite(void)
 {
 	dshot_prepare_dmabuffer_all(motor_value);
 	dshot_enable_dma_request();

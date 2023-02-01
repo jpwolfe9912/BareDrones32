@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -21,26 +21,22 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 1
   18              		.section	.rodata.printLog.str1.4,"aMS",%progbits,1
   19              		.align	2
   20              	.LC0:
-  21 0000 25660A00 		.ascii	"%f\012\000"
-  22              		.align	2
-  23              	.LC1:
-  24 0004 25642025 		.ascii	"%d %f %d %u %u %u %u \015\000"
-  24      66202564 
-  24      20257520 
-  24      25752025 
-  24      75202575 
-  25              		.section	.text.printLog,"ax",%progbits
-  26              		.align	1
-  27              		.global	printLog
-  28              		.arch armv7e-m
-  29              		.syntax unified
-  30              		.thumb
-  31              		.thumb_func
-  32              		.fpu fpv5-sp-d16
-  34              	printLog:
-  35              	.LVL0:
-  36              	.LFB187:
-  37              		.file 1 "Src/logging.c"
+  21 0000 25642025 		.ascii	"%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \012\000"
+  21      2E336620 
+  21      25642025 
+  21      2E336620 
+  21      252E3366 
+  22              		.section	.text.printLog,"ax",%progbits
+  23              		.align	1
+  24              		.global	printLog
+  25              		.arch armv7e-m
+  26              		.syntax unified
+  27              		.thumb
+  28              		.thumb_func
+  29              		.fpu fpv5-sp-d16
+  31              	printLog:
+  32              	.LFB187:
+  33              		.file 1 "Src/logging.c"
    1:Src/logging.c **** /** @file 		logging.c
    2:Src/logging.c ****  *  @brief
    3:Src/logging.c ****  *  	This file logs data to the terminal if connected.
@@ -58,96 +54,152 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 1
   15:Src/logging.c **** static void writeLog(char *pLog);
   16:Src/logging.c **** 
   17:Src/logging.c **** /** @brief Prints logging data to OpenLager based on which type of data you want.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 2
-
-
   18:Src/logging.c ****  *
   19:Src/logging.c ****  *	@param logType The type of data you want.
   20:Src/logging.c ****  *  @return Void.
   21:Src/logging.c ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 2
+
+
   22:Src/logging.c **** void
-  23:Src/logging.c **** printLog(logs_t logType)
+  23:Src/logging.c **** printLog(void)
   24:Src/logging.c **** {
-  38              		.loc 1 24 1 view -0
-  39              		.cfi_startproc
-  40              		@ args = 0, pretend = 0, frame = 0
-  41              		@ frame_needed = 0, uses_anonymous_args = 0
-  42              		.loc 1 24 1 is_stmt 0 view .LVU1
-  43 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
-  44              		.cfi_def_cfa_offset 24
-  45              		.cfi_offset 4, -24
-  46              		.cfi_offset 5, -20
-  47              		.cfi_offset 6, -16
-  48              		.cfi_offset 7, -12
-  49              		.cfi_offset 8, -8
-  50              		.cfi_offset 14, -4
-  51 0004 86B0     		sub	sp, sp, #24
-  52              		.cfi_def_cfa_offset 48
-  53 0006 0446     		mov	r4, r0
-  25:Src/logging.c **** #ifdef OPENLAGER
-  26:Src/logging.c **** 	memset(logData, '\0', LOG_SIZE);
-  27:Src/logging.c **** 
-  28:Src/logging.c **** 	if(logType < 3)
-  29:Src/logging.c **** 	{
-  30:Src/logging.c **** 		sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
-  31:Src/logging.c **** 				logType,
-  32:Src/logging.c **** 				battVoltage,
-  33:Src/logging.c **** 				mode,
-  34:Src/logging.c **** 				rateCmd[logType],
-  35:Src/logging.c **** 				sensors.gyro500Hz[logType],
-  36:Src/logging.c **** 				ratePID[logType],
-  37:Src/logging.c **** 				attCmd[logType],
-  38:Src/logging.c **** 				sensors.attitude500Hz[logType],
-  39:Src/logging.c **** 				attPID[logType]);
-  40:Src/logging.c **** 	}
-  41:Src/logging.c **** 
+  34              		.loc 1 24 1 view -0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 0, uses_anonymous_args = 0
+  38 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  39              		.cfi_def_cfa_offset 36
+  40              		.cfi_offset 4, -36
+  41              		.cfi_offset 5, -32
+  42              		.cfi_offset 6, -28
+  43              		.cfi_offset 7, -24
+  44              		.cfi_offset 8, -20
+  45              		.cfi_offset 9, -16
+  46              		.cfi_offset 10, -12
+  47              		.cfi_offset 11, -8
+  48              		.cfi_offset 14, -4
+  49 0004 8FB0     		sub	sp, sp, #60
+  50              		.cfi_def_cfa_offset 96
+  25:Src/logging.c ****     logs_t logType = PITCH;
+  51              		.loc 1 25 5 view .LVU1
+  52              	.LVL0:
+  26:Src/logging.c **** #ifdef OPENLAGER
+  27:Src/logging.c **** 	memset(logData, '\0', LOG_SIZE);
+  28:Src/logging.c **** 
+  29:Src/logging.c **** 	if(logType < 3)
+  30:Src/logging.c **** 	{
+  31:Src/logging.c **** 		sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
+  32:Src/logging.c **** 				logType,
+  33:Src/logging.c **** 				battVoltage,
+  34:Src/logging.c **** 				mode,
+  35:Src/logging.c **** 				rateCmd[logType],
+  36:Src/logging.c **** 				sensors.gyro500Hz[logType],
+  37:Src/logging.c **** 				ratePID[logType],
+  38:Src/logging.c **** 				attCmd[logType],
+  39:Src/logging.c **** 				sensors.attitude500Hz[logType],
+  40:Src/logging.c **** 				attPID[logType]);
+  41:Src/logging.c **** 	}
   42:Src/logging.c **** 
-  43:Src/logging.c **** 	if (logType == 3)
-  44:Src/logging.c **** 	{
-  45:Src/logging.c **** 		sprintf(logData, "%d %f %d %u %u %u %u \r",
-  46:Src/logging.c **** 				logType,
-  47:Src/logging.c **** 				battVoltage,
-  48:Src/logging.c **** 				mode,
-  49:Src/logging.c **** 				motor_value[MOTOR1],
-  50:Src/logging.c **** 				motor_value[MOTOR2],
-  51:Src/logging.c **** 				motor_value[MOTOR3],
-  52:Src/logging.c **** 				motor_value[MOTOR4]);
-  53:Src/logging.c **** 
-  54:Src/logging.c **** 	}
-  55:Src/logging.c **** 	writeLog(logData);
-  56:Src/logging.c **** 
-  57:Src/logging.c **** #else
-  58:Src/logging.c **** 	if(logType < 3)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 3
+  43:Src/logging.c **** 
+  44:Src/logging.c **** 	if (logType == 3)
+  45:Src/logging.c **** 	{
+  46:Src/logging.c **** 		sprintf(logData, "%d %f %d %u %u %u %u \r",
+  47:Src/logging.c **** 				logType,
+  48:Src/logging.c **** 				battVoltage,
+  49:Src/logging.c **** 				mode,
+  50:Src/logging.c **** 				motor_value[MOTOR1],
+  51:Src/logging.c **** 				motor_value[MOTOR2],
+  52:Src/logging.c **** 				motor_value[MOTOR3],
+  53:Src/logging.c **** 				motor_value[MOTOR4]);
+  54:Src/logging.c **** 
+  55:Src/logging.c **** 	}
+  56:Src/logging.c **** 	writeLog(logData);
+  57:Src/logging.c **** 
+  58:Src/logging.c **** #else
+  59:Src/logging.c **** 	if(logType < 3)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 3
 
 
-  54              		.loc 1 58 2 is_stmt 1 view .LVU2
-  55              		.loc 1 58 4 is_stmt 0 view .LVU3
-  56 0008 0228     		cmp	r0, #2
-  57 000a 04D9     		bls	.L5
-  58              	.LVL1:
-  59              	.L2:
-  59:Src/logging.c **** 		{
-  60:Src/logging.c **** 			// printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
-  61:Src/logging.c **** 			// 		logType,
-  62:Src/logging.c **** 			// 		battVoltage,
-  63:Src/logging.c **** 			// 		mode,
-  64:Src/logging.c **** 			// 		rateCmd[logType],
-  65:Src/logging.c **** 			// 		sensors.gyro500Hz[logType],
-  66:Src/logging.c **** 			// 		ratePID[logType],
-  67:Src/logging.c **** 			// 		attCmd[logType],
-  68:Src/logging.c **** 			// 		sensors.attitude500Hz[logType],
-  69:Src/logging.c **** 			// 		attPID[logType]);
-  70:Src/logging.c ****             printf("%f\n", sensors.attDeg500Hz[logType]);
+  53              		.loc 1 59 2 view .LVU2
+  60:Src/logging.c **** 		{
+  61:Src/logging.c **** 			printf("%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
+  54              		.loc 1 61 4 view .LVU3
+  62:Src/logging.c **** 					logType,
+  63:Src/logging.c **** 					battVoltage,
+  64:Src/logging.c **** 					mode,
+  65:Src/logging.c **** 					rateCmd[logType],
+  55              		.loc 1 65 13 is_stmt 0 view .LVU4
+  56 0006 1F4B     		ldr	r3, .L3
+  57 0008 5E68     		ldr	r6, [r3, #4]	@ float
+  66:Src/logging.c **** 					sensors.gyro500Hz[logType],
+  58              		.loc 1 66 23 view .LVU5
+  59 000a 1F4B     		ldr	r3, .L3+4
+  60 000c 9F6A     		ldr	r7, [r3, #40]	@ float
+  67:Src/logging.c **** 					ratePID[logType],
+  61              		.loc 1 67 13 view .LVU6
+  62 000e 1F4A     		ldr	r2, .L3+8
+  63 0010 D2F80480 		ldr	r8, [r2, #4]	@ float
+  68:Src/logging.c **** 					attCmd[logType],
+  64              		.loc 1 68 12 view .LVU7
+  65 0014 1E4A     		ldr	r2, .L3+12
+  66 0016 D2F80490 		ldr	r9, [r2, #4]	@ float
+  69:Src/logging.c **** 					sensors.attitude500Hz[logType],
+  67              		.loc 1 69 27 view .LVU8
+  68 001a D3F81CA0 		ldr	r10, [r3, #28]	@ float
+  70:Src/logging.c **** 					attPID[logType]);
+  69              		.loc 1 70 12 view .LVU9
+  70 001e 1D4B     		ldr	r3, .L3+16
+  71 0020 D3F804B0 		ldr	fp, [r3, #4]	@ float
+  61:Src/logging.c **** 					logType,
+  72              		.loc 1 61 4 view .LVU10
+  73 0024 1C4B     		ldr	r3, .L3+20
+  74 0026 1868     		ldr	r0, [r3]	@ float
+  75 0028 FFF7FEFF 		bl	__aeabi_f2d
+  76              	.LVL1:
+  77 002c 0446     		mov	r4, r0
+  78 002e 0D46     		mov	r5, r1
+  79 0030 5846     		mov	r0, fp	@ float
+  80 0032 FFF7FEFF 		bl	__aeabi_f2d
+  81              	.LVL2:
+  82 0036 CDE90C01 		strd	r0, [sp, #48]
+  83 003a 5046     		mov	r0, r10	@ float
+  84 003c FFF7FEFF 		bl	__aeabi_f2d
+  85              	.LVL3:
+  86 0040 CDE90A01 		strd	r0, [sp, #40]
+  87 0044 4846     		mov	r0, r9	@ float
+  88 0046 FFF7FEFF 		bl	__aeabi_f2d
+  89              	.LVL4:
+  90 004a CDE90801 		strd	r0, [sp, #32]
+  91 004e 4046     		mov	r0, r8	@ float
+  92 0050 FFF7FEFF 		bl	__aeabi_f2d
+  93              	.LVL5:
+  94 0054 CDE90601 		strd	r0, [sp, #24]
+  95 0058 3846     		mov	r0, r7	@ float
+  96 005a FFF7FEFF 		bl	__aeabi_f2d
+  97              	.LVL6:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 4
+
+
+  98 005e CDE90401 		strd	r0, [sp, #16]
+  99 0062 3046     		mov	r0, r6	@ float
+ 100 0064 FFF7FEFF 		bl	__aeabi_f2d
+ 101              	.LVL7:
+ 102 0068 CDE90201 		strd	r0, [sp, #8]
+ 103 006c 0B4B     		ldr	r3, .L3+24
+ 104 006e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 105 0070 0093     		str	r3, [sp]
+ 106 0072 2246     		mov	r2, r4
+ 107 0074 2B46     		mov	r3, r5
+ 108 0076 0121     		movs	r1, #1
+ 109 0078 0948     		ldr	r0, .L3+28
+ 110 007a FFF7FEFF 		bl	printf
+ 111              	.LVL8:
   71:Src/logging.c **** 		}
   72:Src/logging.c **** 
   73:Src/logging.c **** 
   74:Src/logging.c **** 		if (logType == 3)
-  60              		.loc 1 74 3 is_stmt 1 view .LVU4
-  61              		.loc 1 74 6 is_stmt 0 view .LVU5
-  62 000c 032C     		cmp	r4, #3
-  63 000e 10D0     		beq	.L6
-  64              	.L1:
+ 112              		.loc 1 74 3 is_stmt 1 view .LVU11
   75:Src/logging.c **** 		{
   76:Src/logging.c **** 			printf("%d %f %d %u %u %u %u \r",
   77:Src/logging.c **** 					logType,
@@ -161,127 +213,68 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 1
   85:Src/logging.c **** 		}
   86:Src/logging.c **** #endif
   87:Src/logging.c **** }
-  65              		.loc 1 87 1 view .LVU6
-  66 0010 06B0     		add	sp, sp, #24
-  67              		.cfi_remember_state
-  68              		.cfi_def_cfa_offset 24
-  69              		@ sp needed
-  70 0012 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
-  71              	.LVL2:
-  72              	.L5:
-  73              		.cfi_restore_state
-  70:Src/logging.c **** 		}
-  74              		.loc 1 70 13 is_stmt 1 view .LVU7
-  70:Src/logging.c **** 		}
-  75              		.loc 1 70 47 is_stmt 0 view .LVU8
-  76 0016 00F10C03 		add	r3, r0, #12
-  77 001a 124A     		ldr	r2, .L7
-  78 001c 02EB8303 		add	r3, r2, r3, lsl #2
-  70:Src/logging.c **** 		}
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 4
+ 113              		.loc 1 87 1 is_stmt 0 view .LVU12
+ 114 007e 0FB0     		add	sp, sp, #60
+ 115              		.cfi_def_cfa_offset 36
+ 116              		@ sp needed
+ 117 0080 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 118              	.L4:
+ 119              		.align	2
+ 120              	.L3:
+ 121 0084 00000000 		.word	rateCmd
+ 122 0088 00000000 		.word	sensors
+ 123 008c 00000000 		.word	ratePID
+ 124 0090 00000000 		.word	attCmd
+ 125 0094 00000000 		.word	attPID
+ 126 0098 00000000 		.word	battVoltage
+ 127 009c 00000000 		.word	mode
+ 128 00a0 00000000 		.word	.LC0
+ 129              		.cfi_endproc
+ 130              	.LFE187:
+ 132              		.global	logData
+ 133              		.global	log_count
+ 134              		.section	.bss.log_count,"aw",%nobits
+ 137              	log_count:
+ 138 0000 00       		.space	1
+ 139              		.section	.data.logData,"aw"
+ 140              		.align	2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 5
 
 
-  79              		.loc 1 70 13 view .LVU9
-  80 0020 1868     		ldr	r0, [r3]	@ float
-  81              	.LVL3:
-  70:Src/logging.c **** 		}
-  82              		.loc 1 70 13 view .LVU10
-  83 0022 FFF7FEFF 		bl	__aeabi_f2d
-  84              	.LVL4:
-  85 0026 0246     		mov	r2, r0
-  86 0028 0B46     		mov	r3, r1
-  87 002a 0F48     		ldr	r0, .L7+4
-  88 002c FFF7FEFF 		bl	printf
-  89              	.LVL5:
-  90 0030 ECE7     		b	.L2
-  91              	.L6:
-  76:Src/logging.c **** 					logType,
-  92              		.loc 1 76 4 is_stmt 1 view .LVU11
-  80:Src/logging.c **** 					motor_value[MOTOR2],
-  93              		.loc 1 80 17 is_stmt 0 view .LVU12
-  94 0032 0E4B     		ldr	r3, .L7+8
-  95 0034 1D88     		ldrh	r5, [r3]
-  81:Src/logging.c **** 					motor_value[MOTOR3],
-  96              		.loc 1 81 17 view .LVU13
-  97 0036 5E88     		ldrh	r6, [r3, #2]
-  82:Src/logging.c **** 					motor_value[MOTOR4]);
-  98              		.loc 1 82 17 view .LVU14
-  99 0038 9F88     		ldrh	r7, [r3, #4]
-  83:Src/logging.c **** 
- 100              		.loc 1 83 17 view .LVU15
- 101 003a B3F80680 		ldrh	r8, [r3, #6]
-  76:Src/logging.c **** 					logType,
- 102              		.loc 1 76 4 view .LVU16
- 103 003e 0C4B     		ldr	r3, .L7+12
- 104 0040 1868     		ldr	r0, [r3]	@ float
- 105 0042 FFF7FEFF 		bl	__aeabi_f2d
- 106              	.LVL6:
- 107 0046 0246     		mov	r2, r0
- 108 0048 0B46     		mov	r3, r1
- 109 004a CDF81080 		str	r8, [sp, #16]
- 110 004e 0397     		str	r7, [sp, #12]
- 111 0050 0296     		str	r6, [sp, #8]
- 112 0052 0195     		str	r5, [sp, #4]
- 113 0054 0749     		ldr	r1, .L7+16
- 114 0056 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
- 115 0058 0091     		str	r1, [sp]
- 116 005a 2146     		mov	r1, r4
- 117 005c 0648     		ldr	r0, .L7+20
- 118 005e FFF7FEFF 		bl	printf
- 119              	.LVL7:
- 120              		.loc 1 87 1 view .LVU17
- 121 0062 D5E7     		b	.L1
- 122              	.L8:
- 123              		.align	2
- 124              	.L7:
- 125 0064 00000000 		.word	sensors
- 126 0068 00000000 		.word	.LC0
- 127 006c 00000000 		.word	motor_value
- 128 0070 00000000 		.word	battVoltage
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 5
-
-
- 129 0074 00000000 		.word	mode
- 130 0078 04000000 		.word	.LC1
- 131              		.cfi_endproc
- 132              	.LFE187:
- 134              		.global	logData
- 135              		.global	log_count
- 136              		.section	.bss.log_count,"aw",%nobits
- 139              	log_count:
- 140 0000 00       		.space	1
- 141              		.section	.data.logData,"aw"
- 142              		.align	2
- 145              	logData:
- 146 0000 00100120 		.word	536940544
- 147              		.text
- 148              	.Letext0:
- 149              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
- 150              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
- 151              		.file 4 "Src/autodrone32.h"
- 152              		.file 5 "Src/battery.h"
- 153              		.file 6 "Src/logging.h"
- 154              		.file 7 "Src/motion/process_commands.h"
- 155              		.file 8 "Src/motors.h"
- 156              		.file 9 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s 			page 6
+ 143              	logData:
+ 144 0000 00100120 		.word	536940544
+ 145              		.text
+ 146              	.Letext0:
+ 147              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 148              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 149              		.file 4 "Src/autodrone32.h"
+ 150              		.file 5 "Src/battery.h"
+ 151              		.file 6 "Src/logging.h"
+ 152              		.file 7 "Src/motion/process_commands.h"
+ 153              		.file 8 "Src/motion/compute_axis_commands.h"
+ 154              		.file 9 "Src/motors.h"
+ 155              		.file 10 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 logging.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:19     .rodata.printLog.str1.4:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:26     .text.printLog:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:34     .text.printLog:0000000000000000 printLog
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:125    .text.printLog:0000000000000064 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:145    .data.logData:0000000000000000 logData
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:139    .bss.log_count:0000000000000000 log_count
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:140    .bss.log_count:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccnPOa0X.s:142    .data.logData:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:19     .rodata.printLog.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:23     .text.printLog:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:31     .text.printLog:0000000000000000 printLog
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:121    .text.printLog:0000000000000084 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:143    .data.logData:0000000000000000 logData
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:137    .bss.log_count:0000000000000000 log_count
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:138    .bss.log_count:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccGVNaF7.s:140    .data.logData:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 __aeabi_f2d
 printf
+rateCmd
 sensors
-motor_value
+ratePID
+attCmd
+attPID
 battVoltage
 mode

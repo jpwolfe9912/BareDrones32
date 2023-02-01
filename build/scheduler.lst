@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccjUULQg.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -17,45 +17,532 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccjUULQg.s 			page 1
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text.addTaskToLoop,"ax",%progbits
+  17              		.section	.text.runAllTasksInLoop,"ax",%progbits
   18              		.align	1
-  19              		.global	addTaskToLoop
-  20              		.arch armv7e-m
-  21              		.syntax unified
-  22              		.thumb
-  23              		.thumb_func
-  24              		.fpu fpv5-sp-d16
-  26              	addTaskToLoop:
-  27              	.LVL0:
-  28              	.LFB187:
-  29              		.file 1 "Src/scheduler.c"
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-sp-d16
+  25              	runAllTasksInLoop:
+  26              	.LVL0:
+  27              	.LFB188:
+  28              		.file 1 "Src/scheduler.c"
    1:Src/scheduler.c **** #include "board.h"
    2:Src/scheduler.c **** 
-   3:Src/scheduler.c **** typedef void (*funcP)(void);
+   3:Src/scheduler.c **** // Tasks_t loops[8];
    4:Src/scheduler.c **** 
-   5:Src/scheduler.c **** void addTaskToLoop(uint16_t loop, funcP loop_func)
-   6:Src/scheduler.c **** {
-  30              		.loc 1 6 1 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 0
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
-   7:Src/scheduler.c ****     // want to add the function to the desired loop
-   8:Src/scheduler.c **** }...
-  35              		.loc 1 8 1 view .LVU1
-  36 0000 7047     		bx	lr
-  37              		.cfi_endproc
-  38              	.LFE187:
-  40              		.text
-  41              	.Letext0:
-  42              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
-  43              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccjUULQg.s 			page 2
+   5:Src/scheduler.c **** volatile uint8_t loopTaskIdx[8] = {0};
+   6:Src/scheduler.c **** 
+   7:Src/scheduler.c **** static void runAllTasksInLoop(Tasks* tasks);
+   8:Src/scheduler.c **** 
+   9:Src/scheduler.c **** void run(Tasks **head_ref)
+  10:Src/scheduler.c **** {
+  11:Src/scheduler.c ****     while (!loopsChecked)
+  12:Src/scheduler.c ****         loopsChecked = false;
+  13:Src/scheduler.c **** 
+  14:Src/scheduler.c ****     LoopFreqs_e loopToRun = FRAME_1000HZ;
+  15:Src/scheduler.c **** 
+  16:Src/scheduler.c ****     for (; loopToRun < TOTAL_LOOPS; loopToRun++) /* loopMask = 0b 0 */
+  17:Src/scheduler.c ****     {
+  18:Src/scheduler.c ****         if (((loopMask >> loopToRun) & 0x01)) // if there is a 1 in the spot of the loop to run
+  19:Src/scheduler.c ****         {
+  20:Src/scheduler.c ****             runAllTasksInLoop(head_ref[loopToRun]);    // run all the tasks in that loop
+  21:Src/scheduler.c ****             loopMask &= ~(0x1 << loopToRun); // clear the mask
+  22:Src/scheduler.c ****         }
+  23:Src/scheduler.c ****     }
+  24:Src/scheduler.c **** }
+  25:Src/scheduler.c **** 
+  26:Src/scheduler.c **** static void runAllTasksInLoop(Tasks* tasks)
+  27:Src/scheduler.c **** {
+  29              		.loc 1 27 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 2
+
+
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 27 1 is_stmt 0 view .LVU1
+  34 0000 10B5     		push	{r4, lr}
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38 0002 0446     		mov	r4, r0
+  28:Src/scheduler.c ****     while (tasks != NULL)
+  39              		.loc 1 28 5 is_stmt 1 view .LVU2
+  40              		.loc 1 28 11 is_stmt 0 view .LVU3
+  41 0004 02E0     		b	.L2
+  42              	.LVL1:
+  43              	.L3:
+  29:Src/scheduler.c ****     {
+  30:Src/scheduler.c ****         tasks->task();
+  44              		.loc 1 30 9 is_stmt 1 view .LVU4
+  45              		.loc 1 30 14 is_stmt 0 view .LVU5
+  46 0006 2368     		ldr	r3, [r4]
+  47              		.loc 1 30 9 view .LVU6
+  48 0008 9847     		blx	r3
+  49              	.LVL2:
+  31:Src/scheduler.c ****         tasks = tasks->next;
+  50              		.loc 1 31 9 is_stmt 1 view .LVU7
+  51              		.loc 1 31 15 is_stmt 0 view .LVU8
+  52 000a 6468     		ldr	r4, [r4, #4]
+  53              	.LVL3:
+  54              	.L2:
+  28:Src/scheduler.c ****     while (tasks != NULL)
+  55              		.loc 1 28 11 is_stmt 1 view .LVU9
+  56 000c 002C     		cmp	r4, #0
+  57 000e FAD1     		bne	.L3
+  32:Src/scheduler.c ****     }
+  33:Src/scheduler.c **** }
+  58              		.loc 1 33 1 is_stmt 0 view .LVU10
+  59 0010 10BD     		pop	{r4, pc}
+  60              		.loc 1 33 1 view .LVU11
+  61              		.cfi_endproc
+  62              	.LFE188:
+  64              		.section	.text.run,"ax",%progbits
+  65              		.align	1
+  66              		.global	run
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  70              		.fpu fpv5-sp-d16
+  72              	run:
+  73              	.LVL4:
+  74              	.LFB187:
+  10:Src/scheduler.c ****     while (!loopsChecked)
+  75              		.loc 1 10 1 is_stmt 1 view -0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  10:Src/scheduler.c ****     while (!loopsChecked)
+  79              		.loc 1 10 1 is_stmt 0 view .LVU13
+  80 0000 38B5     		push	{r3, r4, r5, lr}
+  81              		.cfi_def_cfa_offset 16
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 3
+
+
+  82              		.cfi_offset 3, -16
+  83              		.cfi_offset 4, -12
+  84              		.cfi_offset 5, -8
+  85              		.cfi_offset 14, -4
+  86 0002 0546     		mov	r5, r0
+  11:Src/scheduler.c ****         loopsChecked = false;
+  87              		.loc 1 11 5 is_stmt 1 view .LVU14
+  11:Src/scheduler.c ****         loopsChecked = false;
+  88              		.loc 1 11 11 is_stmt 0 view .LVU15
+  89 0004 02E0     		b	.L6
+  90              	.L12:
+  12:Src/scheduler.c **** 
+  91              		.loc 1 12 9 is_stmt 1 view .LVU16
+  12:Src/scheduler.c **** 
+  92              		.loc 1 12 22 is_stmt 0 view .LVU17
+  93 0006 114B     		ldr	r3, .L15
+  94 0008 0022     		movs	r2, #0
+  95 000a 1A70     		strb	r2, [r3]
+  96              	.L6:
+  11:Src/scheduler.c ****         loopsChecked = false;
+  97              		.loc 1 11 11 is_stmt 1 view .LVU18
+  11:Src/scheduler.c ****         loopsChecked = false;
+  98              		.loc 1 11 12 is_stmt 0 view .LVU19
+  99 000c 0F4B     		ldr	r3, .L15
+ 100 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  11:Src/scheduler.c ****         loopsChecked = false;
+ 101              		.loc 1 11 11 view .LVU20
+ 102 0010 002B     		cmp	r3, #0
+ 103 0012 F8D0     		beq	.L12
+  14:Src/scheduler.c **** 
+ 104              		.loc 1 14 17 view .LVU21
+ 105 0014 0024     		movs	r4, #0
+ 106 0016 01E0     		b	.L7
+ 107              	.LVL5:
+ 108              	.L9:
+  16:Src/scheduler.c ****     {
+ 109              		.loc 1 16 37 is_stmt 1 view .LVU22
+  16:Src/scheduler.c ****     {
+ 110              		.loc 1 16 46 is_stmt 0 view .LVU23
+ 111 0018 0134     		adds	r4, r4, #1
+ 112              	.LVL6:
+  16:Src/scheduler.c ****     {
+ 113              		.loc 1 16 46 view .LVU24
+ 114 001a E4B2     		uxtb	r4, r4
+ 115              	.LVL7:
+ 116              	.L7:
+  16:Src/scheduler.c ****     {
+ 117              		.loc 1 16 12 is_stmt 1 discriminator 1 view .LVU25
+  16:Src/scheduler.c ****     {
+ 118              		.loc 1 16 5 is_stmt 0 discriminator 1 view .LVU26
+ 119 001c 072C     		cmp	r4, #7
+ 120 001e 13D8     		bhi	.L14
+  18:Src/scheduler.c ****         {
+ 121              		.loc 1 18 9 is_stmt 1 view .LVU27
+  18:Src/scheduler.c ****         {
+ 122              		.loc 1 18 24 is_stmt 0 view .LVU28
+ 123 0020 0B4B     		ldr	r3, .L15+4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 4
+
+
+ 124 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 125 0024 DBB2     		uxtb	r3, r3
+ 126 0026 2341     		asrs	r3, r3, r4
+  18:Src/scheduler.c ****         {
+ 127              		.loc 1 18 12 view .LVU29
+ 128 0028 13F0010F 		tst	r3, #1
+ 129 002c F4D0     		beq	.L9
+  20:Src/scheduler.c ****             loopMask &= ~(0x1 << loopToRun); // clear the mask
+ 130              		.loc 1 20 13 is_stmt 1 view .LVU30
+ 131 002e 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 132 0032 FFF7FEFF 		bl	runAllTasksInLoop
+ 133              	.LVL8:
+  21:Src/scheduler.c ****         }
+ 134              		.loc 1 21 13 view .LVU31
+  21:Src/scheduler.c ****         }
+ 135              		.loc 1 21 31 is_stmt 0 view .LVU32
+ 136 0036 0123     		movs	r3, #1
+ 137 0038 03FA04F2 		lsl	r2, r3, r4
+  21:Src/scheduler.c ****         }
+ 138              		.loc 1 21 22 view .LVU33
+ 139 003c 0449     		ldr	r1, .L15+4
+ 140 003e 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 141 0040 23EA0203 		bic	r3, r3, r2
+ 142 0044 0B70     		strb	r3, [r1]
+ 143 0046 E7E7     		b	.L9
+ 144              	.L14:
+  24:Src/scheduler.c **** 
+ 145              		.loc 1 24 1 view .LVU34
+ 146 0048 38BD     		pop	{r3, r4, r5, pc}
+ 147              	.LVL9:
+ 148              	.L16:
+  24:Src/scheduler.c **** 
+ 149              		.loc 1 24 1 view .LVU35
+ 150 004a 00BF     		.align	2
+ 151              	.L15:
+ 152 004c 00000000 		.word	loopsChecked
+ 153 0050 00000000 		.word	loopMask
+ 154              		.cfi_endproc
+ 155              	.LFE187:
+ 157              		.section	.text.push,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	push
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu fpv5-sp-d16
+ 165              	push:
+ 166              	.LVL10:
+ 167              	.LFB189:
+  34:Src/scheduler.c **** 
+  35:Src/scheduler.c **** 
+  36:Src/scheduler.c **** /* Linked List Functions */
+  37:Src/scheduler.c **** 
+  38:Src/scheduler.c **** /* Given a reference (pointer to pointer) to the head of a list and
+  39:Src/scheduler.c ****    an int, inserts a new node on the front of the list. */
+  40:Src/scheduler.c **** void push(Tasks **head_ref, void (*new_task)(void))
+  41:Src/scheduler.c **** {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 5
+
+
+ 168              		.loc 1 41 1 is_stmt 1 view -0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172              		.loc 1 41 1 is_stmt 0 view .LVU37
+ 173 0000 38B5     		push	{r3, r4, r5, lr}
+ 174              		.cfi_def_cfa_offset 16
+ 175              		.cfi_offset 3, -16
+ 176              		.cfi_offset 4, -12
+ 177              		.cfi_offset 5, -8
+ 178              		.cfi_offset 14, -4
+ 179 0002 0446     		mov	r4, r0
+ 180 0004 0D46     		mov	r5, r1
+  42:Src/scheduler.c ****     /* 1. allocate node */
+  43:Src/scheduler.c ****     Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+ 181              		.loc 1 43 5 is_stmt 1 view .LVU38
+ 182              		.loc 1 43 32 is_stmt 0 view .LVU39
+ 183 0006 0820     		movs	r0, #8
+ 184              	.LVL11:
+ 185              		.loc 1 43 32 view .LVU40
+ 186 0008 FFF7FEFF 		bl	malloc
+ 187              	.LVL12:
+  44:Src/scheduler.c **** 
+  45:Src/scheduler.c ****     /* 2. put in the data  */
+  46:Src/scheduler.c ****     new_node->task = new_task;
+ 188              		.loc 1 46 5 is_stmt 1 view .LVU41
+ 189              		.loc 1 46 20 is_stmt 0 view .LVU42
+ 190 000c 0560     		str	r5, [r0]
+  47:Src/scheduler.c **** 
+  48:Src/scheduler.c ****     /* 3. Make next of new node as head */
+  49:Src/scheduler.c ****     new_node->next = (*head_ref);
+ 191              		.loc 1 49 5 is_stmt 1 view .LVU43
+ 192              		.loc 1 49 23 is_stmt 0 view .LVU44
+ 193 000e 2368     		ldr	r3, [r4]
+ 194              		.loc 1 49 20 view .LVU45
+ 195 0010 4360     		str	r3, [r0, #4]
+  50:Src/scheduler.c **** 
+  51:Src/scheduler.c ****     /* 4. move the head to point to the new node */
+  52:Src/scheduler.c ****     (*head_ref) = new_node;
+ 196              		.loc 1 52 5 is_stmt 1 view .LVU46
+ 197              		.loc 1 52 17 is_stmt 0 view .LVU47
+ 198 0012 2060     		str	r0, [r4]
+  53:Src/scheduler.c **** }
+ 199              		.loc 1 53 1 view .LVU48
+ 200 0014 38BD     		pop	{r3, r4, r5, pc}
+ 201              		.loc 1 53 1 view .LVU49
+ 202              		.cfi_endproc
+ 203              	.LFE189:
+ 205              		.section	.rodata.insertAfter.str1.4,"aMS",%progbits,1
+ 206              		.align	2
+ 207              	.LC0:
+ 208 0000 74686520 		.ascii	"the given previous node cannot be NULL\000"
+ 208      67697665 
+ 208      6E207072 
+ 208      6576696F 
+ 208      7573206E 
+ 209              		.section	.text.insertAfter,"ax",%progbits
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 6
+
+
+ 210              		.align	1
+ 211              		.global	insertAfter
+ 212              		.syntax unified
+ 213              		.thumb
+ 214              		.thumb_func
+ 215              		.fpu fpv5-sp-d16
+ 217              	insertAfter:
+ 218              	.LVL13:
+ 219              	.LFB190:
+  54:Src/scheduler.c **** 
+  55:Src/scheduler.c **** /* Given a node prev_node, insert a new node after the given
+  56:Src/scheduler.c ****    prev_node */
+  57:Src/scheduler.c **** void insertAfter(Tasks *prev_node, void (*new_task)(void))
+  58:Src/scheduler.c **** {
+ 220              		.loc 1 58 1 is_stmt 1 view -0
+ 221              		.cfi_startproc
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 224              		.loc 1 58 1 is_stmt 0 view .LVU51
+ 225 0000 38B5     		push	{r3, r4, r5, lr}
+ 226              		.cfi_def_cfa_offset 16
+ 227              		.cfi_offset 3, -16
+ 228              		.cfi_offset 4, -12
+ 229              		.cfi_offset 5, -8
+ 230              		.cfi_offset 14, -4
+  59:Src/scheduler.c ****     /*1. check if the given prev_node is NULL */
+  60:Src/scheduler.c ****     if (prev_node == NULL)
+ 231              		.loc 1 60 5 is_stmt 1 view .LVU52
+ 232              		.loc 1 60 8 is_stmt 0 view .LVU53
+ 233 0002 48B1     		cbz	r0, .L23
+ 234 0004 0C46     		mov	r4, r1
+ 235 0006 0546     		mov	r5, r0
+  61:Src/scheduler.c ****     {
+  62:Src/scheduler.c ****         printf("the given previous node cannot be NULL");
+  63:Src/scheduler.c ****         return;
+  64:Src/scheduler.c ****     }
+  65:Src/scheduler.c **** 
+  66:Src/scheduler.c ****     /* 2. allocate new node */
+  67:Src/scheduler.c ****     Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+ 236              		.loc 1 67 5 is_stmt 1 view .LVU54
+ 237              		.loc 1 67 32 is_stmt 0 view .LVU55
+ 238 0008 0820     		movs	r0, #8
+ 239              	.LVL14:
+ 240              		.loc 1 67 32 view .LVU56
+ 241 000a FFF7FEFF 		bl	malloc
+ 242              	.LVL15:
+  68:Src/scheduler.c **** 
+  69:Src/scheduler.c ****     /* 3. put in the data  */
+  70:Src/scheduler.c ****     new_node->task = new_task;
+ 243              		.loc 1 70 5 is_stmt 1 view .LVU57
+ 244              		.loc 1 70 20 is_stmt 0 view .LVU58
+ 245 000e 0460     		str	r4, [r0]
+  71:Src/scheduler.c **** 
+  72:Src/scheduler.c ****     /* 4. Make next of new node as next of prev_node */
+  73:Src/scheduler.c ****     new_node->next = prev_node->next;
+ 246              		.loc 1 73 5 is_stmt 1 view .LVU59
+ 247              		.loc 1 73 31 is_stmt 0 view .LVU60
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 7
+
+
+ 248 0010 6B68     		ldr	r3, [r5, #4]
+ 249              		.loc 1 73 20 view .LVU61
+ 250 0012 4360     		str	r3, [r0, #4]
+  74:Src/scheduler.c **** 
+  75:Src/scheduler.c ****     /* 5. move the next of prev_node as new_node */
+  76:Src/scheduler.c ****     prev_node->next = new_node;
+ 251              		.loc 1 76 5 is_stmt 1 view .LVU62
+ 252              		.loc 1 76 21 is_stmt 0 view .LVU63
+ 253 0014 6860     		str	r0, [r5, #4]
+ 254              	.LVL16:
+ 255              	.L19:
+  77:Src/scheduler.c **** }
+ 256              		.loc 1 77 1 view .LVU64
+ 257 0016 38BD     		pop	{r3, r4, r5, pc}
+ 258              	.LVL17:
+ 259              	.L23:
+  62:Src/scheduler.c ****         return;
+ 260              		.loc 1 62 9 is_stmt 1 view .LVU65
+ 261 0018 0148     		ldr	r0, .L24
+ 262              	.LVL18:
+  62:Src/scheduler.c ****         return;
+ 263              		.loc 1 62 9 is_stmt 0 view .LVU66
+ 264 001a FFF7FEFF 		bl	printf
+ 265              	.LVL19:
+  63:Src/scheduler.c ****     }
+ 266              		.loc 1 63 9 is_stmt 1 view .LVU67
+ 267 001e FAE7     		b	.L19
+ 268              	.L25:
+ 269              		.align	2
+ 270              	.L24:
+ 271 0020 00000000 		.word	.LC0
+ 272              		.cfi_endproc
+ 273              	.LFE190:
+ 275              		.section	.text.append,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	append
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu fpv5-sp-d16
+ 283              	append:
+ 284              	.LVL20:
+ 285              	.LFB191:
+  78:Src/scheduler.c **** 
+  79:Src/scheduler.c **** /* Given a reference (pointer to pointer) to the head
+  80:Src/scheduler.c ****    of a list and an int, appends a new node at the end  */
+  81:Src/scheduler.c **** void append(Tasks **head_ref, void (*new_task)(void))
+  82:Src/scheduler.c **** {
+ 286              		.loc 1 82 1 view -0
+ 287              		.cfi_startproc
+ 288              		@ args = 0, pretend = 0, frame = 0
+ 289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 290              		.loc 1 82 1 is_stmt 0 view .LVU69
+ 291 0000 38B5     		push	{r3, r4, r5, lr}
+ 292              		.cfi_def_cfa_offset 16
+ 293              		.cfi_offset 3, -16
+ 294              		.cfi_offset 4, -12
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 8
+
+
+ 295              		.cfi_offset 5, -8
+ 296              		.cfi_offset 14, -4
+ 297 0002 0446     		mov	r4, r0
+ 298 0004 0D46     		mov	r5, r1
+  83:Src/scheduler.c ****     /* 1. allocate node */
+  84:Src/scheduler.c ****     Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+ 299              		.loc 1 84 5 is_stmt 1 view .LVU70
+ 300              		.loc 1 84 32 is_stmt 0 view .LVU71
+ 301 0006 0820     		movs	r0, #8
+ 302              	.LVL21:
+ 303              		.loc 1 84 32 view .LVU72
+ 304 0008 FFF7FEFF 		bl	malloc
+ 305              	.LVL22:
+  85:Src/scheduler.c **** 
+  86:Src/scheduler.c ****     Tasks *last = *head_ref; /* used in step 5*/
+ 306              		.loc 1 86 5 is_stmt 1 view .LVU73
+ 307              		.loc 1 86 12 is_stmt 0 view .LVU74
+ 308 000c 2368     		ldr	r3, [r4]
+ 309              	.LVL23:
+  87:Src/scheduler.c **** 
+  88:Src/scheduler.c ****     /* 2. put in the data  */
+  89:Src/scheduler.c ****     new_node->task = new_task;
+ 310              		.loc 1 89 5 is_stmt 1 view .LVU75
+ 311              		.loc 1 89 20 is_stmt 0 view .LVU76
+ 312 000e 0560     		str	r5, [r0]
+  90:Src/scheduler.c **** 
+  91:Src/scheduler.c ****     /* 3. This new node is going to be the last node, so make next of
+  92:Src/scheduler.c ****           it as NULL*/
+  93:Src/scheduler.c ****     new_node->next = NULL;
+ 313              		.loc 1 93 5 is_stmt 1 view .LVU77
+ 314              		.loc 1 93 20 is_stmt 0 view .LVU78
+ 315 0010 0022     		movs	r2, #0
+ 316 0012 4260     		str	r2, [r0, #4]
+  94:Src/scheduler.c **** 
+  95:Src/scheduler.c ****     /* 4. If the Linked List is empty, then make the new node as head */
+  96:Src/scheduler.c ****     if (*head_ref == NULL)
+ 317              		.loc 1 96 5 is_stmt 1 view .LVU79
+ 318              		.loc 1 96 8 is_stmt 0 view .LVU80
+ 319 0014 2BB1     		cbz	r3, .L30
+ 320              	.LVL24:
+ 321              	.L27:
+  97:Src/scheduler.c ****     {
+  98:Src/scheduler.c ****         *head_ref = new_node;
+  99:Src/scheduler.c ****         return;
+ 100:Src/scheduler.c ****     }
+ 101:Src/scheduler.c **** 
+ 102:Src/scheduler.c ****     /* 5. Else traverse till the last node */
+ 103:Src/scheduler.c ****     while (last->next != NULL)
+ 322              		.loc 1 103 11 is_stmt 1 view .LVU81
+ 323 0016 1A46     		mov	r2, r3
+ 324              		.loc 1 103 16 is_stmt 0 view .LVU82
+ 325 0018 5B68     		ldr	r3, [r3, #4]
+ 326              	.LVL25:
+ 327              		.loc 1 103 11 view .LVU83
+ 328 001a 002B     		cmp	r3, #0
+ 329 001c FBD1     		bne	.L27
+ 104:Src/scheduler.c ****         last = last->next;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 9
+
+
+ 105:Src/scheduler.c **** 
+ 106:Src/scheduler.c ****     /* 6. Change the next of last node */
+ 107:Src/scheduler.c ****     last->next = new_node;
+ 330              		.loc 1 107 5 is_stmt 1 view .LVU84
+ 331              		.loc 1 107 16 is_stmt 0 view .LVU85
+ 332 001e 5060     		str	r0, [r2, #4]
+ 108:Src/scheduler.c ****     return;
+ 333              		.loc 1 108 5 is_stmt 1 view .LVU86
+ 334              	.LVL26:
+ 335              	.L26:
+ 109:Src/scheduler.c **** }...
+ 336              		.loc 1 109 1 is_stmt 0 view .LVU87
+ 337 0020 38BD     		pop	{r3, r4, r5, pc}
+ 338              	.LVL27:
+ 339              	.L30:
+  98:Src/scheduler.c ****         *head_ref = new_node;
+ 340              		.loc 1 98 9 is_stmt 1 view .LVU88
+  98:Src/scheduler.c ****         *head_ref = new_node;
+ 341              		.loc 1 98 19 is_stmt 0 view .LVU89
+ 342 0022 2060     		str	r0, [r4]
+  99:Src/scheduler.c ****         return;
+ 343              		.loc 1 99 9 is_stmt 1 view .LVU90
+ 344 0024 FCE7     		b	.L26
+ 345              		.cfi_endproc
+ 346              	.LFE191:
+ 348              		.global	loopTaskIdx
+ 349              		.section	.bss.loopTaskIdx,"aw",%nobits
+ 350              		.align	2
+ 353              	loopTaskIdx:
+ 354 0000 00000000 		.space	8
+ 354      00000000 
+ 355              		.text
+ 356              	.Letext0:
+ 357              		.file 2 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 358              		.file 3 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 359              		.file 4 "Src/scheduler.h"
+ 360              		.file 5 "Src/drv/drv_system.h"
+ 361              		.file 6 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdlib.h"
+ 362              		.file 7 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/stdio.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 scheduler.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccjUULQg.s:18     .text.addTaskToLoop:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccjUULQg.s:26     .text.addTaskToLoop:0000000000000000 addTaskToLoop
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:18     .text.runAllTasksInLoop:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:25     .text.runAllTasksInLoop:0000000000000000 runAllTasksInLoop
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:65     .text.run:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:72     .text.run:0000000000000000 run
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:152    .text.run:000000000000004c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:158    .text.push:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:165    .text.push:0000000000000000 push
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:206    .rodata.insertAfter.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:210    .text.insertAfter:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:217    .text.insertAfter:0000000000000000 insertAfter
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:271    .text.insertAfter:0000000000000020 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:276    .text.append:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:283    .text.append:0000000000000000 append
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:353    .bss.loopTaskIdx:0000000000000000 loopTaskIdx
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccasOjd8.s:350    .bss.loopTaskIdx:0000000000000000 $d
 
-NO UNDEFINED SYMBOLS
+UNDEFINED SYMBOLS
+loopsChecked
+loopMask
+malloc
+printf

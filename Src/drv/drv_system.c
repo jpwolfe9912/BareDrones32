@@ -42,6 +42,9 @@ semaphore_t systemReady = false;
 
 semaphore_t execUp = false;
 
+volatile uint8_t loopMask = 0x00;
+volatile bool loopsChecked;
+
 /* Static Function Prototypes */
 static void cycleCounterInit(void);
 
@@ -50,7 +53,6 @@ static void cycleCounterInit(void);
  */
 void SysTick_Handler(void)
 {
-    uint8_t index;
     uint32_t currentTime;
 
     sysTickCycleCounter = DWT->CYCCNT;
@@ -64,63 +66,34 @@ void SysTick_Handler(void)
     {
 
         frameCounter++;
-        if (frameCounter > FRAME_COUNT)
-            frameCounter = 1;
+        if (frameCounter >= FRAME_COUNT)
+            frameCounter = 0;
 
-        ///////////////////////////////
-        frame_1000Hz = true;
+        if (!(frameCounter % COUNT_1000HZ))
+            loopMask |= MASK_1000HZ;
 
-        currentTime = micros();
-        deltaTime1000Hz = currentTime - previous1000HzTime;
-        previous1000HzTime = currentTime;
+        if (!(frameCounter % COUNT_500HZ))
+            loopMask |= MASK_500HZ;
 
-        readMPU6000();
+        if (!(frameCounter % COUNT_200HZ))
+            loopMask |= MASK_200HZ;
 
-        ///////////////////////////////
+        if (!(frameCounter % COUNT_100HZ))
+            loopMask |= MASK_100HZ;
 
-        if ((frameCounter % COUNT_500HZ) == 0)
-        {
-            frame_500Hz = true;
+        if (!(frameCounter % COUNT_50HZ))
+            loopMask |= MASK_50HZ;
 
-            for (index = 0; index < 3; index++)
-            {
-                accelSummedSamples500Hz[index] = accelSum500Hz[index];
-                accelSum500Hz[index] = 0;
+        if (!(frameCounter % COUNT_10HZ))
+            loopMask |= MASK_10HZ;
 
-                gyroSummedSamples500Hz[index] = gyroSum500Hz[index];
-                gyroSum500Hz[index] = 0;
-            }
-        }
+        if (!(frameCounter % COUNT_5HZ))
+            loopMask |= MASK_5HZ;
 
-        ///////////////////////////////
+        if (!(frameCounter % COUNT_1HZ))
+            loopMask |= MASK_1HZ;
 
-        if ((frameCounter % COUNT_200HZ) == 0)
-            frame_200Hz = true;
-
-        ///////////////////////////////
-
-        if ((frameCounter % COUNT_100HZ) == 0)
-            frame_100Hz = true;
-
-        ///////////////////////////////
-
-        if ((frameCounter % COUNT_50HZ) == 0)
-            frame_50Hz = true;
-
-        ///////////////////////////////
-
-        if ((frameCounter % COUNT_10HZ) == 0)
-            frame_10Hz = true;
-
-        ///////////////////////////////
-
-        if ((frameCounter % COUNT_5HZ) == 0)
-            frame_5Hz = true;
-
-        ///////////////////////////////
-
-        if ((frameCounter % COUNT_1HZ) == 0)
-            frame_1Hz = true;
+        loopsChecked = true;
 
         ///////////////////////////////////
 
@@ -128,8 +101,8 @@ void SysTick_Handler(void)
 
         ///////////////////////////////
     }
-    else if (!motor_initialized)
-        dshotWrite(motor_value);
+    // else if (!motor_initialized)
+    //     dshotWrite(motor_value);
 }
 
 /** @brief Gets system time in microseconds.
@@ -244,7 +217,7 @@ void systemInit(void)
     adc1Ch8Init();
 
     dshotInit(DSHOT600);
-    motorInit();
+    // motorInit();
 
     spi1Init();
 
@@ -274,7 +247,7 @@ void systemInit(void)
 
     motor_initialized = true;
 
-//    modeTransition();
+    //    modeTransition();
 }
 
 /** @brief Initializes the cycle counter so we can use delay

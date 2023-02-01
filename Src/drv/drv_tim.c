@@ -13,15 +13,13 @@
  *
  *  @return Void.
  */
-void
-tim9Init(void)
+void tim9Init(void)
 {
-	RCC->APB2ENR	|= RCC_APB2ENR_TIM9EN;
+    RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
 
-	TIM9->PSC 	= 108 - 1;
-	TIM9->ARR 	= 0xFFFF;
-	TIM9->CNT	= 4000;
-
+    TIM9->PSC = 108 - 1;
+    TIM9->ARR = 0xFFFF;
+    TIM9->CNT = 4000;
 }
 
 /** @brief Gets the counter value.
@@ -31,35 +29,44 @@ tim9Init(void)
 uint32_t
 tim9GetCnt(void)
 {
-	return TIM9->CNT;
+    return TIM9->CNT;
 }
 
 /** @brief Resets the counter.
  *
  *  @return Void.
  */
-void
-tim9ResetCnt(void)
+void tim9ResetCnt(void)
 {
-	TIM9->CNT = 0;
+    TIM9->CNT = 0;
 }
 
 /** @brief Enables the timer.
  *
  *  @return Void.
  */
-void
-tim9Enable(void)
+void tim9Enable(void)
 {
-	TIM9->CR1	|= TIM_CR1_CEN;
+    TIM9->CR1 |= TIM_CR1_CEN;
 }
 
 /** @brief Disables the timer.
  *
  *  @return Void.
  */
-void
-tim9Disable(void)
+void tim9Disable(void)
 {
-	TIM9->CR1	&= ~TIM_CR1_CEN;
+    TIM9->CR1 &= ~TIM_CR1_CEN;
+}
+
+uint16_t getTimerValue(void)
+{
+    uint16_t timerValue;
+    
+    tim9Disable();
+    timerValue = tim9GetCnt();
+    tim9ResetCnt();
+    tim9Enable();
+
+    return timerValue;
 }

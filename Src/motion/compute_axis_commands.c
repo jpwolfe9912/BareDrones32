@@ -10,66 +10,66 @@
 #include "board.h"
 
 /* Global Variables */
-float   attCmd[3];
-float   attPID[3];
-float   ratePID[3];
-float   rateCmd[3];
+float attCmd[3];
+float attPID[3];
+float ratePID[3];
+float rateCmd[3];
 
 /** @brief Computes the commands that get sent to the mixer.
  *
- *  @param dt The PID loop period in sec.
  *  @return Void.
  */
-void
-computeAxisCommands(float dt)
+void computeAxisCommands(void)
 {
-	float error;
+    float error;
+    uint16_t timerValue;
 
-	if (mode == FLIGHT)
-	{
-		if(flightMode == ANGLE)
-		{
-			attCmd[ROLL ]	= rxCommands[ROLL ] * eepromConfig.attitudeScaling;
-			error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
-			attPID[ROLL ]  = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_ATT_PID ]);
+    timerValue = getTimerValue();
+    dt500Hz = (float)timerValue * 0.0000005f; // For integrations in 500 Hz loop
 
-			attCmd[PITCH]	= rxCommands[PITCH] * eepromConfig.attitudeScaling;
-			error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
-			attPID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
-		}
+    if (mode == FLIGHT)
+    {
+        if (flightMode == ANGLE)
+        {
+            attCmd[ROLL] = rxCommands[ROLL] * eepromConfig.attitudeScaling;
+            error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
+            attPID[ROLL] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID]);
 
-		if(flightMode == RATE)
-		{
-			rateCmd[ROLL ] = RATECURVE(rxCommands[ROLL ]);
-			rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
-		}
-		else
-		{
-			rateCmd[ROLL ] = attPID[ROLL ];
-			rateCmd[PITCH] = attPID[PITCH];
-		}
-		rateCmd[YAW ]	= rxCommands[YAW  ] * eepromConfig.yawRateScaling;
+            attCmd[PITCH] = rxCommands[PITCH] * eepromConfig.attitudeScaling;
+            error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
+            attPID[PITCH] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+        }
 
-		error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
-		ratePID[ROLL] = updatePID(error, dt, pidReset, &eepromConfig.PID[ROLL_RATE_PID ]);
+        if (flightMode == RATE)
+        {
+            rateCmd[ROLL] = RATECURVE(rxCommands[ROLL]);
+            rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+        }
+        else
+        {
+            rateCmd[ROLL] = attPID[ROLL];
+            rateCmd[PITCH] = attPID[PITCH];
+        }
+        rateCmd[YAW] = rxCommands[YAW] * eepromConfig.yawRateScaling;
 
-		error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];
-		ratePID[PITCH] = updatePID(error, dt, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+        error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
+        ratePID[ROLL] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID]);
 
-		error = rateCmd[YAW] + sensors.gyro500Hz[YAW];
-		ratePID[YAW] = updatePID(error, dt, pidReset, &eepromConfig.PID[YAW_RATE_PID  ]);
+        error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];
+        ratePID[PITCH] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
 
-		///////////////////////////////////
+        error = rateCmd[YAW] + sensors.gyro500Hz[YAW];
+        ratePID[YAW] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID]);
 
-		throttleCmd = rxCommands[THROTTLE];
-	}
-	else if(mode == ROVER)
-	{
-		speedCmd = rxCommands[PITCH];
-		steerCmd = rxCommands[ROLL];
-	}
+        ///////////////////////////////////
 
-
+        throttleCmd = rxCommands[THROTTLE];
+    }
+    else if (mode == ROVER)
+    {
+        speedCmd = rxCommands[PITCH];
+        steerCmd = rxCommands[ROLL];
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
