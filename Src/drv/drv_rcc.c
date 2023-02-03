@@ -26,7 +26,7 @@ rcc216MHzInit(void)
 	while(!(FLASH->ACR & FLASH_ACR_LATENCY_7WS)){}	// wait for enabled
 
 
-	RCC->CR 		|= RCC_CR_HSEON;		// turn on HSI
+	RCC->CR 		|= RCC_CR_HSEON;		// turn on HSE
 	while(!(RCC->CR & RCC_CR_HSERDY)){}		// wait until HSI ready
 
 	/*		PLL Division Configuration	*/

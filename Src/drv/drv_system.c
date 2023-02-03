@@ -18,24 +18,6 @@ static volatile uint32_t sysTickCycleCounter = 0;
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-// semaphore_t frame_1000Hz = false;
-// semaphore_t frame_500Hz = false;
-// semaphore_t frame_200Hz = false;
-// semaphore_t frame_100Hz = false;
-// semaphore_t frame_50Hz = false;
-// semaphore_t frame_10Hz = false;
-// semaphore_t frame_5Hz = false;
-// semaphore_t frame_1Hz = false;
-
-// uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
-// uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
-// uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
-// uint32_t deltaTime100Hz, executionTime100Hz, previous100HzTime;
-// uint32_t deltaTime50Hz, executionTime50Hz, previous50HzTime;
-// uint32_t deltaTime10Hz, executionTime10Hz, previous10HzTime;
-// uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
-// uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
-
 float dt500Hz;
 
 semaphore_t systemReady = false;
@@ -56,8 +38,6 @@ void SysTick_Handler(void)
     sysTickCycleCounter = DWT->CYCCNT;
     sysTickUptime++;
 
-    //    watchDogsTick();
-
     if ((systemReady == true) &&
         (accelCalibrating == false) &&
         (mpu6000Calibrating == false))
@@ -68,7 +48,7 @@ void SysTick_Handler(void)
             frameCounter = 0;
 
         if (!(frameCounter % COUNT_1000HZ))
-            loopMask |= MASK_1000HZ;
+            loopMask |= MASK_1000HZ; 
 
         if (!(frameCounter % COUNT_500HZ))
             loopMask |= MASK_500HZ;
@@ -93,10 +73,8 @@ void SysTick_Handler(void)
 
         loopsChecked = true;
 
-        ///////////////////////////////
     }
-    // else if (!motor_initialized)
-    //     dshotWrite(motor_value);
+
 }
 
 /** @brief Gets system time in microseconds.
@@ -190,9 +168,9 @@ void systemInit(void)
     dmaInit();
 
     cycleCounterInit();
-
+#ifdef USE_LEDS
     ledInit();
-
+#endif
     /*		LOW LEVEL INITIALIZATION	*/
     serialInit();
 
@@ -204,14 +182,15 @@ void systemInit(void)
     printf("----------------------------------\n");
     colorDefault();
 
-#ifndef USE_EEPROM
+#ifdef USE_EEPROM
     checkFirstTime(false);
     readEEPROM();
 #endif
     adc1Ch8Init();
-
+#ifdef USE_DSHOT
     dshotInit(DSHOT600);
     motorInit();
+#endif
 
     spi1Init();
 
@@ -220,26 +199,28 @@ void systemInit(void)
 
     tim9Init();
 
-    /*		SENSOR INITIALIZATION		*/
+/*		SENSOR INITIALIZATION		*/
+#ifdef USE_BATT_MON
     battMonInit();
+#endif
 
     orientSensors();
-
+#ifdef USE_MPU6000
     mpu6000Init();
+#endif
 
     madgwickInit();
-
+#ifdef USE_IBUS
     while (!ibusInit())
         ;
+#endif
 
     initPID();
-
+#ifdef USE_EEPROM
     if (eepromChanged)
         writeEEPROM();
-
+#endif
     motor_initialized = true;
-
-    //    modeTransition();
 }
 
 /** @brief Initializes the cycle counter so we can use delay

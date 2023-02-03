@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   29:Src/drv/drv_system.c **** 
   30:Src/drv/drv_system.c **** // uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
   31:Src/drv/drv_system.c **** // uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 2
 
 
   32:Src/drv/drv_system.c **** // uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   86:Src/drv/drv_system.c ****             loopMask |= MASK_10HZ;
   87:Src/drv/drv_system.c **** 
   88:Src/drv/drv_system.c ****         if (!(frameCounter % COUNT_5HZ))
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 3
 
 
   89:Src/drv/drv_system.c ****             loopMask |= MASK_5HZ;
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  143:Src/drv/drv_system.c ****     uint32_t lastCount = DWT->CYCCNT;
  144:Src/drv/drv_system.c **** 
  145:Src/drv/drv_system.c ****     for (;;)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 4
 
 
  146:Src/drv/drv_system.c ****     {
@@ -228,9 +228,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  190:Src/drv/drv_system.c ****     dmaInit();
  191:Src/drv/drv_system.c **** 
  192:Src/drv/drv_system.c ****     cycleCounterInit();
- 193:Src/drv/drv_system.c **** 
+ 193:Src/drv/drv_system.c **** #ifdef USE_LEDS
  194:Src/drv/drv_system.c ****     ledInit();
- 195:Src/drv/drv_system.c **** 
+ 195:Src/drv/drv_system.c **** #endif
  196:Src/drv/drv_system.c ****     /*		LOW LEVEL INITIALIZATION	*/
  197:Src/drv/drv_system.c ****     serialInit();
  198:Src/drv/drv_system.c **** 
@@ -238,97 +238,100 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  200:Src/drv/drv_system.c **** 
  201:Src/drv/drv_system.c ****     color(GREEN, YES);
  202:Src/drv/drv_system.c ****     printf("\nBEGINNING INITIALIZATION\n");
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 5
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 5
 
 
  203:Src/drv/drv_system.c ****     printf("----------------------------------\n");
  204:Src/drv/drv_system.c ****     printf("----------------------------------\n");
  205:Src/drv/drv_system.c ****     colorDefault();
  206:Src/drv/drv_system.c **** 
- 207:Src/drv/drv_system.c **** #ifndef USE_EEPROM
+ 207:Src/drv/drv_system.c **** #ifdef USE_EEPROM
  208:Src/drv/drv_system.c ****     checkFirstTime(false);
  209:Src/drv/drv_system.c ****     readEEPROM();
  210:Src/drv/drv_system.c **** #endif
  211:Src/drv/drv_system.c ****     adc1Ch8Init();
- 212:Src/drv/drv_system.c **** 
+ 212:Src/drv/drv_system.c **** #ifdef USE_DSHOT
  213:Src/drv/drv_system.c ****     dshotInit(DSHOT600);
  214:Src/drv/drv_system.c ****     motorInit();
- 215:Src/drv/drv_system.c **** 
- 216:Src/drv/drv_system.c ****     spi1Init();
- 217:Src/drv/drv_system.c **** 
- 218:Src/drv/drv_system.c ****     usart1Init();
- 219:Src/drv/drv_system.c ****     usart6Init();
- 220:Src/drv/drv_system.c **** 
- 221:Src/drv/drv_system.c ****     tim9Init();
- 222:Src/drv/drv_system.c **** 
- 223:Src/drv/drv_system.c ****     /*		SENSOR INITIALIZATION		*/
- 224:Src/drv/drv_system.c ****     battMonInit();
- 225:Src/drv/drv_system.c **** 
- 226:Src/drv/drv_system.c ****     orientSensors();
- 227:Src/drv/drv_system.c **** 
- 228:Src/drv/drv_system.c ****     mpu6000Init();
- 229:Src/drv/drv_system.c **** 
- 230:Src/drv/drv_system.c ****     madgwickInit();
- 231:Src/drv/drv_system.c **** 
- 232:Src/drv/drv_system.c ****     while (!ibusInit())
- 233:Src/drv/drv_system.c ****         ;
- 234:Src/drv/drv_system.c **** 
- 235:Src/drv/drv_system.c ****     initPID();
- 236:Src/drv/drv_system.c **** 
- 237:Src/drv/drv_system.c ****     if (eepromChanged)
- 238:Src/drv/drv_system.c ****         writeEEPROM();
+ 215:Src/drv/drv_system.c **** #endif
+ 216:Src/drv/drv_system.c **** 
+ 217:Src/drv/drv_system.c ****     spi1Init();
+ 218:Src/drv/drv_system.c **** 
+ 219:Src/drv/drv_system.c ****     usart1Init();
+ 220:Src/drv/drv_system.c ****     usart6Init();
+ 221:Src/drv/drv_system.c **** 
+ 222:Src/drv/drv_system.c ****     tim9Init();
+ 223:Src/drv/drv_system.c **** 
+ 224:Src/drv/drv_system.c **** /*		SENSOR INITIALIZATION		*/
+ 225:Src/drv/drv_system.c **** #ifdef USE_BATT_MON
+ 226:Src/drv/drv_system.c ****     battMonInit();
+ 227:Src/drv/drv_system.c **** #endif
+ 228:Src/drv/drv_system.c **** 
+ 229:Src/drv/drv_system.c ****     orientSensors();
+ 230:Src/drv/drv_system.c **** #ifdef USE_MPU6000
+ 231:Src/drv/drv_system.c ****     mpu6000Init();
+ 232:Src/drv/drv_system.c **** #endif
+ 233:Src/drv/drv_system.c **** 
+ 234:Src/drv/drv_system.c ****     madgwickInit();
+ 235:Src/drv/drv_system.c **** #ifdef USE_IBUS
+ 236:Src/drv/drv_system.c ****     while (!ibusInit())
+ 237:Src/drv/drv_system.c ****         ;
+ 238:Src/drv/drv_system.c **** #endif
  239:Src/drv/drv_system.c **** 
- 240:Src/drv/drv_system.c ****     motor_initialized = true;
- 241:Src/drv/drv_system.c **** 
- 242:Src/drv/drv_system.c ****     //    modeTransition();
- 243:Src/drv/drv_system.c **** }
- 244:Src/drv/drv_system.c **** 
- 245:Src/drv/drv_system.c **** /** @brief Initializes the cycle counter so we can use delay
- 246:Src/drv/drv_system.c ****  *  and getTime functions
- 247:Src/drv/drv_system.c ****  *
- 248:Src/drv/drv_system.c ****  *  @return Void.
- 249:Src/drv/drv_system.c ****  */
- 250:Src/drv/drv_system.c **** static void
- 251:Src/drv/drv_system.c **** cycleCounterInit(void)
- 252:Src/drv/drv_system.c **** {
-  28              		.loc 1 252 1 view -0
+ 240:Src/drv/drv_system.c ****     initPID();
+ 241:Src/drv/drv_system.c **** #ifdef USE_EEPROM
+ 242:Src/drv/drv_system.c ****     if (eepromChanged)
+ 243:Src/drv/drv_system.c ****         writeEEPROM();
+ 244:Src/drv/drv_system.c **** #endif
+ 245:Src/drv/drv_system.c ****     motor_initialized = true;
+ 246:Src/drv/drv_system.c **** }
+ 247:Src/drv/drv_system.c **** 
+ 248:Src/drv/drv_system.c **** /** @brief Initializes the cycle counter so we can use delay
+ 249:Src/drv/drv_system.c ****  *  and getTime functions
+ 250:Src/drv/drv_system.c ****  *
+ 251:Src/drv/drv_system.c ****  *  @return Void.
+ 252:Src/drv/drv_system.c ****  */
+ 253:Src/drv/drv_system.c **** static void
+ 254:Src/drv/drv_system.c **** cycleCounterInit(void)
+ 255:Src/drv/drv_system.c **** {
+  28              		.loc 1 255 1 view -0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 6
+
+
   32              		@ link register save eliminated.
- 253:Src/drv/drv_system.c ****     usTicks = SystemCoreClock / 1000000;
-  33              		.loc 1 253 5 view .LVU1
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 6
-
-
-  34              		.loc 1 253 31 is_stmt 0 view .LVU2
+ 256:Src/drv/drv_system.c ****     usTicks = SystemCoreClock / 1000000;
+  33              		.loc 1 256 5 view .LVU1
+  34              		.loc 1 256 31 is_stmt 0 view .LVU2
   35 0000 0A4B     		ldr	r3, .L2
   36 0002 1B68     		ldr	r3, [r3]
   37 0004 0A4A     		ldr	r2, .L2+4
   38 0006 A2FB0323 		umull	r2, r3, r2, r3
   39 000a 9B0C     		lsrs	r3, r3, #18
-  40              		.loc 1 253 13 view .LVU3
+  40              		.loc 1 256 13 view .LVU3
   41 000c 094A     		ldr	r2, .L2+8
   42 000e 1360     		str	r3, [r2]
- 254:Src/drv/drv_system.c **** 
- 255:Src/drv/drv_system.c ****     // enable DWT access
- 256:Src/drv/drv_system.c ****     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-  43              		.loc 1 256 5 is_stmt 1 view .LVU4
-  44              		.loc 1 256 22 is_stmt 0 view .LVU5
+ 257:Src/drv/drv_system.c **** 
+ 258:Src/drv/drv_system.c ****     // enable DWT access
+ 259:Src/drv/drv_system.c ****     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  43              		.loc 1 259 5 is_stmt 1 view .LVU4
+  44              		.loc 1 259 22 is_stmt 0 view .LVU5
   45 0010 094A     		ldr	r2, .L2+12
   46 0012 D2F8FC30 		ldr	r3, [r2, #252]
   47 0016 43F08073 		orr	r3, r3, #16777216
   48 001a C2F8FC30 		str	r3, [r2, #252]
- 257:Src/drv/drv_system.c ****     // enable the CPU cycle counter
- 258:Src/drv/drv_system.c ****     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-  49              		.loc 1 258 5 is_stmt 1 view .LVU6
-  50              		.loc 1 258 15 is_stmt 0 view .LVU7
+ 260:Src/drv/drv_system.c ****     // enable the CPU cycle counter
+ 261:Src/drv/drv_system.c ****     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+  49              		.loc 1 261 5 is_stmt 1 view .LVU6
+  50              		.loc 1 261 15 is_stmt 0 view .LVU7
   51 001e A2F55D42 		sub	r2, r2, #56576
   52 0022 1368     		ldr	r3, [r2]
   53 0024 43F00103 		orr	r3, r3, #1
   54 0028 1360     		str	r3, [r2]
- 259:Src/drv/drv_system.c **** }
-  55              		.loc 1 259 1 view .LVU8
+ 262:Src/drv/drv_system.c **** }
+  55              		.loc 1 262 1 view .LVU8
   56 002a 7047     		bx	lr
   57              	.L3:
   58              		.align	2
@@ -355,12 +358,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   80              		@ frame_needed = 0, uses_anonymous_args = 0
   81              		@ link register save eliminated.
   56:Src/drv/drv_system.c ****     sysTickUptime++;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 7
+
+
   82              		.loc 1 56 5 view .LVU10
   56:Src/drv/drv_system.c ****     sysTickUptime++;
   83              		.loc 1 56 30 is_stmt 0 view .LVU11
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 7
-
-
   84 0000 454B     		ldr	r3, .L15
   85 0002 5A68     		ldr	r2, [r3, #4]
   56:Src/drv/drv_system.c ****     sysTickUptime++;
@@ -415,12 +418,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  122 002e 1388     		ldrh	r3, [r2]
  123 0030 0133     		adds	r3, r3, #1
  124 0032 9BB2     		uxth	r3, r3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 8
+
+
  125 0034 1380     		strh	r3, [r2]	@ movhi
   67:Src/drv/drv_system.c ****             frameCounter = 0;
  126              		.loc 1 67 9 is_stmt 1 view .LVU25
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 8
-
-
   67:Src/drv/drv_system.c ****             frameCounter = 0;
  127              		.loc 1 67 12 is_stmt 0 view .LVU26
  128 0036 B3F57A7F 		cmp	r3, #1000
@@ -475,12 +478,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   76:Src/drv/drv_system.c ****             loopMask |= MASK_200HZ;
  165              		.loc 1 76 12 view .LVU39
  166 0070 22B9     		cbnz	r2, .L8
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 9
+
+
   77:Src/drv/drv_system.c **** 
  167              		.loc 1 77 13 is_stmt 1 view .LVU40
   77:Src/drv/drv_system.c **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 9
-
-
  168              		.loc 1 77 22 is_stmt 0 view .LVU41
  169 0072 3049     		ldr	r1, .L15+28
  170 0074 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
@@ -535,12 +538,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  209              	.L10:
   85:Src/drv/drv_system.c ****             loopMask |= MASK_10HZ;
  210              		.loc 1 85 9 is_stmt 1 view .LVU52
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 10
+
+
   85:Src/drv/drv_system.c ****             loopMask |= MASK_10HZ;
  211              		.loc 1 85 13 is_stmt 0 view .LVU53
  212 00b8 204A     		ldr	r2, .L15+36
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 10
-
-
  213 00ba A2FB0312 		umull	r1, r2, r2, r3
  214 00be 5209     		lsrs	r2, r2, #5
  215 00c0 6421     		movs	r1, #100
@@ -595,12 +598,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  253 0102 23B9     		cbnz	r3, .L13
   92:Src/drv/drv_system.c **** 
  254              		.loc 1 92 13 is_stmt 1 view .LVU65
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 11
+
+
   92:Src/drv/drv_system.c **** 
  255              		.loc 1 92 22 is_stmt 0 view .LVU66
  256 0104 0B4A     		ldr	r2, .L15+28
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 11
-
-
  257 0106 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
  258 0108 43F08003 		orr	r3, r3, #128
  259 010c 1370     		strb	r3, [r2]
@@ -655,12 +658,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  305              		.loc 1 114 5 discriminator 1 view .LVU71
  116:Src/drv/drv_system.c ****     {
  306              		.loc 1 116 5 discriminator 1 view .LVU72
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 12
+
+
  118:Src/drv/drv_system.c ****         cycle = DWT->CYCCNT;
  307              		.loc 1 118 9 discriminator 1 view .LVU73
  308              	.LVL0:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 12
-
-
  309              	.LBB12:
  310              	.LBI12:
  311              		.file 2 "Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include
@@ -715,12 +718,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   49:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
   50:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
   51:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif                                           
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 13
+
+
   52:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __NO_RETURN
   53:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __NO_RETURN                            __attribute__((__noreturn__))
   54:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 13
-
-
   55:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __USED
   56:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __USED                                 __attribute__((used))
   57:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -775,12 +778,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  106:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
  107:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
  108:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(add
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 14
+
+
  109:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
  110:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ALIGNED
  111:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __ALIGNED(x)                           __attribute__((aligned(x)))
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 14
-
-
  112:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
  113:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #ifndef   __RESTRICT
  114:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   #define __RESTRICT                             __restrict
@@ -835,12 +838,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  163:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Returns the content of the non-secure Control Register when in secure mode.
  164:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return               non-secure Control Register value
  165:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 15
+
+
  166:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
  167:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  168:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 15
-
-
  169:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  170:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, control_ns" : "=r" (result) );
  171:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return(result);
@@ -895,12 +898,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  220:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  221:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  222:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 16
+
+
  223:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
  224:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return(result);
  225:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 16
-
-
  226:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  227:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  228:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
@@ -955,12 +958,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  277:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PSP(uint32_t topOfProcStack)
  278:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  279:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0" : : "r" (topOfProcStack) : );
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 17
+
+
  280:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  281:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  282:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 17
-
-
  283:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
  284:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
  285:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Process Stack Pointer (non-secure)
@@ -1015,12 +1018,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  334:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  335:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  336:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 18
+
+
  337:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
  338:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
  339:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Main Stack Pointer (non-secure)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 18
-
-
  340:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the non-secure Main Stack Pointer (MSP) when in secure state.
  341:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    topOfMainStack  Main Stack Pointer value to set
  342:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
@@ -1075,12 +1078,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  391:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
  392:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
  393:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Priority Mask (non-secure)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 19
+
+
  394:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current state of the non-secure priority mask bit from the Priority Mask Reg
  395:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return               Priority Mask value
  396:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 19
-
-
  397:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_PRIMASK_NS(void)
  398:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  399:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
@@ -1135,12 +1138,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  448:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  449:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
  450:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_fault_irq(void)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 20
+
+
  451:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  452:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
  453:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 20
-
-
  454:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  455:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  456:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
@@ -1195,12 +1198,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  505:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR basepri_ns, %0" : : "r" (basePri) : "memory");
  506:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  507:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 21
+
+
  508:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  509:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  510:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 21
-
-
  511:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Base Priority with condition
  512:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
  513:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
@@ -1255,12 +1258,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  562:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  563:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
  564:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 22
+
+
  565:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Fault Mask (non-secure)
  566:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the non-secure Fault Mask register when in secure state.
  567:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 22
-
-
  568:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
  569:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __TZ_set_FAULTMASK_NS(uint32_t faultMask)
  570:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
@@ -1315,12 +1318,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  619:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #else
  620:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  621:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, psplim_ns"  : "=r" (result) );
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 23
+
+
  622:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return result;
  623:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
  624:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 23
-
-
  625:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
  626:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  627:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
@@ -1375,12 +1378,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  676:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer Limit (MSPLIM).
  677:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return               MSPLIM Register value
  678:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 24
+
+
  679:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_MSPLIM(void)
  680:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  681:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 24
-
-
  682:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
  683:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   // without main extensions, the non-secure MSPLIM is RAZ/WI
  684:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return 0U;
@@ -1435,12 +1438,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  733:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
  734:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  735:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 25
+
+
  736:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  737:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE  ) && (__ARM_FEATURE_CMSE   == 3))
  738:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 25
-
-
  739:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Main Stack Pointer Limit (non-secure)
  740:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
  741:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   Stack Pointer Limit register hence the write is silently ignored.
@@ -1495,12 +1498,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  790:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
  791:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
  792:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_FPSCR(uint32_t fpscr)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 26
+
+
  793:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
  794:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
  795:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****      (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 26
-
-
  796:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #if __has_builtin(__builtin_arm_set_fpscr)
  797:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** // Re-enable using built-in when GCC has been fixed
  798:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
@@ -1555,12 +1558,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  847:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
  848:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            a low-power state until one of a number of events occurs.
  849:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 27
+
+
  850:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #define __WFE()                             __ASM volatile ("wfe")
  851:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  852:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 27
-
-
  853:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
  854:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Send Event
  855:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
@@ -1615,12 +1618,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  904:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #else
  905:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
  906:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 28
+
+
  907:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("rev %0, %1" : __CMSIS_GCC_OUT_REG (result) : __CMSIS_GCC_USE_REG (value) );
  908:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return result;
  909:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** #endif
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 28
-
-
  910:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  911:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  912:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
@@ -1675,12 +1678,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  961:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   return (op1 >> op2) | (op1 << (32U - op2));
  962:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** }
  963:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 29
+
+
  964:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
  965:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
  966:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   Breakpoint
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 29
-
-
  967:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Causes the processor to enter Debug state.
  968:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****            Debug tools can use this to investigate system state when the instruction at a particula
  969:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    value  is ignored by the processor.
@@ -1735,12 +1738,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1018:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** /**
 1019:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \brief   LDR Exclusive (8 bit)
 1020:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \details Executes a exclusive LDR instruction for 8 bit value.
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 30
+
+
 1021:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    ptr  Pointer to data
 1022:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return             value of type uint8_t at (*ptr)
 1023:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 30
-
-
 1024:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint8_t __LDREXB(volatile uint8_t *addr)
 1025:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
 1026:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****     uint32_t result;
@@ -1795,12 +1798,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1072:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
  315              		.loc 2 1072 4 discriminator 1 view .LVU76
  316 0002 0B4A     		ldr	r2, .L20
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 31
+
+
  317              		.syntax unified
  318              	@ 1072 "Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/c
  319 0004 52E8003F 		ldrex r3, [r2]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 31
-
-
  320              	@ 0 "" 2
  321              	.LVL1:
 1073:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****    return(result);
@@ -1855,12 +1858,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1098:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \param [in]    ptr  Pointer to location
 1099:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return          0  Function succeeded
 1100:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****   \return          1  Function failed
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 32
+
+
 1101:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****  */
 1102:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __STREXH(uint16_t value, volatile uint16_t *addr)
 1103:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** {
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 32
-
-
 1104:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****    uint32_t result;
 1105:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h **** 
 1106:Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/../../../Libraries/CMSIS/Include/cmsis_gcc.h ****    __ASM volatile ("strexh %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" ((uint32_t)value) );
@@ -1915,12 +1918,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  124:Src/drv/drv_system.c **** 
  367              		.loc 1 124 1 view .LVU93
  368 0022 4FF47A72 		mov	r2, #1000
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 33
+
+
  369 0026 02FB0300 		mla	r0, r2, r3, r0
  370 002a 5DF8044B 		ldr	r4, [sp], #4
  371              		.cfi_restore 4
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 33
-
-
  372              		.cfi_def_cfa_offset 0
  373              	.LVL6:
  124:Src/drv/drv_system.c **** 
@@ -1975,12 +1978,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  422              	delayMicroseconds:
  423              	.LVL7:
  424              	.LFB190:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 34
+
+
  141:Src/drv/drv_system.c ****     uint32_t elapsed = 0;
  425              		.loc 1 141 1 is_stmt 1 view -0
  426              		.cfi_startproc
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 34
-
-
  427              		@ args = 0, pretend = 0, frame = 0
  428              		@ frame_needed = 0, uses_anonymous_args = 0
  429              		@ link register save eliminated.
@@ -2035,12 +2038,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  145:Src/drv/drv_system.c ****     {
  465              		.loc 1 145 5 is_stmt 1 view .LVU113
  466              	.LBB18:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 35
+
+
  147:Src/drv/drv_system.c ****         uint32_t elapsed_us;
  467              		.loc 1 147 9 view .LVU114
  147:Src/drv/drv_system.c ****         uint32_t elapsed_us;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 35
-
-
  468              		.loc 1 147 27 is_stmt 0 view .LVU115
  469 0018 0549     		ldr	r1, .L29
  470 001a 4968     		ldr	r1, [r1, #4]
@@ -2095,12 +2098,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  508              		.thumb
  509              		.thumb_func
  510              		.fpu fpv5-sp-d16
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 36
+
+
  512              	delay:
  513              	.LVL18:
  514              	.LFB191:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 36
-
-
  172:Src/drv/drv_system.c ****     while (ms > 0)
  515              		.loc 1 172 1 is_stmt 1 view -0
  516              		.cfi_startproc
@@ -2155,12 +2158,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  553              	.LC1:
  554 001c 2D2D2D2D 		.ascii	"----------------------------------\000"
  554      2D2D2D2D 
- 554      2D2D2D2D 
- 554      2D2D2D2D 
- 554      2D2D2D2D 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 37
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 37
 
 
+ 554      2D2D2D2D 
+ 554      2D2D2D2D 
+ 554      2D2D2D2D 
  555              		.section	.text.systemInit,"ax",%progbits
  556              		.align	1
  557              		.global	systemInit
@@ -2185,9 +2188,9 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  575              	.LVL22:
  188:Src/drv/drv_system.c **** 
  576              		.loc 1 188 5 view .LVU140
- 577 0006 2B4B     		ldr	r3, .L41
+ 577 0006 284B     		ldr	r3, .L40
  578 0008 1B68     		ldr	r3, [r3]
- 579 000a 2B4A     		ldr	r2, .L41+4
+ 579 000a 284A     		ldr	r2, .L40+4
  580 000c A2FB0323 		umull	r2, r3, r2, r3
  581 0010 9B09     		lsrs	r3, r3, #6
  582              	.LVL23:
@@ -2215,12 +2218,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   19:Libraries/CMSIS/Include/core_cm7.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
   20:Libraries/CMSIS/Include/core_cm7.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   21:Libraries/CMSIS/Include/core_cm7.h ****  * See the License for the specific language governing permissions and
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 38
+
+
   22:Libraries/CMSIS/Include/core_cm7.h ****  * limitations under the License.
   23:Libraries/CMSIS/Include/core_cm7.h ****  */
   24:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 38
-
-
   25:Libraries/CMSIS/Include/core_cm7.h **** #if   defined ( __ICCARM__ )
   26:Libraries/CMSIS/Include/core_cm7.h ****   #pragma system_include         /* treat file as system include file for MISRA check */
   27:Libraries/CMSIS/Include/core_cm7.h **** #elif defined (__clang__)
@@ -2275,12 +2278,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
   76:Libraries/CMSIS/Include/core_cm7.h **** #if defined ( __CC_ARM )
   77:Libraries/CMSIS/Include/core_cm7.h ****   #if defined __TARGET_FPU_VFP
   78:Libraries/CMSIS/Include/core_cm7.h ****     #if defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 39
+
+
   79:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       1U
   80:Libraries/CMSIS/Include/core_cm7.h ****     #else
   81:Libraries/CMSIS/Include/core_cm7.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 39
-
-
   82:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       0U
   83:Libraries/CMSIS/Include/core_cm7.h ****     #endif
   84:Libraries/CMSIS/Include/core_cm7.h ****   #else
@@ -2335,12 +2338,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  133:Libraries/CMSIS/Include/core_cm7.h ****     #define __FPU_USED         0U
  134:Libraries/CMSIS/Include/core_cm7.h ****   #endif
  135:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 40
+
+
  136:Libraries/CMSIS/Include/core_cm7.h **** #elif defined ( __TASKING__ )
  137:Libraries/CMSIS/Include/core_cm7.h ****   #if defined __FPU_VFP__
  138:Libraries/CMSIS/Include/core_cm7.h ****     #if defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 40
-
-
  139:Libraries/CMSIS/Include/core_cm7.h ****       #define __FPU_USED       1U
  140:Libraries/CMSIS/Include/core_cm7.h ****     #else
  141:Libraries/CMSIS/Include/core_cm7.h ****       #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
@@ -2395,12 +2398,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  190:Libraries/CMSIS/Include/core_cm7.h ****   #endif
  191:Libraries/CMSIS/Include/core_cm7.h **** 
  192:Libraries/CMSIS/Include/core_cm7.h ****   #ifndef __MPU_PRESENT
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 41
+
+
  193:Libraries/CMSIS/Include/core_cm7.h ****     #define __MPU_PRESENT             0U
  194:Libraries/CMSIS/Include/core_cm7.h ****     #warning "__MPU_PRESENT not defined in device header file; using default!"
  195:Libraries/CMSIS/Include/core_cm7.h ****   #endif
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 41
-
-
  196:Libraries/CMSIS/Include/core_cm7.h **** 
  197:Libraries/CMSIS/Include/core_cm7.h ****   #ifndef __ICACHE_PRESENT
  198:Libraries/CMSIS/Include/core_cm7.h ****     #define __ICACHE_PRESENT          0U
@@ -2455,12 +2458,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  247:Libraries/CMSIS/Include/core_cm7.h **** 
  248:Libraries/CMSIS/Include/core_cm7.h **** /*******************************************************************************
  249:Libraries/CMSIS/Include/core_cm7.h ****  *                 Register Abstraction
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 42
+
+
  250:Libraries/CMSIS/Include/core_cm7.h ****   Core Register contain:
  251:Libraries/CMSIS/Include/core_cm7.h ****   - Core Register
  252:Libraries/CMSIS/Include/core_cm7.h ****   - Core NVIC Register
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 42
-
-
  253:Libraries/CMSIS/Include/core_cm7.h ****   - Core SCB Register
  254:Libraries/CMSIS/Include/core_cm7.h ****   - Core SysTick Register
  255:Libraries/CMSIS/Include/core_cm7.h ****   - Core Debug Register
@@ -2515,12 +2518,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  304:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_Q_Msk                         (1UL << APSR_Q_Pos)                            /*!< APSR
  305:Libraries/CMSIS/Include/core_cm7.h **** 
  306:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_GE_Pos                        16U                                            /*!< APSR
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 43
+
+
  307:Libraries/CMSIS/Include/core_cm7.h **** #define APSR_GE_Msk                        (0xFUL << APSR_GE_Pos)                         /*!< APSR
  308:Libraries/CMSIS/Include/core_cm7.h **** 
  309:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 43
-
-
  310:Libraries/CMSIS/Include/core_cm7.h **** /**
  311:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Union type to access the Interrupt Program Status Register (IPSR).
  312:Libraries/CMSIS/Include/core_cm7.h ****  */
@@ -2575,12 +2578,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  361:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_V_Pos                         28U                                            /*!< xPSR
  362:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_V_Msk                         (1UL << xPSR_V_Pos)                            /*!< xPSR
  363:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 44
+
+
  364:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_Q_Pos                         27U                                            /*!< xPSR
  365:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_Q_Msk                         (1UL << xPSR_Q_Pos)                            /*!< xPSR
  366:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 44
-
-
  367:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_ICI_IT_2_Pos                  25U                                            /*!< xPSR
  368:Libraries/CMSIS/Include/core_cm7.h **** #define xPSR_ICI_IT_2_Msk                  (3UL << xPSR_ICI_IT_2_Pos)                     /*!< xPSR
  369:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -2635,12 +2638,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  418:Libraries/CMSIS/Include/core_cm7.h **** /**
  419:Libraries/CMSIS/Include/core_cm7.h ****   \brief  Structure type to access the Nested Vectored Interrupt Controller (NVIC).
  420:Libraries/CMSIS/Include/core_cm7.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 45
+
+
  421:Libraries/CMSIS/Include/core_cm7.h **** typedef struct
  422:Libraries/CMSIS/Include/core_cm7.h **** {
  423:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t ISER[8U];               /*!< Offset: 0x000 (R/W)  Interrupt Set Enable Register */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 45
-
-
  424:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED0[24U];
  425:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t ICER[8U];               /*!< Offset: 0x080 (R/W)  Interrupt Clear Enable Register 
  426:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RSERVED1[24U];
@@ -2695,12 +2698,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  475:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t ID_ISAR[5U];            /*!< Offset: 0x060 (R/ )  Instruction Set Attributes Regis
  476:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED0[1U];
  477:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t CLIDR;                  /*!< Offset: 0x078 (R/ )  Cache Level ID register */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 46
+
+
  478:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t CTR;                    /*!< Offset: 0x07C (R/ )  Cache Type register */
  479:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t CCSIDR;                 /*!< Offset: 0x080 (R/ )  Cache Size ID Register */
  480:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CSSELR;                 /*!< Offset: 0x084 (R/W)  Cache Size Selection Register */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 46
-
-
  481:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t CPACR;                  /*!< Offset: 0x088 (R/W)  Coprocessor Access Control Regis
  482:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED3[93U];
  483:Libraries/CMSIS/Include/core_cm7.h ****   __OM  uint32_t STIR;                   /*!< Offset: 0x200 ( /W)  Software Triggered Interrupt Reg
@@ -2755,12 +2758,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  532:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSVCLR_Pos             27U                                            /*!< SCB 
  533:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSVCLR_Msk             (1UL << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB 
  534:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 47
+
+
  535:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSTSET_Pos             26U                                            /*!< SCB 
  536:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSTSET_Msk             (1UL << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB 
  537:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 47
-
-
  538:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSTCLR_Pos             25U                                            /*!< SCB 
  539:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_ICSR_PENDSTCLR_Msk             (1UL << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB 
  540:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -2815,12 +2818,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  589:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SCR_SLEEPONEXIT_Pos             1U                                            /*!< SCB 
  590:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SCR_SLEEPONEXIT_Msk            (1UL << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB 
  591:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 48
+
+
  592:Libraries/CMSIS/Include/core_cm7.h **** /* SCB Configuration Control Register Definitions */
  593:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_BP_Pos                      18U                                           /*!< SCB 
  594:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_BP_Msk                     (1UL << SCB_CCR_BP_Pos)                        /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 48
-
-
  595:Libraries/CMSIS/Include/core_cm7.h **** 
  596:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_IC_Pos                      17U                                           /*!< SCB 
  597:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CCR_IC_Msk                     (1UL << SCB_CCR_IC_Pos)                        /*!< SCB 
@@ -2875,12 +2878,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  646:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_PENDSVACT_Msk            (1UL << SCB_SHCSR_PENDSVACT_Pos)               /*!< SCB 
  647:Libraries/CMSIS/Include/core_cm7.h **** 
  648:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_MONITORACT_Pos            8U                                            /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 49
+
+
  649:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_MONITORACT_Msk           (1UL << SCB_SHCSR_MONITORACT_Pos)              /*!< SCB 
  650:Libraries/CMSIS/Include/core_cm7.h **** 
  651:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_SVCALLACT_Pos             7U                                            /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 49
-
-
  652:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_SVCALLACT_Msk            (1UL << SCB_SHCSR_SVCALLACT_Pos)               /*!< SCB 
  653:Libraries/CMSIS/Include/core_cm7.h **** 
  654:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_SHCSR_USGFAULTACT_Pos           3U                                            /*!< SCB 
@@ -2935,12 +2938,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  703:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_UNSTKERR_Msk             (1UL << SCB_CFSR_UNSTKERR_Pos)                  /*!< SCB 
  704:Libraries/CMSIS/Include/core_cm7.h **** 
  705:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_IMPRECISERR_Pos          (SCB_CFSR_BUSFAULTSR_Pos + 2U)                  /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 50
+
+
  706:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_IMPRECISERR_Msk          (1UL << SCB_CFSR_IMPRECISERR_Pos)               /*!< SCB 
  707:Libraries/CMSIS/Include/core_cm7.h **** 
  708:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_PRECISERR_Pos            (SCB_CFSR_BUSFAULTSR_Pos + 1U)                  /*!< SCB 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 50
-
-
  709:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_PRECISERR_Msk            (1UL << SCB_CFSR_PRECISERR_Pos)                 /*!< SCB 
  710:Libraries/CMSIS/Include/core_cm7.h **** 
  711:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CFSR_IBUSERR_Pos              (SCB_CFSR_BUSFAULTSR_Pos + 0U)                  /*!< SCB 
@@ -2995,12 +2998,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  760:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CLIDR_LOUU_Pos                 27U                                            /*!< SCB 
  761:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CLIDR_LOUU_Msk                 (7UL << SCB_CLIDR_LOUU_Pos)                    /*!< SCB 
  762:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 51
+
+
  763:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CLIDR_LOC_Pos                  24U                                            /*!< SCB 
  764:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CLIDR_LOC_Msk                  (7UL << SCB_CLIDR_LOC_Pos)                     /*!< SCB 
  765:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 51
-
-
  766:Libraries/CMSIS/Include/core_cm7.h **** /* SCB Cache Type Register Definitions */
  767:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_FORMAT_Pos                 29U                                            /*!< SCB 
  768:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CTR_FORMAT_Msk                 (7UL << SCB_CTR_FORMAT_Pos)                    /*!< SCB 
@@ -3055,12 +3058,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  817:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCISW_WAY_Msk                  (3UL << SCB_DCISW_WAY_Pos)                     /*!< SCB 
  818:Libraries/CMSIS/Include/core_cm7.h **** 
  819:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCISW_SET_Pos                   5U                                            /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 52
+
+
  820:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCISW_SET_Msk                  (0x1FFUL << SCB_DCISW_SET_Pos)                 /*!< SCB 
  821:Libraries/CMSIS/Include/core_cm7.h **** 
  822:Libraries/CMSIS/Include/core_cm7.h **** /* SCB D-Cache Clean by Set-way Register Definitions */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 52
-
-
  823:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCCSW_WAY_Pos                  30U                                            /*!< SCB 
  824:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_DCCSW_WAY_Msk                  (3UL << SCB_DCCSW_WAY_Pos)                     /*!< SCB 
  825:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3115,12 +3118,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  874:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CACR_ECCEN_Msk                 (1UL << SCB_CACR_ECCEN_Pos)                    /*!< SCB 
  875:Libraries/CMSIS/Include/core_cm7.h **** 
  876:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CACR_SIWT_Pos                   0U                                            /*!< SCB 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 53
+
+
  877:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_CACR_SIWT_Msk                  (1UL /*<< SCB_CACR_SIWT_Pos*/)                 /*!< SCB 
  878:Libraries/CMSIS/Include/core_cm7.h **** 
  879:Libraries/CMSIS/Include/core_cm7.h **** /* AHBS Control Register Definitions */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 53
-
-
  880:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AHBSCR_INITCOUNT_Pos           11U                                            /*!< SCB 
  881:Libraries/CMSIS/Include/core_cm7.h **** #define SCB_AHBSCR_INITCOUNT_Msk           (0x1FUL << SCB_AHBPCR_INITCOUNT_Pos)           /*!< SCB 
  882:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3175,12 +3178,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  931:Libraries/CMSIS/Include/core_cm7.h **** 
  932:Libraries/CMSIS/Include/core_cm7.h **** /* Auxiliary Control Register Definitions */
  933:Libraries/CMSIS/Include/core_cm7.h **** #define SCnSCB_ACTLR_DISITMATBFLUSH_Pos    12U                                         /*!< ACTLR: 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 54
+
+
  934:Libraries/CMSIS/Include/core_cm7.h **** #define SCnSCB_ACTLR_DISITMATBFLUSH_Msk    (1UL << SCnSCB_ACTLR_DISITMATBFLUSH_Pos)    /*!< ACTLR: 
  935:Libraries/CMSIS/Include/core_cm7.h **** 
  936:Libraries/CMSIS/Include/core_cm7.h **** #define SCnSCB_ACTLR_DISRAMODE_Pos         11U                                         /*!< ACTLR: 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 54
-
-
  937:Libraries/CMSIS/Include/core_cm7.h **** #define SCnSCB_ACTLR_DISRAMODE_Msk         (1UL << SCnSCB_ACTLR_DISRAMODE_Pos)         /*!< ACTLR: 
  938:Libraries/CMSIS/Include/core_cm7.h **** 
  939:Libraries/CMSIS/Include/core_cm7.h **** #define SCnSCB_ACTLR_FPEXCODIS_Pos         10U                                         /*!< ACTLR: 
@@ -3235,12 +3238,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  988:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_VAL_CURRENT_Msk            (0xFFFFFFUL /*<< SysTick_VAL_CURRENT_Pos*/)    /*!< SysT
  989:Libraries/CMSIS/Include/core_cm7.h **** 
  990:Libraries/CMSIS/Include/core_cm7.h **** /* SysTick Calibration Register Definitions */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 55
+
+
  991:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CALIB_NOREF_Pos            31U                                            /*!< SysT
  992:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CALIB_NOREF_Msk            (1UL << SysTick_CALIB_NOREF_Pos)               /*!< SysT
  993:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 55
-
-
  994:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CALIB_SKEW_Pos             30U                                            /*!< SysT
  995:Libraries/CMSIS/Include/core_cm7.h **** #define SysTick_CALIB_SKEW_Msk             (1UL << SysTick_CALIB_SKEW_Pos)                /*!< SysT
  996:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3295,12 +3298,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1045:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t CID2;                   /*!< Offset: 0xFF8 (R/ )  ITM Component  Identification Re
 1046:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t CID3;                   /*!< Offset: 0xFFC (R/ )  ITM Component  Identification Re
 1047:Libraries/CMSIS/Include/core_cm7.h **** } ITM_Type;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 56
+
+
 1048:Libraries/CMSIS/Include/core_cm7.h **** 
 1049:Libraries/CMSIS/Include/core_cm7.h **** /* ITM Trace Privilege Register Definitions */
 1050:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TPR_PRIVMASK_Pos                0U                                            /*!< ITM 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 56
-
-
 1051:Libraries/CMSIS/Include/core_cm7.h **** #define ITM_TPR_PRIVMASK_Msk               (0xFFFFFFFFUL /*<< ITM_TPR_PRIVMASK_Pos*/)     /*!< ITM 
 1052:Libraries/CMSIS/Include/core_cm7.h **** 
 1053:Libraries/CMSIS/Include/core_cm7.h **** /* ITM Trace Control Register Definitions */
@@ -3355,12 +3358,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1102:Libraries/CMSIS/Include/core_cm7.h **** 
 1103:Libraries/CMSIS/Include/core_cm7.h **** /*@}*/ /* end of group CMSIS_ITM */
 1104:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 57
+
+
 1105:Libraries/CMSIS/Include/core_cm7.h **** 
 1106:Libraries/CMSIS/Include/core_cm7.h **** /**
 1107:Libraries/CMSIS/Include/core_cm7.h ****   \ingroup  CMSIS_core_register
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 57
-
-
 1108:Libraries/CMSIS/Include/core_cm7.h ****   \defgroup CMSIS_DWT     Data Watchpoint and Trace (DWT)
 1109:Libraries/CMSIS/Include/core_cm7.h ****   \brief    Type definitions for the Data Watchpoint and Trace (DWT)
 1110:Libraries/CMSIS/Include/core_cm7.h ****   @{
@@ -3415,12 +3418,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1159:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_NOPRFCNT_Pos              24U                                         /*!< DWT CTR
 1160:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_NOPRFCNT_Msk              (0x1UL << DWT_CTRL_NOPRFCNT_Pos)            /*!< DWT CTR
 1161:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 58
+
+
 1162:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_CYCEVTENA_Pos             22U                                         /*!< DWT CTR
 1163:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_CYCEVTENA_Msk             (0x1UL << DWT_CTRL_CYCEVTENA_Pos)           /*!< DWT CTR
 1164:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 58
-
-
 1165:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_FOLDEVTENA_Pos            21U                                         /*!< DWT CTR
 1166:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_CTRL_FOLDEVTENA_Msk            (0x1UL << DWT_CTRL_FOLDEVTENA_Pos)          /*!< DWT CTR
 1167:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3475,12 +3478,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1216:Libraries/CMSIS/Include/core_cm7.h **** 
 1217:Libraries/CMSIS/Include/core_cm7.h **** /* DWT Folded-instruction Count Register Definitions */
 1218:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FOLDCNT_FOLDCNT_Pos             0U                                         /*!< DWT FOL
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 59
+
+
 1219:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_FOLDCNT_FOLDCNT_Msk            (0xFFUL /*<< DWT_FOLDCNT_FOLDCNT_Pos*/)     /*!< DWT FOL
 1220:Libraries/CMSIS/Include/core_cm7.h **** 
 1221:Libraries/CMSIS/Include/core_cm7.h **** /* DWT Comparator Mask Register Definitions */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 59
-
-
 1222:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_MASK_MASK_Pos                   0U                                         /*!< DWT MAS
 1223:Libraries/CMSIS/Include/core_cm7.h **** #define DWT_MASK_MASK_Msk                  (0x1FUL /*<< DWT_MASK_MASK_Pos*/)           /*!< DWT MAS
 1224:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3535,12 +3538,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1273:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t SPPR;                   /*!< Offset: 0x0F0 (R/W)  Selected Pin Protocol Register *
 1274:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED2[131U];
 1275:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t FFSR;                   /*!< Offset: 0x300 (R/ )  Formatter and Flush Status Regis
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 60
+
+
 1276:Libraries/CMSIS/Include/core_cm7.h ****   __IOM uint32_t FFCR;                   /*!< Offset: 0x304 (R/W)  Formatter and Flush Control Regi
 1277:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t FSCR;                   /*!< Offset: 0x308 (R/ )  Formatter Synchronization Counte
 1278:Libraries/CMSIS/Include/core_cm7.h ****         uint32_t RESERVED3[759U];
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 60
-
-
 1279:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t TRIGGER;                /*!< Offset: 0xEE8 (R/ )  TRIGGER Register */
 1280:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t FIFO0;                  /*!< Offset: 0xEEC (R/ )  Integration ETM Data */
 1281:Libraries/CMSIS/Include/core_cm7.h ****   __IM  uint32_t ITATBCTR2;              /*!< Offset: 0xEF0 (R/ )  ITATBCTR2 */
@@ -3595,12 +3598,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1330:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ITM_bytecount_Pos        27U                                         /*!< TPI FIF
 1331:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ITM_bytecount_Msk        (0x3UL << TPI_FIFO0_ITM_bytecount_Pos)      /*!< TPI FIF
 1332:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 61
+
+
 1333:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ETM_ATVALID_Pos          26U                                         /*!< TPI FIF
 1334:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ETM_ATVALID_Msk          (0x3UL << TPI_FIFO0_ETM_ATVALID_Pos)        /*!< TPI FIF
 1335:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 61
-
-
 1336:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ETM_bytecount_Pos        24U                                         /*!< TPI FIF
 1337:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_FIFO0_ETM_bytecount_Msk        (0x3UL << TPI_FIFO0_ETM_bytecount_Pos)      /*!< TPI FIF
 1338:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3655,12 +3658,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1387:Libraries/CMSIS/Include/core_cm7.h **** 
 1388:Libraries/CMSIS/Include/core_cm7.h **** /* TPI DEVID Register Definitions */
 1389:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_NRZVALID_Pos             11U                                         /*!< TPI DEV
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 62
+
+
 1390:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_NRZVALID_Msk             (0x1UL << TPI_DEVID_NRZVALID_Pos)           /*!< TPI DEV
 1391:Libraries/CMSIS/Include/core_cm7.h **** 
 1392:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_MANCVALID_Pos            10U                                         /*!< TPI DEV
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 62
-
-
 1393:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_MANCVALID_Msk            (0x1UL << TPI_DEVID_MANCVALID_Pos)          /*!< TPI DEV
 1394:Libraries/CMSIS/Include/core_cm7.h **** 
 1395:Libraries/CMSIS/Include/core_cm7.h **** #define TPI_DEVID_PTINVALID_Pos             9U                                         /*!< TPI DEV
@@ -3715,12 +3718,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1444:Libraries/CMSIS/Include/core_cm7.h **** 
 1445:Libraries/CMSIS/Include/core_cm7.h **** /* MPU Type Register Definitions */
 1446:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_TYPE_IREGION_Pos               16U                                            /*!< MPU 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 63
+
+
 1447:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_TYPE_IREGION_Msk               (0xFFUL << MPU_TYPE_IREGION_Pos)               /*!< MPU 
 1448:Libraries/CMSIS/Include/core_cm7.h **** 
 1449:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_TYPE_DREGION_Pos                8U                                            /*!< MPU 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 63
-
-
 1450:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_TYPE_DREGION_Msk               (0xFFUL << MPU_TYPE_DREGION_Pos)               /*!< MPU 
 1451:Libraries/CMSIS/Include/core_cm7.h **** 
 1452:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_TYPE_SEPARATE_Pos               0U                                            /*!< MPU 
@@ -3775,12 +3778,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1501:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_SRD_Pos                    8U                                            /*!< MPU 
 1502:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_SRD_Msk                   (0xFFUL << MPU_RASR_SRD_Pos)                   /*!< MPU 
 1503:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 64
+
+
 1504:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_SIZE_Pos                   1U                                            /*!< MPU 
 1505:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_SIZE_Msk                  (0x1FUL << MPU_RASR_SIZE_Pos)                  /*!< MPU 
 1506:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 64
-
-
 1507:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_ENABLE_Pos                 0U                                            /*!< MPU 
 1508:Libraries/CMSIS/Include/core_cm7.h **** #define MPU_RASR_ENABLE_Msk                (1UL /*<< MPU_RASR_ENABLE_Pos*/)               /*!< MPU 
 1509:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3835,12 +3838,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1558:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_USER_Msk                 (1UL << FPU_FPCCR_USER_Pos)                    /*!< FPCC
 1559:Libraries/CMSIS/Include/core_cm7.h **** 
 1560:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_LSPACT_Pos                0U                                            /*!< FPCC
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 65
+
+
 1561:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCCR_LSPACT_Msk               (1UL /*<< FPU_FPCCR_LSPACT_Pos*/)              /*!< FPCC
 1562:Libraries/CMSIS/Include/core_cm7.h **** 
 1563:Libraries/CMSIS/Include/core_cm7.h **** /* Floating-Point Context Address Register Definitions */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 65
-
-
 1564:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCAR_ADDRESS_Pos               3U                                            /*!< FPCA
 1565:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_FPCAR_ADDRESS_Msk              (0x1FFFFFFFUL << FPU_FPCAR_ADDRESS_Pos)        /*!< FPCA
 1566:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -3895,12 +3898,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1615:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_MVFR1_FtZ_mode_Pos              0U                                            /*!< MVFR
 1616:Libraries/CMSIS/Include/core_cm7.h **** #define FPU_MVFR1_FtZ_mode_Msk             (0xFUL /*<< FPU_MVFR1_FtZ_mode_Pos*/)          /*!< MVFR
 1617:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 66
+
+
 1618:Libraries/CMSIS/Include/core_cm7.h **** /* Media and FP Feature Register 2 Definitions */
 1619:Libraries/CMSIS/Include/core_cm7.h **** 
 1620:Libraries/CMSIS/Include/core_cm7.h **** /*@} end of group CMSIS_FPU */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 66
-
-
 1621:Libraries/CMSIS/Include/core_cm7.h **** 
 1622:Libraries/CMSIS/Include/core_cm7.h **** 
 1623:Libraries/CMSIS/Include/core_cm7.h **** /**
@@ -3955,12 +3958,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1672:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_C_HALT_Pos          1U                                            /*!< Core
 1673:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_C_HALT_Msk         (1UL << CoreDebug_DHCSR_C_HALT_Pos)            /*!< Core
 1674:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 67
+
+
 1675:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Pos       0U                                            /*!< Core
 1676:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1UL /*<< CoreDebug_DHCSR_C_DEBUGEN_Pos*/)     /*!< Core
 1677:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 67
-
-
 1678:Libraries/CMSIS/Include/core_cm7.h **** /* Debug Core Register Selector Register Definitions */
 1679:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DCRSR_REGWnR_Pos         16U                                            /*!< Core
 1680:Libraries/CMSIS/Include/core_cm7.h **** #define CoreDebug_DCRSR_REGWnR_Msk         (1UL << CoreDebug_DCRSR_REGWnR_Pos)            /*!< Core
@@ -4015,12 +4018,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1729:Libraries/CMSIS/Include/core_cm7.h ****   \ingroup    CMSIS_core_register
 1730:Libraries/CMSIS/Include/core_cm7.h ****   \defgroup   CMSIS_core_bitfield     Core register bit field macros
 1731:Libraries/CMSIS/Include/core_cm7.h ****   \brief      Macros for use with bit field definitions (xxx_Pos, xxx_Msk).
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 68
+
+
 1732:Libraries/CMSIS/Include/core_cm7.h ****   @{
 1733:Libraries/CMSIS/Include/core_cm7.h ****  */
 1734:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 68
-
-
 1735:Libraries/CMSIS/Include/core_cm7.h **** /**
 1736:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Mask and shift a bit field value for use in a register bit range.
 1737:Libraries/CMSIS/Include/core_cm7.h ****   \param[in] field  Name of the register bit field.
@@ -4075,12 +4078,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1786:Libraries/CMSIS/Include/core_cm7.h **** #define FPU                 ((FPU_Type       *)     FPU_BASE      )   /*!< Floating Point Unit */
 1787:Libraries/CMSIS/Include/core_cm7.h **** 
 1788:Libraries/CMSIS/Include/core_cm7.h **** /*@} */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 69
+
+
 1789:Libraries/CMSIS/Include/core_cm7.h **** 
 1790:Libraries/CMSIS/Include/core_cm7.h **** 
 1791:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 69
-
-
 1792:Libraries/CMSIS/Include/core_cm7.h **** /*******************************************************************************
 1793:Libraries/CMSIS/Include/core_cm7.h ****  *                Hardware Abstraction Layer
 1794:Libraries/CMSIS/Include/core_cm7.h ****   Core Function Interface contains:
@@ -4135,12 +4138,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1843:Libraries/CMSIS/Include/core_cm7.h **** 
 1844:Libraries/CMSIS/Include/core_cm7.h **** #define NVIC_USER_IRQ_OFFSET          16
 1845:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 70
+
+
 1846:Libraries/CMSIS/Include/core_cm7.h **** 
 1847:Libraries/CMSIS/Include/core_cm7.h **** /* The following EXC_RETURN values are saved the LR on exception entry */
 1848:Libraries/CMSIS/Include/core_cm7.h **** #define EXC_RETURN_HANDLER         (0xFFFFFFF1UL)     /* return to Handler mode, uses MSP after ret
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 70
-
-
 1849:Libraries/CMSIS/Include/core_cm7.h **** #define EXC_RETURN_THREAD_MSP      (0xFFFFFFF9UL)     /* return to Thread mode, uses MSP after retu
 1850:Libraries/CMSIS/Include/core_cm7.h **** #define EXC_RETURN_THREAD_PSP      (0xFFFFFFFDUL)     /* return to Thread mode, uses PSP after retu
 1851:Libraries/CMSIS/Include/core_cm7.h **** #define EXC_RETURN_HANDLER_FPU     (0xFFFFFFE1UL)     /* return to Handler mode, uses MSP after ret
@@ -4195,12 +4198,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1900:Libraries/CMSIS/Include/core_cm7.h ****     NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
 1901:Libraries/CMSIS/Include/core_cm7.h ****   }
 1902:Libraries/CMSIS/Include/core_cm7.h **** }
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 71
+
+
 1903:Libraries/CMSIS/Include/core_cm7.h **** 
 1904:Libraries/CMSIS/Include/core_cm7.h **** 
 1905:Libraries/CMSIS/Include/core_cm7.h **** /**
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 71
-
-
 1906:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Get Interrupt Enable status
 1907:Libraries/CMSIS/Include/core_cm7.h ****   \details Returns a device specific interrupt enable status from the NVIC interrupt controller.
 1908:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]      IRQn  Device specific interrupt number.
@@ -4255,12 +4258,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 1957:Libraries/CMSIS/Include/core_cm7.h ****   else
 1958:Libraries/CMSIS/Include/core_cm7.h ****   {
 1959:Libraries/CMSIS/Include/core_cm7.h ****     return(0U);
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 72
+
+
 1960:Libraries/CMSIS/Include/core_cm7.h ****   }
 1961:Libraries/CMSIS/Include/core_cm7.h **** }
 1962:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 72
-
-
 1963:Libraries/CMSIS/Include/core_cm7.h **** 
 1964:Libraries/CMSIS/Include/core_cm7.h **** /**
 1965:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Set Pending Interrupt
@@ -4315,12 +4318,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2014:Libraries/CMSIS/Include/core_cm7.h **** 
 2015:Libraries/CMSIS/Include/core_cm7.h **** /**
 2016:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Set Interrupt Priority
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 73
+
+
 2017:Libraries/CMSIS/Include/core_cm7.h ****   \details Sets the priority of a device specific interrupt or a processor exception.
 2018:Libraries/CMSIS/Include/core_cm7.h ****            The interrupt number can be positive to specify a device specific interrupt,
 2019:Libraries/CMSIS/Include/core_cm7.h ****            or negative to specify a processor exception.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 73
-
-
 2020:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]      IRQn  Interrupt number.
 2021:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]  priority  Priority to set.
 2022:Libraries/CMSIS/Include/core_cm7.h ****   \note    The priority cannot be set for every processor exception.
@@ -4375,12 +4378,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2071:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uin
 2072:Libraries/CMSIS/Include/core_cm7.h **** {
 2073:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t PriorityGroupTmp = (PriorityGroup & (uint32_t)0x07UL);   /* only values 0..7 are used   
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 74
+
+
 2074:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t PreemptPriorityBits;
 2075:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t SubPriorityBits;
 2076:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 74
-
-
 2077:Libraries/CMSIS/Include/core_cm7.h ****   PreemptPriorityBits = ((7UL - PriorityGroupTmp) > (uint32_t)(__NVIC_PRIO_BITS)) ? (uint32_t)(__NV
 2078:Libraries/CMSIS/Include/core_cm7.h ****   SubPriorityBits     = ((PriorityGroupTmp + (uint32_t)(__NVIC_PRIO_BITS)) < (uint32_t)7UL) ? (uint
 2079:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -4435,12 +4438,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2128:Libraries/CMSIS/Include/core_cm7.h **** /**
 2129:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Get Interrupt Vector
 2130:Libraries/CMSIS/Include/core_cm7.h ****   \details Reads an interrupt vector from interrupt vector table.
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 75
+
+
 2131:Libraries/CMSIS/Include/core_cm7.h ****            The interrupt number can be positive to specify a device specific interrupt,
 2132:Libraries/CMSIS/Include/core_cm7.h ****            or negative to specify a processor exception.
 2133:Libraries/CMSIS/Include/core_cm7.h ****   \param [in]   IRQn      Interrupt number.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 75
-
-
 2134:Libraries/CMSIS/Include/core_cm7.h ****   \return                 Address of interrupt handler function
 2135:Libraries/CMSIS/Include/core_cm7.h ****  */
 2136:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t __NVIC_GetVector(IRQn_Type IRQn)
@@ -4495,12 +4498,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2185:Libraries/CMSIS/Include/core_cm7.h ****    - \b  1: Single precision FPU
 2186:Libraries/CMSIS/Include/core_cm7.h ****    - \b  2: Double + Single precision FPU
 2187:Libraries/CMSIS/Include/core_cm7.h ****  */
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 76
+
+
 2188:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE uint32_t SCB_GetFPUType(void)
 2189:Libraries/CMSIS/Include/core_cm7.h **** {
 2190:Libraries/CMSIS/Include/core_cm7.h ****   uint32_t mvfr0;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 76
-
-
 2191:Libraries/CMSIS/Include/core_cm7.h **** 
 2192:Libraries/CMSIS/Include/core_cm7.h ****   mvfr0 = SCB->MVFR0;
 2193:Libraries/CMSIS/Include/core_cm7.h ****   if      ((mvfr0 & (FPU_MVFR0_Single_precision_Msk | FPU_MVFR0_Double_precision_Msk)) == 0x220U)
@@ -4555,12 +4558,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2242:Libraries/CMSIS/Include/core_cm7.h **** 
 2243:Libraries/CMSIS/Include/core_cm7.h **** 
 2244:Libraries/CMSIS/Include/core_cm7.h **** /**
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 77
+
+
 2245:Libraries/CMSIS/Include/core_cm7.h ****   \brief   Disable I-Cache
 2246:Libraries/CMSIS/Include/core_cm7.h ****   \details Turns off I-Cache
 2247:Libraries/CMSIS/Include/core_cm7.h ****   */
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 77
-
-
 2248:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE void SCB_DisableICache (void)
 2249:Libraries/CMSIS/Include/core_cm7.h **** {
 2250:Libraries/CMSIS/Include/core_cm7.h ****   #if defined (__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
@@ -4615,12 +4618,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2299:Libraries/CMSIS/Include/core_cm7.h ****                       ((ways << SCB_DCISW_WAY_Pos) & SCB_DCISW_WAY_Msk)  );
 2300:Libraries/CMSIS/Include/core_cm7.h ****         #if defined ( __CC_ARM )
 2301:Libraries/CMSIS/Include/core_cm7.h ****           __schedule_barrier();
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 78
+
+
 2302:Libraries/CMSIS/Include/core_cm7.h ****         #endif
 2303:Libraries/CMSIS/Include/core_cm7.h ****       } while (ways-- != 0U);
 2304:Libraries/CMSIS/Include/core_cm7.h ****     } while(sets-- != 0U);
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 78
-
-
 2305:Libraries/CMSIS/Include/core_cm7.h ****     __DSB();
 2306:Libraries/CMSIS/Include/core_cm7.h **** 
 2307:Libraries/CMSIS/Include/core_cm7.h ****     SCB->CCR |=  (uint32_t)SCB_CCR_DC_Msk;  /* enable D-Cache */
@@ -4675,12 +4678,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2356:Libraries/CMSIS/Include/core_cm7.h ****   */
 2357:Libraries/CMSIS/Include/core_cm7.h **** __STATIC_INLINE void SCB_InvalidateDCache (void)
 2358:Libraries/CMSIS/Include/core_cm7.h **** {
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 79
+
+
 2359:Libraries/CMSIS/Include/core_cm7.h ****   #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
 2360:Libraries/CMSIS/Include/core_cm7.h ****     uint32_t ccsidr;
 2361:Libraries/CMSIS/Include/core_cm7.h ****     uint32_t sets;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 79
-
-
 2362:Libraries/CMSIS/Include/core_cm7.h ****     uint32_t ways;
 2363:Libraries/CMSIS/Include/core_cm7.h **** 
 2364:Libraries/CMSIS/Include/core_cm7.h ****     SCB->CSSELR = 0U; /*(0U << 1U) | 0U;*/  /* Level 1 data cache */
@@ -4735,12 +4738,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2413:Libraries/CMSIS/Include/core_cm7.h ****         #endif
 2414:Libraries/CMSIS/Include/core_cm7.h ****       } while (ways-- != 0U);
 2415:Libraries/CMSIS/Include/core_cm7.h ****     } while(sets-- != 0U);
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 80
+
+
 2416:Libraries/CMSIS/Include/core_cm7.h **** 
 2417:Libraries/CMSIS/Include/core_cm7.h ****     __DSB();
 2418:Libraries/CMSIS/Include/core_cm7.h ****     __ISB();
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 80
-
-
 2419:Libraries/CMSIS/Include/core_cm7.h ****   #endif
 2420:Libraries/CMSIS/Include/core_cm7.h **** }
 2421:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -4795,12 +4798,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2470:Libraries/CMSIS/Include/core_cm7.h **** 
 2471:Libraries/CMSIS/Include/core_cm7.h ****     __DSB();
 2472:Libraries/CMSIS/Include/core_cm7.h **** 
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 81
+
+
 2473:Libraries/CMSIS/Include/core_cm7.h ****     while (op_size > 0) {
 2474:Libraries/CMSIS/Include/core_cm7.h ****       SCB->DCIMVAC = op_addr;
 2475:Libraries/CMSIS/Include/core_cm7.h ****       op_addr += (uint32_t)linesize;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 81
-
-
 2476:Libraries/CMSIS/Include/core_cm7.h ****       op_size -=           linesize;
 2477:Libraries/CMSIS/Include/core_cm7.h ****     }
 2478:Libraries/CMSIS/Include/core_cm7.h **** 
@@ -4855,12 +4858,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
 2527:Libraries/CMSIS/Include/core_cm7.h ****     while (op_size > 0) {
 2528:Libraries/CMSIS/Include/core_cm7.h ****       SCB->DCCIMVAC = op_addr;
 2529:Libraries/CMSIS/Include/core_cm7.h ****       op_addr += (uint32_t)linesize;
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 82
+
+
 2530:Libraries/CMSIS/Include/core_cm7.h ****       op_size -=           linesize;
 2531:Libraries/CMSIS/Include/core_cm7.h ****     }
 2532:Libraries/CMSIS/Include/core_cm7.h **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 82
-
-
 2533:Libraries/CMSIS/Include/core_cm7.h ****     __DSB();
 2534:Libraries/CMSIS/Include/core_cm7.h ****     __ISB();
 2535:Libraries/CMSIS/Include/core_cm7.h ****   #endif
@@ -4915,12 +4918,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  598 001e 5361     		str	r3, [r2, #20]
 2572:Libraries/CMSIS/Include/core_cm7.h ****   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Int
  599              		.loc 3 2572 3 is_stmt 1 view .LVU147
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 83
+
+
  600              	.LVL25:
  601              	.LBB21:
  602              	.LBI21:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 83
-
-
 2024:Libraries/CMSIS/Include/core_cm7.h **** {
  603              		.loc 3 2024 22 view .LVU148
  604              	.LBB22:
@@ -4930,7 +4933,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  606              		.loc 3 2032 5 view .LVU150
 2032:Libraries/CMSIS/Include/core_cm7.h ****   }
  607              		.loc 3 2032 47 is_stmt 0 view .LVU151
- 608 0020 264B     		ldr	r3, .L41+8
+ 608 0020 234B     		ldr	r3, .L40+8
  609              	.LVL26:
 2032:Libraries/CMSIS/Include/core_cm7.h ****   }
  610              		.loc 3 2032 47 view .LVU152
@@ -4963,11 +4966,11 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  630              		.loc 1 190 5 is_stmt 1 view .LVU160
  631 0030 FFF7FEFF 		bl	dmaInit
  632              	.LVL28:
- 192:Src/drv/drv_system.c **** 
+ 192:Src/drv/drv_system.c **** #ifdef USE_LEDS
  633              		.loc 1 192 5 view .LVU161
  634 0034 FFF7FEFF 		bl	cycleCounterInit
  635              	.LVL29:
- 194:Src/drv/drv_system.c **** 
+ 194:Src/drv/drv_system.c **** #endif
  636              		.loc 1 194 5 view .LVU162
  637 0038 FFF7FEFF 		bl	ledInit
  638              	.LVL30:
@@ -4975,12 +4978,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  639              		.loc 1 197 5 view .LVU163
  640 003c FFF7FEFF 		bl	serialInit
  641              	.LVL31:
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 84
+
+
  199:Src/drv/drv_system.c **** 
  642              		.loc 1 199 5 view .LVU164
  643 0040 FFF7FEFF 		bl	drawAutodrone
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 84
-
-
  644              	.LVL32:
  201:Src/drv/drv_system.c ****     printf("\nBEGINNING INITIALIZATION\n");
  645              		.loc 1 201 5 view .LVU165
@@ -4990,12 +4993,12 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  649              	.LVL33:
  202:Src/drv/drv_system.c ****     printf("----------------------------------\n");
  650              		.loc 1 202 5 view .LVU166
- 651 004c 1C48     		ldr	r0, .L41+12
+ 651 004c 1948     		ldr	r0, .L40+12
  652 004e FFF7FEFF 		bl	puts
  653              	.LVL34:
  203:Src/drv/drv_system.c ****     printf("----------------------------------\n");
  654              		.loc 1 203 5 view .LVU167
- 655 0052 1C4C     		ldr	r4, .L41+16
+ 655 0052 194C     		ldr	r4, .L40+16
  656 0054 2046     		mov	r0, r4
  657 0056 FFF7FEFF 		bl	puts
  658              	.LVL35:
@@ -5008,233 +5011,211 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 1
  663              		.loc 1 205 5 view .LVU169
  664 0060 FFF7FEFF 		bl	colorDefault
  665              	.LVL37:
- 211:Src/drv/drv_system.c **** 
- 666              		.loc 1 211 5 view .LVU170
- 667 0064 FFF7FEFF 		bl	adc1Ch8Init
- 668              	.LVL38:
- 213:Src/drv/drv_system.c ****     motorInit();
- 669              		.loc 1 213 5 view .LVU171
- 670 0068 0220     		movs	r0, #2
- 671 006a FFF7FEFF 		bl	dshotInit
+ 208:Src/drv/drv_system.c ****     readEEPROM();
+ 666              		.loc 1 208 5 view .LVU170
+ 667 0064 0020     		movs	r0, #0
+ 668 0066 FFF7FEFF 		bl	checkFirstTime
+ 669              	.LVL38:
+ 209:Src/drv/drv_system.c **** #endif
+ 670              		.loc 1 209 5 view .LVU171
+ 671 006a FFF7FEFF 		bl	readEEPROM
  672              	.LVL39:
- 214:Src/drv/drv_system.c **** 
- 673              		.loc 1 214 5 view .LVU172
- 674 006e FFF7FEFF 		bl	motorInit
+ 211:Src/drv/drv_system.c **** #ifdef USE_DSHOT
+ 673              		.loc 1 211 5 view .LVU172
+ 674 006e FFF7FEFF 		bl	adc1Ch8Init
  675              	.LVL40:
- 216:Src/drv/drv_system.c **** 
- 676              		.loc 1 216 5 view .LVU173
+ 217:Src/drv/drv_system.c **** 
+ 676              		.loc 1 217 5 view .LVU173
  677 0072 FFF7FEFF 		bl	spi1Init
  678              	.LVL41:
- 218:Src/drv/drv_system.c ****     usart6Init();
- 679              		.loc 1 218 5 view .LVU174
+ 219:Src/drv/drv_system.c ****     usart6Init();
+ 679              		.loc 1 219 5 view .LVU174
  680 0076 FFF7FEFF 		bl	usart1Init
  681              	.LVL42:
- 219:Src/drv/drv_system.c **** 
- 682              		.loc 1 219 5 view .LVU175
+ 220:Src/drv/drv_system.c **** 
+ 682              		.loc 1 220 5 view .LVU175
  683 007a FFF7FEFF 		bl	usart6Init
  684              	.LVL43:
- 221:Src/drv/drv_system.c **** 
- 685              		.loc 1 221 5 view .LVU176
+ 222:Src/drv/drv_system.c **** 
+ 685              		.loc 1 222 5 view .LVU176
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 85
+
+
  686 007e FFF7FEFF 		bl	tim9Init
  687              	.LVL44:
- 224:Src/drv/drv_system.c **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 85
-
-
- 688              		.loc 1 224 5 view .LVU177
- 689 0082 FFF7FEFF 		bl	battMonInit
+ 229:Src/drv/drv_system.c **** #ifdef USE_MPU6000
+ 688              		.loc 1 229 5 view .LVU177
+ 689 0082 FFF7FEFF 		bl	orientSensors
  690              	.LVL45:
- 226:Src/drv/drv_system.c **** 
- 691              		.loc 1 226 5 view .LVU178
- 692 0086 FFF7FEFF 		bl	orientSensors
+ 231:Src/drv/drv_system.c **** #endif
+ 691              		.loc 1 231 5 view .LVU178
+ 692 0086 FFF7FEFF 		bl	mpu6000Init
  693              	.LVL46:
- 228:Src/drv/drv_system.c **** 
- 694              		.loc 1 228 5 view .LVU179
- 695 008a FFF7FEFF 		bl	mpu6000Init
+ 234:Src/drv/drv_system.c **** #ifdef USE_IBUS
+ 694              		.loc 1 234 5 view .LVU179
+ 695 008a FFF7FEFF 		bl	madgwickInit
  696              	.LVL47:
- 230:Src/drv/drv_system.c **** 
- 697              		.loc 1 230 5 view .LVU180
- 698 008e FFF7FEFF 		bl	madgwickInit
+ 240:Src/drv/drv_system.c **** #ifdef USE_EEPROM
+ 697              		.loc 1 240 5 view .LVU180
+ 698 008e FFF7FEFF 		bl	initPID
  699              	.LVL48:
- 232:Src/drv/drv_system.c ****         ;
- 700              		.loc 1 232 5 view .LVU181
- 701              	.L37:
- 233:Src/drv/drv_system.c **** 
- 702              		.loc 1 233 9 discriminator 1 view .LVU182
- 232:Src/drv/drv_system.c ****         ;
- 703              		.loc 1 232 11 discriminator 1 view .LVU183
- 232:Src/drv/drv_system.c ****         ;
- 704              		.loc 1 232 13 is_stmt 0 discriminator 1 view .LVU184
- 705 0092 FFF7FEFF 		bl	ibusInit
- 706              	.LVL49:
- 232:Src/drv/drv_system.c ****         ;
- 707              		.loc 1 232 11 discriminator 1 view .LVU185
- 708 0096 0028     		cmp	r0, #0
- 709 0098 FBD0     		beq	.L37
- 235:Src/drv/drv_system.c **** 
- 710              		.loc 1 235 5 is_stmt 1 view .LVU186
- 711 009a FFF7FEFF 		bl	initPID
- 712              	.LVL50:
- 237:Src/drv/drv_system.c ****         writeEEPROM();
- 713              		.loc 1 237 5 view .LVU187
- 237:Src/drv/drv_system.c ****         writeEEPROM();
- 714              		.loc 1 237 9 is_stmt 0 view .LVU188
- 715 009e 0A4B     		ldr	r3, .L41+20
- 716 00a0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 237:Src/drv/drv_system.c ****         writeEEPROM();
- 717              		.loc 1 237 8 view .LVU189
- 718 00a2 1BB9     		cbnz	r3, .L40
- 719              	.L38:
- 240:Src/drv/drv_system.c **** 
- 720              		.loc 1 240 5 is_stmt 1 view .LVU190
- 240:Src/drv/drv_system.c **** 
- 721              		.loc 1 240 23 is_stmt 0 view .LVU191
- 722 00a4 094B     		ldr	r3, .L41+24
- 723 00a6 0122     		movs	r2, #1
- 724 00a8 1A70     		strb	r2, [r3]
- 243:Src/drv/drv_system.c **** 
- 725              		.loc 1 243 1 view .LVU192
- 726 00aa 10BD     		pop	{r4, pc}
- 727              	.L40:
- 238:Src/drv/drv_system.c **** 
- 728              		.loc 1 238 9 is_stmt 1 view .LVU193
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 86
+ 242:Src/drv/drv_system.c ****         writeEEPROM();
+ 700              		.loc 1 242 5 view .LVU181
+ 242:Src/drv/drv_system.c ****         writeEEPROM();
+ 701              		.loc 1 242 9 is_stmt 0 view .LVU182
+ 702 0092 0A4B     		ldr	r3, .L40+20
+ 703 0094 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 242:Src/drv/drv_system.c ****         writeEEPROM();
+ 704              		.loc 1 242 8 view .LVU183
+ 705 0096 1BB9     		cbnz	r3, .L39
+ 706              	.L37:
+ 245:Src/drv/drv_system.c **** }
+ 707              		.loc 1 245 5 is_stmt 1 view .LVU184
+ 245:Src/drv/drv_system.c **** }
+ 708              		.loc 1 245 23 is_stmt 0 view .LVU185
+ 709 0098 094B     		ldr	r3, .L40+24
+ 710 009a 0122     		movs	r2, #1
+ 711 009c 1A70     		strb	r2, [r3]
+ 246:Src/drv/drv_system.c **** 
+ 712              		.loc 1 246 1 view .LVU186
+ 713 009e 10BD     		pop	{r4, pc}
+ 714              	.L39:
+ 243:Src/drv/drv_system.c **** #endif
+ 715              		.loc 1 243 9 is_stmt 1 view .LVU187
+ 716 00a0 FFF7FEFF 		bl	writeEEPROM
+ 717              	.LVL49:
+ 718 00a4 F8E7     		b	.L37
+ 719              	.L41:
+ 720 00a6 00BF     		.align	2
+ 721              	.L40:
+ 722 00a8 00000000 		.word	SystemCoreClock
+ 723 00ac D34D6210 		.word	274877907
+ 724 00b0 00ED00E0 		.word	-536810240
+ 725 00b4 00000000 		.word	.LC0
+ 726 00b8 1C000000 		.word	.LC1
+ 727 00bc 00000000 		.word	eepromChanged
+ 728 00c0 00000000 		.word	motor_initialized
+ 729              		.cfi_endproc
+ 730              	.LFE192:
+ 732              		.global	loopsChecked
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 86
 
 
- 729 00ac FFF7FEFF 		bl	writeEEPROM
- 730              	.LVL51:
- 731 00b0 F8E7     		b	.L38
- 732              	.L42:
- 733 00b2 00BF     		.align	2
- 734              	.L41:
- 735 00b4 00000000 		.word	SystemCoreClock
- 736 00b8 D34D6210 		.word	274877907
- 737 00bc 00ED00E0 		.word	-536810240
- 738 00c0 00000000 		.word	.LC0
- 739 00c4 1C000000 		.word	.LC1
- 740 00c8 00000000 		.word	eepromChanged
- 741 00cc 00000000 		.word	motor_initialized
- 742              		.cfi_endproc
- 743              	.LFE192:
- 745              		.global	loopsChecked
- 746              		.global	loopMask
- 747              		.global	execUp
- 748              		.global	systemReady
- 749              		.global	dt500Hz
- 750              		.global	frameCounter
- 751              		.section	.bss.dt500Hz,"aw",%nobits
- 752              		.align	2
- 755              	dt500Hz:
- 756 0000 00000000 		.space	4
- 757              		.section	.bss.execUp,"aw",%nobits
- 760              	execUp:
+ 733              		.global	loopMask
+ 734              		.global	execUp
+ 735              		.global	systemReady
+ 736              		.global	dt500Hz
+ 737              		.global	frameCounter
+ 738              		.section	.bss.dt500Hz,"aw",%nobits
+ 739              		.align	2
+ 742              	dt500Hz:
+ 743 0000 00000000 		.space	4
+ 744              		.section	.bss.execUp,"aw",%nobits
+ 747              	execUp:
+ 748 0000 00       		.space	1
+ 749              		.section	.bss.frameCounter,"aw",%nobits
+ 750              		.align	1
+ 751              		.set	.LANCHOR4,. + 0
+ 754              	frameCounter:
+ 755 0000 0000     		.space	2
+ 756              		.section	.bss.loopMask,"aw",%nobits
+ 757              		.set	.LANCHOR5,. + 0
+ 760              	loopMask:
  761 0000 00       		.space	1
- 762              		.section	.bss.frameCounter,"aw",%nobits
- 763              		.align	1
- 764              		.set	.LANCHOR4,. + 0
- 767              	frameCounter:
- 768 0000 0000     		.space	2
- 769              		.section	.bss.loopMask,"aw",%nobits
- 770              		.set	.LANCHOR5,. + 0
- 773              	loopMask:
- 774 0000 00       		.space	1
- 775              		.section	.bss.loopsChecked,"aw",%nobits
- 776              		.set	.LANCHOR6,. + 0
- 779              	loopsChecked:
- 780 0000 00       		.space	1
- 781              		.section	.bss.sysTickCycleCounter,"aw",%nobits
- 782              		.align	2
- 783              		.set	.LANCHOR1,. + 0
- 786              	sysTickCycleCounter:
- 787 0000 00000000 		.space	4
- 788              		.section	.bss.sysTickUptime,"aw",%nobits
+ 762              		.section	.bss.loopsChecked,"aw",%nobits
+ 763              		.set	.LANCHOR6,. + 0
+ 766              	loopsChecked:
+ 767 0000 00       		.space	1
+ 768              		.section	.bss.sysTickCycleCounter,"aw",%nobits
+ 769              		.align	2
+ 770              		.set	.LANCHOR1,. + 0
+ 773              	sysTickCycleCounter:
+ 774 0000 00000000 		.space	4
+ 775              		.section	.bss.sysTickUptime,"aw",%nobits
+ 776              		.align	2
+ 777              		.set	.LANCHOR2,. + 0
+ 780              	sysTickUptime:
+ 781 0000 00000000 		.space	4
+ 782              		.section	.bss.systemReady,"aw",%nobits
+ 783              		.set	.LANCHOR3,. + 0
+ 786              	systemReady:
+ 787 0000 00       		.space	1
+ 788              		.section	.bss.usTicks,"aw",%nobits
  789              		.align	2
- 790              		.set	.LANCHOR2,. + 0
- 793              	sysTickUptime:
+ 790              		.set	.LANCHOR0,. + 0
+ 793              	usTicks:
  794 0000 00000000 		.space	4
- 795              		.section	.bss.systemReady,"aw",%nobits
- 796              		.set	.LANCHOR3,. + 0
- 799              	systemReady:
- 800 0000 00       		.space	1
- 801              		.section	.bss.usTicks,"aw",%nobits
- 802              		.align	2
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 87
+ 795              		.text
+ 796              	.Letext0:
+ 797              		.file 4 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
+ 798              		.file 5 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
+ 799              		.file 6 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
+ 800              		.file 7 "Src/baredrones32.h"
+ 801              		.file 8 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
+ 802              		.file 9 "Src/config.h"
+ 803              		.file 10 "Src/drv/drv_color.h"
+ 804              		.file 11 "Src/drv/drv_system.h"
+ 805              		.file 12 "Src/motors.h"
+ 806              		.file 13 "Src/sensors/mpu6000.h"
+ 807              		.file 14 "Src/drv/drv_rcc.h"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 87
 
 
- 803              		.set	.LANCHOR0,. + 0
- 806              	usTicks:
- 807 0000 00000000 		.space	4
- 808              		.text
- 809              	.Letext0:
- 810              		.file 4 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/machine/_de
- 811              		.file 5 "/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/arm-none-eabi/include/sys/_stdint
- 812              		.file 6 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/stm32f722xx.h"
- 813              		.file 7 "Src/baredrones32.h"
- 814              		.file 8 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
- 815              		.file 9 "Src/config.h"
- 816              		.file 10 "Src/drv/drv_color.h"
- 817              		.file 11 "Src/drv/drv_system.h"
- 818              		.file 12 "Src/drv/drv_dshot.h"
- 819              		.file 13 "Src/motors.h"
- 820              		.file 14 "Src/sensors/mpu6000.h"
- 821              		.file 15 "Src/drv/drv_rcc.h"
- 822              		.file 16 "Src/drv/drv_dma.h"
- 823              		.file 17 "Src/drv/drv_led.h"
- 824              		.file 18 "Src/drv/drv_serial.h"
- 825              		.file 19 "Src/drv/drv_adc.h"
- 826              		.file 20 "Src/drv/drv_spi1.h"
- 827              		.file 21 "Src/drv/drv_usart.h"
- 828              		.file 22 "Src/drv/drv_tim.h"
- 829              		.file 23 "Src/battery.h"
- 830              		.file 24 "Src/sensors/orientation.h"
- 831              		.file 25 "Src/sensors/madgwick.h"
- 832              		.file 26 "Src/sensors/ibus.h"
- 833              		.file 27 "Src/pid.h"
- 834              		.file 28 "<built-in>"
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 88
+ 808              		.file 15 "Src/drv/drv_dma.h"
+ 809              		.file 16 "Src/drv/drv_led.h"
+ 810              		.file 17 "Src/drv/drv_serial.h"
+ 811              		.file 18 "Src/drv/drv_adc.h"
+ 812              		.file 19 "Src/drv/drv_spi1.h"
+ 813              		.file 20 "Src/drv/drv_usart.h"
+ 814              		.file 21 "Src/drv/drv_tim.h"
+ 815              		.file 22 "Src/sensors/orientation.h"
+ 816              		.file 23 "Src/sensors/madgwick.h"
+ 817              		.file 24 "Src/pid.h"
+ 818              		.file 25 "<built-in>"
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 88
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 drv_system.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:18     .text.cycleCounterInit:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:25     .text.cycleCounterInit:0000000000000000 cycleCounterInit
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:60     .text.cycleCounterInit:000000000000002c $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:68     .text.SysTick_Handler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:75     .text.SysTick_Handler:0000000000000000 SysTick_Handler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:271    .text.SysTick_Handler:0000000000000118 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:287    .text.micros:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:294    .text.micros:0000000000000000 micros
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:379    .text.micros:0000000000000030 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:387    .text.millis:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:394    .text.millis:0000000000000000 millis
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:410    .text.millis:0000000000000008 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:415    .text.delayMicroseconds:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:422    .text.delayMicroseconds:0000000000000000 delayMicroseconds
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:499    .text.delayMicroseconds:0000000000000030 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:505    .text.delay:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:512    .text.delay:0000000000000000 delay
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:549    .rodata.systemInit.str1.4:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:556    .text.systemInit:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:563    .text.systemInit:0000000000000000 systemInit
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:735    .text.systemInit:00000000000000b4 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:779    .bss.loopsChecked:0000000000000000 loopsChecked
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:773    .bss.loopMask:0000000000000000 loopMask
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:760    .bss.execUp:0000000000000000 execUp
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:799    .bss.systemReady:0000000000000000 systemReady
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:755    .bss.dt500Hz:0000000000000000 dt500Hz
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:767    .bss.frameCounter:0000000000000000 frameCounter
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:752    .bss.dt500Hz:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:761    .bss.execUp:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:763    .bss.frameCounter:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:774    .bss.loopMask:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:780    .bss.loopsChecked:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:782    .bss.sysTickCycleCounter:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:786    .bss.sysTickCycleCounter:0000000000000000 sysTickCycleCounter
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:789    .bss.sysTickUptime:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:793    .bss.sysTickUptime:0000000000000000 sysTickUptime
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:800    .bss.systemReady:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:802    .bss.usTicks:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s:806    .bss.usTicks:0000000000000000 usTicks
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:18     .text.cycleCounterInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:25     .text.cycleCounterInit:0000000000000000 cycleCounterInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:60     .text.cycleCounterInit:000000000000002c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:68     .text.SysTick_Handler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:75     .text.SysTick_Handler:0000000000000000 SysTick_Handler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:271    .text.SysTick_Handler:0000000000000118 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:287    .text.micros:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:294    .text.micros:0000000000000000 micros
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:379    .text.micros:0000000000000030 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:387    .text.millis:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:394    .text.millis:0000000000000000 millis
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:410    .text.millis:0000000000000008 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:415    .text.delayMicroseconds:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:422    .text.delayMicroseconds:0000000000000000 delayMicroseconds
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:499    .text.delayMicroseconds:0000000000000030 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:505    .text.delay:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:512    .text.delay:0000000000000000 delay
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:549    .rodata.systemInit.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:556    .text.systemInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:563    .text.systemInit:0000000000000000 systemInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:722    .text.systemInit:00000000000000a8 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:766    .bss.loopsChecked:0000000000000000 loopsChecked
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:760    .bss.loopMask:0000000000000000 loopMask
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:747    .bss.execUp:0000000000000000 execUp
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:786    .bss.systemReady:0000000000000000 systemReady
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:742    .bss.dt500Hz:0000000000000000 dt500Hz
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:754    .bss.frameCounter:0000000000000000 frameCounter
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:739    .bss.dt500Hz:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:748    .bss.execUp:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:750    .bss.frameCounter:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:761    .bss.loopMask:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:767    .bss.loopsChecked:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:769    .bss.sysTickCycleCounter:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:773    .bss.sysTickCycleCounter:0000000000000000 sysTickCycleCounter
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:776    .bss.sysTickUptime:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:780    .bss.sysTickUptime:0000000000000000 sysTickUptime
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:787    .bss.systemReady:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:789    .bss.usTicks:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s:793    .bss.usTicks:0000000000000000 usTicks
 
 UNDEFINED SYMBOLS
 SystemCoreClock
@@ -5248,21 +5229,19 @@ drawAutodrone
 color
 puts
 colorDefault
+checkFirstTime
+readEEPROM
 adc1Ch8Init
-dshotInit
-motorInit
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccVIRWEY.s 			page 89
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccX5TsjK.s 			page 89
 
 
 spi1Init
 usart1Init
 usart6Init
 tim9Init
-battMonInit
 orientSensors
 mpu6000Init
 madgwickInit
-ibusInit
 initPID
 writeEEPROM
 eepromChanged

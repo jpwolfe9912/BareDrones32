@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   28:Src/drv/drv_dshot.c **** 
   29:Src/drv/drv_dshot.c **** /* Functions */
   30:Src/drv/drv_dshot.c **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 2
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 2
 
 
   31:Src/drv/drv_dshot.c **** /** @brief Initializes the low level registers to set up
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   85:Src/drv/drv_dshot.c **** 	TIM5->ARR		= MOTOR_BITLENGTH;
   86:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_CKD;
   87:Src/drv/drv_dshot.c **** 	TIM5->CR1		&= ~TIM_CR1_DIR;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 3
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 3
 
 
   88:Src/drv/drv_dshot.c **** 	// set output compare mode
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  142:Src/drv/drv_dshot.c **** 	DMA1_Stream2->M1AR	= 0;
  143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->FCR	= 0x00000021U;
  144:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 4
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 4
 
 
  145:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x003F0000U;
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  199:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR	|= (0x6 << 25U);
  200:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR 	= (uint32_t)motor3_dmabuffer;
  201:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_DIR_0;			// mem to per
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 5
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 5
 
 
  202:Src/drv/drv_dshot.c **** 	DMA1_Stream4->FCR	|= DMA_SxFCR_DMDIS;			// fifo en
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  256:Src/drv/drv_dshot.c ****  *
  257:Src/drv/drv_dshot.c ****  *  @param *motor_value A four length array with elements from 0 to 2047.
  258:Src/drv/drv_dshot.c ****  *  @return Void.
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 6
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 6
 
 
  259:Src/drv/drv_dshot.c ****  */
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   39 0008 0248     		ldr	r0, .L5
   40              	.LVL1:
   41              		.loc 1 302 2 is_stmt 0 view .LVU2
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 7
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 7
 
 
   42 000a 7047     		bx	lr
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  325:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor3_dmabuffer, motor_value[2]);
  326:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
  327:Src/drv/drv_dshot.c **** }
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 8
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 8
 
 
  328:Src/drv/drv_dshot.c **** 
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   90 0008 80B2     		uxth	r0, r0
   91              	.LVL8:
  368:Src/drv/drv_dshot.c **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 9
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 9
 
 
  369:Src/drv/drv_dshot.c **** 	// compute checksum
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  129              		.loc 1 379 2 is_stmt 1 view .LVU30
  130              	.LVL14:
  380:Src/drv/drv_dshot.c **** 
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 10
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 10
 
 
  381:Src/drv/drv_dshot.c **** 	packet = (packet << 4) | csum;
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  341:Src/drv/drv_dshot.c **** 
  178              		.loc 1 341 11 view .LVU43
  179 0006 FFF7FEFF 		bl	dshot_prepare_packet
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 11
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 11
 
 
  180              	.LVL20:
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
  219              		.loc 1 349 2 is_stmt 1 view .LVU59
  349:Src/drv/drv_dshot.c **** 	motor_dmabuffer[17] = 0;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 12
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 12
 
 
  220              		.loc 1 349 22 is_stmt 0 view .LVU60
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  325:Src/drv/drv_dshot.c **** 	dshot_prepare_dmabuffer(motor4_dmabuffer, motor_value[3]);
  266              		.loc 1 325 2 view .LVU71
  267 0014 A188     		ldrh	r1, [r4, #4]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 13
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 13
 
 
  268 0016 0648     		ldr	r0, .L22+8
@@ -778,7 +778,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  310              		.loc 1 395 15 is_stmt 0 view .LVU79
  311 0006 DA68     		ldr	r2, [r3, #12]
  312 0008 42F40072 		orr	r2, r2, #512
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 14
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 14
 
 
  313 000c DA60     		str	r2, [r3, #12]
@@ -838,7 +838,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  355 0002 1A6C     		ldr	r2, [r3, #64]
  356 0004 42F00102 		orr	r2, r2, #1
  357 0008 1A64     		str	r2, [r3, #64]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 15
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 15
 
 
  410:Src/drv/drv_dshot.c **** 	DMA1_Stream4->CR 	|= DMA_SxCR_EN;
@@ -898,7 +898,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  404              		.cfi_offset 3, -16
  405              		.cfi_offset 4, -12
  406              		.cfi_offset 5, -8
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 16
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 16
 
 
  407              		.cfi_offset 14, -4
@@ -958,7 +958,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   51:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 0U));
  447              		.loc 1 51 2 is_stmt 1 view .LVU113
   51:Src/drv/drv_dshot.c **** 	GPIOA->AFR[0] 	|= (0x2 << (4U * 0U));
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 17
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 17
 
 
  448              		.loc 1 51 16 is_stmt 0 view .LVU114
@@ -1018,7 +1018,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  487              		.loc 1 60 2 is_stmt 1 view .LVU129
   60:Src/drv/drv_dshot.c **** 
  488              		.loc 1 60 17 is_stmt 0 view .LVU130
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 18
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 18
 
 
  489 007e 1A6A     		ldr	r2, [r3, #32]
@@ -1078,7 +1078,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
   70:Src/drv/drv_dshot.c **** 	GPIOA->MODER 	|= GPIO_MODER_MODER3_1;
  528              		.loc 1 70 16 is_stmt 0 view .LVU146
  529 00be 1A68     		ldr	r2, [r3]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 19
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 19
 
 
  530 00c0 22F0C002 		bic	r2, r2, #192
@@ -1138,7 +1138,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  569 0100 B8EE477A 		vcvt.f32.u32	s14, s14
  570 0104 DFED6B6A 		vldr.32	s13, .L36+12
  571 0108 C6EE877A 		vdiv.f32	s15, s13, s14
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 20
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 20
 
 
   79:Src/drv/drv_dshot.c **** 	// enable clock for TIM2
@@ -1198,7 +1198,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  610              		.loc 1 87 13 is_stmt 0 view .LVU177
  611 0142 1A68     		ldr	r2, [r3]
  612 0144 22F01002 		bic	r2, r2, #16
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 21
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 21
 
 
  613 0148 1A60     		str	r2, [r3]
@@ -1258,7 +1258,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  651 0180 21F02001 		bic	r1, r1, #32
  652 0184 1962     		str	r1, [r3, #32]
  101:Src/drv/drv_dshot.c **** 	TIM5->CCER		|= TIM_CCER_CC2E;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 22
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 22
 
 
  653              		.loc 1 101 2 is_stmt 1 view .LVU194
@@ -1318,7 +1318,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  690              		.loc 1 112 15 is_stmt 0 view .LVU211
  691 01ba D969     		ldr	r1, [r3, #28]
  692 01bc 41F4C041 		orr	r1, r1, #24576
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 23
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 23
 
 
  693 01c0 D961     		str	r1, [r3, #28]
@@ -1378,7 +1378,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  731 01fa 1A60     		str	r2, [r3]
  125:Src/drv/drv_dshot.c **** 
  732              		.loc 1 125 2 is_stmt 1 view .LVU228
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 24
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 24
 
 
  125:Src/drv/drv_dshot.c **** 
@@ -1438,7 +1438,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  769 0224 1A65     		str	r2, [r3, #80]
  143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
  770              		.loc 1 143 2 is_stmt 1 view .LVU247
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 25
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 25
 
 
  143:Src/drv/drv_dshot.c **** 	DMA1_Stream2->CR	&= ~DMA_SxCR_CHSEL;
@@ -1498,7 +1498,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  151:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M0AR	= 0;
  808              		.loc 1 151 20 is_stmt 0 view .LVU265
  809 0254 9A67     		str	r2, [r3, #120]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 26
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 26
 
 
  152:Src/drv/drv_dshot.c **** 	DMA1_Stream4->M1AR	= 0;
@@ -1558,7 +1558,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  160:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= 0;
  846              		.loc 1 160 19 is_stmt 0 view .LVU284
  847 0284 0E4B     		ldr	r3, .L36+24
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 27
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 27
 
 
  848 0286 0022     		movs	r2, #0
@@ -1618,7 +1618,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  169:Src/drv/drv_dshot.c **** 	while(DMA1_Stream3->CR & DMA_SxCR_EN){}
  888              		.loc 1 169 2 is_stmt 1 view .LVU299
  169:Src/drv/drv_dshot.c **** 	while(DMA1_Stream3->CR & DMA_SxCR_EN){}
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 28
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 28
 
 
  889              		.loc 1 169 20 is_stmt 0 view .LVU300
@@ -1678,7 +1678,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  177:Src/drv/drv_dshot.c **** 	DMA1->LIFCR			|= 0x0F400000U;
  925              		.loc 1 177 19 is_stmt 0 view .LVU319
  926 02ea 9A6D     		ldr	r2, [r3, #88]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 29
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 29
 
 
  927 02ec 22F0F052 		bic	r2, r2, #503316480
@@ -1738,7 +1738,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  187:Src/drv/drv_dshot.c **** 	DMA1_Stream2->PAR 	= (uint32_t)(&(TIM5->CCR1));
  965              		.loc 1 187 20 is_stmt 0 view .LVU336
  966 0326 1A6C     		ldr	r2, [r3, #64]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 30
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 30
 
 
  967 0328 22F4C002 		bic	r2, r2, #6291456
@@ -1798,7 +1798,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1005 0360 41F48031 		orr	r1, r1, #65536
  1006 0364 1964     		str	r1, [r3, #64]
  197:Src/drv/drv_dshot.c **** 	// motor 4 DMA settings
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 31
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 31
 
 
  1007              		.loc 1 197 2 is_stmt 1 view .LVU353
@@ -1858,7 +1858,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1045 03a4 21F4C001 		bic	r1, r1, #6291456
  1046 03a8 1967     		str	r1, [r3, #112]
  206:Src/drv/drv_dshot.c **** 	DMA1_Stream4->NDTR	= DSHOT_DMA_BUFFER_SIZE;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 32
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 32
 
 
  1047              		.loc 1 206 2 is_stmt 1 view .LVU370
@@ -1918,7 +1918,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  215:Src/drv/drv_dshot.c **** 	// motor 2 DMA settings
  1085              		.loc 1 215 20 is_stmt 0 view .LVU387
  1086 03e0 196F     		ldr	r1, [r3, #112]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 33
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 33
 
 
  1087 03e2 41F01001 		orr	r1, r1, #16
@@ -1978,7 +1978,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  224:Src/drv/drv_dshot.c **** 	DMA1_Stream0->NDTR	= DSHOT_DMA_BUFFER_SIZE;
  1125              		.loc 1 224 21 is_stmt 0 view .LVU404
  1126 041c 3249     		ldr	r1, .L39+24
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 34
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 34
 
 
  1127 041e 9961     		str	r1, [r3, #24]
@@ -2038,7 +2038,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1165 0458 1961     		str	r1, [r3, #16]
  235:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR 	= (uint32_t)motor1_dmabuffer;
  1166              		.loc 1 235 2 is_stmt 1 view .LVU421
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 35
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 35
 
 
  235:Src/drv/drv_dshot.c **** 	DMA1_Stream3->M0AR 	= (uint32_t)motor1_dmabuffer;
@@ -2098,7 +2098,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  243:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PINC;
  1205              		.loc 1 243 2 is_stmt 1 view .LVU438
  243:Src/drv/drv_dshot.c **** 	DMA1_Stream3->CR 	&= ~DMA_SxCR_PINC;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 36
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 36
 
 
  1206              		.loc 1 243 21 is_stmt 0 view .LVU439
@@ -2158,7 +2158,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1245              	.L40:
  1246 04ce 00BF     		.align	2
  1247              	.L39:
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 37
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 37
 
 
  1248 04d0 00600240 		.word	1073897472
@@ -2218,7 +2218,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1297 001c 08BD     		pop	{r3, pc}
  1298              	.L44:
  1299 001e 00BF     		.align	2
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 38
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 38
 
 
  1300              	.L43:
@@ -2278,7 +2278,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1345 001a 1B68     		ldr	r3, [r3]
  1346 001c 0D4A     		ldr	r2, .L49+8
  1347 001e A2FB0323 		umull	r2, r3, r2, r3
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 39
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 39
 
 
  1348 0022 9B09     		lsrs	r3, r3, #6
@@ -2338,7 +2338,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1392              		.syntax unified
  1393              		.thumb
  1394              		.thumb_func
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 40
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 40
 
 
  1395              		.fpu fpv5-sp-d16
@@ -2398,7 +2398,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1436 002a 9A68     		ldr	r2, [r3, #8]
  1437 002c 42F40012 		orr	r2, r2, #2097152
  1438 0030 9A60     		str	r2, [r3, #8]
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 41
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 41
 
 
  428:Src/drv/drv_dshot.c **** 		DMA1_Stream2->NDTR	= DSHOT_DMA_BUFFER_SIZE;
@@ -2458,7 +2458,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1482              		.loc 1 440 3 is_stmt 1 view .LVU508
  1483              	.L58:
  1484              		.loc 1 440 41 discriminator 1 view .LVU509
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 42
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 42
 
 
  1485              		.loc 1 440 8 discriminator 1 view .LVU510
@@ -2518,7 +2518,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1529              		.loc 1 452 1 is_stmt 1 view -0
  1530              		.cfi_startproc
  1531              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 43
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 43
 
 
  1532              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2578,7 +2578,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1578              	.L64:
  1579 0038 00600240 		.word	1073897472
  1580 003c 000C0040 		.word	1073744896
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 44
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 44
 
 
  1581              		.cfi_endproc
@@ -2638,7 +2638,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1626 0022 23F48053 		bic	r3, r3, #4096
  1627 0026 D360     		str	r3, [r2, #12]
  472:Src/drv/drv_dshot.c **** 		DMA1->LIFCR			|= DMA_LIFCR_CTCIF3;
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 45
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 45
 
 
  1628              		.loc 1 472 3 is_stmt 1 view .LVU551
@@ -2698,7 +2698,7 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1680              		.set	.LANCHOR3,. + 0
  1683              	motor3_dmabuffer:
  1684 0000 00000000 		.space	72
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 46
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 46
 
 
  1684      00000000 
@@ -2724,67 +2724,67 @@ ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 1
  1699              		.file 7 "Libraries/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
  1700              		.file 8 "Src/motors.h"
  1701              		.file 9 "<built-in>"
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 47
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 47
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 drv_dshot.c
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:18     .text.dshot_choose_type:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:25     .text.dshot_choose_type:0000000000000000 dshot_choose_type
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:60     .text.dshot_choose_type:0000000000000014 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:67     .text.dshot_prepare_packet:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:73     .text.dshot_prepare_packet:0000000000000000 dshot_prepare_packet
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:149    .text.dshot_prepare_packet:0000000000000028 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:154    .text.dshot_prepare_dmabuffer:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:160    .text.dshot_prepare_dmabuffer:0000000000000000 dshot_prepare_dmabuffer
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:235    .text.dshot_prepare_dmabuffer_all:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:241    .text.dshot_prepare_dmabuffer_all:0000000000000000 dshot_prepare_dmabuffer_all
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:283    .text.dshot_prepare_dmabuffer_all:0000000000000028 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:291    .text.dshot_dma_start:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:297    .text.dshot_dma_start:0000000000000000 dshot_dma_start
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:334    .text.dshot_dma_start:0000000000000028 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:339    .text.dshot_enable_dma_request:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:345    .text.dshot_enable_dma_request:0000000000000000 dshot_enable_dma_request
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:378    .text.dshot_enable_dma_request:0000000000000024 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:383    .rodata.dshotInit.str1.4:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:387    .text.dshotInit:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:394    .text.dshotInit:0000000000000000 dshotInit
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:879    .text.dshotInit:00000000000002a8 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:887    .text.dshotInit:00000000000002c4 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1248   .text.dshotInit:00000000000004d0 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1261   .text.dshotWrite:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1268   .text.dshotWrite:0000000000000000 dshotWrite
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1301   .text.dshotWrite:0000000000000020 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1307   .text.dshotWait:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1314   .text.dshotWait:0000000000000000 dshotWait
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1382   .text.dshotWait:000000000000004c $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1390   .text.DMA1_Stream2_IRQHandler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1397   .text.DMA1_Stream2_IRQHandler:0000000000000000 DMA1_Stream2_IRQHandler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1449   .text.DMA1_Stream2_IRQHandler:0000000000000038 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1455   .text.DMA1_Stream4_IRQHandler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1462   .text.DMA1_Stream4_IRQHandler:0000000000000000 DMA1_Stream4_IRQHandler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1514   .text.DMA1_Stream4_IRQHandler:0000000000000038 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1520   .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1527   .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1579   .text.DMA1_Stream0_IRQHandler:0000000000000038 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1585   .text.DMA1_Stream3_IRQHandler:0000000000000000 $t
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1592   .text.DMA1_Stream3_IRQHandler:0000000000000000 DMA1_Stream3_IRQHandler
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1644   .text.DMA1_Stream3_IRQHandler:0000000000000038 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1662   .bss.dshot_telemetry:0000000000000000 dshot_telemetry
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1656   .bss.dshot_command_count:0000000000000000 dshot_command_count
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1652   .bss.dshot_command_count:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1663   .bss.dshot_telemetry:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1665   .bss.motor1_dmabuffer:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1669   .bss.motor1_dmabuffer:0000000000000000 motor1_dmabuffer
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1672   .bss.motor2_dmabuffer:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1676   .bss.motor2_dmabuffer:0000000000000000 motor2_dmabuffer
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1679   .bss.motor3_dmabuffer:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1683   .bss.motor3_dmabuffer:0000000000000000 motor3_dmabuffer
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1686   .bss.motor4_dmabuffer:0000000000000000 $d
-/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s:1690   .bss.motor4_dmabuffer:0000000000000000 motor4_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:18     .text.dshot_choose_type:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:25     .text.dshot_choose_type:0000000000000000 dshot_choose_type
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:60     .text.dshot_choose_type:0000000000000014 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:67     .text.dshot_prepare_packet:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:73     .text.dshot_prepare_packet:0000000000000000 dshot_prepare_packet
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:149    .text.dshot_prepare_packet:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:154    .text.dshot_prepare_dmabuffer:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:160    .text.dshot_prepare_dmabuffer:0000000000000000 dshot_prepare_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:235    .text.dshot_prepare_dmabuffer_all:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:241    .text.dshot_prepare_dmabuffer_all:0000000000000000 dshot_prepare_dmabuffer_all
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:283    .text.dshot_prepare_dmabuffer_all:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:291    .text.dshot_dma_start:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:297    .text.dshot_dma_start:0000000000000000 dshot_dma_start
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:334    .text.dshot_dma_start:0000000000000028 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:339    .text.dshot_enable_dma_request:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:345    .text.dshot_enable_dma_request:0000000000000000 dshot_enable_dma_request
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:378    .text.dshot_enable_dma_request:0000000000000024 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:383    .rodata.dshotInit.str1.4:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:387    .text.dshotInit:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:394    .text.dshotInit:0000000000000000 dshotInit
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:879    .text.dshotInit:00000000000002a8 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:887    .text.dshotInit:00000000000002c4 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1248   .text.dshotInit:00000000000004d0 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1261   .text.dshotWrite:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1268   .text.dshotWrite:0000000000000000 dshotWrite
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1301   .text.dshotWrite:0000000000000020 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1307   .text.dshotWait:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1314   .text.dshotWait:0000000000000000 dshotWait
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1382   .text.dshotWait:000000000000004c $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1390   .text.DMA1_Stream2_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1397   .text.DMA1_Stream2_IRQHandler:0000000000000000 DMA1_Stream2_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1449   .text.DMA1_Stream2_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1455   .text.DMA1_Stream4_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1462   .text.DMA1_Stream4_IRQHandler:0000000000000000 DMA1_Stream4_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1514   .text.DMA1_Stream4_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1520   .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1527   .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1579   .text.DMA1_Stream0_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1585   .text.DMA1_Stream3_IRQHandler:0000000000000000 $t
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1592   .text.DMA1_Stream3_IRQHandler:0000000000000000 DMA1_Stream3_IRQHandler
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1644   .text.DMA1_Stream3_IRQHandler:0000000000000038 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1662   .bss.dshot_telemetry:0000000000000000 dshot_telemetry
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1656   .bss.dshot_command_count:0000000000000000 dshot_command_count
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1652   .bss.dshot_command_count:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1663   .bss.dshot_telemetry:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1665   .bss.motor1_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1669   .bss.motor1_dmabuffer:0000000000000000 motor1_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1672   .bss.motor2_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1676   .bss.motor2_dmabuffer:0000000000000000 motor2_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1679   .bss.motor3_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1683   .bss.motor3_dmabuffer:0000000000000000 motor3_dmabuffer
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1686   .bss.motor4_dmabuffer:0000000000000000 $d
+/var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s:1690   .bss.motor4_dmabuffer:0000000000000000 motor4_dmabuffer
 
 UNDEFINED SYMBOLS
-ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccCeYa5Y.s 			page 48
+ARM GAS  /var/folders/9y/n02fl3g16gnf7ppy14xghdy80000gn/T//ccHLCXDa.s 			page 48
 
 
 puts

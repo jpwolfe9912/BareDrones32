@@ -24,12 +24,6 @@ typedef enum
     FRAME_1HZ
 } LoopFreqs_e;
 
-// typedef struct
-// {
-//     uint8_t taskIdx;
-//     void (*taskList[256])(void);
-// } Loop_t;
-
 typedef struct Tasks
 {
     void (*task)(void);

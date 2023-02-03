@@ -5,18 +5,17 @@ uint32_t executionTime[TOTAL_LOOPS];
 uint32_t previousTime[TOTAL_LOOPS];
 uint32_t currentTime;
 
-volatile uint8_t loopTaskIdx[TOTAL_LOOPS] = {0};
-
 static void runAllTasksInLoop(Tasks *tasks);
 
 void run(Tasks **head_ref)
 {
     while (!loopsChecked)
-        loopsChecked = false;
+        ;
+    loopsChecked = false;
 
     LoopFreqs_e loopToRun = FRAME_1000HZ;
 
-    for (; loopToRun < TOTAL_LOOPS; loopToRun++) /* loopMask = 0b 0 */
+    for (; loopToRun < TOTAL_LOOPS; loopToRun++)
     {
         if (((loopMask >> loopToRun) & 0x01)) // if there is a 1 in the spot of the loop to run
         {
