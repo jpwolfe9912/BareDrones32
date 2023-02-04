@@ -148,11 +148,8 @@ void delayMicroseconds(uint32_t us)
  */
 void delay(int32_t ms)
 {
-    while (ms > 0)
-    {
+    while (ms--)
         delayMicroseconds(1000);
-        ms--;
-    }
 }
 
 /** @brief Initializes system.
