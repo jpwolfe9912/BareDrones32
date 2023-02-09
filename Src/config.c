@@ -35,7 +35,7 @@ writeEEPROM(void)
 
 	int32_t i;
 
-	FLASH_EraseInitTypeDef erase;
+	FLASH_EraseInit_t erase;
     bool status = true;
 
 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
