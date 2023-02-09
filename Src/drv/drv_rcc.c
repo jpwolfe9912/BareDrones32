@@ -27,14 +27,14 @@ rcc216MHzInit(void)
 
 
 	RCC->CR 		|= RCC_CR_HSEON;		// turn on HSE
-	while(!(RCC->CR & RCC_CR_HSERDY)){}		// wait until HSI ready
+	while(!(RCC->CR & RCC_CR_HSERDY)){}		// wait until HSE ready
 
 	/*		PLL Division Configuration	*/
-	/*		16 / 8 = 2 * 216 = 432 / 2 = 216	*/
+	/*		8 / 4 = 2 * 216 = 432 / 2 = 216	*/
 	RCC->CR			&= ~RCC_CR_PLLON;
 	RCC->PLLCFGR	|= RCC_PLLCFGR_PLLSRC_HSE;
 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLM;
-	RCC->PLLCFGR	|= 4U;					// PLLM /8 div
+	RCC->PLLCFGR	|= 4U;					// PLLM /4 div
 	RCC->PLLCFGR	|= (216U << 6U);		// PLLN *216 multi
 	RCC->PLLCFGR	&= ~RCC_PLLCFGR_PLLP;	// PLLP /2 div
 	RCC->CR			|= RCC_CR_PLLON;			// turn on PLL
