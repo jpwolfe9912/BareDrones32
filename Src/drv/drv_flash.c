@@ -16,7 +16,7 @@ void flashEraseSector(uint32_t Sector, uint8_t VoltageRange);
 static bool flashWaitForLastOperation(void);
 static void flashProgramWord(uint32_t Address, uint32_t Data);
 
-bool flashErase(FLASH_EraseInitTypeDef *pEraseInit)
+bool flashErase(FLASH_EraseInit_t *pEraseInit)
 {
     uint32_t index = 0;
 
@@ -49,12 +49,10 @@ bool flashErase(FLASH_EraseInitTypeDef *pEraseInit)
 
 /**
  * @brief  Program byte, halfword, word or double word at a specified address
- * @param  TypeProgram  Indicate the way to program at a specified address.
- *                           This parameter can be a value of @ref FLASH_Type_Program
  * @param  Address  specifies the address to be programmed.
  * @param  Data specifies the data to be programmed
  *
- * @retval HAL_StatusTypeDef HAL Status
+ * @retval Bool Whether the flash succeeded or not 
  */
 bool flashProgram(uint32_t Address, uint64_t Data)
 {
@@ -77,7 +75,7 @@ bool flashProgram(uint32_t Address, uint64_t Data)
 
 /** @brief Changes clock speed to 216 MHz
  *
- *  @return Void.
+ * @retval Bool Whether the flash succeeded or not 
  */
 bool flashUnlock(void)
 {
