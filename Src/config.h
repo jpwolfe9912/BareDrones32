@@ -24,8 +24,6 @@ extern const char rcChannelLetters[12];
 extern semaphore_t eepromChanged;
 
 /* Function Prototypes */
-void parseRcChannels(const char *input);
-uint32_t crc32bEEPROM(eepromConfig_t *e, int includeCRCAtEnd);
 void readEEPROM(void);
 void writeEEPROM(void);
 void checkFirstTime(bool eepromReset);
