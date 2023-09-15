@@ -18,10 +18,14 @@
 // #define USE_EEPROM
 
 /* Features */
-#define USE_MPU6000
+// #define USE_SPI1_DRIVER
+#define USE_USART1_DRIVER
+
+// #define USE_MOTION_PROCESSING
+// #define USE_MPU6000
 // #define USE_DSHOT
 // #define USE_IBUS
-#define USE_LOGGING
+// #define USE_LOGGING
 // #define USE_BATT_MON
 #define USE_LEDS
 
