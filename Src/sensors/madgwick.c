@@ -45,13 +45,6 @@ void madgwickInit(void)
 
 /** @brief Creates quaternion from gyro and accel values.
  *
- *  @param float gx Gyro roll data in deg/s.
- *  @param float gy Gyro pitch data in deg/s.
- *  @param float gz Gyro yaw data in deg/s.
- *  @param float ax Accel x-axis data in m/s^2.
- *  @param float ay Accel y-axis data in m/s^2.
- *  @param float az Accel z-axis data in m/s^2.
- *
  *  @return Void.
  */
 void updateIMU(void)
