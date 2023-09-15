@@ -74,15 +74,14 @@ includeDirectories:
   - Libraries/CMSIS/Include
   - Libraries/CMSIS/Include/dsp
   - Src
+  - Src/comm
+  - Src/config
   - Src/drv
   - Src/motion
   - Src/sensors
-  - Inc/**
-  - Core/Inc/**
-  - Core/Lib/**
-  - Src/**
-  - Core/Src/**
-  - Core/Lib/**
+  - Src/sys
+  - Middlewares/lwrb
+
 
 
 # Files that should be included in the compilation.
@@ -92,15 +91,16 @@ includeDirectories:
 # these should be escaped with a: \ or the name should be in double quotes e.g. "HARDWARE_DRIVER*.c"
 sourceFiles:  
   - startup_stm32f722xx.s
-  - Src/*.c
+  - Src/*.c \
+  - Src/comm/*.c
+  - Src/config/*.c
   - Src/drv/*.c
   - Src/motion/*.c
   - Src/sensors/*.c
+  - Src/sys/*.c
+  - Middlewares/lwrb/lwrb.c
   - Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_init_f32.c
   - Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_mult_f32.c
-  - Src/**
-  - Core/Src/**
-  - Core/Lib/**
 
 
 # When no makefile is present it will show a warning pop-up.

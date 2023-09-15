@@ -38,8 +38,13 @@ BUILD_DIR = build
 C_SOURCES =  \
 Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_init_f32.c \
 Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_mult_f32.c \
-Src/battery.c \
-Src/config.c \
+Middlewares/lwrb/lwrb.c \
+Src/comm/ibus.c \
+Src/comm/logging.c \
+Src/comm/motors.c \
+Src/config/config.c \
+Src/config/pid.c \
+Src/config/utilities.c \
 Src/drv/drv_adc.c \
 Src/drv/drv_color.c \
 Src/drv/drv_dma.c \
@@ -51,27 +56,24 @@ Src/drv/drv_serial.c \
 Src/drv/drv_spi1.c \
 Src/drv/drv_system.c \
 Src/drv/drv_tim.c \
-Src/drv/drv_usart.c \
-Src/logging.c \
+Src/drv/drv_usart1.c \
+Src/drv/drv_usart6.c \
 Src/main.c \
 Src/motion/compute_axis_commands.c \
 Src/motion/mixer.c \
 Src/motion/process_commands.c \
 Src/motion/rotations.c \
-Src/motors.c \
-Src/pid.c \
-Src/scheduler.c \
 Src/sensors/accel_calibration_mpu.c \
-Src/sensors/ibus.c \
+Src/sensors/battery.c \
 Src/sensors/madgwick.c \
 Src/sensors/mpu6000.c \
 Src/sensors/mpu6000_calibration.c \
 Src/sensors/orientation.c \
-Src/stm32f7xx_it.c \
-Src/syscalls.c \
-Src/sysmem.c \
-Src/system_stm32f7xx.c \
-Src/utilities.c
+Src/sys/scheduler.c \
+Src/sys/stm32f7xx_it.c \
+Src/sys/syscalls.c \
+Src/sys/sysmem.c \
+Src/sys/system_stm32f7xx.c
 
 
 CPP_SOURCES = \
@@ -144,10 +146,14 @@ C_INCLUDES =  \
 -ILibraries/CMSIS/Device/ST/STM32F7xx/Include \
 -ILibraries/CMSIS/Include \
 -ILibraries/CMSIS/Include/dsp \
+-IMiddlewares/lwrb \
 -ISrc \
+-ISrc/comm \
+-ISrc/config \
 -ISrc/drv \
 -ISrc/motion \
--ISrc/sensors
+-ISrc/sensors \
+-ISrc/sys
 
 
 
@@ -202,8 +208,14 @@ vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
 # list of C objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
+
 # list of ASM program objects
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+# list of ASM program objects
+UPPER_CASE_ASM_SOURCES = $(filter %.S,$(ASM_SOURCES))
+LOWER_CASE_ASM_SOURCES = $(filter %.s,$(ASM_SOURCES))
+
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(UPPER_CASE_ASM_SOURCES:.S=.o)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(LOWER_CASE_ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
 $(BUILD_DIR)/%.o: %.cpp STM32Make.make | $(BUILD_DIR) 
@@ -216,6 +228,9 @@ $(BUILD_DIR)/%.o: %.c STM32Make.make | $(BUILD_DIR)
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
 
 $(BUILD_DIR)/%.o: %.s STM32Make.make | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/%.o: %.S STM32Make.make | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) STM32Make.make

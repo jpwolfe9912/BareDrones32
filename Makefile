@@ -37,9 +37,13 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Src/*.c \
+Src/comm/*.c \
+Src/config/*.c \
 Src/drv/*.c \
 Src/motion/*.c \
 Src/sensors/*.c \
+Src/sys/*.c \
+Middlewares/lwrb/lwrb.c \
 Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_init_f32.c \
 Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_mult_f32.c
 
@@ -112,9 +116,13 @@ C_INCLUDES =  \
 -ILibraries/CMSIS/Include \
 -ILibraries/CMSIS/Include/dsp \
 -ISrc \
+-ISrc/comm \
+-ISrc/config \
 -ISrc/drv \
 -ISrc/motion \
--ISrc/sensors
+-ISrc/sensors \
+-ISrc/sys \
+-IMiddlewares/lwrb
 
 
 
