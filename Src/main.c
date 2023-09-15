@@ -28,17 +28,20 @@ int main(void)
     systemInit();
 
     /* Add tasks */
-    Tasks *execTasks[8] = {NULL}; // execTasks[0] contains all the functions for 1kHz
+    Tasks *execTasks[8] = {NULL};
 
 #ifdef USE_MPU6000
     append(&execTasks[FRAME_1000HZ], readMPU6000);
 #endif
+#ifdef USE_MOTION_PROCESSING
     append(&execTasks[FRAME_500HZ], computeRotations500Hz);
     append(&execTasks[FRAME_500HZ], updateIMU);
     append(&execTasks[FRAME_500HZ], updateAttitude);
     append(&execTasks[FRAME_500HZ], processCommands);
     append(&execTasks[FRAME_500HZ], computeAxisCommands);
     append(&execTasks[FRAME_500HZ], mixTable);
+#endif
+
 #ifdef USE_DSHOT
     append(&execTasks[FRAME_500HZ], dshotWrite);
 #endif
@@ -72,34 +75,34 @@ sensors_t sensors;
 
 uint16_t timerValue;
 
+void test_func(void);
+
 int main(void)
 {
     systemInit();
     systemReady = true;
 
+    printf("\nInitializing iBus Receiver\n");
+    usart1BeginRx();
+    lwrb_init(&Buffs.RxBuffer, (void *)Buffs.RxBuffer_Data, sizeof(Buffs.RxBuffer_Data));
+
+    Tasks *execTasks[8] = {NULL};
+    append(&execTasks[FRAME_100HZ], test_func);
+
     while (1)
     {
-        if (frame_1000Hz)
-            frame_1000Hz = false;
-        if (frame_500Hz)
-        {
-            frame_500Hz = false;
-
-            computeRotations500Hz();
-
-            updateIMU(sensors.gyro500Hz[ROLL], sensors.gyro500Hz[PITCH], sensors.gyro500Hz[YAW],
-                      sensors.accel500Hz[XAXIS], sensors.accel500Hz[YAXIS], sensors.accel500Hz[ZAXIS]);
-            sensors.attitude500Hz[ROLL] = getRollRadians();
-            sensors.attitude500Hz[PITCH] = getPitchRadians();
-            sensors.attitude500Hz[YAW] = getYawRadians();
-
-            sensors.attDeg500Hz[ROLL] = sensors.attitude500Hz[ROLL] * 57.29578f;
-            sensors.attDeg500Hz[PITCH] = sensors.attitude500Hz[PITCH] * 57.29578f;
-            sensors.attDeg500Hz[YAW] = sensors.attitude500Hz[YAW] * 57.29578f;
-
-            printf("%f\n", sensors.attDeg500Hz[ROLL]);
-        }
+        run(execTasks);
     }
+}
+
+void test_func(void)
+{
+    uint8_t temp_buff[1024];
+
+    lwrb_read(&Buffs.RxBuffer, temp_buff, lwrb_get_full(&Buffs.RxBuffer));
+    for (int i = 0; i < sizeof(temp_buff); i++)
+        printf("%u", temp_buff[i]);
+    memcpy(temp_buff, '\0', sizeof(temp_buff));
 }
 
 #endif

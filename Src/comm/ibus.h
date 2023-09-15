@@ -22,19 +22,17 @@ bool ibusInit(void);
 void ibusProcess(void);
 
 /* Global Variables */
-extern uint8_t ibusPayload[PAYLOAD_SIZE];
-extern uint8_t ibusCRC[CRC_SIZE];
 extern uint16_t ibusChannels[RC_CHANNELS];
 
 extern bool rcActive;
 
 /* Global Enums */
-enum {
+typedef enum {
 	IBUS_STATE_LENGTH,
 	IBUS_STATE_TYPE,
 	IBUS_STATE_PAYLOAD,
 	IBUS_STATE_CRC
-};
+}ibusStates_e;
 
 typedef enum{
 	IBUS_READY,

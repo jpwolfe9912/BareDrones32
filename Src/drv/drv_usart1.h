@@ -10,16 +10,25 @@
 #ifndef __USART_H__
 #define __USART_H__
 
+#include "lwrb.h"
+
 /* Defines */
-#define RX1BUF_SIZE 				32
+#define RX_DMA_SIZE 1024
+#define RX_RB_SIZE 2048
 
 /* Global Variables */
-extern uint8_t rx1Buf[RX1BUF_SIZE];
+typedef struct 
+{
+    uint8_t RxBuffer_DMA[RX_DMA_SIZE];
+    uint8_t RxBuffer_Data[RX_RB_SIZE];
+    lwrb_t RxBuffer;
+} Usart1Buffs_t;
+
+extern Usart1Buffs_t Buffs;
 
 /* Prototypes */
 void usart1Init(void);
-void usart1Read(uint8_t *pData, uint8_t size);
-void usart6Init(void);
-void usart6Write(char *pData, uint8_t size);
+void usart1BeginRx(void);
+
 
 #endif /* __USART_H__ */

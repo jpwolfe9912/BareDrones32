@@ -12,7 +12,9 @@ uint8_t log_count = 0;
 char *logData = (char *)0x20011000;
 
 /* Static Functions */
+#ifdef OPENLAGER
 static void writeLog(char *pLog);
+#endif
 
 /** @brief Prints logging data to OpenLager based on which type of data you want.
  *
@@ -21,7 +23,7 @@ static void writeLog(char *pLog);
  */
 void printLog(void)
 {
-    logs_t logType = PITCH;
+    logs_t logType = 4;
 #ifdef OPENLAGER
     memset(logData, '\0', LOG_SIZE);
 
@@ -63,7 +65,7 @@ void printLog(void)
                sensors.gyro500Hz[logType],
                ratePID[logType],
                attCmd[logType],
-               sensors.attitude500Hz[logType],
+               (sensors.attitude500Hz[logType]*180.00/3.1415),
                attPID[logType]);
     }
 
@@ -78,9 +80,19 @@ void printLog(void)
                motor_value[MOTOR3],
                motor_value[MOTOR4]);
     }
+    if (logType == 4)
+    {
+        printf("%d %u, %u, %u, %u \r",
+        logType,
+        ibusChannels[0],
+        ibusChannels[1],
+        ibusChannels[2],
+        ibusChannels[3]);
+    }
 #endif
 }
 
+#ifdef OPENLAGER
 /** @brief Loops through the log.
  *
  *  @param ch The character to send.
@@ -92,3 +104,4 @@ writeLog(char *pLog)
     uint8_t lagerSize = strlen(pLog);
     usart6Write(pLog, lagerSize);
 }
+#endif

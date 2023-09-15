@@ -24,6 +24,7 @@
 #include "stm32f7xx.h"
 #include "stm32f7xx_it.h"
 #include "arm_math.h"
+#include "lwrb.h"
 
 /* General */
 #include "scheduler.h"
@@ -41,7 +42,8 @@
 #include "drv_system.h"
 #include "drv_rcc.h"
 #include "drv_flash.h"
-#include "drv_usart.h"
+#include "drv_usart1.h"
+#include "drv_usart6.h"
 #include "drv_serial.h"
 #include "drv_adc.h"
 #include "drv_dma.h"
