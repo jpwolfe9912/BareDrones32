@@ -158,13 +158,15 @@ void serialInit(void)
                     RCC_AHB1ENR_GPIODEN; // enable the clock for port C, D
     RCC->APB1ENR |= RCC_APB1ENR_UART5EN; // enable the clock for UART5
 
-    GPIOC->AFR[1] |= (0x8 << (4 * 4U)); // set pin A2 as alternate function
-    GPIOD->AFR[0] |= (0x8 << (4 * 2U)); // set pin A3 as alternate function
-
+    /* */
     GPIOC->MODER &= ~(GPIO_MODER_MODER12);
-    GPIOD->MODER &= ~(GPIO_MODER_MODER2);
     GPIOC->MODER |= GPIO_MODER_MODER12_1; // set PC12 as alternate function
+    GPIOC->AFR[1] |= (0x8 << (4 * 4U)); // set pin C12 as alternate function
+
+
+    GPIOD->MODER &= ~(GPIO_MODER_MODER2);
     GPIOD->MODER |= GPIO_MODER_MODER2_1;  // set PD2 as alternate function
+    GPIOD->AFR[0] |= (0x8 << (4 * 2U)); // set pin A3 as alternate function
 
     NVIC_SetPriority(UART5_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
     NVIC_EnableIRQ(UART5_IRQn);

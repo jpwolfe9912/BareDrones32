@@ -48,7 +48,7 @@ void SysTick_Handler(void)
             frameCounter = 0;
 
         if (!(frameCounter % COUNT_1000HZ))
-            loopMask |= MASK_1000HZ; 
+            loopMask |= MASK_1000HZ;
 
         if (!(frameCounter % COUNT_500HZ))
             loopMask |= MASK_500HZ;
@@ -72,9 +72,7 @@ void SysTick_Handler(void)
             loopMask |= MASK_1HZ;
 
         loopsChecked = true;
-
     }
-
 }
 
 /** @brief Gets system time in microseconds.
@@ -189,9 +187,13 @@ void systemInit(void)
     motorInit();
 #endif
 
+#ifdef USE_SPI1_DRIVER
     spi1Init();
+#endif
 
+#ifdef USE_USART1_DRIVER
     usart1Init();
+#endif
     usart6Init();
 
     tim9Init();

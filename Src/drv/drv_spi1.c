@@ -25,8 +25,7 @@ void spi1Init(void)
 {
     printf("\nInitializing SPI 1\n");
 
-    /* USER CODE BEGIN SPI1_Init 0 */
-    /////////////////GPIO INIT///////////////////
+    /* GPIO INIT */
     // enable clock for GPIOA
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
     // set mode, speed, type, pull, AF
@@ -66,7 +65,7 @@ void spi1Init(void)
     GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL7;
     GPIOA->AFR[0] |= (0x5 << (4U * 7U)); // AF 5
 
-    /////////////////SPI INIT///////////////////
+    /* SPI INIT */
     // enable clock for SPI1
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
 

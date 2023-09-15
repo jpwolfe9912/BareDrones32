@@ -58,7 +58,7 @@ typedef struct
 } FLASH_EraseInit_t;
 
 /* Function Prototypes */
-bool flashErase(FLASH_EraseInitTypeDef *pEraseInit);
+bool flashErase(FLASH_EraseInit_t *pEraseInit);
 bool flashProgram(uint32_t Address, uint64_t Data);
 bool flashUnlock(void);
 void flashLock(void);
