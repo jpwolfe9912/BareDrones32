@@ -13,8 +13,8 @@
 #define STLINK
 // #define SANDBOX
 // #define OPENLAGER
-#define USE_AUTODRONE
-// #define USE_NUCLEO
+// #define USE_AUTODRONE
+#define USE_NUCLEO
 // #define USE_EEPROM
 
 /* Features */

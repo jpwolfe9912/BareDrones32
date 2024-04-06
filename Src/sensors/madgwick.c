@@ -32,7 +32,7 @@ static float invSqrt(float x);
  */
 void madgwickInit(void)
 {
-    printf("\nInitializing Madwick Sensor Fusion\n");
+    printf("\nInitializing Madgwick Sensor Fusion\n");
 
     beta = betaDef;
     q0 = 1.0f;
