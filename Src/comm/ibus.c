@@ -69,7 +69,7 @@ bool ibusInit(void)
         color(WHITE, NO);
         return false;
 #ifdef STLINK
-        if (serialWaitFor('y'))
+        if (printfWaitFor('y'))
             return false;
         else
             return true;

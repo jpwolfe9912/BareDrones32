@@ -68,7 +68,6 @@ bool mpu6000Init(void)
     printf("\nInitializing MPU-6000\n");
 
     SPI1_DISABLE;
-
     spi1WriteOneByte(0x00, 0x00);
     delay(100);
 
@@ -99,7 +98,7 @@ bool mpu6000Init(void)
             color(RED, YES);
             printf("\nFailed to read device ID. Would you like to retry?\n");
             color(WHITE, NO);
-            if (serialWaitFor('y'))
+            if (printfWaitFor('y'))
             {
                 devIdReadAttempts = DEV_READ_ATTEMPTS;
             }

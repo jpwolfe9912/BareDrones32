@@ -20,18 +20,6 @@ void led2ON(void);
 void led2OFF(void);
 void led2TOGGLE(void);
 
-void led3ON(void);
-void led3OFF(void);
-void led3TOGGLE(void);
-
-void led4ON(void);
-void led4OFF(void);
-void led4TOGGLE(void);
-
-void led5ON(void);
-void led5OFF(void);
-void led5TOGGLE(void);
-
 void ledsSet(void);
 
 #endif /* __LED_H__ */

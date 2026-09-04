@@ -29,7 +29,7 @@ static void usart_process_data(const void *data, size_t len);
 void usart1Init(void)
 {
     printf("\nInitializing USART 1\n");
-    /////////////////GPIO INIT///////////////////
+    /* GPIO INIT */
     // enable clock for GPIOB
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
     // set mode, speed, type, pull, AF
@@ -44,13 +44,13 @@ void usart1Init(void)
     NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
     NVIC_EnableIRQ(USART1_IRQn);
 
-    /////////////////USART INIT///////////////////
+    /* USART INIT */
     RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
 
     USART1->CR1 &= ~USART_CR1_UE; // disable usart
     // USART1->BRR = 0x3AA;          // 115200 BR
-    USART1->BRR = 0x1E;          // 400000 BR
-    USART1->CR1 &= ~USART_CR1_M;  // 8 bit transfer
+    USART1->BRR = 0x11;          // 400000 BR
+    USART1->CR1 &= ~USART_CR1_M; // 8 bit transfer
     USART1->CR2 &= ~USART_CR2_STOP;
     USART1->CR1 &= ~USART_CR1_PCE;
     USART1->CR1 |= USART_CR1_RE |
@@ -59,7 +59,7 @@ void usart1Init(void)
                      USART_CR3_RTSE);
     USART1->CR1 &= ~USART_CR1_OVER8;
 
-    /////////////////DMA INIT///////////////////
+    /* DMA INIT */
 
     /* USART1 RX DMA Init */
     DMA2_Stream2->CR &= ~DMA_SxCR_EN;
@@ -178,7 +178,7 @@ usart_rx_check(void)
     size_t pos;
 
     /* Calculate current position in buffer and check for new data available */
-    pos = ARRAY_LEN(Buffs.RxBuffer_DMA) - DMA2_Stream2->NDTR; //LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_5);
+    pos = ARRAY_LEN(Buffs.RxBuffer_DMA) - DMA2_Stream2->NDTR; // LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_5);
     if (pos != old_pos)
     { /* Check change in received data */
         if (pos > old_pos)

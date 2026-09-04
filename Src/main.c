@@ -6,7 +6,7 @@
  *  @date 		23 FEB 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "board.h"
 
 #ifndef SANDBOX
@@ -28,7 +28,7 @@ int main(void)
     systemInit();
 
     /* Add tasks */
-    Tasks *execTasks[8] = {NULL};
+    Tasks* execTasks[8] = { NULL };
 
 #ifdef USE_MPU6000
     append(&execTasks[FRAME_1000HZ], readMPU6000);
@@ -48,16 +48,19 @@ int main(void)
 #ifdef USE_IBUS
     append(&execTasks[FRAME_200HZ], ibusProcess);
 #endif
+#ifdef USE_CRSF
+    append(&execTasks[FRAME_200HZ], crsfProcess);
+#endif
 #ifdef USE_LOGGING
     append(&execTasks[FRAME_100HZ], printLog);
 #endif
 #ifdef USE_BATT_MON
     append(&execTasks[FRAME_5HZ], battMonRead);
 #endif
-    append(&execTasks[FRAME_1HZ], ledsSet);
 #ifdef USE_LEDS
-    systemReady = true;
+    append(&execTasks[FRAME_1HZ], ledsSet);
 #endif
+    systemReady = true;
     while (1)
     {
         run(execTasks);
@@ -75,35 +78,38 @@ sensors_t sensors;
 
 uint16_t timerValue;
 
-void test_func(void);
+// void test_func(void);
 
 int main(void)
 {
     systemInit();
     systemReady = true;
 
-    printf("\nInitializing iBus Receiver\n");
-    usart1BeginRx();
-    lwrb_init(&Buffs.RxBuffer, (void *)Buffs.RxBuffer_Data, sizeof(Buffs.RxBuffer_Data));
-
-    Tasks *execTasks[8] = {NULL};
-    append(&execTasks[FRAME_100HZ], test_func);
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+    GPIOC->MODER |= GPIO_MODER_MODER3_0;
+    GPIOC->MODER |= GPIO_MODER_MODER2_0;
 
     while (1)
     {
-        run(execTasks);
+        GPIOC->BSRR |= GPIO_BSRR_BS3;
+        GPIOC->BSRR |= GPIO_BSRR_BR2;
+        printfWrite('H');
+        delay(500);
+        GPIOC->BSRR |= GPIO_BSRR_BR3;
+        GPIOC->BSRR |= GPIO_BSRR_BS2;
+        delay(500);
     }
 }
 
-void test_func(void)
-{
-    uint8_t temp_buff[1024];
+// void test_func(void)
+// {
+//     uint8_t temp_buff[1024];
 
-    lwrb_read(&Buffs.RxBuffer, temp_buff, lwrb_get_full(&Buffs.RxBuffer));
-    for (int i = 0; i < sizeof(temp_buff); i++)
-        printf("%u", temp_buff[i]);
-    memcpy(temp_buff, '\0', sizeof(temp_buff));
-}
+//     lwrb_read(&Buffs.RxBuffer, temp_buff, lwrb_get_full(&Buffs.RxBuffer));
+//     for (int i = 0; i < sizeof(temp_buff); i++)
+//         printf("%u", temp_buff[i]);
+//     memcpy(temp_buff, '\0', sizeof(temp_buff));
+// }
 
 #endif
 
@@ -127,11 +133,11 @@ void Error_Handler(void)
  * @param  line: assert_param error line source number
  * @retval None
  */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed(uint8_t* file, uint32_t line)
 {
     /* USER CODE BEGIN 6 */
     /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-    /* USER CODE END 6 */
+     /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

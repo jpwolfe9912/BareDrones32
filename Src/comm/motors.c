@@ -32,7 +32,7 @@ motorInit(void)
 	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
 
-	dshotWait(DSHOT_ARM_COUNT);
+	// dshotWait(DSHOT_ARM_COUNT);
 }
 
 /** @brief Changes motor mode to 3D.
