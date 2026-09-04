@@ -21,6 +21,7 @@ typedef enum
 
 /* Global Variables */
 extern float battVoltage;
+// extern float battCurrent;
 extern battCells_e cells;
 extern bool battLow;
 extern bool battEmpty;

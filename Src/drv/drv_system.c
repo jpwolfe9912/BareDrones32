@@ -10,7 +10,7 @@
 
 #include "board.h"
 
-/* Static Variables */
+ /* Static Variables */
 static volatile uint32_t usTicks = 0;
 static volatile uint32_t sysTickUptime = 0;
 static volatile uint32_t sysTickCycleCounter = 0;
@@ -117,6 +117,7 @@ void delayMicroseconds(uint32_t us)
 {
     uint32_t elapsed = 0;
     uint32_t lastCount = DWT->CYCCNT;
+    usTicks = 216;
 
     for (;;)
     {
@@ -156,6 +157,8 @@ void delay(int32_t ms)
  */
 void systemInit(void)
 {
+    // DBGMCU->CR |= DBGMCU_CR_DBG_SLEEP | DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY;
+
     rcc216MHzInit();
 
     SysTick_Config(SystemCoreClock / 1000);
@@ -167,7 +170,7 @@ void systemInit(void)
     ledInit();
 #endif
     /*		LOW LEVEL INITIALIZATION	*/
-    serialInit();
+    printfInit();
 
     drawAutodrone();
 
@@ -181,7 +184,6 @@ void systemInit(void)
     checkFirstTime(false);
     readEEPROM();
 #endif
-    adc1Ch8Init();
 #ifdef USE_DSHOT
     dshotInit(DSHOT600);
     motorInit();
@@ -194,12 +196,15 @@ void systemInit(void)
 #ifdef USE_USART1_DRIVER
     usart1Init();
 #endif
+#ifdef USE_USART6_DRIVER
     usart6Init();
+#endif
 
     tim9Init();
 
-/*		SENSOR INITIALIZATION		*/
+    /*		SENSOR INITIALIZATION		*/
 #ifdef USE_BATT_MON
+    adc1Init();
     battMonInit();
 #endif
 
@@ -208,7 +213,10 @@ void systemInit(void)
     mpu6000Init();
 #endif
 
+#ifdef USE_MOTION_PROCESSING
     madgwickInit();
+#endif
+
 #ifdef USE_IBUS
     while (!ibusInit())
         ;

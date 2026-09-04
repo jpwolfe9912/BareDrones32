@@ -10,10 +10,11 @@
 #define __DRV_ADC_H__
 
 /* Global Variables */
-extern uint16_t *rawADC;
+// extern uint16_t rawADC;//uint16_t *rawADC[2];
+extern uint16_t rawADC[2];
 
 /* Function Prototypes */
-void adc1Ch8Init(void);
-void adc1Ch8Start(void);
+void adc1Init(void);
+void adc1Start(void);
 
 #endif /* __DRV_ADC_H__ */

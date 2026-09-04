@@ -95,7 +95,7 @@ initPIDvalues(void)
 	colorDefault();
 	delay(1);
 	while(again){
-		if(serialWaitFor('y')){
+		if(printfWaitFor('y')){
 			eepromChanged = true;
 
 			printf("\nWhich PID would you like to change?\n");
@@ -104,7 +104,7 @@ initPIDvalues(void)
 			printf("Yaw Rate PID  : 2\n");
 			printf("Roll Att PID  : 3\n");
 			printf("Pitch Att PID : 4\n");
-			serialRead8(&ID);
+			printfRead8(&ID);
 
 			color(YELLOW, YES);
 			printf("\nConfiguring state %u\n", ID);
@@ -119,7 +119,7 @@ initPIDvalues(void)
 					eepromConfig.PID[ID].D,
 					eepromConfig.PID[ID].Limit);
 
-			serialReadPID(&eepromConfig.PID[ID].P,
+			printfReadPID(&eepromConfig.PID[ID].P,
 					&eepromConfig.PID[ID].I,
 					&eepromConfig.PID[ID].D);
 			if(ID < 2)
@@ -140,7 +140,7 @@ initPIDvalues(void)
 
 			printf("\nWould you like to configure another state?\n");
 			delay(1);
-			if(serialWaitFor('y')){
+			if(printfWaitFor('y')){
 				again = true;
 			}
 			else{

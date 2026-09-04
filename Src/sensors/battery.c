@@ -10,6 +10,7 @@
 
 /* Global Functions */
 float battVoltage;
+float battCurrent;
 battCells_e cells;
 bool battLow = false;
 bool battEmpty = false;
@@ -40,8 +41,9 @@ battMonInit(void)
 void
 battMonRead(void)
 {
-	adc1Ch8Start();
-	battVoltage = *rawADC * 0.0088623f;
+	adc1Start();
+	// battVoltage = *rawADC * 0.0088623f;
+	// battCurrent = rawADC[1];// * 0.0088623f;
 	batt_warning();
 }
 

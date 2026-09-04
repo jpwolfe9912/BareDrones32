@@ -15,8 +15,7 @@
  *  @param uint8_t bf If you want bf or not.
  *  @return Void.
  */
-void
-color(color_e color, bf_e bf)
+void color(color_e color, bf_e bf)
 {
 	printf("\033[%d;3%dm", bf, color);
 }
@@ -25,8 +24,7 @@ color(color_e color, bf_e bf)
  *
  *  @return Void.
  */
-void
-colorDefault(void)
+void colorDefault(void)
 {
 	printf("\033[0;37m");
 }
@@ -35,48 +33,33 @@ colorDefault(void)
  *
  *  @return Void.
  */
-void
-drawAutodrone(void)
+void drawAutodrone(void)
 {
 	color(RED, YES);
-		printf("\n    __       _     _     _______      _____     ");
-		delay(100);
-		printf("_______     _______       _____      __    _     _______  ");
-		delay(100);
-		color(PURPLE, YES);
-		printf("\n   /  \\     | |   | |   |_______|    /  _  \\    ");
-		delay(100);
-		printf("|  __  \\    |   _  \\     /  _  \\    |  \\  | |   |   ____| ");
-		delay(100);
-		color(BLUE, YES);
-		printf("\n  /    \\    | |   | |      | |      /  / \\  \\   ");
-		delay(100);
-		printf("|  | \\  |   |  | \\  |   /  / \\  \\   |   \\ | |   |  |      ");
-		delay(100);
-		color(CYAN, YES);
-		printf("\n /  /\\  \\   | |   | |      | |      |  | |  |   ");
-		delay(100);
-		printf("|  | |  |   |  |_/  /   |  | |  |   |    \\| |   |  |____  ");
-		delay(100);
-		color(CYAN, YES);
-		printf("\n/  /__\\  \\  | |   | |      | |      |  | |  |   ");
-		delay(100);
-		printf("|  | |  |   |      /    |  | |  |   | |\\    |   |   ____| ");
-		delay(100);
-		color(BLUE, YES);
-		printf("\n|   __   |  | |   | |      | |      |  | |  |   ");
-		delay(100);
-		printf("|  | |  |   |  |\\  \\    |  | |  |   | | \\   |   |  |      ");
-		delay(100);
-		color(PURPLE, YES);
-		printf("\n|  |  |  |  \\ \\___/ /      | |      \\  \\_/  /   ");
-		delay(100);
-		printf("|  |_/  /   |  | \\  \\   \\  \\_/  /   | |  \\  |   |  |____  ");
-		delay(100);
-		color(RED, YES);
-		printf("\n|__|  |__|   \\_____/       |_|       \\_____/    ");
-		delay(100);
-		printf("|______/    |__| |__|    \\_____/    |_|   \\_|   |_______| ");
-		delay(100);
-		colorDefault();
+	printf("\n               ,---.                      ,----.                             _,.---._    .-._           ,----.    ,-,--.  ");
+	delay(100);
+	color(YELLOW, YES);
+	printf("\n    _..---.  .--.'  \\      .-.,.---.   ,-.--` , \\  _,..---._   .-.,.---.   ,-.' , -  `. /==/ \\  .-._ ,-.--` , \\ ,-.'-  _\\ ");
+	delay(100);
+	color(GREEN, YES);
+	printf("\n  .' .'.-. \\ \\==\\-/\\ \\    /==/  `   \\ |==|-  _.-`/==/,   -  \\ /==/  `   \\ /==/_,  ,  - \\|==|, \\/ /, /==|-  _.-`/==/_ ,_.' ");
+	delay(100);
+	color(CYAN, YES);
+	printf("\n /==/- '=' / /==/-|_\\ |  |==|-, .=., ||==|   `.-.|==|   _   _\\==|-, .=., |==|   .=.     |==|-  \\|  ||==|   `.-.\\==\\  \\    ");
+	delay(100);
+	color(BLUE, YES);
+	printf("\n |==|-,   '  \\==\\,   - \\ |==|   '='  /==/_ ,    /|==|  .=.   |==|   '='  /==|_ : ;=:  - |==| ,  | -/==/_ ,    / \\==\\ -\\   ");
+	delay(100);
+	color(CYAN, YES);
+	printf("\n |==|  .=. \\ /==/ -   ,| |==|- ,   .'|==|    .-' |==|,|   | -|==|- ,   .'|==| , '='     |==| -   _ |==|    .-'  _\\==\\ ,\\  ");
+	delay(100);
+	color(GREEN, YES);
+	printf("\n /==/- '=' ,/==/-  /\\ - \\|==|_  . ,'.|==|_  ,`-._|==|  '='   /==|_  . ,'. \\==\\ -    ,_ /|==|  /\\ , |==|_  ,`-._/==/\\/ _ | ");
+	delay(100);
+	color(YELLOW, YES);
+	printf("\n|==|   -   /\\==\\ _.\\=\\.-'/==/  /\\ ,  )==/ ,     /|==|-,   _`//==/  /\\ ,  ) '.='. -   .' /==/, | |- /==/ ,     /\\==\\ - , / ");
+	delay(100);
+	color(RED, YES);
+	printf("\n`-._`.___,'  `--`        `--`-`--`--'`--`-----`` `-.`.____.' `--`-`--`--'    `--`--''   `--`./  `--`--`-----``  `--`---'  ");
+	colorDefault();
 }

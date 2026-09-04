@@ -1,0 +1,99 @@
+# 
+
+# diff all
+
+# version
+# Betaflight / STM32F7X2 (S7X2) 4.6.0 May  7 2024 / 18:09:05 (d1ffa46aa) MSP API: 1.46
+# config rev: 8d48619
+
+# start the command batch
+batch start
+
+# reset configuration to default settings
+defaults nosave
+
+board_name BAREDRONES
+manufacturer_id JPW
+mcu_id 001200094e5350112030304e
+signature 
+
+# name: BareDrones
+
+# feature
+feature SERVO_TILT
+feature TELEMETRY
+feature OSD
+feature CHANNEL_FORWARDING
+
+# master
+set acc_calibration = -10,-33,-52,1
+set vbat_scale = 111
+set small_angle = 180
+set gyro_1_sensor_align = CW180
+set gyro_1_align_pitch = 0
+set gyro_1_align_yaw = 1800
+set craft_name = BareDrones
+set pilot_name = Jpwolfe
+
+profile 0
+
+profile 1
+
+profile 2
+
+profile 3
+
+# restore original profile selection
+profile 0
+
+rateprofile 0
+
+rateprofile 1
+
+rateprofile 2
+
+rateprofile 3
+
+# restore original rateprofile selection
+rateprofile 0
+
+# save configuration
+save
+# resource
+resource BEEPER 1 C08
+resource MOTOR 1 B04
+resource MOTOR 2 B05
+resource MOTOR 3 B00
+resource MOTOR 4 B01
+resource SERIAL_TX 1 B06
+resource SERIAL_TX 2 A02
+resource SERIAL_TX 3 B10
+resource SERIAL_TX 4 A00
+resource SERIAL_TX 5 C12
+resource SERIAL_TX 6 C06
+resource SERIAL_RX 1 B07
+resource SERIAL_RX 2 A03
+resource SERIAL_RX 3 B11
+resource SERIAL_RX 4 A01
+resource SERIAL_RX 5 D02
+resource SERIAL_RX 6 C07
+resource I2C_SCL 3 A08
+resource I2C_SDA 3 C09
+resource LED 1 C03
+resource LED 2 C02
+resource SPI_SCK 1 A05
+resource SPI_SCK 2 B13
+resource SPI_SCK 3 C10
+resource SPI_SDI 1 A06
+resource SPI_SDI 2 B14
+resource SPI_SDI 3 C11
+resource SPI_SDO 1 A07
+resource SPI_SDO 2 B15
+resource SPI_SDO 3 B02
+resource ADC_BATT 1 C00
+resource ADC_CURR 1 C01
+resource FLASH_CS 1 B12
+resource OSD_CS 1 C04
+resource GYRO_CS 1 A04
+
+# 

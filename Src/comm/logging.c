@@ -23,10 +23,16 @@ static void writeLog(char *pLog);
  */
 void printLog(void)
 {
-    logs_t logType = 4;
+    logs_t logType = 0;
 #ifdef OPENLAGER
     memset(logData, '\0', LOG_SIZE);
-
+    if (logType == 0)
+    {
+        sprintf(logData, "%.3f, %.3f, %.3f \n",
+                sensors.attitude500Hz[0],
+                sensors.attitude500Hz[1],
+                sensors.attitude500Hz[2]);
+    }
     if (logType < 3)
     {
         sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
@@ -74,6 +80,7 @@ void printLog(void)
         printf("%d %f %d %u %u %u %u \r",
                logType,
                battVoltage,
+            //    battCurrent,
                flightMode,
                motor_value[MOTOR1],
                motor_value[MOTOR2],
@@ -82,12 +89,13 @@ void printLog(void)
     }
     if (logType == 4)
     {
-        printf("%d %u, %u, %u, %u \r",
-        logType,
-        ibusChannels[0],
-        ibusChannels[1],
-        ibusChannels[2],
-        ibusChannels[3]);
+        // printf("%d %u, %u, %u, %u \r",
+        // logType,
+        // ibusChannels[0],
+        // ibusChannels[1],
+        // ibusChannels[2],
+        // ibusChannels[3]);
+        printf("%u %u\r",rawADC[0], rawADC[1]);
     }
 #endif
 }
@@ -101,7 +109,8 @@ void printLog(void)
 static void
 writeLog(char *pLog)
 {
-    uint8_t lagerSize = strlen(pLog);
-    usart6Write(pLog, lagerSize);
+    // uint8_t lagerSize = strlen(pLog);
+    // usart6Write(pLog, lagerSize);
+    printf("%s", pLog);
 }
 #endif
