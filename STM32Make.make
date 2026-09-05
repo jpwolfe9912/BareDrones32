@@ -82,6 +82,7 @@ Src/comm/crsf.c \
 Src/comm/ibus.c \
 Src/comm/logging.c \
 Src/comm/motors.c \
+Src/comm/receiver.c \
 Src/config/config.c \
 Src/config/pid.c \
 Src/config/utilities.c \
@@ -97,6 +98,7 @@ Src/drv/drv_spi1.c \
 Src/drv/drv_system.c \
 Src/drv/drv_tim.c \
 Src/drv/drv_usart1.c \
+Src/drv/drv_usart2.c \
 Src/drv/drv_usart6.c \
 Src/main.c \
 Src/motion/compute_axis_commands.c \

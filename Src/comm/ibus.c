@@ -9,10 +9,10 @@
 
 #include "board.h"
 
-/* Static Function Prototypes */
+ /* Static Function Prototypes */
 static ibusStatus_e ibus_process_frame(void);
-static bool ibus_update(uint8_t *pData);
-static bool ibus_frame_crc(uint8_t *crc_data, uint8_t *packet_data);
+static bool ibus_update(uint8_t* pData);
+static bool ibus_frame_crc(uint8_t* crc_data, uint8_t* packet_data);
 ;
 
 /* Global Variables */
@@ -20,9 +20,7 @@ uint16_t ibusChannels[RC_CHANNELS];
 
 uint8_t frameLength, devID;
 
-bool rcActive = false;
-
-ibusStatus_e status;
+static ibusStatus_e status;
 
 /* Static Variables */
 static uint8_t init_error = 0;
@@ -38,9 +36,9 @@ bool ibusInit(void)
 
     printf("\nInitializing iBus Receiver\n");
 
-    usart1BeginRx();
+    usart2BeginRx();
 
-    lwrb_init(&Buffs.RxBuffer, (void *)Buffs.RxBuffer_Data, sizeof(Buffs.RxBuffer_Data));
+    lwrb_init(&Buff_2.RxBuffer, (void*)Buff_2.RxBuffer_Data, sizeof(Buff_2.RxBuffer_Data));
 
     status = IBUS_ERROR;
 
@@ -50,7 +48,7 @@ bool ibusInit(void)
         if (devID == 0x40)
         {
             ibus_initialized = true;
-            rcActive = true;
+            rcData.connected = true;
             break;
         }
         delay(5);
@@ -60,6 +58,13 @@ bool ibusInit(void)
     {
         color(RED, YES);
         printf("\niBus Initialization Failed. Try again?\n");
+
+#ifdef STLINK
+        if (printfWaitFor('y'))
+            return true;
+        else
+            return false;
+#endif
         if (init_error++ > 10)
         {
             printf("\nToo many failed attempts\n");
@@ -68,12 +73,6 @@ bool ibusInit(void)
         }
         color(WHITE, NO);
         return false;
-#ifdef STLINK
-        if (printfWaitFor('y'))
-            return false;
-        else
-            return true;
-#endif
     }
     else
     {
@@ -109,10 +108,10 @@ ibus_process_frame(void)
     uint8_t ibusPayload[PAYLOAD_SIZE]; // payload buffer
     uint8_t ibusCRC[CRC_SIZE];
 
-    uint8_t packet_buff[IBUS_FRAME_SIZE_MAX];
+    uint8_t packet_buff[IBUS_FRAME_SIZE_MAX] = {};
     uint8_t packet_pos = 0;
 
-    lwrb_read(&Buffs.RxBuffer, packet_buff, ARRAY_LEN(packet_buff));
+    lwrb_read(&Buff_2.RxBuffer, packet_buff, ARRAY_LEN(packet_buff));
 
     status = IBUS_BUSY;
     switch (state)
@@ -196,14 +195,16 @@ ibus_process_frame(void)
  *  @return Void.
  */
 static bool
-ibus_update(uint8_t *pData)
+ibus_update(uint8_t* pData)
 {
+    uint16_t ibusChannelData[RC_CHANNELS];
     for (uint8_t ch_index = 0, bf_index = 0; ch_index < RC_CHANNELS; ch_index++, bf_index += 2)
     {
-        ibusChannels[ch_index] = pData[bf_index + 1] << 8 | pData[bf_index];
-        if ((ibusChannels[ch_index] < 1000) || (ibusChannels[ch_index] > 2000))
+        ibusChannelData[ch_index] = pData[bf_index + 1] << 8 | pData[bf_index];
+        if ((ibusChannelData[ch_index] < 1000) || (ibusChannelData[ch_index] > 2000))
             return false;
     }
+    updateRcChannels(ibusChannelData);
     return true;
 }
 
@@ -217,7 +218,7 @@ ibus_update(uint8_t *pData)
  *  			 False if it does not match.
  */
 static bool
-ibus_frame_crc(uint8_t *crc_data, uint8_t *packet_data)
+ibus_frame_crc(uint8_t* crc_data, uint8_t* packet_data)
 {
     uint16_t checksum_cal = 0xFFFF;
     uint16_t checksum_ibus;

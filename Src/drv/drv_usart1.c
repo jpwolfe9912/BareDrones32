@@ -15,8 +15,8 @@
 #define ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
 
 /* Global Variables */
-volatile bool utx_finished = false;
-Usart1Buffs_t Buffs;
+volatile bool utx1_finished = false;
+Usart1Buffs_t Buff_1;
 
 /* Static Function Prototypes */
 static void usart_rx_check(void);
@@ -26,10 +26,11 @@ static void usart_process_data(const void *data, size_t len);
  *
  *  @return Void.
  */
-void usart1Init(void)
+void usart1Init(uint32_t baudrate)
 {
     printf("\nInitializing USART 1\n");
     /* GPIO INIT */
+    #ifdef USE_BAREDRONES
     // enable clock for GPIOB
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
     // set mode, speed, type, pull, AF
@@ -40,6 +41,19 @@ void usart1Init(void)
     GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR7;
     GPIOB->AFR[0] &= ~GPIO_AFRL_AFRL7;
     GPIOB->AFR[0] |= (0x7 << (4U * 7U));
+    #endif
+    #ifdef USE_NUCLEO
+    // enable clock for GPIOA PA10
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+    // set mode, speed, type, pull, AF
+    GPIOA->MODER &= ~GPIO_MODER_MODER10;
+    GPIOA->MODER |= GPIO_MODER_MODER10_1;
+    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR10;
+    GPIOA->OTYPER &= ~GPIO_OTYPER_OT10;
+    GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR10;
+    GPIOA->AFR[1] &= ~GPIO_AFRH_AFRH7;
+    GPIOA->AFR[1] |= (0x7 << (4U * 2U));
+    #endif
 
     NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
     NVIC_EnableIRQ(USART1_IRQn);
@@ -49,7 +63,7 @@ void usart1Init(void)
 
     USART1->CR1 &= ~USART_CR1_UE; // disable usart
     // USART1->BRR = 0x3AA;          // 115200 BR
-    USART1->BRR = 0x11;          // 400000 BR
+    USART1->BRR = 108000000 / baudrate;          // 400000 BR
     USART1->CR1 &= ~USART_CR1_M; // 8 bit transfer
     USART1->CR2 &= ~USART_CR2_STOP;
     USART1->CR1 &= ~USART_CR1_PCE;
@@ -110,8 +124,8 @@ void usart1BeginRx(void)
         while (DMA2_Stream2->CR & DMA_SxCR_EN)
             ;
         DMA2_Stream2->CR |= (0x4 << 25U);                   // set DMA channel
-        DMA2_Stream2->M0AR = (uint32_t)Buffs.RxBuffer_DMA;  // set memory address
-        DMA2_Stream2->NDTR = ARRAY_LEN(Buffs.RxBuffer_DMA); // set transfer size
+        DMA2_Stream2->M0AR = (uint32_t)Buff_1.RxBuffer_DMA;  // set memory address
+        DMA2_Stream2->NDTR = ARRAY_LEN(Buff_1.RxBuffer_DMA); // set transfer size
 
         DMA2->LIFCR |= (0x3F << 16U); // clear flags
 
@@ -143,9 +157,9 @@ void usart1Tx(const char *str)
 
     DMA2_Stream7->CR |= DMA_SxCR_EN;
 
-    while (!utx_finished)
+    while (!utx1_finished)
         ;
-    utx_finished = false;
+    utx1_finished = false;
 }
 
 /* Static Functions */
@@ -178,7 +192,7 @@ usart_rx_check(void)
     size_t pos;
 
     /* Calculate current position in buffer and check for new data available */
-    pos = ARRAY_LEN(Buffs.RxBuffer_DMA) - DMA2_Stream2->NDTR; // LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_5);
+    pos = ARRAY_LEN(Buff_1.RxBuffer_DMA) - DMA2_Stream2->NDTR; // LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_5);
     if (pos != old_pos)
     { /* Check change in received data */
         if (pos > old_pos)
@@ -199,7 +213,7 @@ usart_rx_check(void)
              * [   7   ]
              * [ N - 1 ]
              */
-            usart_process_data(&Buffs.RxBuffer_DMA[old_pos], pos - old_pos);
+            usart_process_data(&Buff_1.RxBuffer_DMA[old_pos], pos - old_pos);
         }
         else
         {
@@ -219,10 +233,10 @@ usart_rx_check(void)
              * [   7   ]            |                                 |
              * [ N - 1 ]            |---------------------------------|
              */
-            usart_process_data(&Buffs.RxBuffer_DMA[old_pos], ARRAY_LEN(Buffs.RxBuffer_DMA) - old_pos);
+            usart_process_data(&Buff_1.RxBuffer_DMA[old_pos], ARRAY_LEN(Buff_1.RxBuffer_DMA) - old_pos);
             if (pos > 0)
             {
-                usart_process_data(&Buffs.RxBuffer_DMA[0], pos);
+                usart_process_data(&Buff_1.RxBuffer_DMA[0], pos);
             }
         }
         old_pos = pos; /* Save current position as old for next transfers */
@@ -239,7 +253,7 @@ static void
 usart_process_data(const void *data, size_t len)
 {
     /* Write data to buffer */
-    lwrb_write(&Buffs.RxBuffer, data, len);
+    lwrb_write(&Buff_1.RxBuffer, data, len);
 }
 
 /* Interrupt Handlers */
@@ -287,6 +301,6 @@ void DMA2_Stream7_IRQHandler(void)
     if ((DMA2->LISR & DMA_LISR_TCIF2) && (DMA2_Stream2->CR & DMA_SxCR_TCIE))
     {
         DMA2->LIFCR |= DMA_LIFCR_CTCIF2; /* Clear half-transfer complete flag */
-        utx_finished = true;
+        utx1_finished = true;
     }
 }

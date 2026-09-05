@@ -1,4 +1,4 @@
-/** @file 		drv_usart.h
+/** @file 		drv_usart2.h
  *  @brief This file enables reading of usart data
  *  	for use with a serial receiver
  *
@@ -7,7 +7,7 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART_H__
+#ifndef __USART2_H__
 #define __USART_H__
 
 #include "lwrb.h"
@@ -22,13 +22,13 @@ typedef struct
     uint8_t RxBuffer_DMA[RX_DMA_SIZE];
     uint8_t RxBuffer_Data[RX_RB_SIZE];
     lwrb_t RxBuffer;
-} Usart1Buffs_t;
+} Usart2Buffs_t;
 
-extern Usart1Buffs_t Buff_1;
+extern Usart2Buffs_t Buff_2;
 
 /* Prototypes */
-void usart1Init(uint32_t baudrate);
-void usart1BeginRx(void);
+void usart2Init(uint32_t baudrate);
+void usart2BeginRx(void);
 
 
-#endif /* __USART_H__ */
+#endif /* __USART2_H__ */

@@ -83,21 +83,14 @@ uint16_t timerValue;
 int main(void)
 {
     systemInit();
+    usart2BeginRx();
     systemReady = true;
-
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
-    GPIOC->MODER |= GPIO_MODER_MODER3_0;
-    GPIOC->MODER |= GPIO_MODER_MODER2_0;
-
+    char c = ' ';
     while (1)
     {
-        GPIOC->BSRR |= GPIO_BSRR_BS3;
-        GPIOC->BSRR |= GPIO_BSRR_BR2;
-        printfWrite('H');
-        delay(500);
-        GPIOC->BSRR |= GPIO_BSRR_BR3;
-        GPIOC->BSRR |= GPIO_BSRR_BS2;
-        delay(500);
+        c = USART2->RDR;
+        printf("Received: %c\r\n", c);
+        delay(10);
     }
 }
 

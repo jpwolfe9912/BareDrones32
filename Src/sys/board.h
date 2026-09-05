@@ -44,6 +44,7 @@
 #include "drv_rcc.h"
 #include "drv_flash.h"
 #include "drv_usart1.h"
+#include "drv_usart2.h"
 #include "drv_usart6.h"
 #include "drv_printf.h"
 #include "drv_adc.h"
@@ -58,6 +59,7 @@
 #include "mixer.h"
 #include "motors.h"
 #include "rotations.h"
+#include "receiver.h"
 
 /* Sensors */
 #include "mpu6000.h"

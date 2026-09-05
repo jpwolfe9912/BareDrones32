@@ -23,7 +23,7 @@ static void writeLog(char *pLog);
  */
 void printLog(void)
 {
-    logs_t logType = 0;
+    logs_t logType = 2;
 #ifdef OPENLAGER
     memset(logData, '\0', LOG_SIZE);
     if (logType == 0)
@@ -33,7 +33,7 @@ void printLog(void)
                 sensors.attitude500Hz[1],
                 sensors.attitude500Hz[2]);
     }
-    if (logType < 3)
+    if (logType == 1)
     {
         sprintf(logData, "%d %.3f %d %.3f %.3f %.3f %.3f %.3f %.3f \n",
                 logType,
@@ -45,6 +45,20 @@ void printLog(void)
                 attCmd[logType],
                 sensors.attitude500Hz[logType],
                 attPID[logType]);
+    }
+    if (logType == 2)
+    {
+        sprintf(logData, "%d %d %d %d %d %d %d %d %d\n",
+            logType,
+            rcData.channels[0],
+            rcData.channels[1],
+            rcData.channels[2],
+            rcData.channels[3],
+            rcData.channels[4],
+            rcData.channels[5],
+            rcData.channels[6],
+            rcData.channels[7]
+        );
     }
 
     if (logType == 3)

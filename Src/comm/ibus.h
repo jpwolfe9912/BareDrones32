@@ -22,7 +22,7 @@ bool ibusInit(void);
 void ibusProcess(void);
 
 /* Global Variables */
-extern uint16_t ibusChannels[RC_CHANNELS];
+// extern uint16_t ibusChannels[RC_CHANNELS];
 
 extern bool rcActive;
 

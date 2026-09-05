@@ -442,22 +442,22 @@ void DMA1_Stream4_IRQHandler(void)
     }
 }
 
-/**
- * @brief This function handles DMA1 Stream5 global interrupt.
- */
-void DMA1_Stream5_IRQHandler(void)
-{
-    if (DMA1->HISR & DMA_HISR_TCIF5)
-    {
-        DMA1_Stream5->CR &= ~DMA_SxCR_EN;
-        while (DMA1_Stream5->CR & DMA_SxCR_EN)
-        {
-        }
-        TIM3->DIER &= ~TIM_DIER_CC2DE;
-        DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
-        DMA1_Stream5->NDTR = DSHOT_DMA_BUFFER_SIZE;
-    }
-}
+// /** Commented out due to conflict with USART2 RX
+//  * @brief This function handles DMA1 Stream5 global interrupt.
+//  */
+// void DMA1_Stream5_IRQHandler(void)
+// {
+//     if (DMA1->HISR & DMA_HISR_TCIF5)
+//     {
+//         DMA1_Stream5->CR &= ~DMA_SxCR_EN;
+//         while (DMA1_Stream5->CR & DMA_SxCR_EN)
+//         {
+//         }
+//         TIM3->DIER &= ~TIM_DIER_CC2DE;
+//         DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
+//         DMA1_Stream5->NDTR = DSHOT_DMA_BUFFER_SIZE;
+//     }
+// }
 
 /**
  * @brief This function handles DMA1 Stream7 global interrupt.

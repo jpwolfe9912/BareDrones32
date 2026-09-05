@@ -31,16 +31,16 @@ processCommands(void)
 	uint8_t channel;
 	uint8_t channelsToRead = 8;
 
-	if ( rcActive == true )
+	if ( rcData.connected == true )
 	{
 		/* Makes RPY from -1000 to 1000 */
-		rxCommands[ROLL]  = (ibusChannels[ROLL ] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
-		rxCommands[PITCH] = (ibusChannels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
-		rxCommands[YAW]   = (ibusChannels[YAW  ] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rxCommands[ROLL]  = (rcData.channels[ROLL ] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
+		rxCommands[PITCH] = (rcData.channels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
+		rxCommands[YAW]   = (rcData.channels[YAW  ] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
 
 		/* Makes all other channels from 2000 to 4000 */
 		for (channel = 3; channel < channelsToRead; channel++)
-			rxCommands[channel] = ibusChannels[channel] * 2;
+			rxCommands[channel] = rcData.channels[channel] * 2;
 	}
 
 	// Set past command in detent values

@@ -196,6 +196,9 @@ void systemInit(void)
 #ifdef USE_USART1_DRIVER
     usart1Init();
 #endif
+#ifdef USE_USART2_DRIVER
+    usart2Init(USE_CRSF);
+#endif
 #ifdef USE_USART6_DRIVER
     usart6Init();
 #endif
@@ -220,6 +223,10 @@ void systemInit(void)
 #ifdef USE_IBUS
     while (!ibusInit())
         ;
+#endif
+
+#ifdef USE_CRSF
+    while (!crsfInit());
 #endif
 
     initPID();
