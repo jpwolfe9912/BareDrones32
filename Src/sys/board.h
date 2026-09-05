@@ -52,6 +52,7 @@
 #include "drv_spi1.h"
 #include "drv_tim.h"
 #include "drv_dshot.h"
+#include "drv_dshot_burst.h"
 
 /* Motion */
 #include "process_commands.h"
