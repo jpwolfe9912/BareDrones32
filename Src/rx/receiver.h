@@ -15,6 +15,9 @@
 
 #define RC_CHANNELS_MAX 16U
 
+#define CRSF_BAUDRATE 416666U
+#define IBUS_BAUDRATE 115200U
+
 typedef struct
 {
     uint16_t channels[16];

@@ -8,7 +8,12 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "config.h"
+
+#include "drv_flash.h"
+#include "drv_printf.h"
+#include "drv_color.h"
+#include "mpu6000.h"
 
 /* Global Variabels */
 const char rcChannelLetters[] = "AERT12345678";

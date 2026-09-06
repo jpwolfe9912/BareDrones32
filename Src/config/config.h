@@ -12,6 +12,11 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "baredrones32.h"
+
 /* Defines */
 #define FLASH_WRITE_EEPROM_ADDR  0x08060000  // FLASH_Sector_7
 

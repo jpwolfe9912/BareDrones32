@@ -7,7 +7,9 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "utilities.h"
+
+#include "baredrones32.h"
 
 /** @brief Constrains an input between two values.
  *

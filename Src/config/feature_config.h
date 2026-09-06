@@ -27,8 +27,6 @@
 // #define USE_MOTION_PROCESSING
 // #define USE_MPU6000
 #define USE_DSHOT
-// #define USE_IBUS 115200U
-// #define USE_CRSF 416666U
 // #define USE_LOGGING
 // #define USE_BATT_MON
 // #define USE_LEDS

@@ -1,4 +1,15 @@
-#include "board.h"
+/** @file 		scheduler.c
+ *  @brief
+ *  	This file contains the scheduler.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
+ */
+
+#include "scheduler.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
 
 uint32_t deltaTime[TOTAL_LOOPS];
 uint32_t executionTime[TOTAL_LOOPS];

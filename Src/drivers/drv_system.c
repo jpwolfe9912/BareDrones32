@@ -31,6 +31,7 @@
 #include "orientation.h"
 #include "mpu6000.h"
 #include "madgwick.h"
+#include "receiver.h"
 #include "ibus.h"
 #include "crsf.h"
 #include "pid.h"
@@ -222,7 +223,7 @@ void systemInit(void)
     usart1Init();
 #endif
 #ifdef USE_USART2_DRIVER
-    usart2Init(USE_CRSF);
+    usart2Init(CRSF_BAUDRATE);
 #endif
 #ifdef USE_USART6_DRIVER
     usart6Init();

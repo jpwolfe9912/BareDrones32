@@ -9,6 +9,8 @@
 #ifndef __UTILITIES_H__
 #define __UTILITIES_H__
 
+#include <stdint.h>
+
 /* Defines */
 #define white_space(c) ((c) == ' ' || (c) == '\t')
 #define valid_digit(c) ((c) >= '0' && (c) <= '9')

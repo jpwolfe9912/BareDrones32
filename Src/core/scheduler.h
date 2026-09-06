@@ -1,5 +1,17 @@
+/** @file 		scheduler.h
+ *  @brief
+ *  	This file contains the scheduler.
+ *
+ *  @author 	Jeremy Wolfe
+ *  @date 		07 MAR 2022
+ */
+
 #ifndef __SCHEDULER__
 #define __SCHEDULER__
+
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MASK_1000HZ (0x1 << 0U)
 #define MASK_500HZ (0x1 << 1U)

@@ -7,7 +7,24 @@
  */
 
  /* Includes */
-#include "board.h"
+#include "main.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
+#include "scheduler.h"
+#include "mpu6000.h"
+#include "rotations.h"
+#include "madgwick.h"
+#include "process_commands.h"
+#include "compute_axis_commands.h"
+#include "mixer.h"
+#include "motors.h"
+#include "ibus.h"
+#include "crsf.h"
+#include "logging.h"
+#include "battery.h"
+#include "drv_led.h"
+#include "baredrones32.h"
 
 #ifndef SANDBOX
 /* Global Variables */
