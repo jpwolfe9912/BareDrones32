@@ -6,7 +6,17 @@
  *  @date 		07 APR 2022
  */
 
-#include "board.h"
+#include "logging.h"
+
+#include "drv_printf.h"
+#include "drv_usart6.h"
+#include "feature_config.h"
+#include "battery.h"
+#include "process_commands.h"
+#include "compute_axis_commands.h"
+#include "receiver.h"
+#include "motors.h"
+#include "baredrones32.h"
 
 uint8_t log_count = 0;
 char *logData = (char *)0x20011000;

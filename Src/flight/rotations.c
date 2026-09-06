@@ -7,7 +7,12 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "rotations.h"
+
+#include "arm_math.h"
+#include "mpu6000.h"
+#include "orientation.h"
+#include "baredrones32.h"
 
 /** @brief Computes the body frame for 500Hz loop.
  *

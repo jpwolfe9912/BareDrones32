@@ -10,6 +10,11 @@
 #ifndef __PROCESS_COMMANDS_H__
 #define __PROCESS_COMMANDS_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "baredrones32.h"
+
 /* Defines */
 #define DEADBAND       24
 #define DEADBAND_SLOPE (1000.0f/(1000-DEADBAND))

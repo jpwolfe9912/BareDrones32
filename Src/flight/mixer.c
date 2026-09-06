@@ -7,7 +7,13 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "mixer.h"
+
+#include "drv_system.h"
+#include "drv_dshot_burst.h"
+#include "utilities.h"
+#include "process_commands.h"
+#include "motors.h"
 
 /* Global Variables */
 uint8_t numberMotor = 4;

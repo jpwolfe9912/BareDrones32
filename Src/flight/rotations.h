@@ -9,6 +9,8 @@
 #ifndef SRC_ROTATIONS_H_
 #define SRC_ROTATIONS_H_
 
+#include <stdint.h>
+
 /* Function Prototypes */
 void computeRotations500Hz(void);
 

@@ -10,6 +10,9 @@
 #ifndef __SENSOR_FUSION_H__
 #define __SENSOR_FUSION_H__
 
+#include <stdint.h>
+#include <math.h>
+
 /* Defines */
 #define sampleFreqDef   500.0f          // sample frequency in Hz
 #define betaDef         5.0f            // 2 * proportional gain

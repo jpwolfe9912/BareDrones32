@@ -7,7 +7,14 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "compute_axis_commands.h"
+
+#include "drv_system.h"
+#include "drv_tim.h"
+#include "process_commands.h"
+#include "utilities.h"
+#include "pid.h"
+#include "mixer.h"
 
 /* Global Variables */
 float attCmd[3];

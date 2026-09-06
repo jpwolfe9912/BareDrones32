@@ -7,7 +7,13 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "pid.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
+#include "drv_color.h"
+#include "config.h"
+#include "baredrones32.h"
 
 /* Global Variables */
 uint8_t pidReset = true;

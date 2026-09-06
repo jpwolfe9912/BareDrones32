@@ -8,7 +8,15 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "process_commands.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
+#include "receiver.h"
+#include "mpu6000.h"
+#include "mpu6000_calibration.h"
+#include "config.h"
+
 
 /* Global Variables */
 uint8_t  commandInDetent[3]         = { true, true, true };

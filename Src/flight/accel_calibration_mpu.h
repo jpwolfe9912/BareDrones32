@@ -9,6 +9,8 @@
 #ifndef __ACCEL_CALIBRATION_MPU_H__
 #define __ACCEL_CALIBRATION_MPU_H__
 
+#include <stdbool.h>
+
 /* Function Prototypes */
 void accelCalibrationMPU(void);
 

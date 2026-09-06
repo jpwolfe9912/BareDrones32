@@ -9,7 +9,10 @@
  */
 
 /* Defines */
-#include "board.h"
+#include "madgwick.h"
+
+#include "baredrones32.h"
+#include "drv_printf.h"
 
 /* Global Variables */
 float beta; // algorithm gain

@@ -7,7 +7,11 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "accel_calibration_mpu.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
+#include "mpu6000.h"
 
 /** @brief Calibrates the accelerometer.
  *
