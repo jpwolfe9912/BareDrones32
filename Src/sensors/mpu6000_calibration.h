@@ -9,6 +9,9 @@
 #ifndef __MPU6000_CALIBRATION_H__
 #define __MPU6000_CALIBRATION_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Function Prototypes */
 void mpu6000Calibration(void);
 

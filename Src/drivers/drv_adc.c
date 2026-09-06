@@ -7,7 +7,9 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_adc.h"
+
+#include "stm32f7xx.h"
 
 /* Global Variables */
 // uint16_t rawADC;//[2];

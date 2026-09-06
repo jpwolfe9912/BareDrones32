@@ -6,7 +6,11 @@
  *  @date 		19 MAR 2022
  */
 
-#include "board.h"
+#include "drv_led.h"
+
+#include "stm32f7xx.h"
+#include "drv_system.h"
+#include "process_commands.h"
 
 void ledInit(void)
 {

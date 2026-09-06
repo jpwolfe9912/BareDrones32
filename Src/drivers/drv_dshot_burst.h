@@ -10,6 +10,9 @@
 #ifndef __DRV_DSHOT_BURST_H__
 #define __DRV_DSHOT_BURST_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Defines */
 #define TIMER_CLOCK				108000000	// 108MHz
 
@@ -79,7 +82,7 @@ extern bool dshot_telemetry;
 
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
-void dshotWrite(void);
+void dshotWrite(uint16_t* motor_value);
 void dshotWait(uint16_t wait_counts);
 
 #endif /* __DRV_DSHOT_BURST_H__ */

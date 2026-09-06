@@ -6,7 +6,10 @@
  *  @date 		23 FEB 2022
  */
 
-#include "board.h"
+#include "drv_dshot_burst.h"
+
+#include "stm32f7xx.h"
+#include "drv_printf.h"
 
  /* Static Variables */
 static uint16_t motor_dmabuffer[DSHOT_DMA_BUFFER_SIZE * NUMBER_OF_MOTORS];   // will be either 60 or 120
@@ -177,26 +180,11 @@ void dshotInit(dshot_type_e dshot_type)
  *  @param *motor_value A four length array with elements from 0 to 2047.
  *  @return Void.
  */
-void dshotWrite(void)
+void dshotWrite(uint16_t* motor_value)
 {
     dshot_prepare_dmabuffer_all(motor_value);
     dshot_enable_dma_request();
     dshot_dma_start();
-    motor_value[0]++;
-    if (motor_value[0] > 2047)
-        motor_value[0] = 48;
-
-    motor_value[1]+=2;
-    if (motor_value[1] > 2047)
-        motor_value[1] = 48;
-
-    motor_value[2] += 5;
-    if (motor_value[2] > 2047)
-        motor_value[2] = 48;
-
-    motor_value[3] += 10;
-    if (motor_value[3] > 2047)
-        motor_value[3] = 48;
 
     dshot_command_count++;
 }

@@ -8,7 +8,11 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_flash.h"
+
+#include "stm32f7xx.h"
+#include "drv_system.h"
+#include "drv_printf.h"
 
 /* Static Prototypes */
 static void flashMassErase(uint8_t VoltageRange);

@@ -11,7 +11,10 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_printf.h"
+
+#include "stm32f7xx.h"
+#include "feature_config.h"
 
 /* Global Variables */
 uint8_t temp;

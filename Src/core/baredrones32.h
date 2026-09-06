@@ -9,6 +9,8 @@
 #ifndef __BAREDRONES32_H__
 #define __BAREDRONES32_H__
 
+#include "pid.h"
+
 #ifndef PI
 #define PI  3.14159265358979f
 #endif
@@ -26,6 +28,8 @@
 #define SQR(x)  ((x) * (x))
 
 #define CUBE(x)	((x) * (x) * (x))
+
+#define ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
 
 ///////////////////////////////////////////////////////////////////////////////
 

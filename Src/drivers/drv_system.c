@@ -8,7 +8,32 @@
  *  @date 		03 MAR 2022
  */
 
-#include "board.h"
+#include "drv_system.h"
+
+#include "stm32f7xx.h"
+
+#include "scheduler.h"
+#include "drv_rcc.h"
+#include "drv_dma.h"
+#include "drv_led.h"
+#include "drv_printf.h"
+#include "drv_color.h"
+#include "config.h"
+#include "drv_dshot_burst.h"
+#include "motors.h"
+#include "drv_spi1.h"
+#include "drv_usart1.h"
+#include "drv_usart2.h"
+#include "drv_usart6.h"
+#include "drv_tim.h"
+#include "drv_adc.h"
+#include "battery.h"
+#include "orientation.h"
+#include "mpu6000.h"
+#include "madgwick.h"
+#include "ibus.h"
+#include "crsf.h"
+#include "pid.h"
 
  /* Static Variables */
 static volatile uint32_t usTicks = 0;

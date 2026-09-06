@@ -7,7 +7,11 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_usart1.h"
+
+#include "stm32f7xx.h"
+#include "feature_config.h"
+#include "drv_printf.h"
 
 /**
  * @brief Calculate length of statically allocated array

@@ -10,6 +10,9 @@
 #ifndef __FLASH_H__
 #define __FLASH_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Defines */
 #define FLASH_KEY1 ((uint32_t)0x45670123U)
 #define FLASH_KEY2 ((uint32_t)0xCDEF89ABU)

@@ -7,12 +7,16 @@
  */
 
  /* Includes */
-#include "board.h"
+#include "drv_usart2.h"
+
+#include "stm32f7xx.h"
+#include "feature_config.h"
+#include "baredrones32.h"
+#include "drv_printf.h"
 
 /**
  * @brief Calculate length of statically allocated array
  */
-#define ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
 
  /* Global Variables */
 volatile bool utx2_finished = false;

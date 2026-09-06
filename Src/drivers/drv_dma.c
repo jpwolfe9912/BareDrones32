@@ -5,7 +5,9 @@
  *  @date 		23 FEB 2022
  */
 
-#include "board.h"
+#include "drv_dma.h"
+
+#include "stm32f7xx.h"
 
 /** @brief Initializes the DMA clock and NVIC.
  *

@@ -11,6 +11,11 @@
 #ifndef __DRV_SYSTEM_H__
 #define __DRV_SYSTEM_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "baredrones32.h"
+
 /* Defines */
 #define FRAME_COUNT 1000
 

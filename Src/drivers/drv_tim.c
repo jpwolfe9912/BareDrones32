@@ -7,7 +7,9 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_tim.h"
+
+#include "stm32f7xx.h"
 
 /** @brief Initializes the low level registers to set up timer 9.
  *

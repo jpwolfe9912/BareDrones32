@@ -10,6 +10,9 @@
 #ifndef __IBUS_H__
 #define __IBUS_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Defines */
 #define IBUS_FRAME_SIZE_MAX			32
 #define PAYLOAD_SIZE				(IBUS_FRAME_SIZE_MAX - 4U)

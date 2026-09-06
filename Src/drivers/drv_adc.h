@@ -9,6 +9,9 @@
 #ifndef __DRV_ADC_H__
 #define __DRV_ADC_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Global Variables */
 // extern uint16_t rawADC;//uint16_t *rawADC[2];
 extern uint16_t rawADC[2];

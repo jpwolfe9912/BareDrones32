@@ -7,7 +7,12 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_usart6.h"
+
+#include "stm32f7xx.h"
+#include "feature_config.h"
+#include "baredrones32.h"
+#include "drv_printf.h"
 
 /* Global Variables */
 char read;

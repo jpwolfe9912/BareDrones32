@@ -7,8 +7,11 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART_H__
-#define __USART_H__
+#ifndef __USART1_H__
+#define __USART1_H__
+
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "lwrb.h"
 
@@ -31,4 +34,4 @@ void usart1Init(uint32_t baudrate);
 void usart1BeginRx(void);
 
 
-#endif /* __USART_H__ */
+#endif /* __USART1_H__ */

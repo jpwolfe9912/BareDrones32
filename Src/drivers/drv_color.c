@@ -7,7 +7,10 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_color.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
 
 /** @brief Changes color of print text
  *

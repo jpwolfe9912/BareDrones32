@@ -10,6 +10,9 @@
 #ifndef __DRV_USART6_H__
 #define __DRV_USART6_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Prototypes */
 void usart6Init(void);
 void usart6Write(char *pData, uint8_t size);

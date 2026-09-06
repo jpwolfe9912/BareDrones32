@@ -9,6 +9,9 @@
 #ifndef SRC_BATTERY_H_
 #define SRC_BATTERY_H_
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Enumerations */
 typedef enum
 {

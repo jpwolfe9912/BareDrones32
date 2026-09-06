@@ -13,6 +13,11 @@
 #ifndef __DRV_SPI1_H__
 #define __DRV_SPI1_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "stm32f7xx.h"
+
 /* Defines */
 #define SPI1_ENABLE					GPIOA->BSRR |= GPIO_BSRR_BR4
 #define SPI1_DISABLE				GPIOA->BSRR |= GPIO_BSRR_BS4

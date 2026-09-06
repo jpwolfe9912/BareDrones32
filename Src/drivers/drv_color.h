@@ -9,6 +9,9 @@
 #ifndef __COLOR_H__
 #define __COLOR_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Global Enums */
 typedef enum
 {

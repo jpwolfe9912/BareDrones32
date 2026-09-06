@@ -10,6 +10,12 @@
 #ifndef __MOTORS_H__
 #define __MOTORS_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "baredrones32.h"
+#include "drv_dshot_burst.h"
+
 /* Defines */
 #define MOTOR_COUNT			4
 
@@ -66,6 +72,7 @@ extern motors_mode_e motors_mode;
 
 /* Function Prototypes */
 void motorInit(void);
+void motorUpdate(void);
 void motors3dOn(void);
 void motors3dOff(void);
 void motorsSettingsSave(void);

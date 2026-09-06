@@ -9,6 +9,8 @@
 #ifndef __DRV_TIM_H__
 #define __DRV_TIM_H__
 
+#include <stdint.h>
+
 /* Function Prototypes */
 void tim9Init(void);
 uint32_t tim9GetCnt(void);

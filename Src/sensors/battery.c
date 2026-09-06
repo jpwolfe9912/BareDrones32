@@ -6,7 +6,12 @@
  *  @date 		10 MAR 2022
  */
 
-#include "board.h"
+#include "battery.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
+#include "drv_adc.h"
+#include "drv_color.h"
 
 /* Global Functions */
 float battVoltage;

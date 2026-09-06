@@ -11,7 +11,9 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_spi1.h"
+
+#include "drv_printf.h"
 
 volatile bool transferComplete = false;
 

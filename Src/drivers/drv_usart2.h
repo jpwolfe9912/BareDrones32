@@ -8,7 +8,10 @@
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USART2_H__
-#define __USART_H__
+#define __USART2_H__
+
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "lwrb.h"
 

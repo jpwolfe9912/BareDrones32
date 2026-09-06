@@ -9,6 +9,9 @@
 #ifndef __CRSF_H__
 #define __CRSF_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #define CRSF_FRAME_SIZE_MAX  64 // 62 bytes frame plus 2 bytes frame header(<length><type>)
 #define CRSF_PAYLOAD_SIZE_MAX  (CRSF_FRAME_SIZE_MAX - 6)
 
@@ -47,4 +50,4 @@ typedef enum  {
 bool crsfInit(void);
 void crsfProcess(void);
 
-#endif
+#endif /* __CRSF_H__ */

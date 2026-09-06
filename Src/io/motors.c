@@ -8,7 +8,10 @@
  */
 
  /* Includes */
-#include "board.h"
+#include "motors.h"
+
+#include "drv_system.h"
+#include "drv_printf.h"
 
 /* Global Variables */
 uint16_t motor_value[MOTOR_COUNT];
@@ -33,6 +36,16 @@ motorInit(void)
 	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
 	// dshotWait(DSHOT_ARM_COUNT);
 
+}
+
+/** @brief Updates motor values.
+ *
+ *  @return Void.
+ */
+void
+motorUpdate(void)
+{
+	dshotWrite(motor_value);
 }
 
 /** @brief Changes motor mode to 3D.

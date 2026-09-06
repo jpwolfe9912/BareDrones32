@@ -43,7 +43,7 @@ int main(void)
 #endif
 
 #ifdef USE_DSHOT
-    append(&execTasks[FRAME_500HZ], dshotWrite);
+    append(&execTasks[FRAME_500HZ], motorUpdate);
 #endif
 #ifdef USE_IBUS
     append(&execTasks[FRAME_200HZ], ibusProcess);

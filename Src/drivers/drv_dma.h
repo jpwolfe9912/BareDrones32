@@ -9,15 +9,11 @@
 #ifndef __DMA_H__
 #define __DMA_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stdint.h>
+#include <stdbool.h>
 
 /* Function Prototypes */
 void dmaInit(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* __DMA_H__ */

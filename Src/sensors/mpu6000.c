@@ -7,7 +7,12 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "mpu6000.h"
+
+#include "drv_system.h"
+#include "drv_spi1.h"
+#include "drv_printf.h"
+#include "drv_color.h"
 
 /* Global Variables */
 float accelOneG = 9.8065;

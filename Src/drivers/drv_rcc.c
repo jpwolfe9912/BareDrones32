@@ -8,7 +8,9 @@
  */
 
 /* Includes */
-#include "board.h"
+#include "drv_rcc.h"
+
+#include "stm32f7xx.h"
 
 /** @brief Changes clock speed to 216 MHz
  *

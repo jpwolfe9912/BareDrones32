@@ -10,6 +10,12 @@
 #ifndef __MPU6000_H__
 #define __MPU6000_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <math.h>
+
+#include "baredrones32.h"
+
 /* Defines */
 // Registers
 #define MPU6000_PRODUCT_ID			0x68

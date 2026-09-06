@@ -9,6 +9,9 @@
 // #ifndef __DRV_DSHOT_H__
 // #define __DRV_DSHOT_H__
 
+// #include <stdint.h>
+// #include <stdbool.h>
+
 // /* Defines */
 // #define TIMER_CLOCK				108000000	// 108MHz
 

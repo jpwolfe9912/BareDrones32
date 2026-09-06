@@ -9,6 +9,9 @@
 #ifndef __PID_H__
 #define __PID_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+
 /* Global Structs */
 typedef struct PIDdata {
   float   P, I, D, Limit;

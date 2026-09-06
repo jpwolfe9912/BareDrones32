@@ -14,6 +14,11 @@
 #ifndef __DRV_PRINTF_H__
 #define __DRV_PRINTF_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
+
 /* Function Prototypes */
 void printfInit(void);
 void printfWrite(uint8_t ch);
