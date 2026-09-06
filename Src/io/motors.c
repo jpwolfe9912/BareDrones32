@@ -7,7 +7,7 @@
  *  @date 		03 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "board.h"
 
 /* Global Variables */
@@ -31,8 +31,8 @@ motorInit(void)
 	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
-
 	// dshotWait(DSHOT_ARM_COUNT);
+
 }
 
 /** @brief Changes motor mode to 3D.
@@ -153,12 +153,12 @@ motorsChangeMode(dshotCommands_e command, motors_grouped_e motors)
 	dshotWait(DSHOT_ARM_COUNT);
 
 	/* Change modes */
-	if(command == DSHOT_CMD_3D_MODE_ON)
+	if (command == DSHOT_CMD_3D_MODE_ON)
 	{
 		motors_mode = MOTORS_MODE_3D;
 		printf("\nChanged motors 3D mode");
 	}
-	else if(command == DSHOT_CMD_3D_MODE_OFF)
+	else if (command == DSHOT_CMD_3D_MODE_OFF)
 	{
 		motors_mode = MOTORS_MODE_NORMAL;
 		printf("\nChanged motors NORMAL mode");

@@ -31,7 +31,7 @@
 #include "pid.h"
 #include "baredrones32.h"
 #include "time.h"
-#include "main.h"
+#include "feature_config.h"
 #include "config.h"
 #include "utilities.h"
 #include "battery.h"
