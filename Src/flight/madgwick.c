@@ -8,7 +8,7 @@
  *  @date 		03 MAR 2022
  */
 
-/* Defines */
+ /* Defines */
 #include "madgwick.h"
 
 #include "baredrones32.h"
@@ -52,12 +52,12 @@ void madgwickInit(void)
  */
 void updateIMU(void)
 {
-    float gx = sensors.gyro500Hz[ROLL];
-    float gy = sensors.gyro500Hz[PITCH];
-    float gz = sensors.gyro500Hz[YAW];
-    float ax = sensors.accel500Hz[XAXIS];
-    float ay = sensors.accel500Hz[YAXIS];
-    float az = sensors.accel500Hz[ZAXIS];
+    float gx = sensors.gyro[ROLL];
+    float gy = sensors.gyro[PITCH];
+    float gz = sensors.gyro[YAW];
+    float ax = sensors.accel[XAXIS];
+    float ay = sensors.accel[YAXIS];
+    float az = sensors.accel[ZAXIS];
 
     float recipNorm;
     float s0, s1, s2, s3;
@@ -139,9 +139,9 @@ float invSqrt(float x)
 {
     float halfx = 0.5f * x;
     float y = x;
-    long i = *(long *)&y;
+    long i = *(long*)&y;
     i = 0x5f3759df - (i >> 1);
-    y = *(float *)&i;
+    y = *(float*)&i;
     y = y * (1.5f - (halfx * y * y));
     y = y * (1.5f - (halfx * y * y));
     return y;
@@ -161,7 +161,11 @@ void computeAngles(void)
 
 void updateAttitude(void)
 {
-    sensors.attitude500Hz[ROLL] = getRollRadians();
-    sensors.attitude500Hz[PITCH] = getPitchRadians();
-    sensors.attitude500Hz[YAW] = getYawRadians();
-}
+    sensors.attitude[ROLL ] = getRollRadians();
+    sensors.attitude[PITCH] = getPitchRadians();
+    sensors.attitude[YAW  ] = getYawRadians();
+
+    sensors.attDeg[ROLL ] = getRoll();
+    sensors.attDeg[PITCH] = getPitch();
+    sensors.attDeg[YAW  ] = getYaw();
+} 

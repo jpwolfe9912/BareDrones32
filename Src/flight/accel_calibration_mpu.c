@@ -11,6 +11,7 @@
 
 #include "drv_system.h"
 #include "drv_printf.h"
+#include "config.h"
 #include "mpu6000.h"
 
 /** @brief Calibrates the accelerometer.

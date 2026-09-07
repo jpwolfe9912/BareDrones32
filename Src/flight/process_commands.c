@@ -27,7 +27,7 @@ semaphore_t armed = false;
 uint8_t armingTimer    = 0;
 uint8_t disarmingTimer = 0;
 
-float rxCommands[8];
+float rxCommands[16];
 
 /** @brief Processes receiver commands.
  *
@@ -37,17 +37,18 @@ void
 processCommands(void)
 {
 	uint8_t channel;
-	uint8_t channelsToRead = 8;
+	uint8_t channelsToRead = 16;
 
 	if ( rcData.connected == true )
 	{
 		/* Makes RPY from -1000 to 1000 */
 		rxCommands[ROLL]  = (rcData.channels[ROLL ] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
 		rxCommands[PITCH] = (rcData.channels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
-		rxCommands[YAW]   = (rcData.channels[YAW  ] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rxCommands[YAW]   = (rcData.channels[YAW+1] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rxCommands[THROTTLE] = (rcData.channels[THROTTLE - 1]) * 2; 
 
 		/* Makes all other channels from 2000 to 4000 */
-		for (channel = 3; channel < channelsToRead; channel++)
+		for (channel = 4; channel < channelsToRead; channel++)
 			rxCommands[channel] = rcData.channels[channel] * 2;
 	}
 
@@ -95,7 +96,7 @@ processCommands(void)
 			delay(100);
 			mpu6000Calibration();
 		}
-
+		// low throttle, left yaw, right roll, forward pitch
 		if((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
 				(rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
 				(rxCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)))
@@ -103,12 +104,13 @@ processCommands(void)
 			delay(100);
 			initPIDvalues();
 		}
-		if((rxCommands[YAW] > (eepromConfig.minCheck - MIDCOMMAND)) &&
-				(rxCommands[ROLL ] < (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+		// low throttle, right yaw, left roll, aft stick
+		if((rxCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+				(rxCommands[ROLL ] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
 				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
 		{
 			delay(100);
-			computeMPU6000RTData();
+			// computeMPU6000RTData();
 		}
 	}
 

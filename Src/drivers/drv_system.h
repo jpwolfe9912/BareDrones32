@@ -16,17 +16,21 @@
 
 #include "baredrones32.h"
 
-/* Defines */
-#define FRAME_COUNT 1000
+ /* Defines */
+#define FRAME_COUNT 8000
+#define SYSTICK_PERIOD_US (1000000U / FRAME_COUNT)
 
-#define COUNT_1000HZ 1 // Number of 1000 Hz frames for 1000 Hz Loop
-#define COUNT_500HZ 2  // Number of 1000 Hz frames for  500 Hz Loop
-#define COUNT_200HZ 5  // Number of 1000 Hz frames for  100 Hz Loop
-#define COUNT_100HZ 10 // Number of 1000 Hz frames for  100 Hz Loop
-#define COUNT_50HZ 20  // Number of 1000 Hz frames for   50 Hz Loop
-#define COUNT_10HZ 100 // Number of 1000 Hz frames for   10 Hz Loop
-#define COUNT_5HZ 200  // Number of 1000 Hz frames for    5 Hz Loop
-#define COUNT_1HZ 1000 // Number of 1000 Hz frames for    1 Hz Loop
+#define COUNT_8000HZ 1  // Number of 8000 Hz frames for 8000 Hz Loop
+#define COUNT_4000HZ 2  // Number of 8000 Hz frames for 4000 Hz Loop
+#define COUNT_2000HZ 4  // Number of 8000 Hz frames for 2000 Hz Loop
+#define COUNT_1000HZ 8  // Number of 8000 Hz frames for  100 Hz Loop
+#define COUNT_500HZ 16  // Number of 8000 Hz frames for  100 Hz Loop
+#define COUNT_200HZ 40  // Number of 8000 Hz frames for  100 Hz Loop
+#define COUNT_100HZ 80  // Number of 8000 Hz frames for  100 Hz Loop
+#define COUNT_50HZ 160  // Number of 8000 Hz frames for   50 Hz Loop
+#define COUNT_10HZ 800  // Number of 8000 Hz frames for   10 Hz Loop
+#define COUNT_5HZ 1600  // Number of 8000 Hz frames for    5 Hz Loop
+#define COUNT_1HZ 8000  // Number of 8000 Hz frames for    1 Hz Loop
 
 /* Global Variables */
 extern uint16_t frameCounter;
@@ -49,13 +53,13 @@ extern uint16_t frameCounter;
 // extern uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
 // extern uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
 
-extern float dt500Hz, dt100Hz;
+extern float dt8000Hz;
 
 extern semaphore_t systemReady;
 
 extern semaphore_t execUp;
 
-extern volatile uint8_t loopMask;
+extern volatile uint16_t loopMask;
 extern volatile bool loopsChecked;
 
 /* Function Prototypes */

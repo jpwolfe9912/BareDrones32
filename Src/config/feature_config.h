@@ -13,22 +13,25 @@
 /* Defines */
 #define STLINK
 // #define SANDBOX
-#define OPENLAGER
+// #define OPENLAGER
 #define USE_BAREDRONES
 // #define USE_NUCLEO
-#define USE_EEPROM
+// #define USE_EEPROM
+// #define DRAW_AUTODRONE
 
 /* Features */
-// #define USE_SPI1_DRIVER
+#define USE_SPI1_DRIVER
 // #define USE_USART1_DRIVER
-// #define USE_USART2_DRIVER
-// #define USE_USART6_DRIVER
+#define USE_USART2_DRIVER
+#define USE_USART6_DRIVER
 
-// #define USE_MOTION_PROCESSING
-// #define USE_MPU6000
-#define USE_DSHOT
-// #define USE_LOGGING
-// #define USE_BATT_MON
-// #define USE_LEDS
+#define USE_MOTION_PROCESSING
+#define USE_MPU6000
+// #define USE_DSHOT
+// #define USE_IBUS
+// #define USE_CRSF
+#define USE_LOGGING
+#define USE_BATT_MON
+#define USE_LEDS
 
 #endif /* __FEATURE_CONFIG_H__ */

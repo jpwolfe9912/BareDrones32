@@ -75,7 +75,7 @@ static uint8_t init_error = 0;
 
 static crsfStatus_e crsf_process_frame(void);
 static void crsfProcessPayload(uint8_t* payload);
-static uint8_t crsfCrc8(const uint8_t *data, uint8_t len);
+static uint8_t crsfCrc8(const uint8_t* data, uint8_t len);
 
 bool crsfInit(void)
 {
@@ -151,88 +151,69 @@ crsf_process_frame(void)
 {
 
     uint8_t frame_buff[CRSF_FRAME_SIZE_MAX];   // temporary storage for frame data
+    uint8_t header[2];
+    uint8_t frame_size;
 
     crsfFrameParts_e part = CRSF_SYNCBYTE;      // which part we're reading from
     uint8_t frame_pos = 0;          // which byte to read
     crsfFrameDef_t frame = {};      // contains all the raw data from the packet
 
-    lwrb_read(&Buff_2.RxBuffer, frame_buff, ARRAY_LEN(frame_buff));
+    /*
+     * Need at least:
+     * [0] device address
+     * [1] frame length
+     */
+    if (lwrb_get_full(&Buff_2.RxBuffer) < 2)
+    {
+        return CRSF_BUSY;
+    }
 
-    status = CRSF_BUSY;
-    switch (part)
-    {
-    case CRSF_SYNCBYTE:
-    {
-        if (frame_buff[frame_pos] == 0xC8)
-        {
-            syncByte = frame_buff[frame_pos];
-            frame.deviceAddress = frame_buff[frame_pos];
-            part++;
-            frame_pos++;
-        }
-        else
-        {
-            status = CRSF_ERROR;
-            break;
-        }
-    }
-    case CRSF_LENGTH:
-    {
-        if (frame_buff[frame_pos] < CRSF_FRAME_SIZE_MAX)
-        {
-            frame.frameLength = frame_buff[frame_pos];
-            part++;
-            frame_pos++;
-        }
-        else
-        {
-            status = CRSF_ERROR;
-            break;
-        }
-    }
-    case CRSF_TYPE:
-    {
-        if (frame_buff[frame_pos] == 0x16)
-        {
-            frame.type = frame_buff[frame_pos];
-            part++;
-            frame_pos++;
-        }
-        else
-        {
-            status = CRSF_ERROR;
-            break;
-        }
-    }
-    case CRSF_PAYLOAD:
-    {
-        memcpy(frame.payload, frame_buff + frame_pos, frame.frameLength - 2);
-        frame_pos += frame.frameLength - 2;
-        crsfProcessPayload(frame.payload);
-        part++;
-    }
-    case CRSF_CRC:
-    {
-        frame.crc = frame_buff[frame_pos];
+    lwrb_peek(&Buff_2.RxBuffer, 0, header, 2);
 
-        uint8_t calculated_crc = crsfCrc8(&frame.type, frame.frameLength - 1);
-        if(calculated_crc == frame.crc)
-        {
-            status = CRSF_READY;
-        }
-        else
-        {
-            status = CRSF_ERROR;
-        }
-        break;
-    }
-    }
-    if ((status == CRSF_ERROR) || (status == CRSF_READY))
+    if (header[0] != 0xC8)
     {
-        frame_pos = 0;
-        part = CRSF_SYNCBYTE;
+        uint8_t garbage;
+        lwrb_read(&Buff_2.RxBuffer, &garbage, 1);
+        return CRSF_ERROR;
     }
-    return status;
+
+    frame_size = header[1] + 2;
+
+    if (frame_size > CRSF_FRAME_SIZE_MAX)
+    {
+        uint8_t garbage;
+        lwrb_read(&Buff_2.RxBuffer, &garbage, 1);
+        return CRSF_ERROR;
+    }
+
+    if (lwrb_get_full(&Buff_2.RxBuffer) < frame_size)
+    {
+        return CRSF_BUSY;
+    }
+
+    lwrb_read(&Buff_2.RxBuffer, frame_buff, frame_size);
+
+    uint8_t type = frame_buff[2];
+
+    uint8_t received_crc = frame_buff[frame_size - 1];
+
+    uint8_t calculated_crc = crsfCrc8(&frame_buff[2], header[1] - 1);
+
+    if (calculated_crc != received_crc)
+    {
+        return CRSF_ERROR;
+    }
+
+    if (type == 0x16)
+    {
+        uint8_t* payload = &frame_buff[3];
+
+        crsfProcessPayload(payload);
+    }
+
+    syncByte = frame_buff[0];
+
+    return CRSF_READY;
 }
 
 static void crsfProcessPayload(uint8_t* payload)
@@ -265,7 +246,7 @@ static void crsfProcessPayload(uint8_t* payload)
  *
  * @return Calculated CRC
  */
-static uint8_t crsfCrc8(const uint8_t *data, uint8_t len)
+static uint8_t crsfCrc8(const uint8_t* data, uint8_t len)
 {
     uint8_t crc = 0;
 

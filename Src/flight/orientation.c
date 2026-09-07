@@ -9,7 +9,7 @@
 /* Includes */
 #include "orientation.h"
 
-#include "baredrones32.h"
+#include "config.h"
 
 /* Global Variables */
 float mpuOrientationMatrix[9];

@@ -13,20 +13,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MASK_1000HZ (0x1 << 0U)
-#define MASK_500HZ (0x1 << 1U)
-#define MASK_200HZ (0x1 << 2U)
-#define MASK_100HZ (0x1 << 3U)
-#define MASK_50HZ (0x1 << 4U)
-#define MASK_10HZ (0x1 << 5U)
-#define MASK_5HZ (0x1 << 6U)
-#define MASK_1HZ (0x1 << 7U)
+#define MASK_8000HZ     (0x1 << 0U)
+#define MASK_4000HZ     (0x1 << 1U)
+#define MASK_2000HZ     (0x1 << 2U)
+#define MASK_1000HZ     (0x1 << 3U)
+#define MASK_500HZ      (0x1 << 4U)
+#define MASK_200HZ      (0x1 << 5U)
+#define MASK_100HZ      (0x1 << 6U)
+#define MASK_50HZ       (0x1 << 7U)
+#define MASK_10HZ       (0x1 << 8U)
+#define MASK_5HZ        (0x1 << 9U)
+#define MASK_1HZ        (0x1 << 10U)
 
-#define TOTAL_LOOPS 8U
+#define TOTAL_LOOPS 11U
 
 typedef enum
 {
-    FRAME_1000HZ = 0,
+    FRAME_8000HZ = 0,
+    FRAME_4000HZ,
+    FRAME_2000HZ,
+    FRAME_1000HZ,
     FRAME_500HZ,
     FRAME_200HZ,
     FRAME_100HZ,
@@ -39,14 +45,14 @@ typedef enum
 typedef struct Tasks
 {
     void (*task)(void);
-    struct Tasks *next;
+    struct Tasks* next;
 } Tasks;
 
 /* Function Prototypes */
-void run(Tasks **head_ref);
+void run(Tasks** head_ref);
 
-void push(Tasks **head_ref, void (*new_task)(void));
-void insertAfter(Tasks *prev_node, void (*new_task)(void));
-void append(Tasks **head_ref, void (*new_task)(void));
+void push(Tasks** head_ref, void (*new_task)(void));
+void insertAfter(Tasks* prev_node, void (*new_task)(void));
+void append(Tasks** head_ref, void (*new_task)(void));
 
 #endif

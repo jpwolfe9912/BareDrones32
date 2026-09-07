@@ -19,7 +19,7 @@
 /* Global Variables */
 uint8_t temp;
 uint8_t printfBuf[100];
-bool endOfString;
+volatile bool endOfString;
 uint8_t printfIndex = 0;
 
 

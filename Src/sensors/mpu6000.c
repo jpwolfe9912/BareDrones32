@@ -6,13 +6,14 @@
  *  @date 		06 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "mpu6000.h"
 
 #include "drv_system.h"
 #include "drv_spi1.h"
 #include "drv_printf.h"
 #include "drv_color.h"
+#include "config.h"
 
 /* Global Variables */
 float accelOneG = 9.8065;
@@ -20,11 +21,7 @@ float accelOneG = 9.8065;
 uint8_t rawData[15];
 
 // Accel
-int32_t accelSum500Hz[3] = {0, 0, 0};
-
-int32_t accelSummedSamples500Hz[3];
-
-float accelTCBias[3] = {0.0f, 0.0f, 0.0f};
+float accelTCBias[3] = { 0.0f, 0.0f, 0.0f };
 
 int16andUint8_t rawAccel[3];
 
@@ -33,10 +30,6 @@ float nonRotatedAccelData[3];
 // Gyro
 
 float gyroRTBias[3];
-
-int32_t gyroSum500Hz[3] = {0, 0, 0};
-
-int32_t gyroSummedSamples500Hz[3];
 
 float gyroTCBias[3];
 
@@ -166,20 +159,20 @@ void readMPU6000(void)
     rawMPU6000Temperature.bytes[1] = rawData[7];
     rawMPU6000Temperature.bytes[0] = rawData[8];
 
-    rawGyro[ROLL].bytes[1] = rawData[9];
-    rawGyro[ROLL].bytes[0] = rawData[10];
-    rawGyro[PITCH].bytes[1] = rawData[11];
-    rawGyro[PITCH].bytes[0] = rawData[12];
-    rawGyro[YAW].bytes[1] = rawData[13];
-    rawGyro[YAW].bytes[0] = rawData[14];
+    rawGyro[XAXIS].bytes[1] = rawData[9];
+    rawGyro[XAXIS].bytes[0] = rawData[10];
+    rawGyro[YAXIS].bytes[1] = rawData[11];
+    rawGyro[YAXIS].bytes[0] = rawData[12];
+    rawGyro[ZAXIS].bytes[1] = rawData[13];
+    rawGyro[ZAXIS].bytes[0] = rawData[14];
 
-    accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
-    accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
-    accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
+    // accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
+    // accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
+    // accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
 
-    gyroSum500Hz[ROLL] += rawGyro[ROLL].value;
-    gyroSum500Hz[PITCH] += rawGyro[PITCH].value;
-    gyroSum500Hz[YAW] += rawGyro[YAW].value;
+    // gyroSum500Hz[ROLL]  +=  rawGyro[ROLL].value;
+    // gyroSum500Hz[PITCH] +=  rawGyro[PITCH].value;
+    // gyroSum500Hz[YAW]   +=  rawGyro[YAW].value;
 }
 
 /** @brief Computes IMU runtime data to find gyro bias.
@@ -191,8 +184,8 @@ void computeMPU6000RTData(void)
     uint8_t axis;
     uint16_t samples;
 
-    float accelSum[3] = {0.0f, 0.0f, 0.0f};
-    float gyroSum[3] = {0.0f, 0.0f, 0.0f};
+    float accelSum[3] = { 0.0f, 0.0f, 0.0f };
+    float gyroSum[3] = { 0.0f, 0.0f, 0.0f };
 
     mpu6000Calibrating = true;
 
@@ -232,13 +225,13 @@ void computeMPU6000RTData(void)
  */
 void computeMPU6000TCBias(void)
 {
-    mpu6000Temperature = (float)(rawMPU6000Temperature.value) / 340.0f + 35.0f;
+    mpu6000Temperature  =   (float)(rawMPU6000Temperature.value) / 340.0f + 35.0f;
 
-    accelTCBias[XAXIS] = eepromConfig.accelTCBiasSlope[XAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[XAXIS];
-    accelTCBias[YAXIS] = eepromConfig.accelTCBiasSlope[YAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[YAXIS];
-    accelTCBias[ZAXIS] = eepromConfig.accelTCBiasSlope[ZAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[ZAXIS];
+    accelTCBias[XAXIS]  =   eepromConfig.accelTCBiasSlope[XAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[XAXIS];
+    accelTCBias[YAXIS]  =   eepromConfig.accelTCBiasSlope[YAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[YAXIS];
+    accelTCBias[ZAXIS]  =   eepromConfig.accelTCBiasSlope[ZAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[ZAXIS];
 
-    gyroTCBias[ROLL] = eepromConfig.gyroTCBiasSlope[ROLL] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[ROLL];
-    gyroTCBias[PITCH] = eepromConfig.gyroTCBiasSlope[PITCH] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[PITCH];
-    gyroTCBias[YAW] = eepromConfig.gyroTCBiasSlope[YAW] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[YAW];
+    gyroTCBias[ROLL]    =   eepromConfig.gyroTCBiasSlope[ROLL] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[ROLL];
+    gyroTCBias[PITCH]   =   eepromConfig.gyroTCBiasSlope[PITCH] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[PITCH];
+    gyroTCBias[YAW]     =   eepromConfig.gyroTCBiasSlope[YAW] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[YAW];
 }

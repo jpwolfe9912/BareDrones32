@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
+#include "config.h"
 #include "compute_axis_commands.h"
 
 /* Defines */

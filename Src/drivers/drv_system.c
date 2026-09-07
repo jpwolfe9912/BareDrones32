@@ -12,6 +12,7 @@
 
 #include "stm32f7xx.h"
 
+#include "feature_config.h"
 #include "scheduler.h"
 #include "drv_rcc.h"
 #include "drv_dma.h"
@@ -37,20 +38,20 @@
 #include "pid.h"
 
  /* Static Variables */
-static volatile uint32_t usTicks = 0;
-static volatile uint32_t sysTickUptime = 0;
+static volatile uint32_t cyclesPerUs = 0;
+static volatile uint32_t sysTickUptimeUs = 0;
 static volatile uint32_t sysTickCycleCounter = 0;
 
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-float dt500Hz;
+float dt8000Hz;
 
 semaphore_t systemReady = false;
 
 semaphore_t execUp = false;
 
-volatile uint8_t loopMask = 0x00;
+volatile uint16_t loopMask = 0x0000;
 volatile bool loopsChecked;
 
 /* Static Function Prototypes */
@@ -62,7 +63,7 @@ static void cycleCounterInit(void);
 void SysTick_Handler(void)
 {
     sysTickCycleCounter = DWT->CYCCNT;
-    sysTickUptime++;
+    sysTickUptimeUs += SYSTICK_PERIOD_US;
 
     if ((systemReady == true) &&
         (accelCalibrating == false) &&
@@ -72,6 +73,14 @@ void SysTick_Handler(void)
         frameCounter++;
         if (frameCounter >= FRAME_COUNT)
             frameCounter = 0;
+        if (!(frameCounter % COUNT_8000HZ))
+            loopMask |= MASK_8000HZ;
+
+        if (!(frameCounter % COUNT_4000HZ))
+            loopMask |= MASK_4000HZ;
+
+        if (!(frameCounter % COUNT_2000HZ))
+            loopMask |= MASK_2000HZ;
 
         if (!(frameCounter % COUNT_1000HZ))
             loopMask |= MASK_1000HZ;
@@ -113,16 +122,16 @@ void SysTick_Handler(void)
 uint32_t
 micros(void)
 {
-    register uint32_t oldCycle, cycle, timeMs;
+    register uint32_t oldCycle, cycle, timeUs;
 
     do
     {
-        timeMs = __LDREXW(&sysTickUptime);
+        timeUs = __LDREXW(&sysTickUptimeUs);
         cycle = DWT->CYCCNT;
         oldCycle = sysTickCycleCounter;
-    } while (__STREXW(timeMs, &sysTickUptime));
+    } while (__STREXW(timeUs, &sysTickUptimeUs));
 
-    return (timeMs * 1000) + (cycle - oldCycle) / usTicks;
+    return timeUs + (cycle - oldCycle) / cyclesPerUs;
 }
 
 /** @brief Gets system time in milliseconds.
@@ -132,7 +141,7 @@ micros(void)
 uint32_t
 millis(void)
 {
-    return sysTickUptime;
+    return micros() / 1000U;
 }
 
 /** @brief Delay in microseconds.
@@ -143,7 +152,6 @@ void delayMicroseconds(uint32_t us)
 {
     uint32_t elapsed = 0;
     uint32_t lastCount = DWT->CYCCNT;
-    usTicks = 216;
 
     for (;;)
     {
@@ -155,7 +163,7 @@ void delayMicroseconds(uint32_t us)
         lastCount = current_count;
 
         // convert to microseconds
-        elapsed_us = elapsed / usTicks;
+        elapsed_us = elapsed / cyclesPerUs;
         if (elapsed_us >= us)
             break;
 
@@ -163,7 +171,7 @@ void delayMicroseconds(uint32_t us)
         us -= elapsed_us;
 
         // keep fractional microseconds for the next iteration
-        elapsed %= usTicks;
+        elapsed %= cyclesPerUs;
     }
 }
 
@@ -187,18 +195,20 @@ void systemInit(void)
 
     rcc216MHzInit();
 
-    SysTick_Config(SystemCoreClock / 1000);
+    cycleCounterInit();
+
+    SysTick_Config(SystemCoreClock / FRAME_COUNT);
 
     dmaInit();
 
-    cycleCounterInit();
 #ifdef USE_LEDS
     ledInit();
 #endif
     /*		LOW LEVEL INITIALIZATION	*/
     printfInit();
-
+#ifdef DRAW_AUTODRONE
     drawAutodrone();
+#endif
 
     color(GREEN, YES);
     printf("\nBEGINNING INITIALIZATION\n");
@@ -271,7 +281,7 @@ void systemInit(void)
 static void
 cycleCounterInit(void)
 {
-    usTicks = SystemCoreClock / 1000000;
+    cyclesPerUs = SystemCoreClock / 1000000;
 
     // enable DWT access
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;

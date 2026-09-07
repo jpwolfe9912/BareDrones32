@@ -33,15 +33,15 @@ static void writeLog(char *pLog);
  */
 void printLog(void)
 {
-    logs_t logType = 2;
+    logs_t logType = 0;
 #ifdef OPENLAGER
     memset(logData, '\0', LOG_SIZE);
     if (logType == 0)
     {
         sprintf(logData, "%.3f, %.3f, %.3f \n",
-                sensors.attitude500Hz[0],
-                sensors.attitude500Hz[1],
-                sensors.attitude500Hz[2]);
+                sensors.attDeg[0],
+                sensors.attDeg[1],
+                sensors.attDeg[2]);
     }
     if (logType == 1)
     {
@@ -50,24 +50,24 @@ void printLog(void)
                 battVoltage,
                 flightMode,
                 rateCmd[logType],
-                sensors.gyro500Hz[logType],
+                sensors.gyro[logType],
                 ratePID[logType],
                 attCmd[logType],
-                sensors.attitude500Hz[logType],
+                sensors.attitude[logType],
                 attPID[logType]);
     }
     if (logType == 2)
     {
-        sprintf(logData, "%d %d %d %d %d %d %d %d %d\n",
+        sprintf(logData, "%d %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
             logType,
-            rcData.channels[0],
-            rcData.channels[1],
-            rcData.channels[2],
-            rcData.channels[3],
-            rcData.channels[4],
-            rcData.channels[5],
-            rcData.channels[6],
-            rcData.channels[7]
+            rxCommands[0],
+            rxCommands[1],
+            rxCommands[2],
+            rxCommands[3],
+            rxCommands[4],
+            rxCommands[5],
+            rxCommands[6],
+            rxCommands[7]
         );
     }
 
@@ -83,45 +83,45 @@ void printLog(void)
                 motor_value[MOTOR4]);
     }
     writeLog(logData);
-
-#else
-    if (logType < 3)
-    {
-        printf("%d\t%.3f\t%d\t%.3f\t%.3f\t%.2f\t%.3f\t%.3f\t%.3f\n",
-               logType,
-               battVoltage,
-               flightMode,
-               rateCmd[logType],
-               sensors.gyro500Hz[logType],
-               ratePID[logType],
-               attCmd[logType],
-               (sensors.attitude500Hz[logType]*180.00/3.1415),
-               attPID[logType]);
-    }
-
-    if (logType == 3)
-    {
-        printf("%d %f %d %u %u %u %u \r",
-               logType,
-               battVoltage,
-            //    battCurrent,
-               flightMode,
-               motor_value[MOTOR1],
-               motor_value[MOTOR2],
-               motor_value[MOTOR3],
-               motor_value[MOTOR4]);
-    }
-    if (logType == 4)
-    {
-        // printf("%d %u, %u, %u, %u \r",
-        // logType,
-        // ibusChannels[0],
-        // ibusChannels[1],
-        // ibusChannels[2],
-        // ibusChannels[3]);
-        printf("%u %u\r",rawADC[0], rawADC[1]);
-    }
 #endif
+// #else
+//     if (logType < 3)
+//     {
+//         printf("%d\t%.3f\t%d\t%.3f\t%.3f\t%.2f\t%.3f\t%.3f\t%.3f\n",
+//                logType,
+//                battVoltage,
+//                flightMode,
+//                rateCmd[logType],
+//                sensors.gyro[logType],
+//                ratePID[logType],
+//                attCmd[logType],
+//                (sensors.attitude[logType]*180.00/3.1415),
+//                attPID[logType]);
+//     }
+
+//     if (logType == 3)
+//     {
+//         printf("%d %f %d %u %u %u %u \r",
+//                logType,
+//                battVoltage,
+//             //    battCurrent,
+//                flightMode,
+//                motor_value[MOTOR1],
+//                motor_value[MOTOR2],
+//                motor_value[MOTOR3],
+//                motor_value[MOTOR4]);
+//     }
+//     if (logType == 4)
+//     {
+//         // printf("%d %u, %u, %u, %u \r",
+//         // logType,
+//         // ibusChannels[0],
+//         // ibusChannels[1],
+//         // ibusChannels[2],
+//         // ibusChannels[3]);
+//         printf("%u %u\r",rawADC[0], rawADC[1]);
+//     }
+// #endif
 }
 
 #ifdef OPENLAGER

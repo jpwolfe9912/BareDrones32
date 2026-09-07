@@ -101,14 +101,6 @@ extern float   accelOneG;
 
 extern float   accelTCBias[3];
 
-extern int32_t accelSum100Hz[3];
-
-extern int32_t accelSum500Hz[3];
-
-extern int32_t accelSummedSamples100Hz[3];
-
-extern int32_t accelSummedSamples500Hz[3];
-
 extern int16andUint8_t rawAccel[3];
 
 extern float nonRotatedAccelData[3];
@@ -118,10 +110,6 @@ extern float nonRotatedAccelData[3];
 extern float gyroRTBias[3];
 
 extern float gyroTCBias[3];
-
-extern int32_t gyroSum500Hz[3];
-
-extern int32_t gyroSummedSamples500Hz[3];
 
 extern int16andUint8_t rawGyro[3];
 

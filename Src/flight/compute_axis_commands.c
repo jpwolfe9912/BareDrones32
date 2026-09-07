@@ -7,10 +7,13 @@
  */
 
 /* Includes */
+
+#include <stdio.h>
 #include "compute_axis_commands.h"
 
 #include "drv_system.h"
 #include "drv_tim.h"
+#include "config.h"
 #include "process_commands.h"
 #include "utilities.h"
 #include "pid.h"
@@ -32,17 +35,17 @@ void computeAxisCommands(void)
     uint16_t timerValue;
 
     timerValue = getTimerValue();
-    dt500Hz = (float)timerValue * 0.0000005f; // For integrations in 500 Hz loop
-
+    dt8000Hz = (float)timerValue * 0.000001f; // timerValue ~= 125 * 0.000001 = 0.000125s = .125ms = 8kHz
+    // printf("%d\n", timerValue);
     if (flightMode == ANGLE)
     {
-        attCmd[ROLL] = rxCommands[ROLL] * eepromConfig.attitudeScaling;
-        error = standardRadianFormat(attCmd[ROLL] - sensors.attitude500Hz[ROLL]);
-        attPID[ROLL] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID]);
+        attCmd[ROLL] = rxCommands[ROLL] * eepromConfig.attitudeScaling;     // fromm -1000->1000 to -30->30 
+        error = standardRadianFormat(attCmd[ROLL] - sensors.attitude[ROLL]);
+        attPID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID]);
 
         attCmd[PITCH] = rxCommands[PITCH] * eepromConfig.attitudeScaling;
-        error = standardRadianFormat(attCmd[PITCH] - sensors.attitude500Hz[PITCH]);
-        attPID[PITCH] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+        error = standardRadianFormat(attCmd[PITCH] - sensors.attitude[PITCH]);
+        attPID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
     }
 
     if (flightMode == RATE)
@@ -57,14 +60,14 @@ void computeAxisCommands(void)
     }
     rateCmd[YAW] = rxCommands[YAW] * eepromConfig.yawRateScaling;
 
-    error = rateCmd[ROLL] - sensors.gyro500Hz[ROLL];
-    ratePID[ROLL] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID]);
+    error = rateCmd[ROLL] - sensors.gyro[ROLL];
+    ratePID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID]);
 
-    error = rateCmd[PITCH] - sensors.gyro500Hz[PITCH];
-    ratePID[PITCH] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+    error = rateCmd[PITCH] - sensors.gyro[PITCH];
+    ratePID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
 
-    error = rateCmd[YAW] + sensors.gyro500Hz[YAW];
-    ratePID[YAW] = updatePID(error, dt500Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID]);
+    error = rateCmd[YAW] + sensors.gyro[YAW];
+    ratePID[YAW] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID]);
 
     ///////////////////////////////////
 

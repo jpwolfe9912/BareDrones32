@@ -20,6 +20,8 @@ const char rcChannelLetters[] = "AERT12345678";
 
 semaphore_t eepromChanged = false;
 
+eepromConfig_t eepromConfig;
+
 /* Static Variables */
 static uint8_t checkNewEEPROMConf = 29;
 

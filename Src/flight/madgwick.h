@@ -14,7 +14,7 @@
 #include <math.h>
 
 /* Defines */
-#define sampleFreqDef   500.0f          // sample frequency in Hz
+#define sampleFreqDef   8000.0f          // sample frequency in Hz
 #define betaDef         5.0f            // 2 * proportional gain
 
 /* Function Prototypes */

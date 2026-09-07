@@ -199,7 +199,7 @@ void spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
 void spi1WriteBytes(uint8_t *pData, uint8_t size)
 {
     // RX Setup
-    static uint8_t dummy __attribute__((unused));
+    static uint8_t dummy[2] __attribute__((unused));
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
@@ -268,7 +268,7 @@ void spi1WriteOneByte(uint8_t reg, uint8_t data)
 {
     // need to pass in array of values to be written
     // RX Setup
-    static uint8_t dummy __attribute__((unused));
+    static uint8_t dummy[2] __attribute__((unused));
     uint8_t temp[2] = {reg, data};
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;

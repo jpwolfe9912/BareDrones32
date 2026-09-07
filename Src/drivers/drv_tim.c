@@ -19,9 +19,12 @@ void tim9Init(void)
 {
     RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
 
-    TIM9->PSC = 108 - 1;
+    TIM9->PSC = 216 - 1; // CNT increments at 1MHz or 1,000,000/s or 0.000001s or 1us
     TIM9->ARR = 0xFFFF;
-    TIM9->CNT = 4000;
+    TIM9->EGR |= TIM_EGR_UG;
+    TIM9->CNT = 0;
+
+    TIM9->CR1 |= TIM_CR1_CEN;
 }
 
 /** @brief Gets the counter value.
@@ -65,10 +68,10 @@ uint16_t getTimerValue(void)
 {
     uint16_t timerValue;
     
-    tim9Disable();
+    // tim9Disable();
     timerValue = tim9GetCnt();
     tim9ResetCnt();
-    tim9Enable();
+    // tim9Enable();
 
     return timerValue;
 }

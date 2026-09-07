@@ -8,6 +8,7 @@
 
 #include "scheduler.h"
 
+#include "stm32f7xx.h"
 #include "drv_system.h"
 #include "drv_printf.h"
 
@@ -16,20 +17,34 @@ uint32_t executionTime[TOTAL_LOOPS];
 uint32_t previousTime[TOTAL_LOOPS];
 uint32_t currentTime;
 
-static void runAllTasksInLoop(Tasks *tasks);
+uint32_t schedulerTotalTime = 0;
 
-void run(Tasks **head_ref)
+static void runAllTasksInLoop(Tasks* tasks);
+
+void run(Tasks** head_ref)
 {
+    uint32_t start = DWT->CYCCNT;
+
     while (!loopsChecked)
         ;
     loopsChecked = false;
 
-    LoopFreqs_e loopToRun = FRAME_1000HZ;
+    LoopFreqs_e loopToRun = FRAME_8000HZ;
 
     for (; loopToRun < TOTAL_LOOPS; loopToRun++)
     {
         if (((loopMask >> loopToRun) & 0x01)) // if there is a 1 in the spot of the loop to run
         {
+            static uint32_t last8000Time = 0;
+            volatile uint32_t scheduler8000Delta = 0;
+
+            if (loopToRun == FRAME_8000HZ)
+            {
+                uint32_t now = DWT->CYCCNT;
+                scheduler8000Delta = now - last8000Time;
+                last8000Time = now;
+            }
+
             currentTime = micros();
             deltaTime[loopToRun] = currentTime - previousTime[loopToRun]; // time between loop calls
             previousTime[loopToRun] = currentTime;
@@ -40,9 +55,12 @@ void run(Tasks **head_ref)
             executionTime[loopToRun] = micros() - currentTime; // how long loop took to run
         }
     }
+    schedulerTotalTime = DWT->CYCCNT - start;
+    int dummy = 0;
+    // printf("SchedulerTotalTime: %d\n", schedulerTotalTime);
 }
 
-static void runAllTasksInLoop(Tasks *tasks)
+static void runAllTasksInLoop(Tasks* tasks)
 {
     while (tasks != NULL)
     {
@@ -55,10 +73,10 @@ static void runAllTasksInLoop(Tasks *tasks)
 
 /* Given a reference (pointer to pointer) to the head of a list and
    an int, inserts a new node on the front of the list. */
-void push(Tasks **head_ref, void (*new_task)(void))
+void push(Tasks** head_ref, void (*new_task)(void))
 {
     /* 1. allocate node */
-    Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+    Tasks* new_node = (Tasks*)malloc(sizeof(Tasks));
 
     /* 2. put in the data  */
     new_node->task = new_task;
@@ -72,7 +90,7 @@ void push(Tasks **head_ref, void (*new_task)(void))
 
 /* Given a node prev_node, insert a new node after the given
    prev_node */
-void insertAfter(Tasks *prev_node, void (*new_task)(void))
+void insertAfter(Tasks* prev_node, void (*new_task)(void))
 {
     /*1. check if the given prev_node is NULL */
     if (prev_node == NULL)
@@ -82,7 +100,7 @@ void insertAfter(Tasks *prev_node, void (*new_task)(void))
     }
 
     /* 2. allocate new node */
-    Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+    Tasks* new_node = (Tasks*)malloc(sizeof(Tasks));
 
     /* 3. put in the data  */
     new_node->task = new_task;
@@ -96,12 +114,12 @@ void insertAfter(Tasks *prev_node, void (*new_task)(void))
 
 /* Given a reference (pointer to pointer) to the head
    of a list and an int, appends a new node at the end  */
-void append(Tasks **head_ref, void (*new_task)(void))
+void append(Tasks** head_ref, void (*new_task)(void))
 {
     /* 1. allocate node */
-    Tasks *new_node = (Tasks *)malloc(sizeof(Tasks));
+    Tasks* new_node = (Tasks*)malloc(sizeof(Tasks));
 
-    Tasks *last = *head_ref; /* used in step 5*/
+    Tasks* last = *head_ref; /* used in step 5*/
 
     /* 2. put in the data  */
     new_node->task = new_task;

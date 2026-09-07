@@ -7,8 +7,11 @@
  */
 
  /* Includes */
-#include "main.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <cmsis_gcc.h>
 
+#include "feature_config.h"
 #include "drv_system.h"
 #include "drv_printf.h"
 #include "scheduler.h"
@@ -27,16 +30,8 @@
 #include "baredrones32.h"
 
 #ifndef SANDBOX
-/* Global Variables */
-const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
-
-eepromConfig_t eepromConfig;
-
-uint8_t execUpCount = 0;
 
 sensors_t sensors;
-
-uint16_t timerValue;
 
 int main(void)
 {
@@ -45,31 +40,31 @@ int main(void)
     systemInit();
 
     /* Add tasks */
-    Tasks* execTasks[8] = { NULL };
+    Tasks* execTasks[TOTAL_LOOPS] = { NULL };
 
 #ifdef USE_MPU6000
-    append(&execTasks[FRAME_1000HZ], readMPU6000);
+    append(&execTasks[FRAME_8000HZ], readMPU6000);
 #endif
 #ifdef USE_MOTION_PROCESSING
-    append(&execTasks[FRAME_500HZ], computeRotations500Hz);
-    append(&execTasks[FRAME_500HZ], updateIMU);
-    append(&execTasks[FRAME_500HZ], updateAttitude);
-    append(&execTasks[FRAME_500HZ], processCommands);
-    append(&execTasks[FRAME_500HZ], computeAxisCommands);
-    append(&execTasks[FRAME_500HZ], mixTable);
+    append(&execTasks[FRAME_8000HZ], computeRotations500Hz); // okay
+    append(&execTasks[FRAME_8000HZ], updateIMU);
+    append(&execTasks[FRAME_8000HZ], updateAttitude);
+    append(&execTasks[FRAME_8000HZ], processCommands); // bad
+    append(&execTasks[FRAME_8000HZ], computeAxisCommands);
+    append(&execTasks[FRAME_8000HZ], mixTable);
 #endif
 
 #ifdef USE_DSHOT
-    append(&execTasks[FRAME_500HZ], motorUpdate);
+    append(&execTasks[FRAME_8000HZ], motorUpdate);
 #endif
 #ifdef USE_IBUS
     append(&execTasks[FRAME_200HZ], ibusProcess);
 #endif
 #ifdef USE_CRSF
-    append(&execTasks[FRAME_200HZ], crsfProcess);
+    append(&execTasks[FRAME_500HZ], crsfProcess);
 #endif
 #ifdef USE_LOGGING
-    append(&execTasks[FRAME_100HZ], printLog);
+    append(&execTasks[FRAME_50HZ], printLog);
 #endif
 #ifdef USE_BATT_MON
     append(&execTasks[FRAME_5HZ], battMonRead);
@@ -87,13 +82,6 @@ int main(void)
 #else
 const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
 
-eepromConfig_t eepromConfig;
-
-uint8_t execUpCount = 0;
-
-sensors_t sensors;
-
-uint16_t timerValue;
 
 // void test_func(void);
 

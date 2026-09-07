@@ -88,11 +88,10 @@ typedef volatile uint8_t semaphore_t;
 
 typedef struct sensors_t
 {
-	float	accel500Hz[3];
-	float	accel100Hz[3];
-	float	attitude500Hz[3];
-	float	gyro500Hz[3];
-	float	attDeg500Hz[3];
+	float	accel[3];
+	float	gyro[3];
+	float	attitude[3];
+	float	attDeg[3];
 } sensors_t;
 
 extern sensors_t sensors;
@@ -130,65 +129,65 @@ enum { DLPF_256HZ, DLPF_188HZ, DLPF_98HZ, DLPF_42HZ };
 // EEPROM
 ///////////////////////////////////////////////////////////////////////////////
 
-typedef struct eepromConfig_t
-{
-	///////////////////////////////////
+// typedef struct eepromConfig_t
+// {
+// 	///////////////////////////////////
 
-	uint8_t version;
+// 	uint8_t version;
 
-	float accelBiasMPU[3];          // Bias for MPU60x0 Accel
-	float accelScaleFactorMPU[3];   // Scale factor for MPU60x0 Accel
+// 	float accelBiasMPU[3];          // Bias for MPU60x0 Accel
+// 	float accelScaleFactorMPU[3];   // Scale factor for MPU60x0 Accel
 
-	float accelTCBiasSlope[3];
-	float accelTCBiasIntercept[3];
+// 	float accelTCBiasSlope[3];
+// 	float accelTCBiasIntercept[3];
 
-	float gyroTCBiasSlope[3];
-	float gyroTCBiasIntercept[3];
+// 	float gyroTCBiasSlope[3];
+// 	float gyroTCBiasIntercept[3];
 
-	float accelCutoff;
+// 	float accelCutoff;
 
-	float KpAcc;
+// 	float KpAcc;
 
-	float KiAcc;
+// 	float KiAcc;
 
-	uint8_t dlpfSetting;
+// 	uint8_t dlpfSetting;
 
-	uint8_t sensorOrientation;
+// 	uint8_t sensorOrientation;
 
-	///////////////////////////////////
+// 	///////////////////////////////////
 
-	double rateCoeffAlpha;
-	float rateCoeffBravo;
-	float yawRateScaling;
+// 	double rateCoeffAlpha;
+// 	float rateCoeffBravo;
+// 	float yawRateScaling;
 
-	float attitudeScaling;
+// 	float attitudeScaling;
 
-	///////////////////////////////////
+// 	///////////////////////////////////
 
-	float midCommand;
-	float minCheck;
-	float maxCheck;
-	float minThrottle;
-	float maxThrottle;
+// 	float midCommand;
+// 	float minCheck;
+// 	float maxCheck;
+// 	float minThrottle;
+// 	float maxThrottle;
 
-	///////////////////////////////////
+// 	///////////////////////////////////
 
-	PIDdata_t PID[NUMBER_OF_PIDS];
+// 	PIDdata_t PID[NUMBER_OF_PIDS];
 
-	///////////////////////////////////
+// 	///////////////////////////////////
 
-	uint16_t activeTelemetry;
+// 	uint16_t activeTelemetry;
 
-	///////////////////////////////////
+// 	///////////////////////////////////
 
-	float yawDirection;
+// 	float yawDirection;
 
 
-} eepromConfig_t;
+// } eepromConfig_t;
 
 enum crcFlags { CRC_HistoryBad = 1 };
 
-extern eepromConfig_t eepromConfig;
+// extern eepromConfig_t eepromConfig;
 
 
 #endif /* __BAREDRONES32_H__ */
