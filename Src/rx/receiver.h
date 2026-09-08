@@ -17,6 +17,7 @@
 
 #define CRSF_BAUDRATE 416666U
 #define IBUS_BAUDRATE 115200U
+#define OPENLAGER_BAUDRATE 2000000U
 
 typedef struct
 {
