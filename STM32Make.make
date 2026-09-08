@@ -96,7 +96,6 @@ Src/drivers/drv_tim.c \
 Src/drivers/drv_usart1.c \
 Src/drivers/drv_usart2.c \
 Src/drivers/drv_usart6.c \
-Src/flight/accel_calibration_mpu.c \
 Src/flight/compute_axis_commands.c \
 Src/flight/madgwick.c \
 Src/flight/mixer.c \
@@ -110,6 +109,7 @@ Src/main.c \
 Src/rx/crsf.c \
 Src/rx/ibus.c \
 Src/rx/receiver.c \
+Src/sensors/accel_calibration_mpu.c \
 Src/sensors/battery.c \
 Src/sensors/mpu6000.c \
 Src/sensors/mpu6000_calibration.c \
