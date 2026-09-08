@@ -34,6 +34,11 @@ motorInit(void)
 	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR4] = DSHOT_CMD_MOTOR_STOP;
+	for (uint16_t i = 0; i < DSHOT_ARM_COUNT; i++)
+	{
+		dshotWrite(motor_value);
+		delay(1);
+	}
 	// dshotWait(DSHOT_ARM_COUNT);
 
 }
@@ -45,6 +50,7 @@ motorInit(void)
 void
 motorUpdate(void)
 {
+	// motor_value[0] = 150;
 	dshotWrite(motor_value);
 }
 
