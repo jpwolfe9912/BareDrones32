@@ -19,7 +19,10 @@ typedef enum
 	PITCH_LOG,
 	YAW_LOG,
 	MOTORS_LOG,
-	SENSORS_LOG
+	SENSORS_LOG,
+	SCHEDULER_LOG,
+	BATT_LOG,
+	NO_LOG = 100
 }logs_t;
 
 /* Defines */
