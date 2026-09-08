@@ -49,13 +49,13 @@ int main(void)
     append(&execTasks[FRAME_8000HZ], computeRotations500Hz); // okay
     append(&execTasks[FRAME_8000HZ], updateIMU);
     append(&execTasks[FRAME_8000HZ], updateAttitude);
-    append(&execTasks[FRAME_8000HZ], processCommands); // bad
+    append(&execTasks[FRAME_8000HZ], processCommands);
     append(&execTasks[FRAME_8000HZ], computeAxisCommands);
     append(&execTasks[FRAME_8000HZ], mixTable);
 #endif
 
 #ifdef USE_DSHOT
-    append(&execTasks[FRAME_8000HZ], motorUpdate);
+    append(&execTasks[FRAME_1000HZ], motorUpdate);
 #endif
 #ifdef USE_IBUS
     append(&execTasks[FRAME_200HZ], ibusProcess);
@@ -64,7 +64,7 @@ int main(void)
     append(&execTasks[FRAME_500HZ], crsfProcess);
 #endif
 #ifdef USE_LOGGING
-    append(&execTasks[FRAME_50HZ], printLog);
+    append(&execTasks[FRAME_1000HZ], printLog);
 #endif
 #ifdef USE_BATT_MON
     append(&execTasks[FRAME_5HZ], battMonRead);
@@ -80,22 +80,36 @@ int main(void)
 }
 
 #else
-const uint8_t __attribute__((__section__(".eeprom"), used)) eepromArray[131072];
 
-
-// void test_func(void);
+sensors_t sensors;
 
 int main(void)
 {
     systemInit();
-    usart2BeginRx();
-    systemReady = true;
-    char c = ' ';
+    // systemReady = true;
+    motor_value[0] = 0;
+    motor_value[1] = 0;
+    motor_value[2] = 0;
+    motor_value[3] = 0;
+
+    uint32_t loops = 0;
+    uint16_t value = 48;
+    // delay(5000);
+
     while (1)
     {
-        c = USART2->RDR;
-        printf("Received: %c\r\n", c);
-        delay(10);
+        // if (!(loops % 1000))
+        // {
+
+        //     motor_value[1] = value;
+        //     printf("Command: %u\n", value);
+        //     if (value++ > 2047)
+        //         value = 48;
+
+        // }
+        motorUpdate();
+        loops++;
+        delayMicroseconds(500);
     }
 }
 
