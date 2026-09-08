@@ -39,9 +39,11 @@ mpu6000Calibration(void)
 
     uint16_t index;
 
-    mpu6000Calibrating = true;
+    systemReady = false;
 
     printf("\nMPU6000 Calibration:\n");
+
+    delay(100);
 
     ///////////////////////////////////
     // Get samples at temperature1
@@ -143,7 +145,7 @@ mpu6000Calibration(void)
 
     writeEEPROM();
 
-    mpu6000Calibrating = false;
+    systemReady = true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

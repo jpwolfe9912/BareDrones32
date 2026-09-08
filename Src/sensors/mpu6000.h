@@ -115,12 +115,6 @@ extern int16andUint8_t rawGyro[3];
 
 extern float nonRotatedGyroData[3];
 
-///////////////////////////////////////
-
-extern uint8_t accelCalibrating;
-
-extern uint8_t mpu6000Calibrating;
-
 extern float   mpu6000Temperature;
 
 extern int16andUint8_t rawMPU6000Temperature;

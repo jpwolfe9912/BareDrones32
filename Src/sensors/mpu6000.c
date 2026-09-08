@@ -37,12 +37,6 @@ int16andUint8_t rawGyro[3];
 
 float nonRotatedGyroData[3];
 
-// Calibration
-
-uint8_t accelCalibrating = false;
-
-uint8_t mpu6000Calibrating = false;
-
 // Temperature
 
 float mpu6000Temperature;
@@ -187,7 +181,7 @@ void computeMPU6000RTData(void)
     float accelSum[3] = { 0.0f, 0.0f, 0.0f };
     float gyroSum[3] = { 0.0f, 0.0f, 0.0f };
 
-    mpu6000Calibrating = true;
+    systemReady = false;
 
     printf("\nComputing Gyro Runtime Data...\n");
 
@@ -216,7 +210,7 @@ void computeMPU6000RTData(void)
 
     accelOneG = sqrt(SQR(accelSum[XAXIS]) + SQR(accelSum[YAXIS]) + SQR(accelSum[ZAXIS]));
 
-    mpu6000Calibrating = false;
+    systemReady = true;
 }
 
 /** @brief Calculates the IMU temperature bias.
