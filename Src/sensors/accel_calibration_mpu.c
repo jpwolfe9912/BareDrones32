@@ -30,7 +30,7 @@ accelCalibrationMPU(void)
 
 	int16_t index;
 
-	accelCalibrating = true;
+	systemReady = false;
 
 	printf("\nMPU6000 Accelerometer Calibration:\n\n");
 
@@ -167,7 +167,7 @@ accelCalibrationMPU(void)
 
 	///////////////////////////////////
 
-	accelCalibrating = false;
+	systemReady = true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
