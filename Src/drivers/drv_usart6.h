@@ -14,7 +14,7 @@
 #include <stdbool.h>
 
 /* Prototypes */
-void usart6Init(void);
-void usart6Write(char *pData, uint8_t size);
+void usart6Init(uint32_t baudrate);
+bool usart6Write(uint8_t *pData, uint8_t size);
 
 #endif /* __USART_H__ */

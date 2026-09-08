@@ -6,7 +6,7 @@
  *  @date 		23 FEB 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "drv_usart6.h"
 
 #include "stm32f7xx.h"
@@ -18,11 +18,13 @@
 char read;
 uint8_t readFlag = 0;
 
+volatile bool usart6TxBusy = false;
+
 /** @brief Initializes the low level registers for usart6.
  *
  *  @return Void.
  */
-void usart6Init(void)
+void usart6Init(uint32_t baudrate)
 {
     printf("\nInitializing USART 6\n");
     /////////////////GPIO INIT///////////////////
@@ -47,7 +49,7 @@ void usart6Init(void)
     RCC->APB2ENR |= RCC_APB2ENR_USART6EN;
 
     USART6->CR1 &= ~USART_CR1_UE; // disable usart
-    USART6->BRR = 0x6C;           // 2000000 BR
+    USART6->BRR = 216000000 / baudrate;  //0x6C;           // 2000000 BR
     USART6->CR1 &= ~USART_CR1_M;  // 8 bit transfer
     USART6->CR2 &= ~USART_CR2_STOP;
     USART6->CR1 &= ~USART_CR1_PCE;
@@ -90,10 +92,15 @@ void usart6Init(void)
  *
  *  @param *pData A pointer to location where you want to read data to.
  *  @param size The amount of bytes to be read.
- *  @return Void.
+ *  @return Bool. Successfull or not
  */
-void usart6Write(char *pData, uint8_t size)
+// bool usart6Write(char* pData, uint8_t size)
+bool usart6Write(uint8_t* pData, uint8_t size)
 {
+    if (usart6TxBusy)
+        return false;
+    usart6TxBusy = true;
+
     DMA2_Stream6->CR &= ~DMA_SxCR_EN; // disable DMA
     while (DMA2_Stream6->CR & DMA_SxCR_EN)
         ;
@@ -138,5 +145,6 @@ void DMA2_Stream6_IRQHandler(void)
     if (DMA2->HISR & DMA_HISR_TCIF6)
     {
         DMA2->HIFCR |= DMA_HIFCR_CTCIF6; /* Clear half-transfer complete flag */
+        usart6TxBusy = false;
     }
 }
