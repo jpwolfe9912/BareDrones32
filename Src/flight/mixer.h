@@ -13,13 +13,14 @@
 #include <stdbool.h>
 
 #include "config.h"
+#include "drv_dshot_burst.h"
 #include "compute_axis_commands.h"
 
-/* Defines */
+ /* Defines */
 #define PIDMIXFLIGHT(X,Y,Z,T) 	(ratePID[ROLL] * (X) + ratePID[PITCH] * (Y) + eepromConfig.yawDirection * ratePID[YAW] * (Z) + throttleCmd * (T))
 
-#define THROTTLE_DEADBAND		400
-#define THROTTLE_DEADBAND_SLOPE	((4000 - THROTTLE_DEADBAND)/4000.0f)
+#define DSHOT_THROTTLE_OFFSET		DSHOT_MIN_THROTTLE
+#define DSHOT_THROTTLE_SCALE	(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) / (MAXCOMMAND - eepromConfig.minThrottle * 1.0f)
 
 /* Global Variables */
 extern uint8_t numberMotor;

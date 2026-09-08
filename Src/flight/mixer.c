@@ -10,7 +10,6 @@
 #include "mixer.h"
 
 #include "drv_system.h"
-#include "drv_dshot_burst.h"
 #include "utilities.h"
 #include "process_commands.h"
 #include "motors.h"
@@ -55,16 +54,20 @@ mixTable(void)
 		float minDeltaThrottle;
 		float deltaThrottle;
 
-		maxDeltaThrottle = MAXCOMMAND - rxCommands[THROTTLE];
-		minDeltaThrottle = rxCommands[THROTTLE] - eepromConfig.minThrottle;
+		maxDeltaThrottle = eepromConfig.maxThrottle - throttleCmd;
+		minDeltaThrottle = throttleCmd - eepromConfig.minThrottle;
 		deltaThrottle    = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
+
+		float dshotThrottleScale = (float)(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) /
+								   (float)(eepromConfig.maxThrottle - eepromConfig.minThrottle);
 
 		for (i = 0; i < numberMotor; i++)
 		{
-			motor_temp[i] = constrain(motor_temp[i], rxCommands[THROTTLE] - deltaThrottle, rxCommands[THROTTLE] + deltaThrottle);
+			motor_temp[i] = constrain(motor_temp[i], throttleCmd - deltaThrottle, throttleCmd + deltaThrottle);
 
-			motor_temp[i] = ((motor_temp[i] * THROTTLE_DEADBAND_SLOPE) + THROTTLE_DEADBAND) / 2 + 47;
-			motor_value[i] = constrain16(motor_temp[i], 1237, 2047);
+			motor_temp[i] = DSHOT_IDLE_THROTTLE + (motor_temp[i] - eepromConfig.minThrottle) 
+						  * dshotThrottleScale;
+			motor_value[i] = constrain16(motor_temp[i], DSHOT_IDLE_THROTTLE, DSHOT_MAX_THROTTLE);
 		}
 	}
 	else
