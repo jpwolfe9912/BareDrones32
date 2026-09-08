@@ -47,8 +47,8 @@ void
 battMonRead(void)
 {
 	adc1Start();
-	// battVoltage = *rawADC * 0.0088623f;
-	// battCurrent = rawADC[1];// * 0.0088623f;
+	battVoltage = *rawADC * 0.0088623f;
+	battCurrent = rawADC[1];// * 0.0088623f;
 	batt_warning();
 }
 
