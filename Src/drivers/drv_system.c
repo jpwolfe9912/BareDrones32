@@ -65,9 +65,7 @@ void SysTick_Handler(void)
     sysTickCycleCounter = DWT->CYCCNT;
     sysTickUptimeUs += SYSTICK_PERIOD_US;
 
-    if ((systemReady == true) &&
-        (accelCalibrating == false) &&
-        (mpu6000Calibrating == false))
+    if (systemReady)
     {
 
         frameCounter++;
@@ -225,18 +223,26 @@ void systemInit(void)
     motorInit();
 #endif
 
-#ifdef USE_SPI1_DRIVER
+#ifdef USE_MPU6000
     spi1Init();
+    mpu6000Init();
 #endif
 
 #ifdef USE_USART1_DRIVER
     usart1Init();
 #endif
-#ifdef USE_USART2_DRIVER
-    usart2Init(CRSF_BAUDRATE);
+#ifdef USE_IBUS
+    while (!ibusInit());
+    usart2Init(IBUS_BAUDRATE);
 #endif
-#ifdef USE_USART6_DRIVER
-    usart6Init();
+
+#ifdef USE_CRSF
+    usart2Init(CRSF_BAUDRATE);
+    while (!crsfInit());
+#endif
+
+#ifdef USE_OPENLAGER
+    usart6Init(OPENLAGER_BAUDRATE);
 #endif
 
     tim9Init();
@@ -248,21 +254,9 @@ void systemInit(void)
 #endif
 
     orientSensors();
-#ifdef USE_MPU6000
-    mpu6000Init();
-#endif
 
 #ifdef USE_MOTION_PROCESSING
     madgwickInit();
-#endif
-
-#ifdef USE_IBUS
-    while (!ibusInit())
-        ;
-#endif
-
-#ifdef USE_CRSF
-    while (!crsfInit());
 #endif
 
     initPID();
