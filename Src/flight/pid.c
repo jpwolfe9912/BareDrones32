@@ -96,6 +96,9 @@ initPIDvalues(void)
 	uint8_t ID;
 	bool again = true;
 
+	systemReady = false;
+	delay(100);
+
 	color(CYAN, YES);
 	printf("\nWould you like to change the PID states?\n");
 	colorDefault();
@@ -160,6 +163,7 @@ initPIDvalues(void)
 	printf("\nFinished Configuring PIDs\n");
 	colorDefault();
 	writeEEPROM();
+	systemReady = true;
 }
 
 /** @brief Set the state of the PIDs.

@@ -93,7 +93,6 @@ processCommands(void)
 				(rxCommands[ROLL ] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
 				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
 		{
-			delay(100);
 			mpu6000Calibration();
 		}
 		// low throttle, left yaw, right roll, forward pitch
@@ -124,7 +123,7 @@ processCommands(void)
 	}
 
 	/* Check for Flight Mode Change */
-	if(rxCommands[AUX3] > MIDCOMMAND)
+	if(rxCommands[AUX2] > MIDCOMMAND)
 		flightMode = RATE;
 	else
 		flightMode = ANGLE;
