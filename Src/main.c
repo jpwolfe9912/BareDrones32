@@ -13,7 +13,7 @@
 
 #include "feature_config.h"
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "scheduler.h"
 #include "mpu6000.h"
 #include "rotations.h"
@@ -25,6 +25,7 @@
 #include "ibus.h"
 #include "crsf.h"
 #include "logging.h"
+#include "w25q128.h"
 #include "battery.h"
 #include "drv_led.h"
 #include "baredrones32.h"
@@ -39,14 +40,14 @@ int main(void)
 
     systemInit();
 
-    /* Add tasks */
+    /* Add tasksb  */
     Tasks* execTasks[TOTAL_LOOPS] = { NULL };
 
 #ifdef USE_MPU6000
     append(&execTasks[FRAME_8000HZ], readMPU6000);
 #endif
 #ifdef USE_MOTION_PROCESSING
-    append(&execTasks[FRAME_8000HZ], computeRotations500Hz); // okay
+    append(&execTasks[FRAME_8000HZ], computeRotations);
     append(&execTasks[FRAME_8000HZ], updateIMU);
     append(&execTasks[FRAME_8000HZ], updateAttitude);
     append(&execTasks[FRAME_8000HZ], processCommands);
@@ -55,7 +56,7 @@ int main(void)
 #endif
 
 #ifdef USE_DSHOT
-    append(&execTasks[FRAME_1000HZ], motorUpdate);
+    append(&execTasks[FRAME_8000HZ], motorUpdate);
 #endif
 #ifdef USE_IBUS
     append(&execTasks[FRAME_200HZ], ibusProcess);
@@ -63,14 +64,23 @@ int main(void)
 #ifdef USE_CRSF
     append(&execTasks[FRAME_500HZ], crsfProcess);
 #endif
+
 #ifdef USE_LOGGING
-    append(&execTasks[FRAME_1000HZ], printLog);
+#ifdef WIRED_LOGGING
+    append(&execTasks[FRAME_100HZ], wiredLoggerUpdate);
 #endif
+#ifdef USE_W25Q128
+    append(&execTasks[FRAME_8000HZ], w25q128Process);
+    append(&execTasks[FRAME_1000HZ], flashLoggerProcess);
+    append(&execTasks[FRAME_1000HZ], flashLoggerUpdate);
+#endif
+#endif
+
 #ifdef USE_BATT_MON
     append(&execTasks[FRAME_5HZ], battMonRead);
 #endif
 #ifdef USE_LEDS
-    append(&execTasks[FRAME_1HZ], ledsSet);
+    // append(&execTasks[FRAME_1HZ], ledsSet);
 #endif
     systemReady = true;
     while (1)
@@ -80,48 +90,58 @@ int main(void)
 }
 
 #else
+void testFunc(void);
 
 sensors_t sensors;
 
 int main(void)
 {
     systemInit();
-    // systemReady = true;
-    motor_value[0] = 0;
-    motor_value[1] = 0;
-    motor_value[2] = 0;
-    motor_value[3] = 0;
 
-    uint32_t loops = 0;
-    uint16_t value = 48;
-    // delay(5000);
+    // Tasks* execTasks[TOTAL_LOOPS] = { NULL };
+
+    // append(&execTasks[FRAME_8000HZ], w25q128Process);
+    // append(&execTasks[FRAME_8000HZ], testFunc);
+
+
+    uint32_t test;
+    w25q128ReadJedecId(&test);
+    printf("Value: 0x%X\n", test);
+
+    // uint8_t tx[768];
+    // uint8_t rx[1000];
+
+    // for (uint16_t i = 0; i < sizeof(tx); i++)
+    //     tx[i] = i;
+
+    // w25q128SectorErase(0);
+
+    // w25q128Read(0, 0, rx, 1000);
+
+    // w25q128PageProgramDMA(2, 200, tx, 600);
+    // bool test_finished = false;
+
+    // systemReady = true;
 
     while (1)
     {
-        // if (!(loops % 1000))
+        w25q128ReadJedecId(&test);
+        printf("Value: 0x%X\n", test);
+        delay(1);
+        // run(execTasks);
+
+        // if (w25q128IsReady() && !test_finished)
         // {
-
-        //     motor_value[1] = value;
-        //     printf("Command: %u\n", value);
-        //     if (value++ > 2047)
-        //         value = 48;
-
+        //     w25q128Read(2, 190, rx, 1000);
+        //     test_finished = true;
         // }
-        motorUpdate();
-        loops++;
-        delayMicroseconds(500);
     }
 }
-
-// void test_func(void)
-// {
-//     uint8_t temp_buff[1024];
-
-//     lwrb_read(&Buffs.RxBuffer, temp_buff, lwrb_get_full(&Buffs.RxBuffer));
-//     for (int i = 0; i < sizeof(temp_buff); i++)
-//         printf("%u", temp_buff[i]);
-//     memcpy(temp_buff, '\0', sizeof(temp_buff));
-// }
+volatile uint32_t var = 0;
+void testFunc(void)
+{
+    var++;
+}
 
 #endif
 
