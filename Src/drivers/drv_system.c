@@ -17,14 +17,15 @@
 #include "drv_rcc.h"
 #include "drv_dma.h"
 #include "drv_led.h"
-#include "drv_printf.h"
 #include "drv_color.h"
 #include "config.h"
 #include "drv_dshot_burst.h"
 #include "motors.h"
 #include "drv_spi1.h"
+#include "drv_spi2.h"
 #include "drv_usart1.h"
 #include "drv_usart2.h"
+#include "drv_usart3.h"
 #include "drv_usart6.h"
 #include "drv_tim.h"
 #include "drv_adc.h"
@@ -35,6 +36,7 @@
 #include "receiver.h"
 #include "ibus.h"
 #include "crsf.h"
+#include "w25q128.h"
 #include "pid.h"
 
  /* Static Variables */
@@ -189,8 +191,6 @@ void delay(int32_t ms)
  */
 void systemInit(void)
 {
-    // DBGMCU->CR |= DBGMCU_CR_DBG_SLEEP | DBGMCU_CR_DBG_STOP | DBGMCU_CR_DBG_STANDBY;
-
     rcc216MHzInit();
 
     cycleCounterInit();
@@ -203,7 +203,19 @@ void systemInit(void)
     ledInit();
 #endif
     /*		LOW LEVEL INITIALIZATION	*/
-    printfInit();
+    usart3Init(WIREDLOGGING_BAUDRATE);
+
+#ifdef USE_W25Q128
+    spi2Init();
+    w25q128Init();
+    w25q128SectorErase(0);
+    w25q128SectorErase(1);
+    w25q128SectorErase(2);
+#endif
+
+#ifdef OPENLAGER
+    usart6Init(OPENLAGER_BAUDRATE);
+#endif
 #ifdef DRAW_AUTODRONE
     drawAutodrone();
 #endif
@@ -241,10 +253,6 @@ void systemInit(void)
     while (!crsfInit());
 #endif
 
-#ifdef USE_OPENLAGER
-    usart6Init(OPENLAGER_BAUDRATE);
-#endif
-
     tim9Init();
 
     /*		SENSOR INITIALIZATION		*/
@@ -257,14 +265,13 @@ void systemInit(void)
 
 #ifdef USE_MOTION_PROCESSING
     madgwickInit();
+    initPID();
 #endif
 
-    initPID();
 #ifdef USE_EEPROM
     if (eepromChanged)
         writeEEPROM();
 #endif
-    motor_initialized = true;
 }
 
 /** @brief Initializes the cycle counter so we can use delay
@@ -281,4 +288,12 @@ cycleCounterInit(void)
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
     // enable the CPU cycle counter
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
+void
+pauseSysTick(void)
+{
+    SysTick->CTRL &= ~(SysTick_CTRL_CLKSOURCE_Msk |
+                       SysTick_CTRL_TICKINT_Msk |
+                       SysTick_CTRL_ENABLE_Msk);
 }
