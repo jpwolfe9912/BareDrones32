@@ -41,11 +41,11 @@ void computeAxisCommands(void)
     {
         attCmd[ROLL] = rxCommands[ROLL] * eepromConfig.attitudeScaling;     // fromm -1000->1000 to -30->30 
         error = standardRadianFormat(attCmd[ROLL] - sensors.attitude[ROLL]);
-        attPID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID]);
+        attPID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID], &pidState[ROLL_ATT_PID]);
 
         attCmd[PITCH] = rxCommands[PITCH] * eepromConfig.attitudeScaling;
         error = standardRadianFormat(attCmd[PITCH] - sensors.attitude[PITCH]);
-        attPID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID]);
+        attPID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID], &pidState[PITCH_ATT_PID]);
     }
 
     if (flightMode == RATE)
@@ -58,16 +58,16 @@ void computeAxisCommands(void)
         rateCmd[ROLL] = attPID[ROLL];
         rateCmd[PITCH] = attPID[PITCH];
     }
-    rateCmd[YAW] = rxCommands[YAW] * eepromConfig.yawRateScaling;
+    rateCmd[YAW] =  rxCommands[YAW] * eepromConfig.yawRateScaling;
 
     error = rateCmd[ROLL] - sensors.gyro[ROLL];
-    ratePID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID]);
+    ratePID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID], &pidState[ROLL_RATE_PID]);
 
     error = rateCmd[PITCH] - sensors.gyro[PITCH];
-    ratePID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID]);
+    ratePID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID], &pidState[PITCH_RATE_PID]);
 
     error = rateCmd[YAW] + sensors.gyro[YAW];
-    ratePID[YAW] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID]);
+    ratePID[YAW] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID], &pidState[YAW_RATE_PID]);
 
     ///////////////////////////////////
 

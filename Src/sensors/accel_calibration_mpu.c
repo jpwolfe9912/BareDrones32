@@ -10,7 +10,7 @@
 #include "accel_calibration_mpu.h"
 
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "config.h"
 #include "mpu6000.h"
 
@@ -39,7 +39,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer right side up\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 
@@ -58,7 +58,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer up side down\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 
@@ -79,7 +79,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer left edge down\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 
@@ -98,7 +98,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer right edge down\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 
@@ -119,7 +119,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer rear edge down\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 
@@ -138,7 +138,7 @@ accelCalibrationMPU(void)
 	printf("Place accelerometer front edge down\n");
 	printf("  Send a character when ready to proceed\n\n");
 
-	if(printfWaitFor('y'));
+	if(usart3WaitFor('y'));
 
 	printf("  Gathering Data...\n\n");
 

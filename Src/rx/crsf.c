@@ -11,7 +11,7 @@
 #include "lwrb.h"
 #include "baredrones32.h"
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "drv_usart2.h"
 #include "drv_color.h"
 #include "receiver.h"
@@ -137,8 +137,13 @@ bool crsfInit(void)
  */
 void crsfProcess(void)
 {
-    while (crsf_process_frame() == CRSF_BUSY)
-        ;
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        crsfStatus_e result = crsf_process_frame();
+
+        if (result == CRSF_BUSY)
+            break;
+    }
 }
 
 /** @brief State machine that evaluates the raw data based on what section it is parsing through.

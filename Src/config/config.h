@@ -64,7 +64,7 @@ typedef struct eepromConfig_t
 
 	///////////////////////////////////
 
-	PIDdata_t PID[NUMBER_OF_PIDS];
+	PIDconfig_t PID[NUMBER_OF_PIDS];
 
 	///////////////////////////////////
 

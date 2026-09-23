@@ -11,8 +11,9 @@
 
 #include "drv_system.h"
 #include "drv_spi1.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "drv_color.h"
+#include "drv_led.h"
 #include "config.h"
 
 /* Global Variables */
@@ -90,7 +91,7 @@ bool mpu6000Init(void)
             color(RED, YES);
             printf("\nFailed to read device ID. Would you like to retry?\n");
             color(WHITE, NO);
-            if (printfWaitFor('y'))
+            if (usart3WaitFor('y'))
             {
                 devIdReadAttempts = DEV_READ_ATTEMPTS;
             }
@@ -141,6 +142,8 @@ bool mpu6000Init(void)
  */
 void readMPU6000(void)
 {
+    led1TOGGLE();
+
     spi1ReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 15);
 
     rawAccel[XAXIS].bytes[1] = rawData[1];
@@ -159,14 +162,6 @@ void readMPU6000(void)
     rawGyro[YAXIS].bytes[0] = rawData[12];
     rawGyro[ZAXIS].bytes[1] = rawData[13];
     rawGyro[ZAXIS].bytes[0] = rawData[14];
-
-    // accelSum500Hz[XAXIS] += rawAccel[XAXIS].value;
-    // accelSum500Hz[YAXIS] += rawAccel[YAXIS].value;
-    // accelSum500Hz[ZAXIS] += rawAccel[ZAXIS].value;
-
-    // gyroSum500Hz[ROLL]  +=  rawGyro[ROLL].value;
-    // gyroSum500Hz[PITCH] +=  rawGyro[PITCH].value;
-    // gyroSum500Hz[YAW]   +=  rawGyro[YAW].value;
 }
 
 /** @brief Computes IMU runtime data to find gyro bias.
@@ -219,13 +214,13 @@ void computeMPU6000RTData(void)
  */
 void computeMPU6000TCBias(void)
 {
-    mpu6000Temperature  =   (float)(rawMPU6000Temperature.value) / 340.0f + 35.0f;
+    mpu6000Temperature = (float)(rawMPU6000Temperature.value) / 340.0f + 35.0f;
 
-    accelTCBias[XAXIS]  =   eepromConfig.accelTCBiasSlope[XAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[XAXIS];
-    accelTCBias[YAXIS]  =   eepromConfig.accelTCBiasSlope[YAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[YAXIS];
-    accelTCBias[ZAXIS]  =   eepromConfig.accelTCBiasSlope[ZAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[ZAXIS];
+    accelTCBias[XAXIS] = eepromConfig.accelTCBiasSlope[XAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[XAXIS];
+    accelTCBias[YAXIS] = eepromConfig.accelTCBiasSlope[YAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[YAXIS];
+    accelTCBias[ZAXIS] = eepromConfig.accelTCBiasSlope[ZAXIS] * mpu6000Temperature + eepromConfig.accelTCBiasIntercept[ZAXIS];
 
-    gyroTCBias[ROLL]    =   eepromConfig.gyroTCBiasSlope[ROLL] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[ROLL];
-    gyroTCBias[PITCH]   =   eepromConfig.gyroTCBiasSlope[PITCH] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[PITCH];
-    gyroTCBias[YAW]     =   eepromConfig.gyroTCBiasSlope[YAW] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[YAW];
+    gyroTCBias[ROLL] = eepromConfig.gyroTCBiasSlope[ROLL] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[ROLL];
+    gyroTCBias[PITCH] = eepromConfig.gyroTCBiasSlope[PITCH] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[PITCH];
+    gyroTCBias[YAW] = eepromConfig.gyroTCBiasSlope[YAW] * mpu6000Temperature + eepromConfig.gyroTCBiasIntercept[YAW];
 }

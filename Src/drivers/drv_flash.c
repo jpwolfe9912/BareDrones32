@@ -12,7 +12,7 @@
 
 #include "stm32f7xx.h"
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
 /* Static Prototypes */
 static void flashMassErase(uint8_t VoltageRange);

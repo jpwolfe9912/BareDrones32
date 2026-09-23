@@ -9,7 +9,7 @@
 #include "battery.h"
 
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "drv_adc.h"
 #include "drv_color.h"
 

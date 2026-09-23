@@ -12,7 +12,7 @@
 #include "madgwick.h"
 
 #include "baredrones32.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
 /* Global Variables */
 float beta; // algorithm gain

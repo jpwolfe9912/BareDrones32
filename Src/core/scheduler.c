@@ -10,7 +10,8 @@
 
 #include "stm32f7xx.h"
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
+#include "drv_led.h"
 
 uint32_t deltaTime[TOTAL_LOOPS];
 uint32_t executionTime[TOTAL_LOOPS];

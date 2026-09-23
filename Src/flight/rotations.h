@@ -12,6 +12,6 @@
 #include <stdint.h>
 
 /* Function Prototypes */
-void computeRotations500Hz(void);
+void computeRotations(void);
 
 #endif /* SRC_ROTATIONS_H_ */

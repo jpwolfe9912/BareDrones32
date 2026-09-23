@@ -9,7 +9,7 @@
 #include "drv_dshot_burst.h"
 
 #include "stm32f7xx.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
  /* Static Variables */
 static uint16_t motor_dmabuffer[DSHOT_DMA_BUFFER_SIZE * NUMBER_OF_MOTORS];   // will be either 60 or 120

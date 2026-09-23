@@ -64,7 +64,6 @@ extern volatile bool loopsChecked;
 
 /* Function Prototypes */
 void systemInit(void);
-void SystemClock_Config(void);
 
 void delayMicroseconds(uint32_t us);
 void delay(int32_t ms);
@@ -72,7 +71,7 @@ void delay(int32_t ms);
 uint32_t micros(void);
 uint32_t millis(void);
 
-// void cycleCounterInit(void);
+void pauseSysTick(void);
 
 void SysTick_Handler(void);
 

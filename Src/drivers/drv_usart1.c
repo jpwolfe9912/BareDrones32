@@ -11,7 +11,7 @@
 
 #include "stm32f7xx.h"
 #include "feature_config.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
 /**
  * @brief Calculate length of statically allocated array

@@ -12,7 +12,8 @@
 #include "stm32f7xx.h"
 #include "feature_config.h"
 #include "baredrones32.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
+#include "logging.h"
 
 /* Global Variables */
 char read;
@@ -88,13 +89,12 @@ void usart6Init(uint32_t baudrate)
     DMA2_Stream6->CR |= DMA_SxCR_PL;                // medium priority
 }
 
-/** @brief Reads in data form usart1 with DMA.
+/** @brief Writes date over USART6 with DMA.
  *
- *  @param *pData A pointer to location where you want to read data to.
- *  @param size The amount of bytes to be read.
- *  @return Bool. Successfull or not
+ *  @param *pData A pointer to data you want to send.
+ *  @param size The amount of bytes to be send.
+ *  @return Bool. Successful or not
  */
-// bool usart6Write(char* pData, uint8_t size)
 bool usart6Write(uint8_t* pData, uint8_t size)
 {
     if (usart6TxBusy)
@@ -130,9 +130,8 @@ void USART6_IRQHandler(void)
 {
     /* Check for IDLE line interrupt */
     if ((USART6->ISR & USART_ISR_TC) && (USART6->CR1 & USART_CR1_TCIE))
-    {
         USART6->ICR |= USART_ICR_TCCF; /* Clear IDLE line flag */
-    }
+
 }
 
 /** @brief	DMA2_Stream6 global interrupt handler for USART6 TX
@@ -146,5 +145,8 @@ void DMA2_Stream6_IRQHandler(void)
     {
         DMA2->HIFCR |= DMA_HIFCR_CTCIF6; /* Clear half-transfer complete flag */
         usart6TxBusy = false;
+#ifdef WIRED_LOGGING
+        loggerComplete();
+#endif
     }
 }

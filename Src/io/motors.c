@@ -11,7 +11,7 @@
 #include "motors.h"
 
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
 /* Global Variables */
 uint16_t motor_value[MOTOR_COUNT];
@@ -37,7 +37,7 @@ motorInit(void)
 	for (uint16_t i = 0; i < DSHOT_ARM_COUNT; i++)
 	{
 		dshotWrite(motor_value);
-		delay(1);
+		delayMicroseconds(125);
 	}
 	// dshotWait(DSHOT_ARM_COUNT);
 
