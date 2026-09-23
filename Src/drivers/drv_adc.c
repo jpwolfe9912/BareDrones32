@@ -6,7 +6,7 @@
  *  @date 		10 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "drv_adc.h"
 
 #include "stm32f7xx.h"
@@ -27,11 +27,13 @@ void adc1Init(void)
 	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 
 	/* GPIO Init */
+	GPIOC->MODER &= ~(GPIO_MODER_MODER0 |
+					  GPIO_MODER_MODER1);
 	GPIOC->MODER |= (GPIO_MODER_MODER0 |
 					 GPIO_MODER_MODER1);
-	GPIOC->OTYPER &= ~(GPIO_OTYPER_OT0 &
+	GPIOC->OTYPER &= ~(GPIO_OTYPER_OT0 |
 					   GPIO_OTYPER_OT1);
-	GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR0 &
+	GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR0 |
 					  GPIO_PUPDR_PUPDR1);
 
 	// DMA2 Ch0 Stream4
@@ -41,7 +43,7 @@ void adc1Init(void)
 	while (DMA2_Stream4->CR & DMA_SxCR_EN)
 		;
 
-	DMA2_Stream4->CR &= ~(0x0 << 25U);
+	DMA2_Stream4->CR &= ~(0xF << 25U);
 	DMA2_Stream4->CR &= ~DMA_SxCR_DIR;
 	DMA2_Stream4->CR &= ~DMA_SxCR_PL;
 	DMA2_Stream4->CR |= DMA_SxCR_CIRC;
@@ -58,7 +60,8 @@ void adc1Init(void)
 	ADC1->CR2 &= ~ADC_CR2_ADON; // turn off the ADC
 
 	ADC1->CR1 &= ~ADC_CR1_RES;	 // 12 bits of resolution
-	ADC1->CR1 &= ~ADC_CR1_SCAN;	 // scan mode enable
+	// ADC1->CR1 &= ~ADC_CR1_SCAN;	 // scan mode enable
+	ADC1->CR1 |= ADC_CR1_SCAN;	 // scan mode enable
 	ADC1->CR2 &= ~ADC_CR2_ALIGN; // data alignment right
 
 	ADC1->CR1 &= ~ADC_CR1_DISCEN; // disable discontinuous mode
@@ -80,14 +83,14 @@ void adc1Init(void)
 	ADC123_COMMON->CCR &= ~ADC_CCR_DDS;
 	ADC123_COMMON->CCR &= ~ADC_CCR_DELAY;
 
-	ADC1->SQR3 |= ((11U << 0x0) |
-				   (10U << 0x5));
-	ADC1->SMPR1 |= (ADC_SMPR1_SMP10 |
+	ADC1->SQR3 = ((10U << 0x0) |
+				   (11U << 0x5));
+	ADC1->SMPR1 = (ADC_SMPR1_SMP10 |
 					ADC_SMPR1_SMP11);
 
 	DMA2_Stream4->CR |= DMA_SxCR_TCIE |
-						DMA_SxCR_HTIE |
-						DMA_SxCR_TEIE;
+		DMA_SxCR_HTIE |
+		DMA_SxCR_TEIE;
 	DMA2_Stream4->PAR = (uint32_t)(&(ADC1->DR)); // setting the ADC data register as the peripheral address
 	DMA2_Stream4->M0AR = (uint32_t)rawADC;		 // setting the "rawADC" array as the memory location
 	DMA2_Stream4->NDTR = 2;
@@ -95,7 +98,7 @@ void adc1Init(void)
 	DMA2_Stream4->CR |= DMA_SxCR_EN;
 
 	ADC1->CR1 |= ADC_CR1_EOCIE |
-				 ADC_CR1_OVRIE;
+		ADC_CR1_OVRIE;
 	ADC1->CR2 |= ADC_CR2_ADON;
 }
 
