@@ -10,10 +10,9 @@
 #define __FEATURE_CONFIG_H__
 
 
-/* Defines */
-#define STLINK
+ /* Defines */
+// #define STLINK
 // #define SANDBOX
-// #define OPENLAGER
 #define USE_BAREDRONES
 // #define USE_NUCLEO
 #define USE_EEPROM
@@ -28,9 +27,12 @@
 #define USE_MOTION_PROCESSING
 #define USE_MPU6000
 #define USE_DSHOT
-// #define USE_IBUS
+// // #define USE_IBUS
 #define USE_CRSF
-// #define USE_LOGGING
+#define USE_LOGGING
+#define USE_W25Q128
+// #define WIRED_LOGGING
+// #define OPENLAGER
 #define USE_BATT_MON
 #define USE_LEDS
 
