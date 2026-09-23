@@ -88,13 +88,14 @@ Src/drivers/drv_dshot.c \
 Src/drivers/drv_dshot_burst.c \
 Src/drivers/drv_flash.c \
 Src/drivers/drv_led.c \
-Src/drivers/drv_printf.c \
 Src/drivers/drv_rcc.c \
 Src/drivers/drv_spi1.c \
+Src/drivers/drv_spi2.c \
 Src/drivers/drv_system.c \
 Src/drivers/drv_tim.c \
 Src/drivers/drv_usart1.c \
 Src/drivers/drv_usart2.c \
+Src/drivers/drv_usart3.c \
 Src/drivers/drv_usart6.c \
 Src/flight/compute_axis_commands.c \
 Src/flight/madgwick.c \
@@ -105,6 +106,7 @@ Src/flight/process_commands.c \
 Src/flight/rotations.c \
 Src/io/logging.c \
 Src/io/motors.c \
+Src/io/w25q128.c \
 Src/main.c \
 Src/rx/crsf.c \
 Src/rx/ibus.c \
@@ -258,7 +260,7 @@ LIBDIR = \
 
 
 # Additional LD Flags from config file
-ADDITIONALLDFLAGS = -specs=nano.specs -u _printf_float 
+ADDITIONALLDFLAGS = -specs=nano.specs -u _printf_float -u _scanf_float 
 
 LDFLAGS = $(MCU) $(ADDITIONALLDFLAGS) -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIRECTORY)/$(TARGET).map,--cref -Wl,--gc-sections
 
