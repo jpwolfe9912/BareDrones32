@@ -10,8 +10,9 @@
 /* Includes */
 #include "config.h"
 
+#include "drv_system.h"
 #include "drv_flash.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "drv_color.h"
 #include "mpu6000.h"
 
@@ -77,6 +78,7 @@ writeEEPROM(void)
 		color(RED, YES);
 
 	printf("\nEEPROM write complete. Return status of %X\n", status);
+	delay(1);
 	colorDefault();
 }
 
@@ -154,13 +156,13 @@ checkFirstTime(bool eepromReset)
 
 		eepromConfig.rateCoeffAlpha 		= 8.5e-7;  // Stick to rate scaling for 100 DPS
 		eepromConfig.rateCoeffBravo			= 0.15;
-		eepromConfig.yawRateScaling			= 500.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
+		eepromConfig.yawRateScaling			= 100.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
 
 		eepromConfig.attitudeScaling         = 30.0  / 180000.0 * PI;  // Stick to att scaling for 30 degrees
 
 		///////////////////////////////
 
-		eepromConfig.yawDirection       = 1.0f;		// TODO check this value
+		eepromConfig.yawDirection       = -1.0f;		// TODO check this value
 
 		eepromConfig.midCommand   = 3000.0f;
 		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
@@ -173,42 +175,27 @@ checkFirstTime(bool eepromReset)
 		eepromConfig.PID[ROLL_RATE_PID].P                =  250.0f;
 		eepromConfig.PID[ROLL_RATE_PID].I                =  100.0f;
 		eepromConfig.PID[ROLL_RATE_PID].D                =    0.0f;
-		eepromConfig.PID[ROLL_RATE_PID].Limit            = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * PI / 180.0;
-		eepromConfig.PID[ROLL_RATE_PID].integratorState  =    0.0f;
-		eepromConfig.PID[ROLL_RATE_PID].filterState      =    0.0f;
-		eepromConfig.PID[ROLL_RATE_PID].prevResetState   =   false;
+		eepromConfig.PID[ROLL_RATE_PID].limit            = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * PI / 180.0;
 
 		eepromConfig.PID[PITCH_RATE_PID].P               =  250.0f;
 		eepromConfig.PID[PITCH_RATE_PID].I               =  100.0f;
 		eepromConfig.PID[PITCH_RATE_PID].D               =    0.0f;
-		eepromConfig.PID[PITCH_RATE_PID].Limit           = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P * PI / 180.0;
-		eepromConfig.PID[PITCH_RATE_PID].integratorState =    0.0f;
-		eepromConfig.PID[PITCH_RATE_PID].filterState     =    0.0f;
-		eepromConfig.PID[PITCH_RATE_PID].prevResetState  =   false;
+		eepromConfig.PID[PITCH_RATE_PID].limit           = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P * PI / 180.0;
 
 		eepromConfig.PID[YAW_RATE_PID].P                 =  350.0f;
 		eepromConfig.PID[YAW_RATE_PID].I                 =  100.0f;
 		eepromConfig.PID[YAW_RATE_PID].D                 =    0.0f;
-		eepromConfig.PID[YAW_RATE_PID].Limit             =  1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[YAW_RATE_PID].P;
-		eepromConfig.PID[YAW_RATE_PID].integratorState   =    0.0f;
-		eepromConfig.PID[YAW_RATE_PID].filterState       =    0.0f;
-		eepromConfig.PID[YAW_RATE_PID].prevResetState    =   false;
+		eepromConfig.PID[YAW_RATE_PID].limit             =  1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[YAW_RATE_PID].P;
 
 		eepromConfig.PID[ROLL_ATT_PID].P                 =    2.0f;
 		eepromConfig.PID[ROLL_ATT_PID].I                 =    0.0f;
 		eepromConfig.PID[ROLL_ATT_PID].D                 =    0.0f;
-		eepromConfig.PID[ROLL_ATT_PID].Limit             = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[ROLL_ATT_PID].P;
-		eepromConfig.PID[ROLL_ATT_PID].integratorState   =    0.0f;
-		eepromConfig.PID[ROLL_ATT_PID].filterState       =    0.0f;
-		eepromConfig.PID[ROLL_ATT_PID].prevResetState    =   false;
+		eepromConfig.PID[ROLL_ATT_PID].limit             = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[ROLL_ATT_PID].P;
 
 		eepromConfig.PID[PITCH_ATT_PID].P                =    2.0f;
 		eepromConfig.PID[PITCH_ATT_PID].I                =    0.0f;
 		eepromConfig.PID[PITCH_ATT_PID].D                =    0.0f;
-		eepromConfig.PID[PITCH_ATT_PID].Limit            = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[PITCH_ATT_PID].P;
-		eepromConfig.PID[PITCH_ATT_PID].integratorState  =    0.0f;
-		eepromConfig.PID[PITCH_ATT_PID].filterState      =    0.0f;
-		eepromConfig.PID[PITCH_ATT_PID].prevResetState   =   false;
+		eepromConfig.PID[PITCH_ATT_PID].limit            = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[PITCH_ATT_PID].P;
 
 		///////////////////////////////
 

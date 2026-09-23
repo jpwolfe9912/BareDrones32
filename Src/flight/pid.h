@@ -12,22 +12,35 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/* Global Structs */
+#include "baredrones32.h"
+
+ /* Global Structs */
+typedef struct PIDconfig {
+	float P;
+	float I;
+	float D;
+	float limit;
+} PIDconfig_t;
+
 typedef struct PIDdata {
-  float   P, I, D, Limit;
-  float   integratorState;
-  float   filterState;
-  uint8_t prevResetState;
+	float   integratorState;
+	float   filterState;
+
+	float pTerm;
+	float iTerm;
+	float dTerm;
+
+	uint8_t prevResetState;
 } PIDdata_t;
 
 /* Global Variables */
+extern PIDdata_t pidState[5];
 extern uint8_t pidReset;
 
 /* Function Prototypes */
 void initPID(void);
-float updatePID(float error, float deltaT, uint8_t reset, struct PIDdata *PIDparameters);
+float updatePID(float error, float deltaT, uint8_t reset, const PIDconfig_t* config, PIDdata_t* state);
 void initPIDvalues(void);
-void setPIDstates(uint8_t IDPid, float value);
-void zeroPIDstates(void);
+void resetPID(void);
 
 #endif /* __PID_H__ */

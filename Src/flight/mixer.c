@@ -18,7 +18,7 @@
 uint8_t numberMotor = 4;
 uint16_t throttleCmd;
 int16_t steerCmd, speedCmd;
-int16_t motor_temp[4];
+float motor_temp[4];
 
 /** @brief Pulses the motors.
  *
