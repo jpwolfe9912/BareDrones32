@@ -10,14 +10,14 @@
  *  @date 		23 FEB 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "drv_spi1.h"
 
-#include "drv_printf.h"
+#include "drv_usart3.h"
 
-volatile bool transferComplete = false;
+static volatile bool spi1_transfer_complete = false;
 
-static void transferCompleteCallback(void);
+static void spi1_transfer_complete_callback(void);
 
 /** @brief Initializes SPI1.
  *
@@ -36,7 +36,7 @@ void spi1Init(void)
     GPIOA->MODER |= GPIO_MODER_MODER4_1; // AF mode
     GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR4;
     GPIOA->OTYPER &= ~GPIO_OTYPER_OT4;
-    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR4_0; // no pull
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR4_0; // pull up
     GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL4;
     GPIOA->AFR[0] |= (0x5 << (4U * 4U)); // AF 5
 
@@ -45,7 +45,7 @@ void spi1Init(void)
     GPIOA->MODER |= GPIO_MODER_MODER5_1; // AF Mode
     GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR5;
     GPIOA->OTYPER &= ~GPIO_OTYPER_OT5;
-    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR5_0; // no pull
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR5_0; // pull up
     GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL5;
     GPIOA->AFR[0] |= (0x5 << (4U * 5U)); // AF 5
 
@@ -54,7 +54,7 @@ void spi1Init(void)
     GPIOA->MODER |= GPIO_MODER_MODER6_1; // AF mode
     GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR6;
     GPIOA->OTYPER &= ~GPIO_OTYPER_OT6;
-    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR6_0; // no pull
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR6_0; // pull up
     GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL6;
     GPIOA->AFR[0] |= (0x5 << (4U * 6U)); // AF 5
 
@@ -63,7 +63,7 @@ void spi1Init(void)
     GPIOA->MODER |= GPIO_MODER_MODER7_1; // AF mode
     GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR7;
     GPIOA->OTYPER &= ~GPIO_OTYPER_OT7;
-    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR7_0; // no pull
+    GPIOA->PUPDR |= GPIO_PUPDR_PUPDR7_0; // pull up
     GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL7;
     GPIOA->AFR[0] |= (0x5 << (4U * 7U)); // AF 5
 
@@ -93,7 +93,7 @@ void spi1Init(void)
      * SPI1_TX on DMA2_Stream3_CH3
      */
 
-    // disable DMA stream 1
+     // disable DMA stream 1
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
         ;
@@ -163,21 +163,19 @@ void spi1Init(void)
  *  @param size The amount of bytes to be read.
  *  @return Void.
  */
-void spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
+void spi1ReadBytes(uint8_t reg, uint8_t* pData, uint8_t size)
 {
     reg = reg | 0x80; // read operation
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream0->CR |= (0x3 << 25U);
     DMA2_Stream0->NDTR = size;
     DMA2_Stream0->M0AR = (uint32_t)pData;
 
     DMA2_Stream3->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream3->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream3->CR |= (0x3 << 25U);
     DMA2_Stream3->NDTR = size;
     DMA2_Stream3->M0AR = (uint32_t)&reg;
 
@@ -186,25 +184,24 @@ void spi1ReadBytes(uint8_t reg, uint8_t *pData, uint8_t size)
     DMA2_Stream0->CR |= DMA_SxCR_EN;
     DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-    transferCompleteCallback();
+    spi1_transfer_complete_callback();
 }
 
 /** @brief Writes multiple bytes of data in.
  *
  *  @param reg The hex value of the register to write to.
- *  @param *pData A pointer to the data you want to write.
+ *  @param pData A pointer to the data you want to write.
  *  @param size The amount of bytes to write.
  *  @return Void.
  */
-void spi1WriteBytes(uint8_t *pData, uint8_t size)
+void spi1WriteBytes(uint8_t* pData, uint8_t size)
 {
     // RX Setup
-    static uint8_t dummy[2] __attribute__((unused));
+    static uint8_t dummy[32] __attribute__((unused));
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream0->CR |= (0x3 << 25U);
     DMA2_Stream0->NDTR = size;
     DMA2_Stream0->M0AR = (uint32_t)&dummy;
     // TX Setup
@@ -212,7 +209,6 @@ void spi1WriteBytes(uint8_t *pData, uint8_t size)
     DMA2_Stream3->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream3->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream3->CR |= (0x3 << 25U);
     DMA2_Stream3->NDTR = size;
     DMA2_Stream3->M0AR = (uint32_t)pData;
 
@@ -223,7 +219,7 @@ void spi1WriteBytes(uint8_t *pData, uint8_t size)
     DMA2_Stream0->CR |= DMA_SxCR_EN;
     DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-    transferCompleteCallback();
+    spi1_transfer_complete_callback();
 }
 
 /** @brief Reads one byte of data in.
@@ -232,21 +228,19 @@ void spi1WriteBytes(uint8_t *pData, uint8_t size)
  *  @param *pData A pointer to location where you want to read data to.
  *  @return Void.
  */
-void spi1ReadOneByte(uint8_t reg, uint8_t *pData)
+void spi1ReadOneByte(uint8_t reg, uint8_t* pData)
 {
     reg |= 0x80; // read operation
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream0->CR |= (0x3 << 25U);
     DMA2_Stream0->NDTR = 2;
     DMA2_Stream0->M0AR = (uint32_t)pData;
 
     DMA2_Stream3->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream3->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream3->CR |= (0x3 << 25U);
     DMA2_Stream3->NDTR = 2;
     DMA2_Stream3->M0AR = (uint32_t)&reg;
 
@@ -255,7 +249,7 @@ void spi1ReadOneByte(uint8_t reg, uint8_t *pData)
     DMA2_Stream0->CR |= DMA_SxCR_EN;
     DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-    transferCompleteCallback();
+    spi1_transfer_complete_callback();
 }
 
 /** @brief Writes one byte of data.
@@ -269,12 +263,11 @@ void spi1WriteOneByte(uint8_t reg, uint8_t data)
     // need to pass in array of values to be written
     // RX Setup
     static uint8_t dummy[2] __attribute__((unused));
-    uint8_t temp[2] = {reg, data};
+    uint8_t temp[2] = { reg, data };
 
     DMA2_Stream0->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream0->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream0->CR |= (0x3 << 25U);
     DMA2_Stream0->NDTR = 2;
     DMA2_Stream0->M0AR = (uint32_t)&dummy;
     // TX Setup
@@ -282,7 +275,6 @@ void spi1WriteOneByte(uint8_t reg, uint8_t data)
     DMA2_Stream3->CR &= ~DMA_SxCR_EN;
     while (DMA2_Stream3->CR & DMA_SxCR_EN)
         ;
-    DMA2_Stream3->CR |= (0x3 << 25U);
     DMA2_Stream3->NDTR = 2;
     DMA2_Stream3->M0AR = (uint32_t)temp;
 
@@ -291,15 +283,17 @@ void spi1WriteOneByte(uint8_t reg, uint8_t data)
     DMA2_Stream0->CR |= DMA_SxCR_EN;
     DMA2_Stream3->CR |= DMA_SxCR_EN;
 
-    transferCompleteCallback();
+    spi1_transfer_complete_callback();
 }
 
-static void transferCompleteCallback(void)
+static void spi1_transfer_complete_callback(void)
 {
-    while (!transferComplete)
+    while (!spi1_transfer_complete)
+        ;
+    while (SPI1->SR & SPI_SR_BSY)
         ;
     SPI1->CR1 &= ~SPI_CR1_SPE;
-    transferComplete = false;
+    spi1_transfer_complete = false;
 }
 
 /* Interrupt Handlers */
@@ -312,7 +306,7 @@ void DMA2_Stream0_IRQHandler(void)
     if (DMA2->LISR & DMA_LISR_TCIF0)
     {
         DMA2->LIFCR |= DMA_LIFCR_CTCIF0;
-        transferComplete = true;
+        spi1_transfer_complete = true;
     }
 }
 
