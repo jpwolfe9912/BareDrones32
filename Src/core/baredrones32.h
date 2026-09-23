@@ -31,7 +31,7 @@
 
 #define ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
 
-///////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////////////////////////////////////////////////////
 
 #define ROLL     0
 #define PITCH    1
@@ -100,7 +100,7 @@ extern sensors_t sensors;
 // PID Definitions
 ///////////////////////////////////////////////////////////////////////////////
 
-#define NUMBER_OF_PIDS		6
+#define NUMBER_OF_PIDS		5
 
 #define ROLL_RATE_PID		0
 #define PITCH_RATE_PID		1
@@ -108,7 +108,6 @@ extern sensors_t sensors;
 
 #define ROLL_ATT_PID		3
 #define PITCH_ATT_PID		4
-#define HEADING_PID			5
 
 ///////////////////////////////////////////////////////////////////////////////
 // Flight Modes
@@ -124,66 +123,6 @@ typedef enum
 ///////////////////////////////////////////////////////////////////////////////
 
 enum { DLPF_256HZ, DLPF_188HZ, DLPF_98HZ, DLPF_42HZ };
-
-///////////////////////////////////////////////////////////////////////////////
-// EEPROM
-///////////////////////////////////////////////////////////////////////////////
-
-// typedef struct eepromConfig_t
-// {
-// 	///////////////////////////////////
-
-// 	uint8_t version;
-
-// 	float accelBiasMPU[3];          // Bias for MPU60x0 Accel
-// 	float accelScaleFactorMPU[3];   // Scale factor for MPU60x0 Accel
-
-// 	float accelTCBiasSlope[3];
-// 	float accelTCBiasIntercept[3];
-
-// 	float gyroTCBiasSlope[3];
-// 	float gyroTCBiasIntercept[3];
-
-// 	float accelCutoff;
-
-// 	float KpAcc;
-
-// 	float KiAcc;
-
-// 	uint8_t dlpfSetting;
-
-// 	uint8_t sensorOrientation;
-
-// 	///////////////////////////////////
-
-// 	double rateCoeffAlpha;
-// 	float rateCoeffBravo;
-// 	float yawRateScaling;
-
-// 	float attitudeScaling;
-
-// 	///////////////////////////////////
-
-// 	float midCommand;
-// 	float minCheck;
-// 	float maxCheck;
-// 	float minThrottle;
-// 	float maxThrottle;
-
-// 	///////////////////////////////////
-
-// 	PIDdata_t PID[NUMBER_OF_PIDS];
-
-// 	///////////////////////////////////
-
-// 	uint16_t activeTelemetry;
-
-// 	///////////////////////////////////
-
-// 	float yawDirection;
-
-
-// } eepromConfig_t;
 
 enum crcFlags { CRC_HistoryBad = 1 };
 
