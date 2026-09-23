@@ -7,27 +7,32 @@
  *  @date 		07 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "process_commands.h"
 
 #include "drv_system.h"
-#include "drv_printf.h"
+#include "drv_usart3.h"
 #include "receiver.h"
 #include "mpu6000.h"
 #include "mpu6000_calibration.h"
 #include "config.h"
+#include "pid.h"
 
 
 /* Global Variables */
-uint8_t  commandInDetent[3]         = { true, true, true };
+uint8_t  commandInDetent[3] = { true, true, true };
 uint8_t  previousCommandInDetent[3] = { true, true, true };
 
 flightModes_e flightMode = ANGLE;
 semaphore_t armed = false;
-uint8_t armingTimer    = 0;
+uint8_t armingTimer = 0;
 uint8_t disarmingTimer = 0;
 
 float rxCommands[16];
+
+static bool imuCalibrationLatched = false;
+static bool pidConfigLatched = false;
+
 
 /** @brief Processes receiver commands.
  *
@@ -39,13 +44,13 @@ processCommands(void)
 	uint8_t channel;
 	uint8_t channelsToRead = 16;
 
-	if ( rcData.connected == true )
+	if (rcData.connected == true)
 	{
 		/* Makes RPY from -1000 to 1000 */
-		rxCommands[ROLL]  = (rcData.channels[ROLL ] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
+		rxCommands[ROLL] = (rcData.channels[ROLL] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
 		rxCommands[PITCH] = (rcData.channels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
-		rxCommands[YAW]   = (rcData.channels[YAW+1] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
-		rxCommands[THROTTLE] = (rcData.channels[THROTTLE - 1]) * 2; 
+		rxCommands[YAW] = (rcData.channels[YAW + 1] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rxCommands[THROTTLE] = (rcData.channels[THROTTLE - 1]) * 2;
 
 		/* Makes all other channels from 2000 to 4000 */
 		for (channel = 4; channel < channelsToRead; channel++)
@@ -82,31 +87,46 @@ processCommands(void)
 	///////////////////////////////////
 
 	/*		Check for disarm switch	*/
-	if(rxCommands[AUX1] < MIDCOMMAND)
+	if (rxCommands[AUX1] < MIDCOMMAND)
 	{
-		zeroPIDstates();
+		resetPID();
 		armed = false;
 		disarmingTimer = 0;
 
-		// Check for gyro bias command ( low throttle, left yaw, aft pitch, right roll )
-		if ( (rxCommands[YAW  ] < (eepromConfig.minCheck - MIDCOMMAND)) &&		//mincheck = 2200
-				(rxCommands[ROLL ] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
-				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
+		// Calibrate IMU ( low throttle, left yaw, aft pitch, right roll )
+		bool imuCalibrationCommand = ((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&		//mincheck = 2200
+									  (rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+									  (rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
+		if (imuCalibrationCommand)
 		{
-			mpu6000Calibration();
+			if (!imuCalibrationLatched)
+			{
+				imuCalibrationLatched = true;
+				mpu6000Calibration();
+			}
 		}
+		else
+			imuCalibrationLatched = false;
+
 		// low throttle, left yaw, right roll, forward pitch
-		if((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
-				(rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
-				(rxCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)))
+		bool pidConfigCommand = ((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
+								 (rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+								 (rxCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)));
+		if (pidConfigCommand)
 		{
-			delay(100);
-			initPIDvalues();
+			if (!pidConfigLatched)
+			{
+				pidConfigLatched = true;
+				initPIDvalues();
+			}
 		}
+		else
+			pidConfigLatched = false;
+			
 		// low throttle, right yaw, left roll, aft stick
-		if((rxCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
-				(rxCommands[ROLL ] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
-				(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)) )
+		if ((rxCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+			(rxCommands[ROLL] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+			(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)))
 		{
 			delay(100);
 			// computeMPU6000RTData();
@@ -114,16 +134,16 @@ processCommands(void)
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/
-	if((rxCommands[AUX1] > MIDCOMMAND) &&
-	   (rxCommands[THROTTLE] < eepromConfig.minCheck) &&
-	   (armed == false))
+	if ((rxCommands[AUX1] > MIDCOMMAND) &&
+		(rxCommands[THROTTLE] < eepromConfig.minCheck) &&
+		(armed == false))
 	{
-		zeroPIDstates();
+		resetPID();
 		armed = true;
 	}
 
 	/* Check for Flight Mode Change */
-	if(rxCommands[AUX2] > MIDCOMMAND)
+	if (rxCommands[AUX2] > MIDCOMMAND)
 		flightMode = RATE;
 	else
 		flightMode = ANGLE;
