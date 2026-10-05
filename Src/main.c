@@ -32,8 +32,6 @@
 
 #ifndef SANDBOX
 
-sensors_t sensors;
-
 int main(void)
 {
     systemReady = false;
@@ -50,7 +48,7 @@ int main(void)
     append(&execTasks[FRAME_8000HZ], computeRotations);
     append(&execTasks[FRAME_8000HZ], updateIMU);
     append(&execTasks[FRAME_8000HZ], updateAttitude);
-    append(&execTasks[FRAME_8000HZ], processCommands);
+    append(&execTasks[FRAME_8000HZ], processRcCommands);
     append(&execTasks[FRAME_8000HZ], computeAxisCommands);
     append(&execTasks[FRAME_8000HZ], mixTable);
 #endif
@@ -66,6 +64,7 @@ int main(void)
 #endif
 
 #ifdef USE_LOGGING
+    append(&execTasks[FRAME_1000HZ], processSerialCommands);
 #ifdef WIRED_LOGGING
     append(&execTasks[FRAME_100HZ], wiredLoggerUpdate);
 #endif
@@ -73,6 +72,7 @@ int main(void)
     append(&execTasks[FRAME_8000HZ], w25q128Process);
     append(&execTasks[FRAME_1000HZ], flashLoggerProcess);
     append(&execTasks[FRAME_1000HZ], flashLoggerUpdate);
+    append(&execTasks[FRAME_1000HZ], flashLoggerDumpProcess);
 #endif
 #endif
 
