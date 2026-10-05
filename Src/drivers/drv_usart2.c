@@ -14,18 +14,20 @@
 #include "baredrones32.h"
 #include "drv_usart3.h"
 
-/**
- * @brief Calculate length of statically allocated array
- */
-
  /* Global Variables */
-volatile bool utx2_finished = false;
 Usart2Buffs_t Buff_2;
 
-// volatile uint8_t testbyte;
-// volatile uint32_t rxCount = 0;
+/* Static Variables */
+static volatile bool utx2_finished = false;
+
+static volatile uint32_t rxOverflowCount = 0;
+static volatile uint32_t dmaBytesProcessed = 0;
+static volatile uint32_t ringBytesWritten = 0;
+
 
 /* Static Function Prototypes */
+static usart2TxCallback_t usart2TxCb = NULL;
+static void usart2_begin_rx(void);
 static void usart_rx_check(void);
 static void usart_process_data(const void* data, size_t len);
 
@@ -35,44 +37,51 @@ static void usart_process_data(const void* data, size_t len);
  */
 void usart2Init(uint32_t baudrate)
 {
+    /* TX2 : PA2 : AF7 : DMA1 Stream5 Ch4
+       RX2 : PA3 : AF7 : DMA1 Stream6 Ch4 */
+
     printf("\nInitializing USART 2\n");
+
     /* GPIO INIT */
-    // enable clock for GPIOA PA3
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
     // set mode, speed, type, pull, AF
-    GPIOA->MODER &= ~GPIO_MODER_MODER3;
-    GPIOA->MODER |= GPIO_MODER_MODER3_1;
-    GPIOA->OSPEEDR |= GPIO_OSPEEDR_OSPEEDR3;
-    GPIOA->OTYPER &= ~GPIO_OTYPER_OT3;
-    GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR3;
-    GPIOA->AFR[0] &= ~GPIO_AFRL_AFRL3;
-    GPIOA->AFR[0] |= (0x7 << (4U * 3U));
+    GPIOA->MODER &= ~(GPIO_MODER_MODER2 |
+                      GPIO_MODER_MODER3);
+    GPIOA->MODER |= (GPIO_MODER_MODER2_1 |
+                     GPIO_MODER_MODER3_1);
+    GPIOA->OSPEEDR |= (GPIO_OSPEEDR_OSPEEDR2 |
+                       GPIO_OSPEEDR_OSPEEDR3);
+    GPIOA->AFR[0] &= ~(GPIO_AFRL_AFRL2 |
+                       GPIO_AFRL_AFRL3);
+    GPIOA->AFR[0] |= (0x7 << (4U * 2U)) |
+        (0x7 << (4U * 3U));
 
+    /* USART INIT */
     NVIC_SetPriority(USART2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
     NVIC_EnableIRQ(USART2_IRQn);
 
-    /* USART INIT */
     RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
 
     USART2->CR1 &= ~USART_CR1_UE; // disable usart
-    // USART2->BRR = 0x1D5;          // 115200 BR
     USART2->BRR = 54000000 / baudrate;          // 420000 BR
     USART2->CR1 &= ~USART_CR1_M; // 8 bit transfer
     USART2->CR2 &= ~USART_CR2_STOP;
     USART2->CR1 &= ~USART_CR1_PCE;
-    USART2->CR1 |= USART_CR1_RE |
-        USART_CR1_TE;
+    USART2->CR1 |= (USART_CR1_RE |
+                    USART_CR1_TE);
     USART2->CR3 &= ~(USART_CR3_CTSE |
                      USART_CR3_RTSE);
     USART2->CR1 &= ~USART_CR1_OVER8;
+    USART2->CR1 |= USART_CR1_UE; // enable usart
+
 
     /* DMA INIT */
-
     /* USART2 RX DMA Init */
     DMA1_Stream5->CR &= ~DMA_SxCR_EN;
     while (DMA1_Stream5->CR & DMA_SxCR_EN)
     {
     }
+    DMA1_Stream5->CR |= (0x4 << DMA_SxCR_CHSEL_Pos);       // set DMA channel ch 4
     DMA1_Stream5->CR &= ~DMA_SxCR_DIR;     // per to mem
     DMA1_Stream5->FCR &= ~DMA_SxFCR_DMDIS; // fifo dis
     DMA1_Stream5->CR &= ~DMA_SxCR_MBURST;
@@ -85,12 +94,13 @@ void usart2Init(uint32_t baudrate)
     DMA1_Stream5->CR |= DMA_SxCR_CIRC;              // circ mode en
     DMA1_Stream5->CR |= DMA_SxCR_PL;                // medium priority
 
-    /* USART TX DMA Init */
+    /* USART2 TX DMA Init */
     DMA1_Stream6->CR &= ~DMA_SxCR_EN;
     while (DMA1_Stream6->CR & DMA_SxCR_EN)
     {
     }
-    DMA1_Stream6->CR |= DMA_SxCR_DIR;      // per to mem
+    DMA1_Stream6->CR |= (0x4 << DMA_SxCR_CHSEL_Pos);       // set DMA channel ch 4
+    DMA1_Stream6->CR |= DMA_SxCR_DIR_0;      // mem to per
     DMA1_Stream6->FCR &= ~DMA_SxFCR_DMDIS; // fifo dis
     DMA1_Stream6->CR &= ~DMA_SxCR_MBURST;
     DMA1_Stream6->CR &= ~DMA_SxCR_PBURST;
@@ -101,6 +111,18 @@ void usart2Init(uint32_t baudrate)
     DMA1_Stream6->CR &= ~DMA_SxCR_PSIZE;            // 8 bit size
     DMA1_Stream6->CR &= ~DMA_SxCR_CIRC;             // normal mode en
     DMA1_Stream6->CR |= DMA_SxCR_PL;                // medium priority
+    DMA1_Stream6->CR |= DMA_SxCR_TCIE;              // set transfer complete interrupts
+
+    /* Begin Data Processing */
+    lwrb_init(&Buff_2.RxBuffer, (void*)Buff_2.RxBuffer_Data, sizeof(Buff_2.RxBuffer_Data));
+
+    usart2_begin_rx();
+}
+
+void
+usart2RegisterCallback(usart2TxCallback_t cb)
+{
+    usart2TxCb = cb;
 }
 
 /** @brief Reads in data form usart2 with DMA.
@@ -109,14 +131,14 @@ void usart2Init(uint32_t baudrate)
  *  @param size The amount of bytes to be read.
  *  @return Void.
  */
-void usart2BeginRx(void)
+static void 
+usart2_begin_rx(void)
 {
     if (!(USART2->ISR & USART_ISR_BUSY))
     {                                     // wait for UART to be ready
         DMA1_Stream5->CR &= ~DMA_SxCR_EN; // disable DMA
         while (DMA1_Stream5->CR & DMA_SxCR_EN)
             ;
-        DMA1_Stream5->CR |= (0x4 << DMA_SxCR_CHSEL_Pos);                   // set DMA channel
         DMA1_Stream5->M0AR = (uint32_t)Buff_2.RxBuffer_DMA;  // set memory address
         DMA1_Stream5->NDTR = ARRAY_LEN(Buff_2.RxBuffer_DMA); // set transfer size
 
@@ -129,30 +151,36 @@ void usart2BeginRx(void)
 
         USART2->CR1 |= USART_CR1_IDLEIE;// | USART_CR1_RXNEIE;
         USART2->CR3 |= USART_CR3_DMAR; // enable DMA for UART
-        USART2->CR1 |= USART_CR1_UE;   // enable usart
     }
 }
 
 /**
  * @brief           Send string to USART
  * @param[in]       str: String to send
+ * @return          bool: true if transmission is successful, false otherwise
  */
-void usart2Tx(const char* str)
+bool usart2Tx(const char* str, size_t size)
 {
-    size_t size = strlen(str);
+    if (!utx2_finished)
+        return false;
+
     DMA1_Stream6->CR &= ~DMA_SxCR_EN;
     while (DMA1_Stream6->CR & DMA_SxCR_EN)
         ;
     DMA1_Stream6->NDTR = size;
     DMA1_Stream6->M0AR = (uint32_t)str;
 
-    USART2->CR3 |= USART_CR3_DMAT;
+    DMA1->HIFCR |= (0x3F << 22U); // clear flags
+    USART2->ICR |= USART_ICR_TCCF;
 
+    USART2->CR3 |= USART_CR3_DMAT;
     DMA1_Stream6->CR |= DMA_SxCR_EN;
 
     while (!utx2_finished)
         ;
     utx2_finished = false;
+
+    return true;
 }
 
 /* Static Functions */
@@ -242,9 +270,6 @@ usart_rx_check(void)
  * @param[in]       data: Data to process
  * @param[in]       len: Length in units of bytes
  */
-volatile uint32_t rxOverflowCount = 0;
-volatile uint32_t dmaBytesProcessed = 0;
-volatile uint32_t ringBytesWritten = 0;
 
 static void
 usart_process_data(const void* data, size_t len)
@@ -271,8 +296,12 @@ void USART2_IRQHandler(void)
         USART2->ICR |= USART_ICR_IDLECF;
         usart_rx_check();
     }
+
     if (USART2->ISR & USART_ISR_ORE)
         USART2->ICR |= USART_ICR_ORECF; // clear overrun flag
+
+    if ((USART2->ISR & USART_ISR_TC) && (USART2->CR1 & USART_CR1_TCIE))
+        USART2->ICR |= USART_ICR_TCCF; /* Clear IDLE line flag */
 }
 
 /** @brief	DMA1_Stream5 global interrupt handler for USART2 RX
@@ -306,5 +335,8 @@ void DMA1_Stream6_IRQHandler(void)
     {
         DMA1->HIFCR |= DMA_HIFCR_CTCIF6; /* Clear half-transfer complete flag */
         utx2_finished = true;
+
+        if (usart2TxCb != NULL)
+            usart2TxCb();
     }
 }
