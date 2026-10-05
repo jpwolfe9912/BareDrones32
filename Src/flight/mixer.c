@@ -6,7 +6,7 @@
  *  @date 		07 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "mixer.h"
 
 #include "drv_system.h"
@@ -14,11 +14,8 @@
 #include "process_commands.h"
 #include "motors.h"
 
-/* Global Variables */
-uint8_t numberMotor = 4;
-uint16_t throttleCmd;
-int16_t steerCmd, speedCmd;
-float motor_temp[4];
+/* Static Functions */
+float pid_mix_flight(float mixX, float mixY, float mixZ, float mixT);
 
 /** @brief Pulses the motors.
  *
@@ -41,14 +38,14 @@ pulseMotors(void)
 void
 mixTable(void)
 {
-	uint8_t i;
+	float motor_buffer[4] = {};
 
-	if(armed == true)
+	if (armed == true)
 	{
-		motor_temp[0] = PIDMIXFLIGHT( -1.0f,  1.0f, -1.0f, 1.0f );      // Rear Right  CW
-		motor_temp[1] = PIDMIXFLIGHT( -1.0f, -1.0f,  1.0f, 1.0f );      // Front Right CCW
-		motor_temp[2] = PIDMIXFLIGHT(  1.0f,  1.0f,  1.0f, 1.0f );      // Rear Left   CCW
-		motor_temp[3] = PIDMIXFLIGHT(  1.0f, -1.0f, -1.0f, 1.0f );      // Front Left  CW
+		motor_buffer[0] = pid_mix_flight( 1.0f, -1.0f, -1.0f, 1.0f);      // Rear Right  CW
+		motor_buffer[1] = pid_mix_flight( 1.0f,  1.0f,  1.0f, 1.0f);      // Front Right CCW
+		motor_buffer[2] = pid_mix_flight(-1.0f, -1.0f,  1.0f, 1.0f);      // Rear Left   CCW
+		motor_buffer[3] = pid_mix_flight(-1.0f,  1.0f, -1.0f, 1.0f);      // Front Left  CW
 
 		float maxDeltaThrottle;
 		float minDeltaThrottle;
@@ -56,18 +53,18 @@ mixTable(void)
 
 		maxDeltaThrottle = eepromConfig.maxThrottle - throttleCmd;
 		minDeltaThrottle = throttleCmd - eepromConfig.minThrottle;
-		deltaThrottle    = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
+		deltaThrottle = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
 
 		float dshotThrottleScale = (float)(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) /
-								   (float)(eepromConfig.maxThrottle - eepromConfig.minThrottle);
+			(float)(eepromConfig.maxThrottle - eepromConfig.minThrottle);
 
-		for (i = 0; i < numberMotor; i++)
+		for (uint8_t i = 0; i < NUMBER_OF_MOTORS; i++)
 		{
-			motor_temp[i] = constrain(motor_temp[i], throttleCmd - deltaThrottle, throttleCmd + deltaThrottle);
+			motor_buffer[i] = constrain(motor_buffer[i], throttleCmd - deltaThrottle, throttleCmd + deltaThrottle);
 
-			motor_temp[i] = DSHOT_IDLE_THROTTLE + (motor_temp[i] - eepromConfig.minThrottle) 
-						  * dshotThrottleScale;
-			motor_value[i] = constrain16(motor_temp[i], DSHOT_IDLE_THROTTLE, DSHOT_MAX_THROTTLE);
+			motor_buffer[i] = DSHOT_IDLE_THROTTLE + (motor_buffer[i] - eepromConfig.minThrottle) * dshotThrottleScale;
+
+			motor_value[i] = constrain16(motor_buffer[i], DSHOT_IDLE_THROTTLE, DSHOT_MAX_THROTTLE);
 		}
 	}
 	else
@@ -77,4 +74,14 @@ mixTable(void)
 		motor_value[MOTOR3] = 0;
 		motor_value[MOTOR4] = 0;
 	}
+}
+
+float
+pid_mix_flight(float mixX, float mixY, float mixZ, float mixT)
+{
+	float mix_output = ((ratePID[ROLL] * (mixX)) + 
+						(ratePID[PITCH] * (mixY)) + 
+						(ratePID[YAW] * (mixZ) * eepromConfig.yawDirection) + 
+						(throttleCmd * (mixT)));
+	return mix_output;
 }

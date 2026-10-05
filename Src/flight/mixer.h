@@ -17,15 +17,8 @@
 #include "compute_axis_commands.h"
 
  /* Defines */
-#define PIDMIXFLIGHT(X,Y,Z,T) 	(ratePID[ROLL] * (X) + ratePID[PITCH] * (Y) + 1.0 * ratePID[YAW] * (Z) + throttleCmd * (T))
-
 #define DSHOT_THROTTLE_OFFSET		DSHOT_MIN_THROTTLE
 #define DSHOT_THROTTLE_SCALE	(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) / (MAXCOMMAND - eepromConfig.minThrottle * 1.0f)
-
-/* Global Variables */
-extern uint8_t numberMotor;
-extern uint16_t throttleCmd;
-// extern float motor_temp[4];
 
 /* Function Prototypes */
 void pulseMotors(void);
