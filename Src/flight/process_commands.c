@@ -17,21 +17,17 @@
 #include "mpu6000_calibration.h"
 #include "config.h"
 #include "pid.h"
-
+#include "logging.h"
 
 /* Global Variables */
-uint8_t  commandInDetent[3] = { true, true, true };
-uint8_t  previousCommandInDetent[3] = { true, true, true };
-
 flightModes_e flightMode = ANGLE;
-semaphore_t armed = false;
-uint8_t armingTimer = 0;
-uint8_t disarmingTimer = 0;
+volatile bool armed = false;
+float rcCommands[RC_CHANNELS_MAX];
 
-float rxCommands[16];
-
-static bool imuCalibrationLatched = false;
-static bool pidConfigLatched = false;
+/* Static Variables */
+static bool imu_calibration_latched = false;
+static bool pid_config_latched = false;
+static bool compute_rt_data_latched = false;
 
 
 /** @brief Processes receiver commands.
@@ -39,122 +35,156 @@ static bool pidConfigLatched = false;
  *  @return Void.
  */
 void
-processCommands(void)
+processRcCommands(void)
 {
-	uint8_t channel;
-	uint8_t channelsToRead = 16;
-
+	/* Package raw data from receiever */
 	if (rcData.connected == true)
 	{
-		/* Makes RPY from -1000 to 1000 */
-		rxCommands[ROLL] = (rcData.channels[ROLL] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
-		rxCommands[PITCH] = (rcData.channels[PITCH] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
-		rxCommands[YAW] = (rcData.channels[YAW + 1] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
-		rxCommands[THROTTLE] = (rcData.channels[THROTTLE - 1]) * 2;
+		/* Makes RPY from 1000:2000 to -1000:1000 */
+		rcCommands[ROLL] = (rcData.channels[RC_AIL] * 2) - MIDCOMMAND;	// Roll Range  -1000:1000
+		rcCommands[PITCH] = (rcData.channels[RC_ELE] * 2) - MIDCOMMAND;	// Pitch Range -1000:1000
+		rcCommands[YAW] = (rcData.channels[RC_RUD] * 2) - MIDCOMMAND;	// Yaw Range   -1000:1000
+		rcCommands[THROTTLE] = (rcData.channels[RC_THR]) * 2;				// Throttle Range 2000:4000
 
 		/* Makes all other channels from 2000 to 4000 */
-		for (channel = 4; channel < channelsToRead; channel++)
-			rxCommands[channel] = rcData.channels[channel] * 2;
+		for (uint8_t channel = 4; channel < RC_CHANNELS_MAX; channel++)
+			rcCommands[channel] = rcData.channels[channel] * 2;
 	}
 
-	// Set past command in detent values
-	for (channel = 0; channel < 3; channel++)
-		previousCommandInDetent[channel] = commandInDetent[channel];
-
-	// Apply deadbands and set detent discretes'
-	for (channel = 0; channel < 3; channel++)
+	/* Apply deadbands */
+	for (uint8_t channel = 0; channel < 3; channel++)
 	{
 		/* RPY is within deadband */
-		if ((rxCommands[channel] <= DEADBAND) && (rxCommands[channel] >= -DEADBAND))
+		if ((rcCommands[channel] <= DEADBAND) && (rcCommands[channel] >= -DEADBAND))
 		{
-			rxCommands[channel] = 0;			// set command to 0
-			commandInDetent[channel] = true;	// command IS within detent
+			rcCommands[channel] = 0;			// set command to 0
 		}
 		else
 		{
-			commandInDetent[channel] = false;
-			if (rxCommands[channel] > 0)
-			{
-				rxCommands[channel] = (rxCommands[channel] - DEADBAND) * DEADBAND_SLOPE;
-			}
+			if (rcCommands[channel] > 0)
+				rcCommands[channel] = (rcCommands[channel] - DEADBAND) * DEADBAND_SLOPE;
+
 			else
-			{
-				rxCommands[channel] = (rxCommands[channel] + DEADBAND) * DEADBAND_SLOPE;
-			}
+				rcCommands[channel] = (rcCommands[channel] + DEADBAND) * DEADBAND_SLOPE;
 		}
 	}
 
-	///////////////////////////////////
+	/* Auxillary switch handling */
 
 	/*		Check for disarm switch	*/
-	if (rxCommands[AUX1] < MIDCOMMAND)
+	if (rcCommands[RC_AUX1] < MIDCOMMAND)
 	{
 		resetPID();
-		armed = false;
-		disarmingTimer = 0;
+		armed = false;	// disarm the quad
 
-		// Calibrate IMU ( low throttle, left yaw, aft pitch, right roll )
-		bool imuCalibrationCommand = ((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&		//mincheck = 2200
-									  (rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
-									  (rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
+		/* Calibrate IMU (low throttle, left yaw, aft pitch, right roll) */
+		bool imuCalibrationCommand = ((rcCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//mincheck = 2200
+									  (rcCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+									  (rcCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
 		if (imuCalibrationCommand)
 		{
-			if (!imuCalibrationLatched)
+			if (!imu_calibration_latched)
 			{
-				imuCalibrationLatched = true;
+				imu_calibration_latched = true;
 				mpu6000Calibration();
 			}
 		}
 		else
-			imuCalibrationLatched = false;
+			imu_calibration_latched = false;
 
-		// low throttle, left yaw, right roll, forward pitch
-		bool pidConfigCommand = ((rxCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
-								 (rxCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
-								 (rxCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)));
+		/* Set PID values (low throttle, left yaw, right roll, forward pitch) */
+		bool pidConfigCommand = ((rcCommands[YAW] < (eepromConfig.minCheck - MIDCOMMAND)) &&
+								 (rcCommands[ROLL] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+								 (rcCommands[PITCH] > (eepromConfig.maxCheck - MIDCOMMAND)));
 		if (pidConfigCommand)
 		{
-			if (!pidConfigLatched)
+			if (!pid_config_latched)
 			{
-				pidConfigLatched = true;
+				pid_config_latched = true;
 				initPIDvalues();
 			}
 		}
 		else
-			pidConfigLatched = false;
-			
-		// low throttle, right yaw, left roll, aft stick
-		if ((rxCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
-			(rxCommands[ROLL] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
-			(rxCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)))
-		{
-			delay(100);
-			// computeMPU6000RTData();
+			pid_config_latched = false;
+
+		/* Compute MPU6000 RT data (low throttle, right yaw, left roll, aft stick) */
+		bool computeRTData =  ((rcCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+									(rcCommands[ROLL] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+									(rcCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
+		if (computeRTData)
+		{	
+			if(!compute_rt_data_latched)
+			{
+				compute_rt_data_latched = true;
+				computeMPU6000RTData();
+			}
+			else
+				compute_rt_data_latched = false;
 		}
 	}
 
 	/*		Check for arm switch and throttle low(<2200)	*/
-	if ((rxCommands[AUX1] > MIDCOMMAND) &&
-		(rxCommands[THROTTLE] < eepromConfig.minCheck) &&
-		(armed == false))
+	if ((rcCommands[RC_AUX1] > MIDCOMMAND) &&
+		(rcCommands[THROTTLE] < eepromConfig.minCheck) &&
+		(!armed))
 	{
 		resetPID();
 		armed = true;
 	}
 
 	/* Check for Flight Mode Change */
-	if (rxCommands[AUX2] > MIDCOMMAND)
-		flightMode = RATE;
-	else
+	if (rcCommands[RC_AUX2] > MIDCOMMAND)
 		flightMode = ANGLE;
+	else
+		flightMode = RATE;
 
 	///////////////////////////////////
 
 	// Check for armed true and throttle command > minThrottle
 
-	if ((armed == true) && (rxCommands[THROTTLE] > eepromConfig.minThrottle))
+	if ((armed == true) && (rcCommands[THROTTLE] > eepromConfig.minThrottle))
 		pidReset = false;
 	else
 		pidReset = true;
+
 }
 
+/** @brief Processes serial commands.
+ *
+ *  @return Void.
+ */
+void
+processSerialCommands(void)
+{
+#ifdef USE_W25Q128
+	/* Check for Flash Requests */
+	char command[10] = { 0 };
+	size_t avail = lwrb_get_full(&Buff_3.RxBuffer);
+
+	if (avail == sizeof("dump"))
+	{
+		lwrb_read(&Buff_3.RxBuffer, command, avail);
+		if (!strcmp(command, "dump\r"))
+		{
+			memset(command, 0, sizeof(command));
+			flashLoggerStartDump();
+		}
+		else return;
+	}
+	else if (avail == sizeof("erase"))
+	{
+		lwrb_read(&Buff_3.RxBuffer, command, avail);
+		if (!strcmp(command, "erase\r"))
+		{
+			memset(command, 0, sizeof(command));
+			flashLoggerErase();
+		}
+		else return;
+	}
+	else
+	{
+		lwrb_skip(&Buff_3.RxBuffer, avail);
+		return;
+	}
+#endif
+}

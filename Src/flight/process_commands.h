@@ -17,20 +17,16 @@
 
 /* Defines */
 #define DEADBAND       24
-#define DEADBAND_SLOPE (1000.0f/(1000-DEADBAND))
+#define DEADBAND_SLOPE (1000.0f / (1000 - DEADBAND))
 
 /* Global Variables */
-extern uint8_t commandInDetent[3];
-extern uint8_t previousCommandInDetent[3];
-
 extern flightModes_e flightMode;
 
-extern semaphore_t armed;
-extern uint8_t     armingTimer;
-extern uint8_t     disarmingTimer;
+extern volatile bool armed;
 
-extern float rxCommands[16];
+extern float rcCommands[16];
 
-void processCommands(void);
+void processRcCommands(void);
+void processSerialCommands(void);
 
 #endif /* __FLIGHT_COMMAND_H__ */
