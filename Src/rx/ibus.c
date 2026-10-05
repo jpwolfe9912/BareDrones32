@@ -44,10 +44,6 @@ bool ibusInit(void)
 
     printf("\nInitializing iBus Receiver\n");
 
-    usart2BeginRx();
-
-    lwrb_init(&Buff_2.RxBuffer, (void*)Buff_2.RxBuffer_Data, sizeof(Buff_2.RxBuffer_Data));
-
     status = IBUS_ERROR;
 
     for (uint8_t i = 0; i < 10; i++)

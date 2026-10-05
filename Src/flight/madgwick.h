@@ -17,12 +17,6 @@
 #define sampleFreqDef   8000.0f          // sample frequency in Hz
 #define betaDef         5.0f            // 2 * proportional gain
 
-/* Function Prototypes */
-void madgwickInit(void);
-void updateIMU(void);
-void computeAngles(void);
-void updateAttitude(void);
-
 /* Global Variables */
 extern float beta;				// algorithm gain
 extern float q0;
@@ -34,6 +28,12 @@ extern float roll;
 extern float pitch;
 extern float yaw;
 extern char anglesComputed;
+
+/* Function Prototypes */
+void madgwickInit(void);
+void updateIMU(void);
+void computeAngles(void);
+void updateAttitude(void);
 
 /* Inline Functions */
 

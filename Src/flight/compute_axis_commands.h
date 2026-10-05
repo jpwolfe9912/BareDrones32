@@ -21,6 +21,7 @@ extern float   attCmd[3];
 extern float   attPID[3];
 extern float   ratePID[3];
 extern float   rateCmd[3];
+extern float   throttleCmd;
 
 /* Function Prototypes */
 void computeAxisCommands(void);

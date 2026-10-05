@@ -24,6 +24,7 @@ float attCmd[3];
 float attPID[3];
 float ratePID[3];
 float rateCmd[3];
+float throttleCmd;
 
 /** @brief Computes the commands that get sent to the mixer.
  *
@@ -36,29 +37,28 @@ void computeAxisCommands(void)
 
     timerValue = getTimerValue();
     dt8000Hz = (float)timerValue * 0.000001f; // timerValue ~= 125 * 0.000001 = 0.000125s = .125ms = 8kHz
-    // printf("%d\n", timerValue);
     if (flightMode == ANGLE)
     {
-        attCmd[ROLL] = rxCommands[ROLL] * eepromConfig.attitudeScaling;     // fromm -1000->1000 to -30->30 
+        attCmd[ROLL] = rcCommands[ROLL] * eepromConfig.attitudeScaling;     // fromm -1000->1000 to -30->30 
         error = standardRadianFormat(attCmd[ROLL] - sensors.attitude[ROLL]);
         attPID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_ATT_PID], &pidState[ROLL_ATT_PID]);
 
-        attCmd[PITCH] = rxCommands[PITCH] * eepromConfig.attitudeScaling;
+        attCmd[PITCH] = rcCommands[PITCH] * eepromConfig.attitudeScaling;
         error = standardRadianFormat(attCmd[PITCH] - sensors.attitude[PITCH]);
         attPID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_ATT_PID], &pidState[PITCH_ATT_PID]);
     }
 
     if (flightMode == RATE)
     {
-        rateCmd[ROLL] = RATECURVE(rxCommands[ROLL]);
-        rateCmd[PITCH] = RATECURVE(rxCommands[PITCH]);
+        rateCmd[ROLL] = RATECURVE(rcCommands[ROLL]);
+        rateCmd[PITCH] = RATECURVE(rcCommands[PITCH]);
     }
     else
     {
         rateCmd[ROLL] = attPID[ROLL];
         rateCmd[PITCH] = attPID[PITCH];
     }
-    rateCmd[YAW] =  rxCommands[YAW] * eepromConfig.yawRateScaling;
+    rateCmd[YAW] =  rcCommands[YAW] * eepromConfig.yawRateScaling;
 
     error = rateCmd[ROLL] - sensors.gyro[ROLL];
     ratePID[ROLL] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[ROLL_RATE_PID], &pidState[ROLL_RATE_PID]);
@@ -66,12 +66,12 @@ void computeAxisCommands(void)
     error = rateCmd[PITCH] - sensors.gyro[PITCH];
     ratePID[PITCH] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[PITCH_RATE_PID], &pidState[PITCH_RATE_PID]);
 
-    error = rateCmd[YAW] + sensors.gyro[YAW];
+    error = rateCmd[YAW] - sensors.gyro[YAW];
     ratePID[YAW] = updatePID(error, dt8000Hz, pidReset, &eepromConfig.PID[YAW_RATE_PID], &pidState[YAW_RATE_PID]);
 
     ///////////////////////////////////
 
-    throttleCmd = rxCommands[THROTTLE];
+    throttleCmd = rcCommands[THROTTLE];
 }
 
 //////////////////////////////////////////////////////////////////////////////

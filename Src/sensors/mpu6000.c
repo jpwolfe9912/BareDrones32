@@ -142,8 +142,6 @@ bool mpu6000Init(void)
  */
 void readMPU6000(void)
 {
-    led1TOGGLE();
-
     spi1ReadBytes(MPU6000_ACCEL_XOUT_H, rawData, 15);
 
     rawAccel[XAXIS].bytes[1] = rawData[1];

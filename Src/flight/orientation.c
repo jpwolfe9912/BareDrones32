@@ -27,9 +27,11 @@ orientSensors(void)
             mpuOrientationMatrix[0] =  1.0f;
             mpuOrientationMatrix[1] =  0.0f;
             mpuOrientationMatrix[2] =  0.0f;
+
             mpuOrientationMatrix[3] =  0.0f;
             mpuOrientationMatrix[4] =  1.0f;
             mpuOrientationMatrix[5] =  0.0f;
+
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
             mpuOrientationMatrix[8] =  1.0f;
@@ -40,12 +42,14 @@ orientSensors(void)
             mpuOrientationMatrix[0] =  0.0f;
             mpuOrientationMatrix[1] =  1.0f;
             mpuOrientationMatrix[2] =  0.0f;
-            mpuOrientationMatrix[3] =  1.0f;
+
+            mpuOrientationMatrix[3] = -1.0f;
             mpuOrientationMatrix[4] =  0.0f;
             mpuOrientationMatrix[5] =  0.0f;
+
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
-            mpuOrientationMatrix[8] = -1.0f;
+            mpuOrientationMatrix[8] =  1.0f;
 
             break;
 
@@ -53,12 +57,14 @@ orientSensors(void)
             mpuOrientationMatrix[0] = -1.0f;
             mpuOrientationMatrix[1] =  0.0f;
             mpuOrientationMatrix[2] =  0.0f;
+
             mpuOrientationMatrix[3] =  0.0f;
-            mpuOrientationMatrix[4] =  1.0f;
+            mpuOrientationMatrix[4] = -1.0f;
             mpuOrientationMatrix[5] =  0.0f;
+
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
-            mpuOrientationMatrix[8] = -1.0f;
+            mpuOrientationMatrix[8] =  1.0f;
 
             break;
 
@@ -66,12 +72,14 @@ orientSensors(void)
             mpuOrientationMatrix[0] =  0.0f;
             mpuOrientationMatrix[1] = -1.0f;
             mpuOrientationMatrix[2] =  0.0f;
-            mpuOrientationMatrix[3] = -1.0f;
+
+            mpuOrientationMatrix[3] =  1.0f;
             mpuOrientationMatrix[4] =  0.0f;
             mpuOrientationMatrix[5] =  0.0f;
+
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
-            mpuOrientationMatrix[8] = -1.0f;
+            mpuOrientationMatrix[8] =  1.0f;
 
             break;
 
@@ -79,9 +87,11 @@ orientSensors(void)
             mpuOrientationMatrix[0] =  1.0f;
             mpuOrientationMatrix[1] =  0.0f;
             mpuOrientationMatrix[2] =  0.0f;
+
             mpuOrientationMatrix[3] =  0.0f;
             mpuOrientationMatrix[4] =  1.0f;
             mpuOrientationMatrix[5] =  0.0f;
+
             mpuOrientationMatrix[6] =  0.0f;
             mpuOrientationMatrix[7] =  0.0f;
             mpuOrientationMatrix[8] =  1.0f;

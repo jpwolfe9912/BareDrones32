@@ -49,7 +49,7 @@ battMonRead(void)
 	adc1Start();
 	battVoltage = *rawADC * 0.0088623f;
 	battCurrent = rawADC[1];// * 0.0088623f;
-	batt_warning();
+	// batt_warning();
 }
 
 /** @brief Determines the amount of cells in the battery based on the voltage.

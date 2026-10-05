@@ -37,14 +37,6 @@
 #define PITCH    1
 #define YAW      2
 #define THROTTLE 3
-#define AUX1     4
-#define AUX2     5
-#define AUX3     6
-#define AUX4     7
-#define AUX5     8
-#define AUX6     9
-#define AUX7     10
-#define AUX8     11
 
 #define XAXIS    0
 #define YAXIS    1
@@ -117,6 +109,22 @@ typedef enum
 	RATE,
 	ANGLE
 }flightModes_e;
+
+enum
+{
+	RC_AIL,
+	RC_ELE,
+	RC_THR,
+	RC_RUD,
+	RC_AUX1,
+	RC_AUX2,
+	RC_AUX3,
+	RC_AUX4,
+	RC_AUX5,
+	RC_AUX6,
+	RC_AUX7,
+	RC_AUX8
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 // MPU6000 DLPF Configurations

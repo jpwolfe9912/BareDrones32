@@ -37,6 +37,7 @@
 #include "ibus.h"
 #include "crsf.h"
 #include "w25q128.h"
+#include "logging.h"
 #include "pid.h"
 
  /* Static Variables */
@@ -208,9 +209,9 @@ void systemInit(void)
 #ifdef USE_W25Q128
     spi2Init();
     w25q128Init();
-    w25q128SectorErase(0);
-    w25q128SectorErase(1);
-    w25q128SectorErase(2);
+#endif
+#ifdef USE_LOGGING
+    loggerInit();
 #endif
 
 #ifdef OPENLAGER
@@ -261,6 +262,8 @@ void systemInit(void)
     battMonInit();
 #endif
 
+    eepromConfig.sensorOrientation = 3;
+    eepromConfig.yawDirection = 1.0;
     orientSensors();
 
 #ifdef USE_MOTION_PROCESSING
@@ -272,6 +275,7 @@ void systemInit(void)
     if (eepromChanged)
         writeEEPROM();
 #endif
+    printf("Initialization Finished\n");
 }
 
 /** @brief Initializes the cycle counter so we can use delay

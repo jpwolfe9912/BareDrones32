@@ -50,7 +50,6 @@ motorInit(void)
 void
 motorUpdate(void)
 {
-	// motor_value[0] = 150;
 	dshotWrite(motor_value);
 }
 

@@ -83,10 +83,6 @@ bool crsfInit(void)
 
     printf("\nCrossfire initializing \n");
 
-    lwrb_init(&Buff_2.RxBuffer, (void*)Buff_2.RxBuffer_Data, sizeof(Buff_2.RxBuffer_Data));
-
-    usart2BeginRx();
-
     status = CRSF_ERROR;
 
     for (uint8_t i = 0; i < 10; i++)

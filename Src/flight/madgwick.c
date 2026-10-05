@@ -26,6 +26,8 @@ float pitch;
 float yaw;
 char anglesComputed;
 
+sensors_t sensors;
+
 /* Static Function Prototypes */
 static float invSqrt(float x);
 
@@ -163,9 +165,9 @@ void updateAttitude(void)
 {
     sensors.attitude[ROLL ] = getRollRadians();
     sensors.attitude[PITCH] = getPitchRadians();
-    sensors.attitude[YAW  ] = getYawRadians();
+    sensors.attitude[YAW  ] = -1.0f * getYawRadians();
 
     sensors.attDeg[ROLL ] = getRoll();
     sensors.attDeg[PITCH] = getPitch();
-    sensors.attDeg[YAW  ] = getYaw();
+    sensors.attDeg[YAW  ] = -1.0f * getYaw();
 } 

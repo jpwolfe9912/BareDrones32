@@ -90,11 +90,11 @@ writeEEPROM(void)
 void
 checkFirstTime(bool eepromReset)
 {
-	uint8_t test_val;
+	uint8_t check_val;
 
-	test_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
+	check_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
 
-	if (eepromReset || (test_val != checkNewEEPROMConf))
+	if (eepromReset || (check_val != checkNewEEPROMConf))
 	{
 		// Default settings
 		eepromConfig.version = checkNewEEPROMConf;
@@ -150,7 +150,7 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////////
 
-		eepromConfig.sensorOrientation = 1;  // No rotation
+		eepromConfig.sensorOrientation = 3;  // 180* rotation
 
 		///////////////////////////////////
 
@@ -162,7 +162,7 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.yawDirection       = -1.0f;		// TODO check this value
+		eepromConfig.yawDirection       =  1.0f;		// TODO check this value
 
 		eepromConfig.midCommand   = 3000.0f;
 		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
