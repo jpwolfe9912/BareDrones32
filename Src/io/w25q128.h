@@ -18,6 +18,7 @@
 #define W25Q128_SECTOR_COUNT    4096U
 #define W25Q128_PAGE_SIZE       256U
 #define W25Q128_PAGE_COUNT      65536U
+#define W25Q128_CHIP_SIZE       16777216U   // total bytes available
 
 #define BAREDRONES_JEDEC_ID     0xEF7018
 #define NUCLEO_JEDEC_ID         0xEF4018
@@ -91,6 +92,8 @@ void w25q128Init(void);
 W25Q128_Status_e w25q128ReadJedecId(uint32_t* id);
 W25Q128_Status_e w25q128Read(uint32_t start_page, uint16_t offset, uint8_t* data, uint16_t length);
 W25Q128_Status_e w25q128SectorErase(uint16_t num_sector);
+W25Q128_Status_e  w25q128SequentialSectorErase(uint16_t start_sector, uint16_t end_sector);
+W25Q128_Status_e w25q128ChipErase(void);
 W25Q128_Status_e w25q128PageProgram(uint32_t page, uint16_t offset, uint8_t* data, uint16_t length);
 W25Q128_Status_e w25q128PageProgramDMA(uint32_t page, uint16_t offset, uint8_t* data, uint32_t length);
 void w25q128Process(void);

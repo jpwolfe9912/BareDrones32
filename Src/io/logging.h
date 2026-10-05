@@ -72,15 +72,10 @@ _Static_assert(sizeof(flashLogRecord_t) == 78,
 /* Enumerations */
 typedef enum
 {
-	ROLL_LOG,
-	PITCH_LOG,
-	YAW_LOG,
-	MOTORS_LOG,
-	SENSORS_LOG,
-	SCHEDULER_LOG,
-	BATT_LOG,
-	NO_LOG = 100
-}logs_t;
+	FLASH_NONE = 0,
+	FLASH_DUMP,
+	FLASH_ERASE,
+}flashRequest_e;
 
 /* Defines */
 #define LOG_SIZE		64
@@ -88,10 +83,17 @@ typedef enum
 extern volatile bool flash_update_active;
 
 /* Functions */
+void loggerInit(void);
 void wiredLoggerUpdate(void);
 void loggerComplete(void);
 
 void flashLoggerProcess(void);
 void flashLoggerUpdate(void);
+
+void flashLoggerErase(void);
+
+void flashLoggerDumpComplete(void);
+void flashLoggerDumpProcess(void);
+void flashLoggerStartDump(void);
 
 #endif /* __LOGGING_H__ */

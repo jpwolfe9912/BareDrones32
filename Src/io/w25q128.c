@@ -12,6 +12,7 @@
 
 #include "feature_config.h"
 #include "drv_system.h"
+#include "drv_usart3.h"
 #include "drv_spi2.h"
 
  /* Static variables */
@@ -127,6 +128,37 @@ w25q128SectorErase(uint16_t num_sector)
     spi2TransferByte((address >> 16) & 0xFF);
     spi2TransferByte((address >> 8) & 0xFF);
     spi2TransferByte(address & 0xFF);
+
+    FLASH_CS_HIGH;
+
+    w25q128WaitUntilReady();
+    printf("Erased sector: %u\n", num_sector);
+
+    return W25Q128_SUCCESS;
+}
+
+W25Q128_Status_e 
+w25q128SequentialSectorErase(uint16_t start_sector, uint16_t end_sector)
+{
+    W25Q128_Status_e status;
+    for(uint16_t i = start_sector; i <= end_sector; i++)
+    {
+        status = w25q128SectorErase(i);
+        if (status == W25Q128_ERROR)
+            return status;
+    }
+    printf("Erased sectors %u to %u\n", start_sector, end_sector);
+    return W25Q128_SUCCESS;
+}
+
+W25Q128_Status_e
+w25q128ChipErase(void)
+{
+    w25q128_write_enable();
+
+    FLASH_CS_LOW;
+
+    spi2TransferByte(INST_CHIP_ERASE);
 
     FLASH_CS_HIGH;
 
@@ -290,20 +322,3 @@ w25q128WaitUntilReady(void)
         ;
     return W25Q128_SUCCESS;
 }
-
-// void testFunc(void)
-// {
-//     volatile uint8_t statusBefore;
-//     volatile uint8_t statusAfterEnable;
-//     volatile uint8_t statusAfterDisable;
-
-//     statusBefore = w25q128_read_status_reg1();
-
-//     w25q128_write_enable();
-//     statusAfterEnable = w25q128_read_status_reg1();
-
-//     w25q128_write_disable();
-//     statusAfterDisable = w25q128_read_status_reg1();
-
-//     uint8_t dummy;
-// }
