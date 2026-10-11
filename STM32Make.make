@@ -91,6 +91,7 @@ Src/drivers/drv_led.c \
 Src/drivers/drv_rcc.c \
 Src/drivers/drv_spi1.c \
 Src/drivers/drv_spi2.c \
+Src/drivers/drv_spi3.c \
 Src/drivers/drv_system.c \
 Src/drivers/drv_tim.c \
 Src/drivers/drv_usart1.c \
@@ -108,6 +109,8 @@ Src/io/logging.c \
 Src/io/motors.c \
 Src/io/w25q128.c \
 Src/main.c \
+Src/osd/max7456.c \
+Src/osd/osdWidgets.c \
 Src/rx/crsf.c \
 Src/rx/ibus.c \
 Src/rx/receiver.c \
@@ -219,6 +222,7 @@ C_INCLUDES =  \
 -ISrc/drivers \
 -ISrc/flight \
 -ISrc/io \
+-ISrc/osd \
 -ISrc/rx \
 -ISrc/sensors \
 -ISrc/sys \

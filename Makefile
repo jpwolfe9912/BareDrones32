@@ -45,6 +45,7 @@ Src/io/*.c \
 Src/rx/*.c \
 Src/sensors/*.c \
 Src/sys/*.c \
+Src/osd/*.c \
 Src/target/*.c \
 Middlewares/lwrb/lwrb.c \
 Libraries/CMSIS/DSP/MatrixFunctions/arm_mat_init_f32.c \
@@ -127,6 +128,7 @@ C_INCLUDES =  \
 -ISrc/rx \
 -ISrc/sensors \
 -ISrc/sys \
+-ISrc/osd \
 -ISrc/target
 -IMiddlewares/lwrb
 
