@@ -7,7 +7,7 @@
  *  @date 		03 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "config.h"
 
 #include "drv_system.h"
@@ -15,6 +15,7 @@
 #include "drv_usart3.h"
 #include "drv_color.h"
 #include "mpu6000.h"
+#include "max7456.h"
 
 /* Global Variabels */
 const char rcChannelLetters[] = "AERT12345678";
@@ -28,7 +29,7 @@ static uint8_t checkNewEEPROMConf = 29;
 
 void readEEPROM(void)
 {
-	eepromConfig_t *dst = &eepromConfig;
+	eepromConfig_t* dst = &eepromConfig;
 
 	*dst = *(eepromConfig_t*)FLASH_WRITE_EEPROM_ADDR;
 }
@@ -44,15 +45,15 @@ writeEEPROM(void)
 	int32_t i;
 
 	FLASH_EraseInit_t erase;
-    bool status = true;
+	bool status = true;
 
 	erase.TypeErase = FLASH_TYPEERASE_SECTORS;
 	erase.NbSectors = 1;
 	erase.Sector = FLASH_SECTOR_7;
 	erase.VoltageRange = FLASH_VOLTAGE_RANGE_3;
 
-	eepromConfig_t *src = &eepromConfig;
-	uint32_t       *dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
+	eepromConfig_t* src = &eepromConfig;
+	uint32_t* dst = (uint32_t*)FLASH_WRITE_EEPROM_ADDR;
 
 	// there's no reason to write these values to EEPROM, they'll just be noise
 
@@ -63,7 +64,7 @@ writeEEPROM(void)
 
 	i = -1;
 
-	while (i++ < eepromConfigNUMWORD )
+	while (i++ < eepromConfigNUMWORD)
 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
 
 	///////////////////////////////////
@@ -72,12 +73,12 @@ writeEEPROM(void)
 
 	readEEPROM();
 
-	if(status)
+	if (status)
 		color(GREEN, YES);
 	else
 		color(RED, YES);
 
-	printf("\nEEPROM write complete. Return status of %X\n", status);
+	printf("\nEEPROM write complete\n");
 	delay(1);
 	colorDefault();
 }
@@ -90,9 +91,10 @@ writeEEPROM(void)
 void
 checkFirstTime(bool eepromReset)
 {
+	printf("[INIT] EEPROM.............. ");
 	uint8_t check_val;
 
-	check_val = *(uint8_t *)FLASH_WRITE_EEPROM_ADDR;
+	check_val = *(uint8_t*)FLASH_WRITE_EEPROM_ADDR;
 
 	if (eepromReset || (check_val != checkNewEEPROMConf))
 	{
@@ -125,15 +127,15 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////
 
-		eepromConfig.gyroTCBiasSlope[ROLL ] = 0.0f;
+		eepromConfig.gyroTCBiasSlope[ROLL] = 0.0f;
 		eepromConfig.gyroTCBiasSlope[PITCH] = 0.0f;
-		eepromConfig.gyroTCBiasSlope[YAW  ] = 0.0f;
+		eepromConfig.gyroTCBiasSlope[YAW] = 0.0f;
 
 		///////////////////////////////
 
-		eepromConfig.gyroTCBiasIntercept[ROLL ] = 0.0f;
+		eepromConfig.gyroTCBiasIntercept[ROLL] = 0.0f;
 		eepromConfig.gyroTCBiasIntercept[PITCH] = 0.0f;
-		eepromConfig.gyroTCBiasIntercept[YAW  ] = 0.0f;
+		eepromConfig.gyroTCBiasIntercept[YAW] = 0.0f;
 
 		///////////////////////////////
 
@@ -154,55 +156,96 @@ checkFirstTime(bool eepromReset)
 
 		///////////////////////////////////
 
-		eepromConfig.rateCoeffAlpha 		= 8.5e-7;  // Stick to rate scaling for 100 DPS
-		eepromConfig.rateCoeffBravo			= 0.15;
-		eepromConfig.yawRateScaling			= 100.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
+		eepromConfig.rateCoeffAlpha = 8.5e-7;  // Stick to rate scaling for 100 DPS
+		eepromConfig.rateCoeffBravo = 0.15;
 
-		eepromConfig.attitudeScaling         = 30.0  / 180000.0 * PI;  // Stick to att scaling for 30 degrees
-
-		///////////////////////////////
-
-		eepromConfig.yawDirection       =  1.0f;		// TODO check this value
-
-		eepromConfig.midCommand   = 3000.0f;
-		eepromConfig.minCheck     = (float)(MINCOMMAND + 200);
-		eepromConfig.maxCheck     = (float)(MAXCOMMAND - 200);
-		eepromConfig.minThrottle  = (float)(MINCOMMAND + 200);
-		eepromConfig.maxThrottle  = (float)(MAXCOMMAND);
+		eepromConfig.yawRateScaling = 100.0 / 180000.0 * PI;  // Stick to rate scaling for 500 DPS
+		eepromConfig.attitudeScaling = 30.0 / 180000.0 * PI;  // Stick to att scaling for 30 degrees
 
 		///////////////////////////////
 
-		eepromConfig.PID[ROLL_RATE_PID].P                =  250.0f;
-		eepromConfig.PID[ROLL_RATE_PID].I                =  100.0f;
-		eepromConfig.PID[ROLL_RATE_PID].D                =    0.0f;
-		eepromConfig.PID[ROLL_RATE_PID].limit            = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * PI / 180.0;
+		eepromConfig.yawDirection = 1.0f;		// TODO check this value
 
-		eepromConfig.PID[PITCH_RATE_PID].P               =  250.0f;
-		eepromConfig.PID[PITCH_RATE_PID].I               =  100.0f;
-		eepromConfig.PID[PITCH_RATE_PID].D               =    0.0f;
-		eepromConfig.PID[PITCH_RATE_PID].limit           = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P * PI / 180.0;
-
-		eepromConfig.PID[YAW_RATE_PID].P                 =  350.0f;
-		eepromConfig.PID[YAW_RATE_PID].I                 =  100.0f;
-		eepromConfig.PID[YAW_RATE_PID].D                 =    0.0f;
-		eepromConfig.PID[YAW_RATE_PID].limit             =  1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[YAW_RATE_PID].P;
-
-		eepromConfig.PID[ROLL_ATT_PID].P                 =    2.0f;
-		eepromConfig.PID[ROLL_ATT_PID].I                 =    0.0f;
-		eepromConfig.PID[ROLL_ATT_PID].D                 =    0.0f;
-		eepromConfig.PID[ROLL_ATT_PID].limit             = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[ROLL_ATT_PID].P;
-
-		eepromConfig.PID[PITCH_ATT_PID].P                =    2.0f;
-		eepromConfig.PID[PITCH_ATT_PID].I                =    0.0f;
-		eepromConfig.PID[PITCH_ATT_PID].D                =    0.0f;
-		eepromConfig.PID[PITCH_ATT_PID].limit            = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[PITCH_ATT_PID].P;
+		eepromConfig.midCommand = 3000.0f;
+		eepromConfig.minCheck = (float)(MINCOMMAND + 200);
+		eepromConfig.maxCheck = (float)(MAXCOMMAND - 200);
+		eepromConfig.minThrottle = (float)(MINCOMMAND + 200);
+		eepromConfig.maxThrottle = (float)(MAXCOMMAND);
 
 		///////////////////////////////
 
-		eepromConfig.activeTelemetry          = 5;
+		eepromConfig.PID[ROLL_RATE_PID].P = 250.0f;
+		eepromConfig.PID[ROLL_RATE_PID].I = 100.0f;
+		eepromConfig.PID[ROLL_RATE_PID].D = 0.0f;
+		eepromConfig.PID[ROLL_RATE_PID].limit = 1000.0f * eepromConfig.PID[ROLL_RATE_PID].P * PI / 180.0;
+
+		eepromConfig.PID[PITCH_RATE_PID].P = 250.0f;
+		eepromConfig.PID[PITCH_RATE_PID].I = 100.0f;
+		eepromConfig.PID[PITCH_RATE_PID].D = 0.0f;
+		eepromConfig.PID[PITCH_RATE_PID].limit = 1000.0f * eepromConfig.PID[PITCH_RATE_PID].P * PI / 180.0;
+
+		eepromConfig.PID[YAW_RATE_PID].P = 350.0f;
+		eepromConfig.PID[YAW_RATE_PID].I = 100.0f;
+		eepromConfig.PID[YAW_RATE_PID].D = 0.0f;
+		eepromConfig.PID[YAW_RATE_PID].limit = 1000.0f * eepromConfig.yawRateScaling * eepromConfig.PID[YAW_RATE_PID].P;
+
+		eepromConfig.PID[ROLL_ATT_PID].P = 2.0f;
+		eepromConfig.PID[ROLL_ATT_PID].I = 0.0f;
+		eepromConfig.PID[ROLL_ATT_PID].D = 0.0f;
+		eepromConfig.PID[ROLL_ATT_PID].limit = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[ROLL_ATT_PID].P;
+
+		eepromConfig.PID[PITCH_ATT_PID].P = 2.0f;
+		eepromConfig.PID[PITCH_ATT_PID].I = 0.0f;
+		eepromConfig.PID[PITCH_ATT_PID].D = 0.0f;
+		eepromConfig.PID[PITCH_ATT_PID].limit = 1000.0f * eepromConfig.attitudeScaling * eepromConfig.PID[PITCH_ATT_PID].P;
+
+		///////////////////////////////
+
+		eepromConfig.activeTelemetry = 5;
+
+		eepromConfig.osdEnabled             =  true;
+        eepromConfig.defaultVideoStandard   =  1;
+        eepromConfig.metricUnits            =  true;
+
+        eepromConfig.osdDisplayAlt          =  true;
+        eepromConfig.osdDisplayAltRow       =  15;
+        eepromConfig.osdDisplayAltCol       =  1;
+        eepromConfig.osdDisplayAltHoldState =  false;
+
+        eepromConfig.osdDisplayAH           =  false; // DO NOT SET BOTH TO TRUE
+        eepromConfig.osdDisplayAtt          =  true;
+
+        eepromConfig.osdDisplayHdg          =  false;
+        eepromConfig.osdDisplayHdgRow       =  1;
+        eepromConfig.osdDisplayHdgCol       =  13;
+
+        eepromConfig.osdDisplayHdgBar		=  true;
+		eepromConfig.osdDisplayHdgBarRow	=  14;
+		eepromConfig.osdDisplayHdgBarCol	=  10;
+
+		eepromConfig.osdDisplayVoltage		=  true;
+		eepromConfig.osdDisplayVoltageRow	=  1;
+		eepromConfig.osdDisplayVoltageCol	=  1;
+
+		eepromConfig.osdDisplayCurrent		=  true;
+		eepromConfig.osdDisplayCurrentRow	=  1;
+		eepromConfig.osdDisplayCurrentCol	=  8;
+
+		eepromConfig.osdDisplayThrot		=  true;
+		eepromConfig.osdDisplayThrotRow		=  15;
+		eepromConfig.osdDisplayThrotCol		=  25;
+
+		eepromConfig.osdDisplayTimer		=  true;
+		eepromConfig.osdDisplayTimerRow		=  0;
+		eepromConfig.osdDisplayTimerCol		=  23;
+
+		eepromConfig.osdDisplayRSSI			=  true;
+		eepromConfig.osdDisplayRSSIRow		=  1;
+		eepromConfig.osdDisplayRSSICol		=  24;
 
 		writeEEPROM();
 	}
+	printf("OK\n");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
