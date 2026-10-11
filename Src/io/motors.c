@@ -28,7 +28,7 @@ motors_mode_e motors_mode = MOTORS_MODE_NORMAL;
 void
 motorInit(void)
 {
-	printf("\nInitializing Motors\n");
+	printf("[INIT] Motors.............. ");
 
 	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
@@ -40,6 +40,7 @@ motorInit(void)
 		delayMicroseconds(125);
 	}
 	// dshotWait(DSHOT_ARM_COUNT);
+	printf("OK\n");
 
 }
 

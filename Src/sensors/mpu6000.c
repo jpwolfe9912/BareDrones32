@@ -58,7 +58,7 @@ uint8_t devIdReadAttempts = DEV_READ_ATTEMPTS;
 bool mpu6000Init(void)
 {
     ///////////////////////////////////
-    printf("\nInitializing MPU-6000\n");
+    printf("[INIT] MPU6000............. ");
 
     SPI1_DISABLE;
     spi1WriteOneByte(0x00, 0x00);
@@ -80,10 +80,10 @@ bool mpu6000Init(void)
         delayMicroseconds(15);
         if (whoami[1] == 0x68)
         {
-            color(GREEN, YES);
-            printf("\nDevice ID recognized as 0x%X\n", whoami[1]);
+            // color(GREEN, YES);
+            // printf("\nDevice ID recognized as 0x%X\n", whoami[1]);
             mpu6000Initialized = true;
-            color(WHITE, NO);
+            // color(WHITE, NO);
             break;
         }
         else if ((whoami[1] != 0x68) && (devIdReadAttempts == 0))
@@ -98,6 +98,7 @@ bool mpu6000Init(void)
             else
             {
                 mpu6000Initialized = false;
+                printf("Not detected\n");
                 return mpu6000Initialized;
             }
         }
@@ -126,14 +127,17 @@ bool mpu6000Init(void)
     spi1WriteOneByte(MPU6000_INT_PIN_CFG, 0x10);
     delayMicroseconds(100);
 
-    ///////////////////////////////////
     SPI1->CR1 &= ~SPI_CR1_BR;
     SPI1->CR1 |= SPI_BR_PRESCALER_8; // sensor BR < 20MHz
 
     delay(100);
 
     computeMPU6000RTData();
+
+    printf("OK (ID 0x%X)\n", whoami[1]);
+
     return mpu6000Initialized;
+
 }
 
 /** @brief Reads MPU-6000 raw data and packs accel, gyro, temp data into variables
@@ -176,7 +180,7 @@ void computeMPU6000RTData(void)
 
     systemReady = false;
 
-    printf("\nComputing Gyro Runtime Data...\n");
+    // printf("\nComputing Gyro Runtime Data...\n");
 
     for (samples = 0; samples < 5000; samples++)
     {

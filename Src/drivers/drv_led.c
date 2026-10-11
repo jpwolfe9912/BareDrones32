@@ -10,6 +10,7 @@
 
 #include "stm32f7xx.h"
 #include "drv_system.h"
+#include "drv_usart3.h"
 #include "process_commands.h"
 
 void ledInit(void)
@@ -17,6 +18,7 @@ void ledInit(void)
     /*
      * 	LEDs are PC3-2
      */
+    printf("[INIT] LEDs................ ");
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 
     GPIOC->MODER &= ~(GPIO_MODER_MODER2 |
@@ -27,6 +29,8 @@ void ledInit(void)
 
     GPIOC->PUPDR |= GPIO_PUPDR_PUPDR2_1 |
                     GPIO_PUPDR_PUPDR3_1;
+    
+    printf("OK\n");
 }
 
 void led1ON(void)

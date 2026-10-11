@@ -35,6 +35,8 @@ static void w25q128_start_page_program(void);
 void
 w25q128Init(void)
 {
+    printf("[INIT] W25Q128............. ");
+
     FLASH_CS_HIGH;
 
     uint32_t id = 0x000000;
@@ -48,6 +50,7 @@ w25q128Init(void)
 #else
     while (id != NUCLEO_JEDEC_ID);
 #endif
+    printf("OK\n");
 }
 
 static W25Q128_Status_e

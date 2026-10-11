@@ -37,7 +37,7 @@ static float invSqrt(float x);
  */
 void madgwickInit(void)
 {
-    printf("\nInitializing Madgwick Sensor Fusion\n");
+    printf("[INIT] Madgwick............ ");
 
     beta = betaDef;
     q0 = 1.0f;
@@ -46,6 +46,8 @@ void madgwickInit(void)
     q3 = 0.0f;
     invSampleFreq = 1.0f / sampleFreqDef;
     anglesComputed = 0;
+
+    printf("OK\n");
 }
 
 /** @brief Creates quaternion from gyro and accel values.

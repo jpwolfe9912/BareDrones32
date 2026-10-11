@@ -17,7 +17,6 @@
 
 static volatile bool spi2_transfer_complete = false;
 
-static void spi2_transfer_complete_callback(void);
 static void spi2_clear_rx(void);
 
 /** @brief Initializes SPI2.
@@ -26,7 +25,7 @@ static void spi2_clear_rx(void);
  */
 void spi2Init(void)
 {
-    printf("\nInitializing SPI 2\n");
+    printf("[INIT] SPI2................ ");
 
     /* GPIO INIT */
     // enable clock for GPIOB
@@ -126,6 +125,8 @@ void spi2Init(void)
     DMA1_Stream4->CR |= DMA_SxCR_PL;
     // DMA transfer complete interrupt enable
     DMA1_Stream4->CR |= DMA_SxCR_TCIE;
+
+    printf("OK\n");
 }
 
 /** @brief Writes multiple bytes of data with DMA.

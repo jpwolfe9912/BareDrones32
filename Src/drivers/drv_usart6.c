@@ -27,7 +27,7 @@ volatile bool usart6TxBusy = false;
  */
 void usart6Init(uint32_t baudrate)
 {
-    printf("\nInitializing USART 6\n");
+    printf("[INIT] USART6.............. ");
     /////////////////GPIO INIT///////////////////
     // enable clock for GPIOC
     RCC->DCKCFGR2 &= ~RCC_DCKCFGR2_USART6SEL;
@@ -87,6 +87,7 @@ void usart6Init(uint32_t baudrate)
     DMA2_Stream6->CR &= ~DMA_SxCR_PSIZE;            // 8 bit size
     DMA2_Stream6->CR &= ~DMA_SxCR_CIRC;             // circ mode dis
     DMA2_Stream6->CR |= DMA_SxCR_PL;                // medium priority
+    printf("OK\n");
 }
 
 /** @brief Writes date over USART6 with DMA.
@@ -146,7 +147,7 @@ void DMA2_Stream6_IRQHandler(void)
         DMA2->HIFCR |= DMA_HIFCR_CTCIF6; /* Clear half-transfer complete flag */
         usart6TxBusy = false;
 #ifdef WIRED_LOGGING
-        loggerComplete();
+        wiredLoggerComplete();
 #endif
     }
 }

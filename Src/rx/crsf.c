@@ -79,9 +79,9 @@ static uint8_t crsfCrc8(const uint8_t* data, uint8_t len);
 
 bool crsfInit(void)
 {
-    bool crsf_initialized = false;
+    printf("[INIT] Crossfire........... ");
 
-    printf("\nCrossfire initializing \n");
+    bool crsf_initialized = false;
 
     status = CRSF_ERROR;
 
@@ -96,12 +96,12 @@ bool crsfInit(void)
         }
         delay(5);
     }
-
     if (!crsf_initialized)
     {
+#ifdef STLINK
         color(RED, YES);
         printf("Crossfire initialization failed. Try again?\n");
-#ifdef STLINK
+
         if (printfWaitFor('y'))
             return true;
         else
@@ -109,22 +109,17 @@ bool crsfInit(void)
 #endif
         if (init_error++ > 10)
         {
-            printf("\nToo many failed attempts\n");
-            color(WHITE, NO);
+            printf("Not detected\n");
             return true;
         }
-        color(WHITE, NO);
         return false;
     }
     else
     {
-        color(GREEN, YES);
-        printf("\nCrossfire receiver recognized\n");
-        colorDefault();
+        printf("OK\n");
         crsfProcess();
         return true;
     }
-    return true;
 }
 
 /** @brief Waits for the parser to not be busy

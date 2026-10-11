@@ -10,6 +10,7 @@
 #include "drv_adc.h"
 
 #include "stm32f7xx.h"
+#include "drv_usart3.h"
 
 /* Global Variables */
 // uint16_t rawADC;//[2];
@@ -22,6 +23,7 @@ uint16_t rawADC[2]; // = (uint16_t*)0x20010000;
  */
 void adc1Init(void)
 {
+	printf("[INIT] ADC1................ ");
 	/* RCC Init */
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 	RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
@@ -100,6 +102,8 @@ void adc1Init(void)
 	ADC1->CR1 |= ADC_CR1_EOCIE |
 		ADC_CR1_OVRIE;
 	ADC1->CR2 |= ADC_CR2_ADON;
+
+	printf("OK\n");
 }
 
 /** @brief	Starts the ADC conversion.

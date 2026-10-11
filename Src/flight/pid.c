@@ -25,6 +25,7 @@ uint8_t pidReset = true;
 void
 initPID(void)
 {
+	printf("[INIT] PID................. ");
 	uint8_t index;
 
 	for (uint8_t i = 0; i < NUMBER_OF_PIDS; i++)
@@ -36,15 +37,19 @@ initPID(void)
 		pidState[i].dTerm = 0.0f;
 		pidState[i].prevResetState = false;
 	}
+
+	printf("OK\n");
 }
 
-/** @brief Updates the PID states.
- *
- *  @param error Commanded changed minus measured change.
- *  @param deltaT Time between updates in sec.
- *  @param reset If the PID states should be reset.
- *  @param *PIDparameters Struct containing the parameters of the PID controller.
- *  @return float Output from the algorithm.
+/**
+ * @brief Updates the PID states.
+ * 
+ * @param error Commanded changed minus measured change.
+ * @param deltaT Time between updates in sec.
+ * @param reset If the PID states should be reset.
+ * @param config Struct containing the parameters of the PID controller.
+ * @param state Struct containing the current states of the PID controller.
+ * @return float Output from the algorithm.
  */
 float
 updatePID(float error, float deltaT, uint8_t reset, const PIDconfig_t* config, PIDdata_t* state)
@@ -119,7 +124,7 @@ initPIDvalues(void)
 			printf("Yaw Rate PID  : 2\n");
 			printf("Roll Att PID  : 3\n");
 			printf("Pitch Att PID : 4\n");
-			usart3Read8(&ID);
+			// usart3Read8(&ID);
 			ID -= 48;
 			color(YELLOW, YES);
 			printf("\nConfiguring state %u\n", ID);
@@ -134,9 +139,9 @@ initPIDvalues(void)
 				   eepromConfig.PID[ID].D,
 				   eepromConfig.PID[ID].limit);
 
-			usart3ReadPID(&eepromConfig.PID[ID].P,
-						  &eepromConfig.PID[ID].I,
-						  &eepromConfig.PID[ID].D);
+			// usart3ReadPID(&eepromConfig.PID[ID].P,
+						//   &eepromConfig.PID[ID].I,
+						//   &eepromConfig.PID[ID].D);
 			if (ID < 2)
 				eepromConfig.PID[ID].limit = 1000.0f * eepromConfig.PID[ID].P * PI / 180.0;
 			else if (ID == 2)

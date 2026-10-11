@@ -40,7 +40,7 @@ void usart2Init(uint32_t baudrate)
     /* TX2 : PA2 : AF7 : DMA1 Stream5 Ch4
        RX2 : PA3 : AF7 : DMA1 Stream6 Ch4 */
 
-    printf("\nInitializing USART 2\n");
+    printf("[INIT] USART2.............. ");
 
     /* GPIO INIT */
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
@@ -112,6 +112,8 @@ void usart2Init(uint32_t baudrate)
     DMA1_Stream6->CR &= ~DMA_SxCR_CIRC;             // normal mode en
     DMA1_Stream6->CR |= DMA_SxCR_PL;                // medium priority
     DMA1_Stream6->CR |= DMA_SxCR_TCIE;              // set transfer complete interrupts
+
+    printf("OK\n");
 
     /* Begin Data Processing */
     lwrb_init(&Buff_2.RxBuffer, (void*)Buff_2.RxBuffer_Data, sizeof(Buff_2.RxBuffer_Data));

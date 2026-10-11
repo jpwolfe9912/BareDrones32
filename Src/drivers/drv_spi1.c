@@ -25,7 +25,7 @@ static void spi1_transfer_complete_callback(void);
  */
 void spi1Init(void)
 {
-    printf("\nInitializing SPI 1\n");
+    printf("[INIT] SPI1................ ");
 
     /* GPIO INIT */
     // enable clock for GPIOA
@@ -154,6 +154,8 @@ void spi1Init(void)
     DMA2_Stream3->CR |= DMA_SxCR_PL;
     // DMA transfer complete interrupt enable
     DMA2_Stream3->CR |= DMA_SxCR_TCIE;
+
+    printf("OK\n");
 }
 
 /** @brief Reads multiple bytes of data in.

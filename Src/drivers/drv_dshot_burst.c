@@ -38,7 +38,7 @@ static void dshot_enable_dma_request(void);
  */
 void dshotInit(dshot_type_e dshot_type)
 {
-    printf("\nInitializing DSHOT\n");
+    printf("[INIT] DSHOT............... ");
     /* GPIO INIT */
     // enable clock for GPIOB
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
@@ -173,6 +173,7 @@ void dshotInit(dshot_type_e dshot_type)
     DMA1_Stream2->CR |= DMA_SxCR_PL_0;
     DMA1_Stream2->CR |= DMA_SxCR_TCIE;  // DMA transfer complete interrupt enable
 
+    printf("OK\n");
 }
 
 /** @brief Writes to the DMA buffer and starts the DMA stream.

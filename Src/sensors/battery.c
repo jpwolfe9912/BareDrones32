@@ -31,12 +31,13 @@ static void batt_warning(void);
 void
 battMonInit(void)
 {
-	delay(500);
+	printf("[INIT] BATTERY............. ");
+	delay(10);
 	cells = batt_cells();
 	if(cells != 0)
-		printf("\n%d cells detected\n", cells);
+		printf("%d cells detected\n", cells);
 	else
-		printf("\nNo battery detected\n");
+		printf("Not detected\n");
 }
 
 /** @brief Starts the ADC conversion and processes the value.

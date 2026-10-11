@@ -40,6 +40,7 @@ typedef void (*usart3TxCallback_t)(void);
 
 /* Function Prototypes */
 void usart3Init(uint32_t baudrate);
+bool usart3ReadLine(char *buffer, size_t buffer_size);
 void usart3RegisterCallback(usart3TxCallback_t cb);
 bool usart3Tx(const char* str, size_t size);
 bool usart3TxBusy(void);

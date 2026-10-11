@@ -10,6 +10,7 @@
 #include "drv_tim.h"
 
 #include "stm32f7xx.h"
+#include "drv_usart3.h"
 
 /** @brief Initializes the low level registers to set up timer 9.
  *
@@ -17,6 +18,7 @@
  */
 void tim9Init(void)
 {
+    printf("[INIT] TIM9................ ");
     RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
 
     TIM9->PSC = 216 - 1; // CNT increments at 1MHz or 1,000,000/s or 0.000001s or 1us
@@ -25,6 +27,7 @@ void tim9Init(void)
     TIM9->CNT = 0;
 
     TIM9->CR1 |= TIM_CR1_CEN;
+    printf("OK\n");
 }
 
 /** @brief Gets the counter value.

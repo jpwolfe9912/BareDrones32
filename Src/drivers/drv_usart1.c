@@ -32,7 +32,7 @@ static void usart_process_data(const void *data, size_t len);
  */
 void usart1Init(uint32_t baudrate)
 {
-    printf("\nInitializing USART 1\n");
+    printf("[INIT] USART1.............. ");
     /* GPIO INIT */
     #ifdef USE_BAREDRONES
     // enable clock for GPIOB
@@ -112,6 +112,8 @@ void usart1Init(uint32_t baudrate)
     DMA2_Stream7->CR &= ~DMA_SxCR_PSIZE;            // 8 bit size
     DMA2_Stream7->CR &= ~DMA_SxCR_CIRC;             // normal mode en
     DMA2_Stream7->CR |= DMA_SxCR_PL;                // medium priority
+
+    printf("OK\n");
 }
 
 /** @brief Reads in data form usart1 with DMA.
