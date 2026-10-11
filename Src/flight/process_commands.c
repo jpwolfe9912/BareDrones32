@@ -9,7 +9,7 @@
 
  /* Includes */
 #include "process_commands.h"
-
+#include "stm32f7xx.h"
 #include "drv_system.h"
 #include "drv_usart3.h"
 #include "receiver.h"
@@ -108,12 +108,12 @@ processRcCommands(void)
 			pid_config_latched = false;
 
 		/* Compute MPU6000 RT data (low throttle, right yaw, left roll, aft stick) */
-		bool computeRTData =  ((rcCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
-									(rcCommands[ROLL] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
-									(rcCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
+		bool computeRTData = ((rcCommands[YAW] > (eepromConfig.maxCheck - MIDCOMMAND)) &&
+							  (rcCommands[ROLL] < (eepromConfig.minCheck - MIDCOMMAND)) &&	//maxcheck = 3800
+							  (rcCommands[PITCH] < (eepromConfig.minCheck - MIDCOMMAND)));
 		if (computeRTData)
-		{	
-			if(!compute_rt_data_latched)
+		{
+			if (!compute_rt_data_latched)
 			{
 				compute_rt_data_latched = true;
 				computeMPU6000RTData();
@@ -156,35 +156,141 @@ processRcCommands(void)
 void
 processSerialCommands(void)
 {
-#ifdef USE_W25Q128
-	/* Check for Flash Requests */
-	char command[10] = { 0 };
-	size_t avail = lwrb_get_full(&Buff_3.RxBuffer);
+	char command[64];
 
-	if (avail == sizeof("dump"))
+	if (!usart3ReadLine(command, sizeof(command)))
+		return;
+
+	//* Flash command processor
+#ifdef USE_W25Q128
+	if (!strcmp(command, "dump"))
 	{
-		lwrb_read(&Buff_3.RxBuffer, command, avail);
-		if (!strcmp(command, "dump\r"))
-		{
-			memset(command, 0, sizeof(command));
-			flashLoggerStartDump();
-		}
-		else return;
+		flashLoggerStartDump();
+		return;
 	}
-	else if (avail == sizeof("erase"))
+
+	if (!strcmp(command, "erase"))
 	{
-		lwrb_read(&Buff_3.RxBuffer, command, avail);
-		if (!strcmp(command, "erase\r"))
-		{
-			memset(command, 0, sizeof(command));
-			flashLoggerErase();
-		}
-		else return;
-	}
-	else
-	{
-		lwrb_skip(&Buff_3.RxBuffer, avail);
+		flashLoggerErase();
 		return;
 	}
 #endif
+
+	//* PID command processor
+	uint8_t ID;
+	float P;
+	float I;
+	float D;
+
+	if (sscanf(command, "pid %u %f %f %f", &ID, &P, &I, &D) == 4)
+	{
+		if (ID >= 5)
+		{
+			printf("Invalid PID ID\n");
+			return;
+		}
+
+		eepromConfig.PID[ID].P = P;
+		eepromConfig.PID[ID].I = I;
+		eepromConfig.PID[ID].D = D;
+
+		if (ID < 2)
+			eepromConfig.PID[ID].limit = 1000.0f * P * PI / 180.0f;
+		else if (ID == 2)
+			eepromConfig.PID[ID].limit = 1000.0f * eepromConfig.yawRateScaling * P;
+		else
+			eepromConfig.PID[ID].limit = 1000.0f * eepromConfig.attitudeScaling * P;
+
+		printf("PID %u updated:\t P=%.2f\t I=%.2f\t D=%.2f\t Limit=%.2f\n",
+			   ID,
+			   eepromConfig.PID[ID].P,
+			   eepromConfig.PID[ID].I,
+			   eepromConfig.PID[ID].D,
+			   eepromConfig.PID[ID].limit);
+
+		return;
+	}
+
+	if (!strcmp(command, "pid"))
+	{
+		for (uint8_t i = 0; i < NUMBER_OF_PIDS; i++)
+		{
+			printf("PID %u:\t P=%.2f\t I=%.2f\t D=%.2f\t Limit=%.2f\n",
+				   i,
+				   eepromConfig.PID[i].P,
+				   eepromConfig.PID[i].I,
+				   eepromConfig.PID[i].D,
+				   eepromConfig.PID[i].limit);
+		}
+		return;
+	}
+
+	//* Rate command processor
+	float maxRate;
+	float coeff_A;
+	float coeff_B;
+
+	if (!strcmp(command, "rate"))
+	{
+		maxRate = (eepromConfig.rateCoeffAlpha * 1000000000.0f) +
+			(eepromConfig.rateCoeffBravo * 1000.0f);
+
+		printf("Rate: A=%.9g B=%.9g Max=%.0f\n",
+			   eepromConfig.rateCoeffAlpha,
+			   eepromConfig.rateCoeffBravo,
+			   maxRate);
+		return;
+	}
+
+	if (sscanf(command, "rate %f, %f", &coeff_A, &coeff_B) == 2)
+	{
+		eepromConfig.rateCoeffAlpha = coeff_A;
+		eepromConfig.rateCoeffBravo = coeff_B;
+
+		maxRate = (eepromConfig.rateCoeffAlpha * 1000000000.0f) +
+			(eepromConfig.rateCoeffBravo * 1000.0f);
+
+		printf("Rate updated: A=%.9g B=%.9g Max=%.0f\n",
+			   eepromConfig.rateCoeffAlpha,
+			   eepromConfig.rateCoeffBravo,
+			   maxRate);
+		return;
+	}
+
+	//* Wired logging command processor
+#ifdef WIRED_LOGGING
+	if (!strcmp(command, "start log"))
+	{
+		wiredLoggerStart();
+		return;
+	}
+
+	if (!strcmp(command, "stop log"))
+	{
+		wiredLoggerStop();
+		return;
+	}
+#endif
+
+
+	//* Write eeprom command processor
+	if (!strcmp(command, "write"))
+	{
+		writeEEPROM();
+		printf("EEPROM written\n");
+		return;
+	}
+
+	//* Restart system command processor
+	if (!strcmp(command, "restart"))
+	{
+		printf("Restarting...\n");
+		delay(100);
+		/*
+		 * Make sure the response actually finishes transmitting before reset,
+		 * if desired.
+		 */
+
+		NVIC_SystemReset();
+	}
 }
