@@ -11,15 +11,14 @@
 
 
  /* Defines */
-// #define STLINK
+#define STLINK
 // #define SANDBOX
 #define USE_BAREDRONES
 // #define USE_NUCLEO
 #define USE_EEPROM
-// #define DRAW_AUTODRONE
+#define DRAW_BAREDRONES
 
 /* Features */
-#define USE_SPI1_DRIVER
 // #define USE_USART1_DRIVER
 #define USE_USART2_DRIVER
 #define USE_USART6_DRIVER
@@ -31,7 +30,8 @@
 #define USE_CRSF
 #define USE_LOGGING
 #define USE_W25Q128
-// #define WIRED_LOGGING
+#define USE_MAX7456
+#define WIRED_LOGGING
 // #define OPENLAGER
 #define USE_BATT_MON
 #define USE_LEDS
