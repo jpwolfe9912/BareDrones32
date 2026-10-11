@@ -23,6 +23,7 @@
 #include "motors.h"
 #include "drv_spi1.h"
 #include "drv_spi2.h"
+#include "drv_spi3.h"
 #include "drv_usart1.h"
 #include "drv_usart2.h"
 #include "drv_usart3.h"
@@ -37,6 +38,7 @@
 #include "ibus.h"
 #include "crsf.h"
 #include "w25q128.h"
+#include "max7456.h"
 #include "logging.h"
 #include "pid.h"
 
@@ -200,26 +202,13 @@ void systemInit(void)
 
     dmaInit();
 
-#ifdef USE_LEDS
-    ledInit();
-#endif
     /*		LOW LEVEL INITIALIZATION	*/
-    usart3Init(WIREDLOGGING_BAUDRATE);
-
-#ifdef USE_W25Q128
-    spi2Init();
-    w25q128Init();
-#endif
-#ifdef USE_LOGGING
-    loggerInit();
+#ifdef USE_EEPROM
+    checkFirstTime(false);
+    readEEPROM();
 #endif
 
-#ifdef OPENLAGER
-    usart6Init(OPENLAGER_BAUDRATE);
-#endif
-#ifdef DRAW_AUTODRONE
-    drawAutodrone();
-#endif
+    usart3Init(WIREDLOGGING_BAUDRATE);  // needed for printf
 
     color(GREEN, YES);
     printf("\nBEGINNING INITIALIZATION\n");
@@ -227,10 +216,33 @@ void systemInit(void)
     printf("----------------------------------\n");
     colorDefault();
 
-#ifdef USE_EEPROM
-    checkFirstTime(false);
-    readEEPROM();
+#ifdef DRAW_AUTODRONE
+    drawAutodrone();
 #endif
+    printf("[INIT] USART3.............. OK\n");
+
+#ifdef USE_LEDS
+    ledInit();
+#endif
+
+#ifdef USE_W25Q128
+    spi2Init();
+    w25q128Init();
+#endif
+
+#ifdef USE_MAX7456
+    spi3Init();
+    max7456Init();
+#endif
+
+#ifdef USE_LOGGING
+    loggerInit();
+#endif
+
+#ifdef OPENLAGER
+    usart6Init(OPENLAGER_BAUDRATE);
+#endif
+
 #ifdef USE_DSHOT
     dshotInit(DSHOT600);
     motorInit();
@@ -254,19 +266,20 @@ void systemInit(void)
     while (!crsfInit());
 #endif
 
-    tim9Init();
-
     /*		SENSOR INITIALIZATION		*/
 #ifdef USE_BATT_MON
     adc1Init();
     battMonInit();
 #endif
 
+
+
+#ifdef USE_MOTION_PROCESSING
+    tim9Init();
+
     eepromConfig.sensorOrientation = 3;
     eepromConfig.yawDirection = 1.0;
     orientSensors();
-
-#ifdef USE_MOTION_PROCESSING
     madgwickInit();
     initPID();
 #endif
@@ -275,6 +288,7 @@ void systemInit(void)
     if (eepromChanged)
         writeEEPROM();
 #endif
+    printf("\n-----------------------\n");
     printf("Initialization Finished\n");
 }
 
