@@ -14,6 +14,7 @@
 #include "feature_config.h"
 #include "drv_system.h"
 #include "drv_usart3.h"
+#include "drv_spi3.h"
 #include "scheduler.h"
 #include "mpu6000.h"
 #include "rotations.h"
@@ -26,6 +27,7 @@
 #include "crsf.h"
 #include "logging.h"
 #include "w25q128.h"
+#include "osd.h"
 #include "battery.h"
 #include "drv_led.h"
 #include "baredrones32.h"
@@ -76,6 +78,10 @@ int main(void)
 #endif
 #endif
 
+#ifdef USE_MAX7456
+    append(&execTasks[FRAME_50HZ], osdUpdate);
+#endif
+
 #ifdef USE_BATT_MON
     append(&execTasks[FRAME_5HZ], battMonRead);
 #endif
@@ -90,57 +96,39 @@ int main(void)
 }
 
 #else
-void testFunc(void);
 
-sensors_t sensors;
+void max7456Test(void);
 
 int main(void)
 {
     systemInit();
 
-    // Tasks* execTasks[TOTAL_LOOPS] = { NULL };
-
-    // append(&execTasks[FRAME_8000HZ], w25q128Process);
-    // append(&execTasks[FRAME_8000HZ], testFunc);
-
-
-    uint32_t test;
-    w25q128ReadJedecId(&test);
-    printf("Value: 0x%X\n", test);
-
-    // uint8_t tx[768];
-    // uint8_t rx[1000];
-
-    // for (uint16_t i = 0; i < sizeof(tx); i++)
-    //     tx[i] = i;
-
-    // w25q128SectorErase(0);
-
-    // w25q128Read(0, 0, rx, 1000);
-
-    // w25q128PageProgramDMA(2, 200, tx, 600);
-    // bool test_finished = false;
-
-    // systemReady = true;
+    max7456DrawLogo(MAX_INVERT, 5, 3);
 
     while (1)
     {
-        w25q128ReadJedecId(&test);
-        printf("Value: 0x%X\n", test);
-        delay(1);
-        // run(execTasks);
-
-        // if (w25q128IsReady() && !test_finished)
-        // {
-        //     w25q128Read(2, 190, rx, 1000);
-        //     test_finished = true;
-        // }
     }
 }
-volatile uint32_t var = 0;
-void testFunc(void)
+
+void max7456Test(void)
 {
-    var++;
+    spi3WriteOneByte(DMM_REG, CLEAR_DISPLAY);
+    delay(10);
+
+    spi3WriteOneByte(DMM_REG, 0x00);
+    spi3WriteOneByte(DMAH_REG, 0x00);
+    spi3WriteOneByte(DMAL_REG, 0x00);
+    spi3WriteOneByte(DMDI_REG, 0x01);  // 'H'
+
+    uint8_t dmah, dmal, dmdi;
+
+    spi3ReadOneByte(DMAH_REG, &dmah);
+    spi3ReadOneByte(DMAL_REG, &dmal);
+    spi3ReadOneByte(DMDI_REG, &dmdi);
+
+    printf("DMAH: 0x%02X\n", dmah);
+    printf("DMAL: 0x%02X\n", dmal);
+    printf("DMDI: 0x%02X\n", dmdi);
 }
 
 #endif
