@@ -6,7 +6,7 @@
  *  @date 		10 MAR 2022
  */
 
-/* Includes */
+ /* Includes */
 #include "rotations.h"
 
 #include "arm_math.h"
@@ -32,9 +32,9 @@ void computeRotations(void)
     nonRotatedAccelData[YAXIS] = ((float)rawAccel[YAXIS].value - accelTCBias[YAXIS]) * ACCEL_SCALE_FACTOR;
     nonRotatedAccelData[ZAXIS] = ((float)rawAccel[ZAXIS].value - accelTCBias[ZAXIS]) * ACCEL_SCALE_FACTOR;
 
-    arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
+    arm_mat_init_f32(&a, 3, 3, (float*)mpuOrientationMatrix);
 
-    arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedAccelData);
+    arm_mat_init_f32(&b, 3, 1, (float*)nonRotatedAccelData);
 
     arm_mat_init_f32(&x, 3, 1, sensors.accel);
 
@@ -45,11 +45,15 @@ void computeRotations(void)
     nonRotatedGyroData[YAXIS] = ((float)rawGyro[YAXIS].value - gyroRTBias[YAXIS] - gyroTCBias[YAXIS]) * GYRO_SCALE_FACTOR;
     nonRotatedGyroData[ZAXIS] = ((float)rawGyro[ZAXIS].value - gyroRTBias[ZAXIS] - gyroTCBias[ZAXIS]) * GYRO_SCALE_FACTOR;
 
-    arm_mat_init_f32(&a, 3, 3, (float *)mpuOrientationMatrix);
+    arm_mat_init_f32(&a, 3, 3, (float*)mpuOrientationMatrix);
 
-    arm_mat_init_f32(&b, 3, 1, (float *)nonRotatedGyroData);
+    arm_mat_init_f32(&b, 3, 1, (float*)nonRotatedGyroData);
 
     arm_mat_init_f32(&x, 3, 1, sensors.gyro);
 
     arm_mat_mult_f32(&a, &b, &x);
+
+    arm_mat_mult_f32(&a, &b, &x);
+
+    sensors.gyro[YAW] *= -1.0f;
 }
