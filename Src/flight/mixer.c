@@ -38,42 +38,79 @@ pulseMotors(void)
 void
 mixTable(void)
 {
-	float motor_buffer[4] = {};
+    float motor_buffer[4] = {};
 
-	if (armed == true)
-	{
-		motor_buffer[0] = pid_mix_flight( 1.0f, -1.0f, -1.0f, 1.0f);      // Rear Right  CW
-		motor_buffer[1] = pid_mix_flight( 1.0f,  1.0f,  1.0f, 1.0f);      // Front Right CCW
-		motor_buffer[2] = pid_mix_flight(-1.0f, -1.0f,  1.0f, 1.0f);      // Rear Left   CCW
-		motor_buffer[3] = pid_mix_flight(-1.0f,  1.0f, -1.0f, 1.0f);      // Front Left  CW
+    if (armed == true)
+    {
+        motor_buffer[0] = pid_mix_flight( 1.0f, -1.0f, -1.0f, 1.0f);  // Rear Right  CW
+        motor_buffer[1] = pid_mix_flight( 1.0f,  1.0f,  1.0f, 1.0f);  // Front Right CCW
+        motor_buffer[2] = pid_mix_flight(-1.0f, -1.0f,  1.0f, 1.0f);  // Rear Left   CCW
+        motor_buffer[3] = pid_mix_flight(-1.0f,  1.0f, -1.0f, 1.0f);  // Front Left  CW
 
-		float maxDeltaThrottle;
-		float minDeltaThrottle;
-		float deltaThrottle;
+        float motor_min = motor_buffer[0];
+        float motor_max = motor_buffer[0];
 
-		maxDeltaThrottle = eepromConfig.maxThrottle - throttleCmd;
-		minDeltaThrottle = throttleCmd - eepromConfig.minThrottle;
-		deltaThrottle = (minDeltaThrottle < maxDeltaThrottle) ? minDeltaThrottle : maxDeltaThrottle;
+        for (uint8_t i = 1; i < NUMBER_OF_MOTORS; i++)	// finds the min and max output from the mixer
+        {
+            if (motor_buffer[i] < motor_min)
+                motor_min = motor_buffer[i];
 
-		float dshotThrottleScale = (float)(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) /
-			(float)(eepromConfig.maxThrottle - eepromConfig.minThrottle);
+            if (motor_buffer[i] > motor_max)
+                motor_max = motor_buffer[i];
+        }
 
-		for (uint8_t i = 0; i < NUMBER_OF_MOTORS; i++)
-		{
-			motor_buffer[i] = constrain(motor_buffer[i], throttleCmd - deltaThrottle, throttleCmd + deltaThrottle);
+        /*
+         * Shift all motors together to keep the PID differential
+         * while fitting the outputs inside the throttle range.
+         */
+        if (motor_min < eepromConfig.minThrottle)
+        {
+            float shift = eepromConfig.minThrottle - motor_min;
 
-			motor_buffer[i] = DSHOT_IDLE_THROTTLE + (motor_buffer[i] - eepromConfig.minThrottle) * dshotThrottleScale;
+            for (uint8_t i = 0; i < NUMBER_OF_MOTORS; i++)
+                motor_buffer[i] += shift;
 
-			motor_value[i] = constrain16(motor_buffer[i], DSHOT_IDLE_THROTTLE, DSHOT_MAX_THROTTLE);
-		}
-	}
-	else
-	{
-		motor_value[MOTOR1] = 0;
-		motor_value[MOTOR2] = 0;
-		motor_value[MOTOR3] = 0;
-		motor_value[MOTOR4] = 0;
-	}
+            motor_max += shift;
+        }
+
+        if (motor_max > eepromConfig.maxThrottle)
+        {
+            float shift = motor_max - eepromConfig.maxThrottle;
+
+            for (uint8_t i = 0; i < NUMBER_OF_MOTORS; i++)
+                motor_buffer[i] -= shift;
+        }
+
+        float dshotThrottleScale =
+            (float)(DSHOT_MAX_THROTTLE - DSHOT_IDLE_THROTTLE) /
+            (float)(eepromConfig.maxThrottle - eepromConfig.minThrottle);
+
+        for (uint8_t i = 0; i < NUMBER_OF_MOTORS; i++)
+        {
+            motor_buffer[i] = constrain(
+                motor_buffer[i],
+                eepromConfig.minThrottle,
+                eepromConfig.maxThrottle
+            );
+
+            motor_buffer[i] =
+                DSHOT_IDLE_THROTTLE +
+                (motor_buffer[i] - eepromConfig.minThrottle) * dshotThrottleScale;
+
+            motor_value[i] = constrain16(
+                motor_buffer[i],
+                DSHOT_IDLE_THROTTLE,
+                DSHOT_MAX_THROTTLE
+            );
+        }
+    }
+    else
+    {
+        motor_value[MOTOR1] = 0;
+        motor_value[MOTOR2] = 0;
+        motor_value[MOTOR3] = 0;
+        motor_value[MOTOR4] = 0;
+    }
 }
 
 float
