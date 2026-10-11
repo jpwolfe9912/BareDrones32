@@ -1,0 +1,45 @@
+From config.h
+    eepromConfig            Obviously needed
+From baredrones32.h
+    sensors                 Not a fan of this nor much of the other stuff in this file
+dshot_burst.h
+    dshot_command_count     Not a fan of this either. Used in motor.c in some legacy functions
+drv_system.h                
+    systemReady             Needed but abused in some other files(mpu6000, motor stuff)
+    loopMask                Both used in scheduler.c
+    loopsChecked
+drv_usart*.h
+    Buff_*                  Like to have a running track of the receive buffer. Probably not necessary with proper abstraction
+                            crsf and ibus use Buff_2 a bit but probably can be refactored
+compute_axis_commands.h
+    attCmd
+    attPID
+    ratePID
+    rateCmd
+    throttleCmd             Probably good to keep these as is. Other files use them a bit
+madgwick.h
+    roll
+    pitch
+    yaw
+    anglesComputed          Used internally for the static inline structure. Keep but change later
+orientation.h
+    mpuOrientationMatrix    Used in rotations.c
+motors.h
+    motor_value             Good to have. Conflict with local variable motor_value in drv_dshot_burst.c
+receiver.h
+    rcData                  Good to have
+battery.h
+    battVoltage             Good to have
+    battCurrent             Good to have
+    cells                   Eh. Good to have but not used rn
+    noBatt                  Good for now but should be abstracted out
+mpu6000.h
+    accelTCBias             
+    rawAccel
+    nonRotatedAccelData     Used and set in rotations.c. Keep here for continuity
+    gyroRTBias
+    gyroTCBias
+    rawGyro
+    nonRotatedGyroData      Used and set in rotations.c. Keep here for continuity
+    mpu6000Temperature
+    rawMPU6000Temperature   All these are used in a couple other IMU processing files
