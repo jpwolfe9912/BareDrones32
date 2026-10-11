@@ -92,6 +92,7 @@ static void flash_logger_buffer_full(void);
 void
 loggerInit(void)
 {
+    printf("[INIT] Logger.............. OK\n");
 #ifdef USE_W25Q128
     uint32_t dummy = 0;
     do
@@ -102,7 +103,7 @@ loggerInit(void)
     flash_logger_find_end();
 #endif
 #ifdef WIRED_LOGGING
-    usart3RegisterCallback(loggerComplete);
+    usart3RegisterCallback(wiredLoggerComplete);
 #else
     usart3RegisterCallback(NULL);
 #endif
@@ -111,9 +112,17 @@ loggerInit(void)
 
 
 #ifdef WIRED_LOGGING
+/* Static Variables */
+static bool wired_logger_active = false;
+static bool wired_logger_stopping = false;
+
 /* Static Functions */
 static void logger_transmit(void);
 
+/**
+ * @brief Update the wired logger
+ *
+ */
 void
 wiredLoggerUpdate(void)
 {
@@ -121,6 +130,9 @@ wiredLoggerUpdate(void)
     if (flash_dump_active)
         return;
 #endif
+
+    if (!wired_logger_active)    // only update the log if it's active
+        return;
 
     if (queued_records >= LOG_QUEUE_SIZE)
     {
@@ -171,7 +183,7 @@ wiredLoggerUpdate(void)
 }
 
 void
-loggerComplete(void)
+wiredLoggerComplete(void)
 {
     if (queued_records > 0)
     {
@@ -183,9 +195,78 @@ loggerComplete(void)
         queued_records--;
     }
 
+    /*
+     * Stop was requested and the final binary record has now
+     * completed transmission.
+     */
+    if (wired_logger_stopping && (queued_records == 0))
+    {
+        wired_logger_stopping = false;
+
+        printf("Wired logging stopped\n");
+        return;
+    }
+
     logger_transmit();
 }
 
+/**
+ * @brief Start the logging process
+ *
+ */
+void
+wiredLoggerStart(void)
+{
+    /*
+     * We should only get here with the previous session completely stopped,
+     * but don't start on top of queued data.
+     */
+    if (wired_logger_active || wired_logger_stopping)
+        return;
+
+    write_index = 0;
+    read_index = 0;
+    queued_records = 0;
+
+    wired_sequence = 0;
+    wired_dropped_records = 0;
+
+    printf("Wired logging started\n");
+
+    wired_logger_active = true;
+}
+
+/**
+ * @brief Stop the logging process
+ *
+ */
+void
+wiredLoggerStop(void)
+{
+    if (!wired_logger_active)
+        return;
+
+    /*
+     * Stop wiredLoggerUpdate() from generating new records immediately.
+     * Anything already queued is allowed to finish transmitting.
+     */
+    wired_logger_active = false;
+    wired_logger_stopping = true;
+
+    /*
+     * If nothing is queued, there is nothing to drain.
+     */
+    if (queued_records == 0)
+    {
+        wired_logger_stopping = false;
+        printf("Wired logging stopped\n");
+    }
+}
+
+/**
+ * @brief Transmit logged data via USART
+ *
+ */
 static void
 logger_transmit(void)
 {
@@ -196,6 +277,10 @@ logger_transmit(void)
 #endif
 
 #ifdef USE_W25Q128
+/**
+ * @brief Find the end of the flash memory
+ *
+ */
 static void
 flash_logger_find_end(void)
 {
@@ -219,7 +304,7 @@ flash_logger_find_end(void)
             if ((record.sequence == 0xFFFFFFFF) && (record.timeUs == 0xFFFFFFFF))
             {
                 flash_address = scan_address + (i * sizeof(flashLogRecord_t));
-                printf("Last sector: %u\n", (uint32_t)(scan_address / W25Q128_SECTOR_SIZE));
+                printf("       Last sector: %u\n", (uint32_t)(scan_address / W25Q128_SECTOR_SIZE));
                 return;
             }
             flash_sequence = record.sequence + 1;
@@ -459,7 +544,7 @@ flashLoggerDumpProcess(void)
         flash_dump_active = false;
 
 #ifdef WIRED_LOGGING
-        usart3RegisterCallback(loggerComplete);
+        usart3RegisterCallback(wiredLoggerComplete);
 #endif
         return;
     }
@@ -498,6 +583,11 @@ flashLoggerStartDump(void)
 
     if (flash_pending_buffer != NULL)
         return;
+
+#ifdef WIRED_LOGGING
+    if (wired_logger_active || wired_logger_stopping)
+        return;
+#endif
 
     if (!w25q128IsIdle())
         return;

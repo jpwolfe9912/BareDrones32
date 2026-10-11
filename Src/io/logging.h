@@ -84,8 +84,11 @@ extern volatile bool flash_update_active;
 
 /* Functions */
 void loggerInit(void);
+
 void wiredLoggerUpdate(void);
-void loggerComplete(void);
+void wiredLoggerComplete(void);
+void wiredLoggerStart(void);
+void wiredLoggerStop(void);
 
 void flashLoggerProcess(void);
 void flashLoggerUpdate(void);
