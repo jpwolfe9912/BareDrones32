@@ -18,10 +18,6 @@
 #include "max7456.h"
 
 /* Global Variabels */
-const char rcChannelLetters[] = "AERT12345678";
-
-semaphore_t eepromChanged = false;
-
 eepromConfig_t eepromConfig;
 
 /* Static Variables */
@@ -44,6 +40,8 @@ writeEEPROM(void)
 
 	int32_t i;
 
+	uint16_t eepromConfigNumWord = sizeof(eepromConfig_t) / sizeof(uint32_t);
+
 	FLASH_EraseInit_t erase;
 	bool status = true;
 
@@ -64,7 +62,7 @@ writeEEPROM(void)
 
 	i = -1;
 
-	while (i++ < eepromConfigNUMWORD)
+	while (i++ < eepromConfigNumWord)
 		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
 
 	///////////////////////////////////
@@ -203,45 +201,58 @@ checkFirstTime(bool eepromReset)
 
 		eepromConfig.activeTelemetry = 5;
 
-		eepromConfig.osdEnabled             =  true;
-        eepromConfig.defaultVideoStandard   =  1;
-        eepromConfig.metricUnits            =  true;
+		eepromConfig.osdEnabled = true;
+		eepromConfig.defaultVideoStandard = 1;
+		eepromConfig.metricUnits = true;
 
-        eepromConfig.osdDisplayAlt          =  true;
-        eepromConfig.osdDisplayAltRow       =  15;
-        eepromConfig.osdDisplayAltCol       =  1;
-        eepromConfig.osdDisplayAltHoldState =  false;
+		eepromConfig.osdDisplayAH = false; // DO NOT SET BOTH TO TRUE
+		eepromConfig.osdDisplayAtt = true;
 
-        eepromConfig.osdDisplayAH           =  false; // DO NOT SET BOTH TO TRUE
-        eepromConfig.osdDisplayAtt          =  true;
+		eepromConfig.osdLogo.enabled = true;
+		eepromConfig.osdLogo.row = 5;
+		eepromConfig.osdLogo.col = 2;
+		eepromConfig.osdLogo.flags = MAX_INVERT;
 
-        eepromConfig.osdDisplayHdg          =  false;
-        eepromConfig.osdDisplayHdgRow       =  1;
-        eepromConfig.osdDisplayHdgCol       =  13;
+		eepromConfig.osdAlt.enabled = false;
+		eepromConfig.osdAlt.row = 15;
+		eepromConfig.osdAlt.col = 1;
+		eepromConfig.osdAlt.flags = 0;
+		eepromConfig.osdDisplayAltHoldState = false;
 
-        eepromConfig.osdDisplayHdgBar		=  true;
-		eepromConfig.osdDisplayHdgBarRow	=  14;
-		eepromConfig.osdDisplayHdgBarCol	=  10;
+		eepromConfig.osdHdg.enabled = false;
+		eepromConfig.osdHdg.row = 1;
+		eepromConfig.osdHdg.col = 13;
+		eepromConfig.osdHdg.flags = 0;
 
-		eepromConfig.osdDisplayVoltage		=  true;
-		eepromConfig.osdDisplayVoltageRow	=  1;
-		eepromConfig.osdDisplayVoltageCol	=  1;
+		eepromConfig.osdHdgBar.enabled = false;
+		eepromConfig.osdHdgBar.row = 14;
+		eepromConfig.osdHdgBar.col = 10;
+		eepromConfig.osdHdgBar.flags = 0;
 
-		eepromConfig.osdDisplayCurrent		=  true;
-		eepromConfig.osdDisplayCurrentRow	=  1;
-		eepromConfig.osdDisplayCurrentCol	=  8;
+		eepromConfig.osdVoltage.enabled = true;
+		eepromConfig.osdVoltage.row = 1;
+		eepromConfig.osdVoltage.col = 1;
+		eepromConfig.osdVoltage.flags = 0;
 
-		eepromConfig.osdDisplayThrot		=  true;
-		eepromConfig.osdDisplayThrotRow		=  15;
-		eepromConfig.osdDisplayThrotCol		=  25;
+		eepromConfig.osdCurrent.enabled = true;
+		eepromConfig.osdCurrent.row = 1;
+		eepromConfig.osdCurrent.col = 8;
+		eepromConfig.osdCurrent.flags = 0;
 
-		eepromConfig.osdDisplayTimer		=  true;
-		eepromConfig.osdDisplayTimerRow		=  0;
-		eepromConfig.osdDisplayTimerCol		=  23;
+		eepromConfig.osdThrottle.enabled = true;
+		eepromConfig.osdThrottle.row = 15;
+		eepromConfig.osdThrottle.col = 25;
+		eepromConfig.osdThrottle.flags = 0;
 
-		eepromConfig.osdDisplayRSSI			=  true;
-		eepromConfig.osdDisplayRSSIRow		=  1;
-		eepromConfig.osdDisplayRSSICol		=  24;
+		eepromConfig.osdTimer.enabled = true;
+		eepromConfig.osdTimer.row = 0;
+		eepromConfig.osdTimer.col = 23;
+		eepromConfig.osdTimer.flags = 0;
+
+		eepromConfig.osdRSSI.enabled = false;
+		eepromConfig.osdRSSI.row = 1;
+		eepromConfig.osdRSSI.col = 24;
+		eepromConfig.osdRSSI.flags = 0;
 
 		writeEEPROM();
 	}
