@@ -110,7 +110,8 @@ Src/io/motors.c \
 Src/io/w25q128.c \
 Src/main.c \
 Src/osd/max7456.c \
-Src/osd/osdWidgets.c \
+Src/osd/osd.c \
+Src/osd/osd_widgets.c \
 Src/rx/crsf.c \
 Src/rx/ibus.c \
 Src/rx/receiver.c \

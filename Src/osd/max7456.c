@@ -11,6 +11,7 @@
 #include "max7456.h"
 
 #include "max7456font.h"
+#include "osd_widgets.h"
 #include "drv_spi3.h"
 #include "drv_system.h"
 #include "config.h"
@@ -29,18 +30,18 @@ uint8_t  disableDisplay = 0;
 
 /* Static Functions */
 static void detect_video_standard(void);
-static uint8_t max7456_ascii_to_font(char c);
 void hide_OSD(void);
 void unhide_OSD(void);
 static void max7456_set_white_level(void);
-static void wait_NVM(void);
+static bool wait_NVM(void);
+static bool max7456_verify_nvm_character(uint8_t ch);
 
 /**
  * @brief Initializes the MAX7456 OSD chip
  *
  */
 void
-max7456Init()
+max7456Init(void)
 {
     uint8_t i;
     eepromConfig.osdEnabled = true;
@@ -114,28 +115,6 @@ detect_video_standard(void)
     // aiTopPixel = (reticleRow - AI_DISPLAY_RECT_HEIGHT / 2) * 18;
     // aiBottomPixel = (reticleRow + AI_DISPLAY_RECT_HEIGHT / 2) * 18;
     // aiCenter = reticleRow * 18 + 10;
-}
-
-static uint8_t
-max7456_ascii_to_font(char c)
-{
-    // Numbers: 1-9 at 0x01-0x09, 0 at 0x0A
-    if (c >= '1' && c <= '9')
-        return c - '0';
-
-    if (c == '0')
-        return 0x0A;
-
-    // Uppercase: A=0x0B, H=0x12, Z=0x24
-    if (c >= 'A' && c <= 'Z')
-        return c - 'A' + 0x0B;
-
-    // Lowercase: a=0x25 through z=0x3E
-    if (c >= 'a' && c <= 'z')
-        return c - 'a' + 0x25;
-
-    // Blank for spaces and unsupported punctuation
-    return 0x00;
 }
 
 /**
@@ -221,8 +200,7 @@ void writeMax7456Chars(const char* buf, uint8_t len, uint8_t flags, uint8_t y, u
             DMAH_REG, (uint8_t)(offset >> 8),
             DMAL_REG, (uint8_t)offset,
 
-            DMDI_REG,
-            (text_len > 0) ? max7456_ascii_to_font((uint8_t)buf[0]) : 0
+            DMDI_REG, (text_len > 0) ? (uint8_t)buf[0] : 0
         };
 
         spi3WriteBytes(tx, sizeof(tx));
@@ -251,8 +229,7 @@ void writeMax7456Chars(const char* buf, uint8_t len, uint8_t flags, uint8_t y, u
     for (uint16_t i = 0; i < len; i++)
     {
         tx[index++] = DMDI_REG;
-        tx[index++] = (i < text_len) ?
-            max7456_ascii_to_font((uint8_t)buf[i]) : 0;
+        tx[index++] = (i < text_len) ? (uint8_t)(buf[i] - 1) : 0;
     }
 
     //* Terminate auto-increment.
@@ -320,36 +297,45 @@ showMax7456Font(void)
     }
 }
 
-
+//* NVM Functions
 /**
  * @brief Writes a character to the MAX7456 NVM
  *
  * @param ch Character to write
  * @param index Index in the font data array
  */
-void
-writeNVMcharacter(uint8_t ch, const uint16_t index)
+bool
+writeNVMcharacter(uint8_t ch)
 {
-    uint8_t x;
+    uint8_t tx[54 * 4];
+    uint16_t index = 0;
 
-    // disable display
+    // Disable OSD during NVM operations
     spi3WriteOneByte(VM0_REG, disableDisplay);
+    delay(1);
 
+    // Select character
     spi3WriteOneByte(CMAH_REG, ch);  // set start address high
 
-    for (x = 0; x < NVM_RAM_SIZE; x++) // write out 54 (out of 64) bytes of character to shadow ram
+    for (uint8_t x = 0; x < NVM_RAM_SIZE; x++)
     {
-        spi3WriteOneByte(CMAL_REG, x); // set start address low
+        tx[index++] = CMAL_REG;
+        tx[index++] = x;
 
-        spi3WriteOneByte(CMDI_REG, fontdata[index + x]);
+        tx[index++] = CMDI_REG;
+        tx[index++] = fontdata[ch][x];
     }
+    // Transfer 216 bytes
+    spi3WriteBytes(tx, index);
 
-    // transfer a 54 bytes from shadow ram to NVM
+    // Commit shadow RAM to NVM
     spi3WriteOneByte(CMM_REG, WRITE_NVR);
+    // Wait for NVM operation to begin
+    bool success = wait_NVM();
 
-    wait_NVM(); // NVM should be busy around 12ms
+    spi3WriteOneByte(VM0_REG, enableDisplay);
 
-    spi3WriteOneByte(VM0_REG, enableDisplayVert);
+    return success;
 }
 
 /**
@@ -359,42 +345,91 @@ writeNVMcharacter(uint8_t ch, const uint16_t index)
 void
 downloadMax7456Font(void)
 {
-    uint16_t ch;
+    printf("Programming MAX7456 font...\n");
 
-    if (sizeof(fontdata) != 16384)
+    for (uint16_t ch = 0; ch < 256; ch++)
     {
-        printf("\nERROR: fontdata with invalid size, aborting!!!\n\n");
-        return;
+        if (!writeNVMcharacter((uint8_t)ch))
+        {
+            printf("NVM write failed at character %u\n", ch);
+            return;
+        }
+
+        if (!max7456_verify_nvm_character((uint8_t)ch))
+        {
+            printf("NVM verification failed at character %u\n", ch);
+            return;
+        }
+
+        printf("Character %u/256 OK\n", ch + 1);
     }
 
-    printf("\nDownloading font to MAX7456 NVM, this may take a while...\n\n");
-
-    for (ch = 0; ch < 256; ch++)
-    {
-        printf("%d3", ch);
-        writeNVMcharacter(ch, 64 * ch);
-        delay(30);
-        printf(" Done\n");
-    }
-
-    // force soft reset on Max7456
     resetMax7456();
 
-    showMax7456Font();
-
-    printf("\nDone with MAX7456 font download\n\n");
+    printf("Font programming complete\n");
 }
 
 /**
  * @brief Waits for the NVM to be ready
  *
  */
-static void
+static bool
 wait_NVM(void)
 {
     uint8_t stat = 0;
-    do
+    for (uint16_t i = 0; i < 100; i++)
     {
         spi3ReadOneByte(STAT_REG, &stat);
-    } while (stat & STATUS_REG_NVR_BUSY);
+        if (!(stat & STATUS_REG_NVR_BUSY))
+            return true;
+
+        delay(1);
+    }
+    return false;
+}
+
+
+static bool
+max7456_verify_nvm_character(uint8_t ch)
+{
+    uint8_t data;
+
+    // OSD must be disabled during character NVM reads.
+    spi3WriteOneByte(VM0_REG, disableDisplay);
+    delay(1);
+
+    spi3WriteOneByte(CMAH_REG, ch);
+
+    // Read NVM character into shadow RAM
+    spi3WriteOneByte(CMM_REG, 0x50);
+    delay(1);
+
+    if (!wait_NVM())
+    {
+        spi3WriteOneByte(VM0_REG, enableDisplay);
+        return false;
+    }
+
+    // Read back all 54 bytes
+    for (uint8_t i = 0; i < NVM_RAM_SIZE; i++)
+    {
+        spi3WriteOneByte(CMAL_REG, i);
+
+        // CMDO read address = 0xC0;
+        // SPI driver adds read bit 0x80.
+        spi3ReadOneByte(0x40, &data);
+
+        if (data != fontdata[ch][i])
+        {
+            printf("Font verify failed: ch=%u byte=%u "
+                   "expected=%02X actual=%02X\n",
+                   ch, i, fontdata[ch][i], data);
+
+            spi3WriteOneByte(VM0_REG, enableDisplay);
+            return false;
+        }
+    }
+
+    spi3WriteOneByte(VM0_REG, enableDisplay);
+    return true;
 }

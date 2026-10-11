@@ -12,7 +12,9 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #define NTSC                0
 #define PAL                 1
@@ -49,27 +51,19 @@
 #define STATUS_REG_NVR_BUSY 0x20
 #define NVM_RAM_SIZE        0x36
 
-///////////////////////////////////////////////////////////////////////////////
-// MAX7456 Variables
-///////////////////////////////////////////////////////////////////////////////
+#define MAX_BLINK           0x01
+#define MAX_INVERT          0x02
+#define MAX_BOTH            0x03
 
-extern uint8_t  osdDisabled;
 
-extern uint16_t maxScreenSize;
-extern uint16_t maxScreenRows;
-extern uint8_t  enableDisplay;
-extern uint8_t  enableDisplayVert;
-extern uint8_t  max7456Reset;
-extern uint8_t  disableDisplay;
-
-void max7456Init();
+void max7456Init(void);
 void resetMax7456(void);
 void showMax7456Font(void);
 void downloadMax7456Font(void);
 void writeMax7456Chars(const char* buf, uint8_t len, uint8_t flags, uint8_t y, uint8_t x);
 
 void showMax7456Font(void);
-void writeNVMcharacter(uint8_t ch, const uint16_t index);
+bool writeNVMcharacter(uint8_t ch);
 void downloadMax7456Font(void);
 
 #endif
