@@ -40,7 +40,6 @@ extern uint8_t pidReset;
 /* Function Prototypes */
 void initPID(void);
 float updatePID(float error, float deltaT, uint8_t reset, const PIDconfig_t* config, PIDdata_t* state);
-void initPIDvalues(void);
 void resetPID(void);
 
 #endif /* __PID_H__ */

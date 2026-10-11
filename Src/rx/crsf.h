@@ -45,7 +45,7 @@ typedef enum  {
     CRSF_TYPE,
     CRSF_PAYLOAD,
     CRSF_CRC
-} crsfFrameParts_e;
+} crsfFrameParts_e;     // TODO: redundancy
 
 bool crsfInit(void);
 void crsfProcess(void);

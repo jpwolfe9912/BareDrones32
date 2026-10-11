@@ -47,7 +47,6 @@ typedef enum
     DSHOT600
 } dshot_type_e;
 
-
 typedef enum {
     DSHOT_CMD_MOTOR_STOP = 0,
     DSHOT_CMD_BEACON1,
@@ -77,9 +76,8 @@ typedef enum {
     DSHOT_CMD_MAX = 47
 } dshotCommands_e;
 
-/* Static Variables */
-extern volatile uint16_t dshot_command_count;
-extern bool dshot_telemetry;
+/* Global Variables */
+extern volatile uint16_t dshot_command_count; // TODO: Needs synchronous implementation. Currently halts the whole processor
 
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);

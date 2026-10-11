@@ -48,8 +48,6 @@ typedef struct Tasks
     struct Tasks* next;
 } Tasks;
 
-extern uint32_t deltaTime[TOTAL_LOOPS];
-
 /* Function Prototypes */
 void run(Tasks** head_ref);
 

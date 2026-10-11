@@ -38,7 +38,7 @@
 #include "ibus.h"
 #include "crsf.h"
 #include "w25q128.h"
-#include "max7456.h"
+#include "osd.h"
 #include "logging.h"
 #include "pid.h"
 
@@ -50,11 +50,7 @@ static volatile uint32_t sysTickCycleCounter = 0;
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-float dt8000Hz;
-
 semaphore_t systemReady = false;
-
-semaphore_t execUp = false;
 
 volatile uint16_t loopMask = 0x0000;
 volatile bool loopsChecked;
@@ -216,8 +212,8 @@ void systemInit(void)
     printf("----------------------------------\n");
     colorDefault();
 
-#ifdef DRAW_AUTODRONE
-    drawAutodrone();
+#ifdef DRAW_BAREDRONES
+    drawBaredrones();
 #endif
     printf("[INIT] USART3.............. OK\n");
 
@@ -232,7 +228,7 @@ void systemInit(void)
 
 #ifdef USE_MAX7456
     spi3Init();
-    max7456Init();
+    osdInit();
 #endif
 
 #ifdef USE_LOGGING
@@ -284,10 +280,6 @@ void systemInit(void)
     initPID();
 #endif
 
-#ifdef USE_EEPROM
-    if (eepromChanged)
-        writeEEPROM();
-#endif
     printf("\n-----------------------\n");
     printf("Initialization Finished\n");
 }

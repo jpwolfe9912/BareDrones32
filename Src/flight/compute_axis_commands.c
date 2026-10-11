@@ -36,7 +36,7 @@ void computeAxisCommands(void)
     uint16_t timerValue;
 
     timerValue = getTimerValue();
-    dt8000Hz = (float)timerValue * 0.000001f; // timerValue ~= 125 * 0.000001 = 0.000125s = .125ms = 8kHz
+    float dt8000Hz = (float)timerValue * 0.000001f; // timerValue ~= 125 * 0.000001 = 0.000125s = .125ms = 8kHz
     if (flightMode == ANGLE)
     {
         attCmd[ROLL] = rcCommands[ROLL] * eepromConfig.attitudeScaling;     // fromm -1000->1000 to -30->30 

@@ -33,31 +33,7 @@
 #define COUNT_1HZ 8000  // Number of 8000 Hz frames for    1 Hz Loop
 
 /* Global Variables */
-extern uint16_t frameCounter;
-
-// extern semaphore_t frame_1000Hz;
-// extern semaphore_t frame_500Hz;
-// extern semaphore_t frame_200Hz;
-// extern semaphore_t frame_100Hz;
-// extern semaphore_t frame_50Hz;
-// extern semaphore_t frame_10Hz;
-// extern semaphore_t frame_5Hz;
-// extern semaphore_t frame_1Hz;
-
-// extern uint32_t deltaTime1000Hz, executionTime1000Hz, previous1000HzTime;
-// extern uint32_t deltaTime500Hz, executionTime500Hz, previous500HzTime;
-// extern uint32_t deltaTime200Hz, executionTime200Hz, previous200HzTime;
-// extern uint32_t deltaTime100Hz, executionTime100Hz, previous100HzTime;
-// extern uint32_t deltaTime50Hz, executionTime50Hz, previous50HzTime;
-// extern uint32_t deltaTime10Hz, executionTime10Hz, previous10HzTime;
-// extern uint32_t deltaTime5Hz, executionTime5Hz, previous5HzTime;
-// extern uint32_t deltaTime1Hz, executionTime1Hz, previous1HzTime;
-
-extern float dt8000Hz;
-
-extern semaphore_t systemReady;
-
-extern semaphore_t execUp;
+extern semaphore_t systemReady;     // TODO: Necessary variable but too many things abuse it
 
 extern volatile uint16_t loopMask;
 extern volatile bool loopsChecked;

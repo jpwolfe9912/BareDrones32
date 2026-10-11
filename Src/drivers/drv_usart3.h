@@ -3,7 +3,7 @@
  *  	This file enables reading of usart data
  *  	for use with usart3.
  *
- *  Based on which device you are using (Nucleo or Autodrone PCB),
+ *  Based on which device you are using (Nucleo or Baredrones PCB),
  *  enable the corresponding Include in the preprocessor
  *
  *  @author 	Jeremy Wolfe
@@ -34,6 +34,7 @@ typedef struct
     uint8_t RxBuffer_Data[RX_RB_SIZE];
     lwrb_t RxBuffer;
 } Usart3Buffs_t;
+
 extern Usart3Buffs_t Buff_3;
 
 typedef void (*usart3TxCallback_t)(void);

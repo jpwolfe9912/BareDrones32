@@ -80,8 +80,6 @@ typedef enum
 /* Defines */
 #define LOG_SIZE		64
 
-extern volatile bool flash_update_active;
-
 /* Functions */
 void loggerInit(void);
 

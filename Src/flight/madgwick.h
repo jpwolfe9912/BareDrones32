@@ -18,12 +18,6 @@
 #define betaDef         5.0f            // 2 * proportional gain
 
 /* Global Variables */
-extern float beta;				// algorithm gain
-extern float q0;
-extern float q1;
-extern float q2;
-extern float q3;	// quaternion of sensor frame relative to auxiliary frame
-extern float invSampleFreq;
 extern float roll;
 extern float pitch;
 extern float yaw;

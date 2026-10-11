@@ -37,7 +37,7 @@ w25q128Init(void)
 {
     printf("[INIT] W25Q128............. ");
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     uint32_t id = 0x000000;
     do
@@ -56,11 +56,11 @@ w25q128Init(void)
 static W25Q128_Status_e
 w25q128_write_enable(void)
 {
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_WRITE_ENABLE);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     return W25Q128_SUCCESS;
 }
@@ -68,11 +68,11 @@ w25q128_write_enable(void)
 static W25Q128_Status_e
 w25q128_write_disable(void)
 {
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_WRITE_DISABLE);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     return W25Q128_SUCCESS;
 }
@@ -82,13 +82,13 @@ w25q128ReadJedecId(uint32_t* id)
 {
     uint8_t temp_id[3];
 
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_JEDEC_ID);
 
     spi2ReadBytes(temp_id, 3);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     *id = ((uint32_t)temp_id[0] << 16) |
         ((uint32_t)temp_id[1] << 8) |
@@ -102,7 +102,7 @@ w25q128Read(uint32_t start_page, uint16_t offset, uint8_t* data, uint16_t length
 {
     uint32_t address = (start_page * 256) + offset;     // 256 bytes in a page
 
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_READ_DATA);
 
@@ -112,7 +112,7 @@ w25q128Read(uint32_t start_page, uint16_t offset, uint8_t* data, uint16_t length
 
     spi2ReadBytes(data, length);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     return W25Q128_SUCCESS;
 }
@@ -124,7 +124,7 @@ w25q128SectorErase(uint16_t num_sector)
 
     w25q128_write_enable();
 
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_SECTOR_ERASE_4KB);
 
@@ -132,7 +132,7 @@ w25q128SectorErase(uint16_t num_sector)
     spi2TransferByte((address >> 8) & 0xFF);
     spi2TransferByte(address & 0xFF);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     w25q128WaitUntilReady();
     printf("Erased sector: %u\n", num_sector);
@@ -159,11 +159,11 @@ w25q128ChipErase(void)
 {
     w25q128_write_enable();
 
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_CHIP_ERASE);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     w25q128WaitUntilReady();
 
@@ -177,14 +177,14 @@ w25q128PageProgram(uint32_t page, uint16_t offset, uint8_t* data, uint16_t lengt
 
     w25q128_write_enable(); // first enable writes 
 
-    FLASH_CS_LOW; spi2TransferByte(INST_PAGE_PROGRAM);
+    SPI2_ENABLE; spi2TransferByte(INST_PAGE_PROGRAM);
 
     spi2TransferByte((address >> 16) & 0xFF);
     spi2TransferByte((address >> 8) & 0xFF);
     spi2TransferByte(address & 0xFF);
     spi2WriteBytes(data, length);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     w25q128WaitUntilReady();
 
@@ -229,7 +229,7 @@ w25q128_start_page_program(void)
 
     w25q128_write_enable();
 
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_PAGE_PROGRAM);
 
@@ -264,7 +264,7 @@ w25q128Process(void)
 
         spi2EndDMAWrite();              // if DMA is done, finish the DMA write
 
-        FLASH_CS_HIGH;
+        SPI2_DISABLE;
 
         w25q128_state = W25Q128_STATE_PROGRAMMING;
 
@@ -299,13 +299,13 @@ w25q128IsIdle(void)
 static W25Q128_Status_e
 w25q128_read_status_reg1(uint8_t* status)
 {
-    FLASH_CS_LOW;
+    SPI2_ENABLE;
 
     spi2TransferByte(INST_READ_STATUS_REG_1);
 
     *status = spi2TransferByte(0x00);
 
-    FLASH_CS_HIGH;
+    SPI2_DISABLE;
 
     return W25Q128_SUCCESS;
 }

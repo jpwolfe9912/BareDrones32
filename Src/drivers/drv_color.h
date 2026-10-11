@@ -34,6 +34,6 @@ typedef enum
 /* Function Prototypes */
 void color(uint8_t color, uint8_t bf);
 void colorDefault(void);
-void drawAutodrone(void);
+void drawBaredrones(void);
 
 #endif /* __COLOR_H__ */

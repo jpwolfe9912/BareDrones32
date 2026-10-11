@@ -32,11 +32,11 @@ void colorDefault(void)
 	printf("\033[0;37m");
 }
 
-/** @brief Draws "AUTODRONE" in different colors.
+/** @brief Draws "drawBaredrones" in different colors.
  *
  *  @return Void.
  */
-void drawAutodrone(void)
+void drawBaredrones(void)
 {
 	color(RED, YES);
 	printf("\n               ,---.                      ,----.                             _,.---._    .-._           ,----.    ,-,--.  ");

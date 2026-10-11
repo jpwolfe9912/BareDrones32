@@ -26,6 +26,7 @@ typedef struct
     uint8_t RxBuffer_Data[RX_RB_SIZE];
     lwrb_t RxBuffer;
 } Usart2Buffs_t;
+
 extern Usart2Buffs_t Buff_2;
 
 typedef void (*usart2TxCallback_t)(void);

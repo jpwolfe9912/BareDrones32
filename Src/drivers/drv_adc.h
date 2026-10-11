@@ -12,12 +12,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/* Global Variables */
-// extern uint16_t rawADC;//uint16_t *rawADC[2];
-extern uint16_t rawADC[2];
-
 /* Function Prototypes */
 void adc1Init(void);
 void adc1Start(void);
+void adc1GetRaw(uint16_t* data);
 
 #endif /* __DRV_ADC_H__ */

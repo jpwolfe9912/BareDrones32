@@ -24,11 +24,6 @@
 bool ibusInit(void);
 void ibusProcess(void);
 
-/* Global Variables */
-// extern uint16_t ibusChannels[RC_CHANNELS];
-
-extern bool rcActive;
-
 /* Global Enums */
 typedef enum {
 	IBUS_STATE_LENGTH,

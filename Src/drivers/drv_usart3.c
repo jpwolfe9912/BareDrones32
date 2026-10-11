@@ -3,7 +3,7 @@
  *  	This file enables reading of usart data
  *  	for use with usart3.
  *
- *  Based on which device you are using (Nucleo or Autodrone PCB),
+ *  Based on which device you are using (Nucleo or Baredrones PCB),
  *  enable the corresponding Include in the preprocessor
  *
  *  @author 	Jeremy Wolfe

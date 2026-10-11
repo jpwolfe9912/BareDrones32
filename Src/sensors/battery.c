@@ -13,12 +13,13 @@
 #include "drv_adc.h"
 #include "drv_color.h"
 
-/* Global Functions */
+ /* Global Functions */
 float battVoltage;
 float battCurrent;
 battCells_e cells;
 bool battLow = false;
 bool battEmpty = false;
+bool noBatt = false;
 
 /* Static Function Prototypes */
 static battCells_e batt_cells(void);
@@ -34,10 +35,13 @@ battMonInit(void)
 	printf("[INIT] BATTERY............. ");
 	delay(10);
 	cells = batt_cells();
-	if(cells != 0)
+	if (cells != 0)
 		printf("%d cells detected\n", cells);
 	else
+	{
+		noBatt = true;
 		printf("Not detected\n");
+	}
 }
 
 /** @brief Starts the ADC conversion and processes the value.
@@ -47,9 +51,15 @@ battMonInit(void)
 void
 battMonRead(void)
 {
+	uint16_t buffer[2];
+
 	adc1Start();
-	battVoltage = *rawADC * 0.0088623f;
-	battCurrent = rawADC[1];// * 0.0088623f;
+	adc1GetRaw(buffer);
+	battVoltage = buffer[0] * 0.0088623f;
+	battCurrent = buffer[1];// * 0.0088623f;
+
+	if (battVoltage < 5.0f)
+		noBatt = true;
 	// batt_warning();
 }
 
@@ -63,7 +73,7 @@ batt_cells(void)
 	float summedVoltage = 0;
 	float avgVoltage = 0;
 	delay(100);
-	for(uint8_t i = 0; i < 10; i++)
+	for (uint8_t i = 0; i < 10; i++)
 	{
 		battMonRead();
 		summedVoltage += battVoltage;
@@ -71,13 +81,13 @@ batt_cells(void)
 	}
 	avgVoltage = summedVoltage / 10.0f;
 
-	if((avgVoltage >= 10.0f) && (avgVoltage < 13.3))
+	if ((avgVoltage >= 10.0f) && (avgVoltage < 13.3))
 		return THREE;
-	else if((avgVoltage >= 13.3) && (avgVoltage < 17.15))
+	else if ((avgVoltage >= 13.3) && (avgVoltage < 17.15))
 		return FOUR;
-	else if((avgVoltage >= 17.15) && (avgVoltage < 21))
+	else if ((avgVoltage >= 17.15) && (avgVoltage < 21))
 		return FIVE;
-	else if(avgVoltage >= 21)
+	else if (avgVoltage >= 21)
 		return SIX;
 	else
 		return NO_BATT;
@@ -91,15 +101,15 @@ batt_cells(void)
 static void
 batt_warning(void)
 {
-	if(cells != 0)
+	if (cells != 0)
 	{
-		if(battVoltage < (cells * 3.5)){
+		if (battVoltage < (cells * 3.5)) {
 			color(RED, YES);
 			printf("\nBATTERY EMPTY\n");
 			colorDefault();
 			battEmpty = true;
 		}
-		else if(battVoltage < (cells * 3.7)){
+		else if (battVoltage < (cells * 3.7)) {
 			color(YELLOW, YES);
 			printf("\nBATTERY LOW\n");
 			colorDefault();

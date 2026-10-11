@@ -101,7 +101,7 @@ processRcCommands(void)
 			if (!pid_config_latched)
 			{
 				pid_config_latched = true;
-				initPIDvalues();
+				// initPIDvalues();		//TODO: Has the same functionality as sending "pid" console command
 			}
 		}
 		else

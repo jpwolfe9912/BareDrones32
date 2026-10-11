@@ -95,28 +95,17 @@
 #define DEV_READ_ATTEMPTS           5U
 
 /* Global Variables */
-extern uint8_t rawData[15];
-
-extern float   accelOneG;
-
 extern float   accelTCBias[3];
 
 extern int16andUint8_t rawAccel[3];
-
-extern float nonRotatedAccelData[3];
-
-///////////////////////////////////////
+extern float nonRotatedAccelData[3]; // *
 
 extern float gyroRTBias[3];
-
 extern float gyroTCBias[3];
-
 extern int16andUint8_t rawGyro[3];
-
-extern float nonRotatedGyroData[3];
+extern float nonRotatedGyroData[3];     // *
 
 extern float   mpu6000Temperature;
-
 extern int16andUint8_t rawMPU6000Temperature;
 
 /* Function Prototypes */

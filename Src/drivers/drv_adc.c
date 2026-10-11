@@ -13,8 +13,7 @@
 #include "drv_usart3.h"
 
 /* Global Variables */
-// uint16_t rawADC;//[2];
-uint16_t rawADC[2]; // = (uint16_t*)0x20010000;
+uint16_t rawADC[2];
 
 /** @brief Initializes ADC1 for Channel 8.
  *  @note PC0 on ADC1 Ch10 : PC1 on ADC1 Ch11
@@ -113,6 +112,12 @@ void adc1Init(void)
 void adc1Start(void)
 {
 	ADC1->CR2 |= ADC_CR2_SWSTART;
+}
+
+void
+adc1GetRaw(uint16_t* data)
+{
+	data = rawADC;
 }
 
 /** @brief	ADC global interrupt handler

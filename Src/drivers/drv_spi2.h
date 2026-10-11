@@ -28,8 +28,8 @@
 #define SPI_BR_PRESCALER_128		(0x6 << 3U)
 #define SPI_BR_PRESCALER_256		(0x7 << 3U)
 
-#define FLASH_CS_LOW                GPIOB->BSRR |= GPIO_BSRR_BR12
-#define FLASH_CS_HIGH               GPIOB->BSRR |= GPIO_BSRR_BS12
+#define SPI2_ENABLE                GPIOB->BSRR |= GPIO_BSRR_BR12
+#define SPI2_DISABLE               GPIOB->BSRR |= GPIO_BSRR_BS12
 
 /* Prototypes */
 void spi2Init(void);
