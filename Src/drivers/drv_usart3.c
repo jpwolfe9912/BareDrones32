@@ -69,8 +69,6 @@ void usart3Init(uint32_t baudrate)
 {
     /* TX3 : PB10 : AF7 : DMA1 Stream3 Ch4
        RX3 : PB11 : AF7 : DMA1 Stream1 Ch4 */
-    printf("\nInitializing USART 3\n");
-
     /* GPIO INIT */
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;  // enable the clock for port B
     // set mode, speed, type, pull, AF
@@ -142,23 +140,14 @@ void usart3Init(uint32_t baudrate)
     DMA1_Stream3->CR |= DMA_SxCR_PL;                // medium priority
     DMA1_Stream3->CR |= DMA_SxCR_TCIE;              // set transfer complete interrupts
 
+    // printf("[INIT] USART3.............. OK\n);")
+
     /* Begin Data Processing */
     lwrb_init(&Buff_3.RxBuffer, (void*)Buff_3.RxBuffer_Data, sizeof(Buff_3.RxBuffer_Data));
 
     usart3_begin_rx();
 }
 #endif
-
-/** @brief Registers a callback function for USART3 transmission completion.
- *
- *  @param cb The callback function to register.
- *  @return Void.
- */
-void
-usart3RegisterCallback(usart3TxCallback_t cb)
-{
-    usart3TxCb = cb;
-}
 
 /** @brief Reads in data form usart3 with DMA.
  *
@@ -189,17 +178,46 @@ usart3_begin_rx(void)
     }
 }
 
+// TODO: test this function to make sure dump and erase still work
+bool
+usart3ReadLine(char* buffer, size_t buffer_size)
+{
+    size_t available;
+    char last;
+
+    available = lwrb_get_full(&Buff_3.RxBuffer);
+
+    if (available == 0)
+        return false;
+
+    if (available > buffer_size)
+    {
+        lwrb_skip(&Buff_3.RxBuffer, available);
+        return false;
+    }
+
+    lwrb_peek(&Buff_3.RxBuffer, available - 1, &last, 1);
+
+    if (last != '\r')
+        return false;
+
+    lwrb_read(&Buff_3.RxBuffer, buffer, available);
+    buffer[available - 1] = '\0';
+
+    return true;
+}
+
 /** @brief Writes date over USART3 with DMA.
  *
  *  @param *pData A pointer to data you want to send.
  *  @param size The amount of bytes to be send.
  *  @return Bool. Successful or not
  */
-bool usart3Tx(const char* str, size_t size)
+bool
+usart3Tx(const char* str, size_t size)
 {
     if (!utx3_finished)
         return false;
-    utx3_finished = false;
 
     DMA1_Stream3->CR &= ~DMA_SxCR_EN; // disable DMA
     while (DMA1_Stream3->CR & DMA_SxCR_EN)
@@ -209,6 +227,8 @@ bool usart3Tx(const char* str, size_t size)
 
     DMA1->LIFCR |= (0x3F << 22U); // clear flags
 
+    utx3_finished = false;
+
     DMA1_Stream3->CR |= DMA_SxCR_EN; // enable DMA
     USART3->CR3 |= USART_CR3_DMAT; // enable DMA for UART
 
@@ -216,6 +236,17 @@ bool usart3Tx(const char* str, size_t size)
     USART3->CR1 |= USART_CR1_UE; // enable usart
 
     return true;
+}
+
+/** @brief Registers a callback function for USART3 transmission completion.
+ *
+ *  @param cb The callback function to register.
+ *  @return Void.
+ */
+void
+usart3RegisterCallback(usart3TxCallback_t cb)
+{
+    usart3TxCb = cb;
 }
 
 bool
