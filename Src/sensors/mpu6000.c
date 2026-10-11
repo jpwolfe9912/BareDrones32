@@ -14,6 +14,8 @@
 #include "drv_usart3.h"
 #include "drv_color.h"
 #include "drv_led.h"
+#include "utilities.h"
+#include "flight_types.h"
 #include "config.h"
 
 /* Global Variables */
@@ -24,7 +26,7 @@ uint8_t rawData[15];
 // Accel
 float accelTCBias[3] = { 0.0f, 0.0f, 0.0f };
 
-int16andUint8_t rawAccel[3];
+mpu6000CombinedData_t rawAccel[3];
 
 float nonRotatedAccelData[3];
 
@@ -34,7 +36,7 @@ float gyroRTBias[3];
 
 float gyroTCBias[3];
 
-int16andUint8_t rawGyro[3];
+mpu6000CombinedData_t rawGyro[3];
 
 float nonRotatedGyroData[3];
 
@@ -42,7 +44,7 @@ float nonRotatedGyroData[3];
 
 float mpu6000Temperature;
 
-int16andUint8_t rawMPU6000Temperature;
+mpu6000CombinedData_t rawMPU6000Temperature;
 
 uint8_t whoami[2];
 

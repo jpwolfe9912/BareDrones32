@@ -8,12 +8,12 @@
 
 /* Includes */
 
-#include <stdio.h>
 #include "compute_axis_commands.h"
 
 #include "drv_system.h"
 #include "drv_tim.h"
 #include "config.h"
+#include "flight_types.h"
 #include "process_commands.h"
 #include "utilities.h"
 #include "pid.h"

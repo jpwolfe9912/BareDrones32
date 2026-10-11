@@ -30,7 +30,6 @@
 #include "osd.h"
 #include "battery.h"
 #include "drv_led.h"
-#include "baredrones32.h"
 
 #ifndef SANDBOX
 

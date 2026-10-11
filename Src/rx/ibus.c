@@ -10,7 +10,7 @@
 #include "ibus.h"
 
 #include "lwrb.h"
-#include "baredrones32.h"
+
 #include "drv_system.h"
 #include "drv_usart3.h"
 #include "drv_usart2.h"

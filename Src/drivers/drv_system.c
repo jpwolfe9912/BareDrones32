@@ -50,7 +50,7 @@ static volatile uint32_t sysTickCycleCounter = 0;
 /* Global Variables */
 uint16_t frameCounter = 0;
 
-semaphore_t systemReady = false;
+volatile bool systemReady = false;
 
 volatile uint16_t loopMask = 0x0000;
 volatile bool loopsChecked;

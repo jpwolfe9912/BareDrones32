@@ -9,7 +9,7 @@
 /* Includes */
 #include "mpu6000_calibration.h"
 
-#include "baredrones32.h"
+#include "flight_types.h"
 #include "drv_system.h"
 #include "drv_usart3.h"
 #include "config.h"

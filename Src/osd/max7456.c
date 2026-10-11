@@ -26,7 +26,6 @@ uint8_t  enableDisplay = 0;
 uint8_t  enableDisplayVert = 0;
 uint8_t  max7456Reset = 0;
 uint8_t  disableDisplay = 0;
-// Hide OSD Display
 
 /* Static Functions */
 static void detect_video_standard(void);

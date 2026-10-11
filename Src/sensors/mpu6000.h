@@ -14,8 +14,6 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "baredrones32.h"
-
 /* Defines */
 // Registers
 #define MPU6000_PRODUCT_ID			0x68
@@ -94,19 +92,24 @@
 
 #define DEV_READ_ATTEMPTS           5U
 
+typedef union {
+	int16_t value;
+	uint8_t bytes[2];
+} mpu6000CombinedData_t;
+
 /* Global Variables */
 extern float   accelTCBias[3];
 
-extern int16andUint8_t rawAccel[3];
+extern mpu6000CombinedData_t rawAccel[3];
 extern float nonRotatedAccelData[3]; // *
 
 extern float gyroRTBias[3];
 extern float gyroTCBias[3];
-extern int16andUint8_t rawGyro[3];
+extern mpu6000CombinedData_t rawGyro[3];
 extern float nonRotatedGyroData[3];     // *
 
 extern float   mpu6000Temperature;
-extern int16andUint8_t rawMPU6000Temperature;
+extern mpu6000CombinedData_t rawMPU6000Temperature;
 
 /* Function Prototypes */
 bool mpu6000Init(void);

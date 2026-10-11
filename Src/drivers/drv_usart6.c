@@ -11,7 +11,7 @@
 
 #include "stm32f7xx.h"
 #include "feature_config.h"
-#include "baredrones32.h"
+
 #include "drv_usart3.h"
 #include "logging.h"
 

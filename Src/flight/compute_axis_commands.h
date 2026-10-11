@@ -10,8 +10,9 @@
 #define __COMPUTE_AXIS_COMMANDS_H__
 
 #include <stdint.h>
+#include <stdio.h>
 
-#include "baredrones32.h"
+#include "utilities.h"
 
 /* Defines */
 #define RATECURVE(x)	(((eepromConfig.rateCoeffAlpha * CUBE(x)) + (eepromConfig.rateCoeffBravo * x)) * PI / 180.0);

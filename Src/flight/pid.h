@@ -12,7 +12,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
+/* Defines */
+#define NUMBER_OF_PIDS		5
+
+#define ROLL_RATE_PID		0
+#define PITCH_RATE_PID		1
+#define YAW_RATE_PID		2
+
+#define ROLL_ATT_PID		3
+#define PITCH_ATT_PID		4
 
  /* Global Structs */
 typedef struct PIDconfig {
@@ -34,7 +42,7 @@ typedef struct PIDdata {
 } PIDdata_t;
 
 /* Global Variables */
-extern PIDdata_t pidState[5];
+extern PIDdata_t pidState[NUMBER_OF_PIDS];
 extern uint8_t pidReset;
 
 /* Function Prototypes */

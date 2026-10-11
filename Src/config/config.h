@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
+#include "pid.h"
 #include "osd_widgets.h"
 
 /* Defines */

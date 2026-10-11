@@ -9,20 +9,23 @@
 
  /* Includes */
 #include "process_commands.h"
+
 #include "stm32f7xx.h"
+#include "utilities.h"
 #include "drv_system.h"
 #include "drv_usart3.h"
 #include "receiver.h"
 #include "mpu6000.h"
 #include "mpu6000_calibration.h"
+#include "flight_types.h"
 #include "config.h"
 #include "pid.h"
 #include "logging.h"
 
 /* Global Variables */
-flightModes_e flightMode = ANGLE;
 volatile bool armed = false;
 float rcCommands[RC_CHANNELS_MAX];
+flightModes_e flightMode = ANGLE;
 
 /* Static Variables */
 static bool imu_calibration_latched = false;

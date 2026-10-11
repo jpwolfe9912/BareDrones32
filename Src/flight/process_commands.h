@@ -13,15 +13,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
+
 
 /* Defines */
 #define DEADBAND       24
 #define DEADBAND_SLOPE (1000.0f / (1000 - DEADBAND))
 
 /* Global Variables */
-extern flightModes_e flightMode;
-
 extern volatile bool armed;
 
 extern float rcCommands[16];

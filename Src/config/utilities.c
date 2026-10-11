@@ -9,8 +9,6 @@
 /* Includes */
 #include "utilities.h"
 
-#include "baredrones32.h"
-
 /** @brief Constrains an input between two values.
  *
  *  @param input Value to be constrained.

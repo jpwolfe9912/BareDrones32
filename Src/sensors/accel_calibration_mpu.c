@@ -11,6 +11,7 @@
 
 #include "drv_system.h"
 #include "drv_usart3.h"
+#include "flight_types.h"
 #include "config.h"
 #include "mpu6000.h"
 

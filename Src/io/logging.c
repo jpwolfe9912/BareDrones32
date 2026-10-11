@@ -22,7 +22,7 @@
 #include "motors.h"
 #include "mixer.h"
 #include "w25q128.h"
-#include "baredrones32.h"
+#include "flight_types.h"
 
 #ifdef WIRED_LOGGING
 #define LOG_QUEUE_SIZE 8

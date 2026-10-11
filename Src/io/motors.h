@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
+
 #include "drv_dshot_burst.h"
 
 /* Defines */

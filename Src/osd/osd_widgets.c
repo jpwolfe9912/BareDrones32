@@ -3,7 +3,7 @@
 #include "drv_spi3.h"
 #include "max7456.h"
 #include "battery.h"
-#include "baredrones32.h"
+#include "flight_types.h"
 
 void
 osdDrawLogo(osdWidgetConfig_t *widget)

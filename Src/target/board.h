@@ -29,7 +29,7 @@
 // /* General */
 // #include "scheduler.h"
 // #include "pid.h"
-// #include "baredrones32.h"
+// 
 // #include "time.h"
 // #include "feature_config.h"
 // #include "config.h"

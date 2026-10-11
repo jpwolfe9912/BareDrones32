@@ -12,7 +12,7 @@
 #include "arm_math.h"
 #include "mpu6000.h"
 #include "orientation.h"
-#include "baredrones32.h"
+#include "flight_types.h"
 
 /** @brief Computes the body frame for 500Hz loop.
  *

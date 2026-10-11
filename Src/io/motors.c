@@ -16,7 +16,7 @@
 /* Global Variables */
 uint16_t motor_value[MOTOR_COUNT];
 
-semaphore_t motor_initialized = false;
+volatile uint8_t motor_initialized = false;
 
 motorsMode_e motors_mode = MOTORS_MODE_NORMAL;
 

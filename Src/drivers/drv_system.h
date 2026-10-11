@@ -14,8 +14,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "baredrones32.h"
-
  /* Defines */
 #define FRAME_COUNT 8000
 #define SYSTICK_PERIOD_US (1000000U / FRAME_COUNT)
@@ -33,7 +31,7 @@
 #define COUNT_1HZ 8000  // Number of 8000 Hz frames for    1 Hz Loop
 
 /* Global Variables */
-extern semaphore_t systemReady;     // TODO: Necessary variable but too many things abuse it
+extern volatile bool systemReady;     // TODO: Necessary variable but too many things abuse it
 
 extern volatile uint16_t loopMask;
 extern volatile bool loopsChecked;

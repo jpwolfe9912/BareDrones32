@@ -10,10 +10,12 @@
  /* Includes */
 #include "config.h"
 
+#include "utilities.h"
 #include "drv_system.h"
 #include "drv_flash.h"
 #include "drv_usart3.h"
 #include "drv_color.h"
+#include "flight_types.h"
 #include "mpu6000.h"
 #include "max7456.h"
 

@@ -11,7 +11,7 @@
  /* Defines */
 #include "madgwick.h"
 
-#include "baredrones32.h"
+#include "flight_types.h"
 #include "drv_usart3.h"
 
 /* Global Variables */

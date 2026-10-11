@@ -11,6 +11,7 @@
 
 #include "drv_system.h"
 #include "utilities.h"
+#include "flight_types.h"
 #include "process_commands.h"
 #include "motors.h"
 

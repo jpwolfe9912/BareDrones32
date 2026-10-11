@@ -55,6 +55,13 @@
 #define MAX_INVERT          0x02
 #define MAX_BOTH            0x03
 
+extern uint16_t maxScreenSize;
+extern uint16_t maxScreenRows;
+extern uint8_t  enableDisplay;
+extern uint8_t  enableDisplayVert;
+extern uint8_t  max7456Reset;
+extern uint8_t  disableDisplay;
+
 
 void max7456Init(void);
 void resetMax7456(void);
