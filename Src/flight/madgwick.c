@@ -26,8 +26,6 @@ float pitch;
 float yaw;
 char anglesComputed;
 
-sensors_t sensors;
-
 /* Static Function Prototypes */
 static float invSqrt(float x);
 
