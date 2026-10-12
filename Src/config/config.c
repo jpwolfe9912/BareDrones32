@@ -60,14 +60,15 @@ writeEEPROM(void)
 	status = flashUnlock();
 
 	status = flashErase(&erase);
-	///////////////////////////////////
 
-	i = -1;
-
-	while (i++ < eepromConfigNumWord)
-		status = flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]);
-
-	///////////////////////////////////
+	for (uint32_t i = 0; i < eepromConfigNumWord; i++)
+	{
+		if (!flashProgram((uint32_t)&dst[i], ((uint32_t*)src)[i]))
+		{
+			status = false;
+			break;
+		}
+	}
 
 	flashLock();
 
