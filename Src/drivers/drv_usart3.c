@@ -178,7 +178,6 @@ usart3_begin_rx(void)
     }
 }
 
-// TODO: test this function to make sure dump and erase still work
 bool
 usart3ReadLine(char* buffer, size_t buffer_size)
 {

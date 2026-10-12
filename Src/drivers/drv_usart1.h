@@ -27,8 +27,6 @@ typedef struct
     lwrb_t RxBuffer;
 } Usart1Buffs_t;
 
-extern Usart1Buffs_t Buff_1;
-
 /* Prototypes */
 void usart1Init(uint32_t baudrate);
 void usart1BeginRx(void);

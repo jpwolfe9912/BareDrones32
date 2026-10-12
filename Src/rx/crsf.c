@@ -145,66 +145,46 @@ void crsfProcess(void)
 static crsfStatus_e
 crsf_process_frame(void)
 {
-
     uint8_t frame_buff[CRSF_FRAME_SIZE_MAX];   // temporary storage for frame data
     uint8_t header[2];
     uint8_t frame_size;
 
-    crsfFrameParts_e part = CRSF_SYNCBYTE;      // which part we're reading from
-    uint8_t frame_pos = 0;          // which byte to read
-    crsfFrameDef_t frame = {};      // contains all the raw data from the packet
-
-    /*
-     * Need at least:
-     * [0] device address
-     * [1] frame length
-     */
-    if (lwrb_get_full(&Buff_2.RxBuffer) < 2)
-    {
+    //* Wait until we have a frame header
+    if (!usart2Peek(header, sizeof(header)))
         return CRSF_BUSY;
-    }
 
-    lwrb_peek(&Buff_2.RxBuffer, 0, header, 2);
-
+    //* Check sync byte
     if (header[0] != 0xC8)
     {
         uint8_t garbage;
-        lwrb_read(&Buff_2.RxBuffer, &garbage, 1);
+        usart2Read(&garbage, 1);
+        return CRSF_ERROR;
+    }
+
+    //* Validate frame length.
+    if (header[1] < 2 || header[1] > CRSF_FRAME_SIZE_MAX - 2)
+    {
+        uint8_t garbage;
+        usart2Read(&garbage, 1);
         return CRSF_ERROR;
     }
 
     frame_size = header[1] + 2;
 
-    if (frame_size > CRSF_FRAME_SIZE_MAX)
-    {
-        uint8_t garbage;
-        lwrb_read(&Buff_2.RxBuffer, &garbage, 1);
-        return CRSF_ERROR;
-    }
-
-    if (lwrb_get_full(&Buff_2.RxBuffer) < frame_size)
-    {
+    if (!usart2Read(frame_buff, frame_size))
         return CRSF_BUSY;
-    }
-
-    lwrb_read(&Buff_2.RxBuffer, frame_buff, frame_size);
 
     uint8_t type = frame_buff[2];
-
     uint8_t received_crc = frame_buff[frame_size - 1];
-
     uint8_t calculated_crc = crsfCrc8(&frame_buff[2], header[1] - 1);
 
     if (calculated_crc != received_crc)
-    {
         return CRSF_ERROR;
-    }
 
-    if (type == 0x16)
+    //* RC channels packet.
+    if (type == 0x16 && header[1] == 24)
     {
-        uint8_t* payload = &frame_buff[3];
-
-        crsfProcessPayload(payload);
+        crsfProcessPayload(&frame_buff[3]);
     }
 
     syncByte = frame_buff[0];

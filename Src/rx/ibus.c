@@ -115,7 +115,7 @@ ibus_process_frame(void)
     uint8_t packet_buff[IBUS_FRAME_SIZE_MAX] = {};
     uint8_t packet_pos = 0;
 
-    lwrb_read(&Buff_2.RxBuffer, packet_buff, ARRAY_LEN(packet_buff));
+    usart2Read(packet_buff, ARRAY_LEN(packet_buff));
 
     status = IBUS_BUSY;
     switch (state)

@@ -35,8 +35,6 @@ typedef struct
     lwrb_t RxBuffer;
 } Usart3Buffs_t;
 
-extern Usart3Buffs_t Buff_3;
-
 typedef void (*usart3TxCallback_t)(void);
 
 /* Function Prototypes */
