@@ -27,13 +27,16 @@ typedef struct
     lwrb_t RxBuffer;
 } Usart2Buffs_t;
 
-extern Usart2Buffs_t Buff_2;
-
 typedef void (*usart2TxCallback_t)(void);
 
 /* Prototypes */
 void usart2Init(uint32_t baudrate);
 bool usart2Tx(const char* str, size_t size);
+
+size_t usart2Available(void);
+bool usart2Peek(uint8_t* buffer, size_t size);
+bool usart2Read(uint8_t* buffer, size_t size);
+
 void usart2RegisterCallback(usart2TxCallback_t cb);
 
 

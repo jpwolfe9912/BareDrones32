@@ -133,7 +133,7 @@ usart2RegisterCallback(usart2TxCallback_t cb)
  *  @param size The amount of bytes to be read.
  *  @return Void.
  */
-static void 
+static void
 usart2_begin_rx(void)
 {
     if (!(USART2->ISR & USART_ISR_BUSY))
@@ -184,6 +184,50 @@ bool usart2Tx(const char* str, size_t size)
 
     return true;
 }
+
+/**
+ * @brief       Get the number of available bytes in the receive buffer
+ *
+ * @return      size_t: Number of available bytes
+ */
+size_t
+usart2Available(void)
+{
+    return lwrb_get_full(&Buff_2.RxBuffer);
+}
+
+/**
+ * @brief       Peek at data in the receive buffer
+ *
+ * @param       buffer: Pointer to buffer to store peeked data
+ * @param       size: Number of bytes to peek
+ * @return      bool: true if successful, false otherwise
+ */
+bool
+usart2Peek(uint8_t* buffer, size_t size)
+{
+    if (buffer == NULL || usart2Available() < size)
+        return false;
+
+    return lwrb_peek(&Buff_2.RxBuffer, 0, buffer, size) == size;
+}
+
+/**
+ * @brief       Read data from the receive buffer
+ *
+ * @param       buffer: Pointer to buffer to store read data
+ * @param       size: Number of bytes to read
+ * @return      bool: true if successful, false otherwise
+ */
+bool
+usart2Read(uint8_t* buffer, size_t size)
+{
+    if (buffer == NULL || usart2Available() < size)
+        return false;
+
+    return lwrb_read(&Buff_2.RxBuffer, buffer, size) == size;
+}
+
 
 /* Static Functions */
 
