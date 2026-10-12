@@ -57,8 +57,6 @@ motorUpdate(void)
 void
 motorsSettingsSave(void)
 {
-	dshot_command_count = 0;
-
 	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR3] = DSHOT_CMD_MOTOR_STOP;
@@ -83,8 +81,6 @@ motorsSettingsSave(void)
 void
 motorsChangeMode(dshotCommands_e command, motors_grouped_e motors)
 {
-	dshot_command_count = 0;
-
 	/* Send 0 command 1500 times */
 	motor_value[MOTOR1] = DSHOT_CMD_MOTOR_STOP;
 	motor_value[MOTOR2] = DSHOT_CMD_MOTOR_STOP;

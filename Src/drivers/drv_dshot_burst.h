@@ -76,9 +76,6 @@ typedef enum {
     DSHOT_CMD_MAX = 47
 } dshotCommands_e;
 
-/* Global Variables */
-extern volatile uint16_t dshot_command_count; // TODO: Needs synchronous implementation. Currently halts the whole processor
-
 /* Function Prototypes */
 void dshotInit(dshot_type_e dshot_type);
 void dshotWrite(uint16_t* motor_value);
